@@ -1,20 +1,88 @@
-# Lavbe.com · Etiraflar Vadisi
+# Lavbe · Etiraflar Vadisi
 
-Lavbe telefonla anonim etiraf yazmaq, həmin dildə başqa etirafları oxumaq və bir hekayənin davamına qayıtmaq üçün mətn platformasıdır. Hədəf bir dəfəlik tam ictimai buraxılışdır. Sprintlər daxili, yoxlanıla bilən nəticələr verir.
+**Lavbe telefondan anonim etiraf yazmaq, öz dilində etirafları oxumaq və hekayələrin davamını izləmək üçün mətn platformasıdır.** Məhsulun ünvanı [lavbe.com](https://lavbe.com), development reposu [LavbeEtiraf](https://github.com/fuadoglu/LavbeEtiraf)-dır.
 
-| Mövzu | Əsas sənəd |
+[Codex ilə başla](#codex-ilə-başla) · [Məhsulun quruluşu](#məhsulun-quruluşu) · [Sənəd xəritəsi](#sənəd-xəritəsi) · [Yoxlamalar](#yoxlamalar) · [Buraxılış](#buraxılış)
+
+## Cari vəziyyət
+
+| Hissə | Vəziyyət |
 |---|---|
-| Codex-in iş qaydası | [AGENTS.md](AGENTS.md) |
-| Məhsul, rollar və istifadəçi axınları | [Məhsul](docs/product.md) |
-| Görünüş və ekran vəziyyətləri | [Dizayn sistemi](docs/ui/design-system.md) · [Ekran və lent](docs/ui/screens-and-states.md) |
-| 17 dil və 12 kateqoriya | [Lokalizasiya](docs/localization.md) |
-| Məlumat, shared hosting və PWA | [Arxitektura](docs/architecture/system.md) |
-| Moderasiya, hüquqi və məlumat qaydaları | [Moderasiya və məxfilik](docs/moderation-privacy.md) |
-| Axtarış, reklam və ölçüm | [SEO, AdSense və analitika](docs/seo-ads-analytics.md) |
-| Sprint, test və buraxılış | [Backlog](docs/delivery/backlog.md) · [Qəbul matrisi](docs/delivery/acceptance.md) · [İstismar](docs/delivery/operations.md) |
+| Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və 27 qəbul ssenarisi repodadır. |
+| UI atlası | **Hazırdır.** 18 ekranın mobil və masaüstü görünüşləri, gündüz/gecə və əsas vəziyyətləri yoxlamaq mümkündür. |
+| Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya və 204 kateqoriya etiketi. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
+| Laravel tətbiqi | **İlk development işi açıqdır.** [LAV-001](https://github.com/fuadoglu/LavbeEtiraf/issues/1) tətbiq və test əsasını qurur. |
+| İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
-## İlk icra işi
+## Codex ilə başla
 
-[Backlog-dakı LAV-001](docs/delivery/backlog.md#lav-001--tətbiq-əsası) tətbiq əsasını və real CI yoxlamalarını qurur. Bu başlanğıc paketində tətbiq kodu hələ yoxdur. Hər növbəti PR sənədin istinad etdiyi qəbul meyarını və faktiki test nəticəsini göstərir.
+1. `main`-dən işə başla, [AGENTS.md](AGENTS.md), [backlog](docs/delivery/backlog.md) və [qəbul matrisi](docs/delivery/acceptance.md) fayllarını oxu.
+2. [LAV-001](https://github.com/fuadoglu/LavbeEtiraf/issues/1) üzrə `BAS-01` qəbul meyarını götür. [Arxitektura](docs/architecture/system.md) shared hosting sərhədlərini müəyyən edir.
+3. [Lokal yoxlamaları](#yoxlamalar) işlə. Ayrı branch-də icra et, commit və push et, issue-ya bağlı PR aç. PR-a faktiki əmr və nəticələri əlavə et.
 
-Sənədlərin lokal yoxlanması: `python3 scripts/check_docs.py`. GitHub-da issue və PR-larda yalnız sintetik nümunələrdən istifadə edilir. Canlı hosting, domen və reklam hesabı aktivləşdirmələri [buraxılış meyarları](docs/delivery/operations.md) ilə idarə olunur.
+İlk Codex tapşırığı üçün mətn:
+
+> [LAV-001](https://github.com/fuadoglu/LavbeEtiraf/issues/1) işini icra et. Əvvəl `AGENTS.md`, arxitektura, backlog və `BAS-01` meyarını oxu. Laravel 13, Blade, nümunə mühit faylı və MySQL/MariaDB smoke testi ilə shared hostingə uyğun baza qur. GitHub Actions-da tətbiq yoxlamalarını mövcud sənəd yoxlamaları ilə birləşdir. Faktiki işlətdiyin qurulum və test əmrlərini README-yə əlavə et. Branch-i push et və issue-ya bağlı PR-da yoxlama nəticələrini göstər.
+
+## Məhsulun quruluşu
+
+| Sahə | Lavbe-nin davranışı |
+|---|---|
+| **Oxu və kəşf** | Ana lent və kateqoriyalar bir lent şablonundan qurulur. İlk 12 kart serverdən HTML kimi gəlir. **Daha çox** sabit cursor ilə davam edir, adi HTML linki də işləyir. |
+| **Anonim yazı** | 18+ istifadəçi qonaq kimi etiraf və rəy yaza bilər. Açıq ad `Lavbe #XXXXXXXX` formasındadır və yalnız həmin etiraf daxilində iştirakçını tanıdır. |
+| **Öz məzmununu idarə et** | İstəyə bağlı cihaz yaddaşı, məxfi bərpa kodu və e-poçt hesabı. Etirafın açıq linki sahiblik hüququ vermir. |
+| **Rəy və moderasiya** | Rəy ayrıca reklamsız səhifədə yazılır. Etiraf və rəy üçün şikayət ayrıdır. Admin paneli **Etiraflar · Rəylər · Şikayətlər** bölmələrindən ibarətdir. |
+| **Davam və bildiriş** | Müəllifin **Sonra nə oldu?** mətni eyni etirafın altında yayımlanır. İzləyən oxucular seçdikləri kanalla neytral bildiriş alırlar. |
+| **Dil və görünüş** | 17 dil, 12 kateqoriya, axtarışlı dil menyusu, yumru bayraqlar, dilin öz adı və ingiliscə adı. Saxlanmış seçim cihaz və ölkə siqnalından üstündür. Seçilmiş lent yalnız həmin dildədir. |
+| **PWA və performans** | Gündüz/gecə rejimi, ana ekrana əlavə etmə, statik oflayn görünüş və ayrıca seçilən qaralama yaddaşı. Etiraf və şəxsi məlumat PWA keşinə yazılmır. |
+| **SEO və monetizasiya** | Hər təsdiqlənib yayımlanan etiraf orijinal dilində sabit URL və sitemap qeydi alır. AdSense yeganə monetizasiyadır. Uyğun oxu detalında bir reklam yeri, razılıqdan sonra sanitizasiya olunmuş GA4 ölçümü. |
+
+**Texniki hədəf:** PHP 8.5 üstün seçim, 8.4 uyğun alternativ, Laravel 13, Blade, MySQL/MariaDB, yerli Lucide ikonları, az JavaScript və qısa cron işləri. İstehsal shared hostingdə PHP və verilənlər bazası ilə işləyir. Node yalnız development yoxlamaları və ehtiyac olduqda aktivlərin əvvəlcədən hazırlanması üçündür.
+
+## Sənəd xəritəsi
+
+| Axtardığın qərar | İstinad |
+|---|---|
+| İstifadəçi axınları, rollar və məhsul sərhədləri | [Məhsul](docs/product.md) |
+| Palitra, komponentlər, mobil UI və ekran vəziyyətləri | [Dizayn sistemi](docs/ui/design-system.md) · [Ekran spesifikasiyası](docs/ui/screens-and-states.md) · [HTML atlası](docs/ui/wireframes.html) |
+| Lent, səhifələmə, keş və daxili axtarış | [Lent müqaviləsi](docs/architecture/feed-contract.md) |
+| Dil paketləri və sabit kateqoriya açarları | [Lokalizasiya](docs/localization.md) · [Kataloq](spec/catalog.json) · [Dil paketi müqaviləsi](spec/locale-contract.json) |
+| Sahiblik, paralel dəyişikliklər və silinmə | [Sahiblik və yayım](docs/architecture/ownership-and-publication.md) |
+| Moderasiya, məxfilik və hüquqi səhifələr | [Moderasiya və məxfilik](docs/moderation-privacy.md) |
+| Canonical, sitemap, IndexNow, AdSense və GA4 | [SEO və monetizasiya](docs/seo-ads-analytics.md) · [Reklam və məxfilik matrisi](docs/architecture/traffic-and-privacy.md) |
+| Texniki quruluş, cron, PWA və shared hosting | [Arxitektura](docs/architecture/system.md) · [İstismar](docs/delivery/operations.md) |
+| Sprintlər, asılılıqlar və qəbul sübutu | [Backlog](docs/delivery/backlog.md) · [Qəbul matrisi](docs/delivery/acceptance.md) |
+
+Qərarın sahibi cədvəldəki əsas sənəddir. README layihəyə girişdir. Davranış dəyişikliyi olanda aidiyyəti əsas sənəd və qəbul meyarı eyni PR-da yenilənir.
+
+## Yoxlamalar
+
+Təmiz checkout-da sənəd, kataloq və atlas məntiqini yoxlamaq üçün Python 3 və Node.js kifayətdir:
+
+```bash
+git clone https://github.com/fuadoglu/LavbeEtiraf.git
+cd LavbeEtiraf
+python3 scripts/check_docs.py
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts
+node scripts/check_wireframes.mjs
+```
+
+İstəyə bağlı real brauzer yoxlaması üçün Playwright və Chromium olan development mühitində:
+
+```bash
+python3 scripts/check_wireframes_browser.py
+```
+
+Sistem Chromium-u istifadə etmək üçün `--chromium /path/to/chromium` verilə bilər. Vizual baxış üçün [atlas faylını](docs/ui/wireframes.html) lokal brauzerdə aç. Tətbiq dili paketləri LAV-010-da yaradıldıqdan sonra `python3 scripts/check_docs.py --packages resources/lavbe/locales` də icra olunur.
+
+## GitHub iş axını
+
+**Issue → branch → commit və push → PR → yoxlamalar və baxış → merge.**
+
+- İşin ID-si, asılılıqları və qəbul ssenarisi [backlog](docs/delivery/backlog.md) və issue ilə bağlıdır. Branch formatı `codex/lav-<n>-<mövzu>`-dur.
+- Hər PR istifadəçi davranışındakı dəyişikliyi, qəbul ID-sini, işlədilmiş əmri və nəticəni göstərir. Sprintlər işlək daxili artım verir.
+- Real etiraf, rəy, şikayət, e-poçt, bərpa kodu və istehsal sirri repo, issue, PR və test nümunələrinə daxil edilmir.
+
+## Buraxılış
+
+Tam ictimai buraxılış üçün real shared hosting, məlumatın yeri və operator kimliyi, 17 dil üzrə mətn baxışı və moderator təminatı, SEO və razılıq sınaqları, backup və bərpa üzrə sübut tələb olunur. AdSense aktivləşdirməsi üçün domen, `ads.txt` və razılıq yoxlaması ayrıca tamamlanır. [Buraxılış və geri dönüş qaydaları](docs/delivery/operations.md)

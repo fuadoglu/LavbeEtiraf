@@ -1,14 +1,45 @@
 #!/usr/bin/env python3
-"""Validate the repository documentation entry points and cross-references."""
+"""Validate documentation and, when supplied, generated language packages."""
 
+import argparse
+import json
 import re
+from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
+EXPECTED_LOCALES = tuple("en de fr nl sv nb da fi ja ko es it pt-BR pl tr az ru".split())
+EXPECTED_CATEGORIES = tuple(
+    "relationships family friends work education money identity values wellbeing grief life-changes everyday".split()
+)
+EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(16)}
 LINK = re.compile(r"!?\[[^\]\n]+\]\(([^)\s]+)\)")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
-ACCEPTANCE_ID = re.compile(r"\b(?:BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS)-\d{2}\b")
+ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS)-\d{2}\b")
+ACCEPTANCE_ROW = re.compile(r"^\| (" + ACCEPTANCE_ID.pattern + r") \|", re.MULTILINE)
+ISSUE_HEADING = re.compile(r"^## (LAV-\d{3}) · .+$", re.MULTILINE)
+PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9_]*)\}")
+SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
+LANGUAGE_ROW = re.compile(
+    r"^\| ([a-z]{2}(?:-[A-Z]{2})?) \| ([a-z-]+) \| ([^|]+) \| ([^|]+) \| ([A-Z]{2}) \|$",
+    re.MULTILINE,
+)
+CATEGORY_ROW = re.compile(
+    r"^\| ([a-z-]+) \| ([^|]+) \| ([^|]+) \| ([a-z0-9-]+) \|$", re.MULTILINE
+)
+
+
+def read_json(path):
+    def unique_pairs(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError(f"duplicate JSON key {key!r}")
+            result[key] = value
+        return result
+
+    return json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=unique_pairs)
 
 
 def anchors(text):
@@ -18,42 +49,203 @@ def anchors(text):
     }
 
 
-def main():
-    documents = sorted(
-        [ROOT / "README.md", ROOT / "AGENTS.md", *ROOT.glob("docs/**/*.md")]
-    )
-    errors = []
+@dataclass
+class Report:
+    errors: list
+
+    def check(self, condition, message):
+        if not condition:
+            self.errors.append(message)
+
+
+def check_links(root, documents, report):
     for document in documents:
         for link in LINK.findall(document.read_text(encoding="utf-8")):
             target = urlsplit(link)
             if target.scheme or target.netloc:
                 continue
             path = document.parent / unquote(target.path) if target.path else document
-            if not path.is_file():
-                errors.append(f"{document.relative_to(ROOT)}: invalid link {link}")
-            elif target.fragment and path.suffix == ".md":
-                if unquote(target.fragment) not in anchors(path.read_text(encoding="utf-8")):
-                    errors.append(f"{document.relative_to(ROOT)}: invalid anchor {link}")
+            report.check(path.is_file(), f"{document.relative_to(root)}: invalid link {link}")
+            if path.is_file() and target.fragment and path.suffix == ".md":
+                report.check(
+                    unquote(target.fragment) in anchors(path.read_text(encoding="utf-8")),
+                    f"{document.relative_to(root)}: invalid anchor {link}",
+                )
 
-    backlog = (ROOT / "docs/delivery/backlog.md").read_text(encoding="utf-8")
-    acceptance = (ROOT / "docs/delivery/acceptance.md").read_text(encoding="utf-8")
-    backlog_ids = set(ACCEPTANCE_ID.findall(backlog))
-    acceptance_ids = ACCEPTANCE_ID.findall(acceptance)
-    if backlog_ids != set(acceptance_ids) or len(acceptance_ids) != len(set(acceptance_ids)):
-        errors.append("Backlog and acceptance identifiers must match without duplicate matrix rows.")
 
-    localization = (ROOT / "docs/localization.md").read_text(encoding="utf-8")
-    locale_rows = re.findall(r"^\| ([a-z]{2}(?:-[A-Z]{2})?) \| [a-z-]+ \|", localization, re.M)
-    category_section = localization.split("## Kateqoriyaların sabit xəritəsi", 1)[1]
-    category_rows = re.findall(r"^\| ([a-z-]+) \| .+ \| [a-z0-9-]+ \|$", category_section, re.M)
-    if len(locale_rows) != 17 or len(set(locale_rows)) != 17:
-        errors.append("Expected 17 unique locale rows.")
-    if len(category_rows) != 12 or len(set(category_rows)) != 12:
-        errors.append("Expected 12 unique category keys.")
+def check_catalog(root, catalog, contract, report):
+    local = (root / "docs/localization.md").read_text(encoding="utf-8")
+    locales = catalog["locales"]
+    categories = catalog["categories"]
+    report.check(tuple(item["code"] for item in locales) == EXPECTED_LOCALES, "Unexpected or unordered locale codes in catalog.")
+    report.check(tuple(item["key"] for item in categories) == EXPECTED_CATEGORIES, "Unexpected or unordered category keys in catalog.")
 
-    if errors:
-        raise SystemExit("\n".join(errors))
-    print(f"Verified {len(documents)} documents, {len(acceptance_ids)} acceptance IDs, 17 locales and 12 categories.")
+    for item in locales:
+        code = item["code"]
+        report.check(item["segment"] == code.lower(), f"{code}: invalid URL segment.")
+        report.check(item["dir"] in {"ltr", "rtl"}, f"{code}: invalid direction.")
+    locale_rows = [tuple(cell.strip() for cell in row) for row in LANGUAGE_ROW.findall(local)]
+    report.check(
+        locale_rows == [tuple(item[k] for k in ("code", "segment", "native", "english", "flag")) for item in locales],
+        "Localized language table differs from spec/catalog.json.",
+    )
+    category_rows = [tuple(cell.strip() for cell in row) for row in CATEGORY_ROW.findall(local)]
+    report.check(
+        category_rows == [(item["key"], item["labels"].get("az"), item["labels"].get("en"), item["icon"]) for item in categories],
+        "Localized category table differs from spec/catalog.json.",
+    )
+    for item in categories:
+        labels = item["labels"]
+        report.check(set(labels) == set(EXPECTED_LOCALES), f"{item['key']}: category label locales differ.")
+        report.check(all(isinstance(value, str) and value.strip() for value in labels.values()), f"{item['key']}: empty category label.")
+
+    detection = catalog["first_visit"]
+    report.check(detection["fallback"] in EXPECTED_LOCALES, "Unknown locale fallback.")
+    country_defaults = detection["country_defaults"]
+    report.check(
+        all(re.fullmatch(r"[A-Z]{2}", code) and lang in EXPECTED_LOCALES for code, lang in country_defaults.items()),
+        "Invalid country locale fallback.",
+    )
+    report.check(not set(country_defaults).intersection(detection["multilingual_country_fallback"]), "A country has conflicting locale fallbacks.")
+    report.check(set(detection["language_aliases"].values()) <= set(EXPECTED_LOCALES), "Unknown locale alias target.")
+
+    groups = contract["groups"]
+    for group, keys in groups.items():
+        report.check(len(keys) == len(set(keys)) and bool(keys), f"{group}: invalid key list.")
+    message_paths = {f"{group}.{key}" for group, keys in groups.items() for key in keys}
+    report.check(set(contract["placeholders"]) <= message_paths, "Unknown placeholder path in contract.")
+    report.check(set(contract["plural_keys"]) <= message_paths, "Unknown plural path in contract.")
+    report.check(set(contract["cardinal_forms"]) == set(EXPECTED_LOCALES), "Cardinal forms do not cover the exact locale set.")
+    for code, forms in contract["cardinal_forms"].items():
+        report.check("other" in forms and len(forms) == len(set(forms)), f"{code}: invalid cardinal forms.")
+
+
+def check_backlog(root, report):
+    backlog = (root / "docs/delivery/backlog.md").read_text(encoding="utf-8")
+    acceptance = (root / "docs/delivery/acceptance.md").read_text(encoding="utf-8")
+    acceptance_ids = ACCEPTANCE_ROW.findall(acceptance)
+    acceptance_set = set(acceptance_ids)
+    report.check(len(acceptance_set) == len(acceptance_ids), "Duplicate acceptance matrix ID.")
+    headers = list(ISSUE_HEADING.finditer(backlog))
+    work_ids = [header.group(1) for header in headers]
+    report.check(set(work_ids) == EXPECTED_WORK_IDS and len(work_ids) == len(EXPECTED_WORK_IDS), "LAV-000–015 must each have a section.")
+    used = set()
+    ordered_dependencies = set()
+    for index, header in enumerate(headers):
+        end = headers[index + 1].start() if index + 1 < len(headers) else len(backlog)
+        section = backlog[header.end():end]
+        declared = re.search(r"\*\*Qəbul:\*\* ([^\n]+)", section)
+        ids = set(ACCEPTANCE_ID.findall(declared.group(1))) if declared else set()
+        used.update(ids)
+        report.check(bool(ids) and ids <= acceptance_set, f"{header.group(1)}: missing or unknown acceptance ID.")
+        dependency = re.search(r"\*\*Asılılıq:\*\* (.+?) \*\*Qəbul:", section)
+        dependencies = set(re.findall(r"LAV-\d{3}", dependency.group(1))) if dependency else set()
+        report.check(dependency is not None, f"{header.group(1)}: missing dependency declaration.")
+        report.check(dependencies <= ordered_dependencies, f"{header.group(1)}: unknown or forward dependency.")
+        ordered_dependencies.add(header.group(1))
+    report.check(used == acceptance_set, "Backlog does not reference every acceptance matrix ID.")
+    return len(acceptance_set)
+
+
+def check_message(path, value, names, report):
+    if not isinstance(value, str) or not value.strip():
+        report.errors.append(f"{path}: expected a nonempty string.")
+        return
+    remaining = PLACEHOLDER.sub("", value)
+    report.check(set(PLACEHOLDER.findall(value)) == set(names) and not re.search(r"[{}]", remaining), f"{path}: invalid placeholder set.")
+    report.check(not re.search(r"<\s*/?\s*[A-Za-z][^>]*>", value), f"{path}: raw HTML is outside the message contract.")
+
+
+def check_package(path, locale, contract, report):
+    package = read_json(path)
+    code = locale["code"]
+    prefix = f"{path.name}"
+    fields = {"locale", "version", "messages", "categories", "legal_pages", "legal_status"}
+    report.check(set(package) == fields, f"{prefix}: unexpected package fields.")
+    report.check(package.get("locale") == code and isinstance(package.get("version"), str) and bool(package["version"].strip()), f"{prefix}: invalid locale/version.")
+    messages = package.get("messages", {})
+    report.check(set(messages) == set(contract["groups"]), f"{prefix}: unexpected message groups.")
+    for group, keys in contract["groups"].items():
+        actual = messages.get(group, {})
+        report.check(set(actual) == set(keys), f"{prefix}:{group}: missing or unexpected keys.")
+        for key in keys:
+            message = f"{group}.{key}"
+            value = actual.get(key)
+            names = contract["placeholders"].get(message, [])
+            if message in contract["plural_keys"]:
+                forms = set(contract["cardinal_forms"][code])
+                if not isinstance(value, dict):
+                    report.errors.append(f"{prefix}:{message}: expected plural object.")
+                    continue
+                report.check(set(value) == forms, f"{prefix}:{message}: invalid plural forms.")
+                for form in forms:
+                    check_message(f"{prefix}:{message}.{form}", value.get(form), names, report)
+            else:
+                check_message(f"{prefix}:{message}", value, names, report)
+
+    categories = package.get("categories", {})
+    report.check(set(categories) == set(EXPECTED_CATEGORIES), f"{prefix}: incorrect category keys.")
+    slugs = []
+    for key, value in categories.items():
+        report.check(set(value) == set(contract["category_fields"]), f"{prefix}:{key}: invalid category fields.")
+        for field in ("label", "description"):
+            check_message(f"{prefix}:{key}.{field}", value.get(field), [], report)
+        slug = value.get("slug")
+        report.check(isinstance(slug, str) and bool(SLUG.fullmatch(slug)), f"{prefix}:{key}: invalid slug.")
+        if isinstance(slug, str):
+            slugs.append(slug)
+    report.check(len(slugs) == len(set(slugs)), f"{prefix}: duplicate category slug.")
+
+    status = package.get("legal_status")
+    report.check(status in contract["legal_status_values"], f"{prefix}: invalid legal status.")
+    legal_pages = package.get("legal_pages", {})
+    report.check(set(legal_pages) == set(contract["groups"]["legal"]), f"{prefix}: incorrect legal page keys.")
+    for key, value in legal_pages.items():
+        report.check(set(value) == set(contract["legal_page_fields"]), f"{prefix}:{key}: invalid legal page fields.")
+        for field in contract["legal_page_fields"]:
+            check_message(f"{prefix}:legal.{key}.{field}", value.get(field), [], report)
+
+
+def check_packages(directory, catalog, contract, report):
+    expected = {f"{item['segment']}.json" for item in catalog["locales"]}
+    actual = {path.name for path in directory.glob("*.json")}
+    report.check(actual == expected, f"{directory}: locale package set differs, missing {sorted(expected - actual)}, unexpected {sorted(actual - expected)}.")
+    for item in catalog["locales"]:
+        path = directory / f"{item['segment']}.json"
+        if path.name not in actual:
+            continue
+        try:
+            check_package(path, item, contract, report)
+        except (KeyError, TypeError, AttributeError, ValueError) as exc:
+            report.errors.append(f"{path}: invalid package shape: {exc}")
+
+
+def verify(root, packages=None):
+    report = Report([])
+    documents = sorted([root / "README.md", root / "AGENTS.md", *root.glob("docs/**/*.md")])
+    check_links(root, documents, report)
+    catalog = read_json(root / "spec/catalog.json")
+    contract = read_json(root / "spec/locale-contract.json")
+    check_catalog(root, catalog, contract, report)
+    acceptance_count = check_backlog(root, report)
+    if packages is not None:
+        check_packages(packages, catalog, contract, report)
+    return report, len(documents), acceptance_count
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--packages", type=Path, help="Check generated application locale JSON files too.")
+    options = parser.parse_args()
+    try:
+        report, documents, acceptance_count = verify(ROOT, options.packages)
+    except (OSError, KeyError, TypeError, AttributeError, ValueError) as exc:
+        raise SystemExit(f"Invalid specification: {exc}") from exc
+    if report.errors:
+        raise SystemExit("\n".join(report.errors))
+    print(f"Verified {documents} documents, {acceptance_count} acceptance IDs, 16 work items, 17 locales and 204 category labels.")
+    if options.packages is not None:
+        print("Verified 17 locale package shapes.")
 
 
 if __name__ == "__main__":

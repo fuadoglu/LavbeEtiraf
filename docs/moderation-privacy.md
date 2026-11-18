@@ -1,5 +1,7 @@
 # Moderasiya, təhlükəsizlik və məxfilik
 
+Tam keçidlər və paralel əməliyyatlar üçün [sahiblik və yayım müqaviləsi](architecture/ownership-and-publication.md) əsas götürülür.
+
 ## Vəziyyət və moderator səlahiyyəti
 
 | Əməliyyat | Nəticə |
@@ -9,7 +11,7 @@
 | Düzəliş istə / rədd et | Məxfi səbəb. Yeni variant eyni işin yeni versiyasıdır. |
 | Redaktəyə bax | Yalnız yeni versiyaya qərar ver. Əvvəlki açıq versiya müəllif geri çəkənədək və ya yeni versiya təsdiqlənənədək qalır. |
 | Geri çək / təcili gizlət | Açıq versiya, preview, feed, sitemap və reklam çıxarılır. Müvəqqəti açıq ünvan 404. Yenidən açılma yalnız uyğun icazə və təsdiqlə. |
-| Daimi sil | Ayrı müəllif təsdiqi və ya səlahiyyətli hüquqi qərar. Açıq ünvan 410. Bərpa proseduru məzmunu yenidən göstərmir. |
+| Daimi sil | Ayrı müəllif təsdiqi və ya səlahiyyətli hüquqi qərar. Əvvəllər açıq olmuş ünvan 410, açıq olmamış ünvan 404. Bərpa proseduru məzmunu yenidən göstərmir. |
 | Rəyi gizlət | Hədəf rəy və aid müəllif cavabı çıxarılır. Etirafın öz görünürlüyü ayrıca qərardır. |
 | Etiraz | Bir dəfə səbəbli yenidən baxış. Təhlükəsiz olduqda ilkin moderator xaricində səlahiyyətli baxış. |
 

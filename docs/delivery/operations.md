@@ -28,3 +28,17 @@ Məhsul bütün əsas funksiyalarla reklamsız işə hazır ola bilər. AdSense-
 - Şəxsi məlumat ifşası zamanı səlahiyyətli moderator dərhal gizlədir. Açıq HTML, XML, preview və cache yoxlanır. Uyğun olduqda axtarış platformasının silmə kanalı ilə əməliyyat aparılır.
 - AdSense riski yarananda qlobal reklam açarı söndürülür və keş yenilənir. Məxfilik və təhlükəsizlik insidenti operator proseduruna ötürülür.
 - Cron və göndəriş növbəsinin son uğuru, gecikmiş şikayətin yaşı, sitemap uyğunsuzluğu, 5xx və backup sağlamlığı yoxlanılır. Sessiya və mətn loglanmır.
+
+## Buraxılış nəticəsinin formatı
+
+Hər qapı üçün bir qeyd saxlanır: mühit, Git SHA, sınaq vaxtı, məsul şəxs, nəticə, sübut və qalan risk. Faktiki operator, DNS, hosting limiti, reklam hesabı və qanuni təsdiqlər yalnız səlahiyyətli şəxsdən gəlir. Bu məlumat olmadan development sınaqları sintetik mühitdə işləyir. İctimai domen və reklam açarları öz təsdiq qapılarına tabedir.
+
+| Axın | Konkret sübut |
+|---|---|
+| Məxfilik | İki ayrı qonaq və moderator hesabı ilə sahiblik izolyasiyası, reklamlı detal → rəy formu, razılığın geri alınması və tam şəbəkə izi |
+| Yayım və silmə | Əvvəlki backup-dan izolə bərpa. Silinmə/gizlətmə jurnalı replay. Etiraf URL, preview, fragment, lent və XML təkrar açılmır. |
+| Locale və moderator | 17 paket üzrə versiyalı sahib baxışı, ölkə/dil fallback sınağı, növbə üzrə məsul və əvəzləyici, təcili şikayətdə real marşrut |
+| Cron və xarici sistem | İcazəli interval, uğursuzluq/retry, gecikmiş hadisənin yaşı və eyni bildirişin yalnız bir dəfə nəticə yaratması |
+| Performans | Staging-də mobil cihaz, reklamsız və uyğun reklam simulyasiyası, oxu/yazı/cron paralel sınağı. Sahə ölçümü mövcuddursa ayrıca qeyd olunur. |
+
+Backup məqsədi üçün ilkin RPO 24 saat, RTO 4 saatdır. Bunlar sınaqdan əvvəl xidmət vədi deyil. Faktiki qəbulda hostinqin bərpa vaxtı və silinmə jurnalının ayrılıqda qorunması ölçülür. Açıq platformanın gələcək texniki baxışında PHP/Laravel yeniləmələri və Google/hüquqi siyasət dəyişikliyi üçün operator məsuliyyəti saxlanır.

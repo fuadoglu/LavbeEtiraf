@@ -21,5 +21,13 @@
 | PWA-01 | Quraşdırma, köhnə keş, oflayn və push | Yalnız statik keş, açıq yazı saxlanır, oflayn göndəriş baş vermir, bildiriş neytraldır |
 | OPS-01 | Yüklə, cron dayanması və qayıtması | Açıq oxu və yazı işləyir, cron üst-üstə düşmür, outbox təkrar göndərişdən qorunur |
 | OPS-02 | Silmədən əvvəlki backup, bərpa və reklamlı sürət | Silinmiş mətn geri açılmır, rollback sənədlidir, reklamlı və reklamsız mobil performans ayrıca qeydə alınır |
+| DOC-01 | Sənədləşmə və qəsdən səhv edilmiş kontrakt | Təmiz sənədlər keçir, çeşidlənmiş yanlış dil və kateqoriya, naməlum qəbul ID və qırılmış placeholder rədd edilir |
+| UI-04 | Mobil və masaüstü atlas müqayisəsi | Əsas ekranlar və qırılma vəziyyətləri atlasda var, wireframe-a uyğun gündüz/gecə, fokus və düymə ardıcıllığı ölçülür |
+| LOC-03 | 17 paketdə kateqoriya, görünüş və sahib baxışı | 204 kateqoriya etiketi və bütün paket açarları yoxlanır, hər locale nüsxəsi vizual sınaq və baxış qeydini alır |
+| OWN-03 | Eyni etiraf üzrə paralel bərpa və hesab transferi | Bir qalib nəticə, köhnə sirr ləğv olunur, əlaqəsiz etiraf və rəyə giriş verilmir |
+| MOD-04 | Geri çəkmə, köhnə təsdiq və yeni rəy yarışı | MySQL tranzaksiya sınağında köhnə yol 409 alır və məzmun yenidən açılmır. Təcili gizlətmədə lent, fragment, preview və XML aktualdır |
+| SEO-04 | Dərc və silmə zamanı nömrəli HTML/cursor | Canonical HTML adi linklə işləyir. Aktiv cursor yeni qeydi qəbul etmir, silinəni keçib düzgün davam edir, vaxtı bitmiş cursor 410 və yeniləmə çağırışı verir |
+| ADV-03 | Rəy səthinə keçid, account və oflayn | Ayrı form və şəxsi səthdə reklam və GA4 sorğusu yoxdur. Tətbiq və cache heç bir sirr və ya qaralama daşımır |
+| OPS-03 | Faktiki buraxılış qapıları | Hüquqi operator, hosting/region, 17 dil moderatoru və baxışı, xarici hesablar, backup və səlahiyyətli buraxılış qeydləri bağlıdır |
 
 Test nəticəsini PR-a əlavə et: mühit, əmr və nəticə. Avtomatik test, browser sınağı, manual baxış və xarici hesab doğrulamasını ayrıca qeyd et. 75-ci persentil üçün mobil sahə hədəfləri LCP ≤2,5 s, INP ≤200 ms, CLS ≤0,1. Trafik olmayanda lab nəticəsini sahə ölçümü kimi etiketləmə.

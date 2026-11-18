@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="az" data-theme="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lavbe · Ekran atlası</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #faf7f2;
+  --panel: #fffdf9;
+  --text: #292430;
+  --muted: #5d5762;
+  --action: #64469a;
+  --on-action: #ffffff;
+  --edge: #8b8092;
+  --line: color-mix(in srgb, var(--edge) 35%, transparent);
+  --hint: color-mix(in srgb, var(--action) 10%, var(--panel));
+}
+:root[data-theme="night"] {
+  color-scheme: dark;
+  --page: #181521;
+  --panel: #231e30;
+  --text: #f2edf7;
+  --muted: #c3b8cd;
+  --action: #c9b4fc;
+  --on-action: #221638;
+  --edge: #8f819f;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--text); background: var(--page); font: 1rem/1.55 system-ui, sans-serif; }
+button, select, input, textarea { font: inherit; color: inherit; }
+button, input, select, textarea, .button, .chip {
+  border: 1px solid var(--edge); background: var(--panel); border-radius: .65rem; min-block-size: 44px;
+}
+button, select, input, .button, .chip { padding: .44rem .68rem; }
+button { cursor: pointer; }
+button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible {
+  outline: 3px solid var(--action); outline-offset: 3px;
+}
+a { color: var(--action); }
+h1, h2, h3, p { margin: 0; }
+.muted, small { color: var(--muted); }
+.lead { padding: 1.4rem clamp(1rem, 4vw, 3rem) .7rem; }
+.lead h1 { font-size: clamp(1.35rem, 3vw, 2rem); }
+.toolbar { padding: .6rem clamp(1rem, 4vw, 3rem) 1rem; display: flex; flex-wrap: wrap; gap: .7rem; align-items: end; }
+.toolbar label { display: grid; gap: .2rem; }
+.atlas { display: grid; gap: 1.2rem; grid-template-columns: minmax(285px, 360px) minmax(0, 1fr); padding: 0 clamp(1rem, 4vw, 3rem) 2rem; }
+@media (max-width: 850px) { .atlas { grid-template-columns: minmax(0, 1fr); } }
+.pane h2 { font-size: 1rem; margin-block: .25rem; }
+.frame { border: 1px solid var(--line); border-radius: .9rem; overflow: hidden; min-height: 27rem; background: var(--page); }
+.mobile .frame { max-width: 390px; }
+.top, .nav { display: flex; align-items: center; justify-content: space-between; padding: .5rem .8rem; background: var(--panel); gap: .5rem; }
+.top { border-bottom: 1px solid var(--line); }
+.nav { border-top: 1px solid var(--line); font-weight: 650; min-height: 44px; }
+.desktop .nav, .mobile .desktop-links { display: none; }
+.desktop-links { display: flex; gap: 1rem; font-weight: 625; }
+@media (max-width: 440px) { .desktop-links { display: none; } }
+.logo { letter-spacing: -.035em; font-size: 1.28rem; }
+.flag { width: 20px; height: 20px; flex: 0 0 20px; border: 1px solid var(--line); border-radius: 50%; background: linear-gradient(#00b5e2 0 33%, #ef3340 33% 66%, #509e2f 66%); }
+.language { display: flex; gap: .45rem; align-items: center; }
+.content { max-width: 670px; min-height: 23rem; padding: 1rem .9rem; margin-inline: auto; }
+.stack { display: grid; gap: .75rem; }
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
+.flow > * { overflow-wrap: anywhere; }
+.card, .notice, .slot, .dialog, .ribbon { border: 1px solid var(--line); border-radius: .65rem; padding: .8rem; background: var(--panel); }
+.notice, .ribbon, .chip.active { background: var(--hint); }
+.card h3 { font-size: 1.06rem; line-height: 1.3; margin-block: .28rem; }
+.chip { display: inline-grid; align-content: center; font-size: .85rem; }
+.primary { background: var(--action); color: var(--on-action); border-color: var(--action); font-weight: 650; }
+.topics { font-size: .83rem; }
+.rows { display: grid; }
+.row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .58rem; min-height: 48px; padding: .45rem 0; border-bottom: 1px solid var(--line); }
+.row small { display: block; }
+.row:last-child { border-bottom: 0; }
+input[type="checkbox"] { min-block-size: auto; inline-size: 1.1rem; block-size: 1.1rem; }
+textarea { width: 100%; min-height: 9rem; resize: vertical; padding: .75rem; font-size: 1.0625rem; }
+.dialog { box-shadow: 0 .5rem 1.5rem #0002; }
+.sheet-wrap { display: grid; min-height: 22rem; align-content: end; }
+.desktop .sheet-wrap { justify-content: end; align-content: start; }
+.dialog label { display: grid; gap: .25rem; }
+.dialog input { width: 100%; }
+.slot { text-align: center; min-height: 84px; display: grid; place-items: center; border-style: dashed; }
+.story-frame { display: grid; gap: .3rem; }
+.story-frame .story-topic { min-block-size: 1.3rem; }
+.story-frame h3, .story-frame .story-title { min-block-size: 2.8rem; margin: 0; }
+.story-frame .story-excerpt { min-block-size: 3.1rem; }
+.story-frame h3, .story-frame p {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.skeleton .story-title, .skeleton .story-excerpt { display: grid; align-content: center; gap: .48rem; }
+.bar { display: block; height: .68rem; background: var(--line); border-radius: 1rem; }
+.bar.short { width: 30%; }
+.bar.mid { width: 68%; }
+.keyboard { border-top: 1px solid var(--line); background: var(--hint); padding: .7rem; text-align: center; }
+.reader h2, .writer h2, .reporter h2 { font-size: 1.24rem; line-height: 1.3; }
+@media (prefers-reduced-motion: reduce) { * { animation: none; transition: none; } }
+</style>
+</head>
+<body>
+<header class="lead">
+  <h1>Lavbe · Ekran atlası</h1>
+  <p class="muted">Mobil və masaüstü spesifikasiyası · sintetik məzmun</p>
+</header>
+<div class="toolbar">
+  <label>Ekran <select id="screen">
+    <option value="home">Ana lent</option><option value="topic">Kateqoriya</option><option value="topics">Bütün mövzular</option><option value="search">Axtarış</option><option value="language">Dil seçici</option>
+    <option value="read">Etirafı oxu</option><option value="write">Etiraf yaz</option><option value="sent">Göndəriş statusu</option>
+    <option value="comment">Rəy yaz</option><option value="report">Şikayət</option><option value="mine">Mənim</option>
+    <option value="auth">Hesaba giriş</option><option value="recover">Bərpa</option><option value="settings">Ayar və bildirişlər</option><option value="consent">Razılıq seçimləri</option><option value="admin">Moderasiya</option><option value="legal">Qaydalar</option>
+    <option value="offline">Oflayn və sistem xətası</option>
+  </select></label>
+  <label>Vəziyyət <select id="state"></select></label>
+  <label>Rejim <select id="theme"><option value="day">Gündüz</option><option value="night">Gecə</option></select></label>
+</div>
+<noscript><p>Atlasın ekran müqayisəsini açmaq üçün JavaScript-i aktivləşdir. Davranışlar README-dəki ekran spesifikasiyasında da qeyd olunub.</p></noscript>
+<div class="atlas">
+  <section class="pane mobile"><h2>Mobil</h2><div class="frame" id="mobile"></div></section>
+  <section class="pane desktop"><h2>Masaüstü</h2><div class="frame" id="desktop"></div></section>
+</div>
+
+<template id="top"><div class="top"><strong class="logo">Lavbe</strong><nav class="desktop-links" aria-label="Əsas"><span>Oxu</span><span>Yaz</span><span>Mənim</span></nav><span class="language"><i class="flag"></i><span>AZ ▾</span></span></div></template>
+<template id="nav"><div class="nav"><span>Oxu</span><span>Yaz</span><span>Mənim</span></div></template>
+<template id="feed-top">
+  <div class="flow topics"><span class="chip all">Hamısı</span><span class="chip family">Ailə</span><span class="chip">Münasibətlər</span><span class="chip">Bütün mövzular</span></div>
+  <div class="flow"><span class="chip active">Yeni</span><span class="chip">Bu həftə</span><span class="chip">Davamı gəldi</span></div>
+</template>
+<template id="story">
+  <article class="card story-frame"><small class="story-topic">Ailə</small><h3>Bir söhbəti çox gec başladım</h3><p class="story-excerpt">Evə qayıtdığım gün uzun müddət demədiyim sözü dedim.</p></article>
+</template>
+<template id="story-two">
+  <article class="card story-frame"><small class="story-topic">Ailə · Davamı gəldi</small><h3>Məktubu nəhayət verdim</h3><p class="story-excerpt">İlk dəfə söhbətə yazaraq başlamağı seçdim.</p></article>
+</template>
+<template id="skeleton"><div class="card skeleton story-frame" aria-label="Yüklənir"><div class="story-topic"><i class="bar short"></i></div><div class="story-title"><i class="bar mid"></i><i class="bar short"></i></div><div class="story-excerpt"><i class="bar"></i><i class="bar mid"></i></div></div></template>
+<template id="keyboard"><div class="keyboard muted">Telefonun klaviatura sahəsi · fokuslu mətn sahəsi görünür</div></template>
+<script>
+const variants = {
+  home: {ready: "Hazır", loading: "Daha çox yüklənir", retry: "Şəbəkə xətası", end: "Son səhifə"},
+  topic: {ready: "Hazır", loading: "Mövzu dəyişir", empty: "Boş kateqoriya", retry: "Şəbəkə xətası"},
+  topics: {ready: "Mövzu paneli"},
+  search: {ready: "Nəticələr", empty: "Nəticə yoxdur"},
+  language: {ready: "Axtarışlı menyu", search: "Axtarış nəticəsi", empty: "Nəticə yoxdur"},
+  read: {ready: "Reklamsız oxu", ad: "Uyğun reklam yeri", closed: "Rəylər bağlıdır"},
+  write: {ready: "Yazı forması", keyboard: "Klaviatura açıqdır", retry: "Mətn qorunur"},
+  sent: {ready: "Baxışdadır", published: "Yayımlandı", changes: "Düzəliş istənib"},
+  comment: {ready: "Ayrı rəy forması", keyboard: "Klaviatura açıqdır"},
+  report: {ready: "Etiraf şikayəti", comment: "Rəy şikayəti", done: "Şikayət qəbul edilib"},
+  mine: {ready: "Məzmun və bildiriş", empty: "İlk giriş"},
+  auth: {ready: "E-poçtla giriş", sent: "Yoxlama linki göndərildi"},
+  settings: {ready: "Cihaz və bildiriş seçimləri"},
+  consent: {ready: "Ayrı analitika və reklam seçimləri"},
+  recover: {ready: "Bərpa forması", retry: "Bərpa alınmadı"},
+  admin: {ready: "Etiraflar", comments: "Rəylər", reports: "Şikayətlər", stale: "Köhnə qərar"},
+  legal: {ready: "Yayım qaydaları", privacy: "Məxfilik"},
+  offline: {ready: "Oflayn", missing: "404", gone: "410"}
+};
+const $ = id => document.getElementById(id);
+const template = id => $(id).innerHTML;
+const notice = message => '<p class="notice">' + message + '</p>';
+const button = (label, primary = false) =>
+  '<button type="button" class="' + (primary ? 'primary' : '') + '">' + label + '</button>';
+const title = (text, description = "") => '<h2>' + text + '</h2>' +
+  (description ? '<p class="muted">' + description + '</p>' : '');
+function feed(screen, state) {
+  const active = screen === "topic" ? "family" : "all";
+  let content = template("feed-top").replace('chip ' + active, 'chip active ' + active);
+  if (state === "empty") return content + notice("Bu mövzuda hələ etiraf yoxdur.") + button("Etiraf yaz", true);
+  if (screen === "topic" && state === "loading") return content + template("skeleton").repeat(2);
+  content += template("story") + template("story-two");
+  if (state === "loading") return content + template("skeleton");
+  if (state === "retry") return content + notice("Lent yüklənmədi. Əvvəlki etiraflar yerindədir.") + button("Yenidən cəhd et");
+  if (state === "end") return content + notice("Lentin sonuna çatdın.");
+  return content + button("Daha çox");
+}
+function language(state) {
+  const rows = {
+    ready: '<div class="row"><i class="flag"></i><span>Azərbaycan dili<small>Azerbaijani</small></span><span>✓</span></div>',
+    search: '<div class="row"><i class="flag" style="background:linear-gradient(#fff 0 33%,#1744b5 33% 66%,#d62937 66%)"></i><span>Русский<small>Russian</small></span></div>',
+    empty: notice("Bu ada uyğun dil tapılmadı.")
+  };
+  return '<div class="sheet-wrap"><div class="dialog stack">' + title("Dil seç") +
+    '<label>Dil axtar<input ' + (state === "search" ? 'value="rus"' : '') + '></label>' + rows[state] + '</div></div>';
+}
+function read(state) {
+  return '<div class="reader stack">' + title("Bir söhbəti çox gec başladım", "Ailə · Lavbe #7K4M2X9Q") +
+    '<p>Evə qayıtdığım gün uzun müddət demədiyim sözü dedim. Söhbət düşündüyümdən daha sakit keçdi.</p>' +
+    (state === "ad" ? '<div class="slot">Reklam · rezerv sahə</div>' : '') +
+    '<article class="card"><small>Sonra nə oldu?</small><p>Bu dəfə söhbəti yarımçıq qoymadıq.</p></article>' +
+    '<div class="flow">' + button("Səni anlayıram") + (state === "closed" ? '' : button("Rəy yaz")) + button("İzlə") + button("Şikayət et") + '</div>' +
+    (state === "closed" ? notice("Yeni rəylər bağlıdır.") : '<div class="card">Lavbe #2T4H7N8M<small> · Rəydən şikayət et</small></div>') +
+    button("Növbəti etiraf", true) + '</div>';
+}
+function writer(state, comment) {
+  return '<div class="writer stack">' + title(comment ? "Rəy yaz" : "Etiraf yaz", comment ? "Cavabın baxışdan sonra görünəcək." : "İçində qalanı öz sözlərinlə yaz.") +
+    (state === "retry" ? notice("Göndəriş alınmadı. Yazdığın mətn burada qaldı.") : '') +
+    '<label>Mətn<textarea>' + (state === "retry" ? "Yarımçıq qalan bir söhbət haqqında yazıram." : "") + '</textarea></label>' +
+    (comment ? '' : '<div class="flow"><span class="chip">Mövzu seç</span><span class="chip">Başlıq</span></div>' + notice("Etiraf təsdiqdən sonra yayımlanır və axtarış nəticələrində görünə bilər.")) +
+    button("Baxışa göndər", true) + (state === "keyboard" ? template("keyboard") : '') + '</div>';
+}
+function sent(state) {
+  if (state === "published") return title("Etirafın yayımlandı") + button("Paylaşım linkini aç", true);
+  if (state === "changes") return title("Düzəliş lazımdır") + notice("Mətndəki tanıdıcı detalı çıxar.") + button("Redaktə et", true);
+  return title("Etirafın baxışdadır") + notice("Bərpa kodu yalnız sənə göstərilir.") + button("Kodu kopyala") + button("Etiraflarıma keç", true);
+}
+function report(state) {
+  if (state === "done") return title("Şikayət qəbul edildi") + button("Oxuya qayıt");
+  return '<div class="reporter stack">' + title(state === "comment" ? "Rəydən şikayət et" : "Etirafdan şikayət et") +
+    '<label>Səbəb <select><option>Şəxsi məlumat ifşası</option><option>Spam və reklam</option><option>Digər</option></select></label>' +
+    '<label>İzah · istəyə bağlı<textarea></textarea></label>' + button("Şikayəti göndər", true) + '</div>';
+}
+function admin(state) {
+  const tabs = '<div class="flow"><span class="chip">Etiraflar</span><span class="chip">Rəylər</span><span class="chip">Şikayətlər</span></div>';
+  const context = {ready:"Yeni etiraf · Azərbaycan dili", comments:"Baxışdakı rəy · etirafın konteksti", reports:"Təcili · Şəxsi məlumat ifşası", stale:"Məzmunun vəziyyəti dəyişib"};
+  return tabs + '<div class="flow"><span class="chip">Dil: Hamısı</span><span class="chip">Baxışda</span></div>' +
+    '<article class="card stack"><h3>' + context[state] + '</h3>' + (state === "stale" ?
+      button("Cari versiyanı aç", true) : '<p>Qərar üçün sintetik nümunə mətn.</p><div class="flow">' +
+      (state === "reports" ? button("Gizlət", true) + button("Şikayəti bağla") : button("Təsdiqlə", true) + button("Düzəliş istə") + button("Rədd et")) + '</div>') + '</article>';
+}
+function content(screen, state) {
+  switch (screen) {
+    case "home": case "topic": return feed(screen, state);
+    case "topics": return title("Bütün mövzular") +
+      '<div class="flow">' + ["Sevgi və münasibətlər","Ailə","Dostluq və sosial həyat","İş və karyera","Təhsil","Pul və maliyyə","Özüm və kimliyim","İnanc və dəyərlər","Sağlamlıq və rifah","İtki və yas","Həyat dəyişiklikləri","Gündəlik həyat"].map(label => button(label)).join("") + '</div>';
+    case "search": return title("Etiraf axtar", "Axtarış cari dil üzrə işləyir.") +
+      '<label>Axtar <input type="search" value="ailə"></label>' + button("Axtar", true) +
+      (state === "empty" ? notice("Uyğun etiraf tapılmadı.") : template("story"));
+    case "language": return language(state);
+    case "read": return read(state);
+    case "write": case "comment": return writer(state, screen === "comment");
+    case "sent": return sent(state);
+    case "report": return report(state);
+    case "mine": return title("Mənim") + '<div class="flow"><span class="chip">Etiraflarım</span><span class="chip">Rəylərim</span><span class="chip">İzlədiklərim</span><span class="chip">Bildirişlər</span></div>' +
+      notice(state === "empty" ? "Burada idarə etdiyin etiraflar görünəcək." : "Etirafın baxışdadır.") + button("Bərpa kodu ilə aç") + button("Ana ekrana əlavə et");
+    case "auth": return state === "sent" ? title("E-poçtunu yoxla") + notice("Müvafiqdirsə, giriş keçidi göndərildi.") :
+      title("Hesabına daxil ol") + '<label>E-poçt <input type="email"></label>' + button("Giriş linki göndər", true);
+    case "settings": return title("Ayarlar") + '<div class="card stack"><label>Görünüş <select><option>Sistem</option><option>Gündüz</option><option>Gecə</option></select></label>' +
+      '<label><input type="checkbox"> E-poçt bildirişi</label><label><input type="checkbox"> Web Push</label></div>' + button("Yadda saxla", true);
+    case "consent": return title("Məxfilik seçimləri") + '<div class="card stack"><label><input type="checkbox"> Analitika</label><label><input type="checkbox"> Reklam seçimləri</label></div>' +
+      '<div class="flow">' + button("İmtina et") + button("Seçimlərimi yadda saxla", true) + '</div>';
+    case "recover": return title("Etirafı bərpa et") + (state === "retry" ? notice("Bərpa alınmadı. Kodu yoxla və yenidən cəhd et.") : "") + '<label>Bərpa kodu <input autocomplete="off"></label>' + button("Bərpa et", true);
+    case "admin": return admin(state);
+    case "legal": return title(state === "privacy" ? "Məxfilik bildirişi" : "İcma və yayım qaydaları") + notice("Təsdiqlənmiş, lokallaşdırılmış mətn bu görünüşdə oxunur.");
+    case "offline": return title({ready:"İnternet bağlantısı yoxdur", missing:"Səhifə tapılmadı", gone:"Etiraf artıq yayımlanmır"}[state]) + button(state === "ready" ? "Yenidən cəhd et" : "Oxu lentinə qayıt");
+  }
+}
+function render() {
+  const screen = $("screen").value;
+  const state = $("state").value;
+  const contentHtml = '<div class="content stack">' + content(screen, state) + '</div>';
+  const navigation = screen === "admin" ? "" : template("nav");
+  $("mobile").innerHTML = template("top") + contentHtml + navigation;
+  $("desktop").innerHTML = template("top") + contentHtml;
+}
+function resetStates() {
+  const options = Object.entries(variants[$("screen").value]);
+  $("state").replaceChildren(...options.map(([value, label]) => new Option(label, value)));
+  render();
+}
+$("screen").addEventListener("change", resetStates);
+$("state").addEventListener("change", render);
+$("theme").addEventListener("change", () => { document.documentElement.dataset.theme = $("theme").value; });
+resetStates();
+</script>
+</body>
+</html>
