@@ -53,7 +53,9 @@ h1, h2, h3, p { margin: 0; }
 .top, .nav { display: flex; align-items: center; justify-content: space-between; padding: .5rem .8rem; background: var(--panel); gap: .5rem; }
 .top { border-bottom: 1px solid var(--line); }
 .nav { border-top: 1px solid var(--line); font-weight: 650; min-height: 44px; }
-.desktop .nav { display: none; }
+.desktop .nav, .mobile .desktop-links { display: none; }
+.desktop-links { display: flex; gap: 1rem; font-weight: 625; }
+@media (max-width: 440px) { .desktop-links { display: none; } }
 .logo { letter-spacing: -.035em; font-size: 1.28rem; }
 .flag { width: 20px; height: 20px; flex: 0 0 20px; border: 1px solid var(--line); border-radius: 50%; background: linear-gradient(#00b5e2 0 33%, #ef3340 33% 66%, #509e2f 66%); }
 .language { display: flex; gap: .45rem; align-items: center; }
@@ -79,7 +81,14 @@ textarea { width: 100%; min-height: 9rem; resize: vertical; padding: .75rem; fon
 .dialog label { display: grid; gap: .25rem; }
 .dialog input { width: 100%; }
 .slot { text-align: center; min-height: 84px; display: grid; place-items: center; border-style: dashed; }
-.skeleton { display: grid; gap: .5rem; }
+.story-frame { display: grid; gap: .3rem; }
+.story-frame .story-topic { min-block-size: 1.3rem; }
+.story-frame h3, .story-frame .story-title { min-block-size: 2.8rem; margin: 0; }
+.story-frame .story-excerpt { min-block-size: 3.1rem; }
+.story-frame h3, .story-frame p {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.skeleton .story-title, .skeleton .story-excerpt { display: grid; align-content: center; gap: .48rem; }
 .bar { display: block; height: .68rem; background: var(--line); border-radius: 1rem; }
 .bar.short { width: 30%; }
 .bar.mid { width: 68%; }
@@ -110,16 +119,19 @@ textarea { width: 100%; min-height: 9rem; resize: vertical; padding: .75rem; fon
   <section class="pane desktop"><h2>Masaüstü</h2><div class="frame" id="desktop"></div></section>
 </div>
 
-<template id="top"><div class="top"><strong class="logo">Lavbe</strong><span class="language"><i class="flag"></i><span>AZ ▾</span></span></div></template>
+<template id="top"><div class="top"><strong class="logo">Lavbe</strong><nav class="desktop-links" aria-label="Əsas"><span>Oxu</span><span>Yaz</span><span>Mənim</span></nav><span class="language"><i class="flag"></i><span>AZ ▾</span></span></div></template>
 <template id="nav"><div class="nav"><span>Oxu</span><span>Yaz</span><span>Mənim</span></div></template>
 <template id="feed-top">
   <div class="flow topics"><span class="chip all">Hamısı</span><span class="chip family">Ailə</span><span class="chip">Münasibətlər</span><span class="chip">Bütün mövzular</span></div>
   <div class="flow"><span class="chip active">Yeni</span><span class="chip">Bu həftə</span><span class="chip">Davamı gəldi</span></div>
 </template>
 <template id="story">
-  <article class="card"><small>Ailə</small><h3>Bir söhbəti çox gec başladım</h3><p>Evə qayıtdığım gün uzun müddət demədiyim sözü dedim.</p></article>
+  <article class="card story-frame"><small class="story-topic">Ailə</small><h3>Bir söhbəti çox gec başladım</h3><p class="story-excerpt">Evə qayıtdığım gün uzun müddət demədiyim sözü dedim.</p></article>
 </template>
-<template id="skeleton"><div class="card skeleton" aria-label="Yüklənir"><i class="bar short"></i><i class="bar mid"></i><i class="bar"></i><i class="bar mid"></i></div></template>
+<template id="story-two">
+  <article class="card story-frame"><small class="story-topic">Ailə · Davamı gəldi</small><h3>Məktubu nəhayət verdim</h3><p class="story-excerpt">İlk dəfə söhbətə yazaraq başlamağı seçdim.</p></article>
+</template>
+<template id="skeleton"><div class="card skeleton story-frame" aria-label="Yüklənir"><div class="story-topic"><i class="bar short"></i></div><div class="story-title"><i class="bar mid"></i><i class="bar short"></i></div><div class="story-excerpt"><i class="bar"></i><i class="bar mid"></i></div></div></template>
 <template id="keyboard"><div class="keyboard muted">Telefonun klaviatura sahəsi · fokuslu mətn sahəsi görünür</div></template>
 <script>
 const variants = {
@@ -154,7 +166,7 @@ function feed(screen, state) {
   let content = template("feed-top").replace('chip ' + active, 'chip active ' + active);
   if (state === "empty") return content + notice("Bu mövzuda hələ etiraf yoxdur.") + button("Etiraf yaz", true);
   if (screen === "topic" && state === "loading") return content + template("skeleton").repeat(2);
-  content += template("story").repeat(2);
+  content += template("story") + template("story-two");
   if (state === "loading") return content + template("skeleton");
   if (state === "retry") return content + notice("Lent yüklənmədi. Əvvəlki etiraflar yerindədir.") + button("Yenidən cəhd et");
   if (state === "end") return content + notice("Lentin sonuna çatdın.");

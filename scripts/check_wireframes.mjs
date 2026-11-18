@@ -55,7 +55,7 @@ for (const theme of ["day", "night"]) {
         assert.ok(!output.includes("undefined"), [screen, state, pane].join("/"));
         assert.equal(output.includes('class="slot"'), screen === "read" && state === "ad");
         if (screen === "home" && state === "loading") {
-          assert.ok(output.includes('class="card skeleton"') && output.includes("Bir söhbəti"));
+          assert.ok(output.includes('class="card skeleton story-frame"') && output.includes("Bir söhbəti") && output.includes("Məktubu"));
         }
         if (screen === "write" && state === "retry") {
           assert.ok(output.includes("Yarımçıq qalan bir söhbət"));
