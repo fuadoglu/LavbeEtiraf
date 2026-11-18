@@ -1,22 +1,112 @@
-# Buraxılış backlog-u
+# Codex icra backlog-u
 
-Məhsul sahibi istiqaməti və dil baxışını təsdiqləyir. Codex iş həcmini ölçür, icra edir, nəticəni sınaqdan keçirir, branch-i push edir və PR açır. GitHub Issues iş statusunun mənbəyidir. Bu fayl asılılıq sırasını saxlayır. Sprintin nəticəsi işlək daxili artımdır. Açıq buraxılış [buraxılış qapıları](operations.md) ilə idarə olunur.
+GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyəti, asılılığı və qəbul referensini saxlayır. Məhsul sahibi istiqaməti və dil baxışını təsdiqləyir. Codex hər işi ayrıca branch-də icra edir, test edir, push edir və PR açır. Sprintin nəticəsi işlək daxili artımdır. İctimai buraxılış [qapılar](operations.md) keçəndə edilir.
 
-| Sprint | Məqsəd | İşlər | Qəbul |
-|---|---|---|---|
-| 1 | Serverdən lokal lent və UI baza | LAV-001 tətbiq/CI, LAV-002 Blade və mövzu komponentləri, LAV-003 reyestr və ortaq lent | BAS-01, UI-01, UI-02, LOC-01 |
-| 2 | Qonaq etirafı yayıma qədər | LAV-004 yazı/sahiblik, LAV-005 moderasiya və vəziyyət, LAV-006 lokal oxu URL-si və sitemap | OWN-01, MOD-01, SEO-01, SEO-02 |
-| 3 | Rəy, şikayət, davam və şəxsi idarəetmə | LAV-007 rəylər, LAV-008 şikayət/etiraz, LAV-009 hesab və bildiriş | MOD-02, MOD-03, OWN-02 |
-| 4 | 17 dil və PWA tamlığı | LAV-010 bütün dil mətnləri və müqayisə, LAV-011 PWA/oflayn, LAV-012 cihaz sınaqları | LOC-02, PWA-01, UI-03 |
-| 5 | Ölçüm və sabit buraxılış | LAV-013 GA4/CMP/AdSense, LAV-014 IndexNow/xarici doğrulama, LAV-015 hosting/bərpa/yük | ADV-01, ADV-02, SEO-03, OPS-01, OPS-02 |
+| Sprint | Məqsəd | İşlər |
+|---|---|---|
+| Baza | İcra sənədləri və doğrulama | LAV-000 |
+| 1 | Serverdən lokal lent və UI | LAV-001, LAV-002, LAV-003 |
+| 2 | Qonaq etirafından açıq yayıma | LAV-004, LAV-005, LAV-006 |
+| 3 | Rəy, şikayət, davam və şəxsi idarəetmə | LAV-007, LAV-008, LAV-009 |
+| 4 | 17 dil, cihaz sınaqları və PWA | LAV-010, LAV-011, LAV-012 |
+| 5 | Ölçüm, xarici axtarış və tam buraxılış | LAV-013, LAV-014, LAV-015 |
+
+## LAV-000 · İcra spesifikasiyası
+
+**Asılılıq:** baza commit. **Qəbul:** DOC-01.
+
+Sahiblik/münaqişə, lent, reklam/razılıq, 17 dil və 12 kateqoriya reyestri, wireframe və backlog xəritəsini hazırlanmış repoya əlavə et. PR-da düzgün və mutasiya edilmiş nümunələr üzrə validator nəticələrini göstər.
 
 ## LAV-001 · Tətbiq əsası
 
-- Laravel 13, azı PHP 8.4, Blade, nümunə mühit faylı və MySQL ailəsində ilkin smoke test. İstehsal entry point açıq qovluqdadır.
-- Composer lock, kiçik tətbiq health yoxlaması, lokal və CI əmrləri. Birinci CI tətbiq testini, sənəd yoxlamasını və lazım olan konfiqurasiya yoxlamalarını icra edə bilir.
-- Könüllü asset build hazırlığı hostda Node prosesinə ehtiyac yaratmır. İlkin skeleton sintetik nümunələrlə işləyir.
-- Məhsul funksiyaları aidiyyəti işlərdə qoşulur. İlk PR BAS-01 meyarını, faktiki işlədilmiş əmrləri və shared hosting fərziyyələrini göstərir.
+**Asılılıq:** baza commit. Sənəd PR-ı ilə paralel başlaya bilər. **Qəbul:** BAS-01.
 
-## İcra dövrü
+Laravel 13, minimum PHP 8.4, Blade, nümunə mühit faylı, Composer lock və MySQL ailəsi ilə smoke test. `public/` entry point, health və lokaldan quraşdırma əmrləri. CI sənəd və tətbiq sınağını işlədir. **Sübut:** təmiz checkout logu və CI yoxlaması.
 
-Sprint əvvəlində məqsəd, seçilmiş işlər, asılılıqlar və test üsulu qeyd olunur. Bir issue → branch → commit → push → draft və ya hazır PR → CI və sahib baxışı. PR-da issue ilə əlaqə, dəyişən davranış və qəbul ID-si olur. İlk baza commitindən sonra main üçün PR və mövcud sabit CI yoxlamalarının məcburi edilməsi repo sahibinin əməliyyat addımıdır. CI adı sabitləşəndən sonra qayda tətbiq edilir. Sprint sonunda işlək axın göstərilir, bloklar və növbəti prioritet qeyd olunur. Holdu faktiki məsul və səbəblə saxla. Sənədlər push olunanda yeni Codex icrası avtomatik başlamır.
+## LAV-002 · Dizayn sistemi və ekran komponentləri
+
+**Asılılıq:** LAV-000, LAV-001. **Qəbul:** UI-01, UI-04.
+
+Ortaq Blade başlığı, naviqasiya, forma, status, kart, mövzu paneli, skeleton, modal və sistem ekranları. Gündüz/gecə, fokus, azaldılmış hərəkət və yerli Lucide aktivləri. **Sübut:** wireframe-a uyğun mobil/masaüstü müqayisə və klaviatura sınağı.
+
+## LAV-003 · Dil reyestri, ana səhifə və lent
+
+**Asılılıq:** LAV-000, LAV-001, LAV-002. **Qəbul:** UI-02, LOC-01.
+
+Dil seçiminin prioriteti, axtarışlı menyu, kateqoriya və üç lent rejimi, ilkin HTML, 12 kart, adi link və cursor. Daxili axtarış eyni dilə məhdud qalır. **Sübut:** dil, JavaScript-siz HTML, kontekstdən çıxan/vaxtı bitmiş cursor və mutation fixture nəticəsi.
+
+## LAV-004 · Qonaq etirafı və sahiblik
+
+**Asılılıq:** LAV-000, LAV-001, LAV-002, LAV-003. **Qəbul:** OWN-01, OWN-03.
+
+Mətn forması, seçilən dil və mövzu, yaş bildirişi, idempotent göndəriş, alias, sessiya/qonaq açarı və rotasiya olunan bərpa. **Sübut:** paralel bərpa və cross-owner imtina, açar və mətnin ictimai cavaba düşməməsi.
+
+## LAV-005 · Moderasiya və dərc keçidləri
+
+**Asılılıq:** LAV-004. **Qəbul:** MOD-01, MOD-04.
+
+Dil üzrə səlahiyyət, MFA, versiya baxışı, düzəliş, rədd, dərc, geri çəkmə və terminal silmə. Audit və eyni tranzaksiya ilə görünürlük/outbox. **Sübut:** köhnə moderator tabı və geri çəkmə yarışının MySQL sınağı.
+
+## LAV-006 · Açıq etiraf və texniki SEO
+
+**Asılılıq:** LAV-003, LAV-005. **Qəbul:** SEO-01, SEO-02, SEO-04.
+
+Etiraf HTML-si, sabit canonical, status, həqiqi lastmod, locale sitemap, kateqoriya indeksi və uyğun hreflang. **Sübut:** aktiv, redaktə edilmiş, geri çəkilmiş və silinmiş URL-lərin HTML/XML auditini eyni fixture-lə işlə.
+
+## LAV-007 · Rəylər, davam və dəstək
+
+**Asılılıq:** LAV-004, LAV-005, LAV-006. **Qəbul:** MOD-03, OWN-03.
+
+Ayrı rəy formu, bir səviyyə, müəllif cavabı, eyni hekayədə davam, dəstək və rəy seçimi. Yalnız təsdiq edilmiş canlı uşaq materialı göstər. **Sübut:** rəy bağlama, rəy gizlətmə, paralel valideyn gizlətməsi və bildiriş təkrarı sınaqları.
+
+## LAV-008 · Şikayət, təcili baxış və etiraz
+
+**Asılılıq:** LAV-005, LAV-007. **Qəbul:** MOD-02, MOD-04.
+
+Etiraf/rəy üçün fərqli şikayət hədəfi, duplicate report, səbəblər, təcili kateqoriyalar və bir dəfə etiraz. Moderator konteksti görür. **Sübut:** ayrı hədəflər, spam limiti və hüquqi məzmun bildirişinin ümumi şikayətdən ayrı keçidi.
+
+## LAV-009 · Hesab, Mənim və bildirişlər
+
+**Asılılıq:** LAV-004, LAV-005, LAV-007. **Qəbul:** OWN-02, ADV-03.
+
+Təsdiqli e-poçt girişi, sübutla qonaq sahiblik transferi, icazə, e-poçt seçimləri və neytral bildiriş. **Sübut:** hesablararası izolyasiya, paylaşılmış keş və e-poçt payload yoxlaması.
+
+## LAV-010 · 17 dil paketi və sahib baxışı
+
+**Asılılıq:** LAV-003, LAV-008, LAV-009. **Qəbul:** LOC-02, LOC-03.
+
+Codex hər dil paketi üçün mətnləri, kateqoriyaları və hüquqi draftları hazırlayır. Variantlar ekrana görə ixrac edilir və məhsul sahibi dəyişikliklərə baxır. **Sübut:** paket validatoru, düzəliş diff-i və qeydə alınmış baxış. Xarici hüquqi faktlar draftı keçmədən açılmır.
+
+## LAV-011 · PWA, oflayn və opt-in push
+
+**Asılılıq:** LAV-002, LAV-004, LAV-009, LAV-010. **Qəbul:** PWA-01, ADV-03.
+
+Manifest, ikon, standalone, statik service worker keşi, tərcüməli oflayn görünüş, opt-in cihaz qaralaması və Web Push. **Sübut:** təmiz/qədim keş, iPhone/Android standalone və həssas şəbəkə/keş audit nəticəsi.
+
+## LAV-012 · Cihaz, UI və dil sınaqları
+
+**Asılılıq:** LAV-006, LAV-007, LAV-008, LAV-010, LAV-011. **Qəbul:** UI-01, UI-03, UI-04, LOC-03.
+
+Kiçik mobil, iOS Safari, Android Chrome, masaüstü və standalone. Gündüz/gecə, klaviatura, geri düyməsi, dəstək və şikayətlər. **Sübut:** viewport və dil bazası, ekran görüntüləri, cihaz/OS versiyası və faktiki nəticə.
+
+## LAV-013 · GA4, CMP və AdSense
+
+**Asılılıq:** LAV-006, LAV-007, LAV-009, LAV-010. **Qəbul:** ADV-01, ADV-02, ADV-03.
+
+Səth whitelist, Consent Mode, təsdiqlənmiş reklam dili və məzmunu, bir manual slot, ads.txt, təcili söndürmə. **Sübut:** sintetik network trace-də əvvəl-sonra-geri alma, uyğun olmayan rəy və ayrıca rəy formu. İstehsal ID-ləri səlahiyyətli hesabla qoşulur.
+
+## LAV-014 · Xarici axtarış yoxlaması
+
+**Asılılıq:** LAV-006, LAV-008. **Qəbul:** SEO-03, SEO-04.
+
+Search Console, Bing, IndexNow outbox, iş nəticəsi və retry, sitemap və status auditi. **Sübut:** testdə provider contract və retry. İstehsalda təsdiqlənmiş domen, sitemap və canlı bildiriş qeydi. İndeks mövqeyi xarici nəticədir.
+
+## LAV-015 · Shared hosting buraxılış sübutu
+
+**Asılılıq:** LAV-010, LAV-011, LAV-012, LAV-013, LAV-014. **Qəbul:** OPS-01, OPS-02, OPS-03.
+
+Real hosting, cron, SMTP, rollback, məlumatın geri gəlməməsi, 17 dilin istismar təminatı və istifadəçi axınları. Əvvəl staging, sonra yayım səlahiyyəti. **Sübut:** runbook, rollback və real yükləmə nəticəsi. Hesab və hüquqi təsdiqlər [əməliyyat qapılarına](operations.md) uyğun bağlanır.
+
+## İş dövrü
+
+Hər issue məqsədi, asılılığı, qəbul ID-si və sübutu daşıyır. Branch → commit → push → draft/hazır PR → CI → sahib baxışı. Sprint sonunda nəticə, blok, cavabdeh və növbəti prioritet yazılır. CI adı sabitləşəndən sonra main üçün yoxlama qaydası tətbiq edilir. GitHub statusunu sprint sənədində təkrarlama. Sənədlər push olunanda yeni Codex icrası avtomatik başlanmır.

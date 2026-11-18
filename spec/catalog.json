@@ -1,0 +1,458 @@
+{
+  "version": 1,
+  "label_status": "editorial-draft",
+  "locales": [
+    {
+      "code": "en",
+      "segment": "en",
+      "native": "English",
+      "english": "English",
+      "flag": "GB",
+      "dir": "ltr"
+    },
+    {
+      "code": "de",
+      "segment": "de",
+      "native": "Deutsch",
+      "english": "German",
+      "flag": "DE",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "segment": "fr",
+      "native": "Français",
+      "english": "French",
+      "flag": "FR",
+      "dir": "ltr"
+    },
+    {
+      "code": "nl",
+      "segment": "nl",
+      "native": "Nederlands",
+      "english": "Dutch",
+      "flag": "NL",
+      "dir": "ltr"
+    },
+    {
+      "code": "sv",
+      "segment": "sv",
+      "native": "Svenska",
+      "english": "Swedish",
+      "flag": "SE",
+      "dir": "ltr"
+    },
+    {
+      "code": "nb",
+      "segment": "nb",
+      "native": "Norsk bokmål",
+      "english": "Norwegian Bokmål",
+      "flag": "NO",
+      "dir": "ltr"
+    },
+    {
+      "code": "da",
+      "segment": "da",
+      "native": "Dansk",
+      "english": "Danish",
+      "flag": "DK",
+      "dir": "ltr"
+    },
+    {
+      "code": "fi",
+      "segment": "fi",
+      "native": "Suomi",
+      "english": "Finnish",
+      "flag": "FI",
+      "dir": "ltr"
+    },
+    {
+      "code": "ja",
+      "segment": "ja",
+      "native": "日本語",
+      "english": "Japanese",
+      "flag": "JP",
+      "dir": "ltr"
+    },
+    {
+      "code": "ko",
+      "segment": "ko",
+      "native": "한국어",
+      "english": "Korean",
+      "flag": "KR",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "segment": "es",
+      "native": "Español",
+      "english": "Spanish",
+      "flag": "ES",
+      "dir": "ltr"
+    },
+    {
+      "code": "it",
+      "segment": "it",
+      "native": "Italiano",
+      "english": "Italian",
+      "flag": "IT",
+      "dir": "ltr"
+    },
+    {
+      "code": "pt-BR",
+      "segment": "pt-br",
+      "native": "Português do Brasil",
+      "english": "Brazilian Portuguese",
+      "flag": "BR",
+      "dir": "ltr"
+    },
+    {
+      "code": "pl",
+      "segment": "pl",
+      "native": "Polski",
+      "english": "Polish",
+      "flag": "PL",
+      "dir": "ltr"
+    },
+    {
+      "code": "tr",
+      "segment": "tr",
+      "native": "Türkçe",
+      "english": "Turkish",
+      "flag": "TR",
+      "dir": "ltr"
+    },
+    {
+      "code": "az",
+      "segment": "az",
+      "native": "Azərbaycan dili",
+      "english": "Azerbaijani",
+      "flag": "AZ",
+      "dir": "ltr"
+    },
+    {
+      "code": "ru",
+      "segment": "ru",
+      "native": "Русский",
+      "english": "Russian",
+      "flag": "RU",
+      "dir": "ltr"
+    }
+  ],
+  "categories": [
+    {
+      "key": "relationships",
+      "icon": "heart-handshake",
+      "labels": {
+        "az": "Sevgi və münasibətlər",
+        "en": "Love & Relationships",
+        "de": "Liebe & Beziehungen",
+        "fr": "Amour et couple",
+        "nl": "Liefde en relaties",
+        "sv": "Kärlek och relationer",
+        "nb": "Kjærlighet og forhold",
+        "da": "Kærlighed og parforhold",
+        "fi": "Rakkaus ja parisuhteet",
+        "ja": "恋愛・パートナー関係",
+        "ko": "사랑과 연애",
+        "es": "Amor y relaciones",
+        "it": "Amore e relazioni",
+        "pt-BR": "Amor e relacionamentos",
+        "pl": "Miłość i związki",
+        "tr": "Aşk ve ilişkiler",
+        "ru": "Любовь и отношения"
+      }
+    },
+    {
+      "key": "family",
+      "icon": "house",
+      "labels": {
+        "az": "Ailə",
+        "en": "Family",
+        "de": "Familie",
+        "fr": "Famille",
+        "nl": "Familie",
+        "sv": "Familj",
+        "nb": "Familie",
+        "da": "Familie",
+        "fi": "Perhe",
+        "ja": "家族",
+        "ko": "가족",
+        "es": "Familia",
+        "it": "Famiglia",
+        "pt-BR": "Família",
+        "pl": "Rodzina",
+        "tr": "Aile",
+        "ru": "Семья"
+      }
+    },
+    {
+      "key": "friends",
+      "icon": "users-round",
+      "labels": {
+        "az": "Dostluq və sosial həyat",
+        "en": "Friends & Social Life",
+        "de": "Freundschaft & Sozialleben",
+        "fr": "Amitié et vie sociale",
+        "nl": "Vriendschap en sociaal leven",
+        "sv": "Vänskap och socialt liv",
+        "nb": "Vennskap og sosialt liv",
+        "da": "Venskab og socialt liv",
+        "fi": "Ystävyys ja sosiaalinen elämä",
+        "ja": "友人・人付き合い",
+        "ko": "친구와 인간관계",
+        "es": "Amistad y vida social",
+        "it": "Amicizia e vita sociale",
+        "pt-BR": "Amizades e vida social",
+        "pl": "Przyjaźń i życie towarzyskie",
+        "tr": "Arkadaşlık ve sosyal hayat",
+        "ru": "Дружба и общение"
+      }
+    },
+    {
+      "key": "work",
+      "icon": "briefcase-business",
+      "labels": {
+        "az": "İş və karyera",
+        "en": "Work & Career",
+        "de": "Arbeit & Karriere",
+        "fr": "Travail et carrière",
+        "nl": "Werk en carrière",
+        "sv": "Jobb och karriär",
+        "nb": "Jobb og karriere",
+        "da": "Arbejde og karriere",
+        "fi": "Työ ja ura",
+        "ja": "仕事・キャリア",
+        "ko": "일과 커리어",
+        "es": "Trabajo y carrera",
+        "it": "Lavoro e carriera",
+        "pt-BR": "Trabalho e carreira",
+        "pl": "Praca i kariera",
+        "tr": "İş ve kariyer",
+        "ru": "Работа и карьера"
+      }
+    },
+    {
+      "key": "education",
+      "icon": "graduation-cap",
+      "labels": {
+        "az": "Təhsil",
+        "en": "Education",
+        "de": "Schule & Studium",
+        "fr": "Études et formation",
+        "nl": "Onderwijs",
+        "sv": "Studier och utbildning",
+        "nb": "Studier og utdanning",
+        "da": "Studier og uddannelse",
+        "fi": "Opiskelu ja koulutus",
+        "ja": "学校・勉強",
+        "ko": "학교와 공부",
+        "es": "Estudios",
+        "it": "Studio e formazione",
+        "pt-BR": "Estudos",
+        "pl": "Szkoła i studia",
+        "tr": "Eğitim",
+        "ru": "Учёба"
+      }
+    },
+    {
+      "key": "money",
+      "icon": "wallet",
+      "labels": {
+        "az": "Pul və maliyyə",
+        "en": "Money & Finances",
+        "de": "Geld & Finanzen",
+        "fr": "Argent et finances",
+        "nl": "Geld en financiën",
+        "sv": "Pengar och ekonomi",
+        "nb": "Penger og økonomi",
+        "da": "Penge og økonomi",
+        "fi": "Raha ja talous",
+        "ja": "お金・家計",
+        "ko": "돈과 재정",
+        "es": "Dinero y finanzas",
+        "it": "Denaro e finanze",
+        "pt-BR": "Dinheiro e finanças",
+        "pl": "Pieniądze i finanse",
+        "tr": "Para ve finans",
+        "ru": "Деньги и финансы"
+      }
+    },
+    {
+      "key": "identity",
+      "icon": "user-round",
+      "labels": {
+        "az": "Özüm və kimliyim",
+        "en": "Self & Identity",
+        "de": "Selbstbild & Identität",
+        "fr": "Image de soi et identité",
+        "nl": "Zelfbeeld en identiteit",
+        "sv": "Självbild och identitet",
+        "nb": "Selvoppfatning og identitet",
+        "da": "Selvopfattelse og identitet",
+        "fi": "Minäkuva ja identiteetti",
+        "ja": "自分らしさ・アイデンティティ",
+        "ko": "자아와 정체성",
+        "es": "Autoimagen e identidad",
+        "it": "Immagine di sé e identità",
+        "pt-BR": "Autoimagem e identidade",
+        "pl": "Obraz siebie i tożsamość",
+        "tr": "Benlik ve kimlik",
+        "ru": "Самовосприятие и идентичность"
+      }
+    },
+    {
+      "key": "values",
+      "icon": "compass",
+      "labels": {
+        "az": "İnanc və dəyərlər",
+        "en": "Beliefs & Values",
+        "de": "Glaube & Werte",
+        "fr": "Croyances et valeurs",
+        "nl": "Overtuigingen en waarden",
+        "sv": "Tro och värderingar",
+        "nb": "Tro og verdier",
+        "da": "Tro og værdier",
+        "fi": "Vakaumus ja arvot",
+        "ja": "信仰・価値観",
+        "ko": "신념과 가치관",
+        "es": "Creencias y valores",
+        "it": "Credenze e valori",
+        "pt-BR": "Crenças e valores",
+        "pl": "Przekonania i wartości",
+        "tr": "İnanç ve değerler",
+        "ru": "Убеждения и ценности"
+      }
+    },
+    {
+      "key": "wellbeing",
+      "icon": "heart-pulse",
+      "labels": {
+        "az": "Sağlamlıq və rifah",
+        "en": "Health & Wellbeing",
+        "de": "Gesundheit & Wohlbefinden",
+        "fr": "Santé et bien-être",
+        "nl": "Gezondheid en welzijn",
+        "sv": "Hälsa och välmående",
+        "nb": "Helse og velvære",
+        "da": "Sundhed og trivsel",
+        "fi": "Terveys ja hyvinvointi",
+        "ja": "心と体の健康",
+        "ko": "몸과 마음의 건강",
+        "es": "Salud y bienestar",
+        "it": "Salute e benessere",
+        "pt-BR": "Saúde e bem-estar",
+        "pl": "Zdrowie i dobrostan",
+        "tr": "Sağlık ve iyi oluş",
+        "ru": "Здоровье и самочувствие"
+      }
+    },
+    {
+      "key": "grief",
+      "icon": "flower-2",
+      "labels": {
+        "az": "İtki və yas",
+        "en": "Loss & Grief",
+        "de": "Verlust & Trauer",
+        "fr": "Perte et deuil",
+        "nl": "Verlies en rouw",
+        "sv": "Förlust och sorg",
+        "nb": "Tap og sorg",
+        "da": "Tab og sorg",
+        "fi": "Menetys ja suru",
+        "ja": "喪失・悲しみ",
+        "ko": "상실과 애도",
+        "es": "Pérdida y duelo",
+        "it": "Perdita e lutto",
+        "pt-BR": "Perda e luto",
+        "pl": "Strata i żałoba",
+        "tr": "Kayıp ve yas",
+        "ru": "Утрата и горе"
+      }
+    },
+    {
+      "key": "life-changes",
+      "icon": "route",
+      "labels": {
+        "az": "Həyat dəyişiklikləri",
+        "en": "Life Changes",
+        "de": "Veränderungen im Leben",
+        "fr": "Changements de vie",
+        "nl": "Veranderingen in het leven",
+        "sv": "Förändringar i livet",
+        "nb": "Endringer i livet",
+        "da": "Forandringer i livet",
+        "fi": "Elämänmuutokset",
+        "ja": "人生の転機",
+        "ko": "삶의 변화",
+        "es": "Cambios de vida",
+        "it": "Cambiamenti di vita",
+        "pt-BR": "Mudanças na vida",
+        "pl": "Zmiany w życiu",
+        "tr": "Hayattaki değişimler",
+        "ru": "Перемены в жизни"
+      }
+    },
+    {
+      "key": "everyday",
+      "icon": "calendar-days",
+      "labels": {
+        "az": "Gündəlik həyat",
+        "en": "Everyday Life",
+        "de": "Alltag",
+        "fr": "Vie quotidienne",
+        "nl": "Dagelijks leven",
+        "sv": "Vardagsliv",
+        "nb": "Hverdagsliv",
+        "da": "Hverdagsliv",
+        "fi": "Arki",
+        "ja": "日常生活",
+        "ko": "일상",
+        "es": "Vida cotidiana",
+        "it": "Vita quotidiana",
+        "pt-BR": "Vida cotidiana",
+        "pl": "Codzienność",
+        "tr": "Günlük hayat",
+        "ru": "Повседневная жизнь"
+      }
+    }
+  ],
+  "first_visit": {
+    "fallback": "en",
+    "language_aliases": {
+      "no": "nb",
+      "pt": "pt-BR"
+    },
+    "country_defaults": {
+      "AZ": "az",
+      "AT": "de",
+      "AU": "en",
+      "BR": "pt-BR",
+      "DE": "de",
+      "DK": "da",
+      "ES": "es",
+      "FI": "fi",
+      "FR": "fr",
+      "GB": "en",
+      "IE": "en",
+      "IT": "it",
+      "JP": "ja",
+      "KR": "ko",
+      "MX": "es",
+      "NL": "nl",
+      "NO": "nb",
+      "NZ": "en",
+      "PL": "pl",
+      "RU": "ru",
+      "SE": "sv",
+      "SG": "en",
+      "TR": "tr",
+      "US": "en"
+    },
+    "multilingual_country_fallback": [
+      "BE",
+      "CA",
+      "CH"
+    ]
+  }
+}

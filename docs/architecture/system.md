@@ -2,6 +2,8 @@
 
 PHP 8.5 üstün, PHP 8.4 uyğun, Laravel 13, Blade, MySQL/MariaDB və az JavaScript. Bir tətbiq, eyni hostda çoxdilli HTML. Sxem istehsal və CI üçün MySQL ailəsində sınaqdan keçir. Mənbə və konfiqurasiya açıq qovluqdan kənardadır. Composer və asset hazırlığı buraxılışda aparılır. İstehsalda Node prosesi, Redis, WebSocket və daimi worker tələb olunmur.
 
+Ətraflı müqavilələr: [sahiblik və nəşr](ownership-and-publication.md), [lent və səhifələmə](feed-contract.md), [trafik və məxfilik](traffic-and-privacy.md).
+
 ## Modul sərhədləri
 
 | Modul | Sahib olduğu məlumat və invariant |

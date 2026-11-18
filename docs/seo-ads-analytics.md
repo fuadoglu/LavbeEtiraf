@@ -1,5 +1,7 @@
 # SEO, AdSense və analitika
 
+İcra səviyyəsində [lent müqaviləsi](architecture/feed-contract.md) və [səth, reklam və analitika matrisi](architecture/traffic-and-privacy.md) tətbiq olunur.
+
 ## İctimai URL və indeks müqaviləsi
 
 | Resurs | URL nümunəsi | Qayda |
@@ -20,7 +22,7 @@ Sitemap indeksini domen kökündə təqdim et. Dil üzrə sabit hissələr yaln�
 
 Yeganə monetizasiya AdSense-dir. Yayım statusu və reklam uyğunluğu ayrı saxlanır. Uyğunluq seçilən dil, etiraf, davam və bütün açıq rəylər üzrə hesablanır. Məzmun versiyası dəyişəndə qiymətləndirmə və keş yenilənir. Naməlum uyğunluq, dil siyasətində dəstəksiz dil, cari razılıq konfiqurasiyası çatışmazlığı və ya qapalı qlobal açar reklamsız görünüş verir. Azərbaycanca əsas məzmun reklamsızdır. Rus dilinə reklam uyğunluğu və Rusiya regionunda xidmət məhdudiyyəti ayrı konfiqurasiya olunur.
 
-İlkin variant uyğun oxu detalında tam mətnin sonundan sonra bir idarə olunan responsive blokdur. Yazma, rəy forması, hesab, kömək/hüquqi, axtarış, boş və aşağı dəyərli səth, lent və oflayn görünüş reklamsızdır. Hərəkət düymələrindən vizual məsafə, rezerv sahə, normal mətn axını. Auto Ads, örtən reklam və avtomatik refresh söndürülür. Yaş, həssas məzmun və regional razılıq siyasəti ayrıca yoxlanır. `ads.txt` yalnız operator tərəfindən təsdiqlənmiş identifikatorla çıxır. Qlobal açar və səhifə səviyyəli dayandırma görünən kodu və cache variantını birlikdə dəyişir. AdSense/CMP xarici aktivləşdirmə buraxılışın reklam qapısıdır.
+İlkin variant uyğun oxu detalında tam mətnin sonundan sonra bir idarə olunan responsive blokdur. Yazma, ayrıca rəy forması, hesab, kömək/hüquqi, axtarış, boş və aşağı dəyərli səth, lent və oflayn görünüş reklamsızdır. Hərəkət düymələrindən vizual məsafə, rezerv sahə, normal mətn axını. Auto Ads, örtən reklam və avtomatik refresh söndürülür. Yaş, həssas məzmun və regional razılıq siyasəti ayrıca yoxlanır. `ads.txt` yalnız operator tərəfindən təsdiqlənmiş identifikatorla çıxır. Qlobal açar və səhifə səviyyəli dayandırma görünən kodu və cache variantını birlikdə dəyişir. AdSense/CMP xarici aktivləşdirmə buraxılışın reklam qapısıdır.
 
 Active View, AdSense Page RPM, min oxu sessiyasına gəlir, uyğun trafik payı, ikinci etirafa keçid, geri qayıtma və etibarsız trafik siqnalları dil və ölkə üzrə izlənir. Yalnız ilkin model ölçüldükdən sonra bir yerləşim sınağı təsdiqlənə bilər.
 

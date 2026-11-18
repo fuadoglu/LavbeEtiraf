@@ -1,0 +1,336 @@
+{
+  "version": 1,
+  "package_directory": "resources/lavbe/locales",
+  "placeholder_format": "{name}",
+  "groups": {
+    "navigation": [
+      "read",
+      "write",
+      "mine",
+      "more",
+      "language",
+      "settings",
+      "back",
+      "close"
+    ],
+    "language": [
+      "picker_label",
+      "search",
+      "empty",
+      "selected",
+      "changed"
+    ],
+    "theme": [
+      "label",
+      "system",
+      "day",
+      "night"
+    ],
+    "feed": [
+      "all",
+      "topics",
+      "new",
+      "weekly",
+      "updates",
+      "more",
+      "refresh",
+      "retry",
+      "empty",
+      "end",
+      "loading"
+    ],
+    "search": [
+      "title",
+      "label",
+      "submit",
+      "empty",
+      "invalid"
+    ],
+    "confession": [
+      "author",
+      "support",
+      "follow",
+      "unfollow",
+      "share",
+      "report",
+      "update",
+      "next",
+      "comments_closed"
+    ],
+    "write": [
+      "title",
+      "intro",
+      "body",
+      "optional_title",
+      "topic",
+      "purpose",
+      "purpose_share",
+      "purpose_experience",
+      "purpose_advice",
+      "allow_comments",
+      "public_notice",
+      "age_notice",
+      "remember_draft",
+      "remember_device",
+      "submit",
+      "invalid",
+      "network_error"
+    ],
+    "submit": [
+      "pending",
+      "recovery_code",
+      "recovery_help",
+      "copy",
+      "copied",
+      "my_content"
+    ],
+    "comment": [
+      "write",
+      "body",
+      "reply",
+      "submit",
+      "pending",
+      "edit",
+      "delete"
+    ],
+    "report": [
+      "confession",
+      "comment",
+      "reason",
+      "explanation",
+      "send",
+      "received",
+      "duplicate",
+      "spam",
+      "privacy",
+      "harassment",
+      "threat",
+      "inappropriate",
+      "other"
+    ],
+    "moderation": [
+      "confessions",
+      "comments",
+      "reports",
+      "pending",
+      "public",
+      "changes_requested",
+      "rejected",
+      "withdrawn",
+      "hidden",
+      "deleted",
+      "publish",
+      "reject",
+      "hide",
+      "request_changes",
+      "appeal",
+      "close_report",
+      "stale"
+    ],
+    "mine": [
+      "confessions",
+      "comments",
+      "followed",
+      "notifications",
+      "withdraw",
+      "withdraw_confirm",
+      "delete",
+      "delete_confirm",
+      "empty"
+    ],
+    "auth": [
+      "sign_in",
+      "email",
+      "email_sent",
+      "sign_out",
+      "recovery",
+      "recovery_input",
+      "recover",
+      "recovered",
+      "invalid_code"
+    ],
+    "notifications": [
+      "published",
+      "changes_requested",
+      "new_comments",
+      "followup",
+      "generic",
+      "email_option",
+      "push_option"
+    ],
+    "mail": [
+      "login_subject",
+      "login_body",
+      "notification_subject",
+      "notification_body"
+    ],
+    "pwa": [
+      "install",
+      "install_help_ios",
+      "offline_title",
+      "offline_body",
+      "back_online",
+      "draft_expired"
+    ],
+    "errors": [
+      "not_found",
+      "gone",
+      "forbidden",
+      "conflict",
+      "rate_limited",
+      "unavailable"
+    ],
+    "consent": [
+      "settings",
+      "analytics",
+      "ads",
+      "save",
+      "decline",
+      "withdraw"
+    ],
+    "legal": [
+      "terms",
+      "community",
+      "privacy",
+      "cookies",
+      "illegal_content",
+      "data_request",
+      "operator"
+    ],
+    "help": [
+      "title",
+      "guest",
+      "recovery",
+      "visibility",
+      "reporting",
+      "contact"
+    ],
+    "seo": [
+      "site_name",
+      "home_title",
+      "home_description",
+      "topic_title",
+      "topic_description",
+      "confession_title"
+    ],
+    "ads": [
+      "label"
+    ]
+  },
+  "placeholders": {
+    "language.changed": [
+      "language"
+    ],
+    "write.invalid": [
+      "limit"
+    ],
+    "notifications.new_comments": [
+      "count"
+    ],
+    "mail.login_body": [
+      "minutes"
+    ],
+    "seo.topic_title": [
+      "topic"
+    ],
+    "seo.topic_description": [
+      "topic"
+    ],
+    "seo.confession_title": [
+      "title"
+    ]
+  },
+  "plural_keys": {
+    "notifications.new_comments": "cardinal"
+  },
+  "category_fields": [
+    "label",
+    "description",
+    "slug"
+  ],
+  "legal_page_fields": [
+    "title",
+    "body",
+    "version"
+  ],
+  "legal_status_values": [
+    "draft",
+    "approved"
+  ],
+  "cardinal_forms": {
+    "en": [
+      "one",
+      "other"
+    ],
+    "de": [
+      "one",
+      "other"
+    ],
+    "nl": [
+      "one",
+      "other"
+    ],
+    "sv": [
+      "one",
+      "other"
+    ],
+    "nb": [
+      "one",
+      "other"
+    ],
+    "da": [
+      "one",
+      "other"
+    ],
+    "fi": [
+      "one",
+      "other"
+    ],
+    "tr": [
+      "one",
+      "other"
+    ],
+    "az": [
+      "one",
+      "other"
+    ],
+    "ja": [
+      "other"
+    ],
+    "ko": [
+      "other"
+    ],
+    "es": [
+      "one",
+      "many",
+      "other"
+    ],
+    "fr": [
+      "one",
+      "many",
+      "other"
+    ],
+    "it": [
+      "one",
+      "many",
+      "other"
+    ],
+    "pt-BR": [
+      "one",
+      "many",
+      "other"
+    ],
+    "pl": [
+      "one",
+      "few",
+      "many",
+      "other"
+    ],
+    "ru": [
+      "one",
+      "few",
+      "many",
+      "other"
+    ]
+  }
+}

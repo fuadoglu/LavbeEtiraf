@@ -12,9 +12,9 @@
 
 Ana lent Hamısı seçimi ilə açılır. Kateqoriya səhifəsi həmin lentin kateqoriya filtrli görünüşüdür. Dil seçimi, kateqoriya, sıralama və səhifələmə serverdə etibarlı qiymətlər üzrə tətbiq edilir. İlk sorğu hazır HTML qaytarır. İlk renderdə skeletlə mətnin üstü örtülmür.
 
-İlkin və növbəti paket 12 kart, sabit son açar kimi unikal ID. Yeni rejimi yayım tarixindən, Davamı gəldi son təsdiqlənmiş davam tarixindən, Bu həftə son yeddi günün aktivliyindən istifadə edir. Həftəlik xal ilkin olaraq bir unikal dəstək üçün 1, bir təsdiqlənmiş unikal rəyçi üçün 2-dir, eyni iştirakçının təkrarı şişirtmir. Bərabər xalda yayım tarixi və ID ardıcıllıq verir. Həftəlik axın üçün snapshot işarəsi, digər axınlar üçün yükləmə zamanı sabit sərhəd istifadə edilir. Eyni ID müştəri tərəfində də təkrarlanmır.
+İlkin və növbəti paket 12 kartdır. **Daha çox** adi HTML linkidir. JavaScript sabit sessiya cursor-u ilə kartları əlavə edir. Server query, canonical, sıralama, təkrar və vaxtı bitmiş cursor üçün [lent müqaviləsi](../architecture/feed-contract.md) əsas götürülür. Geri düyməsi dil, mövzu, sıralama və mümkün olduqda oxu mövqeyini bərpa edir.
 
-Daha çox adi HTML linkidir. JavaScript həmin linkin səhifə və ya fragmentini yükləyib kartları əlavə edir. JavaScript söndürülübsə növbəti səhifə açılır. JSON və HTML üçün görünən məzmun eyni qaydadan keçir. Filtr dəyişəndə köhnə sorğu ləğv olunur və ya gecikmiş cavab atılır. Brauzer tarixçəsi dil, mövzu və sıralamanı saxlayır, geri düyməsi mümkün olduqda oxu mövqeyini bərpa edir.
+[Wireframe atlası](wireframes.html) mobil və masaüstü ekranların təsdiq edilə bilən düzülüşünü, gözləmə, boş, xəta və oflayn vəziyyətlərini göstərir.
 
 ## Vəziyyətlər
 
@@ -30,7 +30,7 @@ Daha çox adi HTML linkidir. JavaScript həmin linkin səhifə və ya fragmentin
 
 ## Digər ekranların quruluşu
 
-- **Etiraf:** mövzu, başlıq, anonim ad, tam mətn, Sonra nə oldu, uyğun reklam və oxu hərəkətləri. Rəylər bir səviyyəlidir. Rəy şikayəti konkret rəyin menyusundadır. Sonra eyni dildən etiraf təklif olunur.
+- **Etiraf:** mövzu, başlıq, anonim ad, tam mətn, Sonra nə oldu, uyğun reklam və oxu hərəkətləri. Rəylər bir səviyyəlidir. Rəy yaz ayrı reklamsız səth açır. Rəy şikayəti konkret rəyin menyusundadır. Sonra eyni dildən etiraf təklif olunur.
 - **Yaz və rəy:** geniş mətn sahəsi, yığcam əlavə seçimlər, yerli xəta və baxışa göndər düyməsi. Mobil klaviatura kursoru və fokuslu sahəni örtmür. Şəbəkə xətasında DOM-dakı mətn qalır. Cavab alınana qədər uğurlu status göstərilmir.
 - **Göndəriş və bərpa:** bərpa kodunun ayrıca görünüşü, kopyalama və Mənim bölməsinə keçid. URL-də və açıq keşdə kod yoxdur.
 - **Mənim:** Etiraflarım, Rəylərim, İzlədiklərim və Bildirişlər. Rejim, giriş, bərpa və quraşdırma əlçatandır.

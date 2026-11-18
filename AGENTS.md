@@ -19,5 +19,5 @@
 
 - İlk repo bazası xaric, `main`-dən `codex/lav-<n>-<mövzu>` branch-i aç. Məhdud həcmli commit et, branch-i push et və issue-ya bağlı PR aç. Mövcud tarixçəni qoruyaraq işlət. Merge sahibin və ya ayrıca səlahiyyətli qaydanın qərarıdır.
 - Hər PR məqsədi, dəyişən istifadəçi davranışını, qəbul ID-lərini, işlədilmiş əmrləri, nəticələri və qalan yoxlamaları göstərir. Dəyişiklik hazır deyilsə draft PR istifadə et. İcra edilməyən yoxlama keçmiş kimi qeyd olunmur.
-- Hazırkı sənəd əmri `python3 scripts/check_docs.py`-dir. LAV-001 tətbiqin faktiki quraşdırma, lint, test və CI əmrlərini əlavə edir. Sonrakı işlərdə hər dəyişiklik üçün aidiyyəti avtomatik və ya cihaz sınağını işlə.
+- Sənəd yoxlaması üçün `python3 scripts/check_docs.py` və `PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts` işlə. LAV-001 tətbiqin faktiki quraşdırma, lint, test və CI əmrlərini əlavə edir. Sonrakı işlərdə hər dəyişiklik üçün aidiyyəti avtomatik və ya cihaz sınağını işlə.
 - İş o zaman tamamlanır ki, qəbul meyarı sübutla bağlanır, sənədlər yenilənir, məxfilik və açıq HTML davranışı qorunur, branch push olunur və PR-da müqayisə edilə bilən nəticə verilir. Sprint nəticəsi daxili baxışdır. İctimai buraxılışı [qapılar](docs/delivery/operations.md) müəyyən edir.
