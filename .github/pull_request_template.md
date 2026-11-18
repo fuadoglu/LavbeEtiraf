@@ -1,20 +1,19 @@
-## Məqsəd və iş
+## Məqsəd
 
-GitHub Issue:
-Backlog ID:
+Issue: Closes #
+Backlog işi və qəbul ID-ləri:
 
-## Dəyişən istifadəçi davranışı
+## İstifadəçi və ya operator üçün dəyişiklik
 
-## Qəbul meyarları
+## Yoxlamalar
 
-| ID | Nəticə | Sübut |
+| Qəbul ID-si | Əmr və mühit | Nəticə və sübut |
 |---|---|---|
 | | | |
 
-## İşlədilmiş yoxlamalar
+## Risk və buraxılış
 
-Əmr, mühit və faktiki nəticə.
+Miqrasiya, məxfilik, keş, PWA, SEO və ya reklam davranışı dəyişirsə təsiri və geri dönüş yolunu yaz. Qalan yoxlamaları burada göstər.
 
-## Qalan yoxlamalar və buraxılış təsiri
-
-Miqrasiya, keş, PWA, məxfilik və reklam təsiri olduqda qeyd et.
+- [ ] Bağlı sənədlər və qəbul meyarları yenilənib.
+- [ ] Issue və PR yalnız sintetik məlumat daşıyır.

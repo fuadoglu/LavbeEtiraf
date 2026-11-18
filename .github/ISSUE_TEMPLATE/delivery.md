@@ -1,17 +1,19 @@
 ---
 name: Lavbe development işi
-about: Məhsulun yoxlanıla bilən bir artımını icra et
+about: Bir istifadəçi axınını və ya texniki işi qəbul meyarı ilə icra et
 title: "[LAV-000] "
 ---
 
-## Məqsəd
+## Məqsəd və nəticə
 
 ## İş həcmi və asılılıqlar
 
+Backlog işi və əsas sənədlər:
+
 ## Qəbul meyarları
 
-Qəbul matrisinin ID-lərini və yoxlama üsulunu göstər.
+- [ ] Qəbul ID-si, ssenari və gözlənilən nəticə
 
-## Nəticə və PR
+## Yoxlama və PR sübutu
 
-İcra zamanı yenilə.
+Gözlənən avtomatik, cihaz və ya xarici yoxlamaları yaz. Yalnız sintetik məlumatdan istifadə et.
