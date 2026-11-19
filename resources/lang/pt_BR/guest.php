@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Escolha uma das preferências de resposta disponíveis.',
     'validation_refresh' => 'Atualize o formulário e envie novamente.',
     'write_too_many' => 'Muitas tentativas. Aguarde um pouco e tente de novo.',
+    'write_withdraw' => 'Retirar este desabafo da visualização pública',
+    'write_confirm_withdraw' => 'Confirmo que quero retirar este desabafo.',
+    'write_republish' => 'Pedir à moderação uma nova análise para republicação',
+    'write_confirm_republish' => 'Confirmo que esta versão publicada anteriormente deve ser analisada novamente.',
+    'write_withdrawn' => 'Este desabafo foi retirado e não está público.',
+    'write_republish_pending' => 'A solicitação de nova análise está pendente.',
 ];

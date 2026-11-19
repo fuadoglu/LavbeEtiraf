@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Mevcut yanıt tercihlerinden birini seç.',
     'validation_refresh' => 'Formu yenileyip tekrar gönder.',
     'write_too_many' => 'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.',
+    'write_withdraw' => 'İtirafı herkese açık görünümden kaldır',
+    'write_confirm_withdraw' => 'Bu itirafı geri çekmek istediğimi onaylıyorum.',
+    'write_republish' => 'Yeniden yayımlama için moderatörlerden tekrar inceleme iste',
+    'write_confirm_republish' => 'Daha önce yayımlanan bu sürümün yeniden incelenmesini onaylıyorum.',
+    'write_withdrawn' => 'Bu itiraf geri çekildi ve herkese açık değil.',
+    'write_republish_pending' => 'Bu sürümün yeniden incelenme isteği bekliyor.',
 ];

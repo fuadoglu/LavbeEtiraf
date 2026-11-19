@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Elige una de las respuestas disponibles.',
     'validation_refresh' => 'Actualiza el formulario y vuelve a enviarlo.',
     'write_too_many' => 'Demasiados intentos. Espera un momento e inténtalo de nuevo.',
+    'write_withdraw' => 'Retirar esta confesión de la vista pública',
+    'write_confirm_withdraw' => 'Confirmo que quiero retirar esta confesión.',
+    'write_republish' => 'Pedir a moderación que revise esta confesión para volver a publicarla',
+    'write_confirm_republish' => 'Confirmo que quiero que se revise de nuevo esta versión publicada anteriormente.',
+    'write_withdrawn' => 'Esta confesión está retirada y no es pública.',
+    'write_republish_pending' => 'La solicitud para revisar de nuevo esta versión está pendiente.',
 ];

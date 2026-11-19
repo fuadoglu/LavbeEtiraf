@@ -37,4 +37,10 @@ return [
     'validation_expectation' => '利用できる返信の希望を選択してください。',
     'validation_refresh' => 'フォームを更新して、もう一度送信してください。',
     'write_too_many' => '試行回数が多すぎます。少し待ってからもう一度お試しください。',
+    'write_withdraw' => 'この告白を公開表示から取り下げる',
+    'write_confirm_withdraw' => 'この告白を取り下げることを確認します。',
+    'write_republish' => '再公開に向けてモデレーターに再審査を依頼する',
+    'write_confirm_republish' => '以前公開されたこの版を再審査することを確認します。',
+    'write_withdrawn' => 'この告白は取り下げられており、公開されていません。',
+    'write_republish_pending' => 'この版の再審査依頼は保留中です。',
 ];

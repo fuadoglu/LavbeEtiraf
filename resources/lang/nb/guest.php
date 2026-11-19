@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Velg en av de tilgjengelige svarpreferansene.',
     'validation_refresh' => 'Oppdater skjemaet og send inn på nytt.',
     'write_too_many' => 'For mange forsøk. Vent litt og prøv igjen.',
+    'write_withdraw' => 'Trekk bekjennelsen tilbake fra offentlig visning',
+    'write_confirm_withdraw' => 'Jeg bekrefter at jeg vil trekke tilbake bekjennelsen.',
+    'write_republish' => 'Be moderatorene vurdere bekjennelsen for ny publisering',
+    'write_confirm_republish' => 'Jeg bekrefter at den tidligere publiserte versjonen skal vurderes på nytt.',
+    'write_withdrawn' => 'Bekjennelsen er trukket tilbake og er ikke offentlig.',
+    'write_republish_pending' => 'Forespørselen om ny vurdering venter.',
 ];

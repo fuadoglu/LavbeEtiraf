@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Choisissez une préférence de réponse disponible.',
     'validation_refresh' => 'Actualisez le formulaire et renvoyez-le.',
     'write_too_many' => 'Trop de tentatives. Patientez un instant, puis réessayez.',
+    'write_withdraw' => 'Retirer cette confession de la vue publique',
+    'write_confirm_withdraw' => 'Je confirme vouloir retirer cette confession.',
+    'write_republish' => 'Demander une nouvelle vérification avant republication',
+    'write_confirm_republish' => 'Je confirme que cette version déjà publiée doit être vérifiée à nouveau.',
+    'write_withdrawn' => 'Cette confession est retirée et n’est pas publique.',
+    'write_republish_pending' => 'La demande de nouvelle vérification est en attente.',
 ];

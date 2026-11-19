@@ -1,0 +1,149 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ModerationAudit;
+use App\Models\ModeratorGrant;
+use App\Models\User;
+use App\Support\Lavbe\LocaleRegistry;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
+
+class ModerationAdminController extends Controller
+{
+    public function index(Request $request): Response|View
+    {
+        $grants = ModeratorGrant::query()->with('user')->orderBy('role')->orderBy('locale')->paginate(30);
+        $users = User::query()->whereNotNull('email_verified_at')->orderBy('email')->get(['id', 'name', 'email']);
+
+        return $this->privateView('moderation.grants', compact('grants', 'users'));
+    }
+
+    public function store(Request $request, string $locale, LocaleRegistry $locales): Response
+    {
+        $data = Validator::make($request->all(), [
+            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'role' => ['required', 'in:moderator,admin'],
+            'locale' => ['required', 'string', 'max:10'],
+            'reason' => ['required', 'string', 'min:5', 'max:500'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+        ])->validate();
+        $target = User::query()->whereKey($data['user_id'])->whereNotNull('email_verified_at')->firstOrFail();
+        abort_if($target->id === $request->user()->id, 403);
+        if ($data['role'] === 'admin') {
+            abort_unless($data['locale'] === '*', 422);
+        } else {
+            abort_unless($locales->bySegment($data['locale']), 422);
+        }
+
+        $reason = $this->sanitize((string) $data['reason']);
+        $idempotencyHash = hash_hmac('sha256', 'grant|'.$request->user()->id.'|'.$data['idempotency_key'], (string) config('app.key'));
+        $fingerprint = hash_hmac('sha256', json_encode([$target->id, $data['role'], $data['locale'], $reason], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), (string) config('app.key'));
+        DB::transaction(function () use ($request, $target, $data, $reason, $idempotencyHash, $fingerprint): void {
+            $existing = ModerationAudit::query()->where('idempotency_hash', $idempotencyHash)->first();
+            if ($existing) {
+                abort_unless(hash_equals((string) $existing->idempotency_fingerprint, $fingerprint), 409);
+
+                return;
+            }
+            $grant = ModeratorGrant::query()->where([
+                'user_id' => $target->id,
+                'role' => $data['role'],
+                'locale' => $data['locale'],
+            ])->lockForUpdate()->first();
+            $previousState = $grant?->is_active ? 'active' : 'inactive';
+            if ($grant) {
+                $grant->forceFill([
+                    'is_active' => true,
+                    'granted_by_user_id' => $grant->granted_by_user_id ?: $request->user()->id,
+                    'changed_by_user_id' => $request->user()->id,
+                    'reason' => $reason,
+                    'revoked_at' => null,
+                ])->save();
+            } else {
+                $grant = ModeratorGrant::query()->create([
+                    'user_id' => $target->id,
+                    'role' => $data['role'],
+                    'locale' => $data['locale'],
+                    'is_active' => true,
+                    'granted_by_user_id' => $request->user()->id,
+                    'changed_by_user_id' => $request->user()->id,
+                    'reason' => $reason,
+                ]);
+            }
+            $this->auditGrantChange($request, $grant, 'grant', $previousState, 'active', $reason, $idempotencyHash, $fingerprint);
+        }, 3);
+
+        return redirect()->route('moderation.grants', ['locale' => $locale])->with('status', __('moderation.grant_saved'));
+    }
+
+    public function revoke(Request $request, string $locale, int $grantId): Response
+    {
+        $data = Validator::make($request->all(), [
+            'reason' => ['required', 'string', 'min:5', 'max:500'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+        ])->validate();
+        $reason = $this->sanitize((string) $data['reason']);
+        $idempotencyHash = hash_hmac('sha256', 'revoke|'.$request->user()->id.'|'.$data['idempotency_key'], (string) config('app.key'));
+        $fingerprint = hash_hmac('sha256', json_encode([$grantId, $reason], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), (string) config('app.key'));
+        DB::transaction(function () use ($request, $grantId, $reason, $idempotencyHash, $fingerprint): void {
+            $existing = ModerationAudit::query()->where('idempotency_hash', $idempotencyHash)->first();
+            if ($existing) {
+                abort_unless(hash_equals((string) $existing->idempotency_fingerprint, $fingerprint), 409);
+
+                return;
+            }
+            $grant = ModeratorGrant::query()->whereKey($grantId)->lockForUpdate()->firstOrFail();
+            abort_if($grant->user_id === $request->user()->id, 403);
+            $previousState = $grant->is_active ? 'active' : 'inactive';
+            $grant->forceFill([
+                'is_active' => false,
+                'changed_by_user_id' => $request->user()->id,
+                'reason' => $reason,
+                'revoked_at' => now(),
+            ])->save();
+            $this->auditGrantChange($request, $grant, 'revoke', $previousState, 'inactive', $reason, $idempotencyHash, $fingerprint);
+        }, 3);
+
+        return redirect()->route('moderation.grants', ['locale' => $locale])->with('status', __('moderation.grant_saved'));
+    }
+
+    private function auditGrantChange(Request $request, ModeratorGrant $grant, string $decision, string $previous, string $next, string $reason, string $idempotencyHash, string $fingerprint): void
+    {
+        ModerationAudit::query()->create([
+            'actor_user_id' => $request->user()->id,
+            'grant_snapshot' => ['role' => 'admin', 'locale' => '*'],
+            'target_type' => 'moderator_grant',
+            'target_key' => (string) $grant->user_id,
+            'decision' => $decision,
+            'reason_code' => 'administrative_access_change',
+            'reason' => $reason,
+            'previous_state' => $previous,
+            'new_state' => $next,
+            'idempotency_hash' => $idempotencyHash,
+            'idempotency_fingerprint' => $fingerprint,
+            'request_id' => (string) ($request->header('X-Request-Id') ?: Str::uuid()),
+            'created_at' => now(),
+        ]);
+    }
+
+    private function sanitize(string $value): string
+    {
+        $value = strip_tags(preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $value) ?? '');
+
+        return mb_substr(trim($value), 0, 500, 'UTF-8');
+    }
+
+    private function privateView(string $view, array $data = []): Response
+    {
+        return response()->view($view, $data)
+            ->header('Cache-Control', 'private, no-store, max-age=0')
+            ->header('Pragma', 'no-cache')
+            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
+            ->header('Referrer-Policy', 'no-referrer');
+    }
+}

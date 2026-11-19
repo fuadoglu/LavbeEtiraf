@@ -1,7 +1,13 @@
 <?php
 
 use App\Http\Controllers\GuestConfessionController;
+use App\Http\Controllers\ModerationAdminController;
+use App\Http\Controllers\ModerationController;
+use App\Http\Controllers\ModeratorAuthController;
 use App\Http\Middleware\PrivateResponseHeaders;
+use App\Http\Middleware\RequireFreshModeratorMfa;
+use App\Http\Middleware\RequireModeratorAccount;
+use App\Http\Middleware\RequireModeratorAdmin;
 use App\Http\Middleware\SetLocale;
 use App\Support\Lavbe\FeedCursor;
 use App\Support\Lavbe\FeedQuery;
@@ -141,6 +147,35 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         ->where('publicId', '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
         ->middleware(PrivateResponseHeaders::class)
         ->name('confessions.recovery');
+
+    Route::post('/my/{publicId}/withdraw', [GuestConfessionController::class, 'withdraw'])
+        ->where('publicId', '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        ->middleware(PrivateResponseHeaders::class)
+        ->name('confessions.withdraw');
+    Route::post('/my/{publicId}/republish', [GuestConfessionController::class, 'requestRepublish'])
+        ->where('publicId', '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        ->middleware(PrivateResponseHeaders::class)
+        ->name('confessions.republish');
+
+    Route::get('/moderation/login', [ModeratorAuthController::class, 'loginForm'])->middleware(PrivateResponseHeaders::class)->name('moderation.login');
+    Route::post('/moderation/login', [ModeratorAuthController::class, 'login'])->middleware(PrivateResponseHeaders::class)->name('moderation.login.submit');
+    Route::get('/moderation/mfa/enroll', [ModeratorAuthController::class, 'enroll'])->middleware([PrivateResponseHeaders::class, RequireModeratorAccount::class])->name('moderation.mfa.enroll');
+    Route::post('/moderation/mfa/confirm', [ModeratorAuthController::class, 'confirmEnrollment'])->middleware([PrivateResponseHeaders::class, RequireModeratorAccount::class])->name('moderation.mfa.confirm');
+    Route::get('/moderation/mfa/challenge', [ModeratorAuthController::class, 'challenge'])->middleware([PrivateResponseHeaders::class, RequireModeratorAccount::class])->name('moderation.mfa.challenge');
+    Route::post('/moderation/mfa/verify', [ModeratorAuthController::class, 'verifyChallenge'])->middleware([PrivateResponseHeaders::class, RequireModeratorAccount::class])->name('moderation.mfa.verify');
+    Route::post('/moderation/logout', [ModeratorAuthController::class, 'logout'])->middleware([PrivateResponseHeaders::class, RequireModeratorAccount::class])->name('moderation.logout');
+
+    Route::prefix('/moderation')->middleware([PrivateResponseHeaders::class, RequireModeratorAccount::class, RequireFreshModeratorMfa::class])->group(function (): void {
+        Route::get('/', [ModerationController::class, 'index'])->name('moderation.queue');
+        Route::get('/confessions/{confessionId}', [ModerationController::class, 'show'])->whereNumber('confessionId')->name('moderation.show');
+        Route::post('/confessions/{confessionId}/decision', [ModerationController::class, 'decide'])->whereNumber('confessionId')->name('moderation.decide');
+
+        Route::middleware(RequireModeratorAdmin::class)->group(function (): void {
+            Route::get('/grants', [ModerationAdminController::class, 'index'])->name('moderation.grants');
+            Route::post('/grants', [ModerationAdminController::class, 'store'])->name('moderation.grants.store');
+            Route::post('/grants/{grantId}/revoke', [ModerationAdminController::class, 'revoke'])->whereNumber('grantId')->name('moderation.grants.revoke');
+        });
+    });
 });
 
 Route::get('/topic/{category}', function (string $category, Request $request, LocaleRegistry $locales) {

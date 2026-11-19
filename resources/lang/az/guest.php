@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Mövcud cavab seçimlərindən birini seç.',
     'validation_refresh' => 'Formanı yenilə və yenidən göndər.',
     'write_too_many' => 'Çox tez-tez sorğu göndərildi. Bir az gözlə və yenidən cəhd et.',
+    'write_withdraw' => 'Etirafı ictimai görünüşdən geri çək',
+    'write_confirm_withdraw' => 'Bu etirafı geri çəkmək istədiyimi təsdiqləyirəm.',
+    'write_republish' => 'Bu etirafın yenidən yayımlanması üçün baxış istə',
+    'write_confirm_republish' => 'Əvvəllər yayımlanmış bu versiyanın yenidən baxılmasını istəyirəm.',
+    'write_withdrawn' => 'Bu etiraf geri çəkilib və ictimai görünmür.',
+    'write_republish_pending' => 'Bu versiyaya yenidən baxış sorğusu gözləyir.',
 ];

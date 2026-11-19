@@ -17,6 +17,10 @@ Tam keçidlər və paralel əməliyyatlar üçün [sahiblik və yayım müqavil�
 
 Panel bölmələri Etiraflar, Rəylər, Şikayətlər. Rollar və dil səlahiyyəti serverdə yoxlanır. Admin girişində MFA, moderasiya əməliyyatlarında səbəb və audit, nadir səlahiyyət dəyişikliklərində yenidən giriş təsdiqi. Qərar kartında adi istifadəçinin IP və e-poçtu göstərilmir.
 
+LAV-005 moderator panelində TOTP əsaslı MFA və birdəfəlik bərpa kodları var. TOTP açarı `MODERATOR_MFA_KEY` ilə ayrıca şifrələnir; bu açarı `APP_KEY`-dən fərqli və ehtiyat nüsxəsi qorunan sirr kimi saxla. İlk admin yalnız `LAVBE_ALLOW_ADMIN_BOOTSTRAP=true` olduqda, mövcud təsdiqlənmiş hesab üçün `php artisan moderator:bootstrap-admin USER_ID --confirm` əmri ilə verilir. Əməliyyatdan sonra bootstrap parametrini söndür. Hesab və MFA sirri seed edilmir.
+
+Panel və bütün moderator POST cavabları `private, no-store`, noindex və no-referrer başlıqları daşıyır. Hər moderator dili ayrıca aktiv grant tələb edir; `admin/*` moderator dil icazəsini əvəz etmir. TOTP son istifadə counter-i təkrar qəbul olunmur, MFA sessiya təsdiqi 5 dəqiqə qüvvədədir. Dərc, gizlətmə, bərpa və terminal silmə eyni tranzaksiyada versiya, audit və outbox qeydi yaradır. Outbox istehlakçısı görünürlük nəsilini yoxlamalıdır.
+
 ## Məzmun və spam
 
 Dərc qaydası şəxsi məlumatın ifşası, müəyyən edilə bilən şəxsə qarşı ittiham və təqib, təhdid, istismar, qrafik seksual məzmun və spamı əhatə edir. Kontekst qərarın əsas hissəsidir. Öz hissini ifadə edən və başqasına hücum edən mətn ayrıca qiymətləndirilir. Məxfilik pozuntusu mümkün olduqda qərarın kənar mediaya, metadata və şikayət detallarına təsirini yoxla. Yayıma uyğun, reklama uyğun olmayan mətn açıq və reklamsız qala bilər.

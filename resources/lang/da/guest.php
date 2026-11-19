@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Vælg en af de tilgængelige svarpræferencer.',
     'validation_refresh' => 'Opdater formularen, og send igen.',
     'write_too_many' => 'For mange forsøg. Vent lidt, og prøv igen.',
+    'write_withdraw' => 'Træk bekendelsen tilbage fra offentlig visning',
+    'write_confirm_withdraw' => 'Jeg bekræfter, at jeg vil trække bekendelsen tilbage.',
+    'write_republish' => 'Bed moderatorer om at gennemgå bekendelsen til genudgivelse',
+    'write_confirm_republish' => 'Jeg bekræfter, at den tidligere udgivne version skal gennemgås igen.',
+    'write_withdrawn' => 'Bekendelsen er trukket tilbage og er ikke offentlig.',
+    'write_republish_pending' => 'Anmodningen om en ny gennemgang afventer.',
 ];

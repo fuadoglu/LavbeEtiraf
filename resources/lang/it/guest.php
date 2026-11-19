@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Scegli una delle preferenze di risposta disponibili.',
     'validation_refresh' => 'Aggiorna il modulo e invialo di nuovo.',
     'write_too_many' => 'Troppi tentativi. Attendi un momento e riprova.',
+    'write_withdraw' => 'Rimuovi questa confessione dalla visualizzazione pubblica',
+    'write_confirm_withdraw' => 'Confermo di voler ritirare questa confessione.',
+    'write_republish' => 'Chiedi ai moderatori di riesaminare la confessione per ripubblicarla',
+    'write_confirm_republish' => 'Confermo che questa versione già pubblicata venga riesaminata.',
+    'write_withdrawn' => 'Questa confessione è stata ritirata e non è pubblica.',
+    'write_republish_pending' => 'La richiesta di riesame è in attesa.',
 ];
