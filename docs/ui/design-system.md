@@ -38,3 +38,5 @@ Açıq etiraf səhifəsi lent kartları ilə eyni səth, sərhəd, radius və k�
 Ortaq palitra krem fon, isti qəhvəyi vurğu və ağ kart səthlərindən qurulur. Lent və detail başlıqları eyni sans-serif ailəsindədir. Lent kartında kateqoriya və tarix yuxarıda, anonim ad aşağıda görünür.
 
 Dil seçiminin hər sətrində flag-icons dəstindən yerli SVG bayraq, native ad və onun altında ingiliscə ad göstərilir. Seçilmiş dil işarələnir. Dəstin mənbə commit-i və MIT lisenziyası public/icons/flags qovluğunda saxlanır.
+
+Hesab formalarında hər etiket konkret input ID-sinə bağlıdır. Validasiya xətası sahənin altında göstərilir və aria-describedby ilə həmin sahəyə bağlanır. Checkbox elementləri adi mətn inputunun tam en və minimum hündürlük qaydasından ayrıca ölçülənir.
