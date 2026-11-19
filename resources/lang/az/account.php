@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'register_title' => 'Hesab yarat', 'name' => 'Ad', 'email' => 'E-poçt', 'password' => 'Şifrə (ən azı 12 simvol)',
+    'password_confirmation' => 'Şifrəni təsdiqlə', 'register' => 'Hesab yarat', 'have_account' => 'Artıq hesabın var?',
+    'login_title' => 'Daxil ol', 'login' => 'Daxil ol', 'login_failed' => 'Bu məlumatlarla daxil olmaq mümkün olmadı.', 'remember' => 'Məni xatırla',
+    'need_account' => 'Hesab yarat', 'forgot_password' => 'Şifrəni unutmusan?', 'verification_title' => 'E-poçtunu təsdiqlə',
+    'verification_body' => 'Təsdiq keçidini e-poçtuna göndərdik. Hesabdan və qonaq yazılarını hesaba bağlamaqdan ötrü keçidi aç.',
+    'verification_resent' => 'E-poçt hələ təsdiqlənməyibsə, yeni təsdiq keçidi göndərildi.',
+    'verification_complete' => 'E-poçtun təsdiqləndi.', 'resend_verification' => 'Yeni təsdiq keçidi göndər',
+    'forgot_title' => 'Şifrəni yenilə', 'send_reset_link' => 'Yeniləmə keçidi göndər', 'reset_link_sent' => 'Bu ünvanla hesab varsa, şifrə yeniləmə keçidi göndərildi.',
+    'reset_title' => 'Yeni şifrə seç', 'reset_password' => 'Yeni şifrəni yadda saxla', 'reset_failed' => 'Bu yeniləmə keçidi yanlışdır və ya vaxtı bitib.',
+    'password_reset' => 'Şifrən dəyişdirildi. Yeni şifrə ilə daxil ol.', 'logout' => 'Çıxış', 'my_title' => 'Lavbe bölməm',
+    'my_intro' => 'Hesabında yalnız buraya bağladığın yazılar və izləmələr görünür.', 'my_confessions' => 'Etiraflarım',
+    'my_comments' => 'Rəylərim', 'my_follows' => 'İzlədiklərim', 'my_notifications' => 'Bildirişlər', 'nothing_yet' => 'Hələlik burada heç nə yoxdur.', 'open_confession' => 'Etirafı aç',
+    'preferences' => 'Bildiriş seçimləri', 'in_app' => 'Tətbiqdaxili bildirişlər', 'email_notifications' => 'E-poçt bildirişləri (istəyə bağlı)',
+    'preferences_save' => 'Seçimləri yadda saxla', 'preferences_saved' => 'Seçimlərin yadda saxlandı.', 'follow' => 'Yenilikləri izlə',
+    'login_to_follow' => 'Yenilikləri izləmək üçün daxil ol və e-poçtunu təsdiqlə.', 'follow_saved' => 'Bu etiraf izlədiklərinə əlavə edildi.',
+    'follow_removed' => 'Bu etiraf izlədiklərindən çıxarıldı.', 'unfollow' => 'İzləmədən çıx', 'claim' => 'Bu yazını hesabıma bağla',
+    'claim_complete' => 'Bu yazı hesabına bağlandı. Əvvəlki qonaq girişləri ləğv edildi.',
+    'notification_subject' => 'İzlədiyin etirafda yeni fəaliyyət var', 'notification_greeting' => 'Salam',
+    'notification_body' => 'İzlədiyin etiraflardan birində yeni fəaliyyət var. Şəxsi izləmə siyahına baxmaq üçün daxil ol.',
+    'notification_action' => 'Lavbe bölməmə keç', 'notification_footer' => 'Bu məktubda hekayə mətni yoxdur. E-poçt bildirişlərini hesabında dəyişə bilərsən.',
+    'activity_available' => 'İzlədiyin etirafda yeni fəaliyyət var.', 'mark_read' => 'Oxunmuş et', 'unread' => 'Oxunmayıb', 'read' => 'Oxunub',
+];

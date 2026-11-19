@@ -363,6 +363,9 @@ class GuestConfessionController extends Controller
     {
         $token = $request->cookie($this->ownerCookieName($confession));
         $ownership = $confession->ownership;
+        if ($ownership?->user_id !== null) {
+            return (int) $request->user()?->getAuthIdentifier() === (int) $ownership->user_id;
+        }
         $sessionHash = $ownership?->session_token_hash;
         $ownerCookieHash = $ownership?->owner_token_hash;
         $sessionMatches = is_string($sessionHash) && hash_equals($sessionHash, $this->keyedHash($request->session()->getId()));

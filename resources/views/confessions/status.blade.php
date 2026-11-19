@@ -15,6 +15,9 @@
             </article>
         @endif
         <a href="{{ route('confessions.recovery.form', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">{{ __('guest.write_recover_title') }}</a>
+        @if(auth()->check() && auth()->user()->hasVerifiedEmail() && ! $confession->ownership?->user_id)
+            <form method="post" action="{{ route('account.confessions.claim', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">@csrf<button class="button button-secondary" type="submit">{{ __('account.claim') }}</button></form>
+        @endif
         @if(in_array($confession->status, ['public', 'unpublished'], true))
             <form method="post" action="{{ route('confessions.reviews', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">
                 @csrf

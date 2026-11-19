@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AccountAuthController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AppealController;
 use App\Http\Controllers\GuestConfessionController;
 use App\Http\Controllers\ModerationAdminController;
@@ -116,6 +118,28 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
 
         return $response->withCookie(cookie('lavbe_locale', $locale['segment'], 60 * 24 * 365, '/', null, $request->isSecure(), true, false, 'lax'));
     })->name('locale.select');
+
+    Route::get('/account/register', [AccountAuthController::class, 'registerForm'])->middleware([PrivateResponseHeaders::class, 'guest'])->name('account.register');
+    Route::post('/account/register', [AccountAuthController::class, 'register'])->middleware([PrivateResponseHeaders::class, 'guest', 'throttle:5,1'])->name('account.register.store');
+    Route::get('/account/login', [AccountAuthController::class, 'loginForm'])->middleware([PrivateResponseHeaders::class, 'guest'])->name('account.login');
+    Route::post('/account/login', [AccountAuthController::class, 'login'])->middleware([PrivateResponseHeaders::class, 'guest', 'throttle:8,1'])->name('account.login.store');
+    Route::get('/account/email/verify', [AccountAuthController::class, 'verificationNotice'])->middleware([PrivateResponseHeaders::class, 'auth'])->name('verification.notice');
+    Route::get('/account/email/verify/{id}/{hash}', [AccountAuthController::class, 'verify'])->whereNumber('id')->middleware([PrivateResponseHeaders::class, 'auth', 'signed', 'throttle:10,1'])->name('verification.verify');
+    Route::post('/account/email/verification-notification', [AccountAuthController::class, 'resendVerification'])->middleware([PrivateResponseHeaders::class, 'auth', 'throttle:3,1'])->name('verification.send');
+    Route::get('/account/password/forgot', [AccountAuthController::class, 'forgotForm'])->middleware([PrivateResponseHeaders::class, 'guest'])->name('password.request');
+    Route::post('/account/password/forgot', [AccountAuthController::class, 'forgot'])->middleware([PrivateResponseHeaders::class, 'guest', 'throttle:5,1'])->name('password.email');
+    Route::get('/account/password/reset/{token}', [AccountAuthController::class, 'resetForm'])->middleware([PrivateResponseHeaders::class, 'guest'])->name('password.reset');
+    Route::post('/account/password/reset', [AccountAuthController::class, 'reset'])->middleware([PrivateResponseHeaders::class, 'guest', 'throttle:5,1'])->name('password.update');
+    Route::post('/account/logout', [AccountAuthController::class, 'logout'])->middleware([PrivateResponseHeaders::class, 'auth'])->name('account.logout');
+    Route::middleware(['auth', 'verified', PrivateResponseHeaders::class])->group(function (): void {
+        Route::get('/my', [AccountController::class, 'home'])->name('account.home');
+        Route::put('/my/preferences', [AccountController::class, 'preferences'])->name('account.preferences');
+        Route::post('/my/follows/{publicId}', [AccountController::class, 'follow'])->whereUuid('publicId')->name('account.follow');
+        Route::delete('/my/follows/{publicId}', [AccountController::class, 'unfollow'])->whereUuid('publicId')->name('account.unfollow');
+        Route::post('/my/notifications/{notificationId}/read', [AccountController::class, 'readNotification'])->whereNumber('notificationId')->name('account.notifications.read');
+        Route::post('/my/{publicId}/claim', [AccountController::class, 'claimConfession'])->whereUuid('publicId')->name('account.confessions.claim');
+        Route::post('/my/comments/{publicId}/claim', [AccountController::class, 'claimComment'])->whereUuid('publicId')->name('account.comments.claim');
+    });
 
     Route::get('/topics/{category}', function (string $locale, string $category, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
         abort_unless($locales->bySegment($locale), 404);
