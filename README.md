@@ -12,7 +12,8 @@
 | UI atlası | **Hazırdır.** 18 ekranın mobil və masaüstü görünüşləri, gündüz/gecə və əsas vəziyyətləri yoxlamaq mümkündür. |
 | Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya və 204 kateqoriya etiketi. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
 | Laravel tətbiqi | **LAV-001 PR #4 açıqdır.** Laravel 13/Blade əsası, MySQL smoke testi və CI hazırdır. |
-| Ortaq UI komponentləri | **[LAV-002](https://github.com/fuadoglu/LavbeEtiraf/issues/5) icradadır.** İş həcmi backlog və UI-01/UI-04 qəbul meyarlarına əsaslanır. |
+| Ortaq UI komponentləri | **[LAV-002](https://github.com/fuadoglu/LavbeEtiraf/pull/6) baxışdadır.** UI-01/UI-04 sübutları PR-da qeyd olunub; PR #4-ün əsasında branch edilib. |
+| Dil reyestri və lent | **[LAV-003](https://github.com/fuadoglu/LavbeEtiraf/issues/7) açıqdır.** UI-02/LOC-01 scope və yoxlama sübutları issue-da dəqiqləşdirilib; PR #4 və #6 merge olunandan sonra başlayır. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla
