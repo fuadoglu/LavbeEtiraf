@@ -236,4 +236,148 @@ PHP;
             $user->delete();
         }
     }
+
+    public function test_mysql_decisions_serialize_double_approve_and_approve_hide_races(): void
+    {
+        $user = User::factory()->create();
+        ModeratorGrant::query()->create([
+            'user_id' => $user->id,
+            'role' => 'moderator',
+            'locale' => 'en',
+            'reason' => 'synthetic MySQL decision race grant',
+        ]);
+
+        $doubleApprove = Confession::query()->create([
+            'locale' => 'en',
+            'status' => 'unpublished',
+            'title' => '',
+            'body' => '',
+            'public_id' => (string) Str::uuid(),
+            'author_alias' => 'Lavbe #D0B1E001',
+            'lock_version' => 1,
+            'visibility_version' => 1,
+        ]);
+        $pending = $doubleApprove->revisions()->create([
+            'revision' => 1,
+            'title' => 'Synthetic double approve title',
+            'body' => 'Synthetic double approve body',
+            'category_key' => 'family',
+            'status' => 'pending',
+        ]);
+        $this->runParallelDecisions($user, $doubleApprove, [
+            ['approve', $pending->id, 1],
+            ['approve', $pending->id, 1],
+        ]);
+        $this->assertSame('public', $doubleApprove->fresh()->status);
+        $this->assertSame(1, DB::table('moderation_audits')->where('target_public_id', $doubleApprove->public_id)->count());
+        $this->assertSame(1, DB::table('moderation_outbox')->where('target_public_id', $doubleApprove->public_id)->count());
+
+        $approveHide = Confession::query()->create([
+            'locale' => 'en',
+            'status' => 'public',
+            'title' => 'Synthetic current title',
+            'body' => 'Synthetic current body',
+            'category_key' => 'family',
+            'public_id' => (string) Str::uuid(),
+            'author_alias' => 'Lavbe #A990B11C',
+            'published_at' => now(),
+            'lock_version' => 2,
+            'visibility_version' => 2,
+        ]);
+        $publicRevision = $approveHide->revisions()->create([
+            'revision' => 1,
+            'title' => 'Synthetic current title',
+            'body' => 'Synthetic current body',
+            'category_key' => 'family',
+            'status' => 'approved',
+        ]);
+        $nextRevision = $approveHide->revisions()->create([
+            'revision' => 2,
+            'title' => 'Synthetic next title',
+            'body' => 'Synthetic next body',
+            'category_key' => 'family',
+            'status' => 'pending',
+        ]);
+        $approveHide->forceFill(['public_revision_id' => $publicRevision->id])->save();
+
+        $this->runParallelDecisions($user, $approveHide, [
+            ['approve', $nextRevision->id, 2],
+            ['hide', $publicRevision->id, 2],
+        ]);
+        $this->assertContains($approveHide->fresh()->status, ['public', 'hidden']);
+        $events = DB::table('moderation_outbox')->where('target_public_id', $approveHide->public_id)->get();
+        $this->assertCount(1, $events);
+        $this->assertSame(3, (int) $events->first()->visibility_version);
+
+        DB::table('moderation_audits')->whereIn('target_public_id', [$doubleApprove->public_id, $approveHide->public_id])->delete();
+        DB::table('moderation_outbox')->whereIn('target_public_id', [$doubleApprove->public_id, $approveHide->public_id])->delete();
+        $doubleApprove->delete();
+        $approveHide->delete();
+        $user->delete();
+    }
+
+    /** @param list<array{string, int, int}> $decisions */
+    private function runParallelDecisions(User $user, Confession $confession, array $decisions): void
+    {
+        $barrier = tempnam(sys_get_temp_dir(), 'lavbe-decisions-race-');
+        unlink($barrier);
+        $worker = <<<'PHP'
+require 'vendor/autoload.php';
+$app = require 'bootstrap/app.php';
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+while (! is_file($argv[6])) { usleep(1000); }
+try {
+    $app->make(App\Support\Moderation\ModerationService::class)->decide(
+        App\Models\User::query()->findOrFail((int) $argv[4]),
+        (int) $argv[2], (int) $argv[3], (int) $argv[5], $argv[1],
+        $argv[1] === 'approve' ? 'acceptable' : 'privacy', null, null,
+        $argv[7], false, (string) Illuminate\Support\Str::uuid(),
+    );
+    echo '200';
+} catch (Symfony\Component\HttpKernel\Exception\HttpException $exception) {
+    echo (string) $exception->getStatusCode();
+}
+PHP;
+        $environment = array_merge(getenv(), [
+            'APP_ENV' => 'testing',
+            'APP_KEY' => (string) config('app.key'),
+            'APP_URL' => 'http://localhost',
+            'DB_CONNECTION' => 'mysql',
+            'DB_HOST' => (string) config('database.connections.mysql.host'),
+            'DB_PORT' => (string) config('database.connections.mysql.port'),
+            'DB_DATABASE' => (string) config('database.connections.mysql.database'),
+            'DB_USERNAME' => (string) config('database.connections.mysql.username'),
+            'DB_PASSWORD' => (string) config('database.connections.mysql.password'),
+        ]);
+
+        try {
+            $processes = [];
+            foreach ($decisions as [$decision, $revisionId, $version]) {
+                $pipes = [];
+                $process = proc_open(
+                    [PHP_BINARY, '-r', $worker, $decision, (string) $confession->id, (string) $revisionId, (string) $user->id, (string) $version, $barrier, bin2hex(random_bytes(16))],
+                    [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
+                    $pipes,
+                    base_path(),
+                    $environment,
+                );
+                $this->assertIsResource($process);
+                fclose($pipes[0]);
+                $processes[] = [$process, $pipes];
+            }
+            file_put_contents($barrier, 'go');
+            $statuses = [];
+            foreach ($processes as [$process, $pipes]) {
+                $statuses[] = trim(stream_get_contents($pipes[1]));
+                $errorOutput = stream_get_contents($pipes[2]);
+                fclose($pipes[1]);
+                fclose($pipes[2]);
+                $this->assertSame(0, proc_close($process), $errorOutput === '' ? '' : 'Decision worker failed.');
+            }
+            sort($statuses);
+            $this->assertSame(['200', '409'], $statuses);
+        } finally {
+            @unlink($barrier);
+        }
+    }
 }
