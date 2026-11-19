@@ -247,6 +247,36 @@ def check_feed_translations(directory, catalog, report):
             report.errors.append(f"{path}: could not validate feed translations: {exc}")
 
 
+def check_guest_translations(directory, catalog, report):
+    expected_keys = {
+        "write_title", "write_intro", "write_subject", "write_body", "write_body_hint", "write_topic",
+        "write_expectation", "write_share", "write_similar", "write_advice", "write_age", "write_submit",
+        "write_pending_title", "write_pending_body", "write_recovery_title", "write_recovery_once",
+        "write_owner_link", "write_recover_title", "write_recovery_code", "write_recover_submit",
+        "write_status_title", "write_recovery_success", "write_duplicate_title", "write_duplicate_body",
+        "validation_body_required", "validation_body_max", "validation_age_required", "validation_title_max",
+        "write_remember_device", "write_conflict_body", "write_not_found", "write_unavailable",
+        "validation_topic", "validation_expectation", "validation_refresh", "write_too_many",
+    }
+    for locale in catalog["locales"]:
+        folder = "pt_BR" if locale["segment"] == "pt-br" else locale["segment"]
+        path = directory / folder / "guest.php"
+        report.check(path.is_file(), f"{path}: guest translation is missing.")
+        if not path.is_file():
+            continue
+        try:
+            result = subprocess.run(
+                ["php", "-r", '$messages = require $argv[1]; echo json_encode($messages, JSON_THROW_ON_ERROR);', str(path)],
+                check=True, capture_output=True, text=True,
+            )
+            messages = json.loads(result.stdout)
+            actual_keys = set(messages)
+            report.check(actual_keys == expected_keys, f"{path}: guest translation keys differ; missing {sorted(expected_keys - actual_keys)}, extra {sorted(actual_keys - expected_keys)}.")
+            report.check(all(isinstance(value, str) and value.strip() for value in messages.values()), f"{path}: guest translation contains an empty or non-string value.")
+        except (OSError, subprocess.CalledProcessError, json.JSONDecodeError) as exc:
+            report.errors.append(f"{path}: could not validate guest translations: {exc}")
+
+
 def verify(root, packages=None):
     report = Report([])
     documents = sorted([root / "README.md", root / "AGENTS.md", *root.glob("docs/**/*.md")])
@@ -260,6 +290,7 @@ def verify(root, packages=None):
     translations = root / "resources/lang"
     if translations.is_dir():
         check_feed_translations(translations, catalog, report)
+        check_guest_translations(translations, catalog, report)
     return report, len(documents), acceptance_count
 
 

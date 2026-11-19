@@ -21,7 +21,7 @@ Miqrasiyalar real açarlar və xarici açar məhdudiyyətlərindən istifadə ed
 ## Yazma və sahiblik
 
 - İctimai etiraf ID-si, iştirakçının etiraf daxilində 8-simvolluq təsadüfi aliası və bərpa sirri bir-birindən asılı deyil. Aliasın unikallığı etiraf üzrə yoxlanır, toqquşmada yeni dəyər yaradılır. Sahiblik aliasdan çıxarılmır.
-- Sessiya və qonaq identifikatoru HTTPS, Secure, HttpOnly, SameSite və CSRF qoruması ilə işləyir. Cihaz yaddaşı istəyə bağlıdır. Qonağın əməliyyat hüququ serverdə yoxlanır. Məxfi bərpa açarı form vasitəsilə ötürülür, heşlə saxlanır, istifadədən sonra rotasiya edilir və həmin etirafın əvvəlki qonaq idarəetmə icazəsi ləğv olunur.
+- Sessiya və qonaq identifikatoru HTTPS, Secure, HttpOnly, SameSite və CSRF qoruması ilə işləyir. Production-da session cookie Secure olur; HTTP development mühitində `SESSION_SECURE_COOKIE` verilmədən lokal istifadə mümkündür. Cihaz yaddaşı istəyə bağlıdır. Qonağın əməliyyat hüququ serverdə yoxlanır. Məxfi bərpa açarı form vasitəsilə ötürülür, heşlə saxlanır, istifadədən sonra rotasiya edilir və həmin etirafın əvvəlki qonaq idarəetmə icazəsi ləğv olunur.
 - Hesaba keçid açıq məzmunu ictimai hesabla bağlamır. İctimai müəllif serializasiyasında e-poçt, hesab ID-si, qonaq açarı və başqa etiraf əlaqəsi yoxdur.
 - Göndəriş, rəy, reaksiya, şikayət və moderator qərarında təkrar sorğular təhlükəsizdir. Müştəri idempotent açar göndərir, server təkrar əməliyyatı bir nəticəyə bağlayır. Köhnə moderator ekranından yeni versiya üzərində qərar verilə bilməz.
 - Təsdiq tranzaksiyasında açıq versiya, sitemap üçün mənbə vəziyyəti və outbox hadisəsi birlikdə yazılır. Oxu və sitemap cari committed vəziyyətdən hesablana bilir. Xarici göndəriş yayımı bloklamır.

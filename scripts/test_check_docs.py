@@ -144,3 +144,11 @@ class DocsTests(unittest.TestCase):
         path.write_text(content, encoding="utf-8")
         report, _, _ = verify(self.root)
         self.assertTrue(any("resources/lang/ja/lavbe.php: feed translation keys differ" in error for error in report.errors))
+
+    def test_guest_ui_translation_contract_fails_when_key_is_missing(self):
+        path = self.root / "resources/lang/ja/guest.php"
+        content = path.read_text(encoding="utf-8")
+        content = content.replace("    'write_submit' => '確認に送信',\n", "")
+        path.write_text(content, encoding="utf-8")
+        report, _, _ = verify(self.root)
+        self.assertTrue(any("resources/lang/ja/guest.php: guest translation keys differ" in error for error in report.errors))

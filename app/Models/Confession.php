@@ -6,6 +6,8 @@ use Database\Factories\ConfessionFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Confession extends Model
 {
@@ -18,16 +20,28 @@ class Confession extends Model
 
     protected $fillable = [
         'locale', 'category_key', 'status', 'title', 'body', 'excerpt', 'published_at',
+        'public_id', 'author_alias', 'response_expectation', 'submission_key_hash', 'payload_fingerprint',
+        'age_confirmed_at',
     ];
 
     protected function casts(): array
     {
-        return ['published_at' => 'immutable_datetime'];
+        return ['published_at' => 'immutable_datetime', 'age_confirmed_at' => 'immutable_datetime'];
     }
 
     /** @param Builder<Confession> $query */
     public function scopePublic(Builder $query): Builder
     {
         return $query->where('status', 'public')->whereNotNull('published_at');
+    }
+
+    public function revisions(): HasMany
+    {
+        return $this->hasMany(ConfessionRevision::class);
+    }
+
+    public function ownership(): HasOne
+    {
+        return $this->hasOne(ConfessionOwnership::class);
     }
 }
