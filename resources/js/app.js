@@ -249,7 +249,7 @@
             const night = root.dataset.theme === 'night';
             themeButton.setAttribute('aria-pressed', String(night));
             themeButton.setAttribute('aria-label', night ? 'Gündüz görünüşünü aktiv et' : 'Gecə görünüşünü aktiv et');
-            if (themeColor) themeColor.content = night ? '#181521' : '#faf7f2';
+            if (themeColor) themeColor.content = themeColor.dataset[night ? 'night' : 'day'];
         };
 
         updateThemeButton();

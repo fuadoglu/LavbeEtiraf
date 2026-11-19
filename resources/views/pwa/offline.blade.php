@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#faf7f2">
+    <x-theme-colors />
     <meta name="robots" content="noindex,nofollow,noarchive">
     <title>{{ $labels['offline_title'] }} · Lavbe</title>
     <link rel="icon" href="/icons/lavbe-192.png" type="image/png">
