@@ -10,6 +10,14 @@ Bu sənəd ana və kateqoriya lentinin server, JavaScript və botlar üçün vah
 | Davam fragmenti | Daha çox düyməsi və mövqe qorunması | `/{locale}/feed-fragment?cursor=…`. Server ilk HTML-də imzalı cursor verir. Hər cavab HTML fragment, növbəti URL və cursor, sona çatma göstəricisi verir. |
 | Açıq axtarış forması | Həmin dildə təsdiqlənmiş etiraf tapmaq | `/{locale}/search`. Açılış GET-dir, axtarış mətni POST ilə ötürülür. İctimai cavab noindex, no-store, reklamsız, analitika sorğusu göndərmir. |
 
+## İcra sərhədi (LAV-003)
+
+`/{locale}/` və `/{locale}/topics/{key}` serverdə ilkin HTML və 12-lik paginator verir. Read model `confessions` cədvəlindən yalnız `status=public`, `published_at` dolu və cari locale qeydlərini oxuyur. Sınaq məlumatı yalnız test factory-dədir; production seeder yoxdur. Yeni sıra `published_at DESC, id DESC`-dir. Həftəlik rejim son 7 günü eyni xronoloji sırada göstərir; updates rejimi `updated_at DESC, id DESC` istifadə edir. Bunlar ilkin oxu sıralarıdır, sabit snapshot və hesablama balı hələ deyil.
+
+Cursor Laravel `Crypt` ilə autentifikasiya/şifrələmə olunur; locale, kateqoriya, order, offset, versiya və 60 dəqiqəlik bitmə vaxtına bağlanır. Fragment endpoint HTML qaytarır, `X-Robots-Tag: noindex` və `Cache-Control: no-store` verir. Axtarış GET formu göstərir və POST ilə axtarır; mətn URL-də saxlanmır, nəticələr locale və public status ilə məhdudlaşır, cavab noindex/no-store/private/no-referrer-dir. DB-də tam mətn axtarışı üçün bu scope-da sadə LIKE istifadə olunur.
+
+LAV-003-də snapshot cədvəli, visibility revision, support/comment cədvəllərinə əsaslanan score, Tokyo/Seoul tokenizer və MySQL full-text index yoxdur. Həftəlik/updates snapshot və ranking LAV-004/005 məzmun həyat dövrü ilə birlikdə əlavə edilməlidir. Tətbiq hazırkı modeli onların mövcud olduğunu iddia etmir.
+
 Hər iki lent eyni sorğuda `locale`, kateqoriya və cari açıq vəziyyəti yoxlayır. Açıq başlıq, snippet və kart yalnız təsdiqlənmiş versiyadan gəlir. Sıralama `new`, `weekly` və `updates` allowlist-dən gəlir. Əsas standart `new`-dur, axtarış motoruna təqdim olunan ardıcıl səhifələr də bu sıradadır.
 
 ## Dəqiq səhifələmə

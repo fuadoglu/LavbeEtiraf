@@ -1,37 +1,62 @@
 @extends('layouts.app')
 
 @php
-    $topicLabels = config('lavbe.categories');
+    $topic = $category ? app(App\Support\Lavbe\LocaleRegistry::class)->category($category) : null;
     $sortLabels = config('lavbe.feed_orders');
 @endphp
 
-@section('title', ($category ? $topicLabels[$category] ?? 'Mövzu' : 'Etiraflar lenti').' · Lavbe')
+@section('title', ($topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title')).' · Lavbe')
+
+@push('head')
+    <link rel="canonical" href="{{ request()->url() }}">
+    @if($confessions->currentPage() > 1)<meta name="robots" content="noindex,follow">@endif
+    @if($confessions->nextPageUrl())<link rel="next" href="{{ $confessions->nextPageUrl() }}">@endif
+@endpush
 
 @section('content')
     <section aria-labelledby="feed-title">
         <div class="page-heading">
-            <h1 id="feed-title">{{ $category ? $topicLabels[$category] ?? 'Mövzu' : 'Etiraflar Vadisi' }}</h1>
-            <p>Oxu, dinlə və özünü tək hiss etmə.</p>
+            <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
+            <p>{{ __('lavbe.feed_subtitle') }}</p>
         </div>
 
         <div class="feed-controls">
-            <x-topic-panel :selected="$category" />
-            <nav class="sort-panel" aria-label="Lentin sıralanması">
+            <x-topic-panel :selected="$category" :categories="$categories" />
+            <a class="button button-secondary" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}">{{ __('lavbe.search_title') }}</a>
+            <nav class="sort-panel" aria-label="{{ __('lavbe.sort_label') }}">
                 @foreach($sortLabels as $key => $label)
                     @php
                         $href = $category
-                            ? route('topic.show', ['category' => $category, 'sort' => $key])
-                            : route('home', ['sort' => $key]);
+                            ? route('topic.show', ['locale' => $lavbeLocale['segment'], 'category' => $category, 'sort' => $key])
+                            : route('home', ['locale' => $lavbeLocale['segment'], 'sort' => $key]);
                     @endphp
-                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif>{{ $label }}</a>
+                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif>{{ $sortLabels[$key] }}</a>
                 @endforeach
             </nav>
         </div>
 
-        <div class="empty-state">
-            <x-icon name="book-open" class="icon-large" />
-            <h2>{{ $category ? 'Bu mövzuda hələ etiraf yoxdur.' : 'Hələ dərc olunmuş etiraf yoxdur' }}</h2>
-            <p>Təsdiqlənmiş hekayələr öz dilində burada görünəcək. Bu lent başqa dildən məzmun göstərmir.</p>
-        </div>
+        @if($confessions->isEmpty())
+            <div class="empty-state">
+                <x-icon name="book-open" class="icon-large" />
+                <h2>{{ $category ? __('lavbe.category_empty') : __('lavbe.feed_empty') }}</h2>
+                <p>{{ __('lavbe.feed_empty_description') }}</p>
+            </div>
+        @else
+            <div class="confession-feed feed-list" aria-label="{{ __('lavbe.feed_title') }}" data-feed data-next-cursor="{{ $feedCursor }}">
+                <x-feed-items :confessions="$confessions" />
+            </div>
+            @if($confessions->hasPages())
+            <nav aria-label="{{ __('lavbe.pagination') }}" class="sort-panel">
+                    @if($confessions->previousPageUrl()) <a href="{{ $confessions->previousPageUrl() }}">{{ __('lavbe.previous') }}</a> @endif
+                    @if($confessions->nextPageUrl()) <a href="{{ $confessions->nextPageUrl() }}">{{ __('lavbe.next') }}</a> @endif
+                </nav>
+            @endif
+        @endif
+        @if($feedCursor && $confessions->total() > 12)
+            <button type="button" class="button button-secondary" data-feed-more data-endpoint="{{ route('feed.fragment', ['locale' => $lavbeLocale['segment'], 'order' => $sort, 'category' => $category]) }}">
+                {{ __('lavbe.next') }}
+            </button>
+            <button type="button" class="muted" data-feed-status data-retry-label="{{ __('lavbe.retry') }}" data-refresh-label="{{ __('lavbe.refresh') }}" hidden aria-live="polite"></button>
+        @endif
     </section>
 @endsection

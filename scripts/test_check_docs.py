@@ -56,6 +56,8 @@ class DocsTests(unittest.TestCase):
             shutil.copytree(ROOT / name, self.root / name)
         for name in ("README.md", "AGENTS.md"):
             shutil.copy2(ROOT / name, self.root / name)
+        if (ROOT / "resources/lang").is_dir():
+            shutil.copytree(ROOT / "resources/lang", self.root / "resources/lang")
 
     def test_baseline_passes(self):
         report, _, _ = verify(self.root)
@@ -134,3 +136,11 @@ class DocsTests(unittest.TestCase):
         self.assertIn("ru.json:write.body: raw HTML is outside the message contract.", report.errors)
         self.assertIn("ru.json:notifications.new_comments: invalid plural forms.", report.errors)
         self.assertIn("ru.json: duplicate category slug.", report.errors)
+
+    def test_feed_ui_translation_contract_fails_when_key_is_missing(self):
+        path = self.root / "resources/lang/ja/lavbe.php"
+        content = path.read_text(encoding="utf-8")
+        content = content.replace(", 'refresh' => 'フィードを更新'", "")
+        path.write_text(content, encoding="utf-8")
+        report, _, _ = verify(self.root)
+        self.assertTrue(any("resources/lang/ja/lavbe.php: feed translation keys differ" in error for error in report.errors))

@@ -2,20 +2,35 @@
 
 namespace Tests\Feature;
 
+use App\Models\Confession;
+use App\Support\Lavbe\FeedCursor;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UiFoundationTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        config(['session.driver' => 'array']);
+    }
+
     public function test_home_page_keeps_the_global_empty_feed_message(): void
     {
-        $this->get('/')
+        $response = $this->get('/');
+        $this->assertSame('en', app()->getLocale());
+        $response->assertRedirect('/en/');
+
+        $this->get('/az/')
             ->assertOk()
             ->assertSee('Hələ dərc olunmuş etiraf yoxdur');
     }
 
     public function test_topic_page_uses_the_shared_feed_layout_and_selected_filter(): void
     {
-        $this->get('/topic/family')
+        $this->get('/az/topics/family')
             ->assertOk()
             ->assertSee('Ailə')
             ->assertSee('aria-current="page"', false)
@@ -25,7 +40,7 @@ class UiFoundationTest extends TestCase
 
     public function test_unknown_topic_uses_the_styled_not_found_screen(): void
     {
-        $this->get('/topic/not-a-category')
+        $this->get('/az/topics/not-a-category')
             ->assertNotFound()
             ->assertSee('Bu səhifə tapılmadı')
             ->assertSee('Oxu lentinə qayıt');
@@ -46,5 +61,100 @@ class UiFoundationTest extends TestCase
         app()->detectEnvironment(fn () => 'production');
 
         $this->get('/_ui/admin-preview')->assertNotFound();
+    }
+
+    public function test_explicit_locale_is_not_overridden_and_language_choice_persists(): void
+    {
+        $this->withHeaders(['Accept-Language' => 'ja,en;q=0.5'])
+            ->get('/az/')
+            ->assertOk()
+            ->assertSee('<html lang="az"', false);
+
+        $this->post('/az/language', ['locale' => 'tr', 'return_to' => '/az/topics/family?sort=weekly'])
+            ->assertRedirect('/tr/topics/family?sort=weekly')
+            ->assertCookie('lavbe_locale');
+
+        $this->withCookie('lavbe_locale', 'tr')->get('/')
+            ->assertRedirect('/tr/');
+    }
+
+    public function test_first_visit_uses_language_then_country_then_english(): void
+    {
+        $this->withHeaders(['Accept-Language' => 'ja;q=0.9,en;q=0.5'])
+            ->get('/')
+            ->assertRedirect('/ja/');
+
+        $this->withHeaders(['Accept-Language' => '', 'CF-IPCountry' => 'AZ'])
+            ->get('/')
+            ->assertRedirect('/az/');
+
+        $this->withHeaders(['Accept-Language' => '', 'CF-IPCountry' => 'XX'])
+            ->get('/')
+            ->assertRedirect('/en/');
+    }
+
+    public function test_feed_renders_only_public_same_locale_records_in_twelve_item_pages(): void
+    {
+        Confession::factory()->count(13)->create(['locale' => 'az']);
+        Confession::factory()->create(['locale' => 'en', 'title' => 'Other locale story']);
+        Confession::factory()->create(['locale' => 'az', 'status' => 'draft', 'title' => 'Private draft']);
+
+        $this->get('/az/')
+            ->assertOk()
+            ->assertDontSee('Other locale story')
+            ->assertDontSee('Private draft')
+            ->assertSee('Daha çox')
+            ->assertSee('Sınaq hekayəsi');
+
+        $this->get('/az/?page=2')
+            ->assertOk()
+            ->assertDontSee('<link rel="next"', false)
+            ->assertSee('<meta name="robots" content="noindex,follow">', false);
+    }
+
+    public function test_feed_cursor_is_bound_to_locale_and_filter_and_fragments_exclude_robots(): void
+    {
+        Confession::factory()->count(13)->create(['locale' => 'az']);
+        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 12);
+
+        $this->get('/az/feed-fragment?cursor='.urlencode($cursor).'&order=new')
+            ->assertOk()
+            ->assertHeader('X-Robots-Tag', 'noindex')
+            ->assertJsonPath('has_more', false)
+            ->assertJsonPath('next_cursor', null);
+
+        $this->get('/az/feed-fragment?cursor='.urlencode($cursor).'&order=new&category=family')->assertBadRequest();
+
+        $this->get('/en/feed-fragment?cursor='.urlencode($cursor).'&order=new')->assertBadRequest();
+        $this->get('/az/feed-fragment?cursor=broken&order=new')->assertBadRequest();
+    }
+
+    public function test_search_is_same_locale_posted_and_private_from_cache_and_referrers(): void
+    {
+        Confession::factory()->create(['locale' => 'az', 'title' => 'İstanbul işıqları']);
+        Confession::factory()->create(['locale' => 'en', 'title' => 'İstanbul other language']);
+        Confession::factory()->create(['locale' => 'ja', 'title' => '家族のことを話したい']);
+
+        $this->post('/az/search', ['q' => 'İstanbul'])
+            ->assertOk()
+            ->assertSee('İstanbul işıqları')
+            ->assertDontSee('İstanbul other language')
+            ->assertHeader('X-Robots-Tag', 'noindex')
+            ->assertHeader('Cache-Control', 'no-store, private')
+            ->assertHeader('Referrer-Policy', 'no-referrer')
+            ->assertDontSee('value="İstanbul"', false);
+
+        $this->post('/ja/search', ['q' => '家族'])
+            ->assertOk()
+            ->assertSee('家族のことを話したい');
+    }
+
+    public function test_expired_cursor_returns_gone(): void
+    {
+        $this->travelTo(now()->subHours(2));
+        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 12);
+        $this->travelBack();
+
+        $this->get('/az/feed-fragment?cursor='.urlencode($cursor).'&order=new')->assertStatus(410);
     }
 }

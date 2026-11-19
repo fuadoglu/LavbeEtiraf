@@ -11,9 +11,9 @@
 | Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və 27 qəbul ssenarisi repodadır. |
 | UI atlası | **Hazırdır.** 18 ekranın mobil və masaüstü görünüşləri, gündüz/gecə və əsas vəziyyətləri yoxlamaq mümkündür. |
 | Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya və 204 kateqoriya etiketi. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
-| Laravel tətbiqi | **LAV-001 PR #4 açıqdır.** Laravel 13/Blade əsası, MySQL smoke testi və CI hazırdır. |
-| Ortaq UI komponentləri | **[LAV-002](https://github.com/fuadoglu/LavbeEtiraf/pull/6) baxışdadır.** UI-01/UI-04 sübutları PR-da qeyd olunub; PR #4-ün əsasında branch edilib. |
-| Dil reyestri və lent | **[LAV-003](https://github.com/fuadoglu/LavbeEtiraf/issues/7) açıqdır.** UI-02/LOC-01 scope və yoxlama sübutları issue-da dəqiqləşdirilib; PR #4 və #6 merge olunandan sonra başlayır. |
+| Laravel tətbiqi | **LAV-001 tamamlanıb.** Laravel 13/Blade əsası, MySQL smoke testi və CI `main`-dədir. |
+| Ortaq UI komponentləri | **LAV-002 tamamlanıb.** UI-01/UI-04 baza komponentləri və sübutları `main`-dədir. |
+| Dil reyestri və lent | **[LAV-003](https://github.com/fuadoglu/LavbeEtiraf/issues/7) icradadır.** UI-02/LOC-01: dil seçimi, feed read model, 12 kartlıq HTML səhifələmə, cursor, axtarış və 17 dil üzrə ilkin mətnlər. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla
@@ -61,7 +61,7 @@ composer test
 php artisan serve
 ```
 
-Ana səhifə `http://127.0.0.1:8000`, Laravel health endpoint-i isə `http://127.0.0.1:8000/up` ünvanındadır. Cari iş əsas Blade layout-u və UI komponentlərini qurur; məlumat və məhsul axınları backlog üzrə sonrakı işlərdə əlavə olunur.
+İlk giriş `http://127.0.0.1:8000` dil seçiminə yönləndirir, məsələn `http://127.0.0.1:8000/en/`; Laravel health endpoint-i `http://127.0.0.1:8000/up` ünvanındadır. LAV-003 feed-i yalnız cari locale-də `public` və yayımlanma vaxtı olan qeydlərdən qurur. İstehsal etirafı və ilkin seed yoxdur.
 
 ## Sənəd xəritəsi
 

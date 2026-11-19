@@ -1,29 +1,143 @@
 <?php
 
+use App\Http\Middleware\SetLocale;
+use App\Support\Lavbe\FeedCursor;
+use App\Support\Lavbe\FeedQuery;
+use App\Support\Lavbe\LocaleRegistry;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $categories = array_keys(config('lavbe.categories'));
-    $orders = array_keys(config('lavbe.feed_orders'));
-    $category = request()->query('category');
-    $sort = request()->query('sort', 'new');
+Route::get('/', function (Request $request, LocaleRegistry $locales) {
+    $locale = $locales->resolveTag((string) $request->cookie('lavbe_locale'))
+        ?? $locales->fromAcceptLanguage([(string) $request->header('Accept-Language', '')])
+        ?? $locales->fromCountry($request->header('CF-IPCountry'), (string) $request->header('Accept-Language', ''))
+        ?? $locales->fallback();
 
-    return view('home', [
-        'category' => in_array($category, $categories, true) ? $category : null,
-        'sort' => in_array($sort, $orders, true) ? $sort : 'new',
-    ]);
-})->name('home');
+    return redirect()->route('home', ['locale' => $locale['segment']], 302);
+})->name('root');
 
-Route::get('/topic/{category}', function (string $category) {
-    abort_unless(array_key_exists($category, config('lavbe.categories')), 404);
+Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middleware(SetLocale::class)->group(function (): void {
+    Route::get('/', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
+        abort_unless($locales->bySegment($locale), 404);
+        $sort = $request->query('sort', 'new');
+        abort_unless(in_array($sort, array_keys(config('lavbe.feed_orders')), true), 404);
+        $category = $request->query('category');
+        if ($category !== null) {
+            return redirect()->route('topic.show', ['locale' => $request->route('locale'), 'category' => $category, 'sort' => $sort]);
+        }
 
-    $sort = request()->query('sort', 'new');
+        $categories = collect($locales->catalog()['categories'])
+            ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
+            ->all();
 
-    return view('home', [
+        $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate(12)->withQueryString();
+
+        return view('home', [
+            'category' => $category,
+            'sort' => $sort,
+            'locale' => $request->attributes->get('lavbe.locale'),
+            'categories' => $categories,
+            'confessions' => $confessions,
+            'feedCursor' => $confessions->currentPage() === 1 ? app(FeedCursor::class)->issue(app()->getLocale(), $category, $sort, $confessions->lastItem() ?? 0) : null,
+        ]);
+    })->name('home');
+
+    Route::post('/language', function (string $localeSegment, Request $request, LocaleRegistry $locales) {
+        abort_unless($locales->bySegment($localeSegment), 404);
+        $validated = $request->validate(['locale' => ['required', 'string', 'max:10']]);
+        $locale = $locales->bySegment($validated['locale']);
+        abort_unless($locale, 422);
+
+        $returnTo = (string) $request->input('return_to', '/'.$locale['segment'].'/');
+        $path = parse_url((string) $returnTo, PHP_URL_PATH);
+        $query = parse_url((string) $returnTo, PHP_URL_QUERY);
+        if (! is_string($path) || ! preg_match('#^/[a-z]{2}(?:-[a-z]{2})?(?:/topics/[a-z0-9-]+)?/?$#', $path)) {
+            $path = '/'.$locale['segment'].'/';
+            $query = null;
+        } else {
+            $path = preg_replace('#^/[a-z]{2}(?:-[a-z]{2})?(?=/|$)#', '/'.$locale['segment'], $path);
+            parse_str((string) $query, $queryParameters);
+            unset($queryParameters['cursor']);
+            $query = http_build_query($queryParameters);
+        }
+        $destination = $path.($query ? '?'.$query : '');
+        $response = response('', 303)->header('Location', $destination);
+
+        return $response->withCookie(cookie('lavbe_locale', $locale['segment'], 60 * 24 * 365, '/', null, $request->isSecure(), true, false, 'lax'));
+    })->name('locale.select');
+
+    Route::get('/topics/{category}', function (string $locale, string $category, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
+        abort_unless($locales->bySegment($locale), 404);
+        abort_unless($locales->category($category), 404);
+        $sort = $request->query('sort', 'new');
+        abort_unless(in_array($sort, array_keys(config('lavbe.feed_orders')), true), 404);
+
+        $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate(12)->withQueryString();
+
+        return view('home', [
+            'category' => $category,
+            'sort' => $sort,
+            'locale' => $request->attributes->get('lavbe.locale'),
+            'categories' => collect($locales->catalog()['categories'])
+                ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
+                ->all(),
+            'confessions' => $confessions,
+            'feedCursor' => $confessions->currentPage() === 1 ? app(FeedCursor::class)->issue(app()->getLocale(), $category, $sort, $confessions->lastItem() ?? 0) : null,
+        ]);
+    })->name('topic.show');
+
+    Route::get('/feed-fragment', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed, FeedCursor $cursors) {
+        abort_unless($locales->bySegment($locale), 404);
+        $order = (string) $request->query('order', 'new');
+        abort_unless(in_array($order, array_keys(config('lavbe.feed_orders')), true), 400);
+        $category = $request->query('category');
+        $category = $category === null ? null : (string) $category;
+        abort_if($category !== null && ! $locales->category($category), 400);
+        $position = $cursors->read((string) $request->query('cursor', ''), app()->getLocale(), $category, $order)['offset'];
+        $items = $feed->build(app()->getLocale(), $category, $order)->skip($position)->take(13)->get();
+        $hasMore = $items->count() > 12;
+        $items = $items->take(12);
+        $nextPosition = $position + $items->count();
+        $nextCursor = $hasMore ? $cursors->issue(app()->getLocale(), $category, $order, $nextPosition) : null;
+
+        return response()->json([
+            'html' => view('components.feed-items', ['confessions' => $items])->render(),
+            'next_url' => $nextCursor ? route('feed.fragment', ['locale' => $locale, 'order' => $order, 'category' => $category, 'cursor' => $nextCursor]) : null,
+            'next_cursor' => $nextCursor,
+            'has_more' => $hasMore,
+        ])->header('X-Robots-Tag', 'noindex')->header('Cache-Control', 'no-store');
+    })->name('feed.fragment');
+
+    Route::match(['GET', 'POST'], '/search', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
+        abort_unless($locales->bySegment($locale), 404);
+        $query = trim((string) ($request->isMethod('post') ? $request->input('q', '') : $request->query('q', '')));
+        $results = null;
+        if ($query !== '') {
+            $results = $feed->build(app()->getLocale(), null, 'new')
+                ->where(function ($builder) use ($query): void {
+                    $builder->where('title', 'like', '%'.$query.'%')->orWhere('body', 'like', '%'.$query.'%');
+                })->paginate(12);
+        }
+
+        return response()->view('search', compact('query', 'results'))
+            ->header('X-Robots-Tag', 'noindex')
+            ->header('Cache-Control', 'no-store, private')
+            ->header('Referrer-Policy', 'no-referrer');
+    })->name('search');
+});
+
+Route::get('/topic/{category}', function (string $category, Request $request, LocaleRegistry $locales) {
+    abort_unless($locales->category($category), 404);
+    $locale = $locales->resolveTag((string) $request->cookie('lavbe_locale'))
+        ?? $locales->fromAcceptLanguage([(string) $request->header('Accept-Language', '')])
+        ?? $locales->fallback();
+
+    return response('', 301)->header('Location', route('topic.show', [
+        'locale' => $locale['segment'],
         'category' => $category,
-        'sort' => in_array($sort, array_keys(config('lavbe.feed_orders')), true) ? $sort : 'new',
-    ]);
-})->name('topic.show');
+        'sort' => $request->query('sort', 'new'),
+    ]));
+})->name('topic.legacy');
 
 Route::get('/_ui/admin-preview', function () {
     abort_unless(app()->environment(['local', 'testing']), 404);
