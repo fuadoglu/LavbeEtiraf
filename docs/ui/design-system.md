@@ -36,3 +36,5 @@ Lokal məzmun baxışı üçün `php artisan db:seed --class=AzerbaijaniDemoConf
 Açıq etiraf səhifəsi lent kartları ilə eyni səth, sərhəd, radius və kölgə qaydasını paylaşır. Başlıq iri sans-serif, müəllif və tarix köməkçi metadata sətrindədir. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
 
 Ortaq palitra krem fon, isti qəhvəyi vurğu və ağ kart səthlərindən qurulur. Lent və detail başlıqları eyni sans-serif ailəsindədir. Lent kartında kateqoriya və tarix yuxarıda, anonim ad aşağıda görünür.
+
+Dil seçiminin hər sətrində flag-icons dəstindən yerli SVG bayraq, native ad və onun altında ingiliscə ad göstərilir. Seçilmiş dil işarələnir. Dəstin mənbə commit-i və MIT lisenziyası public/icons/flags qovluğunda saxlanır.

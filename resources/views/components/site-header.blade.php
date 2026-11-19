@@ -7,7 +7,7 @@
     <div class="header-actions">
         <details class="language-menu">
             <summary class="icon-button language-button" aria-label="{{ $lavbeLocale['native'] }}">
-                <x-icon name="languages" />
+                <img class="language-flag" src="{{ asset('icons/flags/'.strtolower($lavbeLocale['flag']).'.svg') }}" alt="" width="24" height="24">
                 <span>{{ strtoupper($lavbeLocale['segment']) }}</span>
                 <x-icon name="chevron-down" class="icon-small" />
             </summary>
@@ -19,7 +19,12 @@
                 <div class="language-options" data-language-options>
                     @foreach(app(App\Support\Lavbe\LocaleRegistry::class)->all() as $language)
                         <button type="submit" name="locale" value="{{ $language['segment'] }}" lang="{{ $language['code'] }}" dir="{{ $language['dir'] }}" data-language-option data-search="{{ mb_strtolower(implode(' ', app(App\Support\Lavbe\LocaleRegistry::class)->searchableNames($language))) }}" @if(app()->getLocale() === $language['code']) aria-current="true" @endif>
-                            <span>{{ $language['flag'] }} · {{ $language['native'] }}</span><small>{{ $language['english'] }}</small>
+                            <img class="language-flag" src="{{ asset('icons/flags/'.strtolower($language['flag']).'.svg') }}" alt="" width="32" height="32">
+                            <span class="language-names">
+                                <span>{{ $language['native'] }}</span>
+                                <small lang="en" dir="ltr">{{ $language['english'] }}</small>
+                            </span>
+                            @if(app()->getLocale() === $language['code'])<x-icon name="circle-check" class="icon-small language-selected" />@endif
                         </button>
                     @endforeach
                 </div>

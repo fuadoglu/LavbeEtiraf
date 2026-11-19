@@ -186,7 +186,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .language-picker input { width: 100%; padding: .6rem; border: 1px solid var(--edge); border-radius: .5rem; }
 .language-options { overflow-y: auto; overscroll-behavior: contain; padding: .3rem; }
 .language-options button { width: 100%; min-height: 2.8rem; padding: .5rem; text-align: start; cursor: pointer; border-radius: .4rem; }
-.language-options small { color: var(--muted); margin-inline-start: .5rem; }
+.language-options small { color: var(--muted); font-size: .8rem; font-weight: 400; line-height: 1.4; }
 .language-options button:hover, .language-options [aria-current], .topic-chip:hover { background: var(--hint); }
 @media (max-width: 600px) {
     html { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
@@ -285,3 +285,9 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 @media (hover: hover) {
     .confession-feed .story-card:hover { border-color: var(--edge); }
 }
+
+.language-flag { display: block; flex-shrink: 0; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
+.language-options button { display: flex; align-items: center; gap: .8rem; padding: .65rem; text-align: start; min-height: 4rem; }
+.language-options button[hidden] { display: none; }
+.language-names { display: grid; flex: 1; min-width: 0; gap: .15rem; font-size: .95rem; font-weight: 600; }
+.language-selected { color: var(--action); }
