@@ -3,7 +3,7 @@
     <div class="story-meta">
         <span class="story-topic">{{ $topic }}</span>
         @if($continued)
-            <span class="story-badge"><x-icon name="message-circle" class="icon-small" /> Davamı gəldi</span>
+            <span class="story-badge"><x-icon name="message-circle" class="icon-small" /> {{ __('lavbe.sort_updates') }}</span>
         @endif
     </div>
     <h2 class="story-title">{{ $title }}</h2>

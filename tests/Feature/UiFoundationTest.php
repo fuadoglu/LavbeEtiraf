@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Confession;
 use App\Support\Lavbe\FeedCursor;
+use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -48,6 +49,24 @@ class UiFoundationTest extends TestCase
         }
     }
 
+    public function test_error_and_shared_component_copy_is_localized_in_every_locale(): void
+    {
+        foreach (app(LocaleRegistry::class)->all() as $locale) {
+            $code = $locale['code'];
+            $this->get('/'.$locale['segment'].'/topics/does-not-exist')
+                ->assertNotFound()
+                ->assertSee(__('ui.missing', [], $code))
+                ->assertSee(__('ui.back', [], $code))
+                ->assertSee('Lavbe · '.__('lavbe.feed_title', [], $code));
+            $this->view('components.feed-skeleton')
+                ->assertSee(__('ui.loading', [], $code))
+                ->assertDontSee('ui.loading');
+            $this->view('components.dialog', ['id' => 'synthetic-dialog', 'title' => 'Synthetic title', 'slot' => ''])
+                ->assertSee(__('ui.close', [], $code))
+                ->assertDontSee('ui.close');
+        }
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -79,8 +98,8 @@ class UiFoundationTest extends TestCase
     {
         $this->get('/az/topics/not-a-category')
             ->assertNotFound()
-            ->assertSee('Bu səhifə tapılmadı')
-            ->assertSee('Oxu lentinə qayıt');
+            ->assertSee('Səhifə tapılmadı')
+            ->assertSee('Etiraflara qayıt');
     }
 
     public function test_search_query_limit_is_configurable_on_the_server(): void

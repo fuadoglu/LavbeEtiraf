@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Səhifə tapılmadı · Lavbe')
+@section('title', __('ui.missing').' · Lavbe')
 
 @section('content')
     <section class="not-found" aria-labelledby="not-found-title">
         <p class="not-found-code" aria-hidden="true">404</p>
-        <h1 id="not-found-title">Bu səhifə tapılmadı</h1>
-        <p class="muted">Ünvan dəyişmiş və ya səhifə artıq mövcud olmaya bilər.</p>
-        <a class="button" href="{{ route('home', ['locale' => $lavbeLocale['segment'] ?? 'en']) }}"><x-icon name="arrow-left" /> Oxu lentinə qayıt</a>
+        <h1 id="not-found-title">{{ __('ui.missing') }}</h1>
+        <p class="muted">{{ __('ui.missing_body') }}</p>
+        <a class="button" href="{{ route('home', ['locale' => $lavbeLocale['segment'] ?? 'en']) }}"><x-icon name="arrow-left" /> {{ __('ui.back') }}</a>
     </section>
 @endsection
