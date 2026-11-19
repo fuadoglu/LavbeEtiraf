@@ -30,7 +30,7 @@
                             ? route('topic.show', ['locale' => $lavbeLocale['segment'], 'category' => $category, 'sort' => $key])
                             : route('home', ['locale' => $lavbeLocale['segment'], 'sort' => $key]);
                     @endphp
-                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif>{{ $sortLabels[$key] }}</a>
+                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif>{{ __($sortLabels[$key]) }}</a>
                 @endforeach
             </nav>
         </div>
@@ -52,7 +52,7 @@
                 </nav>
             @endif
         @endif
-        @if($feedCursor && $confessions->total() > 12)
+        @if($feedCursor && $confessions->total() > config('lavbe.pagination.feed'))
             <button type="button" class="button button-secondary" data-feed-more data-endpoint="{{ route('feed.fragment', ['locale' => $lavbeLocale['segment'], 'order' => $sort, 'category' => $category]) }}">
                 {{ __('lavbe.next') }}
             </button>

@@ -18,7 +18,7 @@ class FeedCursor
             'category' => $category,
             'order' => $order,
             'offset' => $offset,
-            'expires' => now()->addMinutes(60)->timestamp,
+            'expires' => now()->addMinutes((int) config('lavbe.feed_cursor_ttl_minutes'))->timestamp,
         ], JSON_THROW_ON_ERROR)));
     }
 
