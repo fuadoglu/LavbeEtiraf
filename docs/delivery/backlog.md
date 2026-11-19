@@ -109,6 +109,8 @@ Manifest, ikon, standalone, versiyalı statik service worker keşi, tərcüməli
 
 Kiçik mobil, iOS Safari, Android Chrome, masaüstü və standalone. Gündüz/gecə, klaviatura, geri düyməsi, dəstək və şikayətlər. **Sübut:** viewport və dil bazası, ekran görüntüləri, cihaz/OS versiyası və faktiki nəticə.
 
+**İlkin lokal sübut:** [cihaz sınaq qeydi](device-testing.md) desktop in-app browser-də 17 locale × home/write/offline × 320/390/1366 CSS px = 153 responsive route/viewport kombinasiyasını, qaralama razılığını, reload bərpasını, razılıq götürüləndə silinməni, tema və Tab fokusunu qeyd edir. Horizontal overflow tapılmayıb. Real iOS/Android, standalone, klaviatura açıqkən caret, back, support/report, offline network və push provider qəbulu hələ icra edilməyib; bu issue açıq qalır.
+
 ## LAV-013 · GA4, CMP və AdSense
 
 **Asılılıq:** LAV-006, LAV-007, LAV-009, LAV-010. **Qəbul:** ADV-01, ADV-02, ADV-03.

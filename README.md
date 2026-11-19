@@ -22,6 +22,7 @@
 | Hesab, Mənim bölməsi və bildirişlər | **[LAV-009](https://github.com/fuadoglu/LavbeEtiraf/issues/22) tamamlanıb.** Təsdiqli hesab, şəxsi bölmə, guest sahiblik iddiası, izləmə və neytral opt-in bildirişləri [PR #23](https://github.com/fuadoglu/LavbeEtiraf/pull/23) və auth yönləndirmə düzəlişi [PR #24](https://github.com/fuadoglu/LavbeEtiraf/pull/24) ilə `main`-dədir. |
 | 17 dil paketi və sahib baxışı | **[LAV-010](https://github.com/fuadoglu/LavbeEtiraf/issues/25) icra olunur.** 17 locale üçün 169 açarlı tərcümə draftı, 204 kateqoriya təsviri, hüquqi draftlar, paket validatoru və sahib baxış ixracı yaradılıb; Chromium-da 320/390/1366px layout yoxlanıb, yekun dil baxışı `pending` qalır. |
 | PWA, oflayn və opt-in push | **[LAV-011](https://github.com/fuadoglu/LavbeEtiraf/issues/29) draft PR mərhələsindədir.** Statik service worker keşi, tərcüməli offline shell, razılıqlı 24 saatlıq cihaz qaralaması və şifrəli/account-scoped Web Push əlavə edilib; iOS/Android real cihaz və staging provider yoxlamaları hələ tələb olunur. |
+| Cihaz, UI və dil sınaqları | **[LAV-012](https://github.com/fuadoglu/LavbeEtiraf/issues/31) icra olunur.** Lokal desktop browser-də 17 locale üzrə 153 responsive route/viewport kombinasiyası keçib; real iOS/Android və standalone sınaqları [cihaz qeydinə](docs/delivery/device-testing.md) görə açıqdır. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla
@@ -84,6 +85,7 @@ php artisan serve
 | Canonical, sitemap, IndexNow, AdSense və GA4 | [SEO və monetizasiya](docs/seo-ads-analytics.md) · [Reklam və məxfilik matrisi](docs/architecture/traffic-and-privacy.md) |
 | Texniki quruluş, cron, PWA və shared hosting | [Arxitektura](docs/architecture/system.md) · [İstismar](docs/delivery/operations.md) |
 | Sprintlər, asılılıqlar və qəbul sübutu | [Backlog](docs/delivery/backlog.md) · [Qəbul matrisi](docs/delivery/acceptance.md) |
+| Mobil cihaz sınaq qaydası və nəticə qeydi | [Cihaz sınaqları](docs/delivery/device-testing.md) |
 
 Qərarın sahibi cədvəldəki əsas sənəddir. README layihəyə girişdir. Davranış dəyişikliyi olanda aidiyyəti əsas sənəd və qəbul meyarı eyni PR-da yenilənir.
 
