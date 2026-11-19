@@ -67,6 +67,21 @@ class UiFoundationTest extends TestCase
         }
     }
 
+    public function test_feed_pages_normalize_first_page_and_reject_invalid_or_empty_pages(): void
+    {
+        foreach (['/az/', '/az/topics/family'] as $path) {
+            $response = $this->get($path.'?page=1&sort=weekly');
+            $response->assertStatus(301);
+            $location = $response->headers->get('Location');
+            $this->assertStringNotContainsString('page=', $location);
+            $this->assertStringContainsString('sort=weekly', $location);
+            foreach (['0', '-1', 'abc', '1.5', '999999999999999999999999', '2', 'page[]=1'] as $page) {
+                $query = str_contains($page, '=') ? $page : 'page='.$page;
+                $this->get($path.'?'.$query)->assertNotFound();
+            }
+        }
+    }
+
     protected function setUp(): void
     {
         parent::setUp();

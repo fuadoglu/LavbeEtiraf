@@ -38,3 +38,5 @@ Sıralama uyğunluq, son yayım və ID ilə sabitləşir. UTF-8 tokenləri local
 İstinad: [Google Search Central, səhifələmə](https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading)
 
 [Sınaqlar: UI-02, SEO-01 və SEO-04](../delivery/acceptance.md)
+
+HTML səhifələməsində NormalizeFeedPage middleware-i page parametrini müsbət tam ədəd kimi yoxlayır. page=1 digər query seçimlərini saxlayaraq əsas URL-ə 301 qaytarır. Paginatorun son səhifəsindən yuxarı səhifələr 404 alır. Sabit keyset/snapshot və həftəlik xal kontraktının tətbiqi LAV-019 (#44) üzrə açıqdır.
