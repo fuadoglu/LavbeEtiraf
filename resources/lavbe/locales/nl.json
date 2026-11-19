@@ -73,7 +73,9 @@
       "remember_device": "Onthoud dit apparaat voor privétoegang",
       "submit": "Verzenden voor beoordeling",
       "invalid": "Controleer uw invoer. De tekstlimiet is {limit} tekens.",
-      "network_error": "We kunnen dit momenteel niet verzenden. Probeer het opnieuw."
+      "network_error": "We kunnen dit momenteel niet verzenden. Probeer het opnieuw.",
+      "draft_saved": "Je concept wordt maximaal 24 uur op dit apparaat bewaard.",
+      "draft_storage_error": "Deze browser kon je concept niet op dit apparaat opslaan."
     },
     "submit": {
       "pending": "Je bekentenis wacht op beoordeling.",
@@ -170,9 +172,13 @@
       "install": "Lavbe installeren",
       "install_help_ios": "Tik in Safari op Delen en vervolgens op Toevoegen aan startscherm.",
       "offline_title": "Je bent offline",
-      "offline_body": "Sommige opgeslagen pagina's zijn mogelijk nog beschikbaar.",
+      "offline_body": "Je opgeslagen concept blijft op dit apparaat. Er wordt niets verstuurd zolang je offline bent.",
       "back_online": "Je bent weer online.",
-      "draft_expired": "Dit opgeslagen concept is verlopen."
+      "draft_expired": "Dit opgeslagen concept is verlopen.",
+      "push_enabled": "Pushmeldingen staan aan op dit apparaat.",
+      "push_disabled": "Pushmeldingen staan uit op dit apparaat.",
+      "push_denied": "Sta meldingen toe in de browserinstellingen om ze in te schakelen.",
+      "push_unavailable": "Pushmeldingen worden niet ondersteund op dit apparaat."
     },
     "errors": {
       "not_found": "Pagina niet gevonden",

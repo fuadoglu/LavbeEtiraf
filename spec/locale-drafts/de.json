@@ -73,7 +73,9 @@
       "remember_device": "Merken Sie sich dieses Gerät für den privaten Zugriff",
       "submit": "Zur Überprüfung senden",
       "invalid": "Überprüfen Sie Ihre Eingaben. Die Textbeschränkung beträgt {limit} Zeichen.",
-      "network_error": "Wir konnten dies im Moment nicht senden. Versuchen Sie es erneut."
+      "network_error": "Wir konnten dies im Moment nicht senden. Versuchen Sie es erneut.",
+      "draft_saved": "Dein Entwurf wird bis zu 24 Stunden auf diesem Gerät gespeichert.",
+      "draft_storage_error": "Dieser Browser konnte deinen Entwurf nicht auf diesem Gerät speichern."
     },
     "submit": {
       "pending": "Ihr Geständnis wartet auf Überprüfung.",
@@ -170,9 +172,13 @@
       "install": "Lavbe installieren",
       "install_help_ios": "Tippen Sie in Safari auf „Teilen“ und dann auf „Zum Startbildschirm hinzufügen“.",
       "offline_title": "Sie sind offline",
-      "offline_body": "Einige gespeicherte Seiten sind möglicherweise noch verfügbar.",
+      "offline_body": "Dein gespeicherter Entwurf bleibt auf diesem Gerät. Offline wird nichts gesendet.",
       "back_online": "Sie sind wieder online.",
-      "draft_expired": "Dieser gespeicherte Entwurf ist abgelaufen."
+      "draft_expired": "Dieser gespeicherte Entwurf ist abgelaufen.",
+      "push_enabled": "Push-Benachrichtigungen sind auf diesem Gerät aktiviert.",
+      "push_disabled": "Push-Benachrichtigungen sind auf diesem Gerät deaktiviert.",
+      "push_denied": "Erlaube Benachrichtigungen in den Browsereinstellungen, um sie zu aktivieren.",
+      "push_unavailable": "Push-Benachrichtigungen werden auf diesem Gerät nicht unterstützt."
     },
     "errors": {
       "not_found": "Seite nicht gefunden",

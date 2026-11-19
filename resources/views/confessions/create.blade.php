@@ -9,7 +9,7 @@
             <p>{{ __('guest.write_intro') }}</p>
         </header>
 
-        <form class="write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
+        <form class="write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}" data-offline-draft-form data-draft-locale="{{ $lavbeLocale['segment'] }}" data-draft-expired="{{ $offlineDraft['expired'] }}" data-draft-saved="{{ $offlineDraft['saved'] }}" data-storage-error="{{ $offlineDraft['storageError'] }}" data-network-error="{{ $offlineDraft['networkError'] }}" data-has-old-input="{{ old('body') !== null ? 'true' : 'false' }}">
             @csrf
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
@@ -49,6 +49,12 @@
                 <input type="checkbox" name="remember_device" value="1" @checked(old('remember_device'))>
                 <span>{{ __('guest.write_remember_device') }}</span>
             </label>
+
+            <label class="age-confirmation">
+                <input type="checkbox" name="remember_draft_on_device" value="1" data-draft-consent>
+                <span>{{ $offlineDraft['label'] }}</span>
+            </label>
+            <p class="field-description" data-draft-status role="status" aria-live="polite" hidden></p>
 
             <button class="button button-primary" type="submit">{{ __('guest.write_submit') }}</button>
         </form>

@@ -24,6 +24,12 @@ Məhsul bütün əsas funksiyalarla reklamsız işə hazır ola bilər. AdSense-
 
 LAV-009-un izlənən etiraf bildirişləri Laravel scheduler vasitəsilə qısa iş kimi çatdırılır; production-da daimi worker tələb olunmur. Hosting cron-u hər dəqiqə `php /path/to/app/artisan schedule:run` çağırmalıdır. `lavbe:deliver-notifications` participation outbox-u user/event üzrə unikallaşdırır, in-app qeydlər yaradır və yalnız təsdiqlənmiş, e-poçt opt-in etmiş hesab üçün ümumi mətnli məktub göndərir. Mühit mail provider-i qurmadan komanda `MAIL_MAILER=array` və ya `log` ilə smoke test edilə bilər; real SMTP aktivləşdirməsi ayrıca səlahiyyət və staging çatdırılma sınağı tələb edir. Uğursuz göndərişdə mətn deyil, sabit xəta kodu və cəhd sayı qalır.
 
+### PWA və Web Push
+
+PWA origin-i HTTPS olmalı, `public/` document root, `storage/` yazıla bilən, `public/build/manifest.json` və versiyalı build aktivləri deployment artifact-də olmalıdır. Deploy zamanı `npm run build` development kompüterində/CI-də işləyir; production Node prosesi lazım deyil. Service worker yalnız statik versiyalı aktivləri və locale offline shell-i saxlayır; yeni build fingerprint-i əvvəlki static cache-i təmizləyir.
+
+Push istifadə olunacaqsa hostinqdə PHP cURL, OpenSSL və mbstring uzantılarını yoxla, Composer dependency-lərini production artifact-ə daxil et və `VAPID_SUBJECT`, `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` dəyərlərini secret manager və ya hostinqin qorunan environment panelindən ver. Private key repo, frontend, log və deploy artefaktına daxil edilmir. Production-da eyni dəqiqəlik `schedule:run` cron-u `lavbe:deliver-web-push` işini də başladır; əl ilə `php artisan lavbe:deliver-web-push` ilə konfiqurasiya olmayan testdə komanda göndəriş etmədən dayanmalıdır. Konfiqurasiya açıldıqdan sonra əvvəl staging abonementi ilə qısa smoke test apar. İstifadəçi browser-i, OS-i və push provider-i üzrə real cihaz qəbul sınağı LAV-012/LAV-015-də ayrıca qeyd olunur.
+
 ## Rollback və insident
 
 - Köhnə kod və asset-lər üçün geri dönüş versiyası saxla. Geriyə uyğun olmayan DB əməliyyatını əvvəlcədən planlaşdır. Backup yenidən açılmazdan əvvəl silinmə/gizlətmə jurnalı tətbiq olunur. Bərpa testini izolə mühitdə apar.

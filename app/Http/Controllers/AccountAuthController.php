@@ -71,6 +71,7 @@ class AccountAuthController extends Controller
 
     public function logout(Request $request, string $locale): RedirectResponse
     {
+        $request->user()?->pushSubscriptions()->update(['active' => false, 'updated_at' => now()]);
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

@@ -95,13 +95,13 @@ Təsdiqli e-poçt qeydiyyatı, giriş/parol bərpası, şəxsi Mənim bölməsi,
 
 Codex hər dil paketi üçün mətnləri, kateqoriyaları və hüquqi draftları hazırlayır. Variantlar ekrana görə ixrac edilir və məhsul sahibi dəyişikliklərə baxır. **Sübut:** paket validatoru, düzəliş diff-i və qeydə alınmış baxış. Xarici hüquqi faktlar draftı keçmədən açılmır.
 
-**İcra qeydi:** 169 açarlı kanonik ingilis mənbə `spec/locale-messages.en.json` faylındadır; 17 ilkin maşın tərcüməsi draftı və paketi, source/package validatoru, draft-dan paket qurucusu və `pending` review CSV/JSON ixracı yaradılıb. Chromium preview-u bütün locale mətnlərini 320/390/1366px enlərində göstərib, 51 yoxlamada horizontal overflow tapmayıb. Məhsul sahibinin yekun mətn baxışı və real cihaz yoxlaması LAV-010-un qalan işidir.
+**İcra qeydi:** 169 açarlı kanonik ingilis mənbə `spec/locale-messages.en.json` faylındadır; 17 ilkin maşın tərcüməsi draftı və paketi, source/package validatoru, draft-dan paket qurucusu və `pending` review CSV/JSON ixracı yaradılıb. Chromium preview-u bütün locale mətnlərini 320/390/1366px enlərində göstərib, 51 yoxlamada horizontal overflow tapmayıb. Məhsul sahibinin yekun mətn baxışı və real cihaz yoxlaması LAV-010-un qalan işidir. LAV-011 üçün əlavə olunan `draft_saved` və `draft_storage_error` mətnləri də eyni paketlərdə draft olaraq saxlanılır və sahib baxışı gözləyir.
 
 ## LAV-011 · PWA, oflayn və opt-in push
 
 **Asılılıq:** LAV-002, LAV-004, LAV-009, LAV-010. **Qəbul:** PWA-01, ADV-03.
 
-Manifest, ikon, standalone, statik service worker keşi, tərcüməli oflayn görünüş, opt-in cihaz qaralaması və Web Push. **Sübut:** təmiz/qədim keş, iPhone/Android standalone və həssas şəbəkə/keş audit nəticəsi.
+Manifest, ikon, standalone, versiyalı statik service worker keşi, tərcüməli oflayn görünüş, istifadəçi razılığı ilə 24 saatlıq cihaz qaralaması və account-scoped Web Push. **Sübut:** feature/MySQL testləri, frontend/documentation CI və cache/privacy yoxlaması. **Qalan qəbul:** owner locale copy review-u, iOS Safari/Android Chrome/standalone real cihaz sınağı və VAPID/provider konfiqurasiyalı staging push yoxlaması.
 
 ## LAV-012 · Cihaz, UI və dil sınaqları
 

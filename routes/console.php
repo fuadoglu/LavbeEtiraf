@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('lavbe:deliver-notifications --limit=100')->everyMinute()->withoutOverlapping();
+Schedule::command('lavbe:deliver-web-push --limit=10')->everyMinute()->withoutOverlapping();

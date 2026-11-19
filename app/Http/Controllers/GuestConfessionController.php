@@ -7,6 +7,7 @@ use App\Models\ConfessionOwnership;
 use App\Models\ConfessionRevision;
 use App\Models\ModerationAudit;
 use App\Models\ModerationOutbox;
+use App\Support\Lavbe\LocalePackageMessages;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GuestConfessionController extends Controller
 {
-    public function create(string $locale, LocaleRegistry $locales): Response|View
+    public function create(string $locale, LocaleRegistry $locales, LocalePackageMessages $messages): Response|View
     {
         abort_unless($locales->bySegment($locale), 404);
 
@@ -32,6 +33,13 @@ class GuestConfessionController extends Controller
                 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en'],
             ]),
             'idempotencyKey' => $this->randomToken(),
+            'offlineDraft' => [
+                'label' => $messages->text($locale, 'write', 'remember_draft'),
+                'saved' => $messages->text($locale, 'write', 'draft_saved'),
+                'storageError' => $messages->text($locale, 'write', 'draft_storage_error'),
+                'expired' => $messages->text($locale, 'pwa', 'draft_expired'),
+                'networkError' => $messages->text($locale, 'write', 'network_error'),
+            ],
         ]);
     }
 

@@ -73,7 +73,9 @@
       "remember_device": "Muista tämä laite yksityistä käyttöä varten",
       "submit": "Lähetä tarkistettavaksi",
       "invalid": "Tarkista tietosi. Tekstin enimmäismäärä on {limit} merkkiä.",
-      "network_error": "Emme voineet lähettää tätä juuri nyt. Yritä uudelleen."
+      "network_error": "Emme voineet lähettää tätä juuri nyt. Yritä uudelleen.",
+      "draft_saved": "Luonnoksesi tallennetaan tälle laitteelle enintään 24 tunniksi.",
+      "draft_storage_error": "Tämä selain ei voinut tallentaa luonnostasi tälle laitteelle."
     },
     "submit": {
       "pending": "Tunnustuksesi odottaa tarkistusta.",
@@ -170,9 +172,13 @@
       "install": "Asenna Lavbe",
       "install_help_ios": "Napauta Safarissa Jaa ja sitten Lisää aloitusnäyttöön.",
       "offline_title": "Olet offline-tilassa",
-      "offline_body": "Jotkut tallennetut sivut voivat edelleen olla käytettävissä.",
+      "offline_body": "Tallennettu luonnoksesi pysyy tällä laitteella. Mitään ei lähetetä, kun olet offline-tilassa.",
       "back_online": "Olet taas online-tilassa.",
-      "draft_expired": "Tämä tallennettu luonnos on vanhentunut."
+      "draft_expired": "Tämä tallennettu luonnos on vanhentunut.",
+      "push_enabled": "Push-ilmoitukset ovat käytössä tällä laitteella.",
+      "push_disabled": "Push-ilmoitukset eivät ole käytössä tällä laitteella.",
+      "push_denied": "Salli ilmoitukset selaimen asetuksissa, jotta voit ottaa ne käyttöön.",
+      "push_unavailable": "Push-ilmoitukset eivät ole tuettuja tällä laitteella."
     },
     "errors": {
       "not_found": "Sivua ei löydy",

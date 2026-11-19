@@ -73,7 +73,9 @@
       "remember_device": "Remember this device for private access",
       "submit": "Send for review",
       "invalid": "Check your entries. The text limit is {limit} characters.",
-      "network_error": "We could not send this right now. Try again."
+      "network_error": "We could not send this right now. Try again.",
+      "draft_saved": "Your draft is saved on this device for up to 24 hours.",
+      "draft_storage_error": "This browser could not save your draft on this device."
     },
     "submit": {
       "pending": "Your confession is waiting for review.",
@@ -170,9 +172,13 @@
       "install": "Install Lavbe",
       "install_help_ios": "In Safari, tap Share, then Add to Home Screen.",
       "offline_title": "You are offline",
-      "offline_body": "Some saved pages may still be available.",
+      "offline_body": "Your saved draft stays on this device. Nothing is sent while you are offline.",
       "back_online": "You are back online.",
-      "draft_expired": "This saved draft has expired."
+      "draft_expired": "This saved draft has expired.",
+      "push_enabled": "Push notifications are on for this device.",
+      "push_disabled": "Push notifications are off for this device.",
+      "push_denied": "Allow notifications in your browser settings to turn them on.",
+      "push_unavailable": "Push notifications are not available on this device."
     },
     "errors": {
       "not_found": "Page not found",

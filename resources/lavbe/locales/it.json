@@ -73,7 +73,9 @@
       "remember_device": "Ricorda questo dispositivo per l'accesso privato",
       "submit": "Invia per la revisione",
       "invalid": "Controlla le tue voci. Il limite del testo è di caratteri {limit}.",
-      "network_error": "Impossibile inviarlo in questo momento. Riprova."
+      "network_error": "Impossibile inviarlo in questo momento. Riprova.",
+      "draft_saved": "La bozza viene salvata su questo dispositivo per un massimo di 24 ore.",
+      "draft_storage_error": "Questo browser non è riuscito a salvare la bozza su questo dispositivo."
     },
     "submit": {
       "pending": "La tua confessione è in attesa di revisione.",
@@ -171,9 +173,13 @@
       "install": "Installa Lavbe",
       "install_help_ios": "In Safari, tocca Condividi, quindi Aggiungi alla schermata principale.",
       "offline_title": "Sei offline",
-      "offline_body": "Alcune pagine salvate potrebbero essere ancora disponibili.",
+      "offline_body": "La bozza salvata resta su questo dispositivo. Quando sei offline non viene inviato nulla.",
       "back_online": "Sei di nuovo online.",
-      "draft_expired": "Questa bozza salvata è scaduta."
+      "draft_expired": "Questa bozza salvata è scaduta.",
+      "push_enabled": "Le notifiche push sono attive su questo dispositivo.",
+      "push_disabled": "Le notifiche push sono disattivate su questo dispositivo.",
+      "push_denied": "Consenti le notifiche nelle impostazioni del browser per attivarle.",
+      "push_unavailable": "Le notifiche push non sono disponibili su questo dispositivo."
     },
     "errors": {
       "not_found": "Pagina non trovata",

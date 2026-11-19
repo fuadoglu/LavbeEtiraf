@@ -2,6 +2,13 @@
 
 return [
 
+    'webpush' => [
+        'subject' => env('VAPID_SUBJECT'),
+        'public_key' => env('VAPID_PUBLIC_KEY'),
+        'private_key' => env('VAPID_PRIVATE_KEY'),
+        'max_attempts' => (int) env('WEBPUSH_MAX_ATTEMPTS', 8),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Third Party Services

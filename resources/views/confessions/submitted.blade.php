@@ -3,7 +3,7 @@
 @section('title', __('guest.write_pending_title').' · Lavbe')
 
 @section('content')
-    <section class="write-page submission-result">
+    <section class="write-page submission-result" data-confession-submit-success data-draft-locale="{{ $lavbeLocale['segment'] }}">
         <h1>{{ __('guest.write_pending_title') }}</h1>
         <p>{{ __('guest.write_pending_body') }}</p>
         <p class="submission-alias">{{ $confession->author_alias }}</p>

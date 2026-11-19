@@ -73,7 +73,9 @@
       "remember_device": "Husk denne enhed for privat adgang",
       "submit": "Send til gennemgang",
       "invalid": "Tjek dine indtastninger. Tekstgrænsen er {limit} tegn.",
-      "network_error": "Vi kunne ikke sende dette lige nu. Prøv igen."
+      "network_error": "Vi kunne ikke sende dette lige nu. Prøv igen.",
+      "draft_saved": "Dit udkast gemmes på denne enhed i op til 24 timer.",
+      "draft_storage_error": "Denne browser kunne ikke gemme dit udkast på denne enhed."
     },
     "submit": {
       "pending": "Din tilståelse venter på gennemgang.",
@@ -170,9 +172,13 @@
       "install": "Installer Lavbe",
       "install_help_ios": "I Safari skal du trykke på Del og derefter Føj til startskærm.",
       "offline_title": "Du er offline",
-      "offline_body": "Nogle gemte sider er muligvis stadig tilgængelige.",
+      "offline_body": "Din gemte kladde bliver på denne enhed. Intet sendes, mens du er offline.",
       "back_online": "Du er online igen.",
-      "draft_expired": "Denne gemte kladde er udløbet."
+      "draft_expired": "Denne gemte kladde er udløbet.",
+      "push_enabled": "Pushnotifikationer er slået til på denne enhed.",
+      "push_disabled": "Pushnotifikationer er slået fra på denne enhed.",
+      "push_denied": "Tillad notifikationer i browserens indstillinger for at slå dem til.",
+      "push_unavailable": "Pushnotifikationer understøttes ikke på denne enhed."
     },
     "errors": {
       "not_found": "Side ikke fundet",

@@ -11,6 +11,8 @@
 | Mənim, hesab, bərpa, bildiriş və admin | Xeyr | Xeyr | İcazə yoxlaması, `private, no-store`, noindex |
 | Axtarış, 404/410, fragment, oflayn, hüquqi səhifələr | Xeyr | Xeyr | Səthə uyğun keş. Axtarış mətnini və şəxsi məlumatı saxlamır. Sitemap, robots və manifest HTML analitika etiketləri daşımır. |
 
+PWA worker yalnız build manifestindəki versiyalı CSS/JS/asset faylları, Lavbe ikonları və worker-ə açıq sorğu ilə alınan locale offline səhifəsini cache edir. Account, auth, yazı, etiraf detail, rəy, admin, sitemap və axtarış cavabları heç vaxt saxlanmır. Offline qaralama service worker cache-ində deyil: istifadəçi ayrıca razılıq checkbox-ını seçəndən sonra həmin cihazın `localStorage`-ında maksimum 24 saat qalır; uğurlu submit və checkbox-dan imtina ilə silinir. Push subscription yalnız login olmuş, email-i təsdiqlənmiş account-a bağlanır; endpoint və kriptoqrafik açarlar DB-də şifrələnir. Push mətnində yalnız ümumi hesab fəaliyyəti bildirişi var, məzmun ID-si və mətni yoxdur.
+
 Etiraf detalındakı **Rəy yaz** ayrı formaya adi keçid edir. JavaScript vizual keçidi yaxşılaşdıra bilər. Reklam skriptinin artıq işə düşdüyü səhifədə məxfi forma açılmır. Forma göndərildikdən sonra təmiz oxu URL-sinə və ya status səthinə keçilir. İstifadəçinin yazdığı mətn query parametrinə çevrilmir. Təkcə CSS ilə reklamı gizlətmək məxfilik meyarını keçmir.
 
 ## AdSense qərarı

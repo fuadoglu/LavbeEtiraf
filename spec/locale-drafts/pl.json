@@ -73,7 +73,9 @@
       "remember_device": "Zapamiętaj to urządzenie, aby uzyskać prywatny dostęp",
       "submit": "Wyślij do sprawdzenia",
       "invalid": "Sprawdź swoje wpisy. Limit tekstu to {limit} znaków.",
-      "network_error": "Nie mogliśmy tego teraz wysłać. Spróbuj ponownie."
+      "network_error": "Nie mogliśmy tego teraz wysłać. Spróbuj ponownie.",
+      "draft_saved": "Wersja robocza będzie przechowywana na tym urządzeniu przez maksymalnie 24 godziny.",
+      "draft_storage_error": "Ta przeglądarka nie mogła zapisać wersji roboczej na tym urządzeniu."
     },
     "submit": {
       "pending": "Twoje zeznanie oczekuje na sprawdzenie.",
@@ -172,9 +174,13 @@
       "install": "Zainstaluj Lavbe",
       "install_help_ios": "W przeglądarce Safari dotknij Udostępnij, a następnie Dodaj do ekranu głównego.",
       "offline_title": "Jesteś offline",
-      "offline_body": "Niektóre zapisane strony mogą być nadal dostępne.",
+      "offline_body": "Zapisany szkic pozostaje na tym urządzeniu. Gdy jesteś offline, nic nie zostanie wysłane.",
       "back_online": "Jesteś z powrotem online.",
-      "draft_expired": "Ta zapisana wersja robocza wygasła."
+      "draft_expired": "Ta zapisana wersja robocza wygasła.",
+      "push_enabled": "Powiadomienia push są włączone na tym urządzeniu.",
+      "push_disabled": "Powiadomienia push są wyłączone na tym urządzeniu.",
+      "push_denied": "Zezwól na powiadomienia w ustawieniach przeglądarki, aby je włączyć.",
+      "push_unavailable": "To urządzenie nie obsługuje powiadomień push."
     },
     "errors": {
       "not_found": "Nie znaleziono strony",
