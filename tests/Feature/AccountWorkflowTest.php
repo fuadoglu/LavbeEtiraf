@@ -20,6 +20,28 @@ class AccountWorkflowTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_email_batch_size_limits_pending_delivery(): void
+    {
+        Notification::fake();
+        config(['delivery.notifications.email_batch_size' => 1]);
+        $user = User::factory()->create(['email_notifications' => true]);
+        foreach (['first', 'second'] as $suffix) {
+            UserNotification::query()->create([
+                'user_id' => $user->id,
+                'event_key' => hash('sha256', 'synthetic-config-batch-'.$suffix),
+                'event_type' => 'continuation',
+                'in_app' => true,
+                'created_at' => now(),
+            ]);
+        }
+
+        $this->artisan('lavbe:deliver-notifications')->assertSuccessful();
+        $this->assertSame(1, UserNotification::query()->whereNotNull('email_sent_at')->count());
+        $this->artisan('lavbe:deliver-notifications')->assertSuccessful();
+        $this->assertSame(2, UserNotification::query()->whereNotNull('email_sent_at')->count());
+        Notification::assertSentToTimes($user, FollowedConfessionActivity::class, 2);
+    }
+
     public function test_registration_requires_email_verification_and_private_account_is_no_store(): void
     {
         Notification::fake();
