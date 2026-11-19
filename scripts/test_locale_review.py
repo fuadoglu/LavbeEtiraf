@@ -4,7 +4,8 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from build_locale_packages import build_all
+from build_locale_packages import build_all, category_slug
+from check_locale_previews import render_preview
 
 
 SCRIPT = Path(__file__).with_name("export_locale_review.py")
@@ -55,7 +56,7 @@ class LocaleReviewExportTest(unittest.TestCase):
                 rows = list(csv.DictReader(stream))
             manifest = json.loads(output.with_suffix(".review.json").read_text(encoding="utf-8"))
             self.assertEqual("feed", rows[0]["group"])
-            self.assertEqual('"No stories"', rows[0]["current_text"])
+            self.assertEqual("No stories", rows[0]["current_text"])
             self.assertEqual("pending", manifest[0]["status"])
             self.assertEqual("draft-test", manifest[0]["package_version"])
 
@@ -70,6 +71,27 @@ class LocaleReviewExportTest(unittest.TestCase):
             self.assertEqual(12, len(packages["en"]["categories"]))
             with self.assertRaisesRegex(ValueError, "Missing explicit translation draft"):
                 build_all(catalog, contract, source, directory)
+
+    def test_category_slugs_use_ascii_readable_locale_labels(self):
+        catalog = MODULE.load_json(MODULE.ROOT / "spec/catalog.json")
+        locales = {item["code"]: item for item in catalog["locales"]}
+        family = next(item for item in catalog["categories"] if item["key"] == "family")
+        self.assertEqual("familie", category_slug(family["labels"]["de"], locales["de"], "family"))
+        self.assertEqual("kazoku", category_slug(family["labels"]["ja"], locales["ja"], "family"))
+        self.assertEqual("gajok", category_slug(family["labels"]["ko"], locales["ko"], "family"))
+        self.assertEqual("semya", category_slug(family["labels"]["ru"], locales["ru"], "family"))
+
+    def test_review_preview_contains_all_locales_and_translated_content(self):
+        catalog = MODULE.load_json(MODULE.ROOT / "spec/catalog.json")
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "preview.html"
+            count = render_preview(MODULE.ROOT / "resources/lavbe/locales", catalog, output)
+            rendered = output.read_text(encoding="utf-8")
+        self.assertEqual(17, count)
+        self.assertIn('data-locale="pt-BR"', rendered)
+        self.assertIn("pending", rendered)
+        self.assertIn("Advertisement", rendered)
+        self.assertIn("家族", rendered)
 
 
 if __name__ == "__main__":

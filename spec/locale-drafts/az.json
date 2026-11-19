@@ -1,0 +1,237 @@
+{
+  "locale": "az",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Oxuyun",
+      "write": "Yaz",
+      "mine": "Mənim Lavbem",
+      "more": "Daha çox",
+      "language": "Dil",
+      "settings": "Parametrlər",
+      "back": "Geri",
+      "close": "Bağlayın"
+    },
+    "language": {
+      "picker_label": "Dil seçin",
+      "search": "Dilləri axtarın",
+      "empty": "Heç bir dil tapılmadı",
+      "selected": "Cari dil",
+      "changed": "Dil {language} olaraq dəyişdirildi."
+    },
+    "theme": {
+      "label": "Görünüş",
+      "system": "Cihaz parametrlərindən istifadə edin",
+      "day": "İşıq",
+      "night": "Qaranlıq"
+    },
+    "feed": {
+      "all": "Hamısı",
+      "topics": "Mövzular",
+      "new": "Yeni",
+      "weekly": "Bu həftə",
+      "updates": "Yeni yeniləmələr",
+      "more": "Daha çox yükləyin",
+      "refresh": "Lenti yeniləyin",
+      "retry": "Yenidən cəhd edin",
+      "empty": "Hələ dərc edilmiş etiraflar yoxdur.",
+      "end": "Sona çatdınız.",
+      "loading": "Etiraflar yüklənir..."
+    },
+    "search": {
+      "title": "Etirafları axtarın",
+      "label": "Açar sözlə axtarın",
+      "submit": "Axtar",
+      "empty": "Uyğun etiraflar tapılmadı.",
+      "invalid": "Axtarış termini daxil edin."
+    },
+    "confession": {
+      "author": "Anonim müəllif",
+      "support": "Dəstək",
+      "follow": "Yeniləmələri izləyin",
+      "unfollow": "İzləməni dayandır",
+      "share": "Paylaşın",
+      "report": "Report",
+      "update": "Yeniləmə",
+      "next": "Növbəti etiraf",
+      "comments_closed": "Cavablar bağlıdır."
+    },
+    "write": {
+      "title": "Etiraf yazın",
+      "intro": "Etirafınız ictimaiyyətə görünməzdən əvvəl nəzərdən keçirilir.",
+      "body": "Etirafınız",
+      "optional_title": "Başlıq (isteğe bağlı)",
+      "topic": "Mövzu",
+      "purpose": "Oxuculardan nə istərdiniz?",
+      "purpose_share": "Sadəcə paylaşmaq istəyirəm",
+      "purpose_experience": "Oxşar təcrübələri eşitmək istəyirəm",
+      "purpose_advice": "Məsləhət istəyirəm",
+      "allow_comments": "Cavablara icazə verin",
+      "public_notice": "Təsdiqlənmiş etiraflar orijinal dillərində açıq şəkildə oxuna bilər.",
+      "age_notice": "Təqdim etmək üçün ən azı 18 yaşında olmalısınız.",
+      "remember_draft": "Bu qaralama bu cihazda yadda saxla",
+      "remember_device": "Şəxsi giriş üçün bu cihazı yadda saxlayın",
+      "submit": "Nəzərdən keçirilməsi üçün göndərin",
+      "invalid": "Girişlərinizi yoxlayın. Mətn limiti {limit} simvollarıdır.",
+      "network_error": "Biz bunu indi göndərə bilmədik. Yenidən cəhd edin."
+    },
+    "submit": {
+      "pending": "Etirafınız nəzərdən keçirilməsini gözləyir.",
+      "recovery_code": "Bərpa kodu",
+      "recovery_help": "Bu kodu gizli saxlayın. Yalnız bir dəfə göstəriləcək.",
+      "copy": "Kodu kopyalayın",
+      "copied": "Kopyalandı",
+      "my_content": "Şəxsi statusu açın"
+    },
+    "comment": {
+      "write": "Cavab yazın",
+      "body": "Cavabınız",
+      "reply": "Cavab verin",
+      "submit": "Nəzərdən keçirilməsi üçün göndərin",
+      "pending": "Cavabınız nəzərdən keçirilməsini gözləyir.",
+      "edit": "Cavabı redaktə edin",
+      "delete": "Cavab geri götürün"
+    },
+    "report": {
+      "confession": "Etirafı bildirin",
+      "comment": "Cavab bildirin",
+      "reason": "Səbəb",
+      "explanation": "Əlavə məlumat (isteğe bağlı)",
+      "send": "Hesabat göndərin",
+      "received": "Təşəkkür edirəm. Hesabatınız alındı.",
+      "duplicate": "Siz artıq bu elementi bildirmisiniz.",
+      "spam": "Spam və ya reklam",
+      "privacy": "Məxfilik və ya şəxsi məlumat",
+      "harassment": "Təcavüz və ya sui-istifadə",
+      "threat": "Təhdid və ya təhlükəsizlik narahatlığı",
+      "inappropriate": "Uyğun olmayan məzmun",
+      "other": "Digər narahatlıq"
+    },
+    "moderation": {
+      "confessions": "Etiraflar",
+      "comments": "Cavablar",
+      "reports": "Hesabatlar",
+      "pending": "Nəzərdən keçirilməsini gözləyirik",
+      "public": "Nəşr edilmişdir",
+      "changes_requested": "Dəyişikliklər tələb olundu",
+      "rejected": "Rədd edildi",
+      "withdrawn": "Geri götürüldü",
+      "hidden": "Gizli",
+      "deleted": "Silindi",
+      "publish": "Təsdiqləyin və dərc edin",
+      "reject": "Rədd edin",
+      "hide": "Gizlət",
+      "request_changes": "Dəyişikliklər tələb edin",
+      "appeal": "Müraciət",
+      "close_report": "Hesabatı həll edin",
+      "stale": "Bu element dəyişdirildi. Yenidən yükləyin və yenidən nəzərdən keçirin."
+    },
+    "mine": {
+      "confessions": "Etiraflarım",
+      "comments": "Cavablarım",
+      "followed": "Aşağıdakı",
+      "notifications": "Bildirişlər",
+      "withdraw": "Çıxarın",
+      "withdraw_confirm": "Bu element ictimai baxışdan çıxarılsın?",
+      "delete": "Sil",
+      "delete_confirm": "Bu əməliyyat geri qaytarıla bilməz. Davam edilsin?",
+      "empty": "Burada hələ heç nə yoxdur."
+    },
+    "auth": {
+      "sign_in": "Daxil ol",
+      "email": "E-poçt",
+      "email_sent": "Əgər hesab varsa, mesaj göndərilib.",
+      "sign_out": "Çıxın",
+      "recovery": "Girişi bərpa edin",
+      "recovery_input": "Bərpa kodunuzu daxil edin",
+      "recover": "Bərpa edin",
+      "recovered": "Giriş bərpa edildi. Əvvəlki giriş kodları ləğv edildi.",
+      "invalid_code": "Kod etibarsızdır və ya vaxtı keçmişdir."
+    },
+    "notifications": {
+      "published": "İzlədiyiniz etiraf dərc olundu.",
+      "changes_requested": "Moderator etirafınıza dəyişiklik tələb etdi.",
+      "new_comments": {
+        "one": "{count} yeni cavab var.",
+        "other": "{count} yeni cavablar var."
+      },
+      "followup": "Yeni davamı mövcuddur.",
+      "generic": "Hesabınızda yeni fəaliyyət var.",
+      "email_option": "E-poçt bildirişləri (isteğe bağlı)",
+      "push_option": "Push bildirişləri (isteğe bağlı)"
+    },
+    "mail": {
+      "login_subject": "Giriş linkiniz",
+      "login_body": "Bu linkin müddəti {minutes} dəqiqə ərzində bitir.",
+      "notification_subject": "Lavbe-də yeni fəaliyyət",
+      "notification_body": "Yeniləməni görmək üçün şəxsi hesabınıza daxil olun."
+    },
+    "pwa": {
+      "install": "Lavbe quraşdırın",
+      "install_help_ios": "Safari-də Paylaş vurun, sonra Əsas Ekrana əlavə edin.",
+      "offline_title": "Siz oflaynsınız",
+      "offline_body": "Bəzi saxlanmış səhifələr hələ də mövcud ola bilər.",
+      "back_online": "Siz yenidən onlaynsınız.",
+      "draft_expired": "Bu saxlanmış qaralamanın vaxtı keçib."
+    },
+    "errors": {
+      "not_found": "Səhifə tapılmadı",
+      "gone": "Bu məzmun artıq mövcud deyil.",
+      "forbidden": "Sizin bu səhifəyə girişiniz yoxdur.",
+      "conflict": "Bu element dəyişdirildi. Yenidən yükləyin və yenidən cəhd edin.",
+      "rate_limited": "Həddindən artıq cəhdlər. Bir az gözləyin və yenidən cəhd edin.",
+      "unavailable": "Xidmət müvəqqəti olaraq əlçatmazdır."
+    },
+    "consent": {
+      "settings": "Məxfilik parametrləri",
+      "analytics": "Analitikaya icazə verin",
+      "ads": "Reklama icazə verin",
+      "save": "Seçimləri yadda saxlayın",
+      "decline": "Əlavə kukilərdən imtina edin",
+      "withdraw": "Razılığı dəyişdirin və ya geri götürün"
+    },
+    "legal": {
+      "terms": "İstifadə şərtləri",
+      "community": "İcma qaydaları",
+      "privacy": "Məxfilik bildirişi",
+      "cookies": "Kuki bildirişi",
+      "illegal_content": "Qanunsuz məzmunu bildirin",
+      "data_request": "Məxfilik sorğusu",
+      "operator": "Xidmət operatoru"
+    },
+    "help": {
+      "title": "Yardım",
+      "guest": "Hesab yaratmadan yaza bilərsiniz.",
+      "recovery": "Bərpa kodunuzu təhlükəsiz saxlayın; yenidən göstərilə bilməz.",
+      "visibility": "Etiraf yalnız moderatorun təsdiqindən sonra açıqdır.",
+      "reporting": "Narahatlığı qeyd etmək üçün hesabat formasından istifadə edin.",
+      "contact": "Əlaqə"
+    },
+    "seo": {
+      "site_name": "Lavbe",
+      "home_title": "Etiraflar və dəstək",
+      "home_description": "Etirafları orijinal dillərində oxuyun və dəstək tapın.",
+      "topic_title": "{topic} etirafları",
+      "topic_description": "{topic} haqqında etirafları oxuyun.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Reklam"
+    }
+  },
+  "category_descriptions": {
+    "relationships": "Sevgi və Münasibətlər haqqında Etiraflar.",
+    "family": "Ailə haqqında etiraflar.",
+    "friends": "Dostlar və Sosial Həyat haqqında Etiraflar.",
+    "work": "İş və Karyera haqqında etiraflar.",
+    "education": "Təhsil haqqında etiraflar.",
+    "money": "Pul və Maliyyə ilə bağlı etiraflar.",
+    "identity": "Özü və Şəxsiyyəti haqqında Etiraflar.",
+    "values": "İnanclar və Dəyərlər haqqında Etiraflar.",
+    "wellbeing": "Sağlamlıq və Rifah haqqında Etiraflar.",
+    "grief": "Zərər və Kədər haqqında Etiraflar.",
+    "life-changes": "Həyat Dəyişiklikləri haqqında Etiraflar.",
+    "everyday": "Gündəlik Həyat haqqında Etiraflar."
+  },
+  "legal_body": "Qaralama. Nəşr etməzdən əvvəl yerli tələbləri, faktiki xidmət operatorunu və məlumat təcrübələrini təsdiq edin."
+}

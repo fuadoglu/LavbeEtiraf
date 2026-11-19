@@ -1,6 +1,6 @@
 {
   "locale": "en",
-  "version": "draft-1",
+  "version": "draft-2026-11-19.2",
   "messages": {
     "navigation": {
       "read": "Read",
@@ -223,7 +223,7 @@
     "relationships": {
       "label": "Love & Relationships",
       "description": "Confessions about Love & Relationships.",
-      "slug": "relationships"
+      "slug": "love-relationships"
     },
     "family": {
       "label": "Family",
@@ -233,12 +233,12 @@
     "friends": {
       "label": "Friends & Social Life",
       "description": "Confessions about Friends & Social Life.",
-      "slug": "friends"
+      "slug": "friends-social-life"
     },
     "work": {
       "label": "Work & Career",
       "description": "Confessions about Work & Career.",
-      "slug": "work"
+      "slug": "work-career"
     },
     "education": {
       "label": "Education",
@@ -248,27 +248,27 @@
     "money": {
       "label": "Money & Finances",
       "description": "Confessions about Money & Finances.",
-      "slug": "money"
+      "slug": "money-finances"
     },
     "identity": {
       "label": "Self & Identity",
       "description": "Confessions about Self & Identity.",
-      "slug": "identity"
+      "slug": "self-identity"
     },
     "values": {
       "label": "Beliefs & Values",
       "description": "Confessions about Beliefs & Values.",
-      "slug": "values"
+      "slug": "beliefs-values"
     },
     "wellbeing": {
       "label": "Health & Wellbeing",
       "description": "Confessions about Health & Wellbeing.",
-      "slug": "wellbeing"
+      "slug": "health-wellbeing"
     },
     "grief": {
       "label": "Loss & Grief",
       "description": "Confessions about Loss & Grief.",
-      "slug": "grief"
+      "slug": "loss-grief"
     },
     "life-changes": {
       "label": "Life Changes",
@@ -278,44 +278,44 @@
     "everyday": {
       "label": "Everyday Life",
       "description": "Confessions about Everyday Life.",
-      "slug": "everyday"
+      "slug": "everyday-life"
     }
   },
   "legal_pages": {
     "terms": {
       "title": "Terms of use",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-1"
+      "version": "draft-2026-11-19.2"
     },
     "community": {
       "title": "Community guidelines",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-1"
+      "version": "draft-2026-11-19.2"
     },
     "privacy": {
       "title": "Privacy notice",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-1"
+      "version": "draft-2026-11-19.2"
     },
     "cookies": {
       "title": "Cookie notice",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-1"
+      "version": "draft-2026-11-19.2"
     },
     "illegal_content": {
       "title": "Report illegal content",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-1"
+      "version": "draft-2026-11-19.2"
     },
     "data_request": {
       "title": "Privacy request",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-1"
+      "version": "draft-2026-11-19.2"
     },
     "operator": {
       "title": "Service operator",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-1"
+      "version": "draft-2026-11-19.2"
     }
   },
   "legal_status": "draft"

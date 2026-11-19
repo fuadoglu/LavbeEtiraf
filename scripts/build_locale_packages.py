@@ -3,12 +3,45 @@
 
 import argparse
 import json
+import re
+import unicodedata
 from pathlib import Path
 
 from check_docs import Report, check_package, read_json
 
 ROOT = Path(__file__).resolve().parents[1]
 LEGAL_DRAFT = "Draft. Confirm local requirements, the actual service operator, and data practices before publication."
+ROMANIZED_CATEGORY_SLUGS = {
+    "ja": {
+        "relationships": "renai-partner-kankei", "family": "kazoku", "friends": "yujin-tsukiai",
+        "work": "shigoto-career", "education": "gakko-benkyou", "money": "okane-kakei",
+        "identity": "jibun-identity", "values": "shinko-kachikan", "wellbeing": "kokoro-karada-kenko",
+        "grief": "soshitsu-kanashimi", "life-changes": "jinsei-tenki", "everyday": "nichijo-seikatsu",
+    },
+    "ko": {
+        "relationships": "sarang-yeonae", "family": "gajok", "friends": "chingu-gwangye",
+        "work": "il-career", "education": "hakgyo-gongbu", "money": "don-jaejeong",
+        "identity": "ja-a-jeongcheseong", "values": "sin-nyeom-gachigwan", "wellbeing": "mom-maeum-geongang",
+        "grief": "sangsil-aedo", "life-changes": "salm-ui-byeonhwa", "everyday": "ilsang",
+    },
+}
+CYRILLIC_TRANSLITERATION = str.maketrans({
+    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo", "ж": "zh",
+    "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o",
+    "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f", "х": "kh", "ц": "ts",
+    "ч": "ch", "ш": "sh", "щ": "shch", "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
+})
+
+
+def category_slug(label, locale, key):
+    segment = locale["segment"]
+    if segment in ROMANIZED_CATEGORY_SLUGS:
+        return ROMANIZED_CATEGORY_SLUGS[segment][key]
+    text = label.casefold().translate(CYRILLIC_TRANSLITERATION)
+    text = text.replace("ß", "ss").replace("æ", "ae").replace("ø", "o").replace("ł", "l").replace("đ", "d")
+    text = text.replace("ı", "i").replace("ə", "e").replace("œ", "oe")
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    return re.sub(r"[^a-z0-9]+", "-", text).strip("-")
 
 
 def build_package(locale, catalog, contract, messages, draft):
@@ -23,7 +56,7 @@ def build_package(locale, catalog, contract, messages, draft):
         categories[key] = {
             "label": category["labels"][code],
             "description": description,
-            "slug": key,
+            "slug": category_slug(category["labels"][code], locale, key),
         }
     legal_body = draft.get("legal_body")
     if not isinstance(legal_body, str) or not legal_body.strip():
@@ -60,13 +93,15 @@ def build_package(locale, catalog, contract, messages, draft):
 def load_draft(locale, source, draft_directory):
     code = locale["code"]
     if code == "en":
-        messages = source
-        draft = {
-            "version": "draft-1",
-            "category_descriptions": {},
-            "legal_body": LEGAL_DRAFT,
-        }
-        return messages, draft
+        path = draft_directory / "en.json"
+        if path.is_file():
+            draft = read_json(path)
+            if set(draft) != {"locale", "version", "messages", "category_descriptions", "legal_body"}:
+                raise ValueError(f"{path}: draft fields must be locale, version, messages, category_descriptions, legal_body.")
+            if draft["locale"] != "en" or not isinstance(draft["version"], str) or not draft["version"].strip():
+                raise ValueError(f"{path}: locale or version is invalid.")
+            return source, draft
+        return source, {"version": "draft-1", "category_descriptions": {}, "legal_body": LEGAL_DRAFT}
     path = draft_directory / f"{locale['segment']}.json"
     if not path.is_file():
         display_path = path.relative_to(ROOT) if path.is_relative_to(ROOT) else path

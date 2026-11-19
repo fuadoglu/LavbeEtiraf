@@ -1,0 +1,323 @@
+{
+  "locale": "it",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Leggi",
+      "write": "Scrivi",
+      "mine": "Il mio Lavbe",
+      "more": "Altro",
+      "language": "Lingua",
+      "settings": "Impostazioni",
+      "back": "Indietro",
+      "close": "Chiudi"
+    },
+    "language": {
+      "picker_label": "Scegli una lingua",
+      "search": "Cerca lingue",
+      "empty": "Nessuna lingua trovata",
+      "selected": "Lingua corrente",
+      "changed": "Lingua modificata in {language}."
+    },
+    "theme": {
+      "label": "Aspetto",
+      "system": "Utilizza l'impostazione del dispositivo",
+      "day": "Luce",
+      "night": "Scuro"
+    },
+    "feed": {
+      "all": "Tutti",
+      "topics": "Argomenti",
+      "new": "Nuovo",
+      "weekly": "Questa settimana",
+      "updates": "Nuovi aggiornamenti",
+      "more": "Carica altro",
+      "refresh": "Aggiorna alimentazione",
+      "retry": "Riprova",
+      "empty": "Nessuna confessione ancora pubblicata.",
+      "end": "Sei arrivato alla fine.",
+      "loading": "Caricamento confessioni…"
+    },
+    "search": {
+      "title": "Cerca confessioni",
+      "label": "Ricerca per parola chiave",
+      "submit": "Cerca",
+      "empty": "Nessuna confessione corrispondente trovata.",
+      "invalid": "Inserisci un termine di ricerca."
+    },
+    "confession": {
+      "author": "Autore anonimo",
+      "support": "Supporto",
+      "follow": "Segui gli aggiornamenti",
+      "unfollow": "Smetti di seguire",
+      "share": "Condividi",
+      "report": "Segnala",
+      "update": "Aggiornamento",
+      "next": "Prossima confessione",
+      "comments_closed": "Le risposte sono chiuse."
+    },
+    "write": {
+      "title": "Scrivi una confessione",
+      "intro": "La tua confessione viene esaminata prima di apparire pubblicamente.",
+      "body": "La tua confessione",
+      "optional_title": "Titolo (facoltativo)",
+      "topic": "Argomento",
+      "purpose": "Cosa vorresti dai lettori?",
+      "purpose_share": "Voglio solo condividere",
+      "purpose_experience": "Voglio sentire esperienze simili",
+      "purpose_advice": "Vorrei un consiglio",
+      "allow_comments": "Consenti risposte",
+      "public_notice": "Le confessioni approvate possono essere lette pubblicamente nella loro lingua originale.",
+      "age_notice": "Devi avere almeno 18 anni per inviare.",
+      "remember_draft": "Ricorda questa bozza su questo dispositivo",
+      "remember_device": "Ricorda questo dispositivo per l'accesso privato",
+      "submit": "Invia per la revisione",
+      "invalid": "Controlla le tue voci. Il limite del testo è di caratteri {limit}.",
+      "network_error": "Impossibile inviarlo in questo momento. Riprova."
+    },
+    "submit": {
+      "pending": "La tua confessione è in attesa di revisione.",
+      "recovery_code": "Codice di ripristino",
+      "recovery_help": "Salva questo codice in privato. Verrà mostrato solo una volta.",
+      "copy": "Copia il codice",
+      "copied": "Copiato",
+      "my_content": "Stato aperto privato"
+    },
+    "comment": {
+      "write": "Scrivi una risposta",
+      "body": "La tua risposta",
+      "reply": "Rispondi",
+      "submit": "Invia per la revisione",
+      "pending": "La tua risposta è in attesa di revisione.",
+      "edit": "Modifica risposta",
+      "delete": "Ritirare la risposta"
+    },
+    "report": {
+      "confession": "Denuncia confessione",
+      "comment": "Segnala risposta",
+      "reason": "Motivo",
+      "explanation": "Dettagli aggiuntivi (facoltativo)",
+      "send": "Invia segnalazione",
+      "received": "Grazie. La tua segnalazione è stata ricevuta.",
+      "duplicate": "Hai già segnalato questo elemento.",
+      "spam": "Spam o pubblicità",
+      "privacy": "Privacy o informazioni personali",
+      "harassment": "Molestie o abusi",
+      "threat": "Minaccia o problema di sicurezza",
+      "inappropriate": "Contenuti inappropriati",
+      "other": "Altra preoccupazione"
+    },
+    "moderation": {
+      "confessions": "Confessioni",
+      "comments": "Risposte",
+      "reports": "Rapporti",
+      "pending": "In attesa di revisione",
+      "public": "Pubblicato",
+      "changes_requested": "Modifiche richieste",
+      "rejected": "Rifiutato",
+      "withdrawn": "Ritirato",
+      "hidden": "Nascosto",
+      "deleted": "Eliminato",
+      "publish": "Approva e pubblica",
+      "reject": "Rifiuta",
+      "hide": "Nascondi",
+      "request_changes": "Richiedi modifiche",
+      "appeal": "Ricorso",
+      "close_report": "Risolvi rapporto",
+      "stale": "Questo elemento è stato modificato. Ricaricalo e rivedilo di nuovo."
+    },
+    "mine": {
+      "confessions": "Le mie confessioni",
+      "comments": "Le mie risposte",
+      "followed": "Segue",
+      "notifications": "Notifiche",
+      "withdraw": "Ritira",
+      "withdraw_confirm": "Ritirare questo elemento dalla visualizzazione pubblica?",
+      "delete": "Elimina",
+      "delete_confirm": "Questa azione non può essere annullata. Continuare?",
+      "empty": "Ancora niente qui."
+    },
+    "auth": {
+      "sign_in": "Accedi",
+      "email": "E-mail",
+      "email_sent": "Se esiste un account, è stato inviato un messaggio.",
+      "sign_out": "Esci",
+      "recovery": "Recuperare l'accesso",
+      "recovery_input": "Inserisci il tuo codice di ripristino",
+      "recover": "Recupera",
+      "recovered": "Accesso ripristinato. I codici di accesso precedenti sono stati revocati.",
+      "invalid_code": "Il codice non è valido o è scaduto."
+    },
+    "notifications": {
+      "published": "È stata pubblicata una confessione che segui.",
+      "changes_requested": "Un moderatore ha richiesto modifiche alla tua confessione.",
+      "new_comments": {
+        "one": "C'è una nuova risposta {count}.",
+        "many": "Ci sono nuove risposte {count}.",
+        "other": "Ci sono nuove risposte {count}."
+      },
+      "followup": "È disponibile una nuova continuazione.",
+      "generic": "C'è una nuova attività nel tuo account.",
+      "email_option": "Notifiche e-mail (opzionale)",
+      "push_option": "Notifiche push (opzionale)"
+    },
+    "mail": {
+      "login_subject": "Il tuo link di accesso",
+      "login_body": "Questo collegamento scade tra {minutes} minuti.",
+      "notification_subject": "Nuova attività su Lavbe",
+      "notification_body": "Accedi al tuo account privato per vedere l'aggiornamento."
+    },
+    "pwa": {
+      "install": "Installa Lavbe",
+      "install_help_ios": "In Safari, tocca Condividi, quindi Aggiungi alla schermata principale.",
+      "offline_title": "Sei offline",
+      "offline_body": "Alcune pagine salvate potrebbero essere ancora disponibili.",
+      "back_online": "Sei di nuovo online.",
+      "draft_expired": "Questa bozza salvata è scaduta."
+    },
+    "errors": {
+      "not_found": "Pagina non trovata",
+      "gone": "Questo contenuto non è più disponibile.",
+      "forbidden": "Non hai accesso a questa pagina.",
+      "conflict": "Questo elemento è stato modificato. Ricarica e riprova.",
+      "rate_limited": "Troppi tentativi. Aspetta un attimo e riprova.",
+      "unavailable": "Il servizio è momentaneamente non disponibile."
+    },
+    "consent": {
+      "settings": "Impostazioni privacy",
+      "analytics": "Consenti analisi",
+      "ads": "Consenti pubblicità",
+      "save": "Salva scelte",
+      "decline": "Rifiuta i cookie facoltativi",
+      "withdraw": "Modificare o revocare il consenso"
+    },
+    "legal": {
+      "terms": "Condizioni d'uso",
+      "community": "Linee guida della comunità",
+      "privacy": "Informativa sulla privacy",
+      "cookies": "Informativa sui cookie",
+      "illegal_content": "Segnala contenuto illegale",
+      "data_request": "Richiesta privacy",
+      "operator": "Operatore del servizio"
+    },
+    "help": {
+      "title": "Aiuto",
+      "guest": "Puoi scrivere senza creare un account.",
+      "recovery": "Mantieni il tuo codice di ripristino al sicuro; non può essere mostrato nuovamente.",
+      "visibility": "Una confessione è pubblica solo dopo l'approvazione del moderatore.",
+      "reporting": "Utilizza il modulo di segnalazione per segnalare un problema.",
+      "contact": "Contatto"
+    },
+    "seo": {
+      "site_name": "Lavbe",
+      "home_title": "Confessioni e sostegno",
+      "home_description": "Leggi le confessioni in lingua originale e trova supporto.",
+      "topic_title": "{topic} confessioni",
+      "topic_description": "Leggi le confessioni sugli {topic}.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Pubblicità"
+    }
+  },
+  "categories": {
+    "relationships": {
+      "label": "Amore e relazioni",
+      "description": "Confessioni sull'amore e sulle relazioni.",
+      "slug": "amore-e-relazioni"
+    },
+    "family": {
+      "label": "Famiglia",
+      "description": "Confessioni sulla Famiglia.",
+      "slug": "famiglia"
+    },
+    "friends": {
+      "label": "Amicizia e vita sociale",
+      "description": "Confessioni su amici e vita sociale.",
+      "slug": "amicizia-e-vita-sociale"
+    },
+    "work": {
+      "label": "Lavoro e carriera",
+      "description": "Confessioni su lavoro e carriera.",
+      "slug": "lavoro-e-carriera"
+    },
+    "education": {
+      "label": "Studio e formazione",
+      "description": "Confessioni sull'Educazione.",
+      "slug": "studio-e-formazione"
+    },
+    "money": {
+      "label": "Denaro e finanze",
+      "description": "Confessioni su denaro e finanze.",
+      "slug": "denaro-e-finanze"
+    },
+    "identity": {
+      "label": "Immagine di sé e identità",
+      "description": "Confessioni su Sé e Identità.",
+      "slug": "immagine-di-se-e-identita"
+    },
+    "values": {
+      "label": "Credenze e valori",
+      "description": "Confessioni su credenze e valori.",
+      "slug": "credenze-e-valori"
+    },
+    "wellbeing": {
+      "label": "Salute e benessere",
+      "description": "Confessioni su salute e benessere.",
+      "slug": "salute-e-benessere"
+    },
+    "grief": {
+      "label": "Perdita e lutto",
+      "description": "Confessioni sulla perdita e sul dolore.",
+      "slug": "perdita-e-lutto"
+    },
+    "life-changes": {
+      "label": "Cambiamenti di vita",
+      "description": "Confessioni sui cambiamenti della vita.",
+      "slug": "cambiamenti-di-vita"
+    },
+    "everyday": {
+      "label": "Vita quotidiana",
+      "description": "Confessioni sulla vita quotidiana.",
+      "slug": "vita-quotidiana"
+    }
+  },
+  "legal_pages": {
+    "terms": {
+      "title": "Condizioni d'uso",
+      "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
+      "version": "draft-2026-11-19.2"
+    },
+    "community": {
+      "title": "Linee guida della comunità",
+      "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
+      "version": "draft-2026-11-19.2"
+    },
+    "privacy": {
+      "title": "Informativa sulla privacy",
+      "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
+      "version": "draft-2026-11-19.2"
+    },
+    "cookies": {
+      "title": "Informativa sui cookie",
+      "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
+      "version": "draft-2026-11-19.2"
+    },
+    "illegal_content": {
+      "title": "Segnala contenuto illegale",
+      "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
+      "version": "draft-2026-11-19.2"
+    },
+    "data_request": {
+      "title": "Richiesta privacy",
+      "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
+      "version": "draft-2026-11-19.2"
+    },
+    "operator": {
+      "title": "Operatore del servizio",
+      "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
+      "version": "draft-2026-11-19.2"
+    }
+  },
+  "legal_status": "draft"
+}

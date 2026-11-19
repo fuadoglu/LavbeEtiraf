@@ -1,0 +1,238 @@
+{
+  "locale": "pt-BR",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Leia",
+      "write": "Escreva",
+      "mine": "Meu Lavbe",
+      "more": "Mais",
+      "language": "Idioma",
+      "settings": "Configurações",
+      "back": "Voltar",
+      "close": "Fechar"
+    },
+    "language": {
+      "picker_label": "Escolha um idioma",
+      "search": "Idiomas de pesquisa",
+      "empty": "Nenhum idioma encontrado",
+      "selected": "Idioma atual",
+      "changed": "Idioma alterado para {language}."
+    },
+    "theme": {
+      "label": "Aparência",
+      "system": "Usar configuração do dispositivo",
+      "day": "Luz",
+      "night": "Escuro"
+    },
+    "feed": {
+      "all": "Todos",
+      "topics": "Tópicos",
+      "new": "Novo",
+      "weekly": "Esta semana",
+      "updates": "Novas atualizações",
+      "more": "Carregar mais",
+      "refresh": "Atualizar feed",
+      "retry": "Tente novamente",
+      "empty": "Nenhuma confissão publicada ainda.",
+      "end": "Você chegou ao fim.",
+      "loading": "Carregando confissões…"
+    },
+    "search": {
+      "title": "Pesquise confissões",
+      "label": "Pesquisa por palavra-chave",
+      "submit": "Pesquisa",
+      "empty": "Nenhuma confissão correspondente encontrada.",
+      "invalid": "Insira um termo de pesquisa."
+    },
+    "confession": {
+      "author": "Autor anônimo",
+      "support": "Suporte",
+      "follow": "Siga as atualizações",
+      "unfollow": "Deixar de seguir",
+      "share": "Compartilhar",
+      "report": "Relatório",
+      "update": "Atualização",
+      "next": "Próxima confissão",
+      "comments_closed": "As respostas estão fechadas."
+    },
+    "write": {
+      "title": "Escreva uma confissão",
+      "intro": "Sua confissão é revisada antes de aparecer publicamente.",
+      "body": "Sua confissão",
+      "optional_title": "Título (opcional)",
+      "topic": "Tópico",
+      "purpose": "O que você gostaria dos leitores?",
+      "purpose_share": "Eu só quero compartilhar",
+      "purpose_experience": "Quero ouvir experiências semelhantes",
+      "purpose_advice": "gostaria de conselhos",
+      "allow_comments": "Permitir respostas",
+      "public_notice": "As confissões aprovadas podem ser lidas publicamente em seu idioma original.",
+      "age_notice": "Você deve ter pelo menos 18 anos para enviar.",
+      "remember_draft": "Lembre-se deste rascunho neste dispositivo",
+      "remember_device": "Lembre-se deste dispositivo para acesso privado",
+      "submit": "Enviar para revisão",
+      "invalid": "Verifique suas entradas. O limite de texto é de caracteres {limit}.",
+      "network_error": "Não foi possível enviar isso agora. Tente novamente."
+    },
+    "submit": {
+      "pending": "Sua confissão aguarda revisão.",
+      "recovery_code": "Código de recuperação",
+      "recovery_help": "Salve este código em particular. Só será mostrado uma vez.",
+      "copy": "Copiar código",
+      "copied": "Copiado",
+      "my_content": "Abrir status privado"
+    },
+    "comment": {
+      "write": "Escreva uma resposta",
+      "body": "Sua resposta",
+      "reply": "Responder",
+      "submit": "Enviar para revisão",
+      "pending": "Sua resposta está aguardando revisão.",
+      "edit": "Editar resposta",
+      "delete": "Retirar resposta"
+    },
+    "report": {
+      "confession": "Denunciar confissão",
+      "comment": "Reportar resposta",
+      "reason": "Motivo",
+      "explanation": "Detalhes adicionais (opcional)",
+      "send": "Enviar relatório",
+      "received": "Obrigado. Seu relatório foi recebido.",
+      "duplicate": "Você já denunciou este item.",
+      "spam": "Spam ou publicidade",
+      "privacy": "Privacidade ou informações pessoais",
+      "harassment": "Assédio ou abuso",
+      "threat": "Ameaça ou preocupação de segurança",
+      "inappropriate": "Conteúdo impróprio",
+      "other": "Outra preocupação"
+    },
+    "moderation": {
+      "confessions": "Confissões",
+      "comments": "Respostas",
+      "reports": "Relatórios",
+      "pending": "Aguardando revisão",
+      "public": "Publicado",
+      "changes_requested": "Alterações solicitadas",
+      "rejected": "Rejeitado",
+      "withdrawn": "Retirado",
+      "hidden": "Oculto",
+      "deleted": "Excluído",
+      "publish": "Aprovar e publicar",
+      "reject": "Rejeitar",
+      "hide": "Ocultar",
+      "request_changes": "Solicitar alterações",
+      "appeal": "Recurso",
+      "close_report": "Resolver relatório",
+      "stale": "Este item foi alterado. Recarregue e revise novamente."
+    },
+    "mine": {
+      "confessions": "Minhas confissões",
+      "comments": "Minhas respostas",
+      "followed": "Seguindo",
+      "notifications": "Notificações",
+      "withdraw": "Retirar",
+      "withdraw_confirm": "Retirar este item da vista do público?",
+      "delete": "Excluir",
+      "delete_confirm": "Esta ação não pode ser desfeita. Continuar?",
+      "empty": "Nada aqui ainda."
+    },
+    "auth": {
+      "sign_in": "Entrar",
+      "email": "E-mail",
+      "email_sent": "Se existir uma conta, uma mensagem foi enviada.",
+      "sign_out": "Sair",
+      "recovery": "Recuperar acesso",
+      "recovery_input": "Digite seu código de recuperação",
+      "recover": "Recuperar",
+      "recovered": "Acesso recuperado. Os códigos de acesso anteriores foram revogados.",
+      "invalid_code": "O código é inválido ou expirou."
+    },
+    "notifications": {
+      "published": "Uma confissão que você segue foi publicada.",
+      "changes_requested": "Um moderador solicitou alterações em sua confissão.",
+      "new_comments": {
+        "one": "Há uma nova resposta do {count}.",
+        "many": "Existem novas respostas do {count}.",
+        "other": "Existem novas respostas do {count}."
+      },
+      "followup": "Uma nova continuação está disponível.",
+      "generic": "Há novas atividades em sua conta.",
+      "email_option": "Notificações por e-mail (opcional)",
+      "push_option": "Notificações push (opcional)"
+    },
+    "mail": {
+      "login_subject": "Seu link de login",
+      "login_body": "Este link expira em {minutes} minutos.",
+      "notification_subject": "Nova atividade no Lavbe",
+      "notification_body": "Faça login em sua conta privada para ver a atualização."
+    },
+    "pwa": {
+      "install": "Instale o Lavbe",
+      "install_help_ios": "No Safari, toque em Compartilhar e em Adicionar à tela inicial.",
+      "offline_title": "Você está offline",
+      "offline_body": "Algumas páginas salvas ainda podem estar disponíveis.",
+      "back_online": "Você está online novamente.",
+      "draft_expired": "Este rascunho salvo expirou."
+    },
+    "errors": {
+      "not_found": "Página não encontrada",
+      "gone": "Este conteúdo não está mais disponível.",
+      "forbidden": "Você não tem acesso a esta página.",
+      "conflict": "Este item foi alterado. Recarregue e tente novamente.",
+      "rate_limited": "Muitas tentativas. Espere um momento e tente novamente.",
+      "unavailable": "O serviço está temporariamente indisponível."
+    },
+    "consent": {
+      "settings": "Configurações de privacidade",
+      "analytics": "Permitir análises",
+      "ads": "Permitir publicidade",
+      "save": "Salvar opções",
+      "decline": "Recusar cookies opcionais",
+      "withdraw": "Alterar ou retirar consentimento"
+    },
+    "legal": {
+      "terms": "Termos de uso",
+      "community": "Diretrizes da comunidade",
+      "privacy": "Aviso de privacidade",
+      "cookies": "Aviso de cookies",
+      "illegal_content": "Denunciar conteúdo ilegal",
+      "data_request": "Solicitação de privacidade",
+      "operator": "Operador de serviço"
+    },
+    "help": {
+      "title": "Ajuda",
+      "guest": "Você pode escrever sem criar uma conta.",
+      "recovery": "Mantenha seu código de recuperação seguro; não pode ser mostrado novamente.",
+      "visibility": "Uma confissão só é pública após a aprovação do moderador.",
+      "reporting": "Use o formulário de denúncia para sinalizar uma preocupação.",
+      "contact": "Contato"
+    },
+    "seo": {
+      "site_name": "Lavbe",
+      "home_title": "Confissões e apoio",
+      "home_description": "Leia confissões em seu idioma original e encontre apoio.",
+      "topic_title": "{topic} confissões",
+      "topic_description": "Leia confissões sobre {topic}.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Anúncio"
+    }
+  },
+  "category_descriptions": {
+    "relationships": "Confissões sobre amor e relacionamentos.",
+    "family": "Confissões sobre Família.",
+    "friends": "Confissões sobre amigos e vida social.",
+    "work": "Confissões sobre Trabalho e Carreira.",
+    "education": "Confissões sobre Educação.",
+    "money": "Confissões sobre dinheiro e finanças.",
+    "identity": "Confissões sobre si mesmo e identidade.",
+    "values": "Confissões sobre Crenças e Valores.",
+    "wellbeing": "Confissões sobre saúde e bem-estar.",
+    "grief": "Confissões sobre perdas e luto.",
+    "life-changes": "Confissões sobre mudanças de vida.",
+    "everyday": "Confissões sobre a vida cotidiana."
+  },
+  "legal_body": "Rascunho. Confirme os requisitos locais, o operador de serviço real e as práticas de dados antes da publicação."
+}

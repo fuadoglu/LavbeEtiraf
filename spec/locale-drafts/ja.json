@@ -1,0 +1,236 @@
+{
+  "locale": "ja",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "読む",
+      "write": "書く",
+      "mine": "私のラブベ",
+      "more": "もっと見る",
+      "language": "言語",
+      "settings": "設定",
+      "back": "戻る",
+      "close": "閉じる"
+    },
+    "language": {
+      "picker_label": "言語を選択してください",
+      "search": "言語を検索",
+      "empty": "言語が見つかりませんでした",
+      "selected": "現在の言語",
+      "changed": "言語が {language} に変更されました。"
+    },
+    "theme": {
+      "label": "出演",
+      "system": "デバイス設定を使用する",
+      "day": "ライト",
+      "night": "ダーク"
+    },
+    "feed": {
+      "all": "すべて",
+      "topics": "トピックス",
+      "new": "新規",
+      "weekly": "今週",
+      "updates": "新しい更新情報",
+      "more": "もっと読み込む",
+      "refresh": "フィードを更新",
+      "retry": "もう一度試してください",
+      "empty": "公開された自白はまだありません。",
+      "end": "最後まで到達しました。",
+      "loading": "告白を読み込んでいます…"
+    },
+    "search": {
+      "title": "自白を検索",
+      "label": "キーワードで探す",
+      "submit": "検索",
+      "empty": "一致する自白は見つかりませんでした。",
+      "invalid": "検索語を入力してください。"
+    },
+    "confession": {
+      "author": "匿名の作者",
+      "support": "サポート",
+      "follow": "更新情報をフォローする",
+      "unfollow": "フォローを解除",
+      "share": "シェアする",
+      "report": "レポート",
+      "update": "更新",
+      "next": "次の告白",
+      "comments_closed": "回答は締め切られました。"
+    },
+    "write": {
+      "title": "告白を書く",
+      "intro": "あなたの自白は公にされる前に審査されます。",
+      "body": "あなたの告白",
+      "optional_title": "タイトル (オプション)",
+      "topic": "トピック",
+      "purpose": "読者に何を望みますか?",
+      "purpose_share": "共有したいだけです",
+      "purpose_experience": "同じような経験を聞きたい",
+      "purpose_advice": "アドバイスが欲しいです",
+      "allow_comments": "応答を許可する",
+      "public_notice": "承認された告白は、元の言語で公開して読むことができます。",
+      "age_notice": "投稿するには 18 歳以上である必要があります。",
+      "remember_draft": "この下書きをこのデバイスに保存します",
+      "remember_device": "プライベート アクセス用にこのデバイスを記憶",
+      "submit": "レビューのために送信",
+      "invalid": "入力内容を確認してください。テキストの制限は {limit} 文字です。",
+      "network_error": "現在送信できませんでした。もう一度やり直してください。"
+    },
+    "submit": {
+      "pending": "あなたの告白は審査を待っています。",
+      "recovery_code": "リカバリー コード",
+      "recovery_help": "このコードは非公開で保存してください。 1回のみ表示されます。",
+      "copy": "コードをコピー",
+      "copied": "コピーしました",
+      "my_content": "非公開ステータスをオープン"
+    },
+    "comment": {
+      "write": "応答を書く",
+      "body": "あなたの返答",
+      "reply": "返信",
+      "submit": "レビューのために送信",
+      "pending": "あなたの返信は審査を待っています。",
+      "edit": "返信を編集",
+      "delete": "応答を取り下げる"
+    },
+    "report": {
+      "confession": "自白を報告",
+      "comment": "応答を報告",
+      "reason": "理由",
+      "explanation": "追加の詳細 (オプション)",
+      "send": "レポートを送信",
+      "received": "ありがとうございます。あなたの報告は受理されました。",
+      "duplicate": "この項目はすでに報告されています。",
+      "spam": "スパムまたは広告",
+      "privacy": "プライバシーまたは個人情報",
+      "harassment": "ハラスメントまたは虐待",
+      "threat": "脅威または安全上の懸念",
+      "inappropriate": "不適切なコンテンツ",
+      "other": "その他の懸念事項"
+    },
+    "moderation": {
+      "confessions": "告白",
+      "comments": "の返信",
+      "reports": "レポート",
+      "pending": "レビュー待ち",
+      "public": "公開",
+      "changes_requested": "変更がリクエストされました",
+      "rejected": "拒否されました",
+      "withdrawn": "撤回",
+      "hidden": "非表示",
+      "deleted": "削除されました",
+      "publish": "承認して公開する",
+      "reject": "拒否",
+      "hide": "隠す",
+      "request_changes": "変更のリクエスト",
+      "appeal": "異議申し立て",
+      "close_report": "レポートを解決する",
+      "stale": "この項目は変更されました。リロードしてもう一度確認してください。"
+    },
+    "mine": {
+      "confessions": "私の告白",
+      "comments": "私の返信",
+      "followed": "フォロー中",
+      "notifications": "通知",
+      "withdraw": "撤回",
+      "withdraw_confirm": "このアイテムを一般公開から取り下げますか?",
+      "delete": "削除",
+      "delete_confirm": "この操作は元に戻すことができません。続く？",
+      "empty": "ここにはまだ何もありません。"
+    },
+    "auth": {
+      "sign_in": "サインイン",
+      "email": "メール",
+      "email_sent": "アカウントが存在する場合は、メッセージが送信されています。",
+      "sign_out": "サインアウト",
+      "recovery": "アクセスを回復する",
+      "recovery_input": "回復コードを入力してください",
+      "recover": "回復します",
+      "recovered": "アクセスが回復しました。以前のアクセス コードは無効になりました。",
+      "invalid_code": "コードが無効か期限切れです。"
+    },
+    "notifications": {
+      "published": "あなたがフォローしている告白が公開されました。",
+      "changes_requested": "モデレータがあなたの自白の変更をリクエストしました。",
+      "new_comments": {
+        "other": "{count} の新しい応答があります。"
+      },
+      "followup": "新しい続きが利用可能です。",
+      "generic": "アカウントに新しいアクティビティがあります。",
+      "email_option": "電子メール通知 (オプション)",
+      "push_option": "プッシュ通知 (オプション)"
+    },
+    "mail": {
+      "login_subject": "サインイン リンク",
+      "login_body": "このリンクは {minutes} 分で期限切れになります。",
+      "notification_subject": "Lavbe での新しいアクティビティ",
+      "notification_body": "更新を確認するには、プライベート アカウントにサインインしてください。"
+    },
+    "pwa": {
+      "install": "Lavbe をインストールする",
+      "install_help_ios": "Safari で、[共有] をタップし、[ホーム画面に追加] をタップします。",
+      "offline_title": "オフラインです",
+      "offline_body": "保存された一部のページはまだ利用できる可能性があります。",
+      "back_online": "オンラインに戻りました。",
+      "draft_expired": "この保存された下書きは有効期限が切れています。"
+    },
+    "errors": {
+      "not_found": "ページが見つかりません",
+      "gone": "このコンテンツは現在利用できません。",
+      "forbidden": "このページへのアクセス権がありません。",
+      "conflict": "この項目は変更されました。リロードして再試行してください。",
+      "rate_limited": "試行回数が多すぎます。しばらく待ってからもう一度試してください。",
+      "unavailable": "サービスは一時的に利用できません。"
+    },
+    "consent": {
+      "settings": "プライバシー設定",
+      "analytics": "分析を許可する",
+      "ads": "広告を許可する",
+      "save": "選択肢を保存",
+      "decline": "オプションの Cookie を拒否する",
+      "withdraw": "同意の変更または撤回"
+    },
+    "legal": {
+      "terms": "利用規約",
+      "community": "コミュニティ ガイドライン",
+      "privacy": "プライバシーに関する通知",
+      "cookies": "クッキーに関する通知",
+      "illegal_content": "違法なコンテンツを報告",
+      "data_request": "プライバシーのリクエスト",
+      "operator": "サービス運営者"
+    },
+    "help": {
+      "title": "ヘルプ",
+      "guest": "アカウントを作成しなくても書き込めます。",
+      "recovery": "リカバリ コードは安全に保管してください。再度表示することはできません。",
+      "visibility": "告白はモデレーターの承認後にのみ公開されます。",
+      "reporting": "懸念事項を報告するには、報告フォームを使用してください。",
+      "contact": "連絡先"
+    },
+    "seo": {
+      "site_name": "ラヴベ",
+      "home_title": "告白とサポート",
+      "home_description": "原語で告白を読んで支援を見つけてください。",
+      "topic_title": "{topic} の告白",
+      "topic_description": "{topic} に関する告白を読んでください。",
+      "confession_title": "{title} · ラベ"
+    },
+    "ads": {
+      "label": "広告"
+    }
+  },
+  "category_descriptions": {
+    "relationships": "愛と人間関係についての告白。",
+    "family": "家族に関する告白。",
+    "friends": "友人と社会生活についての告白。",
+    "work": "仕事とキャリアに関する告白。",
+    "education": "教育に関する告白。",
+    "money": "お金と財政に関する告白。",
+    "identity": "自己とアイデンティティについての告白。",
+    "values": "信念と価値観についての告白。",
+    "wellbeing": "健康と幸福に関する告白。",
+    "grief": "喪失と悲しみについての告白。",
+    "life-changes": "人生の変化についての告白。",
+    "everyday": "日常生活についての告白。"
+  },
+  "legal_body": "ドラフト。公開する前に、現地の要件、実際のサービス運営者、データの取り扱いを確認してください。"
+}

@@ -1,0 +1,237 @@
+{
+  "locale": "da",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Læs",
+      "write": "Skriv",
+      "mine": "Min Lavbe",
+      "more": "Mere",
+      "language": "Sprog",
+      "settings": "Indstillinger",
+      "back": "Tilbage",
+      "close": "Luk"
+    },
+    "language": {
+      "picker_label": "Vælg et sprog",
+      "search": "Søg efter sprog",
+      "empty": "Ingen sprog fundet",
+      "selected": "Aktuelt sprog",
+      "changed": "Sproget ændret til {language}."
+    },
+    "theme": {
+      "label": "Udseende",
+      "system": "Brug enhedsindstilling",
+      "day": "Lys",
+      "night": "Mørk"
+    },
+    "feed": {
+      "all": "Alle",
+      "topics": "Emner",
+      "new": "Nyt",
+      "weekly": "Denne uge",
+      "updates": "Nye opdateringer",
+      "more": "Indlæs mere",
+      "refresh": "Opdater feed",
+      "retry": "Prøv igen",
+      "empty": "Ingen offentliggjorte tilståelser endnu.",
+      "end": "Du er nået til slutningen.",
+      "loading": "Indlæser tilståelser..."
+    },
+    "search": {
+      "title": "Søg tilståelser",
+      "label": "Søg efter nøgleord",
+      "submit": "Søg",
+      "empty": "Ingen matchende tilståelser fundet.",
+      "invalid": "Indtast et søgeord."
+    },
+    "confession": {
+      "author": "Anonym forfatter",
+      "support": "Support",
+      "follow": "Følg opdateringer",
+      "unfollow": "Slut med at følge",
+      "share": "Del",
+      "report": "Rapport",
+      "update": "Opdatering",
+      "next": "Næste bekendelse",
+      "comments_closed": "Svar er lukket."
+    },
+    "write": {
+      "title": "Skriv en tilståelse",
+      "intro": "Din tilståelse gennemgås, før den vises offentligt.",
+      "body": "Din tilståelse",
+      "optional_title": "Titel (valgfrit)",
+      "topic": "Emne",
+      "purpose": "Hvad vil du gerne have fra læserne?",
+      "purpose_share": "Jeg vil bare dele",
+      "purpose_experience": "Jeg vil gerne høre lignende oplevelser",
+      "purpose_advice": "Jeg vil gerne have råd",
+      "allow_comments": "Tillad svar",
+      "public_notice": "Godkendte bekendelser kan læses offentligt på deres originalsprog.",
+      "age_notice": "Du skal være mindst 18 år for at indsende.",
+      "remember_draft": "Husk denne kladde på denne enhed",
+      "remember_device": "Husk denne enhed for privat adgang",
+      "submit": "Send til gennemgang",
+      "invalid": "Tjek dine indtastninger. Tekstgrænsen er {limit} tegn.",
+      "network_error": "Vi kunne ikke sende dette lige nu. Prøv igen."
+    },
+    "submit": {
+      "pending": "Din tilståelse venter på gennemgang.",
+      "recovery_code": "Gendannelseskode",
+      "recovery_help": "Gem denne kode privat. Det vil kun blive vist én gang.",
+      "copy": "Kopiér kode",
+      "copied": "Kopieret",
+      "my_content": "Åbn privat status"
+    },
+    "comment": {
+      "write": "Skriv et svar",
+      "body": "Dit svar",
+      "reply": "Svar",
+      "submit": "Send til gennemgang",
+      "pending": "Dit svar venter på gennemgang.",
+      "edit": "Rediger svar",
+      "delete": "Træk svar tilbage"
+    },
+    "report": {
+      "confession": "Indberet tilståelse",
+      "comment": "Rapporter svar",
+      "reason": "Årsag",
+      "explanation": "Yderligere detaljer (valgfrit)",
+      "send": "Send rapport",
+      "received": "Tak. Din rapport er modtaget.",
+      "duplicate": "Du har allerede anmeldt denne vare.",
+      "spam": "Spam eller reklame",
+      "privacy": "Privatliv eller personlige oplysninger",
+      "harassment": "Chikane eller misbrug",
+      "threat": "Trussel eller sikkerhedsproblemer",
+      "inappropriate": "Upassende indhold",
+      "other": "Anden bekymring"
+    },
+    "moderation": {
+      "confessions": "Bekendelser",
+      "comments": "Svar",
+      "reports": "Rapporter",
+      "pending": "Venter på gennemgang",
+      "public": "Udgivet",
+      "changes_requested": "Ændringer anmodet",
+      "rejected": "Afvist",
+      "withdrawn": "trukket tilbage",
+      "hidden": "Skjult",
+      "deleted": "Slettet",
+      "publish": "Godkend og udgiv",
+      "reject": "Afvis",
+      "hide": "Skjul",
+      "request_changes": "Anmod om ændringer",
+      "appeal": "Appel",
+      "close_report": "Løs rapport",
+      "stale": "Denne vare er ændret. Genindlæs og gennemgå den igen."
+    },
+    "mine": {
+      "confessions": "Mine bekendelser",
+      "comments": "Mine svar",
+      "followed": "Følger",
+      "notifications": "Meddelelser",
+      "withdraw": "Træk tilbage",
+      "withdraw_confirm": "Vil du trække denne genstand tilbage fra offentlig visning?",
+      "delete": "Slet",
+      "delete_confirm": "Denne handling kan ikke fortrydes. Fortsætte?",
+      "empty": "Intet her endnu."
+    },
+    "auth": {
+      "sign_in": "Log ind",
+      "email": "E-mail",
+      "email_sent": "Hvis der findes en konto, er der sendt en besked.",
+      "sign_out": "Log ud",
+      "recovery": "Gendan adgang",
+      "recovery_input": "Indtast din gendannelseskode",
+      "recover": "Gendan",
+      "recovered": "Adgang gendannet. Tidligere adgangskoder blev tilbagekaldt.",
+      "invalid_code": "Koden er ugyldig eller udløbet."
+    },
+    "notifications": {
+      "published": "En tilståelse, du følger, blev offentliggjort.",
+      "changes_requested": "En moderator anmodede om ændringer af din tilståelse.",
+      "new_comments": {
+        "one": "Der er {count} nyt svar.",
+        "other": "Der er {count} nye svar."
+      },
+      "followup": "En ny fortsættelse er tilgængelig.",
+      "generic": "Der er ny aktivitet på din konto.",
+      "email_option": "E-mail-meddelelser (valgfrit)",
+      "push_option": "Push-meddelelser (valgfrit)"
+    },
+    "mail": {
+      "login_subject": "Dit login-link",
+      "login_body": "Dette link udløber om {minutes} minutter.",
+      "notification_subject": "Ny aktivitet på Lavbe",
+      "notification_body": "Log ind på din private konto for at se opdateringen."
+    },
+    "pwa": {
+      "install": "Installer Lavbe",
+      "install_help_ios": "I Safari skal du trykke på Del og derefter Føj til startskærm.",
+      "offline_title": "Du er offline",
+      "offline_body": "Nogle gemte sider er muligvis stadig tilgængelige.",
+      "back_online": "Du er online igen.",
+      "draft_expired": "Denne gemte kladde er udløbet."
+    },
+    "errors": {
+      "not_found": "Side ikke fundet",
+      "gone": "Dette indhold er ikke længere tilgængeligt.",
+      "forbidden": "Du har ikke adgang til denne side.",
+      "conflict": "Denne vare er ændret. Genindlæs og prøv igen.",
+      "rate_limited": "For mange forsøg. Vent et øjeblik og prøv igen.",
+      "unavailable": "Tjenesten er midlertidigt utilgængelig."
+    },
+    "consent": {
+      "settings": "Indstillinger for beskyttelse af personlige oplysninger",
+      "analytics": "Tillad analyser",
+      "ads": "Tillad annoncering",
+      "save": "Gem valg",
+      "decline": "Afvis valgfri cookies",
+      "withdraw": "Ændre eller trække samtykke tilbage"
+    },
+    "legal": {
+      "terms": "Vilkår for brug",
+      "community": "Fællesskabsretningslinjer",
+      "privacy": "Bekendtgørelse om beskyttelse af personlige oplysninger",
+      "cookies": "Cookie-meddelelse",
+      "illegal_content": "Rapporter ulovligt indhold",
+      "data_request": "Anmodning om beskyttelse af personlige oplysninger",
+      "operator": "Serviceoperatør"
+    },
+    "help": {
+      "title": "Hjælp",
+      "guest": "Du kan skrive uden at oprette en konto.",
+      "recovery": "Opbevar din gendannelseskode sikkert; det kan ikke vises igen.",
+      "visibility": "En tilståelse er kun offentlig efter moderators godkendelse.",
+      "reporting": "Brug rapportformularen til at markere en bekymring.",
+      "contact": "Kontakt"
+    },
+    "seo": {
+      "site_name": "Lavbe",
+      "home_title": "Bekendelser og støtte",
+      "home_description": "Læs bekendelser på deres originalsprog og find støtte.",
+      "topic_title": "{topic} tilståelser",
+      "topic_description": "Læs bekendelser om {topic}.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Annonce"
+    }
+  },
+  "category_descriptions": {
+    "relationships": "Bekendelser om kærlighed og forhold.",
+    "family": "Bekendelser om familie.",
+    "friends": "Bekendelser om venner og det sociale liv.",
+    "work": "Bekendelser om arbejde og karriere.",
+    "education": "Bekendelser om uddannelse.",
+    "money": "Bekendelser om penge og økonomi.",
+    "identity": "Bekendelser om selv og identitet.",
+    "values": "Bekendelser om tro og værdier.",
+    "wellbeing": "Bekendelser om sundhed og velvære.",
+    "grief": "Bekendelser om tab og sorg.",
+    "life-changes": "Bekendelser om livsforandringer.",
+    "everyday": "Bekendelser om hverdagen."
+  },
+  "legal_body": "Udkast. Bekræft lokale krav, den faktiske tjenesteoperatør og datapraksis før offentliggørelse."
+}

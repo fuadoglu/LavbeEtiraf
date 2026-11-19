@@ -1,0 +1,237 @@
+{
+  "locale": "fi",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Lue",
+      "write": "Kirjoita",
+      "mine": "Lavbeni",
+      "more": "Lisää",
+      "language": "Kieli",
+      "settings": "Asetukset",
+      "back": "Takaisin",
+      "close": "Sulje"
+    },
+    "language": {
+      "picker_label": "Valitse kieli",
+      "search": "Hae kieliä",
+      "empty": "Kieliä ei löytynyt",
+      "selected": "Nykyinen kieli",
+      "changed": "Kieleksi vaihdettu {language}."
+    },
+    "theme": {
+      "label": "Ulkonäkö",
+      "system": "Käytä laiteasetuksia",
+      "day": "Valo",
+      "night": "Tumma"
+    },
+    "feed": {
+      "all": "Kaikki",
+      "topics": "Aiheet",
+      "new": "Uutta",
+      "weekly": "Tällä viikolla",
+      "updates": "Uusia päivityksiä",
+      "more": "Lataa lisää",
+      "refresh": "Päivitä syöte",
+      "retry": "Yritä uudelleen",
+      "empty": "Ei vielä julkaistuja tunnustuksia.",
+      "end": "Olet saavuttanut lopun.",
+      "loading": "Ladataan tunnustuksia…"
+    },
+    "search": {
+      "title": "Hae tunnustuksia",
+      "label": "Hae avainsanalla",
+      "submit": "Hae",
+      "empty": "Vastaavia tunnustuksia ei löytynyt.",
+      "invalid": "Kirjoita hakutermi."
+    },
+    "confession": {
+      "author": "Nimetön kirjoittaja",
+      "support": "Tuki",
+      "follow": "Seuraa päivityksiä",
+      "unfollow": "Lopeta seuraaminen",
+      "share": "Jaa",
+      "report": "Raportti",
+      "update": "Päivitys",
+      "next": "Seuraava tunnustus",
+      "comments_closed": "Vastaukset on suljettu."
+    },
+    "write": {
+      "title": "Kirjoita tunnustus",
+      "intro": "Tunnustuksesi tarkistetaan ennen kuin se tulee julkisuuteen.",
+      "body": "Tunnustuksesi",
+      "optional_title": "Otsikko (valinnainen)",
+      "topic": "Aihe",
+      "purpose": "Mitä haluaisit lukijoilta?",
+      "purpose_share": "Haluan vain jakaa",
+      "purpose_experience": "Haluan kuulla samanlaisia kokemuksia",
+      "purpose_advice": "Haluaisin neuvoja",
+      "allow_comments": "Salli vastaukset",
+      "public_notice": "Hyväksytyt tunnustukset voidaan lukea julkisesti niiden alkuperäisellä kielellä.",
+      "age_notice": "Sinun on oltava vähintään 18-vuotias lähettääksesi.",
+      "remember_draft": "Muista tämä luonnos tällä laitteella",
+      "remember_device": "Muista tämä laite yksityistä käyttöä varten",
+      "submit": "Lähetä tarkistettavaksi",
+      "invalid": "Tarkista tietosi. Tekstin enimmäismäärä on {limit} merkkiä.",
+      "network_error": "Emme voineet lähettää tätä juuri nyt. Yritä uudelleen."
+    },
+    "submit": {
+      "pending": "Tunnustuksesi odottaa tarkistusta.",
+      "recovery_code": "Palautuskoodi",
+      "recovery_help": "Tallenna tämä koodi yksityisesti. Se näytetään vain kerran.",
+      "copy": "Kopioi koodi",
+      "copied": "Kopioitu",
+      "my_content": "Avaa yksityinen tila"
+    },
+    "comment": {
+      "write": "Kirjoita vastaus",
+      "body": "Vastauksesi",
+      "reply": "Vastaa",
+      "submit": "Lähetä tarkistettavaksi",
+      "pending": "Vastauksesi odottaa tarkistusta.",
+      "edit": "Muokkaa vastausta",
+      "delete": "Peruuta vastaus"
+    },
+    "report": {
+      "confession": "Ilmoita tunnustus",
+      "comment": "Ilmoita vastauksesta",
+      "reason": "Syy",
+      "explanation": "Lisätietoja (valinnainen)",
+      "send": "Lähetä raportti",
+      "received": "Kiitos. Raporttisi vastaanotettiin.",
+      "duplicate": "Olet jo ilmoittanut tämän kohteen.",
+      "spam": "Roskaposti tai mainonta",
+      "privacy": "Yksityisyys tai henkilötiedot",
+      "harassment": "Häirintä tai väärinkäyttö",
+      "threat": "Uhka tai turvallisuusongelma",
+      "inappropriate": "Sopimaton sisältö",
+      "other": "Muu huolenaihe"
+    },
+    "moderation": {
+      "confessions": "Tunnustukset",
+      "comments": "Vastaukset",
+      "reports": "Raportit",
+      "pending": "Odotetaan tarkistusta",
+      "public": "Julkaistu",
+      "changes_requested": "Muutoksia pyydetty",
+      "rejected": "Hylätty",
+      "withdrawn": "Peruttu",
+      "hidden": "Piilotettu",
+      "deleted": "Poistettu",
+      "publish": "Hyväksy ja julkaise",
+      "reject": "Hylkää",
+      "hide": "Piilota",
+      "request_changes": "Pyydä muutoksia",
+      "appeal": "Valitus",
+      "close_report": "Ratkaise raportti",
+      "stale": "Tämä kohde muuttui. Lataa uudelleen ja tarkista se uudelleen."
+    },
+    "mine": {
+      "confessions": "Tunnustukseni",
+      "comments": "Vastaukseni",
+      "followed": "Seurataan",
+      "notifications": "Ilmoitukset",
+      "withdraw": "Peru",
+      "withdraw_confirm": "Poistetaanko tämä kohde julkisuudesta?",
+      "delete": "Poista",
+      "delete_confirm": "Tätä toimintoa ei voi kumota. Jatkaa?",
+      "empty": "Ei vielä mitään."
+    },
+    "auth": {
+      "sign_in": "Kirjaudu sisään",
+      "email": "Sähköposti",
+      "email_sent": "Jos tili on olemassa, viesti on lähetetty.",
+      "sign_out": "Kirjaudu ulos",
+      "recovery": "Palauta käyttöoikeus",
+      "recovery_input": "Anna palautuskoodisi",
+      "recover": "Palauta",
+      "recovered": "Käyttöoikeus palautettu. Aiemmat pääsykoodit peruutettiin.",
+      "invalid_code": "Koodi on virheellinen tai vanhentunut."
+    },
+    "notifications": {
+      "published": "Seuraamasi tunnustus on julkaistu.",
+      "changes_requested": "Moderaattori pyysi muutoksia tunnustukseesi.",
+      "new_comments": {
+        "one": "{count} on uusi vastaus.",
+        "other": "{count} on uusia vastauksia."
+      },
+      "followup": "Uusi jatko on saatavilla.",
+      "generic": "Tililläsi on uutta toimintaa.",
+      "email_option": "Sähköposti-ilmoitukset (valinnainen)",
+      "push_option": "Push-ilmoitukset (valinnainen)"
+    },
+    "mail": {
+      "login_subject": "Kirjautumislinkkisi",
+      "login_body": "Tämä linkki vanhenee {minutes} minuutissa.",
+      "notification_subject": "Uusi toiminta Lavbessa",
+      "notification_body": "Kirjaudu sisään yksityiselle tilillesi nähdäksesi päivityksen."
+    },
+    "pwa": {
+      "install": "Asenna Lavbe",
+      "install_help_ios": "Napauta Safarissa Jaa ja sitten Lisää aloitusnäyttöön.",
+      "offline_title": "Olet offline-tilassa",
+      "offline_body": "Jotkut tallennetut sivut voivat edelleen olla käytettävissä.",
+      "back_online": "Olet taas online-tilassa.",
+      "draft_expired": "Tämä tallennettu luonnos on vanhentunut."
+    },
+    "errors": {
+      "not_found": "Sivua ei löydy",
+      "gone": "Tämä sisältö ei ole enää saatavilla.",
+      "forbidden": "Sinulla ei ole pääsyä tälle sivulle.",
+      "conflict": "Tämä kohde muuttui. Lataa uudelleen ja yritä uudelleen.",
+      "rate_limited": "Liian monta yritystä. Odota hetki ja yritä uudelleen.",
+      "unavailable": "Palvelu on tilapäisesti poissa käytöstä."
+    },
+    "consent": {
+      "settings": "Yksityisyysasetukset",
+      "analytics": "Salli analytiikka",
+      "ads": "Salli mainonta",
+      "save": "Tallenna valinnat",
+      "decline": "Hylkää valinnaiset evästeet",
+      "withdraw": "Muuta tai peruuta suostumus"
+    },
+    "legal": {
+      "terms": "Käyttöehdot",
+      "community": "yhteisön säännöt",
+      "privacy": "Tietosuojailmoitus",
+      "cookies": "Evästeilmoitus",
+      "illegal_content": "Ilmoita laittomasta sisällöstä",
+      "data_request": "Tietosuojapyyntö",
+      "operator": "Palveluntarjoaja"
+    },
+    "help": {
+      "title": "Ohje",
+      "guest": "Voit kirjoittaa luomatta tiliä.",
+      "recovery": "Pidä palautuskoodisi turvassa; sitä ei voi näyttää uudelleen.",
+      "visibility": "Tunnustus on julkinen vasta moderaattorin hyväksynnän jälkeen.",
+      "reporting": "Ilmoita huolenaiheesta ilmoituslomakkeella.",
+      "contact": "Ota yhteyttä"
+    },
+    "seo": {
+      "site_name": "Lavbe",
+      "home_title": "Tunnustukset ja tuki",
+      "home_description": "Lue tunnustuksia niiden alkuperäisellä kielellä ja löydä tukea.",
+      "topic_title": "{topic} tunnustukset",
+      "topic_description": "Lue tunnustuksia aiheesta {topic}.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Mainos"
+    }
+  },
+  "category_descriptions": {
+    "relationships": "Tunnustuksia rakkaudesta ja ihmissuhteista.",
+    "family": "Tunnustuksia perheestä.",
+    "friends": "Tunnustuksia ystävistä ja sosiaalisesta elämästä.",
+    "work": "Tunnustuksia työstä ja urasta.",
+    "education": "Tunnustuksia koulutuksesta.",
+    "money": "Tunnustuksia rahasta ja taloudesta.",
+    "identity": "Tunnustuksia itsestään ja identiteetistä.",
+    "values": "Tunnustuksia uskomuksista ja arvoista.",
+    "wellbeing": "Tunnustuksia terveydestä ja hyvinvoinnista.",
+    "grief": "Tunnustuksia menetyksestä ja surusta.",
+    "life-changes": "Tunnustuksia elämänmuutoksista.",
+    "everyday": "Tunnustuksia jokapäiväisestä elämästä."
+  },
+  "legal_body": "Luonnos. Tarkista paikalliset vaatimukset, todellinen palveluntarjoaja ja tietokäytännöt ennen julkaisemista."
+}

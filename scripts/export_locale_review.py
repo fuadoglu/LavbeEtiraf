@@ -47,6 +47,12 @@ def flatten(package):
     return rows
 
 
+def csv_value(value):
+    if isinstance(value, (dict, list)):
+        return json.dumps(value, ensure_ascii=False, sort_keys=True)
+    return str(value) if value is not None else ""
+
+
 def export(directory, base, output):
     packages = sorted(directory.glob("*.json"))
     if not packages:
@@ -80,8 +86,8 @@ def export(directory, base, output):
                         "locale": locale,
                         "group": group,
                         "key": key,
-                        "current_text": json.dumps(current, ensure_ascii=False, sort_keys=True),
-                        "previous_text": json.dumps(previous_value, ensure_ascii=False, sort_keys=True),
+                        "current_text": csv_value(current),
+                        "previous_text": csv_value(previous_value),
                     }
                 )
                 locale_changed = True
