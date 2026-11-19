@@ -79,7 +79,7 @@ Ayrı rəy formu, bir səviyyə, müəllif cavabı, eyni hekayədə davam, dəst
 
 **Asılılıq:** LAV-005, LAV-007. **Qəbul:** MOD-02, MOD-04.
 
-Etiraf/rəy üçün fərqli şikayət hədəfi, duplicate report, səbəblər, təcili kateqoriyalar və bir dəfə etiraz. Moderator konteksti görür. **Sübut:** ayrı hədəflər, spam limiti və hüquqi məzmun bildirişinin ümumi şikayətdən ayrı keçidi.
+Etiraf/rəy üçün fərqli şikayət hədəfi, hədəf+kanal üzrə birləşən şikayət qrupu, reporter üzrə tək göndəriş, səbəblər, təhdid üçün server hesablı təcili prioritet və ayrıca hüquqi bildiriş növbəsi. Kütləvi şikayət məzmunu avtomatik gizlətmir. Moderator dili/MFA yoxlaması ilə şikayət kontekstini görür və səbəbli dismiss/hide qərarı verir; audit və görünürlük eyni tranzaksiyadadır. Gizlədilən etiraf və rəy sahibi həmin hide auditinə yalnız bir dəfə etiraz edə, moderator isə etirazı uphold/restore edə bilər; uyğun başqa təsdiqlənmiş moderator olduqda ilkin qərar verən şəxs yenidən baxmır. İzahlar şifrələnir, reporter identity HMAC olur, xam IP/session/token auditə düşmür. Hüquqi səbəblər ayrıca növbəyə düşür; hüquqi operator/SLA faktı burada təsdiqlənmir. **Sübut:** SQLite feature suite 4 test/49 assertion ilə hədəf və kanal ayrımını, hesab üzrə deduplikanı, təhdid prioritetini, şifrəli izahı, məzmunun dəyişməməsini, təzə MFA/dil grant-ını, dismiss/hide auditini və sahibə bağlı tək etiraz/bərpanı yoxlayır. Ayrılmış MariaDB-də təmiz migration və `composer test:mysql` 7 test/85 assertion keçdi; prosesslərarası eyni hesab şikayəti bir göndəriş/group count yaradır.
 
 ## LAV-009 · Hesab, Mənim və bildirişlər
 

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Confession;
 use App\Models\ConfessionComment;
 use App\Models\ModeratorGrant;
+use App\Models\ReportGroup;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -30,6 +31,9 @@ class MySqlSmokeTest extends TestCase
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('moderator_mfas'));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('moderation_audits'));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('moderation_outbox'));
+        foreach (['report_groups', 'report_submissions', 'moderation_appeals'] as $table) {
+            $this->assertTrue(DB::getSchemaBuilder()->hasTable($table), 'Missing moderation report table: '.$table);
+        }
         foreach ([
             'confession_comments', 'confession_comment_revisions', 'comment_ownerships', 'comment_responses',
             'comment_response_revisions', 'confession_continuations', 'confession_continuation_revisions',
@@ -43,6 +47,50 @@ class MySqlSmokeTest extends TestCase
             ->pluck('Key_name')->all();
         $this->assertContains('confessions_public_id_unique', $uniqueIndexes);
         $this->assertContains('confessions_submission_key_hash_unique', $uniqueIndexes);
+    }
+
+    public function test_parallel_duplicate_reports_serialize_to_one_submission_for_the_same_account(): void
+    {
+        $user = User::factory()->create();
+        $confession = Confession::query()->create([
+            'locale' => 'en', 'status' => 'public', 'title' => 'Synthetic report target', 'body' => 'Synthetic report body',
+            'excerpt' => 'Synthetic report body', 'public_id' => (string) Str::uuid(), 'author_alias' => 'Lavbe #A1B2C3D4',
+            'published_at' => now(), 'public_updated_at' => now(), 'ever_public' => true,
+        ]);
+        $revision = $confession->revisions()->create(['revision' => 1, 'title' => $confession->title, 'body' => $confession->body, 'category_key' => 'family', 'status' => 'approved']);
+        $confession->forceFill(['public_revision_id' => $revision->id])->save();
+        $barrier = tempnam(sys_get_temp_dir(), 'lavbe-report-race-');
+        unlink($barrier);
+        $worker = <<<'PHP'
+require 'vendor/autoload.php';
+$app = require 'bootstrap/app.php';
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+while (! is_file($argv[4])) { usleep(1000); }
+$request = Illuminate\Http\Request::create('/en/report/community/confession/race', 'POST');
+$request->setUserResolver(fn () => App\Models\User::query()->findOrFail((int) $argv[2]));
+$group = $app->make(App\Support\Moderation\ReportService::class)->submit($request, 'confession', (int) $argv[1], 'community', 'spam', 'Synthetic report detail', bin2hex(random_bytes(16)));
+echo (string) $group->id;
+PHP;
+        $environment = array_merge(getenv(), [
+            'APP_ENV' => 'testing', 'APP_KEY' => (string) config('app.key'), 'APP_URL' => 'http://localhost',
+            'DB_CONNECTION' => 'mysql', 'DB_HOST' => (string) config('database.connections.mysql.host'),
+            'DB_PORT' => (string) config('database.connections.mysql.port'), 'DB_DATABASE' => (string) config('database.connections.mysql.database'),
+            'DB_USERNAME' => (string) config('database.connections.mysql.username'), 'DB_PASSWORD' => (string) config('database.connections.mysql.password'),
+        ]);
+        try {
+            $statuses = $this->runParallelWorkers($worker, [
+                [(string) $confession->id, (string) $user->id, bin2hex(random_bytes(16)), $barrier],
+                [(string) $confession->id, (string) $user->id, bin2hex(random_bytes(16)), $barrier],
+            ], $environment, $barrier);
+            $this->assertCount(2, $statuses);
+            $this->assertSame($statuses[0], $statuses[1]);
+            $this->assertSame(1, ReportGroup::query()->where('confession_id', $confession->id)->value('report_count'));
+            $this->assertDatabaseCount('report_submissions', 1);
+        } finally {
+            @unlink($barrier);
+            $confession->delete();
+            $user->delete();
+        }
     }
 
     public function test_two_parallel_recovery_requests_have_only_one_winner(): void

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AppealController;
 use App\Http\Controllers\GuestConfessionController;
 use App\Http\Controllers\ModerationAdminController;
 use App\Http\Controllers\ModerationController;
 use App\Http\Controllers\ModeratorAuthController;
 use App\Http\Controllers\ParticipationController;
 use App\Http\Controllers\PublicConfessionController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\PrivateResponseHeaders;
 use App\Http\Middleware\RequireFreshModeratorMfa;
@@ -66,6 +68,21 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
     Route::get('/confession/{publicId}', [PublicConfessionController::class, 'show'])
         ->where('publicId', '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
         ->name('confessions.public');
+    Route::get('/report/{type}/{targetPublicId}', [ReportController::class, 'create'])
+        ->where(['type' => 'confession|comment', 'targetPublicId' => '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}'])
+        ->middleware(PrivateResponseHeaders::class)->name('reports.create');
+    Route::get('/legal/report/{type}/{targetPublicId}', [ReportController::class, 'legalNotice'])
+        ->where(['type' => 'confession|comment', 'targetPublicId' => '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}'])
+        ->middleware(PrivateResponseHeaders::class)->name('reports.legal.create');
+    Route::post('/report/{channel}/{type}/{targetPublicId}', [ReportController::class, 'store'])
+        ->where(['channel' => 'community|legal', 'type' => 'confession|comment', 'targetPublicId' => '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}'])
+        ->middleware(PrivateResponseHeaders::class)->name('reports.store');
+    Route::get('/appeal/{type}/{targetPublicId}', [AppealController::class, 'create'])
+        ->where(['type' => 'confession|comment', 'targetPublicId' => '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}'])
+        ->middleware(PrivateResponseHeaders::class)->name('appeals.create');
+    Route::post('/appeal/{type}/{targetPublicId}', [AppealController::class, 'store'])
+        ->where(['type' => 'confession|comment', 'targetPublicId' => '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}'])
+        ->middleware(PrivateResponseHeaders::class)->name('appeals.store');
     Route::post('/confession/{publicId}/comments', [ParticipationController::class, 'comment'])->middleware(PrivateResponseHeaders::class)->name('confessions.comments.store');
     Route::post('/confession/{publicId}/comments/{commentPublicId}/response', [ParticipationController::class, 'respond'])->middleware(PrivateResponseHeaders::class)->name('confessions.comment.response');
     Route::post('/confession/{publicId}/continuations', [ParticipationController::class, 'continuation'])->middleware(PrivateResponseHeaders::class)->name('confessions.continuations.store');
@@ -198,6 +215,12 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
     Route::prefix('/moderation')->middleware([PrivateResponseHeaders::class, RequireModeratorAccount::class, RequireFreshModeratorMfa::class])->group(function (): void {
         Route::get('/', [ModerationController::class, 'index'])->name('moderation.queue');
         Route::get('/participation', [ModerationController::class, 'participation'])->name('moderation.participation');
+        Route::get('/reports', [ModerationController::class, 'reports'])->name('moderation.reports');
+        Route::get('/reports/{groupId}', [ModerationController::class, 'report'])->whereNumber('groupId')->name('moderation.reports.show');
+        Route::post('/reports/{groupId}/decision', [ModerationController::class, 'decideReport'])->whereNumber('groupId')->name('moderation.reports.decide');
+        Route::get('/appeals', [ModerationController::class, 'appeals'])->name('moderation.appeals');
+        Route::get('/appeals/{appealId}', [ModerationController::class, 'appeal'])->whereNumber('appealId')->name('moderation.appeals.show');
+        Route::post('/appeals/{appealId}/decision', [ModerationController::class, 'decideAppeal'])->whereNumber('appealId')->name('moderation.appeals.decide');
         Route::post('/participation/{type}/{targetId}/decision', [ModerationController::class, 'decideParticipation'])
             ->where(['type' => 'comment|response|continuation', 'targetId' => '[0-9]+'])
             ->name('moderation.participation.decide');

@@ -13,6 +13,8 @@ Bu sənəd əməliyyatların və paralel sorğuların istinadıdır. İcma qayda
 | Moderator icazəsini dəyiş | Admin | MFA, yenidən giriş təsdiqi, audit qeydi. |
 | Təkrar baxış istə | Hədəfin sahibi | Qərar üzrə bir sorğu. Mümkündürsə əvvəlki qərarı verən moderatordan fərqli səlahiyyətli şəxs baxır. |
 
+LAV-008 report qrupları confession/comment hədəfini və community/legal kanalını ayrı saxlayır. Eyni reporter həmin target+channel üzrə bir dəfə sayılır. Təcili prioritet threat səbəbindən serverdə yüksəlir; mass-report count visibility state-i dəyişmir. Report/appeal izahları şifrəli, reporter/owner bağları HMAC-dır. Hide və dismissal report auditini hədəf qərarı ilə eyni DB transaction-da yazır. Etiraz `hide_audit_id`-yə unikaldır və müəllif sahiblik sübutu tələb edir.
+
 Moderator əməliyyatında guard, authorization policy və service layer eyni qaydanı tətbiq edir: autentikasiya olunmuş aktiv moderator, resurs dilinə uyğun aktiv grant, sessiyada keçərli MFA freshness və aktiv hədəf/revision. `users` sətrində admin flag olması təkbaşına moderasiya və ya dil icazəsi vermir. Səlahiyyət dəyişməsi ayrıca admin əməliyyatıdır, təzə MFA, səbəb və audit tələb edir. MFA TOTP sirri application key-dən ayrılmış key material ilə authenticated encryption formasında saxlanır; recovery kodları yalnız hash-lə saxlanır, göstərildikdən sonra təkrar qaytarılmır.
 
 İctimai UUID və ya opaque ID bir resursu tapır. `Lavbe #XXXXXXXX` yalnız göstərilən addır. Sessiya, hesab sahiblik qeydi və etiraf üzrə bərpa sirri serverdə ayrı saxlanır. Qonaq iddiası yalnız sahiblik sübutundan sonra hesaba bağlanır. Etirafın mətni, URL-si, ictimai aliası və şikayətin izahı sahiblik sübutu hesab edilmir.

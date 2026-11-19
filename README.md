@@ -18,6 +18,7 @@
 | Moderasiya və dərc keçidləri | **LAV-005 tamamlanıb.** MFA, dil üzrə moderator icazələri, versiyalı qərarlar, audit/outbox və sahibin geri çəkmə axını `main`-dədir. |
 | Açıq etiraf və texniki SEO | **LAV-006 tamamlanıb.** Təsdiqlənmiş revision-a bağlı detail, canonical, locale sitemap və məzmun lastmod-u `main`-dədir. |
 | Rəy, müəllif cavabı, davam və dəstək | **[LAV-007](https://github.com/fuadoglu/LavbeEtiraf/issues/16) tamamlanıb.** Pending-only rəy və davam, sahiblik/bərpa, moderator növbəsi, support reaksiyası və mətnsiz notification outbox-u [PR #17](https://github.com/fuadoglu/LavbeEtiraf/pull/17) ilə `main`-dədir. |
+| Şikayət, hüquqi bildiriş və etiraz | **LAV-008 icra olunur.** Etiraf/rəy hədəfli qruplar, server prioriteti, HMAC deduplikasiyası, şifrəli izah, grant+MFA moderator növbələri, bir dəfə etiraz və auditli bərpa bu branch-də hazırlanır. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla
@@ -37,7 +38,7 @@
 | **Oxu və kəşf** | Ana lent və kateqoriyalar bir lent şablonundan qurulur. İlk 12 kart serverdən HTML kimi gəlir. **Daha çox** sabit cursor ilə davam edir, adi HTML linki də işləyir. |
 | **Anonim yazı** | 18+ istifadəçi qonaq kimi etiraf və rəy yaza bilər. Açıq ad `Lavbe #XXXXXXXX` formasındadır və yalnız həmin etiraf daxilində iştirakçını tanıdır. |
 | **Öz məzmununu idarə et** | İstəyə bağlı cihaz yaddaşı, məxfi bərpa kodu və e-poçt hesabı. Etirafın açıq linki sahiblik hüququ vermir. |
-| **Rəy və moderasiya** | Rəy ayrıca reklamsız səhifədə yazılır. Etiraf və rəy üçün şikayət ayrıdır. Admin paneli **Etiraflar · Rəylər · Şikayətlər** bölmələrindən ibarətdir. |
+| **Rəy və moderasiya** | Rəy ayrıca reklamsız səhifədə yazılır. Etiraf və rəy üçün ayrı hədəfli şikayət, ayrıca hüquqi bildiriş və sahibin bir dəfə etirazı var. Moderasiya paneli **Etiraflar · Rəylər · Şikayətlər · Etirazlar** bölmələrindən ibarətdir. |
 | **Davam və bildiriş** | Müəllifin **Sonra nə oldu?** mətni eyni etirafın altında yayımlanır. İzləyən oxucular seçdikləri kanalla neytral bildiriş alırlar. |
 | **Dil və görünüş** | 17 dil, 12 kateqoriya, axtarışlı dil menyusu, yumru bayraqlar, dilin öz adı və ingiliscə adı. Saxlanmış seçim cihaz və ölkə siqnalından üstündür. Seçilmiş lent yalnız həmin dildədir. |
 | **PWA və performans** | Gündüz/gecə rejimi, ana ekrana əlavə etmə, statik oflayn görünüş və ayrıca seçilən qaralama yaddaşı. Etiraf və şəxsi məlumat PWA keşinə yazılmır. |
@@ -110,6 +111,10 @@ DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=lavbe DB_USERNAME
 ## LAV-007 lokal yoxlama qeydi
 
 2026-11-19: `composer test` 44 test/367 assertion keçdi; LAV-007 feature ssenariləri comment pending məxfiliyi və bərpası, eyni-sessiya idempotent replay, rəyin bağlanması, support-un təkrarsız aktivləşməsi və geri götürülməsi, müəllif davamı/cavabı, moderator təsdiqi, outbox idempotency və rəy gizlədiləndə cavabın gizlənməsini yoxladı. `vendor/bin/pint` keçdi. `npm run build` keçdi (CSS 17.04 KB, JS 2.47 KB). `python3 scripts/check_docs.py` 15 sənəd/27 qəbul ID-si, Python unittest 9 test keçdi. Ayrılmış lokal MariaDB `lavbe_lav007_test` bazasında təmiz migrations və `composer test:mysql` 6 test/74 assertion keçdi, o cümlədən paralel rəy bağlama/göndəriş və parent hide/comment publish yarışları. Lokalda `/up` HTTP 200; detail-də iştirakçıya görə dəyişən HTML `private, no-store`. [Documentation CI](https://github.com/fuadoglu/LavbeEtiraf/actions/runs/44495634801) və [Laravel/MySQL CI](https://github.com/fuadoglu/LavbeEtiraf/actions/runs/44495634850) keçdi.
+
+## LAV-008 lokal yoxlama qeydi
+
+2026-11-19: LAV-008 feature suite 4 test/49 assertion keçdi. `composer test` 48 test/416 assertion keçdi. Təmiz migrations ayrılmış MariaDB `lavbe_lav008_test` bazasında uğurla tətbiq olundu; `composer test:mysql` 7 test/85 assertion keçdi, o cümlədən eyni hesabdan paralel report göndərişi bir submission və qrup sayında bir artım yaradır. UI mətnləri az/en paketlərindədir; qalan 15 dil LAV-010-da tamamlanır. Brauzer cihaz sınağı, hüquqi operator/SLA və production server/provider aktivləşdirməsi buraxılış qapılarındadır.
 
 İstəyə bağlı real brauzer yoxlaması üçün Playwright və Chromium olan development mühitində:
 

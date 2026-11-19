@@ -8,6 +8,8 @@
             <div>
                 @if($isAdmin)<a class="button button-secondary" href="{{ route('moderation.grants', ['locale' => request()->route('locale')]) }}">{{ __('moderation.grant_title') }}</a>@endif
                 <a class="button button-secondary" href="{{ route('moderation.participation', ['locale' => request()->route('locale')]) }}">{{ __('moderation.participation_queue') }}</a>
+                <a class="button button-secondary" href="{{ route('moderation.reports', ['locale' => request()->route('locale')]) }}">{{ __('moderation.reports_queue') }}</a>
+                <a class="button button-secondary" href="{{ route('moderation.appeals', ['locale' => request()->route('locale')]) }}">{{ __('moderation.appeals_queue') }}</a>
                 <form method="post" action="{{ route('moderation.logout', ['locale' => request()->route('locale')]) }}">@csrf<button class="button button-secondary" type="submit">{{ __('moderation.logout') }}</button></form>
             </div>
         </header>
