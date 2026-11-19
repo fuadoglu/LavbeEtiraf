@@ -4,6 +4,7 @@ use App\Http\Controllers\GuestConfessionController;
 use App\Http\Controllers\ModerationAdminController;
 use App\Http\Controllers\ModerationController;
 use App\Http\Controllers\ModeratorAuthController;
+use App\Http\Controllers\ParticipationController;
 use App\Http\Controllers\PublicConfessionController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\PrivateResponseHeaders;
@@ -65,6 +66,15 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
     Route::get('/confession/{publicId}', [PublicConfessionController::class, 'show'])
         ->where('publicId', '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
         ->name('confessions.public');
+    Route::post('/confession/{publicId}/comments', [ParticipationController::class, 'comment'])->middleware(PrivateResponseHeaders::class)->name('confessions.comments.store');
+    Route::post('/confession/{publicId}/comments/{commentPublicId}/response', [ParticipationController::class, 'respond'])->middleware(PrivateResponseHeaders::class)->name('confessions.comment.response');
+    Route::post('/confession/{publicId}/continuations', [ParticipationController::class, 'continuation'])->middleware(PrivateResponseHeaders::class)->name('confessions.continuations.store');
+    Route::post('/confession/{publicId}/support', [ParticipationController::class, 'support'])->middleware(PrivateResponseHeaders::class)->name('confessions.support');
+    Route::post('/my/{publicId}/reviews', [ParticipationController::class, 'reviews'])->middleware(PrivateResponseHeaders::class)->name('confessions.reviews');
+    Route::get('/comment/{commentPublicId}', [ParticipationController::class, 'commentStatus'])->whereUuid('commentPublicId')->middleware(PrivateResponseHeaders::class)->name('participation.comment.status');
+    Route::get('/comment/{commentPublicId}/recover', [ParticipationController::class, 'recoveryForm'])->whereUuid('commentPublicId')->middleware(PrivateResponseHeaders::class)->name('participation.comment.recovery.form');
+    Route::post('/comment/{commentPublicId}/recover', [ParticipationController::class, 'recover'])->whereUuid('commentPublicId')->middleware(PrivateResponseHeaders::class)->name('participation.comment.recovery');
+    Route::post('/comment/{commentPublicId}/withdraw', [ParticipationController::class, 'withdrawComment'])->whereUuid('commentPublicId')->middleware(PrivateResponseHeaders::class)->name('participation.comment.withdraw');
 
     Route::post('/language', function (string $localeSegment, Request $request, LocaleRegistry $locales) {
         abort_unless($locales->bySegment($localeSegment), 404);
@@ -187,6 +197,10 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
 
     Route::prefix('/moderation')->middleware([PrivateResponseHeaders::class, RequireModeratorAccount::class, RequireFreshModeratorMfa::class])->group(function (): void {
         Route::get('/', [ModerationController::class, 'index'])->name('moderation.queue');
+        Route::get('/participation', [ModerationController::class, 'participation'])->name('moderation.participation');
+        Route::post('/participation/{type}/{targetId}/decision', [ModerationController::class, 'decideParticipation'])
+            ->where(['type' => 'comment|response|continuation', 'targetId' => '[0-9]+'])
+            ->name('moderation.participation.decide');
         Route::get('/confessions/{confessionId}', [ModerationController::class, 'show'])->whereNumber('confessionId')->name('moderation.show');
         Route::post('/confessions/{confessionId}/decision', [ModerationController::class, 'decide'])->whereNumber('confessionId')->name('moderation.decide');
 

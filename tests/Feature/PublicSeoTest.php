@@ -29,8 +29,8 @@ class PublicSeoTest extends TestCase
         $response->assertDontSee('<script>alert(1)</script>', false);
         $response->assertDontSee('Pending private body');
         $response->assertSee('og:locale" content="az"', false);
-        $this->assertStringContainsString('public', $response->headers->get('Cache-Control'));
-        $this->assertStringContainsString('no-cache', $response->headers->get('Cache-Control'));
+        $this->assertStringContainsString('private', $response->headers->get('Cache-Control'));
+        $this->assertStringContainsString('no-store', $response->headers->get('Cache-Control'));
     }
 
     public function test_public_detail_status_and_sitemap_follow_publication_lifecycle(): void

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CommentResponse;
 use App\Models\Confession;
+use App\Models\ConfessionComment;
+use App\Models\ConfessionContinuation;
 use App\Models\ConfessionRevision;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Moderation\ModerationService;
@@ -122,6 +125,68 @@ class ModerationController extends Controller
         );
 
         return redirect()->route('moderation.queue', ['locale' => $locale])->with('status', __('moderation.decision_saved'));
+    }
+
+    public function participation(Request $request): Response|View
+    {
+        $allowed = $request->user()->moderatorGrants()
+            ->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')
+            ->pluck('locale')->unique()->values();
+        $comments = ConfessionComment::query()->with([
+            'confession',
+            'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision'),
+        ])->where('status', 'unpublished')
+            ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
+            ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
+            ->orderBy('created_at')->limit(50)->get();
+        $visibleComments = ConfessionComment::query()->with(['confession', 'publicRevision'])
+            ->where('status', 'public')->whereNotNull('public_revision_id')
+            ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
+            ->orderByDesc('published_at')->limit(50)->get();
+        $continuations = ConfessionContinuation::query()->with([
+            'confession',
+            'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision'),
+        ])->where('status', 'unpublished')
+            ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
+            ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
+            ->orderBy('created_at')->limit(50)->get();
+        $visibleContinuations = ConfessionContinuation::query()->with(['confession', 'publicRevision'])
+            ->where('status', 'public')->whereNotNull('public_revision_id')
+            ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
+            ->orderByDesc('published_at')->limit(50)->get();
+        $responses = CommentResponse::query()->with([
+            'comment.confession',
+            'comment.publicRevision',
+            'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision'),
+        ])->where('status', 'unpublished')
+            ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
+            ->whereHas('comment', fn ($query) => $query->where('status', 'public')->whereHas('confession', fn ($parent) => $parent->public()->whereIn('locale', $allowed)))
+            ->orderBy('created_at')->limit(50)->get();
+        $visibleResponses = CommentResponse::query()->with(['comment.confession', 'publicRevision'])
+            ->where('status', 'public')->whereNotNull('public_revision_id')
+            ->whereHas('comment', fn ($query) => $query->where('status', 'public')->whereHas('confession', fn ($parent) => $parent->public()->whereIn('locale', $allowed)))
+            ->orderByDesc('published_at')->limit(50)->get();
+
+        return $this->privateView('moderation.participation', compact('comments', 'visibleComments', 'continuations', 'visibleContinuations', 'responses', 'visibleResponses'));
+    }
+
+    public function decideParticipation(Request $request, string $locale, string $type, int $targetId, ModerationService $moderation): Response
+    {
+        $data = Validator::make($request->all(), [
+            'revision_id' => ['required', 'integer', 'min:1'],
+            'expected_lock_version' => ['required', 'integer', 'min:1'],
+            'expected_parent_lock_version' => ['required', 'integer', 'min:1'],
+            'decision' => ['required', 'in:approve,reject,hide'],
+            'reason_code' => ['required', 'in:acceptable,privacy,harassment,threat,spam,explicit,legal,other'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+        ])->validate();
+        $moderation->decideParticipation(
+            $request->user(), $type, $targetId, (int) $data['revision_id'], (int) $data['expected_lock_version'],
+            (int) $data['expected_parent_lock_version'], $data['decision'], $data['reason_code'],
+            $data['idempotency_key'], (string) ($request->header('X-Request-Id') ?: Str::uuid()),
+        );
+
+        return redirect()->route('moderation.participation', ['locale' => $locale])->with('status', __('moderation.decision_saved'));
     }
 
     private function assertLocaleGrant(Request $request, string $targetLocale): void
