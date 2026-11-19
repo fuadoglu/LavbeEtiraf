@@ -41,6 +41,8 @@ Dil seçiminin prioriteti, axtarışlı menyu, kateqoriya və üç lent rejimi, 
 
 Mətn forması, seçilən dil və mövzu, yaş bildirişi, idempotent göndəriş, alias, sessiya/qonaq açarı və rotasiya olunan bərpa. **Sübut:** paralel bərpa və cross-owner imtina, açar və mətnin ictimai cavaba düşməməsi.
 
+İlkin göndəriş `unpublished` etiraf və `pending` dəyişməz mətn versiyası yaradır; başlıq istəyə bağlı 120, mətn 6 000 Unicode code point ilə məhdudlaşır. İctimai feed/read model boş və dərcsiz qalır. İctimai ID, etirafdaxili `Lavbe #XXXXXXXX`, cari Laravel session ID-si, istəyə bağlı cihaz cookie-si və bərpa sirri ayrı dəyərlərdir. Session ID HMAC-SHA-256 ilə sahiblik cədvəlində bağlanır; 256-bit recovery və seçilərsə owner cookie dəyərləri yalnız HMAC-SHA-256 heşi ilə saxlanır. Uzunömürlü HttpOnly/Secure/SameSite cookie yalnız cihazı yadda saxlamaq seçiləndə verilir. Idempotency replay eyni nəticəyə yönəlir, amma sirri ikinci dəfə qaytarmır; fərqli payload `409` alır. POST recovery tranzaksiyada etirafı və sahiblik sətrini kilidləyir, sessiya ID-sini və bərpa dəyərlərini rotasiya edib köhnə icazələri ləğv edir. Şəxsi səthlər `private, no-store`, noindex və no-referrer qaytarır. Saxlama xətası yalnız SQLSTATE loglayır, mətn və sirləri loglamır. **LAV-004 sərhədi:** moderator keçidi və yayımlama yoxdur.
+
 ## LAV-005 · Moderasiya və dərc keçidləri
 
 **Asılılıq:** LAV-004. **Qəbul:** MOD-01, MOD-04.

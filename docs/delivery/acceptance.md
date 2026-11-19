@@ -8,7 +8,7 @@
 | UI-03 | 320 px, iPhone Safari, Android Chrome, standalone | Klaviatura kursoru örtmür, mətni xəta silmir, geri keçid mövqeyi mümkünsə bərpa edir |
 | LOC-01 | İlk giriş, əl ilə dil və birbaşa URL | Seçim ardıcıllığı işləyir, seçilmiş dil yadda qalır, konkret URL ölkəyə görə yönləndirilmir, axtarış native və English adları tapır |
 | LOC-02 | 17 paket və 12 kateqoriya | Açarlar, placeholder, slug, yazı və hüquqi səhifə mətnləri tamdır, sahibin baxış versiyası ayrıdır |
-| OWN-01 | Qonaq etirafı, kod bərpası və başqa cihaz | Dublikat yaranmır, alias ayrıdır, saxta sahiblik rədd edilir, bərpa köhnə icazəni dayandırır |
+| OWN-01 | Qonaq etirafı, yaş təsdiqi, kod bərpası və başqa cihaz | Yalnız pending revision yaranır və feed/axtarışda görünmür, eyni sorğu dublikat yaratmır və sirri təkrarlamır, alias ayrıdır, saxta sahiblik rədd edilir, bərpa köhnə icazəni dayandırır |
 | OWN-02 | İstəyə bağlı hesab, bildiriş və rəy sahibliyi | Müvafiq icazələr qorunur, şəxsi cavab cache edilmir, həssas payload xaricdə görünmür |
 | MOD-01 | İlk yayım, redaktə, geri çəkmə və rədd | Yalnız təsdiqlənmiş versiya görünür, köhnə moderator qərarı yeni versiyaya tətbiq edilmir |
 | MOD-02 | Etirafdan və rəydən şikayət, təkrar və etiraz | Ayrı hədəflər, birləşmiş iş, tək təkrar və səbəbli səlahiyyətli qərar |
@@ -24,7 +24,7 @@
 | DOC-01 | Sənədləşmə və qəsdən səhv edilmiş kontrakt | Təmiz sənədlər keçir, çeşidlənmiş yanlış dil və kateqoriya, naməlum qəbul ID və qırılmış placeholder rədd edilir |
 | UI-04 | Mobil və masaüstü atlas müqayisəsi | Əsas ekranlar və qırılma vəziyyətləri atlasda var, wireframe-a uyğun gündüz/gecə, fokus və düymə ardıcıllığı ölçülür |
 | LOC-03 | 17 paketdə kateqoriya, görünüş və sahib baxışı | 204 kateqoriya etiketi və bütün paket açarları yoxlanır, hər locale nüsxəsi vizual sınaq və baxış qeydini alır |
-| OWN-03 | Eyni etiraf üzrə paralel bərpa və hesab transferi | Bir qalib nəticə, köhnə sirr ləğv olunur, əlaqəsiz etiraf və rəyə giriş verilmir |
+| OWN-03 | Eyni etiraf üzrə paralel bərpa və hesab transferi | Eyni köhnə bərpa kodu ilə yarışda bir qalib olur, köhnə sirr ləğv olunur, əlaqəsiz etiraf və rəyə giriş verilmir |
 | MOD-04 | Geri çəkmə, köhnə təsdiq və yeni rəy yarışı | MySQL tranzaksiya sınağında köhnə yol 409 alır və məzmun yenidən açılmır. Təcili gizlətmədə lent, fragment, preview və XML aktualdır |
 | SEO-04 | Dərc və silmə zamanı nömrəli HTML/cursor | Canonical HTML adi linklə işləyir. Aktiv cursor yeni qeydi qəbul etmir, silinəni keçib düzgün davam edir, vaxtı bitmiş cursor 410 və yeniləmə çağırışı verir |
 | ADV-03 | Rəy səthinə keçid, account və oflayn | Ayrı form və şəxsi səthdə reklam və GA4 sorğusu yoxdur. Tətbiq və cache heç bir sirr və ya qaralama daşımır |

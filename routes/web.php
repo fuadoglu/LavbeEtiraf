@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\GuestConfessionController;
+use App\Http\Middleware\PrivateResponseHeaders;
 use App\Http\Middleware\SetLocale;
 use App\Support\Lavbe\FeedCursor;
 use App\Support\Lavbe\FeedQuery;
@@ -124,6 +126,21 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             ->header('Cache-Control', 'no-store, private')
             ->header('Referrer-Policy', 'no-referrer');
     })->name('search');
+
+    Route::get('/write', [GuestConfessionController::class, 'create'])->middleware(PrivateResponseHeaders::class)->name('confessions.create');
+    Route::post('/write', [GuestConfessionController::class, 'store'])->middleware(PrivateResponseHeaders::class)->name('confessions.store');
+    Route::get('/my/{publicId}', [GuestConfessionController::class, 'status'])
+        ->where('publicId', '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        ->middleware(PrivateResponseHeaders::class)
+        ->name('confessions.status');
+    Route::get('/my/{publicId}/recover', [GuestConfessionController::class, 'recoveryForm'])
+        ->where('publicId', '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        ->middleware(PrivateResponseHeaders::class)
+        ->name('confessions.recovery.form');
+    Route::post('/my/{publicId}/recover', [GuestConfessionController::class, 'recover'])
+        ->where('publicId', '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        ->middleware(PrivateResponseHeaders::class)
+        ->name('confessions.recovery');
 });
 
 Route::get('/topic/{category}', function (string $category, Request $request, LocaleRegistry $locales) {

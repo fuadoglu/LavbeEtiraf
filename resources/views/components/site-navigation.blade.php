@@ -3,10 +3,10 @@
         <x-icon name="book-open" />
         <span>Oxu</span>
     </a>
-    <span class="nav-link" aria-disabled="true" title="Yazı axını növbəti mərhələdə əlavə olunur">
+    <a class="nav-link @if(request()->routeIs('confessions.*')) is-active @endif" href="{{ route('confessions.create', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}" @if(request()->routeIs('confessions.*')) aria-current="page" @endif>
         <x-icon name="pen-line" />
         <span>Yaz</span>
-    </span>
+    </a>
     <span class="nav-link" aria-disabled="true" title="Şəxsi bölmə növbəti mərhələdə əlavə olunur">
         <x-icon name="user-round" />
         <span>Mənim</span>
