@@ -5,7 +5,7 @@
 | Səth | AdSense | GA4 | HTML / keş |
 |---|---|---|---|
 | Açıq dil lenti, mövzu | Xeyr | Razılıqdan sonra ümumi oxu hadisələri | İctimai görünüş, şəxsiləşdirilməmiş |
-| Açıq etiraf detalı | Bölmənin bütün şərtləri keçəndə bir blok | Razılıqdan sonra təmizlənmiş və ümumiləşdirilmiş hadisə | Canlı versiya yoxlanır. Ortaq keş şəxsi göstərici və razılıq vəziyyəti daşımır. |
+| Açıq etiraf detalı | Bölmənin bütün şərtləri keçəndə bir blok | Razılıqdan sonra təmizlənmiş və ümumiləşdirilmiş hadisə | Yalnız cari approved public revision. `public, no-cache, must-revalidate`; hər revalidation canlı görünürlük statusunu yoxlayır. Şəxsi göstərici və razılıq vəziyyəti yoxdur. |
 | Rəy və müəllif cavabı yazma | Xeyr | Xeyr | Ayrı, reklamsız `/{locale}/participate/...` səthi. `private, no-store`, noindex. |
 | Etiraf yaz, redaktə, önizləmə, şikayət | Xeyr | Xeyr | `private, no-store`, noindex. URL və referrer-də mətn və sirr yoxdur. |
 | Mənim, hesab, bərpa, bildiriş və admin | Xeyr | Xeyr | İcazə yoxlaması, `private, no-store`, noindex |

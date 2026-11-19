@@ -4,6 +4,8 @@ use App\Http\Controllers\GuestConfessionController;
 use App\Http\Controllers\ModerationAdminController;
 use App\Http\Controllers\ModerationController;
 use App\Http\Controllers\ModeratorAuthController;
+use App\Http\Controllers\PublicConfessionController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\PrivateResponseHeaders;
 use App\Http\Middleware\RequireFreshModeratorMfa;
 use App\Http\Middleware\RequireModeratorAccount;
@@ -14,6 +16,9 @@ use App\Support\Lavbe\FeedQuery;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
 
 Route::get('/', function (Request $request, LocaleRegistry $locales) {
     $locale = $locales->resolveTag((string) $request->cookie('lavbe_locale'))
@@ -40,6 +45,8 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
 
         $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate(12)->withQueryString();
 
+        $canonical = route('home', ['locale' => $locale], false).($confessions->currentPage() > 1 ? '?page='.$confessions->currentPage() : '');
+
         return view('home', [
             'category' => $category,
             'sort' => $sort,
@@ -47,8 +54,17 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             'categories' => $categories,
             'confessions' => $confessions,
             'feedCursor' => $confessions->currentPage() === 1 ? app(FeedCursor::class)->issue(app()->getLocale(), $category, $sort, $confessions->lastItem() ?? 0) : null,
+            'canonical' => $canonical,
+            'categoryIndexable' => $category === null || $confessions->total() >= (int) config('seo.category_min_public_items', 5),
         ]);
     })->name('home');
+
+    Route::get('/sitemap.xml', [SitemapController::class, 'locale'])->defaults('page', 1)->name('sitemap.locale');
+    Route::get('/sitemap-{page}.xml', [SitemapController::class, 'locale'])->whereNumber('page')->name('sitemap.locale.page');
+
+    Route::get('/confession/{publicId}', [PublicConfessionController::class, 'show'])
+        ->where('publicId', '[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        ->name('confessions.public');
 
     Route::post('/language', function (string $localeSegment, Request $request, LocaleRegistry $locales) {
         abort_unless($locales->bySegment($localeSegment), 404);
@@ -82,6 +98,8 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
 
         $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate(12)->withQueryString();
 
+        $canonical = route('topic.show', ['locale' => $locale, 'category' => $category], false).($confessions->currentPage() > 1 ? '?page='.$confessions->currentPage() : '');
+
         return view('home', [
             'category' => $category,
             'sort' => $sort,
@@ -91,6 +109,8 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
                 ->all(),
             'confessions' => $confessions,
             'feedCursor' => $confessions->currentPage() === 1 ? app(FeedCursor::class)->issue(app()->getLocale(), $category, $sort, $confessions->lastItem() ?? 0) : null,
+            'canonical' => $canonical,
+            'categoryIndexable' => $confessions->total() >= (int) config('seo.category_min_public_items', 5),
         ]);
     })->name('topic.show');
 

@@ -227,6 +227,7 @@ def check_feed_translations(directory, catalog, report):
         "categories", "all_categories", "category_empty", "feed_empty", "feed_empty_description",
         "pagination", "previous", "next", "search_title", "search_label", "search_submit",
         "search_empty", "retry", "refresh",
+        "untitled_confession", "breadcrumb",
     }
     for locale in catalog["locales"]:
         folder = "pt_BR" if locale["segment"] == "pt-br" else locale["segment"]

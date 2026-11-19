@@ -14,9 +14,13 @@
 
 URL şablonları sabitdir. Yazılan başlıq URL-ə salınmır. Dil seqmenti orijinal məzmunu saxlayır. Səhv dil və ya dəyişmiş slug variantı təhlükəsizdirsə əsas ünvana yönləndirilir. Query parametrlərində şəxsi mətn daşınmır. İctimai lokal link birbaşa açılır və cihaz dili üzrə yönləndirilmir. `hreflang` yalnız qarşılıqlı uyğun səhifələr üçün tam və qarşılıqlı olur. `x-default` uyğun olduqda sabit ingilis fallback səhifəsinə işarə edir. Müstəqil etiraflar bir-birinin tərcüməsi kimi işarələnmir.
 
+LAV-006 detail endpoint-i yalnız `status=public`, `published_at` və approved `public_revision_id` birlikdə doğrulananda məzmun qaytarır. Başlıq və mətn Blade escaping ilə ilkin HTML-də çıxır. Canonical domain `APP_URL`-dən qurulur; Host header-dən götürülmür. Detail və sitemap `public, no-cache, must-revalidate` qaytarır: ara keşlər obyekt saxlaya bilər, amma hər istifadədən əvvəl origin statusunu yoxlamalıdır. Gizli/geri çəkilmiş resurs 404, əvvəl ictimai olmuş terminal silinmə 410-dur. `robots.txt` sitemap index-i göstərir və şəxsi yolları crawler üçün məhdudlaşdırır; robots qaydası təkbaşına giriş nəzarəti sayılmır.
+
 HTML başlığı, H1 və təsvir təsdiqlənmiş versiyanı əks etdirir. Metadata və paylaşım önizləməsi moderasiya qərarına daxildir. Google fraqment və başlığı seçə bilər. Kateqoriya sitemap-ə ilkin olaraq həmin dildə beş təsdiqlənmiş etirafla namizəd olur, hədd konfiqurasiya olunur və boş səhifə indeksə açılmır. Fərdi etirafın indeks uyğunluğu kateqoriyanın həddindən asılı deyil. Spam və təsdiqlənməmiş versiya açıq görünmür.
 
 Sitemap indeksini domen kökündə təqdim et. Dil üzrə sabit hissələr yalnız 200 qaytaran canonical URL-ləri saxlayır. Əhəmiyyətli təsdiqlənmiş dəyişiklik `lastmod` dəyərini yeniləyir. Reaksiya, təsadüfi tarix və baxış sayı onu dəyişmir. Geri çəkilmiş URL dərhal siyahıdan çıxır. `robots.txt` indeksə işarə edir və silinmiş ictimai URL-nin statusunu crawler-dən gizlətmir. Google Search Console domen yoxlaması və sitemap təqdimatı bir dəfə edilir. Bing Webmaster Tools və IndexNow yalnız əlavə/dəyişən/silinən URL-lər üçün outbox ilə işləyir. Etiraf üçün Google Indexing API istifadə olunmur. Faktiki indeks və sıralama xarici nəticədir.
+
+Sitemap root index `/sitemap.xml` hər locale üçün 50,000 URL limitini aşmayan bölmələri sadalayır (`/{locale}/sitemap-{page}.xml`). Locale sitemaps home, ən azı beş cari ictimai etirafı olan kateqoriyalar və təsdiqlənmiş canlı revision-a bağlı confession URL-lərini ehtiva edir. `public_updated_at` yalnız təsdiqlənmiş mətn revision-ı dəyişəndə yenilənir; gizlətmə, bərpa və sırf audit yeniləməsi lastmod-u saxtalaşdırmır. Hreflang yalnız home və eyni kateqoriya reyestr səhifələrinə yazılır.
 
 ## AdSense
 

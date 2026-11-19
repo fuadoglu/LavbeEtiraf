@@ -19,7 +19,7 @@ class MySqlSmokeTest extends TestCase
         $this->assertSame(1, DB::selectOne('select 1 as connected')->connected);
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('migrations'));
         $this->assertTrue(DB::getSchemaBuilder()->hasColumns('confessions', [
-            'public_id', 'author_alias', 'age_confirmed_at', 'submission_key_hash', 'payload_fingerprint',
+            'public_id', 'author_alias', 'age_confirmed_at', 'submission_key_hash', 'payload_fingerprint', 'public_updated_at',
         ]));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('confession_revisions'));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('confession_ownerships'));

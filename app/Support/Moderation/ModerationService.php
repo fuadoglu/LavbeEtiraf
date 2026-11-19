@@ -111,6 +111,7 @@ class ModerationService
                             'response_expectation' => $revision->response_expectation,
                             'public_revision_id' => $revision->id,
                             'published_at' => now(),
+                            'public_updated_at' => now(),
                             'ever_public' => true,
                             'republish_requested_at' => null,
                         ]);
@@ -137,6 +138,7 @@ class ModerationService
                         'response_expectation' => null,
                         'public_revision_id' => null,
                         'published_at' => null,
+                        'public_updated_at' => null,
                         'submission_key_hash' => null,
                         'payload_fingerprint' => null,
                         'author_alias' => null,

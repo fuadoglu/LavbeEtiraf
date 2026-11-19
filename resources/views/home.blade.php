@@ -8,8 +8,8 @@
 @section('title', ($topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title')).' · Lavbe')
 
 @push('head')
-    <link rel="canonical" href="{{ request()->url() }}">
-    @if($confessions->currentPage() > 1)<meta name="robots" content="noindex,follow">@endif
+    <link rel="canonical" href="{{ rtrim((string) config('app.url'), '/').$canonical }}">
+    @if($confessions->currentPage() > 1 || $sort !== 'new' || ! $categoryIndexable)<meta name="robots" content="noindex,follow">@endif
     @if($confessions->nextPageUrl())<link rel="next" href="{{ $confessions->nextPageUrl() }}">@endif
 @endpush
 
