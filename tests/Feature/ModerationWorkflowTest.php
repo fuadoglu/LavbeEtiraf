@@ -69,7 +69,7 @@ class ModerationWorkflowTest extends TestCase
         $this->post('/az/moderation/login', ['email' => $user->email, 'password' => 'password'])
             ->assertRedirect('/az/moderation/mfa/enroll');
         $this->assertAuthenticatedAs($user);
-        $this->get('/az/moderation/mfa/enroll')->assertOk()->assertSee('Authenticator setup URI');
+        $this->get('/az/moderation/mfa/enroll')->assertOk()->assertSee('Doğrulama tətbiqi üçün quraşdırma ünvanı');
     }
 
     public function test_mfa_enrollment_only_stores_ciphertext_and_recovery_codes_are_one_time(): void
@@ -85,7 +85,7 @@ class ModerationWorkflowTest extends TestCase
 
         $counter = intdiv(time(), (int) config('moderation.totp_period_seconds')) + 1;
         $code = app(ModeratorMfaService::class)->codeForCounter($secret, $counter);
-        $confirmed = $this->post('/az/moderation/mfa/confirm', ['code' => $code])->assertOk()->assertSee('Each code works once');
+        $confirmed = $this->post('/az/moderation/mfa/confirm', ['code' => $code])->assertOk()->assertSee('Hər kodu yalnız bir dəfə');
         preg_match_all('/<code dir="ltr">([A-Za-z0-9_-]{27})<\/code>/', $confirmed->getContent(), $matches);
         $codes = $matches[1] ?? [];
         $this->assertCount(10, $codes);

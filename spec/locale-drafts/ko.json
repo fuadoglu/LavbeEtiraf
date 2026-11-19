@@ -1,11 +1,11 @@
 {
   "locale": "ko",
-  "version": "draft-2026-11-19.2",
+  "version": "draft-2026-11-19.3",
   "messages": {
     "navigation": {
       "read": "읽기",
-      "write": "쓰기",
-      "mine": "나의 라베",
+      "write": "글쓰기",
+      "mine": "내 공간",
       "more": "더 보기",
       "language": "언어",
       "settings": "설정",
@@ -13,103 +13,103 @@
       "close": "닫기"
     },
     "language": {
-      "picker_label": "언어를 선택하세요",
+      "picker_label": "언어 선택",
       "search": "언어 검색",
       "empty": "언어를 찾을 수 없습니다.",
       "selected": "현재 언어",
-      "changed": "언어가 {language}로 변경되었습니다."
+      "changed": "선택한 언어: {language}"
     },
     "theme": {
       "label": "외관",
       "system": "기기 설정 사용",
-      "day": "빛",
+      "day": "라이트",
       "night": "다크"
     },
     "feed": {
-      "all": "모두",
+      "all": "전체",
       "topics": "주제",
-      "new": "새로운",
-      "weekly": "이번주",
-      "updates": "새로운 업데이트",
-      "more": "더 읽어보기",
+      "new": "최신",
+      "weekly": "이번 주",
+      "updates": "뒷이야기가 있는 글",
+      "more": "이야기 더 보기",
       "refresh": "피드 새로고침",
-      "retry": "다시 시도해보세요",
-      "empty": "아직 공개된 고백이 없습니다.",
-      "end": "끝까지 왔습니다.",
-      "loading": "고백 불러오는 중…"
+      "retry": "다시 시도",
+      "empty": "아직 공개된 고백이 없습니다",
+      "end": "지금 올라온 이야기를 모두 봤어요.",
+      "loading": "이야기를 불러오는 중"
     },
     "search": {
       "title": "검색고백",
       "label": "키워드로 검색",
       "submit": "검색",
-      "empty": "일치하는 자백이 없습니다.",
+      "empty": "일치하는 고백이 없습니다",
       "invalid": "검색어를 입력하세요."
     },
     "confession": {
       "author": "익명 작성자",
-      "support": "지원",
-      "follow": "업데이트 팔로우",
-      "unfollow": "팔로우 취소",
-      "share": "공유",
-      "report": "신고",
+      "support": "응원하기",
+      "follow": "이야기 팔로우",
+      "unfollow": "팔로우 해제",
+      "share": "공유하기",
+      "report": "이 글 신고하기",
       "update": "업데이트",
       "next": "다음고백",
-      "comments_closed": "답변이 마감되었습니다."
+      "comments_closed": "글쓴이가 댓글을 닫았어요."
     },
     "write": {
-      "title": "고백문을 쓰세요",
-      "intro": "귀하의 자백은 공개되기 전에 검토됩니다.",
-      "body": "너의 고백",
+      "title": "고백 작성",
+      "intro": "제출 후 검토되며 승인 전까지 공개 피드에 표시되지 않습니다.",
+      "body": "고백 내용",
       "optional_title": "제목(선택)",
       "topic": "주제",
-      "purpose": "독자들에게 바라는 점은 무엇입니까?",
-      "purpose_share": "그냥 공유하고 싶어요",
+      "purpose": "읽는 분들에게 바라는 게 있나요? (선택)",
+      "purpose_share": "그냥 털어놓고 싶어요",
       "purpose_experience": "비슷한 경험을 듣고 싶어요",
-      "purpose_advice": "조언을 구합니다",
-      "allow_comments": "응답 허용",
+      "purpose_advice": "조언을 받고 싶어요",
+      "allow_comments": "새 댓글 허용",
       "public_notice": "승인된 고백서는 원래 언어로 공개적으로 읽을 수 있습니다.",
-      "age_notice": "제출하려면 18세 이상이어야 합니다.",
-      "remember_draft": "이 기기에 이 초안을 기억하세요.",
-      "remember_device": "비공개 액세스를 위해 이 기기를 기억하세요.",
-      "submit": "검토를 위해 보내기",
-      "invalid": "입력 내용을 확인하세요. 텍스트 제한은 {limit}자입니다.",
-      "network_error": "지금은 보낼 수 없습니다. 다시 시도해 보세요."
+      "age_notice": "제출하려면 만 18세 이상이어야 합니다.",
+      "remember_draft": "이 기기에 임시 저장",
+      "remember_device": "이 기기를 기억해 여기서 고백에 다시 접근할 수 있습니다.",
+      "submit": "검토 요청",
+      "invalid": "입력 내용을 확인해 주세요. 글은 {limit}자까지 쓸 수 있어요.",
+      "network_error": "지금은 제출 내용을 저장할 수 없습니다. 잠시 후 다시 시도하세요."
     },
     "submit": {
-      "pending": "당신의 고백이 검토를 기다리고 있습니다.",
-      "recovery_code": "복구코드",
-      "recovery_help": "이 코드를 비공개로 저장하세요. 한 번만 표시됩니다.",
+      "pending": "고백이 검토 대상으로 제출되었습니다",
+      "recovery_code": "복구 코드",
+      "recovery_help": "이 코드를 지금 안전한 곳에 저장하세요. 다시 표시되지 않습니다.",
       "copy": "코드 복사",
       "copied": "복사됨",
-      "my_content": "공개 비공개 상태"
+      "my_content": "내 글 상태 확인하기"
     },
     "comment": {
-      "write": "답변 작성",
+      "write": "댓글 쓰기",
       "body": "귀하의 답변",
       "reply": "답글",
-      "submit": "검토를 위해 보내기",
-      "pending": "귀하의 답변이 검토를 기다리고 있습니다.",
+      "submit": "검토 요청하기",
+      "pending": "댓글이 검토를 기다리고 있어요.",
       "edit": "응답 수정",
-      "delete": "답변 철회"
+      "delete": "내 댓글 내리기"
     },
     "report": {
-      "confession": "자백신고",
-      "comment": "응답신고",
-      "reason": "이유",
-      "explanation": "추가 세부정보(선택사항)",
-      "send": "신고서 보내기",
-      "received": "감사합니다. 귀하의 신고가 접수되었습니다.",
-      "duplicate": "이미 신고하신 항목입니다.",
+      "confession": "이 글 신고하기",
+      "comment": "이 댓글 신고하기",
+      "reason": "사유",
+      "explanation": "추가 설명(선택)",
+      "send": "신고 보내기",
+      "received": "알려 주셔서 고마워요. 운영진이 비공개로 검토할게요.",
+      "duplicate": "이미 신고한 글이에요.",
       "spam": "스팸 또는 광고",
-      "privacy": "개인정보 또는 개인정보",
-      "harassment": "괴롭힘이나 학대",
+      "privacy": "사생활 또는 개인정보",
+      "harassment": "괴롭힘 또는 특정인을 겨냥한 공격",
       "threat": "위협 또는 안전 문제",
       "inappropriate": "부적절한 콘텐츠",
-      "other": "기타 고민"
+      "other": "그 밖의 문제"
     },
     "moderation": {
-      "confessions": "고백",
-      "comments": "응답",
+      "confessions": "게시글",
+      "comments": "댓글",
       "reports": "신고",
       "pending": "검토 대기 중",
       "public": "게시됨",
@@ -118,33 +118,33 @@
       "withdrawn": "철회됨",
       "hidden": "숨김",
       "deleted": "삭제됨",
-      "publish": "승인 및 게시",
-      "reject": "거절",
+      "publish": "승인 후 공개",
+      "reject": "반려",
       "hide": "숨기기",
-      "request_changes": "변경요청",
-      "appeal": "이의신청",
+      "request_changes": "수정 요청",
+      "appeal": "운영 결정에 이의 제기",
       "close_report": "제보 해결",
       "stale": "항목이 변경되었습니다. 다시 로드하고 검토하세요."
     },
     "mine": {
-      "confessions": "나의 고백",
-      "comments": "내 답변",
-      "followed": "팔로잉",
+      "confessions": "내 글",
+      "comments": "내 댓글",
+      "followed": "팔로우한 이야기",
       "notifications": "알림",
       "withdraw": "철회",
-      "withdraw_confirm": "이 항목을 공개 보기에서 철회하시겠습니까?",
+      "withdraw_confirm": "이 글을 내릴까요?",
       "delete": "삭제",
       "delete_confirm": "이 작업은 취소할 수 없습니다. 계속하다?",
-      "empty": "아직 아무것도 없습니다."
+      "empty": "아직 아무것도 없어요."
     },
     "auth": {
-      "sign_in": "로그인",
+      "sign_in": "로그인하기",
       "email": "이메일",
       "email_sent": "계정이 존재하면 메시지가 발송되었습니다.",
       "sign_out": "로그아웃",
-      "recovery": "접근권한 복구",
+      "recovery": "접근 복구",
       "recovery_input": "복구 코드를 입력하세요",
-      "recover": "회복하다",
+      "recover": "접근 복구",
       "recovered": "접속이 복구되었습니다. 이전 액세스 코드가 취소되었습니다.",
       "invalid_code": "코드가 유효하지 않거나 만료되었습니다."
     },
@@ -152,11 +152,11 @@
       "published": "당신이 팔로우하는 고백글이 게재되었습니다.",
       "changes_requested": "사회자가 당신의 고백에 대한 변경을 요청했습니다.",
       "new_comments": {
-        "other": "{count} 새로운 답변이 있습니다."
+        "other": "새 댓글이 {count}개 있어요."
       },
       "followup": "새로운 후속작이 출시되었습니다.",
       "generic": "귀하의 계정에 새로운 활동이 있습니다.",
-      "email_option": "이메일 알림(선택사항)",
+      "email_option": "이메일 알림(선택)",
       "push_option": "푸시 알림(선택 사항)"
     },
     "mail": {
@@ -167,18 +167,18 @@
     },
     "pwa": {
       "install": "라브베 설치",
-      "install_help_ios": "Safari에서 공유를 탭한 다음 홈 화면에 추가를 탭하세요.",
+      "install_help_ios": "Safari에서 공유 버튼을 누른 다음 ‘홈 화면에 추가’를 선택하세요.",
       "offline_title": "오프라인 상태입니다",
       "offline_body": "저장된 페이지 중 일부는 아직 사용 가능합니다.",
       "back_online": "다시 온라인 상태가 되었습니다.",
       "draft_expired": "저장된 초안이 만료되었습니다."
     },
     "errors": {
-      "not_found": "페이지를 찾을 수 없습니다",
+      "not_found": "페이지를 찾을 수 없어요",
       "gone": "이 콘텐츠는 더 이상 사용할 수 없습니다.",
       "forbidden": "이 페이지에 접근할 수 없습니다.",
       "conflict": "항목이 변경되었습니다. 새로고침하고 다시 시도하세요.",
-      "rate_limited": "시도 횟수가 너무 많습니다. 잠시 기다렸다가 다시 시도해 보세요.",
+      "rate_limited": "시도 횟수가 너무 많습니다. 잠시 후 다시 시도하세요.",
       "unavailable": "서비스를 일시적으로 이용할 수 없습니다."
     },
     "consent": {
@@ -201,18 +201,18 @@
     "help": {
       "title": "도움말",
       "guest": "계정을 만들지 않고도 글을 쓸 수 있습니다.",
-      "recovery": "복구 코드를 안전하게 보관하세요. 다시 표시할 수 없습니다.",
+      "recovery": "이 코드를 지금 안전한 곳에 저장하세요. 다시 표시되지 않습니다.",
       "visibility": "고백은 중재자의 승인 후에만 공개됩니다.",
       "reporting": "우려사항을 신고하려면 보고서 양식을 사용하세요.",
       "contact": "문의"
     },
     "seo": {
-      "site_name": "라브베",
-      "home_title": "고백과 응원",
-      "home_description": "원어로 된 고백서를 읽고 도움을 찾으세요.",
-      "topic_title": "{topic} 고백",
-      "topic_description": "{topic}에 대한 고백을 읽어보세요.",
-      "confession_title": "{title} · 라브베"
+      "site_name": "Lavbe",
+      "home_title": "마음을 털어놓는 곳",
+      "home_description": "각자의 언어로 들려주는 이야기를 읽고, 마음이 내키면 내 이야기도 나눠 보세요.",
+      "topic_title": "이야기 · {topic}",
+      "topic_description": "‘{topic}’에 올라온 이야기를 읽어 보세요.",
+      "confession_title": "{title} · Lavbe"
     },
     "ads": {
       "label": "광고"

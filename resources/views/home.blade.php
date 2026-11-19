@@ -2,7 +2,7 @@
 
 @php
     $topic = $category ? app(App\Support\Lavbe\LocaleRegistry::class)->category($category) : null;
-    $sortLabels = config('lavbe.feed_orders');
+    $sortOrders = config('lavbe.feed_orders');
 @endphp
 
 @section('title', ($topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title')).' · Lavbe')
@@ -24,13 +24,13 @@
             <x-topic-panel :selected="$category" :categories="$categories" />
             <a class="button button-secondary" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}">{{ __('lavbe.search_title') }}</a>
             <nav class="sort-panel" aria-label="{{ __('lavbe.sort_label') }}">
-                @foreach($sortLabels as $key => $label)
+                @foreach($sortOrders as $key)
                     @php
                         $href = $category
                             ? route('topic.show', ['locale' => $lavbeLocale['segment'], 'category' => $category, 'sort' => $key])
                             : route('home', ['locale' => $lavbeLocale['segment'], 'sort' => $key]);
                     @endphp
-                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif>{{ $sortLabels[$key] }}</a>
+                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif>{{ __('lavbe.sort_'.$key) }}</a>
                 @endforeach
             </nav>
         </div>

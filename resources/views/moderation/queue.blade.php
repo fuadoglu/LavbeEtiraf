@@ -27,13 +27,13 @@
         </nav>
         @forelse($items as $item)
             <article class="feed-card">
-                <p>{{ __('moderation.target_language') }}: {{ $item->locale }} · {{ __('moderation.topic') }}: {{ $item->category_key ?? '—' }}</p>
+                <p>{{ __('moderation.target_language') }}: {{ $item->locale }} · {{ __('moderation.topic') }}: {{ app(\App\Support\Lavbe\LocaleRegistry::class)->categoryLabel(app()->getLocale(), $item->category_key ?? '') ?? '—' }}</p>
                 <h2>{{ $item->title ?: __('moderation.untitled') }}</h2>
                 <a class="button button-primary" href="{{ route('moderation.show', ['locale' => request()->route('locale'), 'confessionId' => $item->id, 'revision_id' => $selectedState === 'review' ? null : $item->revision_id]) }}">{{ __('moderation.open_review') }}</a>
             </article>
         @empty
             <x-status>{{ __('moderation.queue_empty') }}</x-status>
         @endforelse
-        {{ $items->links() }}
+        {{ $items->links('components.pagination') }}
     </section>
 @endsection

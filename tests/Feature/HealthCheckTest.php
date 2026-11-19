@@ -27,6 +27,6 @@ class HealthCheckTest extends TestCase
             ->assertSee('Lavbe')
             ->assertSee('Confession Valley')
             ->assertSee('All')
-            ->assertSee('Oxu');
+            ->assertSee('Read')->assertDontSee('Oxu');
     }
 }

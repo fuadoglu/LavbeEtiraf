@@ -31,14 +31,13 @@ class AppServiceProvider extends ServiceProvider
         ResetPassword::createUrlUsing(fn ($user, string $token): string => URL::route('password.reset', [
             'locale' => $user->preferred_locale ?: 'en', 'token' => $token, 'email' => $user->getEmailForPasswordReset(),
         ]));
-        View::composer('components.site-header', function ($view): void {
-            $locale = app(LocaleRegistry::class)->bySegment((string) request()->route('locale'))
-                ?? app(LocaleRegistry::class)->fallback();
-            $view->with('lavbeLocale', $locale);
-        });
-        View::composer('components.site-navigation', function ($view): void {
-            $locale = app(LocaleRegistry::class)->bySegment((string) request()->route('locale'))
-                ?? app(LocaleRegistry::class)->fallback();
+        View::composer(['errors::404', 'components.site-header', 'components.site-navigation'], function ($view): void {
+            $registry = app(LocaleRegistry::class);
+            $segment = request()->route('locale') ?? request()->segment(1);
+            $locale = $registry->bySegment((string) $segment) ?? $registry->fallback();
+            if ($view->name() === 'errors::404') {
+                app()->setLocale($locale['code']);
+            }
             $view->with('lavbeLocale', $locale);
         });
     }

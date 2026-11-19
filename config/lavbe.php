@@ -16,8 +16,8 @@ return [
         'everyday' => 'Gündəlik həyat',
     ],
     'feed_orders' => [
-        'new' => 'Yeni',
-        'weekly' => 'Bu həftə',
-        'updates' => 'Davamı gəldi',
+        'new',
+        'weekly',
+        'updates',
     ],
 ];

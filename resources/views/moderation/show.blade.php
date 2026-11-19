@@ -8,8 +8,8 @@
         <h1>{{ __('moderation.revision_title') }}</h1>
         <dl>
             <dt>{{ __('moderation.target_language') }}</dt><dd>{{ $confession->locale }}</dd>
-            <dt>{{ __('moderation.topic') }}</dt><dd>{{ $revision->category_key ?? '—' }}</dd>
-            <dt>{{ __('moderation.state') }}</dt><dd>{{ $confession->status }} · {{ $revision->status }} · {{ $confession->lock_version }}</dd>
+            <dt>{{ __('moderation.topic') }}</dt><dd>{{ app(\App\Support\Lavbe\LocaleRegistry::class)->categoryLabel(app()->getLocale(), $revision->category_key ?? '') ?? '—' }}</dd>
+            <dt>{{ __('moderation.state') }}</dt><dd>{{ __('state.'.$confession->status) }} · {{ __('state.'.$revision->status) }} · {{ $confession->lock_version }}</dd>
         </dl>
         @if($publicRevision && $publicRevision->id !== $revision->id)
             <h2>{{ __('moderation.previous_public') }}</h2>

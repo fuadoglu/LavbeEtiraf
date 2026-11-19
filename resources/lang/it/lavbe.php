@@ -1,3 +1,26 @@
 <?php
 
-return ['feed_title' => 'Valle delle confessioni', 'feed_subtitle' => 'Leggi, ascolta e ricorda che non sei solo.', 'sort_label' => 'Ordine del feed', 'sort_new' => 'Nuove', 'sort_weekly' => 'Questa settimana', 'sort_updates' => 'Nuove continuazioni', 'categories' => 'Argomento della confessione', 'all_categories' => 'Tutte', 'category_empty' => 'Non ci sono ancora confessioni su questo argomento.', 'feed_empty' => 'Non ci sono ancora confessioni pubblicate', 'feed_empty_description' => 'Le storie approvate appariranno qui nella lingua originale. Il feed non mescola le lingue.', 'pagination' => 'Paginazione', 'previous' => 'Precedente', 'next' => 'Mostra altro', 'search_title' => 'Cerca', 'search_label' => 'Parola chiave', 'search_submit' => 'Cerca', 'search_empty' => 'Nessuna confessione trovata', 'retry' => 'Riprova', 'refresh' => 'Aggiorna il feed', 'untitled_confession' => 'Confessione senza titolo', 'breadcrumb' => 'Percorso di navigazione'];
+return [
+    'feed_title' => 'Valle delle confessioni',
+    'feed_subtitle' => 'Leggi le storie degli altri. Se te la senti, puoi raccontare anche la tua.',
+    'sort_label' => 'Ordine del feed',
+    'sort_new' => 'Nuove',
+    'sort_weekly' => 'Questa settimana',
+    'sort_updates' => 'Storie con un seguito',
+    'categories' => 'Argomento della confessione',
+    'all_categories' => 'Tutte',
+    'category_empty' => 'Non ci sono ancora confessioni su questo argomento.',
+    'feed_empty' => 'Non ci sono ancora confessioni pubblicate',
+    'feed_empty_description' => 'Le storie approvate appariranno qui nella lingua originale. Il feed non mescola le lingue.',
+    'pagination' => 'Paginazione',
+    'previous' => 'Precedente',
+    'next' => 'Mostra altro',
+    'search_title' => 'Cerca',
+    'search_label' => 'Parola chiave',
+    'search_submit' => 'Cerca',
+    'search_empty' => 'Nessuna confessione trovata',
+    'retry' => 'Riprova',
+    'refresh' => 'Aggiorna il feed',
+    'untitled_confession' => 'Confessione senza titolo',
+    'breadcrumb' => 'Percorso di navigazione',
+];

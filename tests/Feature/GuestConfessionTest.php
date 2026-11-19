@@ -126,7 +126,7 @@ class GuestConfessionTest extends TestCase
         $payload['body'] = 'A different synthetic payload';
         $this->post('/az/write', $payload)
             ->assertStatus(409)
-            ->assertSee('Bu sorğu əvvəlki göndərişdən fərqli mətnlə gəldi');
+            ->assertSee('Mətn dəyişib.');
         $this->assertDatabaseCount('confessions', 1);
     }
 

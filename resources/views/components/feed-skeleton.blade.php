@@ -1,5 +1,5 @@
 @props(['count' => 3])
-<div class="feed-list" aria-label="Məzmun yüklənir" aria-busy="true">
+<div class="feed-list" aria-label="{{ __('ui.loading') }}" aria-busy="true">
     @for($index = 0; $index < $count; $index++)
         <article class="story-card skeleton-card" aria-hidden="true">
             <span class="skeleton-line skeleton-short"></span>

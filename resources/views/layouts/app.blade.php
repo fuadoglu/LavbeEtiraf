@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#faf7f2">
-    <title>@yield('title', 'Lavbe · Etiraflar Vadisi')</title>
+    <title>@yield('title', 'Lavbe · '.__('lavbe.feed_title'))</title>
     @stack('head')
     <script>
         (() => {
@@ -23,14 +23,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <a class="skip-link" href="#main">Əsas məzmuna keç</a>
+    <a class="skip-link" href="#main">{{ __('ui.skip') }}</a>
     <div class="app-shell">
         <x-site-header />
         <main id="main" class="page-content" tabindex="-1">
             @yield('content')
         </main>
         <footer class="site-footer">
-            <p>Lavbe · Etiraflar Vadisi</p>
+            <p>Lavbe · {{ __('lavbe.feed_title') }}</p>
         </footer>
     </div>
     @stack('dialogs')

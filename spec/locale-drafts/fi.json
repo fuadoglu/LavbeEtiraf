@@ -1,11 +1,11 @@
 {
   "locale": "fi",
-  "version": "draft-2026-11-19.2",
+  "version": "draft-2026-11-19.3",
   "messages": {
     "navigation": {
       "read": "Lue",
       "write": "Kirjoita",
-      "mine": "Lavbeni",
+      "mine": "Oma Lavbe",
       "more": "Lisää",
       "language": "Kieli",
       "settings": "Asetukset",
@@ -14,74 +14,74 @@
     },
     "language": {
       "picker_label": "Valitse kieli",
-      "search": "Hae kieliä",
+      "search": "Hae kieltä",
       "empty": "Kieliä ei löytynyt",
       "selected": "Nykyinen kieli",
-      "changed": "Kieleksi vaihdettu {language}."
+      "changed": "Valittu kieli: {language}."
     },
     "theme": {
       "label": "Ulkonäkö",
       "system": "Käytä laiteasetuksia",
-      "day": "Valo",
+      "day": "Vaalea",
       "night": "Tumma"
     },
     "feed": {
       "all": "Kaikki",
       "topics": "Aiheet",
-      "new": "Uutta",
+      "new": "Uudet",
       "weekly": "Tällä viikolla",
-      "updates": "Uusia päivityksiä",
-      "more": "Lataa lisää",
+      "updates": "Jatkoa saaneet tarinat",
+      "more": "Näytä lisää kirjoituksia",
       "refresh": "Päivitä syöte",
       "retry": "Yritä uudelleen",
-      "empty": "Ei vielä julkaistuja tunnustuksia.",
-      "end": "Olet saavuttanut lopun.",
-      "loading": "Ladataan tunnustuksia…"
+      "empty": "Tunnustuksia ei ole vielä julkaistu",
+      "end": "Olet nähnyt kaikki kirjoitukset.",
+      "loading": "Ladataan kirjoituksia"
     },
     "search": {
       "title": "Hae tunnustuksia",
       "label": "Hae avainsanalla",
       "submit": "Hae",
-      "empty": "Vastaavia tunnustuksia ei löytynyt.",
+      "empty": "Sopivia tunnustuksia ei löytynyt",
       "invalid": "Kirjoita hakutermi."
     },
     "confession": {
       "author": "Nimetön kirjoittaja",
-      "support": "Tuki",
-      "follow": "Seuraa päivityksiä",
+      "support": "Osoita tukesi",
+      "follow": "Seuraa kirjoitusta",
       "unfollow": "Lopeta seuraaminen",
       "share": "Jaa",
-      "report": "Raportti",
+      "report": "Ilmoita kirjoituksesta",
       "update": "Päivitys",
       "next": "Seuraava tunnustus",
-      "comments_closed": "Vastaukset on suljettu."
+      "comments_closed": "Kirjoittaja on sulkenut vastaukset."
     },
     "write": {
       "title": "Kirjoita tunnustus",
-      "intro": "Tunnustuksesi tarkistetaan ennen kuin se tulee julkisuuteen.",
+      "intro": "Lähetyksen jälkeen teksti tarkistetaan. Se ei näy julkisessa syötteessä ennen hyväksyntää.",
       "body": "Tunnustuksesi",
       "optional_title": "Otsikko (valinnainen)",
       "topic": "Aihe",
-      "purpose": "Mitä haluaisit lukijoilta?",
-      "purpose_share": "Haluan vain jakaa",
-      "purpose_experience": "Haluan kuulla samanlaisia kokemuksia",
-      "purpose_advice": "Haluaisin neuvoja",
-      "allow_comments": "Salli vastaukset",
+      "purpose": "Mitä toivot lukijoilta? (valinnainen)",
+      "purpose_share": "Haluan vain kertoa tästä",
+      "purpose_experience": "Kuulla samankaltaisista kokemuksista",
+      "purpose_advice": "Saada neuvoja",
+      "allow_comments": "Salli uudet vastaukset",
       "public_notice": "Hyväksytyt tunnustukset voidaan lukea julkisesti niiden alkuperäisellä kielellä.",
-      "age_notice": "Sinun on oltava vähintään 18-vuotias lähettääksesi.",
-      "remember_draft": "Muista tämä luonnos tällä laitteella",
-      "remember_device": "Muista tämä laite yksityistä käyttöä varten",
+      "age_notice": "Lähettäjän on oltava vähintään 18-vuotias.",
+      "remember_draft": "Tallenna luonnos tälle laitteelle",
+      "remember_device": "Muista tämä laite, jotta voit palata tunnustuksiisi täällä.",
       "submit": "Lähetä tarkistettavaksi",
-      "invalid": "Tarkista tietosi. Tekstin enimmäismäärä on {limit} merkkiä.",
-      "network_error": "Emme voineet lähettää tätä juuri nyt. Yritä uudelleen."
+      "invalid": "Tarkista teksti. Voit kirjoittaa enintään {limit} merkkiä.",
+      "network_error": "Lähetystäsi ei voitu tallentaa juuri nyt. Yritä hetken kuluttua uudelleen."
     },
     "submit": {
-      "pending": "Tunnustuksesi odottaa tarkistusta.",
+      "pending": "Tunnustuksesi lähetettiin tarkistettavaksi",
       "recovery_code": "Palautuskoodi",
-      "recovery_help": "Tallenna tämä koodi yksityisesti. Se näytetään vain kerran.",
+      "recovery_help": "Tallenna tämä koodi turvalliseen paikkaan nyt. Sitä ei näytetä uudelleen.",
       "copy": "Kopioi koodi",
       "copied": "Kopioitu",
-      "my_content": "Avaa yksityinen tila"
+      "my_content": "Tarkista kirjoitukseni tila"
     },
     "comment": {
       "write": "Kirjoita vastaus",
@@ -90,27 +90,27 @@
       "submit": "Lähetä tarkistettavaksi",
       "pending": "Vastauksesi odottaa tarkistusta.",
       "edit": "Muokkaa vastausta",
-      "delete": "Peruuta vastaus"
+      "delete": "Poista vastaukseni"
     },
     "report": {
-      "confession": "Ilmoita tunnustus",
+      "confession": "Ilmoita kirjoituksesta",
       "comment": "Ilmoita vastauksesta",
       "reason": "Syy",
-      "explanation": "Lisätietoja (valinnainen)",
-      "send": "Lähetä raportti",
-      "received": "Kiitos. Raporttisi vastaanotettiin.",
-      "duplicate": "Olet jo ilmoittanut tämän kohteen.",
+      "explanation": "Lisätiedot (valinnainen)",
+      "send": "Lähetä ilmoitus",
+      "received": "Kiitos. Ylläpito käsittelee ilmoituksesi luottamuksellisesti.",
+      "duplicate": "Olet jo ilmoittanut tästä kirjoituksesta.",
       "spam": "Roskaposti tai mainonta",
       "privacy": "Yksityisyys tai henkilötiedot",
-      "harassment": "Häirintä tai väärinkäyttö",
-      "threat": "Uhka tai turvallisuusongelma",
+      "harassment": "Häirintä tai henkilöön kohdistuva loukkaus",
+      "threat": "Uhka tai turvallisuushuoli",
       "inappropriate": "Sopimaton sisältö",
-      "other": "Muu huolenaihe"
+      "other": "Muu huoli"
     },
     "moderation": {
-      "confessions": "Tunnustukset",
+      "confessions": "Kirjoitukset",
       "comments": "Vastaukset",
-      "reports": "Raportit",
+      "reports": "Ilmoitukset",
       "pending": "Odotetaan tarkistusta",
       "public": "Julkaistu",
       "changes_requested": "Muutoksia pyydetty",
@@ -122,29 +122,29 @@
       "reject": "Hylkää",
       "hide": "Piilota",
       "request_changes": "Pyydä muutoksia",
-      "appeal": "Valitus",
+      "appeal": "Pyydä päätöksen oikaisua",
       "close_report": "Ratkaise raportti",
       "stale": "Tämä kohde muuttui. Lataa uudelleen ja tarkista se uudelleen."
     },
     "mine": {
-      "confessions": "Tunnustukseni",
-      "comments": "Vastaukseni",
-      "followed": "Seurataan",
+      "confessions": "Omat kirjoitukset",
+      "comments": "Omat vastaukset",
+      "followed": "Seurannassa",
       "notifications": "Ilmoitukset",
       "withdraw": "Peru",
-      "withdraw_confirm": "Poistetaanko tämä kohde julkisuudesta?",
+      "withdraw_confirm": "Haluatko vetää kirjoituksen pois näkyvistä?",
       "delete": "Poista",
       "delete_confirm": "Tätä toimintoa ei voi kumota. Jatkaa?",
-      "empty": "Ei vielä mitään."
+      "empty": "Täällä ei ole vielä mitään."
     },
     "auth": {
       "sign_in": "Kirjaudu sisään",
-      "email": "Sähköposti",
+      "email": "Sähköpostiosoite",
       "email_sent": "Jos tili on olemassa, viesti on lähetetty.",
       "sign_out": "Kirjaudu ulos",
       "recovery": "Palauta käyttöoikeus",
       "recovery_input": "Anna palautuskoodisi",
-      "recover": "Palauta",
+      "recover": "Palauta käyttöoikeus",
       "recovered": "Käyttöoikeus palautettu. Aiemmat pääsykoodit peruutettiin.",
       "invalid_code": "Koodi on virheellinen tai vanhentunut."
     },
@@ -152,8 +152,8 @@
       "published": "Seuraamasi tunnustus on julkaistu.",
       "changes_requested": "Moderaattori pyysi muutoksia tunnustukseesi.",
       "new_comments": {
-        "one": "{count} on uusi vastaus.",
-        "other": "{count} on uusia vastauksia."
+        "one": "{count} uusi vastaus",
+        "other": "{count} uutta vastausta"
       },
       "followup": "Uusi jatko on saatavilla.",
       "generic": "Tililläsi on uutta toimintaa.",
@@ -168,14 +168,14 @@
     },
     "pwa": {
       "install": "Asenna Lavbe",
-      "install_help_ios": "Napauta Safarissa Jaa ja sitten Lisää aloitusnäyttöön.",
+      "install_help_ios": "Napauta Safarissa Jaa ja valitse sitten Lisää Koti-valikkoon.",
       "offline_title": "Olet offline-tilassa",
       "offline_body": "Jotkut tallennetut sivut voivat edelleen olla käytettävissä.",
       "back_online": "Olet taas online-tilassa.",
       "draft_expired": "Tämä tallennettu luonnos on vanhentunut."
     },
     "errors": {
-      "not_found": "Sivua ei löydy",
+      "not_found": "Sivua ei löytynyt",
       "gone": "Tämä sisältö ei ole enää saatavilla.",
       "forbidden": "Sinulla ei ole pääsyä tälle sivulle.",
       "conflict": "Tämä kohde muuttui. Lataa uudelleen ja yritä uudelleen.",
@@ -202,17 +202,17 @@
     "help": {
       "title": "Ohje",
       "guest": "Voit kirjoittaa luomatta tiliä.",
-      "recovery": "Pidä palautuskoodisi turvassa; sitä ei voi näyttää uudelleen.",
+      "recovery": "Tallenna tämä koodi turvalliseen paikkaan nyt. Sitä ei näytetä uudelleen.",
       "visibility": "Tunnustus on julkinen vasta moderaattorin hyväksynnän jälkeen.",
       "reporting": "Ilmoita huolenaiheesta ilmoituslomakkeella.",
       "contact": "Ota yhteyttä"
     },
     "seo": {
       "site_name": "Lavbe",
-      "home_title": "Tunnustukset ja tuki",
-      "home_description": "Lue tunnustuksia niiden alkuperäisellä kielellä ja löydä tukea.",
-      "topic_title": "{topic} tunnustukset",
-      "topic_description": "Lue tunnustuksia aiheesta {topic}.",
+      "home_title": "Tarinoita ja tukea",
+      "home_description": "Lue muiden tarinoita niiden alkuperäisellä kielellä tai kerro omasi.",
+      "topic_title": "Kirjoitukset · {topic}",
+      "topic_description": "Lue omakohtaisia tarinoita kategoriasta ”{topic}”.",
       "confession_title": "{title} · Lavbe"
     },
     "ads": {

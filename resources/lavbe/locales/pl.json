@@ -1,9 +1,9 @@
 {
   "locale": "pl",
-  "version": "draft-2026-11-19.2",
+  "version": "draft-2026-11-19.3",
   "messages": {
     "navigation": {
-      "read": "Przeczytaj",
+      "read": "Czytaj",
       "write": "Napisz",
       "mine": "Moje Lavbe",
       "more": "Więcej",
@@ -14,103 +14,103 @@
     },
     "language": {
       "picker_label": "Wybierz język",
-      "search": "Wyszukaj języki",
+      "search": "Wyszukaj język",
       "empty": "Nie znaleziono języków",
       "selected": "Bieżący język",
-      "changed": "Język zmieniony na {language}."
+      "changed": "Wybrany język: {language}."
     },
     "theme": {
       "label": "Wygląd",
       "system": "Użyj ustawień urządzenia",
-      "day": "Światło",
-      "night": "Ciemno"
+      "day": "Jasny",
+      "night": "Ciemny"
     },
     "feed": {
-      "all": "Wszystko",
+      "all": "Wszystkie",
       "topics": "Tematy",
-      "new": "Nowość",
+      "new": "Nowe",
       "weekly": "W tym tygodniu",
-      "updates": "Nowe aktualizacje",
-      "more": "Załaduj więcej",
-      "refresh": "Odśwież kanał",
+      "updates": "Historie z ciągiem dalszym",
+      "more": "Pokaż więcej historii",
+      "refresh": "Odśwież wpisy",
       "retry": "Spróbuj ponownie",
-      "empty": "Nie opublikowano jeszcze żadnych zeznań.",
-      "end": "Dotarłeś do końca.",
-      "loading": "Ładowanie zeznań…"
+      "empty": "Nie opublikowano jeszcze żadnych wyznań",
+      "end": "To już wszystkie historie.",
+      "loading": "Wczytywanie historii"
     },
     "search": {
       "title": "Przeszukaj wyznania",
       "label": "Szukaj według słowa kluczowego",
       "submit": "Szukaj",
-      "empty": "Nie znaleziono pasujących wyznań.",
+      "empty": "Nie znaleziono pasujących wyznań",
       "invalid": "Wprowadź wyszukiwane hasło."
     },
     "confession": {
       "author": "Autor anonimowy",
-      "support": "Wsparcie",
-      "follow": "Śledź aktualizacje",
+      "support": "Okaż wsparcie",
+      "follow": "Obserwuj historię",
       "unfollow": "Przestań obserwować",
       "share": "Udostępnij",
-      "report": "Zgłoś",
+      "report": "Zgłoś to wyznanie",
       "update": "Aktualizacja",
       "next": "Następna spowiedź",
-      "comments_closed": "Odpowiedzi są zamknięte."
+      "comments_closed": "Osoba, która podzieliła się historią, zamknęła odpowiedzi."
     },
     "write": {
-      "title": "Napisz spowiedź",
-      "intro": "Twoje zeznania są sprawdzane, zanim zostaną upublicznione.",
-      "body": "Twoja spowiedź",
+      "title": "Napisz wyznanie",
+      "intro": "Po wysłaniu tekst zostanie sprawdzony i nie pojawi się publicznie przed zatwierdzeniem.",
+      "body": "Treść wyznania",
       "optional_title": "Tytuł (opcjonalnie)",
       "topic": "Temat",
-      "purpose": "Czego chciałbyś od czytelników?",
-      "purpose_share": "Chcę się tylko podzielić",
-      "purpose_experience": "Chcę usłyszeć podobne doświadczenia",
-      "purpose_advice": "Chciałbym uzyskać poradę",
-      "allow_comments": "Zezwól na odpowiedzi",
+      "purpose": "Czego oczekujesz od czytających? (opcjonalnie)",
+      "purpose_share": "Chcę się po prostu podzielić swoją historią",
+      "purpose_experience": "Poznać podobne doświadczenia",
+      "purpose_advice": "Otrzymać poradę",
+      "allow_comments": "Zezwól na nowe odpowiedzi",
       "public_notice": "Zatwierdzone zeznania można czytać publicznie w ich oryginalnym języku.",
-      "age_notice": "Aby przesłać zgłoszenie, musisz mieć ukończone 18 lat.",
-      "remember_draft": "Zapamiętaj tę wersję roboczą na tym urządzeniu",
-      "remember_device": "Zapamiętaj to urządzenie, aby uzyskać prywatny dostęp",
+      "age_notice": "Aby wysłać treść, musisz mieć co najmniej 18 lat.",
+      "remember_draft": "Zapisz szkic na tym urządzeniu",
+      "remember_device": "Zapamiętaj to urządzenie, aby wracać tu do swoich wyznań.",
       "submit": "Wyślij do sprawdzenia",
-      "invalid": "Sprawdź swoje wpisy. Limit tekstu to {limit} znaków.",
-      "network_error": "Nie mogliśmy tego teraz wysłać. Spróbuj ponownie."
+      "invalid": "Sprawdź treść. Limit znaków: {limit}.",
+      "network_error": "Nie udało się teraz zapisać zgłoszenia. Spróbuj ponownie za chwilę."
     },
     "submit": {
-      "pending": "Twoje zeznanie oczekuje na sprawdzenie.",
+      "pending": "Wyznanie wysłano do sprawdzenia",
       "recovery_code": "Kod odzyskiwania",
-      "recovery_help": "Zapisz ten kod prywatnie. Zostanie ono pokazane tylko raz.",
+      "recovery_help": "Zapisz ten kod teraz w bezpiecznym miejscu. Nie zostanie pokazany ponownie.",
       "copy": "Skopiuj kod",
       "copied": "Skopiowano",
-      "my_content": "Otwórz status prywatny"
+      "my_content": "Sprawdź status mojego wpisu"
     },
     "comment": {
       "write": "Napisz odpowiedź",
       "body": "Twoja odpowiedź",
       "reply": "Odpowiedz",
-      "submit": "Wyślij do recenzji",
-      "pending": "Twoja odpowiedź oczekuje na sprawdzenie.",
+      "submit": "Wyślij do sprawdzenia",
+      "pending": "Twoja odpowiedź czeka na sprawdzenie.",
       "edit": "Edytuj odpowiedź",
       "delete": "Wycofaj odpowiedź"
     },
     "report": {
-      "confession": "Zgłoś spowiedź",
-      "comment": "Zgłoś odpowiedź",
+      "confession": "Zgłoś to wyznanie",
+      "comment": "Zgłoś tę odpowiedź",
       "reason": "Powód",
-      "explanation": "Dodatkowe szczegóły (opcjonalnie)",
-      "send": "Wyślij raport",
-      "received": "Dziękuję. Otrzymaliśmy Twój raport.",
-      "duplicate": "Już zgłosiłeś ten przedmiot.",
+      "explanation": "Dodatkowe informacje (opcjonalnie)",
+      "send": "Wyślij zgłoszenie",
+      "received": "Dziękujemy. Moderacja rozpatrzy zgłoszenie poufnie.",
+      "duplicate": "Twoje zgłoszenie dotyczące tego wpisu już do nas dotarło.",
       "spam": "Spam lub reklama",
       "privacy": "Prywatność lub dane osobowe",
-      "harassment": "Nękanie lub znęcanie się",
-      "threat": "Zagrożenie lub zagrożenie bezpieczeństwa",
+      "harassment": "Nękanie lub ataki osobiste",
+      "threat": "Groźba lub zagrożenie bezpieczeństwa",
       "inappropriate": "Niewłaściwa treść",
       "other": "Inny problem"
     },
     "moderation": {
       "confessions": "Wyznania",
       "comments": "Odpowiedzi",
-      "reports": "Raporty",
+      "reports": "Zgłoszenia",
       "pending": "Czekam na recenzję",
       "public": "Opublikowano",
       "changes_requested": "Żądano zmian",
@@ -122,29 +122,29 @@
       "reject": "Odrzuć",
       "hide": "Ukryj",
       "request_changes": "Poproś o zmiany",
-      "appeal": "Apel",
+      "appeal": "Odwołaj się od decyzji",
       "close_report": "Rozwiąż raport",
       "stale": "Ten element został zmieniony. Załaduj ponownie i przejrzyj jeszcze raz."
     },
     "mine": {
       "confessions": "Moje wyznania",
       "comments": "Moje odpowiedzi",
-      "followed": "Obserwuję",
+      "followed": "Obserwowane",
       "notifications": "Powiadomienia",
       "withdraw": "Wycofaj",
-      "withdraw_confirm": "Wycofać ten element z widoku publicznego?",
+      "withdraw_confirm": "Czy chcesz wycofać ten wpis?",
       "delete": "Usuń",
       "delete_confirm": "Tej akcji nie można cofnąć. Kontynuować?",
-      "empty": "Jeszcze nic tu nie ma."
+      "empty": "Tu jeszcze nic nie ma."
     },
     "auth": {
       "sign_in": "Zaloguj się",
-      "email": "E-mail",
+      "email": "Adres e-mail",
       "email_sent": "Jeśli konto istnieje, wiadomość została wysłana.",
       "sign_out": "Wyloguj się",
       "recovery": "Odzyskaj dostęp",
       "recovery_input": "Wprowadź swój kod odzyskiwania",
-      "recover": "Odzyskaj",
+      "recover": "Odzyskaj dostęp",
       "recovered": "Dostęp odzyskany. Poprzednie kody dostępu zostały unieważnione.",
       "invalid_code": "Kod jest nieprawidłowy lub wygasł."
     },
@@ -152,10 +152,10 @@
       "published": "Opublikowano wyznanie, które obserwujesz.",
       "changes_requested": "Moderator zażądał wprowadzenia zmian w Twoim zeznaniu.",
       "new_comments": {
-        "one": "Jest nowa odpowiedź {count}.",
-        "few": "Pojawiły się nowe odpowiedzi {count}.",
-        "many": "Pojawiły się nowe odpowiedzi {count}.",
-        "other": "Pojawiły się nowe odpowiedzi {count}."
+        "one": "{count} nowa odpowiedź",
+        "few": "{count} nowe odpowiedzi",
+        "many": "{count} nowych odpowiedzi",
+        "other": "Nowe odpowiedzi: {count}"
       },
       "followup": "Dostępna jest nowa kontynuacja.",
       "generic": "Na Twoim koncie pojawiła się nowa aktywność.",
@@ -170,7 +170,7 @@
     },
     "pwa": {
       "install": "Zainstaluj Lavbe",
-      "install_help_ios": "W przeglądarce Safari dotknij Udostępnij, a następnie Dodaj do ekranu głównego.",
+      "install_help_ios": "W Safari stuknij Udostępnij, a następnie Do ekranu początkowego.",
       "offline_title": "Jesteś offline",
       "offline_body": "Niektóre zapisane strony mogą być nadal dostępne.",
       "back_online": "Jesteś z powrotem online.",
@@ -181,7 +181,7 @@
       "gone": "Ta treść nie jest już dostępna.",
       "forbidden": "Nie masz dostępu do tej strony.",
       "conflict": "Ten element został zmieniony. Załaduj ponownie i spróbuj ponownie.",
-      "rate_limited": "Zbyt wiele prób. Poczekaj chwilę i spróbuj ponownie.",
+      "rate_limited": "Zbyt wiele prób. Odczekaj chwilę i spróbuj ponownie.",
       "unavailable": "Usługa jest chwilowo niedostępna."
     },
     "consent": {
@@ -204,17 +204,17 @@
     "help": {
       "title": "Pomoc",
       "guest": "Możesz pisać bez zakładania konta.",
-      "recovery": "Chroń swój kod odzyskiwania; nie można go ponownie pokazać.",
+      "recovery": "Zapisz ten kod teraz w bezpiecznym miejscu. Nie zostanie pokazany ponownie.",
       "visibility": "Spowiedź jest publiczna dopiero po zatwierdzeniu przez moderatora.",
       "reporting": "Skorzystaj z formularza zgłoszenia, aby zgłosić problem.",
       "contact": "Kontakt"
     },
     "seo": {
       "site_name": "Lavbe",
-      "home_title": "Spowiedź i wsparcie",
-      "home_description": "Czytaj zeznania w ich oryginalnym języku i znajdź wsparcie.",
-      "topic_title": "{topic} wyznania",
-      "topic_description": "Przeczytaj wyznania na temat {topic}.",
+      "home_title": "Wyznania i wsparcie",
+      "home_description": "Czytaj historie w języku osób, które je napisały. Jeśli masz ochotę, opowiedz też swoją.",
+      "topic_title": "Historie · {topic}",
+      "topic_description": "Przeczytaj osobiste historie z kategorii „{topic}”.",
       "confession_title": "{title} · Lavbe"
     },
     "ads": {
@@ -287,37 +287,37 @@
     "terms": {
       "title": "Warunki użytkowania",
       "body": "Wersja robocza. Przed publikacją potwierdź lokalne wymagania, faktycznego operatora usługi i praktyki dotyczące danych.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "community": {
       "title": "Wytyczne dla społeczności",
       "body": "Wersja robocza. Przed publikacją potwierdź lokalne wymagania, faktycznego operatora usługi i praktyki dotyczące danych.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "privacy": {
       "title": "Informacja o ochronie prywatności",
       "body": "Wersja robocza. Przed publikacją potwierdź lokalne wymagania, faktycznego operatora usługi i praktyki dotyczące danych.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "cookies": {
       "title": "Uwaga dotycząca plików cookie",
       "body": "Wersja robocza. Przed publikacją potwierdź lokalne wymagania, faktycznego operatora usługi i praktyki dotyczące danych.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "illegal_content": {
       "title": "Zgłoś nielegalne treści",
       "body": "Wersja robocza. Przed publikacją potwierdź lokalne wymagania, faktycznego operatora usługi i praktyki dotyczące danych.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "data_request": {
       "title": "Żądanie dotyczące prywatności",
       "body": "Wersja robocza. Przed publikacją potwierdź lokalne wymagania, faktycznego operatora usługi i praktyki dotyczące danych.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "operator": {
       "title": "Operator serwisu",
       "body": "Wersja robocza. Przed publikacją potwierdź lokalne wymagania, faktycznego operatora usługi i praktyki dotyczące danych.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     }
   },
   "legal_status": "draft"

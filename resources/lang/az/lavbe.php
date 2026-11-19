@@ -1,3 +1,26 @@
 <?php
 
-return ['feed_title' => 'Etiraflar Vadisi', 'feed_subtitle' => 'Oxu, dinlə və özünü tək hiss etmə.', 'sort_label' => 'Lentin sıralanması', 'sort_new' => 'Yeni', 'sort_weekly' => 'Bu həftə', 'sort_updates' => 'Davamı gəldi', 'categories' => 'Etirafın mövzusu', 'all_categories' => 'Hamısı', 'category_empty' => 'Bu mövzuda hələ etiraf yoxdur.', 'feed_empty' => 'Hələ dərc olunmuş etiraf yoxdur', 'feed_empty_description' => 'Təsdiqlənmiş hekayələr öz dilində burada görünəcək. Bu lent başqa dildən məzmun göstərmir.', 'pagination' => 'Səhifələmə', 'previous' => 'Əvvəlki', 'next' => 'Daha çox', 'search_title' => 'Axtar', 'search_label' => 'Açar söz', 'search_submit' => 'Axtar', 'search_empty' => 'Uyğun etiraf tapılmadı', 'retry' => 'Yenidən cəhd et', 'refresh' => 'Lenti yenilə', 'untitled_confession' => 'Başlıqsız etiraf', 'breadcrumb' => 'Naviqasiya'];
+return [
+    'feed_title' => 'Etiraflar Vadisi',
+    'feed_subtitle' => 'Başqalarının yazdıqlarını oxu. Ürəyindən keçsə, sən də öz hekayəni bölüş.',
+    'sort_label' => 'Lentin sıralanması',
+    'sort_new' => 'Yeni',
+    'sort_weekly' => 'Bu həftə',
+    'sort_updates' => 'Davamı gələnlər',
+    'categories' => 'Etirafın mövzusu',
+    'all_categories' => 'Hamısı',
+    'category_empty' => 'Bu mövzuda hələ etiraf yoxdur.',
+    'feed_empty' => 'Hələ dərc olunmuş etiraf yoxdur',
+    'feed_empty_description' => 'Təsdiqlənmiş hekayələr öz dilində burada görünəcək. Bu lent başqa dildən məzmun göstərmir.',
+    'pagination' => 'Səhifələmə',
+    'previous' => 'Əvvəlki',
+    'next' => 'Daha çox',
+    'search_title' => 'Axtar',
+    'search_label' => 'Açar söz',
+    'search_submit' => 'Axtar',
+    'search_empty' => 'Uyğun etiraf tapılmadı',
+    'retry' => 'Yenidən cəhd et',
+    'refresh' => 'Lenti yenilə',
+    'untitled_confession' => 'Başlıqsız etiraf',
+    'breadcrumb' => 'Naviqasiya',
+];

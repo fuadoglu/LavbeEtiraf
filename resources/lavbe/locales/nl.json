@@ -1,6 +1,6 @@
 {
   "locale": "nl",
-  "version": "draft-2026-11-19.2",
+  "version": "draft-2026-11-19.3",
   "messages": {
     "navigation": {
       "read": "Lezen",
@@ -14,10 +14,10 @@
     },
     "language": {
       "picker_label": "Kies een taal",
-      "search": "Zoektalen",
+      "search": "Zoek een taal",
       "empty": "Geen talen gevonden",
       "selected": "Huidige taal",
-      "changed": "Taal gewijzigd in {language}."
+      "changed": "Gekozen taal: {language}."
     },
     "theme": {
       "label": "Uiterlijk",
@@ -26,91 +26,91 @@
       "night": "Donker"
     },
     "feed": {
-      "all": "Allemaal",
+      "all": "Alles",
       "topics": "Onderwerpen",
       "new": "Nieuw",
       "weekly": "Deze week",
-      "updates": "Nieuwe updates",
-      "more": "Laad meer",
+      "updates": "Verhalen met een vervolg",
+      "more": "Meer verhalen tonen",
       "refresh": "Feed vernieuwen",
-      "retry": "Probeer het opnieuw",
-      "empty": "Nog geen gepubliceerde bekentenissen.",
-      "end": "Je hebt het einde bereikt.",
-      "loading": "Bekentenissen laden…"
+      "retry": "Opnieuw proberen",
+      "empty": "Nog geen bekentenissen gepubliceerd",
+      "end": "Je hebt alle verhalen gezien.",
+      "loading": "Verhalen worden geladen"
     },
     "search": {
       "title": "Zoek bekentenissen",
       "label": "Zoek op trefwoord",
       "submit": "Zoeken",
-      "empty": "Geen overeenkomende bekentenissen gevonden.",
+      "empty": "Geen passende bekentenissen gevonden",
       "invalid": "Voer een zoekterm in."
     },
     "confession": {
       "author": "Anonieme auteur",
-      "support": "Ondersteuning",
-      "follow": "Volg updates",
+      "support": "Steun betuigen",
+      "follow": "Verhaal volgen",
       "unfollow": "Niet meer volgen",
       "share": "Delen",
-      "report": "Rapport",
+      "report": "Dit verhaal melden",
       "update": "Update",
       "next": "Volgende bekentenis",
-      "comments_closed": "Reacties zijn gesloten."
+      "comments_closed": "De schrijver heeft de reacties gesloten."
     },
     "write": {
       "title": "Schrijf een bekentenis",
-      "intro": "Uw bekentenis wordt beoordeeld voordat deze publiekelijk verschijnt.",
+      "intro": "Na verzending wordt je tekst beoordeeld. Tot goedkeuring verschijnt die niet in de openbare feed.",
       "body": "Je bekentenis",
       "optional_title": "Titel (optioneel)",
       "topic": "Onderwerp",
-      "purpose": "Wat zou je graag willen van de lezers?",
-      "purpose_share": "Ik wil het gewoon delen",
-      "purpose_experience": "Ik wil soortgelijke ervaringen horen",
-      "purpose_advice": "Ik wil graag advies",
+      "purpose": "Wat hoop je van lezers te horen? (optioneel)",
+      "purpose_share": "Ik wil gewoon mijn verhaal kwijt",
+      "purpose_experience": "Vergelijkbare ervaringen horen",
+      "purpose_advice": "Advies krijgen",
       "allow_comments": "Reacties toestaan",
       "public_notice": "Goedgekeurde bekentenissen kunnen publiekelijk worden voorgelezen in hun oorspronkelijke taal.",
-      "age_notice": "Je moet minimaal 18 jaar zijn om te kunnen indienen.",
-      "remember_draft": "Onthoud dit concept op dit apparaat",
-      "remember_device": "Onthoud dit apparaat voor privétoegang",
-      "submit": "Verzenden voor beoordeling",
-      "invalid": "Controleer uw invoer. De tekstlimiet is {limit} tekens.",
-      "network_error": "We kunnen dit momenteel niet verzenden. Probeer het opnieuw."
+      "age_notice": "Je moet minstens 18 jaar zijn om iets in te sturen.",
+      "remember_draft": "Concept op dit apparaat bewaren",
+      "remember_device": "Onthoud dit apparaat zodat je hier naar je bekentenissen kunt terugkeren.",
+      "submit": "Verstuur ter beoordeling",
+      "invalid": "Controleer je tekst. Je kunt maximaal {limit} tekens schrijven.",
+      "network_error": "Je inzending kon nu niet worden opgeslagen. Probeer het zo opnieuw."
     },
     "submit": {
-      "pending": "Je bekentenis wacht op beoordeling.",
+      "pending": "Je bekentenis is ter beoordeling verstuurd",
       "recovery_code": "Herstelcode",
-      "recovery_help": "Bewaar deze code privé. Het zal slechts één keer getoond worden.",
+      "recovery_help": "Bewaar deze code nu op een veilige plek. Hij wordt niet opnieuw getoond.",
       "copy": "Kopieer code",
       "copied": "Gekopieerd",
-      "my_content": "Privéstatus openen"
+      "my_content": "Bekijk de status van mijn bijdrage"
     },
     "comment": {
       "write": "Schrijf een reactie",
       "body": "Uw antwoord",
       "reply": "Beantwoorden",
-      "submit": "Verzenden voor beoordeling",
-      "pending": "Uw antwoord wacht op beoordeling.",
+      "submit": "Ter beoordeling versturen",
+      "pending": "Je reactie wacht op beoordeling.",
       "edit": "Reactie bewerken",
-      "delete": "Reactie intrekken"
+      "delete": "Mijn reactie verwijderen"
     },
     "report": {
-      "confession": "Bekentenis melden",
-      "comment": "Rapporteer reactie",
+      "confession": "Dit verhaal melden",
+      "comment": "Deze reactie melden",
       "reason": "Reden",
-      "explanation": "Aanvullende details (optioneel)",
-      "send": "Rapport verzenden",
-      "received": "Dank je wel. Uw rapport is ontvangen.",
-      "duplicate": "U heeft dit item al gerapporteerd.",
+      "explanation": "Toelichting (optioneel)",
+      "send": "Melding versturen",
+      "received": "Bedankt. De moderators bekijken je melding vertrouwelijk.",
+      "duplicate": "Je hebt deze bijdrage al gemeld.",
       "spam": "Spam of reclame",
-      "privacy": "Privacy of persoonlijke informatie",
-      "harassment": "Intimidatie of misbruik",
-      "threat": "Bedreiging of veiligheidsprobleem",
+      "privacy": "Privacy of persoonsgegevens",
+      "harassment": "Intimidatie of gerichte beledigingen",
+      "threat": "Bedreiging of gevaar",
       "inappropriate": "Ongepaste inhoud",
       "other": "Ander probleem"
     },
     "moderation": {
-      "confessions": "Bekentenissen",
+      "confessions": "Verhalen",
       "comments": "Reacties",
-      "reports": "Rapporten",
+      "reports": "Meldingen",
       "pending": "Wachten op beoordeling",
       "public": "Gepubliceerd",
       "changes_requested": "Wijzigingen aangevraagd",
@@ -121,30 +121,30 @@
       "publish": "Goedkeuren en publiceren",
       "reject": "Afwijzen",
       "hide": "Verbergen",
-      "request_changes": "Wijzigingen aanvragen",
-      "appeal": "Bezwaar",
+      "request_changes": "Wijzigingen vragen",
+      "appeal": "Bezwaar maken",
       "close_report": "Rapport oplossen",
       "stale": "Dit artikel is gewijzigd. Herlaad en bekijk het opnieuw."
     },
     "mine": {
-      "confessions": "Mijn bekentenissen",
-      "comments": "Mijn antwoorden",
-      "followed": "Volgt",
+      "confessions": "Mijn verhalen",
+      "comments": "Mijn reacties",
+      "followed": "Gevolgde verhalen",
       "notifications": "Meldingen",
       "withdraw": "Intrekken",
-      "withdraw_confirm": "Dit item uit de publieke weergave verwijderen?",
+      "withdraw_confirm": "Wil je deze bijdrage intrekken?",
       "delete": "Verwijderen",
       "delete_confirm": "Deze actie kan niet ongedaan worden gemaakt. Doorgaan?",
-      "empty": "Nog niets hier."
+      "empty": "Hier staat nog niets."
     },
     "auth": {
-      "sign_in": "Aanmelden",
-      "email": "E-mail",
+      "sign_in": "Inloggen",
+      "email": "E-mailadres",
       "email_sent": "Als er een account bestaat, is er een bericht verzonden.",
-      "sign_out": "Afmelden",
+      "sign_out": "Uitloggen",
       "recovery": "Toegang herstellen",
       "recovery_input": "Voer uw herstelcode in",
-      "recover": "Herstellen",
+      "recover": "Toegang herstellen",
       "recovered": "Toegang hersteld. Eerdere toegangscodes zijn ingetrokken.",
       "invalid_code": "De code is ongeldig of verlopen."
     },
@@ -152,8 +152,8 @@
       "published": "Er is een bekentenis gepubliceerd die u volgt.",
       "changes_requested": "Een moderator heeft verzocht om wijzigingen in uw bekentenis.",
       "new_comments": {
-        "one": "Er is {count} nieuwe reactie.",
-        "other": "Er zijn {count} nieuwe reacties."
+        "one": "{count} nieuwe reactie",
+        "other": "{count} nieuwe reacties"
       },
       "followup": "Er is een nieuw vervolg beschikbaar.",
       "generic": "Er is nieuwe activiteit in uw account.",
@@ -168,7 +168,7 @@
     },
     "pwa": {
       "install": "Lavbe installeren",
-      "install_help_ios": "Tik in Safari op Delen en vervolgens op Toevoegen aan startscherm.",
+      "install_help_ios": "Tik in Safari op ‘Deel’ en daarna op ‘Zet op beginscherm’.",
       "offline_title": "Je bent offline",
       "offline_body": "Sommige opgeslagen pagina's zijn mogelijk nog beschikbaar.",
       "back_online": "Je bent weer online.",
@@ -202,17 +202,17 @@
     "help": {
       "title": "Hulp",
       "guest": "U kunt schrijven zonder een account aan te maken.",
-      "recovery": "Bewaar uw herstelcode veilig; het kan niet opnieuw worden weergegeven.",
+      "recovery": "Bewaar deze code nu op een veilige plek. Hij wordt niet opnieuw getoond.",
       "visibility": "Een bekentenis is pas openbaar na goedkeuring van de moderator.",
       "reporting": "Gebruik het meldformulier om een ​​probleem te melden.",
       "contact": "Contactpersoon"
     },
     "seo": {
       "site_name": "Lavbe",
-      "home_title": "Bekentenissen en ondersteuning",
-      "home_description": "Lees bekentenissen in hun oorspronkelijke taal en vind ondersteuning.",
-      "topic_title": "{topic} bekentenissen",
-      "topic_description": "Lees bekentenissen over {topic}.",
+      "home_title": "Verhalen en steun",
+      "home_description": "Lees verhalen in de taal waarin ze zijn geschreven, of deel je eigen verhaal.",
+      "topic_title": "Verhalen · {topic}",
+      "topic_description": "Lees persoonlijke verhalen in de categorie ‘{topic}’.",
       "confession_title": "{title} · Lavbe"
     },
     "ads": {
@@ -285,37 +285,37 @@
     "terms": {
       "title": "Gebruiksvoorwaarden",
       "body": "Concept. Bevestig lokale vereisten, de daadwerkelijke serviceprovider en gegevenspraktijken vóór publicatie.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "community": {
       "title": "Gemeenschapsrichtlijnen",
       "body": "Concept. Bevestig lokale vereisten, de daadwerkelijke serviceprovider en gegevenspraktijken vóór publicatie.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "privacy": {
       "title": "Privacyverklaring",
       "body": "Concept. Bevestig lokale vereisten, de daadwerkelijke serviceprovider en gegevenspraktijken vóór publicatie.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "cookies": {
       "title": "Cookieverklaring",
       "body": "Concept. Bevestig lokale vereisten, de daadwerkelijke serviceprovider en gegevenspraktijken vóór publicatie.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "illegal_content": {
       "title": "Illegale inhoud melden",
       "body": "Concept. Bevestig lokale vereisten, de daadwerkelijke serviceprovider en gegevenspraktijken vóór publicatie.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "data_request": {
       "title": "Privacyverzoek",
       "body": "Concept. Bevestig lokale vereisten, de daadwerkelijke serviceprovider en gegevenspraktijken vóór publicatie.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "operator": {
       "title": "Servicemonteur",
       "body": "Concept. Bevestig lokale vereisten, de daadwerkelijke serviceprovider en gegevenspraktijken vóór publicatie.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     }
   },
   "legal_status": "draft"

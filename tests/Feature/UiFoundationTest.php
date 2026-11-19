@@ -42,16 +42,16 @@ class UiFoundationTest extends TestCase
     {
         $this->get('/az/topics/not-a-category')
             ->assertNotFound()
-            ->assertSee('Bu səhifə tapılmadı')
-            ->assertSee('Oxu lentinə qayıt');
+            ->assertSee('Səhifə tapılmadı')
+            ->assertSee('Etiraflara qayıt');
     }
 
     public function test_admin_preview_is_synthetic_and_is_not_exposed_as_an_admin_route(): void
     {
         $this->get('/_ui/admin-preview')
             ->assertOk()
-            ->assertSee('Bu, admin paneli deyil')
-            ->assertSee('Nümunə material, real istifadəçi məlumatı deyil');
+            ->assertSee('This preview uses fictional content.')
+            ->assertSee('Sample story');
 
         $this->get('/admin')->assertNotFound();
     }

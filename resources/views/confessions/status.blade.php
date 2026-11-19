@@ -5,7 +5,7 @@
 @section('content')
     <section class="write-page submission-result">
         <h1>{{ __('guest.write_status_title') }}</h1>
-        <p>{{ $confession->status === 'withdrawn' ? __('guest.write_withdrawn') : __('guest.write_pending_title') }}</p>
+        <p>{{ __('state.'.($confession->status === 'unpublished' ? ($confession->revisions->first()?->status ?? 'unpublished') : $confession->status)) }}</p>
         @if($confession->status === 'hidden')<p><a href="{{ route('appeals.create', ['locale' => $lavbeLocale['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.appeal_title') }}</a></p>@endif
         <p class="submission-alias">{{ $confession->author_alias }}</p>
         @if($confession->revisions->isNotEmpty())
@@ -35,7 +35,7 @@
                 <button class="button button-secondary" type="submit">{{ __('guest.write_withdraw') }}</button>
             </form>
         @elseif($confession->status === 'withdrawn')
-            <p>{{ __('guest.write_republish_pending') }}</p>
+            @if($confession->republish_requested_at)<p>{{ __('guest.write_republish_pending') }}</p>@endif
             @if($confession->public_revision_id && ! $confession->republish_requested_at)
                 <form method="post" action="{{ route('confessions.republish', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">
                     @csrf

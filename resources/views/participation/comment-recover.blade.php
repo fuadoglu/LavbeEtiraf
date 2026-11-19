@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', __('guest.write_recover_title').' · Lavbe')
+@section('title', __('participation.recover_comment').' · Lavbe')
 
 @section('content')
     <section class="write-page">
-        <h1>{{ __('guest.write_recover_title') }}</h1>
+        <h1>{{ __('participation.recover_comment') }}</h1>
         <form method="post" action="{{ route('participation.comment.recovery', ['locale' => $lavbeLocale['segment'], 'commentPublicId' => $commentPublicId]) }}">
             @csrf
             <x-form-field :label="__('participation.comment_recovery')" name="recovery_code"><input id="recovery_code" name="recovery_code" type="text" autocomplete="off" required></x-form-field>

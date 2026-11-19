@@ -3,10 +3,11 @@
     const languageSearch = document.querySelector('[data-language-search]');
     if (languageSearch) {
         const options = [...document.querySelectorAll('[data-language-option]')];
+        const normalizeName = (value) => value.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').replaceAll('ı', 'i');
         languageSearch.addEventListener('input', () => {
-            const query = languageSearch.value.trim().toLocaleLowerCase();
+            const query = normalizeName(languageSearch.value.trim());
             options.forEach((option) => {
-                option.hidden = query !== '' && !option.dataset.search.toLocaleLowerCase().includes(query);
+                option.hidden = query !== '' && !normalizeName(option.dataset.search).includes(query);
             });
         });
     }
@@ -68,7 +69,7 @@
         const updateThemeButton = () => {
             const night = root.dataset.theme === 'night';
             themeButton.setAttribute('aria-pressed', String(night));
-            themeButton.setAttribute('aria-label', night ? 'Gündüz görünüşünü aktiv et' : 'Gecə görünüşünü aktiv et');
+            themeButton.setAttribute('aria-label', night ? themeButton.dataset.dayLabel : themeButton.dataset.nightLabel);
             if (themeColor) themeColor.content = night ? '#181521' : '#faf7f2';
         };
 

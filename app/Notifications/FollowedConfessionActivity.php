@@ -17,8 +17,8 @@ class FollowedConfessionActivity extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
-        $locale = (string) ($notifiable->preferred_locale ?: 'en');
-        $home = route('account.home', ['locale' => $locale]);
+        $locale = $notifiable->preferredLocale();
+        $home = route('account.home', ['locale' => strtolower($locale)]);
 
         return (new MailMessage)
             ->subject(__('account.notification_subject', [], $locale))
