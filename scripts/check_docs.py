@@ -229,7 +229,7 @@ def check_feed_translations(directory, catalog, report):
         "search_empty", "retry", "refresh",
     }
     for locale in catalog["locales"]:
-        folder = locale["segment"].replace("-", "_")
+        folder = "pt_BR" if locale["segment"] == "pt-br" else locale["segment"]
         path = directory / folder / "lavbe.php"
         report.check(path.is_file(), f"{path}: feed translation is missing.")
         if not path.is_file():
