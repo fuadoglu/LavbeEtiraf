@@ -14,6 +14,9 @@
             </article>
         @endif
         <a href="{{ route('participation.comment.recovery.form', ['locale' => $lavbeLocale['segment'], 'commentPublicId' => $comment->public_id]) }}">{{ __('guest.write_recover_title') }}</a>
+        @if(auth()->check() && auth()->user()->hasVerifiedEmail() && ! $comment->ownership?->user_id)
+            <form method="post" action="{{ route('account.comments.claim', ['locale' => $lavbeLocale['segment'], 'publicId' => $comment->public_id]) }}">@csrf<button class="button button-secondary" type="submit">{{ __('account.claim') }}</button></form>
+        @endif
         <form method="post" action="{{ route('participation.comment.withdraw', ['locale' => $lavbeLocale['segment'], 'commentPublicId' => $comment->public_id]) }}">
             @csrf
             <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">

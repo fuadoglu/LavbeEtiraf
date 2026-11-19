@@ -7,8 +7,8 @@
         <x-icon name="pen-line" />
         <span>Yaz</span>
     </a>
-    <span class="nav-link" aria-disabled="true" title="Şəxsi bölmə növbəti mərhələdə əlavə olunur">
+    <a class="nav-link @if(request()->routeIs('account.*')) is-active @endif" href="{{ route('account.home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}">
         <x-icon name="user-round" />
         <span>Mənim</span>
-    </span>
+    </a>
 </nav>

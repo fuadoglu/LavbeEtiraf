@@ -18,7 +18,8 @@
 | Moderasiya və dərc keçidləri | **LAV-005 tamamlanıb.** MFA, dil üzrə moderator icazələri, versiyalı qərarlar, audit/outbox və sahibin geri çəkmə axını `main`-dədir. |
 | Açıq etiraf və texniki SEO | **LAV-006 tamamlanıb.** Təsdiqlənmiş revision-a bağlı detail, canonical, locale sitemap və məzmun lastmod-u `main`-dədir. |
 | Rəy, müəllif cavabı, davam və dəstək | **[LAV-007](https://github.com/fuadoglu/LavbeEtiraf/issues/16) tamamlanıb.** Pending-only rəy və davam, sahiblik/bərpa, moderator növbəsi, support reaksiyası və mətnsiz notification outbox-u [PR #17](https://github.com/fuadoglu/LavbeEtiraf/pull/17) ilə `main`-dədir. |
-| Şikayət, hüquqi bildiriş və etiraz | **LAV-008 icra olunur.** Etiraf/rəy hədəfli qruplar, server prioriteti, HMAC deduplikasiyası, şifrəli izah, grant+MFA moderator növbələri, bir dəfə etiraz və auditli bərpa bu branch-də hazırlanır. |
+| Şikayət, hüquqi bildiriş və etiraz | **[LAV-008](https://github.com/fuadoglu/LavbeEtiraf/issues/20) tamamlanıb.** Ayrı hədəf/kanal qrupları, server prioriteti, şifrəli izah, təzə MFA növbəsi, tək sahib etirazı və auditli bərpa [PR #21](https://github.com/fuadoglu/LavbeEtiraf/pull/21) ilə `main`-dədir. |
+| Hesab, Mənim bölməsi və bildirişlər | **[LAV-009](https://github.com/fuadoglu/LavbeEtiraf/issues/22) icra olunur.** Email təsdiqi, parol bərpası, guest sahiblik iddiası, user-scope izləmə və opt-in neytral bildirişlər bu branch-də hazırlanıb; PR/CI mərhələsi qalır. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla
@@ -39,7 +40,7 @@
 | **Anonim yazı** | 18+ istifadəçi qonaq kimi etiraf və rəy yaza bilər. Açıq ad `Lavbe #XXXXXXXX` formasındadır və yalnız həmin etiraf daxilində iştirakçını tanıdır. |
 | **Öz məzmununu idarə et** | İstəyə bağlı cihaz yaddaşı, məxfi bərpa kodu və e-poçt hesabı. Etirafın açıq linki sahiblik hüququ vermir. |
 | **Rəy və moderasiya** | Rəy ayrıca reklamsız səhifədə yazılır. Etiraf və rəy üçün ayrı hədəfli şikayət, ayrıca hüquqi bildiriş və sahibin bir dəfə etirazı var. Moderasiya paneli **Etiraflar · Rəylər · Şikayətlər · Etirazlar** bölmələrindən ibarətdir. |
-| **Davam və bildiriş** | Müəllifin **Sonra nə oldu?** mətni eyni etirafın altında yayımlanır. İzləyən oxucular seçdikləri kanalla neytral bildiriş alırlar. |
+| **Davam və bildiriş** | Müəllifin **Sonra nə oldu?** mətni eyni etirafın altında yayımlanır. Hesab sahibi etirafı izləyib tətbiqdaxili bildiriş və ayrıca seçdiyi halda neytral e-poçt ala bilər. |
 | **Dil və görünüş** | 17 dil, 12 kateqoriya, axtarışlı dil menyusu, yumru bayraqlar, dilin öz adı və ingiliscə adı. Saxlanmış seçim cihaz və ölkə siqnalından üstündür. Seçilmiş lent yalnız həmin dildədir. |
 | **PWA və performans** | Gündüz/gecə rejimi, ana ekrana əlavə etmə, statik oflayn görünüş və ayrıca seçilən qaralama yaddaşı. Etiraf və şəxsi məlumat PWA keşinə yazılmır. |
 | **SEO və monetizasiya** | Hər təsdiqlənib yayımlanan etiraf orijinal dilində sabit URL və sitemap qeydi alır. AdSense yeganə monetizasiyadır. Uyğun oxu detalında bir reklam yeri, razılıqdan sonra sanitizasiya olunmuş GA4 ölçümü. |
@@ -115,6 +116,10 @@ DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=lavbe DB_USERNAME
 ## LAV-008 lokal yoxlama qeydi
 
 2026-11-19: LAV-008 feature suite 4 test/49 assertion keçdi. `composer test` 48 test/416 assertion keçdi. Təmiz migrations ayrılmış MariaDB `lavbe_lav008_test` bazasında uğurla tətbiq olundu; `composer test:mysql` 7 test/85 assertion keçdi, o cümlədən eyni hesabdan paralel report göndərişi bir submission və qrup sayında bir artım yaradır. UI mətnləri az/en paketlərindədir; qalan 15 dil LAV-010-da tamamlanır. Brauzer cihaz sınağı, hüquqi operator/SLA və production server/provider aktivləşdirməsi buraxılış qapılarındadır.
+
+## LAV-009 lokal yoxlama qeydi
+
+2026-11-19: LAV-009 feature suite 4 test/66 assertion, `composer test` 52 test/482 assertion keçdi. Təmiz ayrılmış MariaDB `lavbe_lav009_test` bazasında migration-lar tətbiq edildi və `composer test:mysql` 8 test/97 assertion keçdi, o cümlədən paralel eyni-hesab sahiblik iddiası. `vendor/bin/pint`, docs validatoru (15 sənəd/27 qəbul ID-si), Python unittest (9), UI atlası (18 ekran/180 vəziyyət) və `npm run build` keçdi. Lokal tətbiq `127.0.0.1:8000`-də `/az/` və `/az/account/login` üçün HTTP 200 qaytarır; `/up` route-u framework-un Laravel health nümunəsini qaytardığı üçün lokal smoke nəticəsi kimi istifadə edilmir. Production e-poçt provider-i qoşulmayıb; fake transport və testlər e-poçtu yoxlayır.
 
 İstəyə bağlı real brauzer yoxlaması üçün Playwright və Chromium olan development mühitində:
 

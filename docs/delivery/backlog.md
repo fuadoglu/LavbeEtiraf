@@ -85,7 +85,9 @@ Etiraf/rəy üçün fərqli şikayət hədəfi, hədəf+kanal üzrə birləşən
 
 **Asılılıq:** LAV-004, LAV-005, LAV-007. **Qəbul:** OWN-02, ADV-03.
 
-Təsdiqli e-poçt girişi, sübutla qonaq sahiblik transferi, icazə, e-poçt seçimləri və neytral bildiriş. **Sübut:** hesablararası izolyasiya, paylaşılmış keş və e-poçt payload yoxlaması.
+Təsdiqli e-poçt qeydiyyatı, giriş/parol bərpası, şəxsi Mənim bölməsi, sübutla qonaq etiraf və rəy sahiblik transferi, account-only izləmə, tətbiqdaxili seçimlər və e-poçt üçün ayrıca opt-in. Mövcud participation outbox qısa scheduler komandası ilə idempotent hesab bildirişinə çevrilir; mail mətnində yalnız ümumi fəaliyyət bildirişi və şəxsi bölməyə keçid var. **Sübut:** e-poçt təsdiqi və hesablararası izolyasiya, exact-target sahiblik, duplicate outbox, opt-in mail payload məxfiliyi, şəxsi cavab `no-store`; MySQL-də paralel eyni-hesaba transfer.
+
+**Yerli yoxlama:** `composer test` 52 test/482 assertion; təmiz MariaDB `lavbe_lav009_test` migration və `composer test:mysql` 8 test/97 assertion; Pint, docs validatoru, 9 Python test, 18 ekran/180 UI atlas vəziyyəti və frontend build keçdi. Production mail relay qoşulu deyil. Merge-dən sonra GitHub PR checks qalır.
 
 ## LAV-010 · 17 dil paketi və sahib baxışı
 

@@ -13,4 +13,9 @@ class ConfessionOwnership extends Model
     {
         return $this->belongsTo(Confession::class);
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

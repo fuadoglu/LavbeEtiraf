@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Support\Lavbe\LocaleRegistry;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +24,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        VerifyEmail::createUrlUsing(fn ($user): string => URL::temporarySignedRoute(
+            'verification.verify', now()->addMinutes((int) config('auth.verification.expire', 60)),
+            ['locale' => $user->preferred_locale ?: 'en', 'id' => $user->getKey(), 'hash' => sha1($user->getEmailForVerification())],
+        ));
+        ResetPassword::createUrlUsing(fn ($user, string $token): string => URL::route('password.reset', [
+            'locale' => $user->preferred_locale ?: 'en', 'token' => $token, 'email' => $user->getEmailForPasswordReset(),
+        ]));
         View::composer('components.site-header', function ($view): void {
             $locale = app(LocaleRegistry::class)->bySegment((string) request()->route('locale'))
                 ?? app(LocaleRegistry::class)->fallback();

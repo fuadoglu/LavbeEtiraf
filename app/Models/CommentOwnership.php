@@ -18,4 +18,9 @@ class CommentOwnership extends Model
     {
         return $this->belongsTo(ConfessionComment::class, 'comment_id');
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

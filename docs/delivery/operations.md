@@ -22,6 +22,8 @@ Məhsul bütün əsas funksiyalarla reklamsız işə hazır ola bilər. AdSense-
 4. Yük sınağında eyni vaxtda oxu, yazı, rəy, sitemap və batch cron işləsin. CPU, DB və hostinq proses limiti məlum olduqda nəticə və qəbul edilən trafik ssenarisini qeyd et. Real resurs sayı olmadan tutum vəd etmə.
 5. Sürət və məxfilik yoxlamasından sonra xarici aktivləşdirmələri mərhələli aç. Əsas oxu, yazı, moderasiya və SEO qanuni buraxılış qapılarından keçir.
 
+LAV-009-un izlənən etiraf bildirişləri Laravel scheduler vasitəsilə qısa iş kimi çatdırılır; production-da daimi worker tələb olunmur. Hosting cron-u hər dəqiqə `php /path/to/app/artisan schedule:run` çağırmalıdır. `lavbe:deliver-notifications` participation outbox-u user/event üzrə unikallaşdırır, in-app qeydlər yaradır və yalnız təsdiqlənmiş, e-poçt opt-in etmiş hesab üçün ümumi mətnli məktub göndərir. Mühit mail provider-i qurmadan komanda `MAIL_MAILER=array` və ya `log` ilə smoke test edilə bilər; real SMTP aktivləşdirməsi ayrıca səlahiyyət və staging çatdırılma sınağı tələb edir. Uğursuz göndərişdə mətn deyil, sabit xəta kodu və cəhd sayı qalır.
+
 ## Rollback və insident
 
 - Köhnə kod və asset-lər üçün geri dönüş versiyası saxla. Geriyə uyğun olmayan DB əməliyyatını əvvəlcədən planlaşdır. Backup yenidən açılmazdan əvvəl silinmə/gizlətmə jurnalı tətbiq olunur. Bərpa testini izolə mühitdə apar.

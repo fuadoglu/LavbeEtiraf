@@ -38,6 +38,11 @@
             <button class="button button-secondary" type="submit">{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }}</button>
             <span class="muted">{{ __('participation.support_count', ['count' => $confession->support_count]) }}</span>
         </form>
+        @if(auth()->check() && auth()->user()->hasVerifiedEmail())
+            <form method="post" action="{{ route('account.follow', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-action">@csrf<button class="button button-secondary" type="submit">{{ __('account.follow') }}</button></form>
+        @else
+            <p><a href="{{ route('account.login', ['locale' => $localeRecord['segment']]) }}">{{ __('account.login_to_follow') }}</a></p>
+        @endif
 
         @if($continuations->isNotEmpty())
             <section class="participation-section" aria-labelledby="continuation-heading">

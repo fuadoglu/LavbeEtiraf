@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Confession;
 use App\Models\ConfessionComment;
+use App\Models\ConfessionOwnership;
 use App\Models\ModeratorGrant;
 use App\Models\ReportGroup;
 use App\Models\User;
@@ -34,6 +35,11 @@ class MySqlSmokeTest extends TestCase
         foreach (['report_groups', 'report_submissions', 'moderation_appeals'] as $table) {
             $this->assertTrue(DB::getSchemaBuilder()->hasTable($table), 'Missing moderation report table: '.$table);
         }
+        foreach (['confession_follows', 'user_notifications'] as $table) {
+            $this->assertTrue(DB::getSchemaBuilder()->hasTable($table), 'Missing account table: '.$table);
+        }
+        $this->assertTrue(DB::getSchemaBuilder()->hasColumn('confession_ownerships', 'user_id'));
+        $this->assertTrue(DB::getSchemaBuilder()->hasColumn('comment_ownerships', 'user_id'));
         foreach ([
             'confession_comments', 'confession_comment_revisions', 'comment_ownerships', 'comment_responses',
             'comment_response_revisions', 'confession_continuations', 'confession_continuation_revisions',
@@ -47,6 +53,60 @@ class MySqlSmokeTest extends TestCase
             ->pluck('Key_name')->all();
         $this->assertContains('confessions_public_id_unique', $uniqueIndexes);
         $this->assertContains('confessions_submission_key_hash_unique', $uniqueIndexes);
+    }
+
+    public function test_parallel_same_owner_account_claims_revoke_guest_credentials_once(): void
+    {
+        $user = User::factory()->create(['email_verified_at' => now()]);
+        $publicId = (string) Str::uuid();
+        $ownerToken = 'synthetic-parallel-owner-'.Str::random(20);
+        $confession = Confession::query()->create([
+            'locale' => 'en', 'status' => 'unpublished', 'title' => '', 'body' => '', 'public_id' => $publicId,
+            'author_alias' => 'Lavbe #A1B2C3D4',
+        ]);
+        $originalCookieHash = hash_hmac('sha256', $ownerToken, (string) config('app.key'));
+        $confession->ownership()->create([
+            'session_token_hash' => hash_hmac('sha256', 'synthetic-guest-session', (string) config('app.key')),
+            'owner_token_hash' => $originalCookieHash,
+            'recovery_token_hash' => hash_hmac('sha256', 'synthetic-recovery-code', (string) config('app.key')),
+        ]);
+        $barrier = tempnam(sys_get_temp_dir(), 'lavbe-account-claim-race-');
+        unlink($barrier);
+        $worker = <<<'PHP'
+require 'vendor/autoload.php';
+$app = require 'bootstrap/app.php';
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+while (! is_file($argv[4])) { usleep(1000); }
+$request = Illuminate\Http\Request::create('/en/my/'.$argv[2].'/claim', 'POST');
+$request->cookies->set('lavbe_owner_'.$argv[2], $argv[3]);
+$session = new Illuminate\Session\Store('claim-test', new Illuminate\Session\ArraySessionHandler(120));
+$session->start();
+$request->setLaravelSession($session);
+$request->setUserResolver(fn () => App\Models\User::query()->findOrFail((int) $argv[1]));
+$app->make(App\Support\Accounts\AccountOwnershipService::class)->claimConfession($request, $request->user(), $argv[2]);
+echo 'claimed';
+PHP;
+        $environment = array_merge(getenv(), [
+            'APP_ENV' => 'testing', 'APP_KEY' => (string) config('app.key'), 'APP_URL' => 'http://localhost',
+            'DB_CONNECTION' => 'mysql', 'DB_HOST' => (string) config('database.connections.mysql.host'),
+            'DB_PORT' => (string) config('database.connections.mysql.port'), 'DB_DATABASE' => (string) config('database.connections.mysql.database'),
+            'DB_USERNAME' => (string) config('database.connections.mysql.username'), 'DB_PASSWORD' => (string) config('database.connections.mysql.password'),
+        ]);
+        try {
+            $statuses = $this->runParallelWorkers($worker, [
+                [(string) $user->id, $publicId, $ownerToken, $barrier],
+                [(string) $user->id, $publicId, $ownerToken, $barrier],
+            ], $environment, $barrier);
+            $this->assertSame(['claimed', 'claimed'], $statuses);
+            $ownership = ConfessionOwnership::query()->where('confession_id', $confession->id)->firstOrFail();
+            $this->assertSame($user->id, $ownership->user_id);
+            $this->assertNull($ownership->session_token_hash);
+            $this->assertNotSame($originalCookieHash, $ownership->owner_token_hash);
+        } finally {
+            @unlink($barrier);
+            $confession->delete();
+            $user->delete();
+        }
     }
 
     public function test_parallel_duplicate_reports_serialize_to_one_submission_for_the_same_account(): void

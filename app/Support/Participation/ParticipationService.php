@@ -23,6 +23,9 @@ class ParticipationService
         if (! $ownership) {
             return false;
         }
+        if ($ownership->user_id !== null) {
+            return (int) $request->user()?->getAuthIdentifier() === (int) $ownership->user_id;
+        }
         $sessionMatches = is_string($ownership->session_token_hash)
             && hash_equals($ownership->session_token_hash, $this->keyedHash($request->session()->getId()));
         $cookie = $request->cookie('lavbe_comment_'.$comment->public_id);
