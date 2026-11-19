@@ -217,7 +217,7 @@ class ModerationService
         string $requestId,
     ): void {
         abort_unless(in_array($type, ['comment', 'response', 'continuation'], true), 422);
-        abort_unless(in_array($decision, ['approve', 'reject', 'hide'], true), 422);
+        abort_unless(in_array($decision, ['approve', 'reject', 'hide', 'restore'], true), 422);
         $targetMeta = $this->participationTarget($type, $targetId);
         $confessionId = $targetMeta['confession_id'];
         $idempotencyHash = hash_hmac('sha256', 'participation-moderation|'.$actor->id.'|'.$type.'|'.$idempotencyKey, (string) config('app.key'));
@@ -256,7 +256,7 @@ class ModerationService
                 abort_unless($target->status === 'unpublished' && $revision->status === 'pending', 409);
                 $revision->forceFill(['status' => 'rejected', 'reviewed_by_user_id' => $actor->id, 'reviewed_at' => now()])->save();
                 $target->status = 'rejected';
-            } else {
+            } elseif ($decision === 'hide') {
                 abort_unless($target->status === 'public', 409);
                 $target->status = 'hidden';
                 $target->body = '';
@@ -269,6 +269,11 @@ class ModerationService
                         'updated_at' => now(),
                     ]);
                 }
+            } else {
+                abort_unless($target->status === 'hidden' && $revision->status === 'approved', 409);
+                abort_unless((int) $target->public_revision_id === (int) $revision->id, 409);
+                $target->forceFill(['status' => 'public', 'body' => $revision->body]);
+                $eventType = $type === 'comment' ? 'comment_activity' : 'restore_'.$type;
             }
             $target->lock_version++;
             $target->visibility_version++;

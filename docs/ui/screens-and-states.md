@@ -30,10 +30,10 @@ Ana lent Hamısı seçimi ilə açılır. Kateqoriya səhifəsi həmin lentin ka
 
 ## Digər ekranların quruluşu
 
-- **Etiraf:** mövzu, başlıq, anonim ad, tam mətn, Sonra nə oldu, uyğun reklam və oxu hərəkətləri. Rəylər bir səviyyəlidir. Rəy yaz ayrı reklamsız səth açır. Rəy şikayəti konkret rəyin menyusundadır. Sonra eyni dildən etiraf təklif olunur.
+- **Etiraf:** mövzu, başlıq, anonim ad, tam mətn, Sonra nə oldu, uyğun reklam və oxu hərəkətləri. Rəylər bir səviyyəlidir. Rəy yaz ayrı reklamsız səth açır. İcma şikayəti və hüquqi bildiriş konkret etiraf və ya rəy hədəfinə bağlanır. Sahibin gizlətməyə etirazı yalnız özəl status səhifəsində görünür. Sonra eyni dildən etiraf təklif olunur.
 - **Yaz və rəy:** geniş mətn sahəsi, yığcam əlavə seçimlər, yerli xəta və baxışa göndər düyməsi. Mobil klaviatura kursoru və fokuslu sahəni örtmür. Şəbəkə xətasında DOM-dakı mətn qalır. Cavab alınana qədər uğurlu status göstərilmir.
 - **Göndəriş və bərpa:** bərpa kodunun ayrıca görünüşü, kopyalama və Mənim bölməsinə keçid. URL-də və açıq keşdə kod yoxdur.
 - **Mənim:** Etiraflarım, Rəylərim, İzlədiklərim və Bildirişlər. Rejim, giriş, bərpa və quraşdırma əlçatandır.
 - **Dil seçici:** masaüstündə düymənin altında, mobil cihazda aşağı panel. Axtarış, yumru bayraq, native ad, altında ingiliscə ad, seçilmiş dildə işarə. Mənbə [dil reyestri](../localization.md). JavaScript olmadan dil linkləri açılır.
-- **Admin:** bir ekran, Etiraflar/Rəylər/Şikayətlər. Təcili işlər önə çıxır. Qalanlar ən köhnə gözləyənlə başlayır. Kartda qərar, səbəb və kontekst. Səlahiyyət olmadıqda məlumat render edilmir.
+- **Admin:** Etiraflar, Rəylər, Şikayətlər və Etirazlar üçün ayrı növbələr. Hüquqi və təcili qruplar önə çıxır; qalanlar ən köhnə gözləyənlə başlayır. Kartda qərar, səbəb və kontekst. Səlahiyyət olmadıqda məlumat render edilmir.
 - **Hüquqi, 404/410, oflayn:** ortaq başlıq və tipoqrafiya, lokallaşdırılmış mesaj, əsas dil lentinə link.

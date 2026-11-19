@@ -7,8 +7,12 @@ use App\Models\Confession;
 use App\Models\ConfessionComment;
 use App\Models\ConfessionContinuation;
 use App\Models\ConfessionRevision;
+use App\Models\ModerationAppeal;
+use App\Models\ReportGroup;
 use App\Support\Lavbe\LocaleRegistry;
+use App\Support\Moderation\AppealService;
 use App\Support\Moderation\ModerationService;
+use App\Support\Moderation\ReportService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -168,6 +172,83 @@ class ModerationController extends Controller
             ->orderByDesc('published_at')->limit(50)->get();
 
         return $this->privateView('moderation.participation', compact('comments', 'visibleComments', 'continuations', 'visibleContinuations', 'responses', 'visibleResponses'));
+    }
+
+    public function reports(Request $request): Response|View
+    {
+        $allowed = $request->user()->moderatorGrants()->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')->pluck('locale')->unique();
+        $items = ReportGroup::query()->with('confession')->where('status', 'pending')
+            ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))
+            ->orderByRaw("CASE priority WHEN 'legal' THEN 0 WHEN 'urgent' THEN 1 ELSE 2 END")
+            ->orderBy('first_reported_at')->paginate(30)->withQueryString();
+
+        return $this->privateView('moderation.reports', compact('items'));
+    }
+
+    public function report(Request $request, string $locale, int $groupId): Response|View
+    {
+        $group = ReportGroup::query()->with(['confession.publicRevision', 'submissions'])->findOrFail($groupId);
+        $this->assertLocaleGrant($request, $group->confession->locale);
+        $target = $group->target_type === 'confession'
+            ? $group->confession
+            : ConfessionComment::query()->with('publicRevision')->findOrFail($group->target_id);
+
+        return $this->privateView('moderation.report', compact('group', 'target'));
+    }
+
+    public function decideReport(Request $request, string $locale, int $groupId, ReportService $reports): Response
+    {
+        $group = ReportGroup::query()->with('confession')->findOrFail($groupId);
+        $this->assertLocaleGrant($request, $group->confession->locale);
+        $data = Validator::make($request->all(), [
+            'expected_group_lock_version' => ['required', 'integer', 'min:1'],
+            'expected_parent_lock_version' => ['required', 'integer', 'min:1'],
+            'expected_target_lock_version' => ['required', 'integer', 'min:1'],
+            'revision_id' => ['required', 'integer', 'min:1'],
+            'decision' => ['required', 'in:dismiss,hide'],
+            'reason_code' => ['required', 'in:no_violation,privacy,harassment,threat,spam,explicit,legal,other'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+        ])->validate();
+        $reports->decide($request->user(), $groupId, (int) $data['expected_group_lock_version'], (int) $data['expected_parent_lock_version'],
+            (int) $data['expected_target_lock_version'], (int) $data['revision_id'], $data['decision'], $data['reason_code'], $data['idempotency_key'],
+            (string) ($request->header('X-Request-Id') ?: Str::uuid()));
+
+        return redirect()->route('moderation.reports', ['locale' => $request->route('locale')])->with('status', __('moderation.decision_saved'));
+    }
+
+    public function appeals(Request $request): Response|View
+    {
+        $allowed = $request->user()->moderatorGrants()->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')->pluck('locale')->unique();
+        $items = ModerationAppeal::query()->with(['confession', 'hideAudit'])->where('status', 'pending')
+            ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))->orderBy('created_at')->paginate(30)->withQueryString();
+
+        return $this->privateView('moderation.appeals', compact('items'));
+    }
+
+    public function appeal(Request $request, string $locale, int $appealId): Response|View
+    {
+        $appeal = ModerationAppeal::query()->with(['confession', 'hideAudit'])->findOrFail($appealId);
+        $this->assertLocaleGrant($request, $appeal->confession->locale);
+        $target = $appeal->target_type === 'confession' ? $appeal->confession : ConfessionComment::query()->with('publicRevision')->findOrFail($appeal->target_id);
+
+        return $this->privateView('moderation.appeal', compact('appeal', 'target'));
+    }
+
+    public function decideAppeal(Request $request, string $locale, int $appealId, AppealService $appeals): Response
+    {
+        $appeal = ModerationAppeal::query()->with('confession')->findOrFail($appealId);
+        $this->assertLocaleGrant($request, $appeal->confession->locale);
+        $data = Validator::make($request->all(), [
+            'expected_appeal_lock_version' => ['required', 'integer', 'min:1'], 'expected_parent_lock_version' => ['required', 'integer', 'min:1'],
+            'expected_target_lock_version' => ['required', 'integer', 'min:1'], 'revision_id' => ['required', 'integer', 'min:1'],
+            'decision' => ['required', 'in:uphold,restore'], 'reason_code' => ['required', 'in:privacy,harassment,threat,spam,explicit,legal,other'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+        ])->validate();
+        $appeals->resolve($request->user(), $appealId, (int) $data['expected_appeal_lock_version'], (int) $data['expected_parent_lock_version'],
+            (int) $data['expected_target_lock_version'], (int) $data['revision_id'], $data['decision'], $data['reason_code'], $data['idempotency_key'],
+            (string) ($request->header('X-Request-Id') ?: Str::uuid()));
+
+        return redirect()->route('moderation.appeals', ['locale' => $request->route('locale')])->with('status', __('moderation.decision_saved'));
     }
 
     public function decideParticipation(Request $request, string $locale, string $type, int $targetId, ModerationService $moderation): Response

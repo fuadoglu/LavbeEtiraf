@@ -6,6 +6,7 @@
     <section class="write-page submission-result">
         <h1>{{ __('guest.write_status_title') }}</h1>
         <p>{{ $confession->status === 'withdrawn' ? __('guest.write_withdrawn') : __('guest.write_pending_title') }}</p>
+        @if($confession->status === 'hidden')<p><a href="{{ route('appeals.create', ['locale' => $lavbeLocale['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.appeal_title') }}</a></p>@endif
         <p class="submission-alias">{{ $confession->author_alias }}</p>
         @if($confession->revisions->isNotEmpty())
             <article class="owner-revision">

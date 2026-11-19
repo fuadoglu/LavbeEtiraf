@@ -28,6 +28,8 @@
         </header>
         <div class="confession-body">{!! nl2br(e($revision->body)) !!}</div>
         <p class="muted"><time datetime="{{ $confession->published_at->toAtomString() }}">{{ $confession->published_at->format('Y-m-d') }}</time></p>
+        <p><a href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.report_confession') }}</a></p>
+        <p><a href="{{ route('reports.legal.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.legal_title') }}</a></p>
 
         <form method="post" action="{{ route('confessions.support', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-action">
             @csrf
@@ -59,6 +61,8 @@
                     @if(in_array($comment->id, $ownedCommentIds, true))
                         <a href="{{ route('participation.comment.status', ['locale' => $localeRecord['segment'], 'commentPublicId' => $comment->public_id]) }}">{{ __('participation.manage_comment') }}</a>
                     @endif
+                    <a href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'comment', 'targetPublicId' => $comment->public_id]) }}">{{ __('reports.report_comment') }}</a>
+                    <a href="{{ route('reports.legal.create', ['locale' => $localeRecord['segment'], 'type' => 'comment', 'targetPublicId' => $comment->public_id]) }}">{{ __('reports.legal_title') }}</a>
                     @if($comment->response?->status === 'public' && $comment->response->publicRevision?->status === 'approved')
                         <aside class="author-response">
                             <strong>{{ __('participation.author_response') }}</strong>

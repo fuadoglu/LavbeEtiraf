@@ -85,4 +85,10 @@ return [
     'hide_content' => 'Hide',
     'reason_meets_rules' => 'Meets the community rules',
     'public_parent' => 'Parent confession',
+    'reports_queue' => 'Reports', 'appeals_queue' => 'Appeals', 'reports_empty' => 'There are no pending reports in your language grants.',
+    'appeals_empty' => 'There are no pending appeals in your language grants.', 'open_report' => 'Review report group', 'open_appeal' => 'Review appeal',
+    'report_priority' => 'Priority', 'report_count' => 'Reports', 'report_channel_community' => 'Community', 'report_channel_legal' => 'Legal notice',
+    'priority_normal' => 'Normal', 'priority_urgent' => 'Urgent', 'priority_legal' => 'Legal notice', 'report_submissions' => 'Submissions in this group',
+    'reason_no_violation' => 'No violation found', 'dismiss_report' => 'Dismiss report', 'hide_reported_content' => 'Hide content and resolve',
+    'uphold_appeal' => 'Keep content hidden', 'restore_appealed_content' => 'Restore content',
 ];

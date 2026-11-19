@@ -6,6 +6,7 @@
     <section class="write-page submission-result">
         <h1>{{ __('participation.manage_comment') }}</h1>
         <p>{{ __('participation.comment_state', ['state' => $comment->status]) }}</p>
+        @if($comment->status === 'hidden')<p><a href="{{ route('appeals.create', ['locale' => $lavbeLocale['segment'], 'type' => 'comment', 'targetPublicId' => $comment->public_id]) }}">{{ __('reports.appeal_title') }}</a></p>@endif
         @if($comment->revisions->isNotEmpty())
             <article class="owner-revision">
                 <p>{{ $comment->author_alias }}</p>
