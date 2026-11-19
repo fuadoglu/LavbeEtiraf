@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Support\Lavbe\LocalePackageMessages;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Push\MinishlinkWebPushGateway;
 use App\Support\Push\WebPushGateway;
@@ -43,6 +44,35 @@ class AppServiceProvider extends ServiceProvider
             $locale = app(LocaleRegistry::class)->bySegment((string) request()->route('locale'))
                 ?? app(LocaleRegistry::class)->fallback();
             $view->with('lavbeLocale', $locale);
+        });
+        View::composer('layouts.app', function ($view): void {
+            $locale = app(LocaleRegistry::class)->bySegment((string) request()->route('locale'))
+                ?? app(LocaleRegistry::class)->fallback();
+            $view->with('consentMessages', app(LocalePackageMessages::class)->group($locale['segment'], 'consent'));
+            $route = (string) request()->route()?->getName();
+            $surface = match ($route) {
+                'home' => 'feed',
+                'topic.show' => 'topic',
+                'confessions.public' => 'confession',
+                default => null,
+            };
+            $path = match ($surface) {
+                'feed' => '/'.$locale['segment'].'/',
+                'topic' => '/'.$locale['segment'].'/topics',
+                'confession' => '/'.$locale['segment'].'/confession',
+                default => null,
+            };
+
+            $view->with('analyticsContext', $surface && $locale['code'] !== 'az' ? [
+                'locale' => $locale['code'],
+                'type' => $surface,
+                'path' => $path,
+                'title' => match ($surface) {
+                    'feed' => 'Feed',
+                    'topic' => 'Topic',
+                    'confession' => 'Confession',
+                },
+            ] : null);
         });
     }
 }

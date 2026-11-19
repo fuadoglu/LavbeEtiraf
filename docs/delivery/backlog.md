@@ -113,7 +113,7 @@ Kiçik mobil, iOS Safari, Android Chrome, masaüstü və standalone. Gündüz/ge
 
 **Asılılıq:** LAV-006, LAV-007, LAV-009, LAV-010. **Qəbul:** ADV-01, ADV-02, ADV-03.
 
-Səth whitelist, Consent Mode, təsdiqlənmiş reklam dili və məzmunu, bir manual slot, ads.txt, təcili söndürmə. **Sübut:** sintetik network trace-də əvvəl-sonra-geri alma, uyğun olmayan rəy və ayrıca rəy formu. İstehsal ID-ləri səlahiyyətli hesabla qoşulur.
+İlkin icra: razılıq paneli, Basic Consent Mode üçün razılıqdan sonra GA4, ictimai səth whitelist-i və ads default-off. Reklam slotu/ads.txt təsdiqlənmiş CMP, publisher ID və məzmun uyğunluğu yoxlaması ilə ayrıca tamamlanmalıdır. **Sübut:** sintetik network trace-də əvvəl-sonra-geri alma, uyğun olmayan rəy və ayrıca rəy formu. İstehsal ID-ləri səlahiyyətli hesabla qoşulur.
 
 ## LAV-014 · Xarici axtarış yoxlaması
 

@@ -194,7 +194,9 @@
       "ads": "Salli mainonta",
       "save": "Tallenna valinnat",
       "decline": "Hylkää valinnaiset evästeet",
-      "withdraw": "Muuta tai peruuta suostumus"
+      "withdraw": "Muuta tai peruuta suostumus",
+      "description": "Valinnainen analytiikka auttaa ymmärtämään yleistä lukutoimintaa. Voit muuttaa valintaa milloin tahansa.",
+      "ads_unavailable": "Mainoksia ei ole saatavilla, koska hyväksyttyä suostumuspalvelua ei ole määritetty."
     },
     "legal": {
       "terms": "Käyttöehdot",

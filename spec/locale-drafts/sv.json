@@ -194,7 +194,9 @@
       "ads": "Tillåt reklam",
       "save": "Spara val",
       "decline": "Avvisa valfria cookies",
-      "withdraw": "Ändra eller dra tillbaka samtycke"
+      "withdraw": "Ändra eller dra tillbaka samtycke",
+      "description": "Valfri analys hjälper oss att förstå det allmänna läsandet. Du kan ändra valet när som helst.",
+      "ads_unavailable": "Annonser är inte tillgängliga eftersom ingen godkänd samtyckesleverantör har konfigurerats."
     },
     "legal": {
       "terms": "Användarvillkor",

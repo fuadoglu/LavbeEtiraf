@@ -195,7 +195,9 @@
       "ads": "Permitir publicidade",
       "save": "Salvar opções",
       "decline": "Recusar cookies opcionais",
-      "withdraw": "Alterar ou retirar consentimento"
+      "withdraw": "Alterar ou retirar consentimento",
+      "description": "A análise opcional nos ajuda a entender a atividade geral de leitura. Você pode alterar essa escolha quando quiser.",
+      "ads_unavailable": "A publicidade está indisponível porque nenhum provedor de consentimento aprovado foi configurado."
     },
     "legal": {
       "terms": "Termos de uso",

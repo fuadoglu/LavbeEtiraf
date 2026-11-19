@@ -194,7 +194,9 @@
       "ads": "Reklamlara izin ver",
       "save": "Seçimleri kaydet",
       "decline": "İsteğe bağlı çerezleri reddet",
-      "withdraw": "İzni değiştirin veya geri çekin"
+      "withdraw": "İzni değiştirin veya geri çekin",
+      "description": "İsteğe bağlı analitik, genel okuma etkinliğini anlamamıza yardımcı olur. Bu tercihi istediğiniz zaman değiştirebilirsiniz.",
+      "ads_unavailable": "Onaylı bir rıza sağlayıcısı yapılandırılmadığı için reklamlar şu anda kullanılamıyor."
     },
     "legal": {
       "terms": "Kullanım koşulları",

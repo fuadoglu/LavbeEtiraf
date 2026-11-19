@@ -9,6 +9,10 @@ return [
         'max_attempts' => (int) env('WEBPUSH_MAX_ATTEMPTS', 8),
     ],
 
+    'analytics' => [
+        'measurement_id' => env('GA4_MEASUREMENT_ID'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Third Party Services

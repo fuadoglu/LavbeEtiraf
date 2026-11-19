@@ -194,7 +194,9 @@
       "ads": "Reclame toestaan",
       "save": "Keuzes opslaan",
       "decline": "Optionele cookies weigeren",
-      "withdraw": "Toestemming wijzigen of intrekken"
+      "withdraw": "Toestemming wijzigen of intrekken",
+      "description": "Optionele analyses helpen ons algemeen leesgedrag te begrijpen. U kunt deze keuze altijd wijzigen.",
+      "ads_unavailable": "Advertenties zijn niet beschikbaar omdat er geen goedgekeurde toestemmingsprovider is ingesteld."
     },
     "legal": {
       "terms": "Gebruiksvoorwaarden",

@@ -194,7 +194,9 @@
       "ads": "Reklama icazə verin",
       "save": "Seçimləri yadda saxlayın",
       "decline": "Əlavə kukilərdən imtina edin",
-      "withdraw": "Razılığı dəyişdirin və ya geri götürün"
+      "withdraw": "Razılığı dəyişdirin və ya geri götürün",
+      "description": "İxtiyari analitika ümumi oxu fəaliyyətini anlamağa kömək edir. Bu seçimi istənilən vaxt dəyişə bilərsiniz.",
+      "ads_unavailable": "Reklam hazırda təsdiqlənmiş razılıq provayderi qoşulmadığı üçün əlçatan deyil."
     },
     "legal": {
       "terms": "İstifadə şərtləri",

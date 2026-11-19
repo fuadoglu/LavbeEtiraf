@@ -4,8 +4,8 @@
 
 | Səth | AdSense | GA4 | HTML / keş |
 |---|---|---|---|
-| Açıq dil lenti, mövzu | Xeyr | Razılıqdan sonra ümumi oxu hadisələri | İctimai görünüş, şəxsiləşdirilməmiş |
-| Açıq etiraf detalı | Bölmənin bütün şərtləri keçəndə bir blok | Razılıqdan sonra təmizlənmiş və ümumiləşdirilmiş hadisə | Yalnız cari approved public revision. `public, no-cache, must-revalidate`; hər revalidation canlı görünürlük statusunu yoxlayır. Şəxsi göstərici və razılıq vəziyyəti yoxdur. |
+| Açıq dil lenti, mövzu | Xeyr | Analitika razılığından sonra təmiz ümumi oxu hadisəsi (`az` xaric) | İctimai görünüş, şəxsiləşdirilməmiş |
+| Açıq etiraf detalı | CMP və ayrıca məzmun uyğunluğu tətbiq olunana qədər Xeyr | Analitika razılığından sonra təmiz ümumi oxu hadisəsi (`az` xaric) | Yalnız cari approved public revision. `public, no-cache, must-revalidate`; hər revalidation canlı görünürlük statusunu yoxlayır. Şəxsi göstərici və razılıq vəziyyəti yoxdur. |
 | Rəy və müəllif cavabı yazma | Xeyr | Xeyr | Ayrı, reklamsız `/{locale}/participate/...` səthi. `private, no-store`, noindex. |
 | Etiraf yaz, redaktə, önizləmə, şikayət | Xeyr | Xeyr | `private, no-store`, noindex. URL və referrer-də mətn və sirr yoxdur. |
 | Mənim, hesab, bərpa, bildiriş və admin | Xeyr | Xeyr | İcazə yoxlaması, `private, no-store`, noindex |
@@ -21,7 +21,7 @@ Uyğunluq ardıcıllığı: qlobal açar açıq → səth etiraf detalıdır →
 
 Rəy və davam üçün reklam qərarı məzmunun təsdiqlənən versiyasına bağlanır. Yeni görünən versiya yoxlanılmadan reklamın aktiv qalması mümkün deyil. Keş müştərilər arasında razılıq daşımır. Etiraf detalının həssas hissəsi cari versiya və uyğunluqla serverdə yoxlanır, reklam başlatma yalnız həmin cavabda sahib olduğu siqnal və CMP nəticəsi ilə mümkün olur. Rəy uyğunluğu dəyişəndə tarixi reklamlı cache variantı xidmət edilmir. Qlobal söndürmə yeni HTML və canlı reklam başlatma yolunda yoxlanır. Artıq istifadəçinin cihazına gəlmiş reklamı geriyə çağırmaq vəd edilmir.
 
-İlkin yerləşim etirafın tam mətnindən sonra, davam və oxu hərəkətlərindən vizual ayrılmış responsive sahədir. Domen və ads.txt hazır olmalıdır. Auto Ads, ekranı örtən yerlər, avtomatik refresh və istifadəçiyə klik çağırışı aktiv deyil. AdSense-in faktiki işləməsi region və operator tərəfindən ayrıca doğrulanır.
+İlkin yerləşim etirafın tam mətnindən sonra, davam və oxu hərəkətlərindən vizual ayrılmış responsive sahədir. Bu repo-da CMP, təsdiqli reklam uyğunluğu, domen təsdiqi və publisher identifikatoru hələ yoxdur; buna görə reklam tag-ı/slotu çıxmır və consent UI-də reklam seçimi bağlıdır. Domen və `ads.txt` operator tərəfindən təsdiqlənməlidir. Auto Ads, ekranı örtən yerlər, avtomatik refresh və istifadəçiyə klik çağırışı aktiv deyil. AdSense-in faktiki işləməsi region və operator tərəfindən ayrıca doğrulanır.
 
 ## GA4 hadisə müqaviləsi
 

@@ -1,5 +1,80 @@
 (() => {
     const root = document.documentElement;
+    const consentDialog = document.querySelector('[data-consent-dialog]');
+    const consentForm = consentDialog?.querySelector('[data-consent-form]');
+    const analyticsConsent = consentDialog?.querySelector('[data-analytics-consent]');
+    const consentKey = 'lavbe:consent:v1';
+    const analyticsId = document.querySelector('meta[name="lavbe-analytics-id"]')?.content || '';
+    const analyticsContextMeta = document.querySelector('meta[name="lavbe-analytics-context"]')?.content || '';
+    let analyticsLoaded = false;
+    const readConsent = () => {
+        try {
+            const value = JSON.parse(localStorage.getItem(consentKey) || 'null');
+            return value?.version === 1 && typeof value.analytics === 'boolean' && Number.isFinite(value.expires) && value.expires > Date.now() ? value : null;
+        } catch { return null; }
+    };
+    let analyticsActive = false;
+    const disableAnalytics = () => {
+        analyticsActive = false;
+        if (!analyticsId) return;
+        window['ga-disable-' + analyticsId] = true;
+        if (analyticsLoaded && window.gtag) window.gtag('consent', 'update', { analytics_storage: 'denied' });
+    };
+    const enableAnalytics = () => {
+        if (analyticsActive || !/^G-[A-Z0-9]+$/.test(analyticsId) || !analyticsContextMeta) return;
+        if (analyticsLoaded && window.gtag) {
+            window['ga-disable-' + analyticsId] = false;
+            window.gtag('consent', 'update', { analytics_storage: 'granted' });
+            analyticsActive = true;
+            return;
+        }
+        let context;
+        try { context = JSON.parse(atob(analyticsContextMeta)); } catch { return; }
+        if (!context || !['feed', 'topic', 'confession'].includes(context.type) || context.locale === 'az' || !/^\/[a-z]{2}(?:-[a-z]{2})?\/(?:$|topics$|confession$)/.test(context.path)) return;
+        analyticsActive = true;
+        analyticsLoaded = true;
+        window['ga-disable-' + analyticsId] = false;
+        window.dataLayer = window.dataLayer || [];
+        const gtag = (...args) => window.dataLayer.push(args);
+        window.gtag = gtag;
+        gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'granted' });
+        gtag('js', new Date());
+        gtag('config', analyticsId, {
+            send_page_view: false,
+            page_location: `${window.location.origin}${context.path}`,
+            page_title: context.title,
+            page_referrer: '',
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+        });
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsId)}`;
+        document.head.append(script);
+        gtag('event', 'page_view', { content_locale: context.locale, page_type: context.type });
+    };
+    if (analyticsId) disableAnalytics();
+    const initialConsent = readConsent();
+    if (initialConsent?.analytics) enableAnalytics();
+    if (!initialConsent && consentDialog && typeof consentDialog.showModal === 'function') consentDialog.showModal();
+    document.querySelector('[data-consent-open]')?.addEventListener('click', () => {
+        const current = readConsent();
+        if (analyticsConsent) analyticsConsent.checked = Boolean(current?.analytics);
+        consentDialog?.showModal();
+    });
+    consentForm?.addEventListener('submit', (event) => {
+        if (event.submitter?.value !== 'save') return;
+        event.preventDefault();
+        try { localStorage.setItem(consentKey, JSON.stringify({ version: 1, analytics: Boolean(analyticsConsent?.checked), expires: Date.now() + 180 * 24 * 60 * 60 * 1000 })); } catch {}
+        if (analyticsConsent?.checked) enableAnalytics();
+        else disableAnalytics();
+        consentDialog.close();
+    });
+    consentDialog?.querySelector('[data-consent-decline]')?.addEventListener('click', () => {
+        try { localStorage.setItem(consentKey, JSON.stringify({ version: 1, analytics: false, expires: Date.now() + 180 * 24 * 60 * 60 * 1000 })); } catch {}
+        disableAnalytics();
+        consentDialog.close();
+    });
     if ('serviceWorker' in navigator && window.isSecureContext) {
         navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then((registration) => {
             const cacheOfflinePage = (worker) => {
