@@ -213,7 +213,11 @@ class GuestConfessionTest extends TestCase
 
     public function test_database_write_failure_returns_a_private_message_and_logs_no_submission_content(): void
     {
-        DB::statement("CREATE TRIGGER reject_guest_revision BEFORE INSERT ON confession_revisions BEGIN SELECT RAISE(ABORT, 'synthetic database rejection'); END");
+        if (DB::connection()->getDriverName() === 'sqlite') {
+            DB::statement("CREATE TRIGGER reject_guest_revision BEFORE INSERT ON confession_revisions BEGIN SELECT RAISE(ABORT, 'synthetic database rejection'); END");
+        } else {
+            DB::unprepared("CREATE TRIGGER reject_guest_revision BEFORE INSERT ON confession_revisions FOR EACH ROW SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'synthetic database rejection'");
+        }
         Log::shouldReceive('warning')->once()->withArgs(fn (string $message, array $context): bool => $message === 'Guest confession submission could not be stored.'
             && array_keys($context) === ['sqlstate']
             && is_string($context['sqlstate'])
