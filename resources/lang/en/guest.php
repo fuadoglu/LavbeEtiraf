@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Choose one of the available response preferences.',
     'validation_refresh' => 'Refresh the form and submit again.',
     'write_too_many' => 'Too many attempts. Wait a moment and try again.',
+    'write_withdraw' => 'Withdraw this confession from public view',
+    'write_confirm_withdraw' => 'I confirm that I want to withdraw this confession.',
+    'write_republish' => 'Ask moderators to review this confession for republishing',
+    'write_confirm_republish' => 'I confirm that I want this previously published version reviewed again.',
+    'write_withdrawn' => 'This confession is withdrawn and is not public.',
+    'write_republish_pending' => 'A request to review this version again is pending.',
 ];

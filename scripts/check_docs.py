@@ -257,6 +257,8 @@ def check_guest_translations(directory, catalog, report):
         "validation_body_required", "validation_body_max", "validation_age_required", "validation_title_max",
         "write_remember_device", "write_conflict_body", "write_not_found", "write_unavailable",
         "validation_topic", "validation_expectation", "validation_refresh", "write_too_many",
+        "write_withdraw", "write_confirm_withdraw", "write_republish", "write_confirm_republish",
+        "write_withdrawn", "write_republish_pending",
     }
     for locale in catalog["locales"]:
         folder = "pt_BR" if locale["segment"] == "pt-br" else locale["segment"]

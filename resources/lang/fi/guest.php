@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Valitse yksi käytettävissä olevista vastausvaihtoehdoista.',
     'validation_refresh' => 'Päivitä lomake ja lähetä se uudelleen.',
     'write_too_many' => 'Liian monta yritystä. Odota hetki ja yritä uudelleen.',
+    'write_withdraw' => 'Poista tämä tunnustus julkisesta näkyvyydestä',
+    'write_confirm_withdraw' => 'Vahvistan, että haluan poistaa tämän tunnustuksen julkisesta näkyvyydestä.',
+    'write_republish' => 'Pyydä moderaattoreita tarkistamaan tunnustus uudelleenjulkaisua varten',
+    'write_confirm_republish' => 'Vahvistan, että aiemmin julkaistu versio tarkistetaan uudelleen.',
+    'write_withdrawn' => 'Tunnustus on poistettu julkisesta näkyvyydestä.',
+    'write_republish_pending' => 'Uudelleentarkistuspyyntö odottaa käsittelyä.',
 ];

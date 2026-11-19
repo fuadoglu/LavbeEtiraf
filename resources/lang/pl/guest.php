@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Wybierz jedną z dostępnych preferencji odpowiedzi.',
     'validation_refresh' => 'Odśwież formularz i wyślij ponownie.',
     'write_too_many' => 'Zbyt wiele prób. Odczekaj chwilę i spróbuj ponownie.',
+    'write_withdraw' => 'Wycofaj to wyznanie z widoku publicznego',
+    'write_confirm_withdraw' => 'Potwierdzam, że chcę wycofać to wyznanie.',
+    'write_republish' => 'Poproś moderatorów o ponowną ocenę przed publikacją',
+    'write_confirm_republish' => 'Potwierdzam ponowne sprawdzenie wcześniej opublikowanej wersji.',
+    'write_withdrawn' => 'To wyznanie zostało wycofane i nie jest publiczne.',
+    'write_republish_pending' => 'Prośba o ponowną ocenę oczekuje na rozpatrzenie.',
 ];

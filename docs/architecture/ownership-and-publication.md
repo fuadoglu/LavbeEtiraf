@@ -44,7 +44,7 @@ Rəy və davam öz canlı versiya göstəricisinə malikdir. Valideyn etiraf aç
 2. Köhnə əməliyyat `409` qaytarır və heç bir ictimai yan təsir doğurmur. Səlahiyyətsiz şəxsin hədəfi yoxlaması neytral `404` alır. Formada etibarsız məlumat `422`, rate limit `429` alır. Təkrar idempotency açarı eyni aktor və eyni yük olduqda eyni nəticəni qaytarır, fərqli yükdə `409` olur.
 3. Görünürlük, açıq versiya, reklam üçün cari uyğunluq, keş nəsli, sitemap mənbə vəziyyəti və outbox eyni tranzaksiyada dəyişir. İctimai oxu cari committed görünürlük və keş nəslini yoxlayır. Köhnəlmiş keş ictimai cavabı bərpa edə bilməz. Yanlış purge ehtimalı olan hostda açıq etiraf HTML-i kənar keşə verilmir.
 4. Xarici IndexNow, e-poçt və Web Push hadisələri ayrı, təkrar icra edilə bilən outbox işləridir. Köhnə hadisə daha yeni görünürlüyü geri qaytara bilməz. Yan təsir yalnız məzmunun cari versiyası ilə uyğun olduqda tətbiq olunur.
-5. Geri çəkmə ilə təsdiq yarışında təsdiq birinci bitərsə geri çəkmə yenə son vəziyyəti bağlayır. Geri çəkmə birinci bitərsə köhnə təsdiq `409` alır. Rəy təsdiqi ilə etirafın gizlədilməsi yarışında açıq rəy görünmür.
+5. Geri çəkmə ilə təsdiq yarışında təsdiq birinci bitərsə sahibin monotonic geriçəkməsi köhnə lock version-la da son vəziyyəti bağlayır. Geri çəkmə birinci bitərsə köhnə moderator təsdiqi `409` alır. Başqa moderator qərarlarında köhnə lock version həmişə `409` alır. Rəy təsdiqi ilə etirafın gizlədilməsi yarışında açıq rəy görünmür.
 6. Daimi silmənin bərpa izi mətnsiz opaque ID və zaman saxlayır. Ehtiyat nüsxədən ayrı qorunur. İctimai trafik açılmadan gizlətmə və silmə jurnalı tətbiq edilir. İz tamlığı yoxlanmayıbsa bərpa mühiti qapalı qalır.
 
 ### Moderator qərar müqaviləsi (LAV-005)

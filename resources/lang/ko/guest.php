@@ -37,4 +37,10 @@ return [
     'validation_expectation' => '사용 가능한 답변 선호 항목을 선택하세요.',
     'validation_refresh' => '양식을 새로고침한 뒤 다시 제출하세요.',
     'write_too_many' => '시도 횟수가 너무 많습니다. 잠시 후 다시 시도하세요.',
+    'write_withdraw' => '이 고백을 공개 화면에서 내리기',
+    'write_confirm_withdraw' => '이 고백을 내리려는 것을 확인합니다.',
+    'write_republish' => '재게시를 위해 운영자에게 다시 검토 요청',
+    'write_confirm_republish' => '이전에 공개된 버전을 다시 검토해 달라고 확인합니다.',
+    'write_withdrawn' => '이 고백은 철회되어 공개되지 않습니다.',
+    'write_republish_pending' => '이 버전의 재검토 요청이 대기 중입니다.',
 ];

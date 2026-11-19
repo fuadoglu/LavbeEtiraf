@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Wähle eine der verfügbaren Antwortoptionen.',
     'validation_refresh' => 'Lade das Formular neu und sende es erneut ab.',
     'write_too_many' => 'Zu viele Versuche. Warte kurz und versuche es erneut.',
+    'write_withdraw' => 'Geständnis aus der Öffentlichkeit zurückziehen',
+    'write_confirm_withdraw' => 'Ich bestätige, dass ich dieses Geständnis zurückziehen möchte.',
+    'write_republish' => 'Moderatorinnen und Moderatoren um erneute Prüfung bitten',
+    'write_confirm_republish' => 'Ich bestätige, dass diese frühere veröffentlichte Version erneut geprüft werden soll.',
+    'write_withdrawn' => 'Dieses Geständnis wurde zurückgezogen und ist nicht öffentlich.',
+    'write_republish_pending' => 'Die erneute Prüfung dieser Version steht noch aus.',
 ];

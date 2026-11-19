@@ -21,12 +21,20 @@ class Confession extends Model
     protected $fillable = [
         'locale', 'category_key', 'status', 'title', 'body', 'excerpt', 'published_at',
         'public_id', 'author_alias', 'response_expectation', 'submission_key_hash', 'payload_fingerprint',
-        'age_confirmed_at',
+        'age_confirmed_at', 'public_revision_id', 'lock_version', 'visibility_version', 'ever_public', 'deleted_at', 'republish_requested_at',
     ];
 
     protected function casts(): array
     {
-        return ['published_at' => 'immutable_datetime', 'age_confirmed_at' => 'immutable_datetime'];
+        return [
+            'published_at' => 'immutable_datetime',
+            'age_confirmed_at' => 'immutable_datetime',
+            'deleted_at' => 'immutable_datetime',
+            'republish_requested_at' => 'immutable_datetime',
+            'ever_public' => 'boolean',
+            'lock_version' => 'integer',
+            'visibility_version' => 'integer',
+        ];
     }
 
     /** @param Builder<Confession> $query */

@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Kies een van de beschikbare reactievoorkeuren.',
     'validation_refresh' => 'Vernieuw het formulier en verzend opnieuw.',
     'write_too_many' => 'Te veel pogingen. Wacht even en probeer het opnieuw.',
+    'write_withdraw' => 'Haal deze bekentenis uit de openbare weergave',
+    'write_confirm_withdraw' => 'Ik bevestig dat ik deze bekentenis wil intrekken.',
+    'write_republish' => 'Vraag moderators om deze bekentenis opnieuw te beoordelen voor publicatie',
+    'write_confirm_republish' => 'Ik bevestig dat deze eerder gepubliceerde versie opnieuw wordt beoordeeld.',
+    'write_withdrawn' => 'Deze bekentenis is ingetrokken en is niet openbaar.',
+    'write_republish_pending' => 'Het verzoek om deze versie opnieuw te beoordelen staat open.',
 ];

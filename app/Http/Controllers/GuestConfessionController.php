@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Confession;
 use App\Models\ConfessionOwnership;
+use App\Models\ConfessionRevision;
+use App\Models\ModerationAudit;
+use App\Models\ModerationOutbox;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -152,8 +155,140 @@ class GuestConfessionController extends Controller
         }
 
         return $this->privateView('confessions.status', [
-            'confession' => $confession->load('revisions'),
+            'confession' => $confession->load(['revisions' => fn ($query) => $query->orderByDesc('revision')]),
         ]);
+    }
+
+    public function withdraw(Request $request, string $locale, string $publicId): Response
+    {
+        return $this->ownerTransition($request, $publicId, 'withdraw');
+    }
+
+    public function requestRepublish(Request $request, string $locale, string $publicId): Response
+    {
+        return $this->ownerTransition($request, $publicId, 'request_republish');
+    }
+
+    private function ownerTransition(Request $request, string $publicId, string $action): Response
+    {
+        if ($limited = $this->rateLimited($request, 'owner-transition', 10)) {
+            return $limited;
+        }
+        $field = $action === 'withdraw' ? 'confirm_withdraw' : 'confirm_republish';
+        $validator = Validator::make($request->all(), [
+            'expected_lock_version' => ['required', 'integer', 'min:1'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            $field => ['accepted'],
+        ]);
+        if ($validator->fails()) {
+            return $this->privateView('confessions.conflict', [], 422);
+        }
+        $data = $validator->validated();
+        $idempotencyHash = hash_hmac('sha256', 'owner|'.$publicId.'|'.$action.'|'.$data['idempotency_key'], (string) config('app.key'));
+        $fingerprint = hash_hmac('sha256', json_encode([
+            'public_id' => $publicId,
+            'action' => $action,
+            'expected_lock_version' => (int) $data['expected_lock_version'],
+        ], JSON_THROW_ON_ERROR), (string) config('app.key'));
+
+        $confession = DB::transaction(function () use ($request, $publicId, $action, $data, $idempotencyHash, $fingerprint): ?Confession {
+            $confession = Confession::query()->where('public_id', $publicId)->lockForUpdate()->first();
+            if (! $confession || ! $this->owns($request, $confession)) {
+                return null;
+            }
+            $existing = ModerationAudit::query()->where('idempotency_hash', $idempotencyHash)->first();
+            if ($existing) {
+                abort_unless(hash_equals((string) $existing->idempotency_fingerprint, $fingerprint), 409);
+
+                return $confession;
+            }
+            $expectedVersion = (int) $data['expected_lock_version'];
+            $mayCloseFromOlderView = $action === 'withdraw' && $expectedVersion < $confession->lock_version;
+            abort_unless($confession->lock_version === $expectedVersion || $mayCloseFromOlderView, 409);
+            $previousState = $confession->status;
+            $revisionId = null;
+
+            if ($action === 'withdraw') {
+                abort_unless(in_array($confession->status, ['unpublished', 'public'], true), 409);
+                $revisionId = $confession->public_revision_id
+                    ?: $confession->revisions()->where('status', 'pending')->orderByDesc('revision')->value('id');
+                $confession->revisions()->where('status', 'pending')->update(['status' => 'cancelled', 'updated_at' => now()]);
+                $confession->forceFill(['status' => 'withdrawn', 'republish_requested_at' => null]);
+                $eventType = 'withdraw';
+                $decision = 'owner_withdraw';
+            } else {
+                abort_unless($confession->status === 'withdrawn' && $confession->public_revision_id, 409);
+                $publicRevision = ConfessionRevision::query()->whereKey($confession->public_revision_id)->firstOrFail();
+                $nextRevision = (int) $confession->revisions()->max('revision') + 1;
+                $revision = $confession->revisions()->create([
+                    'revision' => $nextRevision,
+                    'title' => $publicRevision->title,
+                    'body' => $publicRevision->body,
+                    'category_key' => $publicRevision->category_key,
+                    'response_expectation' => $publicRevision->response_expectation,
+                    'status' => 'pending',
+                ]);
+                $revisionId = $revision->id;
+                $confession->republish_requested_at = now();
+                $eventType = null;
+                $decision = 'owner_republish_request';
+            }
+
+            $confession->lock_version++;
+            if ($eventType !== null) {
+                $confession->visibility_version++;
+            }
+            $confession->save();
+
+            $publicRevision = $confession->public_revision_id
+                ? ConfessionRevision::query()->whereKey($confession->public_revision_id)->first()
+                : null;
+            $publicHash = $publicRevision
+                ? hash_hmac('sha256', json_encode([$publicRevision->title, $publicRevision->body, $publicRevision->category_key], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), (string) config('app.key'))
+                : null;
+            ModerationAudit::query()->create([
+                'actor_user_id' => null,
+                'grant_snapshot' => ['source' => 'verified_guest_ownership'],
+                'target_type' => 'confession',
+                'target_key' => (string) $confession->id,
+                'target_public_id' => $confession->public_id,
+                'revision_id' => $revisionId,
+                'decision' => $decision,
+                'reason_code' => $action === 'withdraw' ? 'owner_withdrawal' : 'owner_requested_republication',
+                'previous_state' => $previousState,
+                'new_state' => $confession->status,
+                'expected_lock_version' => (int) $data['expected_lock_version'],
+                'resulting_lock_version' => $confession->lock_version,
+                'previous_public_revision_hash' => $publicHash,
+                'new_public_revision_hash' => $publicHash,
+                'idempotency_hash' => $idempotencyHash,
+                'idempotency_fingerprint' => $fingerprint,
+                'request_id' => (string) ($request->header('X-Request-Id') ?: Str::uuid()),
+                'created_at' => now(),
+            ]);
+            if ($eventType !== null) {
+                ModerationOutbox::query()->create([
+                    'event_key' => hash('sha256', $confession->public_id.'|'.$confession->visibility_version.'|'.$eventType),
+                    'target_public_id' => $confession->public_id,
+                    'event_type' => $eventType,
+                    'visibility_version' => $confession->visibility_version,
+                    'revision_id' => $revisionId,
+                    'revision_hash' => $publicHash,
+                    'locale' => $confession->locale,
+                    'category_key' => $confession->category_key,
+                    'occurred_at' => now(),
+                ]);
+            }
+
+            return $confession;
+        }, 3);
+
+        if (! $confession) {
+            return $this->privateView('confessions.not-found', [], 404);
+        }
+
+        return redirect()->route('confessions.status', ['locale' => app()->getLocale(), 'publicId' => $publicId])
+            ->header('Cache-Control', 'private, no-store, max-age=0');
     }
 
     public function recoveryForm(string $locale, string $publicId): Response|View

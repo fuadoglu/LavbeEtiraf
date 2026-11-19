@@ -37,4 +37,10 @@ return [
     'validation_expectation' => 'Välj en av de tillgängliga svarspreferenserna.',
     'validation_refresh' => 'Uppdatera formuläret och skicka igen.',
     'write_too_many' => 'För många försök. Vänta en stund och försök igen.',
+    'write_withdraw' => 'Dra tillbaka bekännelsen från offentlig visning',
+    'write_confirm_withdraw' => 'Jag bekräftar att jag vill dra tillbaka bekännelsen.',
+    'write_republish' => 'Be moderatorerna granska bekännelsen igen inför återpublicering',
+    'write_confirm_republish' => 'Jag bekräftar att den tidigare publicerade versionen ska granskas igen.',
+    'write_withdrawn' => 'Bekännelsen är tillbakadragen och inte offentlig.',
+    'write_republish_pending' => 'Begäran om ny granskning väntar.',
 ];
