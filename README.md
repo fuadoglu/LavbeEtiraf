@@ -100,7 +100,7 @@ DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=lavbe DB_USERNAME
 
 ## LAV-002 lokal yoxlama qeydi
 
-2026-11-19: `npm ci --ignore-scripts && npm run build` keçdi; CSS bundle 15.2 KB, JavaScript 0.86 KB oldu. `composer test` 6 test/18 assertion, `composer test:mysql` 1 test/3 assertion keçdi. Mobil IAB və masaüstü Chrome-da ana görünüşə, gündüz/gecə, kateqoriya və 404-ə baxıldı; admin mock/modal mobil preview-da yoxlandı, Escape ilə bağlandı və fokus açan düyməyə qayıtdı. Admin mock yalnız `local`/`testing` mühitində açılır və sintetik məlumat göstərir. 320 px ayrıca brauzer ölçüsündə hələ yoxlanmayıb.
+2026-11-19: `npm ci --ignore-scripts && npm run build` keçdi; CSS bundle 15.2 KB, JavaScript 0.86 KB oldu. `composer test` 6 test/18 assertion, `composer test:mysql` 1 test/3 assertion keçdi. Mobil IAB və masaüstü Chrome-da ana görünüş, gündüz/gecə, kateqoriya və 404 yoxlandı; admin mock/modal mobil preview-da Escape ilə bağlandı və fokus açan düyməyə qayıtdı. Chrome 159-da 320 CSS px viewport-da ana və Ailə səhifəsinin `documentWidth`/`bodyWidth` ölçüləri 320px oldu; üfüqi səhifə daşması yox idi, tema dəyişməsi işlədi, kateqoriya keçidinin toxunma hündürlüyü 44px idi. `scripts/check_wireframes_browser.py` Playwright/Chromium 159 ilə 320, 390 və 1366px enlərində 270 atlas vəziyyəti/rejim kombinasiyasını yoxladı. Admin mock yalnız `local`/`testing` mühitində açılır və sintetik məlumat göstərir. Bu nəticələr lokal baxışdır; iOS Safari, Android Chrome və standalone cihaz sınaqları LAV-012-də qalır.
 
 İstəyə bağlı real brauzer yoxlaması üçün Playwright və Chromium olan development mühitində:
 
