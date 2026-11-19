@@ -6,12 +6,12 @@ Vahid Blade komponentləri ictimai sayt, hesab, admin, hüquqi və xəta səhif�
 
 | Rol | Gündüz | Gecə |
 |---|---|---|
-| Fon | `#FAF7F2` | `#181521` |
-| Səth | `#FFFDF9` | `#231E30` |
-| Əsas mətn | `#292430` | `#F2EDF7` |
-| Köməkçi mətn | `#5D5762` | `#C3B8CD` |
-| Əsas düymə və yazısı | `#64469A` / `#FFFFFF` | `#C9B4FC` / `#221638` |
-| Aktiv sahənin sərhədi | `#8B8092` | `#8F819F` |
+| Fon | `#F7F3EB` | `#211D19` |
+| Səth | `#FFFDF8` | `#2B2520` |
+| Əsas mətn | `#352C26` | `#F5ECE0` |
+| Köməkçi mətn | `#716257` | `#CBBBA9` |
+| Əsas düymə və yazısı | `#79513A` / `#FFFFFF` | `#E6B68E` / `#302117` |
+| Aktiv sahənin sərhədi | `#A18B79` | `#A28B78` |
 
 Sistem rejimi ilkin seçimdir. Gündüz və Gecə brauzerdə yadda qalır. İlk görüntüdə uyğun rəng tətbiq edilir. Mətn kontrastı WCAG AA üzrə yoxlanır. Fokus göstəricisi və statusun yazısı rəngdən ayrıca görünür. Sistem şriftləri yerli yazı sisteminə uyğun seçilir. Mətn sahəsi 17–18 px, əsas toxunma sahələri ən az 44 × 44 px, oxu sütunu masaüstündə maksimum 42 rem. Kiçik ekranın minimum sınaq eni 320 CSS px-dir.
 
@@ -33,4 +33,6 @@ Ortaq naviqasiya etiketləri, dil axtarışı, əsas məzmuna keçid və rejim d
 
 Lokal məzmun baxışı üçün `php artisan db:seed --class=AzerbaijaniDemoConfessionSeeder` əmri 12 kateqoriyanın hərəsinə bir Azərbaycan dilində uydurma etiraf əlavə edir. Əmr yalnız local mühitdə işləyir, təkrar icra dublikat yaratmır. Hər nümunənin açıq pointer-i öz approved revision-ına bağlanır. Seeder ayrıca çağırılır.
 
-Açıq etiraf səhifəsi lent kartları ilə eyni səth, sərhəd, radius və kölgə qaydasını paylaşır. Başlıq serif, müəllif və tarix köməkçi metadata sətrindədir. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
+Açıq etiraf səhifəsi lent kartları ilə eyni səth, sərhəd, radius və kölgə qaydasını paylaşır. Başlıq iri sans-serif, müəllif və tarix köməkçi metadata sətrindədir. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
+
+Ortaq palitra krem fon, isti qəhvəyi vurğu və ağ kart səthlərindən qurulur. Lent və detail başlıqları eyni sans-serif ailəsindədir. Lent kartında kateqoriya və tarix yuxarıda, anonim ad aşağıda görünür.

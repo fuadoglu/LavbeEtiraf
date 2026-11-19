@@ -82,7 +82,7 @@
             const night = root.dataset.theme === 'night';
             themeButton.setAttribute('aria-pressed', String(night));
             themeButton.setAttribute('aria-label', night ? themeButton.dataset.labelDay : themeButton.dataset.labelNight);
-            if (themeColor) themeColor.content = night ? '#181521' : '#faf7f2';
+            if (themeColor) themeColor.content = night ? '#211d19' : '#f7f3eb';
         };
 
         updateThemeButton();
