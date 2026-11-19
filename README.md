@@ -15,7 +15,8 @@
 | Ortaq UI komponentləri | **LAV-002 tamamlanıb.** UI-01/UI-04 baza komponentləri və sübutları `main`-dədir. |
 | Dil reyestri və lent | **LAV-003 tamamlanıb.** UI-02/LOC-01: dil seçimi, feed read model, 12 kartlıq HTML səhifələmə, cursor, axtarış və 17 dil üzrə ilkin mətnlər `main`-dədir. |
 | Qonaq etirafı və sahiblik | **LAV-004 tamamlanıb.** Mətn forması, moderator baxışına gizli göndəriş, qonaq sahibliyi, birdəfəlik bərpa və 17 dil üçün yazı axını `main`-dədir. |
-| Moderasiya və dərc keçidləri | **LAV-005 icradadır.** MFA, dil üzrə moderator icazələri, versiyalı qərarlar, audit/outbox və sahibin geri çəkmə axını hazırlanır. |
+| Moderasiya və dərc keçidləri | **LAV-005 tamamlanıb.** MFA, dil üzrə moderator icazələri, versiyalı qərarlar, audit/outbox və sahibin geri çəkmə axını `main`-dədir. |
+| Açıq etiraf və texniki SEO | **[LAV-006](https://github.com/fuadoglu/LavbeEtiraf/issues/14) icradadır.** Təsdiqlənmiş revision-a bağlı detail, canonical, locale sitemap və məzmun lastmod-u hazırlanır. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla
@@ -63,7 +64,7 @@ composer test
 php artisan serve
 ```
 
-İlk giriş `http://127.0.0.1:8000` dil seçiminə yönləndirir, məsələn `http://127.0.0.1:8000/en/`; Laravel health endpoint-i `http://127.0.0.1:8000/up` ünvanındadır. LAV-003 feed-i yalnız cari locale-də `public` və yayımlanma vaxtı olan qeydlərdən qurur. İstehsal etirafı və ilkin seed yoxdur.
+İlk giriş `http://127.0.0.1:8000` dil seçiminə yönləndirir, məsələn `http://127.0.0.1:8000/en/`; Laravel health endpoint-i `http://127.0.0.1:8000/up` ünvanındadır. Açıq lent və detail yalnız cari locale-də canlı status, yayımlanma vaxtı və təsdiqlənmiş public revision-ı olan qeydlərdən qurulur. İctimai detail `/{locale}/confession/{public_id}`, sitemap index `/sitemap.xml` ünvanındadır. İstehsal etirafı və ilkin seed yoxdur.
 
 ## Sənəd xəritəsi
 

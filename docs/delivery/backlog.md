@@ -63,6 +63,8 @@ MVP qərarları: `approve`, `request_changes`, `reject`, `hide`, `restore` və `
 
 Etiraf HTML-si, sabit canonical, status, həqiqi lastmod, locale sitemap, kateqoriya indeksi və uyğun hreflang. **Sübut:** aktiv, redaktə edilmiş, geri çəkilmiş və silinmiş URL-lərin HTML/XML auditini eyni fixture-lə işlə.
 
+**İcra:** `/{locale}/confession/{public_id}` yalnız approved cari public revision-ı render edir; public olmayan vəziyyət 404, əvvəl public olmuş terminal silinmə 410-dur. `public_updated_at` yalnız təsdiqlənmiş məzmun yenilənəndə dəyişir, status keçidi bunu saxtalaşdırmır. `/sitemap.xml` locale üzrə bölünən sitemap URL-lərini göstərir; locale sitemap-ləri home, beş canlı materialı olan kateqoriyalar və canlı confession URL-lərini ehtiva edir. Sitemap və detail `no-cache, must-revalidate` qaytarır ki, gizlətmə/silmə cavabı origin-də yenidən yoxlanılsın. Hreflang yalnız semantik baxımdan eyni home/kateqoriya səhifələri üçündür; müstəqil confession-lar tərcümə kimi işarələnmir.
+
 ## LAV-007 · Rəylər, davam və dəstək
 
 **Asılılıq:** LAV-004, LAV-005, LAV-006. **Qəbul:** MOD-03, OWN-03.
