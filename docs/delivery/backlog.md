@@ -33,7 +33,7 @@ Ortaq Blade başlığı, naviqasiya, forma, status, kart, mövzu paneli, skeleto
 
 **Asılılıq:** LAV-000, LAV-001, LAV-002. **Qəbul:** UI-02, LOC-01.
 
-Dil seçiminin prioriteti, axtarışlı menyu, kateqoriya və üç lent rejimi, ilkin HTML, 12 kart, adi link və cursor. Daxili axtarış eyni dilə məhdud qalır. **Sübut:** dil, JavaScript-siz HTML, kontekstdən çıxan/vaxtı bitmiş cursor və mutation fixture nəticəsi.
+Dil seçiminin prioriteti, axtarışlı menyu, kateqoriya və üç lent rejimi, ilkin HTML, 12 kart, adi link və cursor. Daxili axtarış eyni dilə məhdud qalır. **İcra:** `/{locale}/` və `/{locale}/topics/{key}` HTML, 17 UI locale faylı, public-only read model, səhifələmə, HMAC şifrəli 60 dəqiqəlik feed cursor-u və POST axtarış. Fixture yalnız test factory-dən gəlir. **Sübut:** feature/unit sınaqlar; snapshot-a bağlı həftəlik/yeniləmə sırası, visibility revision və real qonaq/moderasiya yazı modeli LAV-004/005-dən sonra tamamlanacaq, bu mərhələdə tətbiq iddiası yoxdur.
 
 ## LAV-004 · Qonaq etirafı və sahiblik
 

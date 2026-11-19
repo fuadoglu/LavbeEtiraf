@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="az" data-theme="day">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ $lavbeLocale['dir'] ?? 'ltr' }}" data-theme="day">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#faf7f2">
     <title>@yield('title', 'Lavbe · Etiraflar Vadisi')</title>
+    @stack('head')
     <script>
         (() => {
             try {

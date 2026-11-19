@@ -17,7 +17,7 @@ return [
     ],
     'feed_orders' => [
         'new' => 'Yeni',
-        'week' => 'Bu həftə',
-        'continued' => 'Davamı gəldi',
+        'weekly' => 'Bu həftə',
+        'updates' => 'Davamı gəldi',
     ],
 ];

@@ -1,5 +1,5 @@
-<nav class="primary-nav" aria-label="Əsas naviqasiya">
-    <a href="{{ route('home') }}" @class(['nav-link', 'is-active' => request()->routeIs('home', 'topic.show')]) @if(request()->routeIs('home', 'topic.show')) aria-current="page" @endif>
+<nav class="primary-nav" aria-label="{{ app()->getLocale() === 'en' ? 'Main navigation' : 'Əsas naviqasiya' }}">
+    <a href="{{ route('home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}" @class(['nav-link', 'is-active' => request()->routeIs('home', 'topic.show')]) @if(request()->routeIs('home', 'topic.show')) aria-current="page" @endif>
         <x-icon name="book-open" />
         <span>Oxu</span>
     </a>

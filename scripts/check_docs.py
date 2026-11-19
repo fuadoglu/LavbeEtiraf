@@ -4,6 +4,7 @@
 import argparse
 import json
 import re
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -220,6 +221,32 @@ def check_packages(directory, catalog, contract, report):
             report.errors.append(f"{path}: invalid package shape: {exc}")
 
 
+def check_feed_translations(directory, catalog, report):
+    expected_keys = {
+        "feed_title", "feed_subtitle", "sort_label", "sort_new", "sort_weekly", "sort_updates",
+        "categories", "all_categories", "category_empty", "feed_empty", "feed_empty_description",
+        "pagination", "previous", "next", "search_title", "search_label", "search_submit",
+        "search_empty", "retry", "refresh",
+    }
+    for locale in catalog["locales"]:
+        folder = "pt_BR" if locale["segment"] == "pt-br" else locale["segment"]
+        path = directory / folder / "lavbe.php"
+        report.check(path.is_file(), f"{path}: feed translation is missing.")
+        if not path.is_file():
+            continue
+        try:
+            result = subprocess.run(
+                ["php", "-r", '$messages = require $argv[1]; echo json_encode($messages, JSON_THROW_ON_ERROR);', str(path)],
+                check=True, capture_output=True, text=True,
+            )
+            messages = json.loads(result.stdout)
+            actual_keys = set(messages)
+            report.check(actual_keys == expected_keys, f"{path}: feed translation keys differ; missing {sorted(expected_keys - actual_keys)}, extra {sorted(actual_keys - expected_keys)}.")
+            report.check(all(isinstance(value, str) and value.strip() for value in messages.values()), f"{path}: feed translation contains an empty or non-string value.")
+        except (OSError, subprocess.CalledProcessError, json.JSONDecodeError) as exc:
+            report.errors.append(f"{path}: could not validate feed translations: {exc}")
+
+
 def verify(root, packages=None):
     report = Report([])
     documents = sorted([root / "README.md", root / "AGENTS.md", *root.glob("docs/**/*.md")])
@@ -230,6 +257,9 @@ def verify(root, packages=None):
     acceptance_count = check_backlog(root, report)
     if packages is not None:
         check_packages(packages, catalog, contract, report)
+    translations = root / "resources/lang"
+    if translations.is_dir():
+        check_feed_translations(translations, catalog, report)
     return report, len(documents), acceptance_count
 
 
