@@ -192,3 +192,48 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
     html { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
     .nav-link { min-width: 0; }
 }
+
+/* The feed cover pairs the reading column with a two-ink valley print. */
+.valley-feed {
+    --print-sky: #dcd2e4;
+    --print-sun: #f9cc8c;
+    --print-far: #a998b9;
+    --print-mid: #796889;
+    --print-ink: #43394e;
+}
+:root[data-theme="night"] .valley-feed {
+    --print-sky: #42384e;
+    --print-sun: #ebca93;
+    --print-far: #867795;
+    --print-mid: #635670;
+    --print-ink: #312a3b;
+}
+.page-content:has(.valley-feed) { width: min(calc(100% - 2rem), 68rem); }
+.valley-cover { display: grid; grid-template-columns: 1fr 1fr; isolation: isolate; overflow: hidden; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); }
+.valley-print { grid-area: 1 / 2; width: 100%; height: 100%; min-height: 0; color: var(--print-ink); }
+.cover-copy { grid-area: 1 / 1; align-self: center; padding: clamp(1.5rem, 4vw, 3.4rem); }
+.cover-copy h1, .confession-detail .page-heading h1 { margin: 0; font: 500 clamp(2.6rem, 5.8vw, 5.3rem)/.99 Georgia, serif; letter-spacing: -.055em; overflow-wrap: anywhere; text-wrap: balance; }
+.cover-copy p { margin: 1rem 0 1.3rem; color: var(--muted); max-width: 32ch; }
+.feed-search { border-radius: 2rem; }
+.valley-grid { display: grid; grid-template-columns: minmax(11rem, 1fr) minmax(0, 3fr); gap: clamp(1.5rem, 5vw, 4rem); padding-block-start: 2rem; }
+.valley-topics h2 { margin-block: 0 .65rem; font-size: 1rem; font-weight: 700; }
+.valley-topics .topic-panel { display: grid; gap: .1rem; max-height: none; overflow: visible; padding: 0; }
+.valley-topics .topic-chip { justify-content: start; border-color: transparent; background: transparent; border-radius: .55rem; white-space: normal; }
+.valley-topics .topic-chip:is(:hover,[aria-current]) { background: var(--hint); }
+.valley-stories { min-width: 0; }
+.valley-stories > .sort-panel { margin-block-end: 1rem; }
+.valley-stories .story-card { padding: clamp(1.2rem, 3vw, 2rem); overflow-wrap: anywhere; }
+.valley-stories .story-title { font: 600 clamp(1.45rem, 3vw, 2.2rem)/1.15 Georgia, serif; }
+.valley-stories .story-title a { text-decoration: none; }
+.valley-stories .story-title a:hover { text-decoration: underline; }
+.valley-stories .story-card time { display: block; margin-block-start: 1rem; color: var(--muted); font-size: .85rem; }
+.confession-detail > .page-heading { padding-block: 1.8rem; border-bottom: 1px solid var(--line); }
+@media (max-width: 720px) {
+    .valley-cover { grid-template-columns: 1fr; }
+    .valley-print { grid-area: 1 / 1; height: clamp(6rem, 21vw, 9rem); }
+    .cover-copy { grid-area: 2 / 1; padding: 1.3rem; }
+    .valley-grid { display: block; padding-block-start: 1.2rem; }
+    .valley-topics .topic-panel { display: flex; flex-wrap: nowrap; overflow-x: auto; padding: .3rem; }
+    .valley-topics .topic-chip { flex: none; border-color: var(--line); }
+    .valley-stories { margin-block-start: .85rem; }
+}

@@ -14,17 +14,22 @@
 @endpush
 
 @section('content')
-    <section aria-labelledby="feed-title">
-        <div class="page-heading feed-heading">
-            <div>
-            <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
-            <p>{{ __('lavbe.feed_subtitle') }}</p>
+    <section class="valley-feed" aria-labelledby="feed-title">
+        <header class="valley-cover">
+            <x-valley-print />
+            <div class="cover-copy">
+                <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
+                <p>{{ __('lavbe.feed_subtitle') }}</p>
+                <a class="button button-secondary feed-search" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}"><x-icon name="search" />{{ __('lavbe.search_title') }}</a>
             </div>
-            <a class="button button-secondary feed-search" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}"><x-icon name="search" />{{ __('lavbe.search_title') }}</a>
-        </div>
+        </header>
 
-        <div class="feed-controls">
+        <div class="valley-grid">
+        <aside class="valley-topics">
+            <h2>{{ __('lavbe.categories') }}</h2>
             <x-topic-panel :selected="$category" :categories="$categories" />
+        </aside>
+        <div class="valley-stories">
             <nav class="sort-panel" aria-label="{{ __('lavbe.sort_label') }}">
                 @foreach($sortLabels as $key => $label)
                     @php
@@ -35,7 +40,6 @@
                     <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif>{{ __($sortLabels[$key]) }}</a>
                 @endforeach
             </nav>
-        </div>
 
         @if($confessions->isEmpty())
             <div class="empty-state">
@@ -61,5 +65,7 @@
             </button>
             <button type="button" class="muted" data-feed-status data-retry-label="{{ __('lavbe.retry') }}" data-refresh-label="{{ __('lavbe.refresh') }}" hidden aria-live="polite"></button>
         @endif
+        </div>
+        </div>
     </section>
 @endsection
