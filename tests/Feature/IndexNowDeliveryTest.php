@@ -20,6 +20,8 @@ class IndexNowDeliveryTest extends TestCase
         Http::fake(['https://api.indexnow.org/indexnow' => Http::response('', 200)]);
         $confession = Confession::factory()->create(['locale' => 'az']);
         $event = $this->outbox($confession);
+        $secondConfession = Confession::factory()->create(['locale' => 'en']);
+        $secondEvent = $this->outbox($secondConfession);
 
         $this->artisan('lavbe:indexnow')->assertSuccessful();
         $this->artisan('lavbe:indexnow')->assertSuccessful();
@@ -28,12 +30,20 @@ class IndexNowDeliveryTest extends TestCase
         Http::assertSent(fn ($request): bool => $request->url() === 'https://api.indexnow.org/indexnow'
             && $request['host'] === 'lavbe.example'
             && $request['key'] === 'test-key-1234'
-            && $request['urlList'] === ['https://lavbe.example/az/confession/'.$confession->public_id]);
+            && $request['urlList'] === [
+                'https://lavbe.example/az/confession/'.$confession->public_id,
+                'https://lavbe.example/en/confession/'.$secondConfession->public_id,
+            ]);
         $this->assertDatabaseHas('indexnow_deliveries', [
             'moderation_outbox_id' => $event->id,
             'attempts' => 1,
             'response_code' => 200,
             'delivered_at' => now()->toDateTimeString(),
+        ]);
+        $this->assertDatabaseHas('indexnow_deliveries', [
+            'moderation_outbox_id' => $secondEvent->id,
+            'attempts' => 1,
+            'response_code' => 200,
         ]);
     }
 

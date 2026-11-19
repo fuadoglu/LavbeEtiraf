@@ -23,6 +23,7 @@ class IndexNowDispatcher
         }
 
         $delivered = $retried = $failed = 0;
+        $batch = [];
         foreach ($this->candidates(max(1, min(500, $limit))) as $event) {
             $delivery = $this->claim($event);
             if (! $delivery) {
@@ -37,14 +38,24 @@ class IndexNowDispatcher
                 continue;
             }
 
-            try {
-                $response = Http::acceptJson()->asJson()->connectTimeout(3)->timeout(8)->post('https://api.indexnow.org/indexnow', [
-                    'host' => $this->host(),
-                    'key' => (string) config('services.indexnow.key'),
-                    'urlList' => [$url],
-                ]);
-                $code = $response->status();
+            $batch[] = ['delivery' => $delivery, 'url' => $url];
+        }
 
+        if ($batch === []) {
+            return compact('delivered', 'retried', 'failed');
+        }
+
+        try {
+            $response = Http::acceptJson()->asJson()->connectTimeout(3)->timeout(8)->post('https://api.indexnow.org/indexnow', [
+                'host' => $this->host(),
+                'key' => (string) config('services.indexnow.key'),
+                'urlList' => array_column($batch, 'url'),
+            ]);
+            $code = $response->status();
+
+            foreach ($batch as $item) {
+                /** @var IndexNowDelivery $delivery */
+                $delivery = $item['delivery'];
                 if (in_array($code, [200, 202], true)) {
                     $delivery->forceFill([
                         'delivered_at' => now(), 'claimed_until' => null, 'next_attempt_at' => null,
@@ -53,19 +64,31 @@ class IndexNowDispatcher
                     $delivered++;
                 } elseif ($code === 429 || $code >= 500) {
                     $this->retry($delivery, 'http_'.$code, $code);
-                    $retried++;
+                    if ($delivery->fresh()->failed_at) {
+                        $failed++;
+                    } else {
+                        $retried++;
+                    }
                 } else {
                     $this->failPermanently($delivery, 'http_'.$code, $code);
                     $failed++;
                 }
-            } catch (Throwable $exception) {
-                $errorCode = str_contains(strtolower($exception::class), 'timeout') ? 'timeout' : 'connection';
+            }
+        } catch (Throwable $exception) {
+            $errorCode = str_contains(strtolower($exception::class), 'timeout') ? 'timeout' : 'connection';
+            foreach ($batch as $item) {
+                /** @var IndexNowDelivery $delivery */
+                $delivery = $item['delivery'];
                 if ((int) $delivery->attempts >= (int) config('services.indexnow.max_attempts', 8)) {
                     $this->failPermanently($delivery, $errorCode);
                     $failed++;
                 } else {
                     $this->retry($delivery, $errorCode);
-                    $retried++;
+                    if ($delivery->fresh()->failed_at) {
+                        $failed++;
+                    } else {
+                        $retried++;
+                    }
                 }
             }
         }
