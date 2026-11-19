@@ -11,7 +11,7 @@
 | Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və 27 qəbul ssenarisi repodadır. |
 | UI atlası | **Hazırdır.** 18 ekranın mobil və masaüstü görünüşləri, gündüz/gecə və əsas vəziyyətləri yoxlamaq mümkündür. |
 | Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya və 204 kateqoriya etiketi. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
-| Laravel tətbiqi | **İlk development işi açıqdır.** [LAV-001](https://github.com/fuadoglu/LavbeEtiraf/issues/1) tətbiq və test əsasını qurur. |
+| Laravel tətbiqi | **LAV-001 icra olunur.** Laravel 13/Blade əsası, MySQL smoke testi və CI əlavə edilir. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla
@@ -38,6 +38,26 @@
 | **SEO və monetizasiya** | Hər təsdiqlənib yayımlanan etiraf orijinal dilində sabit URL və sitemap qeydi alır. AdSense yeganə monetizasiyadır. Uyğun oxu detalında bir reklam yeri, razılıqdan sonra sanitizasiya olunmuş GA4 ölçümü. |
 
 **Texniki hədəf:** PHP 8.5 üstün seçim, 8.4 uyğun alternativ, Laravel 13, Blade, MySQL/MariaDB, yerli Lucide ikonları, az JavaScript və qısa cron işləri. İstehsal shared hostingdə PHP və verilənlər bazası ilə işləyir. Node yalnız development yoxlamaları və ehtiyac olduqda aktivlərin əvvəlcədən hazırlanması üçündür.
+
+## Tətbiqin lokal qurulması
+
+PHP 8.4+, Composer 2, `pdo_mysql`, MySQL 8.0+ və ya MariaDB 10.6+ tələb olunur. Əvvəl lokal MySQL-də boş `lavbe` bazası və məhdud hüquqlu istifadəçi yarat. Repo daxilində:
+
+```bash
+composer install --no-interaction --prefer-dist
+cp .env.example .env
+php artisan key:generate
+```
+
+`.env`-də `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` və `DB_PASSWORD` dəyərlərini lokal bazana uyğun doldur. Sonra:
+
+```bash
+php artisan migrate
+composer test
+php artisan serve
+```
+
+Ana səhifə `http://127.0.0.1:8000`, Laravel health endpoint-i isə `http://127.0.0.1:8000/up` ünvanındadır. Hazırkı branch yalnız tətbiq əsasıdır; məhsul axınları backlog üzrə sonrakı işlərdə əlavə olunur.
 
 ## Sənəd xəritəsi
 
@@ -67,6 +87,14 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts
 node scripts/check_wireframes.mjs
 ```
 
+Laravel testləri `composer test` ilə işləyir. MySQL/MariaDB inteqrasiya testi ayrıca qoşulur. Testə ayrılmış DB-də migrations icra edildikdən sonra:
+
+```bash
+DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=lavbe DB_USERNAME=lavbe DB_PASSWORD='local-test-password' composer test:mysql
+```
+
+`composer test:mysql` yalnız MySQL smoke testini işlədir. GitHub Actions `Application` job-u MySQL 8.4 servisi başladır, Composer lock-dan asılılıqları quraşdırır, migrations və tətbiq testlərini icra edir. Mövcud `Documentation` workflow-u ayrıca saxlanılıb.
+
 İstəyə bağlı real brauzer yoxlaması üçün Playwright və Chromium olan development mühitində:
 
 ```bash
@@ -86,3 +114,7 @@ Sistem Chromium-u istifadə etmək üçün `--chromium /path/to/chromium` veril�
 ## Buraxılış
 
 Tam ictimai buraxılış üçün real shared hosting, məlumatın yeri və operator kimliyi, 17 dil üzrə mətn baxışı və moderator təminatı, SEO və razılıq sınaqları, backup və bərpa üzrə sübut tələb olunur. AdSense aktivləşdirməsi üçün domen, `ads.txt` və razılıq yoxlaması ayrıca tamamlanır. [Buraxılış və geri dönüş qaydaları](docs/delivery/operations.md)
+
+## LAV-001 lokal yoxlama qeydi
+
+2026-11-19 macOS development mühitində PHP 8.4.10, Composer 2.8.10 və MariaDB 12.1.2 ilə işlədildi. Təmiz Laravel install-dan Composer lock `laravel/framework` v13.43.0 versiyasını seçdi. `php artisan migrate --force` keçdi; MySQL smoke testi 1 test/3 assertion, Laravel suite 3 test/7 assertion, `/up` sorğusu HTTP 200 qaytardı. `python3 scripts/check_docs.py` 15 sənəd və 27 qəbul ID-sini yoxladı, unittest 7 test keçirdi, atlas yoxlaması 18 ekran/180 UI kombinasiyasını yoxladı. Lokal MariaDB sınağı CI-dakı təmiz MySQL 8.4 job-unun nəticəsini əvəz etmir; CI nəticəsi PR-da ayrıca göstəriləcək.
