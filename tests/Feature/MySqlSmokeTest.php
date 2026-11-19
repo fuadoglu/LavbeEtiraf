@@ -141,9 +141,10 @@ PHP;
             'status' => 'pending',
         ]);
         $ownerSessionId = 'synthetic-owner-session-'.str_repeat('S', 32);
+        $ownerCookieToken = 'synthetic-owner-cookie-'.str_repeat('C', 32);
         $confession->ownership()->create([
             'session_token_hash' => hash_hmac('sha256', $ownerSessionId, (string) config('app.key')),
-            'owner_token_hash' => hash_hmac('sha256', $ownerSessionId, (string) config('app.key')),
+            'owner_token_hash' => hash_hmac('sha256', $ownerCookieToken, (string) config('app.key')),
             'recovery_token_hash' => hash_hmac('sha256', 'synthetic-recovery-'.str_repeat('R', 32), (string) config('app.key')),
         ]);
 
@@ -162,12 +163,12 @@ try {
             'parallel-approve-'.str_repeat('A', 32), false, (string) Illuminate\Support\Str::uuid(),
         );
         echo '200';
-    } else {
+        } else {
         $request = Illuminate\Http\Request::create('/en/my/'.$argv[5].'/withdraw', 'POST', [
             'expected_lock_version' => 1,
             'idempotency_key' => str_repeat('b', 32),
             'confirm_withdraw' => '1',
-        ]);
+        ], ['lavbe_owner_'.$argv[5] => $argv[8]]);
         $session = new Illuminate\Session\Store('moderation-race-owner', new Illuminate\Session\ArraySessionHandler(120));
         $session->setId($argv[6]);
         $session->start();
@@ -198,7 +199,7 @@ PHP;
             foreach (['approve', 'withdraw'] as $action) {
                 $pipes = [];
                 $process = proc_open(
-                    [PHP_BINARY, '-r', $worker, $action, (string) $confession->id, (string) $revision->id, (string) $user->id, $confession->public_id, $ownerSessionId, $barrier],
+                    [PHP_BINARY, '-r', $worker, $action, (string) $confession->id, (string) $revision->id, (string) $user->id, $confession->public_id, $ownerSessionId, $barrier, $ownerCookieToken],
                     [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
                     $pipes,
                     base_path(),
