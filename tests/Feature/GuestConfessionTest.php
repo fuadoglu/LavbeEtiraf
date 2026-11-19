@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\GuestConfessionController;
 use App\Models\Confession;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Session\ArraySessionHandler;
@@ -213,11 +214,18 @@ class GuestConfessionTest extends TestCase
 
     public function test_database_write_failure_returns_a_private_message_and_logs_no_submission_content(): void
     {
-        if (DB::connection()->getDriverName() === 'sqlite') {
-            DB::statement("CREATE TRIGGER reject_guest_revision BEFORE INSERT ON confession_revisions BEGIN SELECT RAISE(ABORT, 'synthetic database rejection'); END");
-        } else {
-            DB::unprepared("CREATE TRIGGER reject_guest_revision BEFORE INSERT ON confession_revisions FOR EACH ROW SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'synthetic database rejection'");
-        }
+        $connection = DB::connection();
+        $connection->beforeExecuting(function (string $query): void {
+            if (str_starts_with(strtolower(ltrim($query)), 'insert into "confession_revisions"')
+                || str_starts_with(strtolower(ltrim($query)), 'insert into `confession_revisions`')) {
+                throw new QueryException(
+                    DB::getDefaultConnection(),
+                    $query,
+                    [],
+                    new \PDOException('synthetic database rejection', 23000),
+                );
+            }
+        });
         Log::shouldReceive('warning')->once()->withArgs(fn (string $message, array $context): bool => $message === 'Guest confession submission could not be stored.'
             && array_keys($context) === ['sqlstate']
             && is_string($context['sqlstate'])
