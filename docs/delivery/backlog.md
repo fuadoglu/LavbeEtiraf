@@ -95,6 +95,8 @@ Təsdiqli e-poçt qeydiyyatı, giriş/parol bərpası, şəxsi Mənim bölməsi,
 
 Codex hər dil paketi üçün mətnləri, kateqoriyaları və hüquqi draftları hazırlayır. Variantlar ekrana görə ixrac edilir və məhsul sahibi dəyişikliklərə baxır. **Sübut:** paket validatoru, düzəliş diff-i və qeydə alınmış baxış. Xarici hüquqi faktlar draftı keçmədən açılmır.
 
+**İcra qeydi:** 169 açarlı kanonik ingilis mənbə `spec/locale-messages.en.json` faylındadır; source contract validatoru, explicit draft-dan paket qurucusu, review CSV/JSON ixracı və ingilis ilkin paketi yaradılıb. 17 locale draftı, kateqoriya təsvirləri, bütün paket validator nəticəsi, vizual baxış və sahib təsdiqi LAV-010-un qalan işidir.
+
 ## LAV-011 · PWA, oflayn və opt-in push
 
 **Asılılıq:** LAV-002, LAV-004, LAV-009, LAV-010. **Qəbul:** PWA-01, ADV-03.

@@ -19,7 +19,8 @@
 | Açıq etiraf və texniki SEO | **LAV-006 tamamlanıb.** Təsdiqlənmiş revision-a bağlı detail, canonical, locale sitemap və məzmun lastmod-u `main`-dədir. |
 | Rəy, müəllif cavabı, davam və dəstək | **[LAV-007](https://github.com/fuadoglu/LavbeEtiraf/issues/16) tamamlanıb.** Pending-only rəy və davam, sahiblik/bərpa, moderator növbəsi, support reaksiyası və mətnsiz notification outbox-u [PR #17](https://github.com/fuadoglu/LavbeEtiraf/pull/17) ilə `main`-dədir. |
 | Şikayət, hüquqi bildiriş və etiraz | **[LAV-008](https://github.com/fuadoglu/LavbeEtiraf/issues/20) tamamlanıb.** Ayrı hədəf/kanal qrupları, server prioriteti, şifrəli izah, təzə MFA növbəsi, tək sahib etirazı və auditli bərpa [PR #21](https://github.com/fuadoglu/LavbeEtiraf/pull/21) ilə `main`-dədir. |
-| Hesab, Mənim bölməsi və bildirişlər | **[LAV-009](https://github.com/fuadoglu/LavbeEtiraf/issues/22) icra olunur.** Email təsdiqi, parol bərpası, guest sahiblik iddiası, user-scope izləmə və opt-in neytral bildirişlər bu branch-də hazırlanıb; PR/CI mərhələsi qalır. |
+| Hesab, Mənim bölməsi və bildirişlər | **[LAV-009](https://github.com/fuadoglu/LavbeEtiraf/issues/22) tamamlanıb.** Təsdiqli hesab, şəxsi bölmə, guest sahiblik iddiası, izləmə və neytral opt-in bildirişləri [PR #23](https://github.com/fuadoglu/LavbeEtiraf/pull/23) və auth yönləndirmə düzəlişi [PR #24](https://github.com/fuadoglu/LavbeEtiraf/pull/24) ilə `main`-dədir. |
+| 17 dil paketi və sahib baxışı | **[LAV-010](https://github.com/fuadoglu/LavbeEtiraf/issues/25) icra olunur.** 169 açarlı mənbə, paket müqaviləsi yoxlaması və owner-review diff ixracı hazırlanır; paketlərin draft tərcümələri və son dil baxışı qalır. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla

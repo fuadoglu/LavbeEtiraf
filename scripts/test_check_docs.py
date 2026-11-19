@@ -63,6 +63,14 @@ class DocsTests(unittest.TestCase):
         report, _, _ = verify(self.root)
         self.assertFalse(report.errors)
 
+    def test_canonical_source_message_placeholders_are_validated(self):
+        path = self.root / "spec/locale-messages.en.json"
+        source = read_json(path)
+        source["language"]["changed"] = "Changed to {locale}."
+        write_json(path, source)
+        report, _, _ = verify(self.root)
+        self.assertIn("Canonical source language.changed: invalid placeholder set.", report.errors)
+
     def test_wrong_locale_and_category_with_unchanged_count_fail(self):
         path = self.root / "docs/localization.md"
         content = path.read_text(encoding="utf-8")
