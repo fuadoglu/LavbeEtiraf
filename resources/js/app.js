@@ -34,4 +34,10 @@
             if (event.target === dialog) dialog.close();
         });
     });
+
+    document.querySelectorAll('.topic-panel a').forEach((link) => {
+        link.addEventListener('focus', () => {
+            link.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'nearest' });
+        });
+    });
 })();
