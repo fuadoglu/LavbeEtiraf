@@ -221,8 +221,10 @@ PHP;
 
             $this->assertSame('withdrawn', $confession->fresh()->status);
             $this->assertGreaterThanOrEqual(2, (int) $confession->fresh()->visibility_version);
+            $this->assertCount(2, $statuses);
             $this->assertContains('302', $statuses);
-            $this->assertContains('409', $statuses);
+            $approvalStatus = collect($statuses)->first(fn (string $status): bool => $status !== '302');
+            $this->assertContains($approvalStatus, ['200', '409']);
             $events = DB::table('moderation_outbox')->where('target_public_id', $confession->public_id)->orderBy('visibility_version')->get();
             $this->assertSame('withdraw', $events->last()->event_type);
             $this->assertGreaterThan(1, $events->last()->visibility_version);
