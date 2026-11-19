@@ -2,6 +2,19 @@
     const root = document.documentElement;
     const languageSearch = document.querySelector('[data-language-search]');
     if (languageSearch) {
+        const menu = languageSearch.closest('details');
+        menu.addEventListener('toggle', () => {
+            if (menu.open) languageSearch.focus();
+        });
+        menu.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                menu.open = false;
+                menu.querySelector('summary').focus();
+            }
+        });
+        document.addEventListener('click', (event) => {
+            if (!menu.contains(event.target)) menu.open = false;
+        });
         const options = [...document.querySelectorAll('[data-language-option]')];
         languageSearch.addEventListener('input', () => {
             const query = languageSearch.value.trim().toLocaleLowerCase();

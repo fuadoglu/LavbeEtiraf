@@ -167,3 +167,28 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+.feed-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .85rem; }
+.feed-heading h1, .write-heading h1 { font: 650 clamp(2rem, 5vw, 3rem)/1.13 Georgia, serif; letter-spacing: -.035em; text-wrap: balance; }
+.feed-heading p, .write-heading p { margin-block-start: .55rem; }
+.feed-controls .topic-panel { max-height: none; padding: .35rem; }
+.feed-controls .sort-panel { padding-block: .45rem; border-block: 1px solid var(--line); }
+.sort-link[aria-current="page"] { background: var(--action); color: var(--action-contrast); }
+.empty-state { background: linear-gradient(160deg, var(--hint), var(--surface) 60%); border: 1px solid var(--line); padding-block: clamp(2rem, 6vw, 3.5rem); }
+.empty-state p { max-width: 40ch; }
+.empty-state .button { margin-block-start: .5rem; }
+.empty-mark { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: var(--hint); }
+.write-form { padding: clamp(1rem, 4vw, 2rem); gap: 1.3rem; }
+.form-field [aria-invalid="true"] { border-color: var(--danger); }
+.language-button { cursor: pointer; }
+.language-menu[open] summary { background: var(--hint); }
+.language-picker { position: absolute; inset-inline-end: max(.75rem, calc((100vw - 72rem) / 2)); top: calc(100% + .3rem); display: grid; gap: .5rem; width: min(21rem, calc(100vw - 1.5rem)); max-height: 65dvh; grid-template-rows: auto auto minmax(0, 1fr); padding: 1rem; border: 1px solid var(--line); border-radius: .9rem; background: var(--surface-raised); box-shadow: var(--shadow); }
+.language-picker input { width: 100%; padding: .6rem; border: 1px solid var(--edge); border-radius: .5rem; }
+.language-options { overflow-y: auto; overscroll-behavior: contain; padding: .3rem; }
+.language-options button { width: 100%; min-height: 2.8rem; padding: .5rem; text-align: start; cursor: pointer; border-radius: .4rem; }
+.language-options small { color: var(--muted); margin-inline-start: .5rem; }
+.language-options button:hover, .language-options [aria-current], .topic-chip:hover { background: var(--hint); }
+@media (max-width: 600px) {
+    html { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
+    .nav-link { min-width: 0; }
+}
