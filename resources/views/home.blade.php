@@ -30,7 +30,7 @@
 
         <div class="empty-state">
             <x-icon name="book-open" class="icon-large" />
-            <h2>Hələ dərc olunmuş etiraf yoxdur</h2>
+            <h2>{{ $category ? 'Bu mövzuda hələ etiraf yoxdur.' : 'Hələ dərc olunmuş etiraf yoxdur' }}</h2>
             <p>Təsdiqlənmiş hekayələr öz dilində burada görünəcək. Bu lent başqa dildən məzmun göstərmir.</p>
         </div>
     </section>

@@ -6,12 +6,20 @@ use Tests\TestCase;
 
 class UiFoundationTest extends TestCase
 {
+    public function test_home_page_keeps_the_global_empty_feed_message(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Hələ dərc olunmuş etiraf yoxdur');
+    }
+
     public function test_topic_page_uses_the_shared_feed_layout_and_selected_filter(): void
     {
         $this->get('/topic/family')
             ->assertOk()
             ->assertSee('Ailə')
             ->assertSee('aria-current="page"', false)
+            ->assertSee('Bu mövzuda hələ etiraf yoxdur.')
             ->assertSee('name="viewport"', false);
     }
 
