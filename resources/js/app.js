@@ -7,6 +7,7 @@
     const analyticsId = document.querySelector('meta[name="lavbe-analytics-id"]')?.content || '';
     const analyticsContextMeta = document.querySelector('meta[name="lavbe-analytics-context"]')?.content || '';
     let analyticsLoaded = false;
+    let activeAnalyticsContext = null;
     const readConsent = () => {
         try {
             const value = JSON.parse(localStorage.getItem(consentKey) || 'null');
@@ -31,6 +32,7 @@
         let context;
         try { context = JSON.parse(atob(analyticsContextMeta)); } catch { return; }
         if (!context || !['feed', 'topic', 'confession'].includes(context.type) || context.locale === 'az' || !/^\/[a-z]{2}(?:-[a-z]{2})?\/(?:$|topics$|confession$)/.test(context.path)) return;
+        activeAnalyticsContext = context;
         analyticsActive = true;
         analyticsLoaded = true;
         window['ga-disable-' + analyticsId] = false;
@@ -74,6 +76,39 @@
         try { localStorage.setItem(consentKey, JSON.stringify({ version: 1, analytics: false, expires: Date.now() + 180 * 24 * 60 * 60 * 1000 })); } catch {}
         disableAnalytics();
         consentDialog.close();
+    });
+    const deferNavigationForAnalytics = (eventName, parameters, navigate) => {
+        if (!analyticsActive || !window.gtag || !activeAnalyticsContext) return false;
+        let completed = false;
+        const complete = () => {
+            if (completed) return;
+            completed = true;
+            navigate();
+        };
+        const fallback = window.setTimeout(complete, 700);
+        window.gtag('event', eventName, {
+            content_locale: activeAnalyticsContext.locale,
+            page_type: activeAnalyticsContext.type,
+            ...parameters,
+            event_timeout: 600,
+            event_callback: () => {
+                window.clearTimeout(fallback);
+                complete();
+            },
+        });
+        return true;
+    };
+    document.querySelectorAll('[data-next-confession]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            if (deferNavigationForAnalytics('next_confession', {}, () => window.location.assign(link.href))) event.preventDefault();
+        });
+    });
+    document.querySelectorAll('[data-language-option]').forEach((button) => {
+        button.addEventListener('click', (event) => {
+            if (!button.form || !button.value) return;
+            const targetLocale = button.value;
+            if (deferNavigationForAnalytics('locale_change', { target_locale: targetLocale }, () => button.form.requestSubmit(button))) event.preventDefault();
+        });
     });
     if ('serviceWorker' in navigator && window.isSecureContext) {
         navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then((registration) => {

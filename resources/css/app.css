@@ -85,6 +85,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .story-title a { color: inherit; text-decoration-thickness: .08em; text-underline-offset: .16em; }
 .story-excerpt { margin: 0; color: var(--muted); }
 .confession-detail { width: min(100%, 42rem); margin-inline: auto; }
+.next-confession { display: flex; justify-content: flex-end; margin-block: 1.5rem; padding-block-start: 1rem; border-top: 1px solid var(--line); }
 .confession-body { overflow-wrap: anywhere; line-height: 1.75; }
 .empty-state { display: grid; justify-items: center; gap: .65rem; padding: clamp(1.5rem, 6vw, 2.5rem) 1rem; border: 1px dashed var(--edge); border-radius: .9rem; text-align: center; }
 .empty-state .icon { color: var(--action); }

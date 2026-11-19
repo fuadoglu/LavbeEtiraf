@@ -68,10 +68,21 @@ class PublicConfessionController extends Controller
             ->whereHas('publicRevision', fn ($query) => $query->where('status', 'approved')
                 ->whereColumn('confession_continuation_revisions.continuation_id', 'confession_continuations.id'))
             ->orderBy('published_at')->orderBy('id')->get();
+        $nextConfession = Confession::query()->public()
+            ->where('locale', $locale)
+            ->where(function ($query) use ($confession): void {
+                $query->where('published_at', '>', $confession->published_at)
+                    ->orWhere(function ($query) use ($confession): void {
+                        $query->where('published_at', $confession->published_at)
+                            ->where('id', '>', $confession->id);
+                    });
+            })
+            ->orderBy('published_at')->orderBy('id')
+            ->first(['id', 'public_id']);
         $ownerCanParticipate = app(GuestConfessionController::class)->canManage($request, $confession);
         $hasSupported = $participation->hasSupport($request, $confession);
 
-        return response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds'))
+        return response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'nextConfession', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds'))
             ->header('Cache-Control', 'private, no-store, max-age=0')
             ->header('X-Robots-Tag', 'index, follow')
             ->header('Referrer-Policy', 'no-referrer')
