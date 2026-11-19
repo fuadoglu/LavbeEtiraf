@@ -5,11 +5,48 @@ namespace Tests\Feature;
 use App\Models\Confession;
 use App\Support\Lavbe\FeedCursor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class UiFoundationTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_public_form_labels_and_descriptions_reference_existing_controls(): void
+    {
+        $confession = Confession::factory()->create(['public_id' => (string) Str::uuid()]);
+        foreach ([
+            '/az/write',
+            '/az/account/login',
+            '/az/account/register',
+            '/az/moderation/login',
+            '/az/my/'.$confession->public_id.'/recover',
+            '/az/report/confession/'.$confession->public_id,
+            '/az/confession/'.$confession->public_id,
+        ] as $path) {
+            $response = $this->get($path);
+            $this->assertSame(200, $response->status(), $path);
+            $html = $response->getContent();
+            $document = new \DOMDocument;
+            @$document->loadHTML('<?xml encoding="UTF-8">'.$html);
+            $xpath = new \DOMXPath($document);
+            $ids = [];
+            foreach ($xpath->query('//*[@id]') as $element) {
+                $id = $element->getAttribute('id');
+                $this->assertArrayNotHasKey($id, $ids, $path.' duplicates '.$id);
+                $ids[$id] = $element->tagName;
+            }
+            foreach ($xpath->query('//label[@for]') as $label) {
+                $target = $label->getAttribute('for');
+                $this->assertContains($ids[$target] ?? null, ['input', 'select', 'textarea'], $path.' label '.$target);
+            }
+            foreach ($xpath->query('//*[@aria-describedby]') as $element) {
+                foreach (explode(' ', $element->getAttribute('aria-describedby')) as $id) {
+                    $this->assertArrayHasKey($id, $ids, $path.' missing description '.$id);
+                }
+            }
+        }
+    }
 
     protected function setUp(): void
     {

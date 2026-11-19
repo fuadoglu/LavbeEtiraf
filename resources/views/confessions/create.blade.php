@@ -14,15 +14,15 @@
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
             <x-form-field name="title" :label="__('guest.write_subject')" :error="$errors->first('title')">
-                <input type="text" id="title" name="title" maxlength="{{ config('lavbe.limits.confession_title') }}" value="{{ old('title') }}" autocomplete="off">
+                <input @if($errors->has('title')) aria-describedby="title-description" @endif aria-invalid="{{ $errors->has('title') ? 'true' : 'false' }}" type="text" id="title" name="title" maxlength="{{ config('lavbe.limits.confession_title') }}" value="{{ old('title') }}" autocomplete="off">
             </x-form-field>
 
             <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint')" :error="$errors->first('body')">
-                <textarea id="body" aria-describedby="body-description" @if($errors->has('body')) aria-invalid="true" @endif name="body" rows="8" maxlength="{{ config('lavbe.limits.confession_body') }}" required>{{ old('body') }}</textarea>
+                <textarea aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="body" aria-describedby="body-description" name="body" rows="8" maxlength="{{ config('lavbe.limits.confession_body') }}" required>{{ old('body') }}</textarea>
             </x-form-field>
 
             <x-form-field name="category_key" :label="__('guest.write_topic')">
-                <select id="category_key" name="category_key">
+                <select @if($errors->has('category_key')) aria-describedby="category_key-description" @endif aria-invalid="{{ $errors->has('category_key') ? 'true' : 'false' }}" id="category_key" name="category_key">
                     <option value="">—</option>
                     @foreach($categories as $category)
                         <option value="{{ $category['key'] }}" @selected(old('category_key') === $category['key'])>{{ $category['label'] }}</option>
@@ -31,7 +31,7 @@
             </x-form-field>
 
             <x-form-field name="response_expectation" :label="__('guest.write_expectation')">
-                <select id="response_expectation" name="response_expectation">
+                <select @if($errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">
                     <option value="">—</option>
                     <option value="share" @selected(old('response_expectation') === 'share')>{{ __('guest.write_share') }}</option>
                     <option value="similar" @selected(old('response_expectation') === 'similar')>{{ __('guest.write_similar') }}</option>
