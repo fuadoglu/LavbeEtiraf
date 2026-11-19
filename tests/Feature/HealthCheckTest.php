@@ -15,7 +15,9 @@ class HealthCheckTest extends TestCase
     {
         $this->get('/')
             ->assertOk()
-            ->assertSee('<h1>Lavbe</h1>', false)
-            ->assertSee('Etiraflar Vadisi');
+            ->assertSee('Lavbe')
+            ->assertSee('Etiraflar Vadisi')
+            ->assertSee('Hamısı')
+            ->assertSee('Oxu');
     }
 }

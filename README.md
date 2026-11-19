@@ -11,7 +11,8 @@
 | Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və 27 qəbul ssenarisi repodadır. |
 | UI atlası | **Hazırdır.** 18 ekranın mobil və masaüstü görünüşləri, gündüz/gecə və əsas vəziyyətləri yoxlamaq mümkündür. |
 | Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya və 204 kateqoriya etiketi. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
-| Laravel tətbiqi | **LAV-001 icra olunur.** Laravel 13/Blade əsası, MySQL smoke testi və CI əlavə edilir. |
+| Laravel tətbiqi | **LAV-001 PR #4 açıqdır.** Laravel 13/Blade əsası, MySQL smoke testi və CI hazırdır. |
+| Ortaq UI komponentləri | **[LAV-002](https://github.com/fuadoglu/LavbeEtiraf/issues/5) icradadır.** İş həcmi backlog və UI-01/UI-04 qəbul meyarlarına əsaslanır. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla
@@ -47,9 +48,11 @@ PHP 8.4+, Composer 2, `pdo_mysql`, MySQL 8.0+ və ya MariaDB 10.6+ tələb olunu
 composer install --no-interaction --prefer-dist
 cp .env.example .env
 php artisan key:generate
+npm ci --ignore-scripts
+npm run build
 ```
 
-`.env`-də `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` və `DB_PASSWORD` dəyərlərini lokal bazana uyğun doldur. Sonra:
+`.env`-də `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` və `DB_PASSWORD` dəyərlərini lokal bazana uyğun doldur. Vite aktivləri development kompüterində yığılır; istehsalda Node prosesi işlətmək tələb olunmur. Sonra:
 
 ```bash
 php artisan migrate
@@ -57,7 +60,7 @@ composer test
 php artisan serve
 ```
 
-Ana səhifə `http://127.0.0.1:8000`, Laravel health endpoint-i isə `http://127.0.0.1:8000/up` ünvanındadır. Hazırkı branch yalnız tətbiq əsasıdır; məhsul axınları backlog üzrə sonrakı işlərdə əlavə olunur.
+Ana səhifə `http://127.0.0.1:8000`, Laravel health endpoint-i isə `http://127.0.0.1:8000/up` ünvanındadır. Cari iş əsas Blade layout-u və UI komponentlərini qurur; məlumat və məhsul axınları backlog üzrə sonrakı işlərdə əlavə olunur.
 
 ## Sənəd xəritəsi
 
@@ -87,13 +90,17 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts
 node scripts/check_wireframes.mjs
 ```
 
-Laravel testləri `composer test` ilə işləyir. MySQL/MariaDB inteqrasiya testi ayrıca qoşulur. Testə ayrılmış DB-də migrations icra edildikdən sonra:
+Laravel testlərindən əvvəl Vite aktivləri `npm ci --ignore-scripts && npm run build` ilə yığılır. `composer test` SQLite in-memory test mühitində unit/feature sınaqlarını işlədir. MySQL/MariaDB inteqrasiya testi ayrıca qoşulur. Testə ayrılmış DB-də migrations icra edildikdən sonra:
 
 ```bash
 DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=lavbe DB_USERNAME=lavbe DB_PASSWORD='local-test-password' composer test:mysql
 ```
 
-`composer test:mysql` yalnız MySQL smoke testini işlədir. GitHub Actions `Application` job-u MySQL 8.4 servisi başladır, Composer lock-dan asılılıqları quraşdırır, migrations və tətbiq testlərini icra edir. Mövcud `Documentation` workflow-u ayrıca saxlanılıb.
+`composer test:mysql` yalnız MySQL smoke testini işlədir. GitHub Actions `Application` job-u MySQL 8.4 servisi başladır, Composer və npm lock fayllarından asılılıqları quraşdırır, statik frontend aktivlərini yığır, migrations və tətbiq testlərini icra edir. Mövcud `Documentation` workflow-u ayrıca saxlanılıb.
+
+## LAV-002 lokal yoxlama qeydi
+
+2026-11-19: `npm ci --ignore-scripts && npm run build` keçdi; CSS bundle 15.2 KB, JavaScript 0.86 KB oldu. `composer test` 6 test/18 assertion, `composer test:mysql` 1 test/3 assertion keçdi. Səhifə baxışı mobil ölçüdə ana lent, gündüz/gecə, kateqoriya, 404 və admin mock-u əhatə etdi; modal Escape ilə bağlandı və fokus açan düyməyə qayıtdı. Admin mock yalnız `local`/`testing` mühitində açılır və sintetik məlumat göstərir.
 
 İstəyə bağlı real brauzer yoxlaması üçün Playwright və Chromium olan development mühitində:
 

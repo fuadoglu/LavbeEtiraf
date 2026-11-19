@@ -32,7 +32,7 @@
         }
     },
     "scripts": {
-        "test": ["@php artisan test"],
+        "test": ["@php artisan test --exclude-group=mysql"],
         "test:mysql": ["@php artisan test --group=mysql"],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",

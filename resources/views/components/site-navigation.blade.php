@@ -1,0 +1,14 @@
+<nav class="primary-nav" aria-label="Əsas naviqasiya">
+    <a href="{{ route('home') }}" @class(['nav-link', 'is-active' => request()->routeIs('home', 'topic.show')]) @if(request()->routeIs('home', 'topic.show')) aria-current="page" @endif>
+        <x-icon name="book-open" />
+        <span>Oxu</span>
+    </a>
+    <span class="nav-link" aria-disabled="true" title="Yazı axını növbəti mərhələdə əlavə olunur">
+        <x-icon name="pen-line" />
+        <span>Yaz</span>
+    </span>
+    <span class="nav-link" aria-disabled="true" title="Şəxsi bölmə növbəti mərhələdə əlavə olunur">
+        <x-icon name="user-round" />
+        <span>Mənim</span>
+    </span>
+</nav>
