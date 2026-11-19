@@ -19,7 +19,7 @@ return new class extends Migration
             $table->uuid('public_id')->unique();
             $table->string('status', 20)->default('unpublished');
             $table->string('author_alias', 15);
-            $table->text('body')->default('');
+            $table->text('body');
             $table->unsignedBigInteger('public_revision_id')->nullable();
             $table->unsignedInteger('lock_version')->default(1);
             $table->unsignedBigInteger('visibility_version')->default(1);
@@ -61,7 +61,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('comment_id')->unique()->constrained('confession_comments')->cascadeOnDelete();
             $table->string('status', 20)->default('unpublished');
-            $table->text('body')->default('');
+            $table->text('body');
             $table->unsignedBigInteger('public_revision_id')->nullable();
             $table->unsignedInteger('lock_version')->default(1);
             $table->unsignedBigInteger('visibility_version')->default(1);
@@ -100,7 +100,7 @@ return new class extends Migration
             $table->foreignId('confession_id')->constrained()->cascadeOnDelete();
             $table->uuid('public_id')->unique();
             $table->string('status', 20)->default('unpublished');
-            $table->text('body')->default('');
+            $table->text('body');
             $table->unsignedBigInteger('public_revision_id')->nullable();
             $table->unsignedInteger('lock_version')->default(1);
             $table->unsignedBigInteger('visibility_version')->default(1);
