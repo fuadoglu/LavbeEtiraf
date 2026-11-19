@@ -54,7 +54,7 @@ class LocaleCopyTest extends TestCase
                 ->assertSee('<html lang="'.$code.'"', false)
                 ->assertSee(Lang::get('ui.nav', [], $code))
                 ->assertSee(Lang::get('lavbe.sort_updates', [], $code));
-            $this->get($base.'/write')->assertOk()->assertSee(Lang::get('guest.write_body_hint', [], $code));
+            $this->get($base.'/write')->assertOk()->assertSee(Lang::get('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')], $code));
             $this->get(route('account.login', ['locale' => $locale['segment']]))->assertOk()
                 ->assertSee(Lang::get('account.login_title', [], $code));
             $this->get($base.'/topics/unknown-topic')->assertNotFound()->assertSee(Lang::get('ui.missing', [], $code));

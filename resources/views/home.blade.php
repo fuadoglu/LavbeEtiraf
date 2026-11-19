@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @php
-    $topic = $category ? app(App\Support\Lavbe\LocaleRegistry::class)->category($category) : null;
+    $heading = $category ? app(App\Support\Lavbe\LocaleRegistry::class)->categoryLabel(app()->getLocale(), $category) : __('lavbe.feed_title');
     $sortOrders = config('lavbe.feed_orders');
 @endphp
 
-@section('title', ($topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title')).' · Lavbe')
+@section('title', ($heading).' · Lavbe')
 
 @push('head')
     <link rel="canonical" href="{{ rtrim((string) config('app.url'), '/').$canonical }}">
@@ -16,7 +16,7 @@
 @section('content')
     <section aria-labelledby="feed-title">
         <div class="page-heading">
-            <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
+            <h1 id="feed-title">{{ $heading }}</h1>
             <p>{{ __('lavbe.feed_subtitle') }}</p>
         </div>
 

@@ -149,7 +149,23 @@ class LocaleRegistry
 
     public function categoryLabel(string $localeCode, string $key): ?string
     {
-        return $this->category($key)['labels'][$localeCode] ?? null;
+        $labels = $this->category($key)['labels'] ?? [];
+
+        return $labels[$localeCode] ?? $labels[$this->fallback()['code']] ?? null;
+    }
+
+    /** @return list<array{key:string, label:string}> */
+    public function categoryOptions(string $localeCode): array
+    {
+        $options = [];
+        foreach ($this->catalog()['categories'] as $category) {
+            $options[] = [
+                'key' => $category['key'],
+                'label' => $category['labels'][$localeCode] ?? $category['labels'][$this->fallback()['code']],
+            ];
+        }
+
+        return $options;
     }
 
     /** @return list<string> */

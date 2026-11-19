@@ -4,7 +4,7 @@
 
 :root {
     color-scheme: light;
-    --page: #faf7f2;
+    --page: var(--page-day);
     --surface: #fffdf9;
     --surface-raised: #ffffff;
     --text: #292430;
@@ -23,7 +23,7 @@
 
 :root[data-theme="night"] {
     color-scheme: dark;
-    --page: #181521;
+    --page: var(--page-night);
     --surface: #231e30;
     --surface-raised: #2d273a;
     --text: #f2edf7;

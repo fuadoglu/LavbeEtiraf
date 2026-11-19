@@ -57,7 +57,7 @@ class ParticipationController extends Controller
             'confirm_continuation' => ['accepted'],
         ])->validate();
         $body = trim((string) $data['body']);
-        abort_if($body === '' || mb_strlen($body, 'UTF-8') > 6000, 422);
+        abort_if($body === '' || mb_strlen($body, 'UTF-8') > config('lavbe.limits.continuation_body'), 422);
         $participation->submitContinuation($request, $publicId, $body, $data['idempotency_key']);
 
         return redirect()->route('confessions.status', ['locale' => $locale, 'publicId' => $publicId])->with('status', __('participation.continuation_pending'));

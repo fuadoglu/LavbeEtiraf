@@ -17,7 +17,7 @@
                 <input type="text" name="title" value="{{ old('title') }}" autocomplete="off">
             </x-form-field>
 
-            <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint')" :error="$errors->first('body')">
+            <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')])" :error="$errors->first('body')">
                 <textarea name="body" rows="8" required>{{ old('body') }}</textarea>
             </x-form-field>
 

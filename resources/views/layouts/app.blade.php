@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#faf7f2">
+    <x-theme-colors />
     <title>@yield('title', 'Lavbe · '.__('lavbe.feed_title'))</title>
     @stack('head')
     <script>
@@ -14,7 +14,8 @@
                 const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
                 const theme = saved === 'day' || saved === 'night' ? saved : system;
                 document.documentElement.dataset.theme = theme;
-                document.querySelector('meta[name="theme-color"]').content = theme === 'night' ? '#181521' : '#faf7f2';
+                const color = document.querySelector('meta[name="theme-color"]');
+                color.content = color.dataset[theme];
             } catch {
                 document.documentElement.dataset.theme = 'day';
             }

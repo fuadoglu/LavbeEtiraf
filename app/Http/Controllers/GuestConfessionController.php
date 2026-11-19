@@ -27,10 +27,7 @@ class GuestConfessionController extends Controller
         abort_unless($locales->bySegment($locale), 404);
 
         return $this->privateView('confessions.create', [
-            'categories' => collect($locales->catalog()['categories'])->map(fn (array $item): array => [
-                'key' => $item['key'],
-                'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en'],
-            ]),
+            'categories' => $locales->categoryOptions(app()->getLocale()),
             'idempotencyKey' => $this->randomToken(),
         ]);
     }
@@ -44,10 +41,10 @@ class GuestConfessionController extends Controller
 
         $categoryKeys = array_column($locales->catalog()['categories'], 'key');
         $validator = Validator::make($request->all(), [
-            'title' => ['nullable', 'string', 'max:120'],
+            'title' => ['nullable', 'string', 'max:'.config('lavbe.limits.confession_title')],
             'body' => ['required', 'string', function (string $attribute, mixed $value, \Closure $fail): void {
-                if (mb_strlen(trim((string) $value), 'UTF-8') > 6000) {
-                    $fail(__('guest.validation_body_max'));
+                if (mb_strlen(trim((string) $value), 'UTF-8') > config('lavbe.limits.confession_body')) {
+                    $fail(__('guest.validation_body_max', ['limit' => config('lavbe.limits.confession_body')]));
                 }
             }],
             'category_key' => ['nullable', 'string', Rule::in($categoryKeys)],
@@ -58,7 +55,7 @@ class GuestConfessionController extends Controller
         ], [
             'body.required' => __('guest.validation_body_required'),
             'age_confirmed.accepted' => __('guest.validation_age_required'),
-            'title.max' => __('guest.validation_title_max'),
+            'title.max' => __('guest.validation_title_max', ['limit' => config('lavbe.limits.confession_title')]),
             'category_key.in' => __('guest.validation_topic'),
             'response_expectation.in' => __('guest.validation_expectation'),
             'idempotency_key.required' => __('guest.validation_refresh'),

@@ -44,9 +44,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             return redirect()->route('topic.show', ['locale' => $request->route('locale'), 'category' => $category, 'sort' => $sort]);
         }
 
-        $categories = collect($locales->catalog()['categories'])
-            ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
-            ->all();
+        $categories = $locales->categoryOptions(app()->getLocale());
 
         $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate(12)->withQueryString();
 
@@ -155,9 +153,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             'category' => $category,
             'sort' => $sort,
             'locale' => $request->attributes->get('lavbe.locale'),
-            'categories' => collect($locales->catalog()['categories'])
-                ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
-                ->all(),
+            'categories' => $locales->categoryOptions(app()->getLocale()),
             'confessions' => $confessions,
             'feedCursor' => $confessions->currentPage() === 1 ? app(FeedCursor::class)->issue(app()->getLocale(), $category, $sort, $confessions->lastItem() ?? 0) : null,
             'canonical' => $canonical,

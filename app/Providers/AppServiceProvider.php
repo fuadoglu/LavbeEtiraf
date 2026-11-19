@@ -26,10 +26,10 @@ class AppServiceProvider extends ServiceProvider
     {
         VerifyEmail::createUrlUsing(fn ($user): string => URL::temporarySignedRoute(
             'verification.verify', now()->addMinutes((int) config('auth.verification.expire', 60)),
-            ['locale' => $user->preferred_locale ?: 'en', 'id' => $user->getKey(), 'hash' => sha1($user->getEmailForVerification())],
+            ['locale' => strtolower($user->preferredLocale()), 'id' => $user->getKey(), 'hash' => sha1($user->getEmailForVerification())],
         ));
         ResetPassword::createUrlUsing(fn ($user, string $token): string => URL::route('password.reset', [
-            'locale' => $user->preferred_locale ?: 'en', 'token' => $token, 'email' => $user->getEmailForPasswordReset(),
+            'locale' => strtolower($user->preferredLocale()), 'token' => $token, 'email' => $user->getEmailForPasswordReset(),
         ]));
         View::composer(['errors::404', 'components.site-header', 'components.site-navigation'], function ($view): void {
             $registry = app(LocaleRegistry::class);

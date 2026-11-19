@@ -1,5 +1,5 @@
 <header class="site-header">
-    <a class="brand" href="{{ route('home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}" aria-label="Lavbe">
+    <a class="brand" href="{{ route('home', ['locale' => $lavbeLocale['segment']]) }}" aria-label="Lavbe">
         <span class="brand-mark" aria-hidden="true">L</span>
         <span>Lavbe</span>
     </a>

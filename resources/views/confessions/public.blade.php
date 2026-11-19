@@ -18,11 +18,11 @@
             <a href="{{ route('home', ['locale' => $localeRecord['segment']]) }}">{{ __('lavbe.feed_title') }}</a>
             @if($category)
                 <span aria-hidden="true">›</span>
-                <a href="{{ route('topic.show', ['locale' => $localeRecord['segment'], 'category' => $revision->category_key]) }}">{{ $category['labels'][$localeRecord['code']] ?? $category['labels']['en'] }}</a>
+                <a href="{{ route('topic.show', ['locale' => $localeRecord['segment'], 'category' => $revision->category_key]) }}">{{ app(\App\Support\Lavbe\LocaleRegistry::class)->categoryLabel($localeRecord['code'], $category['key']) }}</a>
             @endif
         </nav>
         <header class="page-heading">
-            @if($category)<p>{{ $category['labels'][$localeRecord['code']] ?? $category['labels']['en'] }}</p>@endif
+            @if($category)<p>{{ app(\App\Support\Lavbe\LocaleRegistry::class)->categoryLabel($localeRecord['code'], $category['key']) }}</p>@endif
             <h1 id="confession-title">{{ $revision->title ?: __('lavbe.untitled_confession') }}</h1>
             <p>{{ $confession->author_alias }}</p>
         </header>
@@ -105,7 +105,7 @@
                 <form method="post" action="{{ route('confessions.continuations.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}">
                     @csrf
                     <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                    <x-form-field :label="__('participation.continuation_label')" name="body"><textarea id="continuation-body" name="body" maxlength="6000" required></textarea></x-form-field>
+                    <x-form-field :label="__('participation.continuation_label')" name="body"><textarea id="continuation-body" name="body" maxlength="{{ config('lavbe.limits.continuation_body') }}" required></textarea></x-form-field>
                     <x-form-field :label="__('participation.continuation_confirm')" name="confirm_continuation"><input id="confirm_continuation" type="checkbox" name="confirm_continuation" value="1" required></x-form-field>
                     <button class="button button-primary" type="submit">{{ __('participation.comment_submit') }}</button>
                 </form>
