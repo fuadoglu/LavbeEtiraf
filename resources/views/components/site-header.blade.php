@@ -15,11 +15,13 @@
                 @csrf
                 <input type="hidden" name="return_to" value="{{ request()->getRequestUri() }}">
                 <label for="locale-search">{{ __('navigation.language_search') }}</label>
-                <input id="locale-search" type="search" data-language-search placeholder="English, 日本語, pt-BR…" autocomplete="off">
+                <input id="locale-search" type="search" data-language-search autocomplete="off">
                 <div class="language-options" data-language-options>
                     @foreach(app(App\Support\Lavbe\LocaleRegistry::class)->all() as $language)
                         <button type="submit" name="locale" value="{{ $language['segment'] }}" lang="{{ $language['code'] }}" dir="{{ $language['dir'] }}" data-language-option data-search="{{ mb_strtolower(implode(' ', app(App\Support\Lavbe\LocaleRegistry::class)->searchableNames($language))) }}" @if(app()->getLocale() === $language['code']) aria-current="true" @endif>
-                            <span>{{ $language['flag'] }} · {{ $language['native'] }}</span><small>{{ $language['english'] }}</small>
+                            <img class="language-flag" src="{{ asset('icons/flags/'.strtolower($language['flag']).'.svg') }}" width="28" height="28" alt="" loading="lazy">
+                            <span class="language-names">{{ $language['native'] }}<small lang="en">{{ $language['english'] }}</small></span>
+                            @if(app()->getLocale() === $language['code'])<x-icon name="circle-check" class="icon-small" />@endif
                         </button>
                     @endforeach
                 </div>
