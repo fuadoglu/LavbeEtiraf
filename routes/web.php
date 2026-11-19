@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountAuthController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AppealController;
 use App\Http\Controllers\GuestConfessionController;
+use App\Http\Controllers\IndexNowKeyController;
 use App\Http\Controllers\ModerationAdminController;
 use App\Http\Controllers\ModerationController;
 use App\Http\Controllers\ModeratorAuthController;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/{key}.txt', IndexNowKeyController::class)->where('key', '[A-Za-z0-9-]{8,128}')->name('indexnow.key');
 
 Route::get('/', function (Request $request, LocaleRegistry $locales) {
     $locale = $locales->resolveTag((string) $request->cookie('lavbe_locale'))

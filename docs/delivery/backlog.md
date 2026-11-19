@@ -119,6 +119,8 @@ Səth whitelist, Consent Mode, təsdiqlənmiş reklam dili və məzmunu, bir man
 
 Search Console, Bing, IndexNow outbox, iş nəticəsi və retry, sitemap və status auditi. **Sübut:** testdə provider contract və retry. İstehsalda təsdiqlənmiş domen, sitemap və canlı bildiriş qeydi. İndeks mövqeyi xarici nəticədir.
 
+IndexNow yalnız HTTPS `APP_URL` host-u üçün işləyir; `INDEXNOW_KEY` yoxdursa dispatcher heç nə göndərmir. Key faylı yalnız konfiqurasiya olduqda açılır. Outbox çatdırılması `lavbe:indexnow` scheduler əmri ilədir. Search Console/Bing property və sitemap canlı yoxlaması operatorun buraxılış qapısıdır; production sirri repository-yə əlavə edilmir. Rəsmi Bing sənədi legacy SOAP/POX API üçün 2026-08-31 retirement tarixini göstərdiyindən legacy submit route istifadə edilmir.
+
 ## LAV-015 · Shared hosting buraxılış sübutu
 
 **Asılılıq:** LAV-010, LAV-011, LAV-012, LAV-013, LAV-014. **Qəbul:** OPS-01, OPS-02, OPS-03.
