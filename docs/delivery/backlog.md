@@ -71,6 +71,10 @@ Etiraf HTML-si, sabit canonical, status, həqiqi lastmod, locale sitemap, kateqo
 
 Ayrı rəy formu, bir səviyyə, müəllif cavabı, eyni hekayədə davam, dəstək və rəy seçimi. Yalnız təsdiq edilmiş canlı uşaq materialı göstər. **Sübut:** rəy bağlama, rəy gizlətmə, paralel valideyn gizlətməsi və bildiriş təkrarı sınaqları.
 
+**Tətbiq kontraktı:** Rəy və müəllif cavabı mətnləri dəyişməz revision-larda gözləyir; yalnız moderatorun təsdiqlədiyi cari revision ictimai olur. Rəy sahibi anonim iştirakçı alias-ı, sessiya, seçilən cihaz cookie-si və rotasiya olunan birdəfəlik bərpa kodu ilə idarə edir. Bərpa sirri yalnız HMAC heşi ilə saxlanır. Müəllifin rəyə bir cavab yeri var; düzəliş yeni pending revision yaradır. Davam yalnız etiraf sahibinə açıqdır. Rəyin açıq/bağlı seçimi yeni göndərişi bloklayır, əvvəl təsdiqlənmiş rəyləri saxlayır. Dəstək etiraf-sessiya iştirakçısı üzrə unikal aktiv reaksiyadır; say parent kilidi altında dəyişir. Moderasiya qərarı parent lock, target/revision lock, audit və outbox-u eyni tranzaksiyada yazır. Uşaq təsdiqi/gizlətməsi parent visibility version-ını artırır; parent gizlədilməsi bütün uşaq sorğularını public scope-dan çıxarır. Rəy bildirişləri 15 dəqiqəlik outbox qrup açarı ilə birləşir, davam başına bir hadisə yaranır. Outbox-da mətn yoxdur, çatdırılma LAV-009-a aiddir. İctimai detail-in iştirakçıya görə dəyişən HTML-i `private, no-store` olur.
+
+**Hazırkı sübut:** SQLite feature suite comment privacy/recovery, rəy bağlama, support idempotency və geri götürmə, continuation, author response və comment-hide cascade-ni yoxlayır. MariaDB lokal ayrılmış test bazasında bütün migration-lar və MySQL qrupundakı 6 test/74 assertion, o cümlədən close-review/submit və parent-hide/comment-publish prosesslərarası yarışları keçir.
+
 ## LAV-008 · Şikayət, təcili baxış və etiraz
 
 **Asılılıq:** LAV-005, LAV-007. **Qəbul:** MOD-02, MOD-04.

@@ -16,7 +16,8 @@
 | Dil reyestri və lent | **LAV-003 tamamlanıb.** UI-02/LOC-01: dil seçimi, feed read model, 12 kartlıq HTML səhifələmə, cursor, axtarış və 17 dil üzrə ilkin mətnlər `main`-dədir. |
 | Qonaq etirafı və sahiblik | **LAV-004 tamamlanıb.** Mətn forması, moderator baxışına gizli göndəriş, qonaq sahibliyi, birdəfəlik bərpa və 17 dil üçün yazı axını `main`-dədir. |
 | Moderasiya və dərc keçidləri | **LAV-005 tamamlanıb.** MFA, dil üzrə moderator icazələri, versiyalı qərarlar, audit/outbox və sahibin geri çəkmə axını `main`-dədir. |
-| Açıq etiraf və texniki SEO | **[LAV-006](https://github.com/fuadoglu/LavbeEtiraf/issues/14) icradadır.** Təsdiqlənmiş revision-a bağlı detail, canonical, locale sitemap və məzmun lastmod-u hazırlanır. |
+| Açıq etiraf və texniki SEO | **LAV-006 tamamlanıb.** Təsdiqlənmiş revision-a bağlı detail, canonical, locale sitemap və məzmun lastmod-u `main`-dədir. |
+| Rəy, müəllif cavabı, davam və dəstək | **[LAV-007](https://github.com/fuadoglu/LavbeEtiraf/issues/16) icradadır.** Pending-only rəy və davam, sahiblik/bərpa, moderator növbəsi, support reaksiyası və mətnsiz notification outbox-u hazırlanır. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 
 ## Codex ilə başla
@@ -105,6 +106,10 @@ DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=lavbe DB_USERNAME
 ## LAV-002 lokal yoxlama qeydi
 
 2026-11-19: `npm ci --ignore-scripts && npm run build` keçdi; CSS bundle 15.27 KB, JavaScript 1.02 KB oldu. `composer test` 7 test/21 assertion, `composer test:mysql` 1 test/3 assertion keçdi. Mobil IAB və masaüstü Chrome-da ana görünüş, gündüz/gecə, kateqoriya və 404 yoxlandı; admin mock/modal mobil preview-da Escape ilə bağlandı və fokus açan düyməyə qayıtdı. Chrome 159-da 320 CSS px viewport-da ana və Ailə səhifəsinin `documentWidth`/`bodyWidth` ölçüləri 320px oldu; üfüqi səhifə daşması yox idi, tema dəyişməsi işlədi, kateqoriya keçidinin toxunma hündürlüyü 44px idi. Klaviaturada 8 Tab addımından sonra fokus Dostlar keçidinə çatdı və mövzu paneli onu görünən etmək üçün 38px sürüşdü. `scripts/check_wireframes_browser.py` Playwright/Chromium 159 ilə 320, 390 və 1366px enlərində 270 atlas vəziyyəti/rejim kombinasiyasını yoxladı. Admin mock yalnız `local`/`testing` mühitində açılır və sintetik məlumat göstərir. Bu nəticələr lokal baxışdır; iOS Safari, Android Chrome və standalone cihaz sınaqları LAV-012-də qalır.
+
+## LAV-007 lokal yoxlama qeydi
+
+2026-11-19: `composer test` 44 test/367 assertion keçdi; LAV-007 feature ssenariləri comment pending məxfiliyi və bərpası, eyni-sessiya idempotent replay, rəyin bağlanması, support-un təkrarsız aktivləşməsi və geri götürülməsi, müəllif davamı/cavabı, moderator təsdiqi, outbox idempotency və rəy gizlədiləndə cavabın gizlənməsini yoxladı. `vendor/bin/pint` keçdi. `npm run build` keçdi (CSS 17.04 KB, JS 2.47 KB). `python3 scripts/check_docs.py` 15 sənəd/27 qəbul ID-si, Python unittest 9 test keçdi. Ayrılmış lokal MariaDB `lavbe_lav007_test` bazasında təmiz migrations və `composer test:mysql` 6 test/74 assertion keçdi, o cümlədən paralel rəy bağlama/göndəriş və parent hide/comment publish yarışları. Lokalda `/up` HTTP 200; detail-də iştirakçıya görə dəyişən HTML `private, no-store`. PR CI nəticəsi review zamanı əlavə olunacaq.
 
 İstəyə bağlı real brauzer yoxlaması üçün Playwright və Chromium olan development mühitində:
 

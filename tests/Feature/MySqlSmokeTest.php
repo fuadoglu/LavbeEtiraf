@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Confession;
+use App\Models\ConfessionComment;
 use App\Models\ModeratorGrant;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class MySqlSmokeTest extends TestCase
         $this->assertSame(1, DB::selectOne('select 1 as connected')->connected);
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('migrations'));
         $this->assertTrue(DB::getSchemaBuilder()->hasColumns('confessions', [
-            'public_id', 'author_alias', 'age_confirmed_at', 'submission_key_hash', 'payload_fingerprint', 'public_updated_at',
+            'public_id', 'author_alias', 'age_confirmed_at', 'submission_key_hash', 'payload_fingerprint', 'public_updated_at', 'reviews_open', 'support_count',
         ]));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('confession_revisions'));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('confession_ownerships'));
@@ -29,6 +30,13 @@ class MySqlSmokeTest extends TestCase
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('moderator_mfas'));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('moderation_audits'));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('moderation_outbox'));
+        foreach ([
+            'confession_comments', 'confession_comment_revisions', 'comment_ownerships', 'comment_responses',
+            'comment_response_revisions', 'confession_continuations', 'confession_continuation_revisions',
+            'confession_participants', 'confession_support_reactions', 'participation_idempotencies', 'participation_outbox',
+        ] as $table) {
+            $this->assertTrue(DB::getSchemaBuilder()->hasTable($table), 'Missing participation table: '.$table);
+        }
 
         $uniqueIndexes = collect(DB::select('SHOW INDEX FROM confessions'))
             ->filter(fn (object $index): bool => (int) $index->Non_unique === 0)
@@ -314,6 +322,175 @@ PHP;
         $doubleApprove->delete();
         $approveHide->delete();
         $user->delete();
+    }
+
+    public function test_parallel_close_reviews_and_comment_submission_never_accepts_after_close(): void
+    {
+        $confession = Confession::query()->create([
+            'locale' => 'en', 'status' => 'public', 'published_at' => now(), 'public_updated_at' => now(),
+            'reviews_open' => true, 'title' => 'Synthetic participation race', 'body' => 'Synthetic public story',
+            'category_key' => 'family', 'public_id' => (string) Str::uuid(), 'author_alias' => 'Lavbe #A1B2C3D4',
+        ]);
+        $revision = $confession->revisions()->create([
+            'revision' => 1, 'title' => 'Synthetic participation race', 'body' => 'Synthetic public story',
+            'category_key' => 'family', 'status' => 'approved',
+        ]);
+        $confession->forceFill(['public_revision_id' => $revision->id])->save();
+        $ownerToken = 'synthetic-review-cookie-'.str_repeat('C', 16);
+        $confession->ownership()->create([
+            'owner_token_hash' => hash_hmac('sha256', $ownerToken, (string) config('app.key')),
+            'recovery_token_hash' => hash_hmac('sha256', 'synthetic-review-recovery-'.str_repeat('R', 16), (string) config('app.key')),
+        ]);
+        $barrier = tempnam(sys_get_temp_dir(), 'lavbe-review-race-');
+        unlink($barrier);
+        $worker = <<<'PHP'
+require 'vendor/autoload.php';
+$app = require 'bootstrap/app.php';
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+while (! is_file($argv[4])) { usleep(1000); }
+try {
+    $request = Illuminate\Http\Request::create('/en/confession/'.$argv[2], 'POST');
+    $session = new Illuminate\Session\Store('review-race', new Illuminate\Session\ArraySessionHandler(120));
+    $session->setId($argv[3]);
+    $session->start();
+    $request->setLaravelSession($session);
+    if ($argv[1] === 'close') {
+        $request->cookies->set('lavbe_owner_'.$argv[2], $argv[5]);
+        $app->make(App\Support\Participation\ParticipationService::class)->setReviewsOpen($request, $argv[2], false, 'parallel-close-'.str_repeat('K', 20));
+        echo 'closed';
+    } else {
+        $app->make(App\Support\Participation\ParticipationService::class)->submitComment($request, $argv[2], 'Synthetic parallel response', 'parallel-submit-'.str_repeat('K', 20));
+        echo 'submitted';
+    }
+} catch (Symfony\Component\HttpKernel\Exception\HttpException $exception) {
+    echo (string) $exception->getStatusCode();
+}
+PHP;
+        $environment = array_merge(getenv(), [
+            'APP_ENV' => 'testing', 'APP_KEY' => (string) config('app.key'), 'APP_URL' => 'http://localhost',
+            'DB_CONNECTION' => 'mysql', 'DB_HOST' => (string) config('database.connections.mysql.host'),
+            'DB_PORT' => (string) config('database.connections.mysql.port'), 'DB_DATABASE' => (string) config('database.connections.mysql.database'),
+            'DB_USERNAME' => (string) config('database.connections.mysql.username'), 'DB_PASSWORD' => (string) config('database.connections.mysql.password'),
+            'CACHE_STORE' => 'array', 'SESSION_DRIVER' => 'array',
+        ]);
+        try {
+            $statuses = $this->runParallelWorkers($worker, [
+                ['close', $confession->public_id, 'stable-owner-session', $barrier, $ownerToken],
+                ['submit', $confession->public_id, 'stable-participant-session', $barrier, $ownerToken],
+            ], $environment, $barrier);
+            $this->assertContains('closed', $statuses);
+            $this->assertFalse((bool) $confession->fresh()->reviews_open);
+            $hasComment = ConfessionComment::query()->where('confession_id', $confession->id)->exists();
+            $this->assertSame($hasComment, in_array('submitted', $statuses, true));
+            $this->assertSame(! $hasComment, in_array('409', $statuses, true));
+        } finally {
+            @unlink($barrier);
+            $confession->delete();
+        }
+    }
+
+    public function test_parallel_parent_hide_and_comment_publish_never_leave_public_child_under_hidden_parent(): void
+    {
+        $user = User::factory()->create();
+        ModeratorGrant::query()->create(['user_id' => $user->id, 'role' => 'moderator', 'locale' => 'en', 'reason' => 'synthetic parent hide race']);
+        $confession = Confession::query()->create([
+            'locale' => 'en', 'status' => 'public', 'published_at' => now(), 'public_updated_at' => now(),
+            'title' => 'Synthetic parent visibility race', 'body' => 'Synthetic story', 'category_key' => 'family',
+            'public_id' => (string) Str::uuid(), 'author_alias' => 'Lavbe #A1B2C3D4',
+        ]);
+        $parentRevision = $confession->revisions()->create([
+            'revision' => 1, 'title' => 'Synthetic parent visibility race', 'body' => 'Synthetic story',
+            'category_key' => 'family', 'status' => 'approved',
+        ]);
+        $confession->forceFill(['public_revision_id' => $parentRevision->id])->save();
+        $comment = $confession->comments()->create([
+            'public_id' => (string) Str::uuid(), 'status' => 'unpublished', 'author_alias' => 'Lavbe #D4C3B2A1', 'body' => '',
+        ]);
+        $commentRevision = $comment->revisions()->create(['revision' => 1, 'body' => 'Synthetic pending response', 'status' => 'pending']);
+        $barrier = tempnam(sys_get_temp_dir(), 'lavbe-parent-hide-race-');
+        unlink($barrier);
+        $worker = <<<'PHP'
+require 'vendor/autoload.php';
+$app = require 'bootstrap/app.php';
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+while (! is_file($argv[7])) { usleep(1000); }
+try {
+    $actor = App\Models\User::query()->findOrFail((int) $argv[6]);
+    if ($argv[1] === 'hide') {
+        $app->make(App\Support\Moderation\ModerationService::class)->decide(
+            $actor, (int) $argv[2], (int) $argv[3], 1, 'hide', 'privacy', null, null,
+            'parallel-parent-hide-'.str_repeat('H', 16), false, (string) Illuminate\Support\Str::uuid(),
+        );
+    } else {
+        $app->make(App\Support\Moderation\ModerationService::class)->decideParticipation(
+            $actor, 'comment', (int) $argv[4], (int) $argv[5], 1, 1, 'approve', 'acceptable',
+            'parallel-comment-publish-'.str_repeat('P', 12), (string) Illuminate\Support\Str::uuid(),
+        );
+    }
+    echo '200';
+} catch (Symfony\Component\HttpKernel\Exception\HttpException $exception) {
+    echo (string) $exception->getStatusCode();
+}
+PHP;
+        $environment = array_merge(getenv(), [
+            'APP_ENV' => 'testing', 'APP_KEY' => (string) config('app.key'), 'APP_URL' => 'http://localhost',
+            'DB_CONNECTION' => 'mysql', 'DB_HOST' => (string) config('database.connections.mysql.host'),
+            'DB_PORT' => (string) config('database.connections.mysql.port'), 'DB_DATABASE' => (string) config('database.connections.mysql.database'),
+            'DB_USERNAME' => (string) config('database.connections.mysql.username'), 'DB_PASSWORD' => (string) config('database.connections.mysql.password'),
+        ]);
+        try {
+            $statuses = $this->runParallelWorkers($worker, [
+                ['hide', (string) $confession->id, (string) $parentRevision->id, (string) $comment->id, (string) $commentRevision->id, (string) $user->id, $barrier],
+                ['publish', (string) $confession->id, (string) $parentRevision->id, (string) $comment->id, (string) $commentRevision->id, (string) $user->id, $barrier],
+            ], $environment, $barrier);
+            sort($statuses);
+            $this->assertSame(['200', '409'], $statuses);
+            $confession->refresh();
+            $comment->refresh();
+            $this->assertFalse($confession->status === 'hidden' && $comment->status === 'public');
+            if ($confession->status === 'hidden') {
+                $this->assertSame('unpublished', $comment->status);
+            } else {
+                $this->assertSame('public', $confession->status);
+                $this->assertSame('public', $comment->status);
+            }
+        } finally {
+            @unlink($barrier);
+            DB::table('moderation_audits')->where('target_public_id', $confession->public_id)->delete();
+            DB::table('moderation_outbox')->where('target_public_id', $confession->public_id)->delete();
+            $confession->delete();
+            $user->delete();
+        }
+    }
+
+    /** @param list<array<string, string>> $arguments @return list<string> */
+    private function runParallelWorkers(string $worker, array $arguments, array $environment, string $barrier): array
+    {
+        $processes = [];
+        foreach ($arguments as $argumentList) {
+            $pipes = [];
+            $process = proc_open(
+                array_merge([PHP_BINARY, '-r', $worker], $argumentList),
+                [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
+                $pipes,
+                base_path(),
+                $environment,
+            );
+            $this->assertIsResource($process);
+            fclose($pipes[0]);
+            $processes[] = [$process, $pipes];
+        }
+        file_put_contents($barrier, 'go');
+        $statuses = [];
+        foreach ($processes as [$process, $pipes]) {
+            $statuses[] = trim(stream_get_contents($pipes[1]));
+            $errorOutput = stream_get_contents($pipes[2]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+            $this->assertSame(0, proc_close($process), $errorOutput === '' ? '' : 'Parallel participation worker failed.');
+        }
+
+        return $statuses;
     }
 
     /** @param list<array{string, int, int}> $decisions */

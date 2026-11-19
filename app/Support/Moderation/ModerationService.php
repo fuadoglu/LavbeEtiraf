@@ -2,11 +2,18 @@
 
 namespace App\Support\Moderation;
 
+use App\Models\CommentResponse;
+use App\Models\CommentResponseRevision;
 use App\Models\Confession;
+use App\Models\ConfessionComment;
+use App\Models\ConfessionCommentRevision;
+use App\Models\ConfessionContinuation;
+use App\Models\ConfessionContinuationRevision;
 use App\Models\ConfessionRevision;
 use App\Models\ModerationAudit;
 use App\Models\ModerationOutbox;
 use App\Models\ModeratorGrant;
+use App\Models\ParticipationOutbox;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -195,6 +202,148 @@ class ModerationService
 
             return ['confession' => Confession::query()->findOrFail($confessionId), 'replayed' => true];
         }
+    }
+
+    public function decideParticipation(
+        User $actor,
+        string $type,
+        int $targetId,
+        int $revisionId,
+        int $expectedLockVersion,
+        int $expectedParentLockVersion,
+        string $decision,
+        string $reasonCode,
+        string $idempotencyKey,
+        string $requestId,
+    ): void {
+        abort_unless(in_array($type, ['comment', 'response', 'continuation'], true), 422);
+        abort_unless(in_array($decision, ['approve', 'reject', 'hide'], true), 422);
+        $targetMeta = $this->participationTarget($type, $targetId);
+        $confessionId = $targetMeta['confession_id'];
+        $idempotencyHash = hash_hmac('sha256', 'participation-moderation|'.$actor->id.'|'.$type.'|'.$idempotencyKey, (string) config('app.key'));
+        $fingerprint = hash_hmac('sha256', json_encode([
+            $type, $targetId, $revisionId, $expectedLockVersion, $expectedParentLockVersion, $decision, $reasonCode,
+        ], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), (string) config('app.key'));
+
+        DB::transaction(function () use ($actor, $type, $targetId, $revisionId, $expectedLockVersion, $expectedParentLockVersion, $decision, $reasonCode, $idempotencyHash, $fingerprint, $requestId, $confessionId): void {
+            $existing = ModerationAudit::query()->where('idempotency_hash', $idempotencyHash)->first();
+            if ($existing) {
+                abort_unless(hash_equals((string) $existing->idempotency_fingerprint, $fingerprint), 409);
+
+                return;
+            }
+            $confession = Confession::query()->whereKey($confessionId)->lockForUpdate()->firstOrFail();
+            $grant = ModeratorGrant::query()->where('user_id', $actor->id)->where('role', 'moderator')
+                ->where('locale', $confession->locale)->where('is_active', true)->whereNull('revoked_at')->lockForUpdate()->first();
+            abort_if(! $grant, 404);
+            abort_unless($confession->lock_version === $expectedParentLockVersion, 409);
+            abort_unless($confession->status === 'public', 409);
+            [$target, $revision] = $this->lockParticipationTarget($type, $targetId, $revisionId, $confessionId);
+            abort_unless($target->lock_version === $expectedLockVersion, 409);
+            $previousState = (string) $target->status;
+            $eventType = null;
+            if ($decision === 'approve') {
+                abort_unless($target->status === 'unpublished' && $revision->status === 'pending', 409);
+                $revision->forceFill(['status' => 'approved', 'reviewed_by_user_id' => $actor->id, 'reviewed_at' => now()])->save();
+                $target->forceFill([
+                    'status' => 'public',
+                    'body' => $revision->body,
+                    'public_revision_id' => $revision->id,
+                    'published_at' => now(),
+                ]);
+                $eventType = $type === 'comment' ? 'comment_activity' : 'publish_'.$type;
+            } elseif ($decision === 'reject') {
+                abort_unless($target->status === 'unpublished' && $revision->status === 'pending', 409);
+                $revision->forceFill(['status' => 'rejected', 'reviewed_by_user_id' => $actor->id, 'reviewed_at' => now()])->save();
+                $target->status = 'rejected';
+            } else {
+                abort_unless($target->status === 'public', 409);
+                $target->status = 'hidden';
+                $target->body = '';
+                $eventType = 'hide_'.$type;
+                if ($type === 'comment') {
+                    $target->response()->where('status', 'public')->update([
+                        'status' => 'hidden',
+                        'body' => '',
+                        'visibility_version' => DB::raw('visibility_version + 1'),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
+            $target->lock_version++;
+            $target->visibility_version++;
+            $target->save();
+            $confession->lock_version++;
+            if ($eventType !== null) {
+                $confession->visibility_version++;
+            }
+            $confession->save();
+            ModerationAudit::query()->create([
+                'actor_user_id' => $actor->id,
+                'grant_snapshot' => ['grant_id' => $grant->id, 'role' => $grant->role, 'locale' => $grant->locale],
+                'target_type' => $type,
+                'target_key' => (string) $target->id,
+                'target_public_id' => $confession->public_id,
+                'revision_id' => $revisionId,
+                'decision' => $decision.'_'.$type,
+                'reason_code' => $reasonCode,
+                'reason' => $this->sanitizeMessage($reasonCode),
+                'previous_state' => $previousState,
+                'new_state' => $target->status,
+                'expected_lock_version' => $expectedLockVersion,
+                'resulting_lock_version' => $target->lock_version,
+                'idempotency_hash' => $idempotencyHash,
+                'idempotency_fingerprint' => $fingerprint,
+                'request_id' => $requestId,
+                'created_at' => now(),
+            ]);
+            if ($eventType !== null) {
+                $group = $eventType === 'comment_activity' ? (string) intdiv(now()->timestamp, 900) : (string) $target->id;
+                $eventKey = hash('sha256', implode('|', [$confession->id, $eventType, $group]));
+                ParticipationOutbox::query()->firstOrCreate(['event_key' => $eventKey], [
+                    'confession_id' => $confession->id,
+                    'event_type' => $eventType,
+                    'visibility_version' => $confession->visibility_version,
+                    'target_id' => $eventType === 'comment_activity' ? null : $target->id,
+                    'occurred_at' => now(),
+                ]);
+            }
+        }, 3);
+    }
+
+    /** @return array{confession_id: int} */
+    private function participationTarget(string $type, int $targetId): array
+    {
+        if ($type === 'comment') {
+            $target = ConfessionComment::query()->findOrFail($targetId);
+
+            return ['confession_id' => (int) $target->confession_id];
+        }
+        if ($type === 'continuation') {
+            $target = ConfessionContinuation::query()->findOrFail($targetId);
+
+            return ['confession_id' => (int) $target->confession_id];
+        }
+        $response = CommentResponse::query()->with('comment')->findOrFail($targetId);
+
+        return ['confession_id' => (int) $response->comment->confession_id];
+    }
+
+    /** @return array{0: ConfessionComment|ConfessionContinuation|CommentResponse, 1: ConfessionCommentRevision|ConfessionContinuationRevision|CommentResponseRevision} */
+    private function lockParticipationTarget(string $type, int $targetId, int $revisionId, int $confessionId): array
+    {
+        if ($type === 'comment') {
+            $target = ConfessionComment::query()->whereKey($targetId)->where('confession_id', $confessionId)->lockForUpdate()->firstOrFail();
+            $revision = ConfessionCommentRevision::query()->whereKey($revisionId)->where('comment_id', $target->id)->lockForUpdate()->firstOrFail();
+        } elseif ($type === 'continuation') {
+            $target = ConfessionContinuation::query()->whereKey($targetId)->where('confession_id', $confessionId)->lockForUpdate()->firstOrFail();
+            $revision = ConfessionContinuationRevision::query()->whereKey($revisionId)->where('continuation_id', $target->id)->lockForUpdate()->firstOrFail();
+        } else {
+            $target = CommentResponse::query()->whereKey($targetId)->whereHas('comment', fn ($query) => $query->where('confession_id', $confessionId))->lockForUpdate()->firstOrFail();
+            $revision = CommentResponseRevision::query()->whereKey($revisionId)->where('response_id', $target->id)->lockForUpdate()->firstOrFail();
+        }
+
+        return [$target, $revision];
     }
 
     private function queueOutbox(Confession $confession, string $eventType, ?ConfessionRevision $revision): void

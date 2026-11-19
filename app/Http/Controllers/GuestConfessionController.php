@@ -159,6 +159,11 @@ class GuestConfessionController extends Controller
         ]);
     }
 
+    public function canManage(Request $request, Confession $confession): bool
+    {
+        return $this->owns($request, $confession);
+    }
+
     public function withdraw(Request $request, string $locale, string $publicId): Response
     {
         return $this->ownerTransition($request, $publicId, 'withdraw');

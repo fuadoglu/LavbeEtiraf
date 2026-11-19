@@ -14,6 +14,14 @@
             </article>
         @endif
         <a href="{{ route('confessions.recovery.form', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">{{ __('guest.write_recover_title') }}</a>
+        @if(in_array($confession->status, ['public', 'unpublished'], true))
+            <form method="post" action="{{ route('confessions.reviews', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">
+                @csrf
+                <input type="hidden" name="open" value="{{ $confession->reviews_open ? '0' : '1' }}">
+                <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                <button class="button button-secondary" type="submit">{{ $confession->reviews_open ? __('participation.reviews_close') : __('participation.reviews_open') }}</button>
+            </form>
+        @endif
         @if(in_array($confession->status, ['unpublished', 'public'], true))
             <form method="post" action="{{ route('confessions.withdraw', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">
                 @csrf

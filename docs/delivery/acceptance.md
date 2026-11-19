@@ -12,7 +12,7 @@
 | OWN-02 | İstəyə bağlı hesab, bildiriş və rəy sahibliyi | Müvafiq icazələr qorunur, şəxsi cavab cache edilmir, həssas payload xaricdə görünmür |
 | MOD-01 | İlk yayım, redaktə, geri çəkmə və rədd | Yalnız təsdiqlənmiş versiya görünür, köhnə moderator qərarı yeni versiyaya tətbiq edilmir; moderator aktiv hesabdır, MFA addımı sessiyaya bağlıdır və qərar dil grant-ı, target, revision və gözlənən versiya ilə serverdə yoxlanır; audit qərarı, səbəbi və versiya hash-lərini saxlayır, mətn və sirri saxlamır |
 | MOD-02 | Etirafdan və rəydən şikayət, təkrar və etiraz | Ayrı hədəflər, birləşmiş iş, tək təkrar və səbəbli səlahiyyətli qərar |
-| MOD-03 | Rəyin gizlədilməsi, davam və bağlama | Rəy ayrıca çıxır, etiraf qalır, davam bir bildiriş yaradır, qapalı rəy axını köhnə rəyləri saxlayır |
+| MOD-03 | Rəyin gizlədilməsi, davam və bağlama | Yalnız təsdiqlənmiş uşaq revision görünür; rəy gizlədiləndə onun müəllif cavabı da gizlənir, etiraf qalır; təsdiqli davam bir mətnsiz outbox hadisəsi yaradır; qapalı rəy axını köhnə təsdiqləri saxlayır və yeni göndərişi rədd edir; detail/feed/fragment/sitemap-də hidden/pending uşaq mətni yoxdur |
 | SEO-01 | Hər dil üzrə yayımdan dərhal sonra | 200, ilkin HTML, canonical, məzmun üçün daxili link və düzgün sitemap, dil dəyişdirmə yoxdur |
 | SEO-02 | Redaktə, geri çəkmə və daimi silmə | Real dəyişiklik lastmod-u yeniləyir, geri çəkilən sitemap-dən çıxır, daimi silinən URL 410, preview və keş təmiz |
 | SEO-03 | IndexNow və Search Console/Bing yoxlaması | Təkrar cəhd, düzgün URL dəyişiklikləri, həqiqi xarici yoxlama sübutu, domen profili düzgün |
