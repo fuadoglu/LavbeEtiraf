@@ -14,7 +14,7 @@
             <form method="post" action="{{ route('locale.select', ['locale' => $lavbeLocale['segment']]) }}" class="language-picker">
                 @csrf
                 <input type="hidden" name="return_to" value="{{ request()->getRequestUri() }}">
-                <label for="locale-search">{{ app()->getLocale() === 'az' ? 'Dil axtar' : 'Search languages' }}</label>
+                <label for="locale-search">{{ __('navigation.language_search') }}</label>
                 <input id="locale-search" type="search" data-language-search placeholder="English, 日本語, pt-BR…" autocomplete="off">
                 <div class="language-options" data-language-options>
                     @foreach(app(App\Support\Lavbe\LocaleRegistry::class)->all() as $language)
@@ -25,7 +25,7 @@
                 </div>
             </form>
         </details>
-        <button class="icon-button theme-button" type="button" data-theme-toggle aria-pressed="false" aria-label="Gecə görünüşünü aktiv et">
+        <button class="icon-button theme-button" type="button" data-theme-toggle aria-pressed="false" data-label-night="{{ __('navigation.theme_night') }}" data-label-day="{{ __('navigation.theme_day') }}" aria-label="{{ __('navigation.theme_night') }}" >
             <x-icon name="moon" class="theme-icon-night" />
             <x-icon name="sun" class="theme-icon-day" />
         </button>

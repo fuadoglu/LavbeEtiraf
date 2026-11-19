@@ -23,7 +23,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <a class="skip-link" href="#main">Əsas məzmuna keç</a>
+    <a class="skip-link" href="#main">{{ __('navigation.skip') }}</a>
     <div class="app-shell">
         <x-site-header />
         <main id="main" class="page-content" tabindex="-1">
