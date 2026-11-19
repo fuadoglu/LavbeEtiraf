@@ -100,7 +100,7 @@ DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 DB_DATABASE=lavbe DB_USERNAME
 
 ## LAV-002 lokal yoxlama qeydi
 
-2026-11-19: `npm ci --ignore-scripts && npm run build` keçdi; CSS bundle 15.2 KB, JavaScript 0.86 KB oldu. `composer test` 6 test/18 assertion, `composer test:mysql` 1 test/3 assertion keçdi. Səhifə baxışı mobil ölçüdə ana lent, gündüz/gecə, kateqoriya, 404 və admin mock-u əhatə etdi; modal Escape ilə bağlandı və fokus açan düyməyə qayıtdı. Admin mock yalnız `local`/`testing` mühitində açılır və sintetik məlumat göstərir.
+2026-11-19: `npm ci --ignore-scripts && npm run build` keçdi; CSS bundle 15.2 KB, JavaScript 0.86 KB oldu. `composer test` 6 test/18 assertion, `composer test:mysql` 1 test/3 assertion keçdi. Mobil IAB və masaüstü Chrome-da ana görünüşə, gündüz/gecə, kateqoriya və 404-ə baxıldı; admin mock/modal mobil preview-da yoxlandı, Escape ilə bağlandı və fokus açan düyməyə qayıtdı. Admin mock yalnız `local`/`testing` mühitində açılır və sintetik məlumat göstərir. 320 px ayrıca brauzer ölçüsündə hələ yoxlanmayıb.
 
 İstəyə bağlı real brauzer yoxlaması üçün Playwright və Chromium olan development mühitində:
 
