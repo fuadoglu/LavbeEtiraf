@@ -29,6 +29,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 22 | Tövsiyə olunan etirafları müxtəlif kateqoriyalardan göstər | LAV-045 |
 | 23 | Footer-i əlçatan və responsive standartlara uyğunlaşdır | LAV-046 |
 | 24 | Footer-də ürəkli Lavbe loqosu və sağda yığcam keçidlər | LAV-047 |
+| 25 | Footer-dən operator keçidini çıxar və linkləri kiçikləşdir | LAV-048 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -265,4 +266,10 @@ Footer-i mövcud Lavbe wordmark-ı və lokallaşdırılmış təsviri ilə sayt�
 
 **Asılılıq:** LAV-046. **Qəbul:** UI-05.
 
-Footer-i sol wordmark və sağda yığcam, əlçatan adlandırılmış hüquqi keçidlərlə bir sırada göstər. Wordmark-da Lavbe-nin “v” hərfinin yerindəki ürək vurğusu kiçik ölçüdə də tanınsın. Çıxarılmış “Lavbe · Etiraflar Vadisi” signature sətrini göstərmə. Yeddi lokallaşdırılmış link, cari səhifənin `aria-current` işarəsi, 44 px hədəf, mobil qırılma və alt safe-area boşluğu saxlanır. **Sübut:** HTML/feature sınağı, CSS build, 320 px və desktop vizual baxış, sənəd yoxlaması.
+Footer-i sol wordmark və sağda yığcam, əlçatan adlandırılmış hüquqi keçidlərlə bir sırada göstər. Wordmark-da Lavbe-nin “v” hərfinin yerindəki ürək vurğusu kiçik ölçüdə də tanınsın. Çıxarılmış “Lavbe · Etiraflar Vadisi” signature sətrini göstərmə. Altı lokallaşdırılmış link, cari səhifənin `aria-current` işarəsi, 44 px hədəf, mobil qırılma və alt safe-area boşluğu saxlanır. **Sübut:** HTML/feature sınağı, CSS build, 320 px və desktop vizual baxış, sənəd yoxlaması.
+
+## LAV-048 · Footer-dən operator keçidini çıxar və linkləri kiçikləşdir
+
+**Asılılıq:** LAV-047. **Qəbul:** UI-05.
+
+Footer-də `operator` keçidini göstərmə; operator məlumatı səhifəsinin marşrutu birbaşa URL ilə əlçatan qalsın. Qalan altı linkin şriftini `.88rem`-dən `.8rem`-ə endir, 44 px toxunma hündürlüyünü və bütün responsive/əlçatan davranışı saxla. **Sübut:** 17 locale üzrə footer-də operator keçidinin olmaması və səhifənin HTTP 200 cavabı, CSS build, sənəd validatoru.

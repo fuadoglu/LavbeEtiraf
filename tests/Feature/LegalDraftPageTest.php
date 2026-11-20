@@ -16,7 +16,11 @@ class LegalDraftPageTest extends TestCase
             $base = '/'.$locale['segment'];
             $home = $this->get($base)->assertOk();
             foreach (['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request', 'operator'] as $page) {
-                $home->assertSee($base.'/legal/'.$page);
+                if ($page === 'operator') {
+                    $home->assertDontSee($base.'/legal/'.$page);
+                } else {
+                    $home->assertSee($base.'/legal/'.$page);
+                }
                 $response = $this->get($base.'/legal/'.$page)->assertOk()
                     ->assertSee(__('legal.'.$page.'.title', [], $locale['code']))
                     ->assertSee(__('legal.'.$page.'.body', [], $locale['code']));
@@ -32,7 +36,7 @@ class LegalDraftPageTest extends TestCase
         $response = $this->get('/az/legal/privacy')->assertOk();
         $response->assertSee('<nav class="site-footer-navigation" aria-label="Hüquqi və məlumat keçidləri">', false)
             ->assertSee('aria-current="page"', false)
-            ->assertSee('/az/legal/operator', false)
+            ->assertDontSee('/az/legal/operator', false)
             ->assertSee('--brand-heart-mask: url(', false)
             ->assertDontSee('Lavbe · Etiraflar Vadisi', false);
     }
