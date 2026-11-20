@@ -41,3 +41,7 @@ ADV-03/MOD-03: etiraf detalı rəy yazmaq üçün ayrıca `/{locale}/confession/
 ## Sessiya məxfiliyi — LAV-026
 
 Database sessiyalarında flash edilən uğursuz yazı mətni şifrəli saxlanır: config/session.php və nümunə mühitdə SESSION_ENCRYPT default true-dur. SessionPrivacyTest sintetik qaralamanın xam sessiya payload-unda olmadığını və açarla bərpa olunduğunu yoxlayır. Lokal ignored mühitdə də ayar true edilib. İstehsal açarı, backup retention və real sessiya TTL operator baxışı olaraq qalır.
+
+## Hüquqi draftların əlçatanlığı — LAV-028
+
+LOC-02/OPS-03: 17 dilin mövcud LAV-010 hüquqi draftlarından terms, community, privacy, cookies, illegal_content, data_request və operator mətnləri runtime paketlərə götürülüb. Footer əsas üç drafta yol verir. Səhifələr noindex/no-store qalır və draft mətninin özündə yayımdan əvvəl operator, yerli tələb və məlumat təcrübəsi təsdiqinin vacibliyi görünür. Bu, hüquqi yekun təsdiq sayılmır; operator faktları və sahib baxışı açıq buraxılış qapısıdır.

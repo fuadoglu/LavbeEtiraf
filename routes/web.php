@@ -89,6 +89,15 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         ]);
     })->middleware(NormalizeFeedPage::class)->name('home');
 
+    Route::get('/legal/{page}', function (string $locale, string $page) {
+        $copy = __('legal.'.$page);
+        abort_unless(is_array($copy) && isset($copy['title'], $copy['body']), 404);
+
+        return response()->view('legal.draft', ['copy' => $copy])
+            ->header('Cache-Control', 'private, no-store')
+            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    })->whereIn('page', ['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request', 'operator'])->name('legal.page');
+
     Route::get('/sitemap.xml', [SitemapController::class, 'locale'])->defaults('page', 1)->name('sitemap.locale');
     Route::get('/sitemap-{page}.xml', [SitemapController::class, 'locale'])->whereNumber('page')->name('sitemap.locale.page');
 
