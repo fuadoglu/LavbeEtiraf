@@ -358,18 +358,25 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .confession-heading h1 { margin-block: .5rem .85rem; font-weight: 750; overflow-wrap: anywhere; }
 .confession-heading .story-meta { line-height: 1.6; }
 .confession-reading-card > .confession-body { font-size: 1.125rem; line-height: 1.9; }
-.confession-report-links { display: flex; flex-wrap: wrap; gap: .25rem 1rem; margin-block-start: 1.5rem; padding-block-start: 1rem; border-top: 1px solid var(--line); font-size: .85rem; }
-.confession-report-links p { margin: 0; }
-.confession-report-links a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--muted); }
-.confession-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: .6rem; padding-block: 1.15rem; border-bottom: 1px solid var(--line); }
-.confession-actions.has-follow-action { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.confession-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; align-items: stretch; gap: .6rem; padding-block: 1.15rem; border-bottom: 1px solid var(--line); }
+.confession-actions.has-follow-action { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .confession-actions .participation-action, .confession-actions .confession-share { width: 100%; min-width: 0; margin: 0; }
-.confession-actions .button { display: flex; width: 100%; min-width: 0; min-height: 3rem; justify-content: center; gap: .4rem; padding-inline: .45rem; border-radius: 1rem; font-size: .9rem; line-height: 1.25; text-align: center; white-space: normal; }
+.confession-actions .participation-action { align-items: stretch; }
+.confession-actions .button { display: flex; width: 100%; min-width: 0; min-height: 3rem; height: 100%; justify-content: center; gap: .4rem; padding-inline: .45rem; border-radius: 1rem; font-size: .9rem; line-height: 1.25; text-align: center; white-space: normal; }
 .confession-actions .button > span:not(.icon) { min-width: 0; }
 .confession-actions .support-count { font-size: .82em; font-variant-numeric: tabular-nums; }
 .confession-actions [aria-pressed="true"] { border-color: var(--action); background: var(--hint); color: var(--action); }
-.confession-share { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; min-width: 0; }
-.confession-share .button { align-self: start; }
+.confession-share { display: flex; flex-wrap: wrap; align-items: stretch; gap: .5rem .75rem; min-width: 0; }
+.confession-share .button { align-self: stretch; }
+.confession-share [data-share-status] { flex-basis: 100%; font-size: .75rem; }
+.confession-report-button { display: flex; align-items: center; justify-content: center; gap: .4rem; min-height: 3rem; height: 100%; padding-inline: .45rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); color: var(--text); font-size: .9rem; font-weight: 650; line-height: 1.25; text-align: center; text-decoration: none; }
+.confession-actions > noscript { grid-column: 1 / -1; }
+.report-choice-actions { display: grid; gap: .65rem; }
+.report-choice-actions .button { min-height: 3rem; justify-content: flex-start; white-space: normal; }
+.report-nojs-links { display: grid; gap: .5rem; padding-block-start: .5rem; }
+@media (max-width: 520px) {
+    .confession-actions.has-follow-action { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .share-fallback { flex-basis: 100%; display: grid; gap: .35rem; color: var(--muted); font-size: .875rem; }
 .share-fallback[hidden] { display: none; }
 .share-fallback input { width: min(100%, 34rem); min-height: 2.75rem; padding: .55rem .7rem; border: 1px solid var(--edge); border-radius: .6rem; background: var(--surface); }

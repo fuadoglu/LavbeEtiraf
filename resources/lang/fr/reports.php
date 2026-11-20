@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Signaler cette confidence',
+    'report_action' => 'Signaler',
     'report_comment' => 'Signaler cette réponse',
     'community_title' => 'Signaler un problème à la modération',
     'legal_title' => 'Envoyer un signalement juridique',

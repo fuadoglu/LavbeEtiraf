@@ -44,6 +44,7 @@ class ReaderDiscoveryTest extends TestCase
                 $this->assertNotSame('participation.'.$key, __('participation.'.$key), "Missing {$key} translation for {$locale}.");
                 $this->assertNotSame('', trim(__('participation.'.$key)));
             }
+            $this->assertNotSame('reports.report_action', __('reports.report_action'), "Missing report action translation for {$locale}.");
         }
     }
 
@@ -77,6 +78,8 @@ class ReaderDiscoveryTest extends TestCase
                 ->assertSee('share-2.svg', false)
                 ->assertSee('<noscript>', false)
                 ->assertSee('data-share-url="'.rtrim((string) config('app.url'), '/').'/az/confession/'.$story->public_id.'"', false)
+                ->assertSee(__('reports.report_action'))
+                ->assertSee('data-dialog-open="confession-report-options-dialog"', false)
                 ->assertDontSee('AZ same-category story')
                 ->assertDontSee('EN synthetic recommendation')
                 ->assertDontSee('Recommendation excerpt must stay hidden.')
@@ -110,9 +113,17 @@ class ReaderDiscoveryTest extends TestCase
             if ($attempt === 0) {
                 $actions = $xpath->query('//div[contains(concat(" ", normalize-space(@class), " "), " confession-actions ")]')->item(0);
                 $this->assertNotNull($actions);
-                $this->assertSame(2, $xpath->query('./form[contains(@class, "support-action")] | ./div[@data-share-control]', $actions)->length);
+                $this->assertSame(3, $xpath->query('./form[contains(@class, "support-action")] | ./div[@data-share-control] | ./a[contains(@class, "confession-report-button")]', $actions)->length);
                 $this->assertSame(1, $xpath->query('./form[contains(@class, "support-action")]/button/span[@class="support-count"]', $actions)->length);
                 $this->assertSame(0, $xpath->query('./a[contains(@href, "/account/login")]', $actions)->length);
+                $this->assertSame(0, $xpath->query('//div[@class="confession-report-links"]')->length);
+                $optionsDialog = $xpath->query('//dialog[@id="confession-report-options-dialog"]')->item(0);
+                $this->assertNotNull($optionsDialog);
+                $this->assertSame(2, $xpath->query('.//nav[@class="report-choice-actions"]/a[@data-dialog-open]', $optionsDialog)->length);
+                $this->assertSame(1, $xpath->query('.//nav[@class="report-choice-actions"]/a[contains(@href, "/legal/report/confession/")]', $optionsDialog)->length);
+                $css = file_get_contents(resource_path('css/app.css'));
+                $this->assertStringContainsString('grid-auto-rows: 1fr', $css);
+                $this->assertStringContainsString('min-height: 3rem; height: 100%', $css);
             }
             $observedWorkTitles = $observedWorkTitles->merge($titles->filter(fn (string $title) => str_contains($title, 'work story')));
             $observedOrders->push($titles->implode('|'));
@@ -128,7 +139,7 @@ class ReaderDiscoveryTest extends TestCase
         $xpath = new \DOMXPath($document);
         $actions = $xpath->query('//div[contains(concat(" ", normalize-space(@class), " "), " confession-actions ")]')->item(0);
         $this->assertNotNull($actions);
-        $this->assertSame(3, $xpath->query('./form[contains(@class, "support-action")] | ./form[contains(@class, "follow-action")] | ./div[@data-share-control]', $actions)->length);
+        $this->assertSame(4, $xpath->query('./form[contains(@class, "support-action")] | ./form[contains(@class, "follow-action")] | ./div[@data-share-control] | ./a[contains(@class, "confession-report-button")]', $actions)->length);
         $this->assertSame(1, $xpath->query('./form[contains(@class, "follow-action")]/button', $actions)->length);
     }
 

@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Bu itirafı bildir',
+    'report_action' => 'Şikâyet et',
     'report_comment' => 'Bu yorumu bildir',
     'community_title' => 'Topluluk kurallarıyla ilgili sorun bildir',
     'legal_title' => 'Hukuki bildirim gönder',

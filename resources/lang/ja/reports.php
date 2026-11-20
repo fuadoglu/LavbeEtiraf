@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'この投稿を報告する',
+    'report_action' => '報告する',
     'report_comment' => 'このコメントを報告する',
     'community_title' => 'ルール違反を報告する',
     'legal_title' => '法的な問題を通知する',

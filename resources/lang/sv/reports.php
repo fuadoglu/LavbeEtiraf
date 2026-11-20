@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Anmäl berättelsen',
+    'report_action' => 'Anmäl',
     'report_comment' => 'Anmäl svaret',
     'community_title' => 'Anmäl ett problem',
     'legal_title' => 'Skicka en juridisk anmälan',

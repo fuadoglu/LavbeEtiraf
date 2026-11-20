@@ -37,6 +37,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 30 | Etiraf detalına paylaş düyməsi əlavə et | LAV-053 |
 | 31 | Feed tab ikonları və etiraf əməliyyatlarını yan-yana düz | LAV-054 |
 | 32 | Qonaqdan izləmək üçün giriş çağırışını çıxar | LAV-055 |
+| 33 | Etiraf şikayəti və hüquqi bildirişi bir düymədə birləşdir | LAV-056 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -322,3 +323,9 @@ Yeni, Bu həftə və Məşhur etiraflar ikonlarını label-larının solunda yer
 **Asılılıq:** LAV-054. **Qəbul:** UI-15.
 
 Etiraf detail-ində qonağa göstərilən “daxil ol və e-poçtu təsdiqlə” izləmə keçidini və artıq istifadə olunmayan locale mətnlərini çıxar. Təsdiqlənmiş hesabla daxil olan oxucu izləmə düyməsini saxlayır. Qonaq üçün dəstək/say və paylaş düymələri iki bərabər sütunda; təsdiqlənmiş oxucu üçün bu ikisi və izləmə üç bərabər sütunda görünür. **Sübut:** qonaq və təsdiqlənmiş hesab üzrə render feature testləri, responsive CSS və docs yoxlaması.
+
+## LAV-056 · Etiraf şikayəti və hüquqi bildirişi bir düymədə birləşdir
+
+**Asılılıq:** LAV-031, LAV-033, LAV-054. **Qəbul:** UI-16.
+
+Etiraf mətninin altındakı icma şikayəti və hüquqi bildiriş linklərini çıxar. Əməliyyat sətrində bərabər hündürlüklü “Şikayət et” düyməsini dəstək/paylaşma (və təsdiqlənmiş hesabda izləmə) düymələrinin yanında göstər; seçim popup-u icma şikayəti və hüquqi bildiriş variantlarını versin və mövcud forma popup-larını açsın. İç-içə dialog açılarkən seçim popup-u əvvəl bağlanır. JavaScript olmayanda hər iki seçim birbaşa mövcud forma URL-lərindən işləyir. Bütün üç/dörd əməliyyat düyməsi eyni ölçülü responsiv sütunlarda qalır. **Sübut:** şikayət düyməsi və variant route-larının DOM yoxlamaları, dialog handoff JavaScript testi, CSS/build, 17 locale və CI.
