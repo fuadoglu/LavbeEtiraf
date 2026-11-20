@@ -37,3 +37,7 @@ UI-01/UI-04: axtarış yeganə ikon kimi başlıqda dil və rejim idarələrinin
 ## Ayrıca reklamsız rəy ekranı — LAV-027
 
 ADV-03/MOD-03: etiraf detalı rəy yazmaq üçün ayrıca `/{locale}/confession/{id}/comment` ekranına keçid verir. Ekran private/no-store, noindex, no-referrer və reklam səthindən kənardır. Mövcud POST endpoint-i və pending-only moderasiya dəyişmir. Bağlı rəylərdə forma gizlənir; gizli valideyn 404-dür. SeparateCommentFormTest bu davranışı yoxlayır.
+
+## Sessiya məxfiliyi — LAV-026
+
+Database sessiyalarında flash edilən uğursuz yazı mətni şifrəli saxlanır: config/session.php və nümunə mühitdə SESSION_ENCRYPT default true-dur. SessionPrivacyTest sintetik qaralamanın xam sessiya payload-unda olmadığını və açarla bərpa olunduğunu yoxlayır. Lokal ignored mühitdə də ayar true edilib. İstehsal açarı, backup retention və real sessiya TTL operator baxışı olaraq qalır.
