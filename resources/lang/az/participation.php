@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'support' => 'Bu hekayəyə dəstək ol',
-    'unsupport' => 'Dəstəyi geri götür',
+    'support' => 'Dəstək ol',
+    'unsupport' => 'Dəstəyi dayandır',
     'comments_heading' => 'Rəylər',
     'comments_empty' => 'Hələ rəy yoxdur.',
     'comments_closed' => 'Müəllif yeni rəyləri bağlayıb.',

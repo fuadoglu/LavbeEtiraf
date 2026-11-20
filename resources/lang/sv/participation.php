@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'support' => 'Visa ditt stöd',
-    'unsupport' => 'Ta tillbaka mitt stöd',
+    'support' => 'Stöd',
+    'unsupport' => 'Ta tillbaka stödet',
     'comments_heading' => 'Svar',
     'comments_empty' => 'Inga svar än.',
     'comments_closed' => 'Den som skrev berättelsen har stängt för nya svar.',

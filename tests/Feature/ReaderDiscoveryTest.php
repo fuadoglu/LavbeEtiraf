@@ -106,6 +106,13 @@ class ReaderDiscoveryTest extends TestCase
             $this->assertCount(3, $publicIds->unique());
             $this->assertCount(3, $categories->unique());
             $this->assertNotContains('family', $categories->all());
+            if ($attempt === 0) {
+                $actions = $xpath->query('//div[@class="confession-actions"]')->item(0);
+                $this->assertNotNull($actions);
+                $this->assertSame(3, $xpath->query('./form[contains(@class, "support-action")] | ./a[contains(@class, "confession-follow-link")] | ./div[@data-share-control]', $actions)->length);
+                $this->assertSame(1, $xpath->query('./form[contains(@class, "support-action")]/button/span[@class="support-count"]', $actions)->length);
+                $this->assertSame(1, $xpath->query('./a[contains(@class, "confession-follow-link")]/span[contains(@class, "icon")]', $actions)->length);
+            }
             $observedWorkTitles = $observedWorkTitles->merge($titles->filter(fn (string $title) => str_contains($title, 'work story')));
             $observedOrders->push($titles->implode('|'));
         }
@@ -124,7 +131,17 @@ class ReaderDiscoveryTest extends TestCase
             ->assertSee(__('lavbe.sort_weekly'))
             ->assertSee(__('lavbe.sort_popular'));
 
+        $document = new \DOMDocument;
+        @$document->loadHTML('<?xml encoding="UTF-8">'.$response->getContent());
+        $xpath = new \DOMXPath($document);
+        $tabs = $xpath->query('//a[contains(concat(" ", normalize-space(@class), " "), " sort-link ")]');
+        $this->assertSame(3, $tabs->length);
+        foreach ($tabs as $tab) {
+            $this->assertSame(1, $xpath->query('./span[1][contains(concat(" ", normalize-space(@class), " "), " icon ")]', $tab)->length);
+            $this->assertSame(1, $xpath->query('./span[2]', $tab)->length);
+        }
         $this->assertSame(3, substr_count($response->getContent(), 'class="sort-link'));
         $this->assertStringContainsString('grid-template-columns: repeat(3, minmax(0, 1fr))', file_get_contents(resource_path('css/app.css')));
+        $this->assertStringContainsString('flex-direction: row', file_get_contents(resource_path('css/app.css')));
     }
 }

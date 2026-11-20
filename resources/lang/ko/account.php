@@ -41,7 +41,7 @@ return [
     'preferences_save' => '설정 저장',
     'preferences_saved' => '설정을 저장했어요.',
     'follow' => '이야기 팔로우',
-    'login_to_follow' => '로그인하고 이메일 주소를 인증하면 이야기를 팔로우할 수 있어요.',
+    'login_to_follow' => '로그인 · 이메일 인증',
     'follow_saved' => '이 이야기를 팔로우했어요.',
     'follow_removed' => '이 이야기의 팔로우를 해제했어요.',
     'unfollow' => '팔로우 해제',

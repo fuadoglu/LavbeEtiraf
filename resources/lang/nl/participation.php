@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'support' => 'Steun betuigen',
+    'support' => 'Steun',
     'unsupport' => 'Steun intrekken',
     'comments_heading' => 'Reacties',
     'comments_empty' => 'Nog geen reacties.',

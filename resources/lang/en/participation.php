@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'support' => 'Support this story',
-    'unsupport' => 'Remove support',
+    'support' => 'Support',
+    'unsupport' => 'Stop supporting',
     'comments_heading' => 'Responses',
     'comments_empty' => 'No responses yet.',
     'comments_closed' => 'The author has closed new responses.',

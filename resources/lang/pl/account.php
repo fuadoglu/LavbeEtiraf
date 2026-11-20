@@ -41,7 +41,7 @@ return [
     'preferences_save' => 'Zapisz ustawienia',
     'preferences_saved' => 'Ustawienia zapisane.',
     'follow' => 'Obserwuj historię',
-    'login_to_follow' => 'Zaloguj się i potwierdź adres e-mail, aby obserwować historię.',
+    'login_to_follow' => 'Zaloguj się · potwierdź e-mail',
     'follow_saved' => 'Historia została dodana do obserwowanych.',
     'follow_removed' => 'Historia została usunięta z obserwowanych.',
     'unfollow' => 'Przestań obserwować',

@@ -41,7 +41,7 @@ return [
     'preferences_save' => 'Gem indstillinger',
     'preferences_saved' => 'Dine indstillinger er gemt.',
     'follow' => 'Følg fortællingen',
-    'login_to_follow' => 'Log ind og bekræft din e-mailadresse for at følge fortællingen.',
+    'login_to_follow' => 'Log ind · bekræft e-mail',
     'follow_saved' => 'Du følger nu fortællingen.',
     'follow_removed' => 'Du følger ikke længere fortællingen.',
     'unfollow' => 'Stop med at følge',

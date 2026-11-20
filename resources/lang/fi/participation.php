@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'support' => 'Osoita tukesi',
-    'unsupport' => 'Peru tukesi',
+    'support' => 'Tue',
+    'unsupport' => 'Peru tuki',
     'comments_heading' => 'Vastaukset',
     'comments_empty' => 'Ei vielä vastauksia.',
     'comments_closed' => 'Kirjoittaja on sulkenut vastaukset.',

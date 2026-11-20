@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'support' => 'Vis din støtte',
-    'unsupport' => 'Træk min støtte tilbage',
+    'support' => 'Støt',
+    'unsupport' => 'Fjern støtte',
     'comments_heading' => 'Svar',
     'comments_empty' => 'Ingen svar endnu.',
     'comments_closed' => 'Den, der skrev fortællingen, har lukket for nye svar.',

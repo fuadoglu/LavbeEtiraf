@@ -11,6 +11,7 @@ DESTINATION = ROOT / "public" / "icons" / "lucide"
 ICONS = (
     "baby",
     "arrow-left",
+    "bell",
     "book-open",
     "briefcase-business",
     "calendar-days",

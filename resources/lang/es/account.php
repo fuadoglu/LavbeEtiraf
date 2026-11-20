@@ -41,7 +41,7 @@ return [
     'preferences_save' => 'Guardar preferencias',
     'preferences_saved' => 'Tus preferencias se guardaron.',
     'follow' => 'Seguir la historia',
-    'login_to_follow' => 'Inicia sesión y verifica tu correo para seguir la historia.',
+    'login_to_follow' => 'Accede · verifica tu correo',
     'follow_saved' => 'Ahora sigues esta confesión.',
     'follow_removed' => 'Ya no sigues esta confesión.',
     'unfollow' => 'Dejar de seguir',

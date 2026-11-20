@@ -35,7 +35,7 @@
                             ? route('topic.show', ['locale' => $lavbeLocale['segment'], 'category' => $category, 'sort' => $key])
                             : route('home', ['locale' => $lavbeLocale['segment'], 'sort' => $key]);
                     @endphp
-                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif><x-icon :name="$sortIcons[$key]" />{{ __($sortLabels[$key]) }}</a>
+                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif><x-icon :name="$sortIcons[$key]" class="icon-small" /><span>{{ __($sortLabels[$key]) }}</span></a>
                 @endforeach
             </nav>
         </div>

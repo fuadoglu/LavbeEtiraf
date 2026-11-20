@@ -41,7 +41,7 @@ return [
     'preferences_save' => 'Seçimləri yadda saxla',
     'preferences_saved' => 'Seçimlərin yadda saxlandı.',
     'follow' => 'Yenilikləri izlə',
-    'login_to_follow' => 'Yenilikləri izləmək üçün daxil ol və e-poçtunu təsdiqlə.',
+    'login_to_follow' => 'Daxil ol · e-poçtu təsdiqlə',
     'follow_saved' => 'Bu etiraf izlədiklərinə əlavə edildi.',
     'follow_removed' => 'Bu etiraf izlədiklərindən çıxarıldı.',
     'unfollow' => 'İzləmədən çıx',

@@ -2,7 +2,7 @@
 
 return [
     'support' => 'Destek ol',
-    'unsupport' => 'Desteğimi geri al',
+    'unsupport' => 'Desteği geri al',
     'comments_heading' => 'Yorumlar',
     'comments_empty' => 'Henüz yorum yok.',
     'comments_closed' => 'Yazar yeni yorumlara kapattı.',
