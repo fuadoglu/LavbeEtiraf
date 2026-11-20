@@ -111,6 +111,21 @@ class FeedSessionTest extends TestCase
         $this->assertGreaterThan(0, $state['upper_sequence']);
     }
 
+    public function test_snapshot_cache_is_bounded_while_numbered_html_reaches_the_full_archive(): void
+    {
+        config(['feed.snapshot_max_members' => 3, 'feed.page_size' => 2]);
+        \App\Models\Confession::factory()->count(5)->create(['locale' => 'az']);
+        $first = $this->get('/az')->assertOk();
+        $cursor = $first->viewData('feedCursor');
+        $state = app(FeedCursor::class)->read($cursor, 'az', null, 'new');
+        $this->assertCount(3, Cache::get('lavbe:feed:'.$state['snapshot']));
+        $this->assertSame(5, $first->viewData('confessions')->total());
+        $next = $this->fragment($cursor);
+        $this->assertSame(1, substr_count($next['html'], 'data-confession-id='));
+        $this->assertFalse($next['has_more']);
+        $this->get('/az?page=3')->assertOk();
+    }
+
     public function test_database_snapshot_cleanup_keeps_active_entries(): void
     {
         config(['cache.default' => 'database']);

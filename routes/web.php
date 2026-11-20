@@ -67,7 +67,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         if (LengthAwarePaginator::resolveCurrentPage() === 1) {
             $cursors = app(FeedCursor::class);
             $initial = $cursors->page($cursors->issue(app()->getLocale(), $category, $sort, 0), app()->getLocale(), $category, $sort, $pageSize);
-            $confessions = new LengthAwarePaginator($initial['items'], $initial['total'], $pageSize, 1, ['path' => $request->url()]);
+            $confessions = new LengthAwarePaginator($initial['items'], $feed->build(app()->getLocale(), $category, $sort)->count(), $pageSize, 1, ['path' => $request->url()]);
             $feedCursor = $initial['next_cursor'];
         } else {
             $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate($pageSize);
@@ -176,7 +176,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         if (LengthAwarePaginator::resolveCurrentPage() === 1) {
             $cursors = app(FeedCursor::class);
             $initial = $cursors->page($cursors->issue(app()->getLocale(), $category, $sort, 0), app()->getLocale(), $category, $sort, $pageSize);
-            $confessions = new LengthAwarePaginator($initial['items'], $initial['total'], $pageSize, 1, ['path' => $request->url()]);
+            $confessions = new LengthAwarePaginator($initial['items'], $feed->build(app()->getLocale(), $category, $sort)->count(), $pageSize, 1, ['path' => $request->url()]);
             $feedCursor = $initial['next_cursor'];
         } else {
             $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate($pageSize);
