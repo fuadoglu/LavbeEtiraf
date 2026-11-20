@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Permitir nuevas respuestas',
     'reviews_close' => 'Cerrar las respuestas',
     'support_count' => 'Muestras de apoyo: :count',
+    'unique_reads' => 'Lecturas únicas: :count',
     'remember_device' => 'Recordar este dispositivo',
     'manage_comment' => 'Gestionar mi respuesta',
     'comment_state' => 'Estado: :state',

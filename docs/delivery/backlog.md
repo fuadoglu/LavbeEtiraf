@@ -24,6 +24,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 17 | 17 dildə yeni mövzu taksonomiyası | LAV-040 |
 | 18 | Təqdim olunan Lavbe logosu və lələk favicon-u | LAV-041 |
 | 19 | 12 kateqoriya üçün unikal və mövzuya uyğun ikonlar | LAV-042 |
+| 20 | Etiraf oxunuşlarını brauzer profilinə görə unikallaşdır və kateqoriya favicon-u göstər | LAV-043 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -231,3 +232,9 @@ PR #85-də əlavə olunan Lucide/Caveat wordmark [LAV-041](#lav-041--təqdim-olu
 **Asılılıq:** LAV-040. **Qəbul:** CAT-01.
 
 12 sabit kateqoriya açarına mövzu mənasına uyğun, bir-birindən fərqli Lucide SVG seç. İkonları lokal açıq mənbə paketindən build zamanı sinxronlaşdır; naviqasiya çiplərində və etiraf kartlarında lokallaşdırılmış adla yanaşı göstər. Dekorativ ikonlar link adını əvəz etmir. **Sübut:** kataloqda ikon unikallığı, build və sənəd yoxlaması.
+
+## LAV-043 · Unikal oxunuş və kateqoriya favicon-u
+
+**Asılılıq:** LAV-006, LAV-042. **Qəbul:** READ-01, FAV-01.
+
+Yalnız açıq/təsdiqlənmiş etiraf detail GET sorğusunda birinci tərəf brauzer profili cookie-si ilə oxunuş say. Xam tokeni yox, confession üzrə ayrıca HMAC heşi saxla; DB unikal məhdudiyyəti paralel sorğularda da dublikatı dayandırsın. IP, user-agent, referer və etiraf mətni ölçmə cədvəlinə daxil olmasın. Oxunuş sayını lent kartlarında və detail-də 17 dildə göstər. Kateqoriya lentində və həmin kateqoriyadakı etirafda kateqoriyanın öz yerli SVG-sini favicon et; ümumi səhifələrdə lələk qalsın. Cookie silinməsi, 365 gündən çox fəaliyyətsizlik və başqa profilin yeni oxucu kimi sayılması məhdudiyyətini, həmçinin kuki bildirişinin buraxılışdan əvvəl hüquqi baxışa ehtiyacını sənədləşdir. Etiraf daimi silinəndə oxucu heşləri və sayğac da silinir. **Sübut:** unikal/müxtəlif cookie feature sınaqları, count görünməsi, migration, favicon head, build, sənəd validatoru və CI.

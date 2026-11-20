@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Yeni rəylərə icazə ver',
     'reviews_close' => 'Yeni rəyləri bağla',
     'support_count' => 'Dəstək sayı: :count',
+    'unique_reads' => 'Unikal oxunuş: :count',
     'remember_device' => 'Bu cihazı yadda saxla',
     'manage_comment' => 'Rəyimi idarə et',
     'comment_state' => 'Status: :state',

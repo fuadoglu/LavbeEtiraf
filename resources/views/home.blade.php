@@ -6,6 +6,9 @@
 @endphp
 
 @section('title', ($topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title')).' · Lavbe')
+@if($topic)
+    @section('favicon', asset('icons/lucide/'.$topic['icon'].'.svg'))
+@endif
 
 @push('head')
     <link rel="canonical" href="{{ rtrim((string) config('app.url'), '/').$canonical }}">

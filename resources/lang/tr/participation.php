@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Yeni yorumlara izin ver',
     'reviews_close' => 'Yeni yorumlara kapat',
     'support_count' => 'Destek sayısı: :count',
+    'unique_reads' => 'Tekil okuma: :count',
     'remember_device' => 'Bu cihazı hatırla',
     'manage_comment' => 'Yorumumu yönet',
     'comment_state' => 'Durum: :state',

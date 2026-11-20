@@ -25,6 +25,7 @@ return [
     'reviews_open' => '새 댓글 허용',
     'reviews_close' => '새 댓글 닫기',
     'support_count' => '응원 :count개',
+    'unique_reads' => '고유 조회수: :count',
     'remember_device' => '이 기기 기억하기',
     'manage_comment' => '내 댓글 관리',
     'comment_state' => '상태: :state',

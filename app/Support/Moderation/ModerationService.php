@@ -146,6 +146,7 @@ class ModerationService
                         'public_revision_id' => null,
                         'published_at' => null,
                         'public_updated_at' => null,
+                        'unique_read_count' => 0,
                         'submission_key_hash' => null,
                         'payload_fingerprint' => null,
                         'author_alias' => null,
@@ -153,6 +154,7 @@ class ModerationService
                         'republish_requested_at' => null,
                     ]);
                     DB::table('confession_ownerships')->where('confession_id', $confession->id)->delete();
+                    DB::table('confession_readers')->where('confession_id', $confession->id)->delete();
                     DB::table('confession_revisions')->where('confession_id', $confession->id)->delete();
                     $eventType = 'terminal_delete';
                 }

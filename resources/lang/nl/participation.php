@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Reacties toestaan',
     'reviews_close' => 'Reacties sluiten',
     'support_count' => 'Steunbetuigingen: :count',
+    'unique_reads' => 'Unieke weergaven: :count',
     'remember_device' => 'Dit apparaat onthouden',
     'manage_comment' => 'Mijn reactie beheren',
     'comment_state' => 'Status: :state',

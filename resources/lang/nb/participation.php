@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Tillat nye svar',
     'reviews_close' => 'Steng for nye svar',
     'support_count' => 'Støttemarkeringer: :count',
+    'unique_reads' => 'Unike visninger: :count',
     'remember_device' => 'Husk denne enheten',
     'manage_comment' => 'Administrer svaret mitt',
     'comment_state' => 'Status: :state',

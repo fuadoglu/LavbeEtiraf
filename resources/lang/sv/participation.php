@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Tillåt nya svar',
     'reviews_close' => 'Stäng för nya svar',
     'support_count' => 'Antal stödmarkeringar: :count',
+    'unique_reads' => 'Unika visningar: :count',
     'remember_device' => 'Kom ihåg den här enheten',
     'manage_comment' => 'Hantera mitt svar',
     'comment_state' => 'Status: :state',

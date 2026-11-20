@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f7f3eb">
-    <link rel="icon" type="image/svg+xml" href="{{ asset('icons/lavbe-feather.svg') }}" sizes="any">
-    <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
+    @hasSection('favicon')
+        <link rel="icon" type="image/svg+xml" href="@yield('favicon')" sizes="any">
+    @else
+        <link rel="icon" type="image/svg+xml" href="{{ asset('icons/lavbe-feather.svg') }}" sizes="any">
+        <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
+    @endif
     <title>@yield('title', 'Lavbe · '.__('lavbe.feed_title'))</title>
     @stack('head')
     <script>

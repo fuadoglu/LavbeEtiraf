@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Consenti nuove risposte',
     'reviews_close' => 'Chiudi le risposte',
     'support_count' => 'Segni di sostegno: :count',
+    'unique_reads' => 'Letture uniche: :count',
     'remember_device' => 'Ricorda questo dispositivo',
     'manage_comment' => 'Gestisci la mia risposta',
     'comment_state' => 'Stato: :state',
