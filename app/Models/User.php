@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Support\Lavbe\LocaleRegistry;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +17,7 @@ use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'email', 'password', 'preferred_locale', 'in_app_notifications', 'email_notifications'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements HasLocalePreference, MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -33,6 +35,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'in_app_notifications' => 'boolean',
             'email_notifications' => 'boolean',
         ];
+    }
+
+    public function preferredLocale(): string
+    {
+        $registry = app(LocaleRegistry::class);
+
+        return ($registry->bySegment((string) $this->preferred_locale) ?? $registry->fallback())['code'];
     }
 
     public function moderatorGrants(): HasMany

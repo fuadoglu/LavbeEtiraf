@@ -1,3 +1,26 @@
 <?php
 
-return ['feed_title' => 'Bekendelsernes dal', 'feed_subtitle' => 'Læs, lyt, og husk, at du ikke står alene.', 'sort_label' => 'Rækkefølge', 'sort_new' => 'Nyt', 'sort_weekly' => 'Denne uge', 'sort_updates' => 'Nye fortsættelser', 'categories' => 'Bekendelsens emne', 'all_categories' => 'Alle', 'category_empty' => 'Der er endnu ingen bekendelser om dette emne.', 'feed_empty' => 'Der er endnu ikke udgivet bekendelser', 'feed_empty_description' => 'Godkendte historier vises her på originalsproget. Strømmen blander ikke sprog.', 'pagination' => 'Sidenavigation', 'previous' => 'Forrige', 'next' => 'Mere', 'search_title' => 'Søg', 'search_label' => 'Søgeord', 'search_submit' => 'Søg', 'search_empty' => 'Ingen passende bekendelser fundet', 'retry' => 'Prøv igen', 'refresh' => 'Opdater strømmen', 'untitled_confession' => 'Tilståelse uden titel', 'breadcrumb' => 'Brødkrummesti'];
+return [
+    'feed_title' => 'Bekendelsernes dal',
+    'feed_subtitle' => 'Læs, hvad andre har delt. Har du lyst, kan du også fortælle din egen historie.',
+    'sort_label' => 'Rækkefølge',
+    'sort_new' => 'Nyt',
+    'sort_weekly' => 'Denne uge',
+    'sort_updates' => 'Fortællinger med en fortsættelse',
+    'categories' => 'Bekendelsens emne',
+    'all_categories' => 'Alle',
+    'category_empty' => 'Der er endnu ingen bekendelser om dette emne.',
+    'feed_empty' => 'Der er endnu ikke udgivet bekendelser',
+    'feed_empty_description' => 'Godkendte historier vises her på originalsproget. Strømmen blander ikke sprog.',
+    'pagination' => 'Sidenavigation',
+    'previous' => 'Forrige',
+    'next' => 'Mere',
+    'search_title' => 'Søg',
+    'search_label' => 'Søgeord',
+    'search_submit' => 'Søg',
+    'search_empty' => 'Ingen passende bekendelser fundet',
+    'retry' => 'Prøv igen',
+    'refresh' => 'Opdater strømmen',
+    'untitled_confession' => 'Tilståelse uden titel',
+    'breadcrumb' => 'Brødkrummesti',
+];

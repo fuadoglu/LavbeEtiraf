@@ -1,3 +1,26 @@
 <?php
 
-return ['feed_title' => 'Vallei van bekentenissen', 'feed_subtitle' => 'Lees, luister en weet dat je er niet alleen voor staat.', 'sort_label' => 'Volgorde', 'sort_new' => 'Nieuw', 'sort_weekly' => 'Deze week', 'sort_updates' => 'Nieuwe vervolgberichten', 'categories' => 'Onderwerp van de bekentenis', 'all_categories' => 'Alles', 'category_empty' => 'Er zijn nog geen bekentenissen over dit onderwerp.', 'feed_empty' => 'Nog geen bekentenissen gepubliceerd', 'feed_empty_description' => 'Goedgekeurde verhalen verschijnen hier in hun oorspronkelijke taal. Deze tijdlijn mengt geen talen.', 'pagination' => 'Paginering', 'previous' => 'Vorige', 'next' => 'Meer', 'search_title' => 'Zoeken', 'search_label' => 'Zoekterm', 'search_submit' => 'Zoeken', 'search_empty' => 'Geen passende bekentenissen gevonden', 'retry' => 'Opnieuw proberen', 'refresh' => 'Feed vernieuwen', 'untitled_confession' => 'Bekentenis zonder titel', 'breadcrumb' => 'Kruimelpadnavigatie'];
+return [
+    'feed_title' => 'Vallei van bekentenissen',
+    'feed_subtitle' => 'Lees de verhalen van anderen. Als je wilt, kun je ook je eigen verhaal kwijt.',
+    'sort_label' => 'Volgorde',
+    'sort_new' => 'Nieuw',
+    'sort_weekly' => 'Deze week',
+    'sort_updates' => 'Verhalen met een vervolg',
+    'categories' => 'Onderwerp van de bekentenis',
+    'all_categories' => 'Alles',
+    'category_empty' => 'Er zijn nog geen bekentenissen over dit onderwerp.',
+    'feed_empty' => 'Nog geen bekentenissen gepubliceerd',
+    'feed_empty_description' => 'Goedgekeurde verhalen verschijnen hier in hun oorspronkelijke taal. Deze tijdlijn mengt geen talen.',
+    'pagination' => 'Paginering',
+    'previous' => 'Vorige',
+    'next' => 'Meer',
+    'search_title' => 'Zoeken',
+    'search_label' => 'Zoekterm',
+    'search_submit' => 'Zoeken',
+    'search_empty' => 'Geen passende bekentenissen gevonden',
+    'retry' => 'Opnieuw proberen',
+    'refresh' => 'Feed vernieuwen',
+    'untitled_confession' => 'Bekentenis zonder titel',
+    'breadcrumb' => 'Kruimelpadnavigatie',
+];

@@ -7,6 +7,6 @@
     <label for="{{ $fieldId }}">{{ $label }}</label>
     {{ $slot }}
     @if($hint || $error)
-        <p class="field-description" id="{{ $fieldId }}-description">{{ $error ?? $hint }}</p>
+        <p class="field-description" id="{{ $fieldId }}-description">{{ $error ?: $hint }}</p>
     @endif
 </div>

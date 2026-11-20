@@ -47,7 +47,7 @@ class GuestConfessionController extends Controller
             'title' => ['nullable', 'string', 'max:'.config('lavbe.limits.confession_title')],
             'body' => ['required', 'string', function (string $attribute, mixed $value, \Closure $fail): void {
                 if (mb_strlen(trim((string) $value), 'UTF-8') > (int) config('lavbe.limits.confession_body')) {
-                    $fail(__('guest.validation_body_max'));
+                    $fail(__('guest.validation_body_max', ['limit' => config('lavbe.limits.confession_body')]));
                 }
             }],
             'category_key' => ['nullable', 'string', Rule::in($categoryKeys)],
