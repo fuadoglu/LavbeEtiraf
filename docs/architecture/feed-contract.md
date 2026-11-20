@@ -29,7 +29,7 @@ Hər iki lent eyni sorğuda `locale`, kateqoriya və cari açıq vəziyyəti yox
 
 ## Fragment cavabı və xəta
 
-Cursor məzmun və ya istifadəçi məlumatı daşımır. Locale, order, kateqoriya açarı, snapshot/sərhəd, son mövqe, versiya və bitmə vaxtı imzalanır. Cursor başqa filtrə köçürüləndə, imza pozulanda və ya format səhvdirsə `400`. Bitmiş və ya itmiş snapshot `410` qaytarır, UI köhnə kartları saxlayıb **Lenti yenilə** göstərir. Keçici şəbəkə xətasında **Yenidən cəhd et** eyni cursor-la işləyir. Cavab yalnız əsas lentin cari sorğu ID-si ilə uyğun gələndə əlavə olunur. Təkrarlanan kart ID-si müştəridə də çıxarılır.
+Cursor məzmun və ya istifadəçi məlumatı daşımır. Locale, order, kateqoriya açarı, snapshot/sərhəd, son mövqe, versiya və bitmə vaxtı imzalanır. Cursor başqa filtrə köçürüləndə, imza pozulanda və ya format səhvdirsə `400`. Bitmiş və ya itmiş snapshot `410` qaytarır, UI köhnə kartları saxlayıb **Lenti yenilə** göstərir. Lenti yenilə əməliyyatı cari səhifəni yenidən açır və URL-dəki dil/filtr/sıralama seçimini saxlayır. Keçici şəbəkə xətasında **Yenidən cəhd et** eyni cursor-la işləyir. Cavab yalnız əsas lentin cari sorğu ID-si ilə uyğun gələndə əlavə olunur. Təkrarlanan kart ID-si müştəridə də çıxarılır.
 
 Fragment cavabı `{ html, next_url, next_cursor, has_more }` formasındadır. Son səhifədə hər iki next dəyəri null olur. Fragment endpoint `X-Robots-Tag: noindex` qaytarır, sitemap və canonical arxivə daxil olmur. Canonical HTML səhifələri öz URL-sinə işarə edir. `page=1` əsas URL-ə, mövcud olmayan səhifə `404`-ə gedir. Məna daşımayan parametr və cursor URL-ləri SEO yolu kimi təqdim olunmur.
 
@@ -38,3 +38,5 @@ Sıralama uyğunluq, son yayım və ID ilə sabitləşir. UTF-8 tokenləri local
 İstinad: [Google Search Central, səhifələmə](https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading)
 
 [Sınaqlar: UI-02, SEO-01 və SEO-04](../delivery/acceptance.md)
+
+HTML səhifələməsində NormalizeFeedPage middleware-i page parametrini müsbət tam ədəd kimi yoxlayır. page=1 digər query seçimlərini saxlayaraq əsas URL-ə 301 qaytarır. Paginatorun son səhifəsindən yuxarı səhifələr 404 alır. Sabit keyset/snapshot və həftəlik xal kontraktının tətbiqi LAV-019 (#44) üzrə açıqdır.

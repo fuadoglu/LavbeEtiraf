@@ -42,6 +42,26 @@ class AccountWorkflowTest extends TestCase
         Notification::assertSentToTimes($user, FollowedConfessionActivity::class, 2);
     }
 
+    public function test_account_validation_errors_are_linked_to_their_fields(): void
+    {
+        config(['session.driver' => 'array']);
+        $this->from('/en/account/register')->post('/en/account/register', [
+            'name' => '',
+            'email' => 'invalid',
+            'password' => 'short',
+            'password_confirmation' => 'different',
+        ])->assertSessionHasErrors(['name', 'email', 'password']);
+
+        $this->withViewErrors(['email' => 'A valid email address is required.'])
+            ->view('account.register')
+            ->assertSee('id="email"', false)
+            ->assertSee('for="email"', false)
+            ->assertSee('aria-describedby="email-description"', false)
+            ->assertSee('id="email-description"', false)
+            ->assertSee('aria-invalid="true"', false)
+            ->assertSee('A valid email address is required.');
+    }
+
     public function test_registration_requires_email_verification_and_private_account_is_no_store(): void
     {
         Notification::fake();

@@ -41,7 +41,7 @@ class ReportController extends Controller
     public function store(Request $request, string $locale, string $channel, string $type, string $targetPublicId, ReportService $reports): Response
     {
         abort_unless(in_array($channel, ['community', 'legal'], true), 404);
-        if ($limited = $this->rateLimited($request, $channel === 'legal' ? 'legal-notice' : 'report', 5)) {
+        if ($limited = $this->rateLimited($request, $channel === 'legal' ? 'legal-notice' : 'report')) {
             return $limited;
         }
         $reasonRule = $channel === 'legal'
@@ -49,8 +49,8 @@ class ReportController extends Controller
             : ['required', 'in:spam,privacy,harassment,threat,explicit,other'];
         $data = Validator::make($request->all(), [
             'reason_code' => $reasonRule,
-            'details' => ['nullable', 'string', 'max:1200'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'details' => ['nullable', 'string', 'max:'.config('lavbe.limits.report_details')],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         abort_unless(trim((string) ($data['details'] ?? '')) !== '' || $channel !== 'legal', 422);
 
@@ -84,16 +84,17 @@ class ReportController extends Controller
         return [$comment->confession, $comment];
     }
 
-    private function rateLimited(Request $request, string $action, int $maximum): ?Response
+    private function rateLimited(Request $request, string $action): ?Response
     {
+        $limit = config('lavbe.rate_limits.actions.'.($action === 'legal-notice' ? 'legal_notice' : 'report'));
         $key = 'moderation-report:'.hash_hmac('sha256', $action.'|'.(string) $request->ip(), (string) config('app.key'));
-        if (RateLimiter::tooManyAttempts($key, $maximum)) {
+        if (RateLimiter::tooManyAttempts($key, $limit['attempts'])) {
             return response()->view('confessions.limited', [], 429)
                 ->header('Retry-After', (string) RateLimiter::availableIn($key))
                 ->header('Cache-Control', 'private, no-store, max-age=0')
                 ->header('X-Robots-Tag', 'noindex, nofollow');
         }
-        RateLimiter::hit($key, 900);
+        RateLimiter::hit($key, $limit['decay_seconds']);
 
         return null;
     }

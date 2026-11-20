@@ -22,7 +22,7 @@ class AppealService
         $meta = $this->targetMeta($locale, $type, $publicId);
         $ownerHash = $this->assertOwnerAndHash($request, $type, $meta['target']);
         $idempotencyHash = $this->keyedHash('appeal-submit|'.$ownerHash.'|'.$idempotencyKey);
-        $details = mb_substr(trim(strip_tags($details)), 0, 1200, 'UTF-8');
+        $details = mb_substr(trim(strip_tags($details)), 0, (int) config('lavbe.limits.appeal_details'), 'UTF-8');
         abort_unless($details !== '', 422);
         $fingerprint = $this->keyedHash(json_encode([
             $type, $meta['target']->id, $meta['confession']->id, $details,

@@ -23,8 +23,10 @@ class BootstrapModeratorAdmin extends Command
         }
 
         $reason = trim((string) $this->option('reason'));
-        if (mb_strlen($reason, 'UTF-8') < 5 || mb_strlen($reason, 'UTF-8') > 500) {
-            $this->error('Provide a reason between 5 and 500 characters.');
+        $minimumReasonLength = (int) config('lavbe.limits.bootstrap_reason_min');
+        $maximumReasonLength = (int) config('lavbe.limits.bootstrap_reason');
+        if (mb_strlen($reason, 'UTF-8') < $minimumReasonLength || mb_strlen($reason, 'UTF-8') > $maximumReasonLength) {
+            $this->error("Provide a reason between {$minimumReasonLength} and {$maximumReasonLength} characters.");
 
             return self::FAILURE;
         }
@@ -55,7 +57,7 @@ class BootstrapModeratorAdmin extends Command
             'target_key' => (string) $user->id,
             'decision' => 'bootstrap_admin',
             'reason_code' => 'authorized_initial_provisioning',
-            'reason' => mb_substr(strip_tags($reason), 0, 500, 'UTF-8'),
+            'reason' => mb_substr(strip_tags($reason), 0, (int) config('lavbe.limits.bootstrap_reason'), 'UTF-8'),
             'request_id' => (string) Str::uuid(),
             'created_at' => now(),
         ]);

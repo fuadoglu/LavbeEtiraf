@@ -31,8 +31,8 @@ class AppealController extends Controller
     public function store(Request $request, string $locale, string $type, string $targetPublicId, AppealService $appeals): Response
     {
         $data = Validator::make($request->all(), [
-            'details' => ['required', 'string', 'min:10', 'max:1200'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'details' => ['required', 'string', 'min:'.config('lavbe.limits.appeal_details_min'), 'max:'.config('lavbe.limits.appeal_details')],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $appeals->submit($request, $locale, $type, $targetPublicId, $data['details'], $data['idempotency_key']);
 

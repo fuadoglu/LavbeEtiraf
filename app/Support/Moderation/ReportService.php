@@ -85,7 +85,7 @@ class ReportService
                     'idempotency_hash' => $idempotencyHash,
                     'payload_fingerprint' => $fingerprint,
                     'reason_code' => $reasonCode,
-                    'details' => $details === null ? null : mb_substr(trim(strip_tags($details)), 0, 1200, 'UTF-8'),
+                    'details' => $details === null ? null : mb_substr(trim(strip_tags($details)), 0, (int) config('lavbe.limits.report_details'), 'UTF-8'),
                     'created_at' => now(),
                 ]);
 

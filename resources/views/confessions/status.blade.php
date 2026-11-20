@@ -31,7 +31,7 @@
                 @csrf
                 <input type="hidden" name="expected_lock_version" value="{{ $confession->lock_version }}">
                 <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                <x-form-field :label="__('guest.write_confirm_withdraw')" name="confirm_withdraw"><input type="checkbox" id="confirm_withdraw" name="confirm_withdraw" value="1" required></x-form-field>
+                <x-form-field :label="__('guest.write_confirm_withdraw')" name="confirm_withdraw"><input @if($errors->has('confirm_withdraw')) aria-describedby="confirm_withdraw-description" @endif aria-invalid="{{ $errors->has('confirm_withdraw') ? 'true' : 'false' }}" type="checkbox" id="confirm_withdraw" name="confirm_withdraw" value="1" required></x-form-field>
                 <button class="button button-secondary" type="submit">{{ __('guest.write_withdraw') }}</button>
             </form>
         @elseif($confession->status === 'withdrawn')
@@ -41,7 +41,7 @@
                     @csrf
                     <input type="hidden" name="expected_lock_version" value="{{ $confession->lock_version }}">
                     <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                    <x-form-field :label="__('guest.write_confirm_republish')" name="confirm_republish"><input type="checkbox" id="confirm_republish" name="confirm_republish" value="1" required></x-form-field>
+                    <x-form-field :label="__('guest.write_confirm_republish')" name="confirm_republish"><input @if($errors->has('confirm_republish')) aria-describedby="confirm_republish-description" @endif aria-invalid="{{ $errors->has('confirm_republish') ? 'true' : 'false' }}" type="checkbox" id="confirm_republish" name="confirm_republish" value="1" required></x-form-field>
                     <button class="button button-primary" type="submit">{{ __('guest.write_republish') }}</button>
                 </form>
             @endif
