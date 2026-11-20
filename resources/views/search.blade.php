@@ -12,7 +12,7 @@
         <form method="post" action="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}" class="form-field" data-search-form>
             @csrf
             <label for="feed-search">{{ __('lavbe.search_label') }}</label>
-            <input id="feed-search" type="search" name="q" value="" maxlength="{{ config('lavbe.limits.search_query') }}" autocomplete="off">
+            <input id="feed-search" type="search" name="q" value="{{ $query }}" maxlength="{{ config('lavbe.limits.search_query') }}" autocomplete="off">
             <button class="button" type="submit">{{ __('lavbe.search_submit') }}</button>
         </form>
         @if($results)
@@ -21,18 +21,7 @@
             @else
                 <div class="confession-feed feed-list"><x-feed-items :confessions="$results" /></div>
                 @if($results->hasPages())
-                    <nav aria-label="{{ __('lavbe.pagination') }}" class="sort-panel">
-                        @foreach(['previous' => $results->currentPage() - 1, 'next' => $results->currentPage() + 1] as $direction => $page)
-                            @if($page >= 1 && $page <= $results->lastPage())
-                                <form method="post" action="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}">
-                                    @csrf
-                                    <input type="hidden" name="q" value="{{ $query }}">
-                                    <input type="hidden" name="page" value="{{ $page }}">
-                                    <button class="button" type="submit">{{ __('lavbe.'.$direction) }}</button>
-                                </form>
-                            @endif
-                        @endforeach
-                    </nav>
+                    <x-pagination :paginator="$results" method="post" :action="route('search', ['locale' => $lavbeLocale['segment']])" :fields="['q' => $query]" />
                 @endif
             @endif
         @endif

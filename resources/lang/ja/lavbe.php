@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => '承認された物語は元の言語で表示されます。このフィードでは言語を混在させません。',
     'pagination' => 'ページ移動',
     'previous' => '前へ',
-    'next' => 'もっと見る',
+    'next' => '次へ',
     'search_title' => '検索',
     'search_label' => 'キーワード',
     'search_submit' => '検索',

@@ -61,10 +61,7 @@
                             @include('participation.comment-card', ['comment' => $reply, 'allowReply' => false, 'nested' => true, 'confession' => $confession, 'localeRecord' => $localeRecord, 'ownerCanParticipate' => $ownerCanParticipate, 'commentsOpen' => $confession->reviews_open, 'ownedCommentIds' => $ownedCommentIds, 'reactedCommentIds' => $reactedCommentIds])
                         @endforeach
                         @if($threadReplies->hasPages())
-                            <nav class="comment-pagination" aria-label="{{ __('participation.comment_replies_count', ['count' => $comment->public_replies_count]) }}">
-                                @if($threadReplies->previousPageUrl())<a href="{{ $threadReplies->previousPageUrl() }}#comment-{{ $comment->public_id }}">{{ __('lavbe.previous') }}</a>@endif
-                                @if($threadReplies->nextPageUrl())<a href="{{ $threadReplies->nextPageUrl() }}#comment-{{ $comment->public_id }}">{{ __('lavbe.next') }}</a>@endif
-                            </nav>
+                            <x-pagination :paginator="$threadReplies" :fragment="'comment-'.$comment->public_id" />
                         @endif
                     </div>
                 @else
@@ -79,10 +76,7 @@
                 <p class="muted">{{ __('participation.comments_empty') }}</p>
             @endforelse
             @if($comments->hasPages())
-                <nav class="sort-panel" aria-label="{{ __('lavbe.pagination') }}">
-                    @if($comments->previousPageUrl())<a href="{{ $comments->previousPageUrl() }}#comments-heading">{{ __('lavbe.previous') }}</a>@endif
-                    @if($comments->nextPageUrl())<a rel="next" href="{{ $comments->nextPageUrl() }}#comments-heading">{{ __('lavbe.next') }}</a>@endif
-                </nav>
+                <x-pagination :paginator="$comments" :fragment="'comments-heading'" />
             @endif
 
             @if($confession->reviews_open)
@@ -117,6 +111,7 @@
                         <p class="muted"><time datetime="{{ $continuation->published_at->toAtomString() }}">{{ $continuation->published_at->format('Y-m-d') }}</time></p>
                     </article>
                 @endforeach
+                <x-pagination :paginator="$continuations" :fragment="'continuation-heading'" />
             </section>
         @endif
 

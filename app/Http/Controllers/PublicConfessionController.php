@@ -53,21 +53,23 @@ class PublicConfessionController extends Controller
             ? ConfessionComment::query()->publicApproved()->where('confession_id', $confession->id)
                 ->whereNull('parent_comment_id')->where('public_id', $threadPublicId)->first()
             : null;
+        abort_if($threadReplies && $threadReplies->currentPage() > $threadReplies->lastPage(), 404);
         $threadReplies = $threadRoot
             ? ConfessionComment::query()->publicApproved()->where('parent_comment_id', $threadRoot->id)->with([
                 'publicRevision', 'response.publicRevision', 'ownership',
             ])->orderBy('published_at')->orderBy('id')
-                ->simplePaginate((int) config('lavbe.pagination.comment_replies'), ['*'], 'reply_page')
+                ->paginate((int) config('lavbe.pagination.comment_replies'), ['*'], 'reply_page')
                 ->appends($request->except('reply_page'))
             : null;
         $comments = ConfessionComment::query()->publicApproved()->with([
             'publicRevision', 'response.publicRevision', 'ownership',
             'replies' => fn ($query) => $query->publicApproved()->with(['publicRevision', 'response.publicRevision', 'ownership'])
-                ->orderBy('published_at')->orderBy('id')->limit(3),
+                ->orderBy('published_at')->orderBy('id')->limit((int) config('lavbe.pagination.comment_reply_preview')),
         ])->where('confession_id', $confession->id)->whereNull('parent_comment_id')
             ->orderBy('published_at')->orderBy('id')
-            ->simplePaginate((int) config('lavbe.pagination.comments'), ['*'], 'comments_page')
+            ->paginate((int) config('lavbe.pagination.comments'), ['*'], 'comments_page')
             ->appends($request->except('reply_page'));
+        abort_if($comments->currentPage() > $comments->lastPage(), 404);
         $replyCounts = DB::table('confession_comments as replies')
             ->join('confession_comment_revisions as revisions', function ($join): void {
                 $join->on('revisions.id', '=', 'replies.public_revision_id')
@@ -106,7 +108,10 @@ class PublicConfessionController extends Controller
             ->whereNotNull('published_at')
             ->whereHas('publicRevision', fn ($query) => $query->where('status', 'approved')
                 ->whereColumn('confession_continuation_revisions.continuation_id', 'confession_continuations.id'))
-            ->orderBy('published_at')->orderBy('id')->get();
+            ->orderBy('published_at')->orderBy('id')
+            ->paginate((int) config('lavbe.pagination.continuations'), ['*'], 'continuations_page')
+            ->appends($request->except('continuations_page'));
+        abort_if($continuations->currentPage() > $continuations->lastPage(), 404);
         $ownerCanParticipate = app(GuestConfessionController::class)->canManage($request, $confession);
         $hasSupported = $participation->hasSupport($request, $confession);
 

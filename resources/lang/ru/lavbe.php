@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Одобренные истории появятся здесь на исходном языке. Лента не смешивает языки.',
     'pagination' => 'Пагинация',
     'previous' => 'Назад',
-    'next' => 'Ещё',
+    'next' => 'Далее',
     'search_title' => 'Поиск',
     'search_label' => 'Ключевое слово',
     'search_submit' => 'Найти',

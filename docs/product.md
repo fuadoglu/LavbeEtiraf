@@ -18,7 +18,7 @@ Lavbe anonim, mətn əsaslı etiraf və dəstək platformasıdır. Açılışda 
 
 | Ekran | Əsas əməliyyat və nəticə |
 |---|---|
-| Dil lenti və kateqoriya | Oxu, mövzu dəyiş, daha çox yüklə, seçilmiş dilin içində kəşf et |
+| Dil lenti və kateqoriya | 12 etirafdan ibarət səhifələri nömrə ilə dəyiş, mövzu dəyiş, seçilmiş dilin içində kəşf et |
 | Etiraf | Tam mətn, anonim müəllif, təsdiqlənmiş davam və rəylər; səhifənin altında rəy yaz, rəylərə reaksiya ver və konkret rəyə birbaşa cavab yaz; paylaş, izlə, dəstək, popup-da icma şikayəti və hüquqi bildiriş |
 | Yaz və redaktə | Məcburi başlıq, mətn və istəyə bağlı kateqoriya, istəyə bağlı cavab gözləntisi və yeni rəylərə icazə. Göndərişin dili görünür. |
 | Göndəriş təsdiqi | Baxış statusu, cihaz seçimi, məxfi bərpa kodu. Paylaşım URL-si yayımdan sonra. |
@@ -37,4 +37,5 @@ Lavbe anonim, mətn əsaslı etiraf və dəstək platformasıdır. Açılışda 
 - Dəstək reaksiyası etiraf üzrə sessiya iştirakçısının bir aktiv seçimidir və geri götürülə bilər. Yalnız təsdiqlənmiş, canlı etirafda işləyir; say birbaşa SQL artım/azalması ilə qorunur. Təsdiqlənən rəylər 15 dəqiqəlik qrup açarı ilə bildiriş outbox-unda birləşdirilir. Təsdiqlənən davam üçün bir outbox hadisəsi yaranır. Account follow bildirişləri outbox-dan qısa cron əmri ilə yaradılır. Yükdə mətn yoxdur; in-app saxlanması və e-poçt çatdırılması hesaba bağlıdır, e-poçt ayrıca opt-in tələb edir. Web Push LAV-011-dədir.
 - Rəylər ayrıca dəyişməz revision-da saxlanır, moderasiya təsdiq edənədək açıq səthlərdən gizlidir. Müəllif rəyə yalnız bir cavab verə bilər; cavabın özü də təsdiq tələb edir. Rəy sahibi onu cihaz sessiyası, istəyə bağlı HttpOnly cookie və ya birdəfəlik rotasiya olunan bərpa kodu ilə idarə edir. Bərpa kodunun yalnız HMAC heşi saxlanır. Müəllifin davamı əsas etiraf sahiblik sübutu ilə göndərilir və moderasiya təsdiq edənədək açıq deyil.
 - İctimai detail səhifəsi iştirakçı sessiyasına görə formaları və dəstək vəziyyətini dəyişdirdiyindən `private, no-store` qaytarır. Açıq etiraf məzmunu yenə ilkin HTML-də mövcuddur; sitemap və indekslənmə göstərişi ayrıca qalır.
+- Artan hər istifadəçi siyahısı məhdud ölçülü, nömrəli səhifələrə bölünür. Əvvəlki/növbəti və yaxın səhifə nömrələri adi HTML linki və ya POST formu kimi işləyir; eyni ekrandakı siyahıların səhifələri bir-birindən asılı deyil. Axtarış sözü POST gövdəsində qalır, hesab və dəstəklənənlər siyahısı private/no-store olur. Tövsiyə və cavab önbaxışı kimi sabit saylı bloklar ayrıca səhifələnmir.
 - Mövcud qaralama dil dəyişərkən qorunur. Redaktə təsdiqlənənədək əvvəlki açıq versiya yaşayır. Geri çəkmə dərhal gizlədir. Daimi silinmə ayrıca təsdiqlənir.

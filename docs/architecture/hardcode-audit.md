@@ -5,7 +5,8 @@ Bu sənəd tətbiq kodundakı sabit dəyərləri kateqoriyalara ayırır. Məqs�
 ## LAV-016 çərçivəsində mərkəzləşdirilənlər
 
 - Mətn limitləri, sorğu ölçüsü, recovery/idempotency uzunluqları: `config/lavbe.php` → `limits`.
-- Hesab və moderasiya siyahılarının ölçüləri: `pagination`. Lent ölçüsü və cursor TTL-i config/feed.php mənbəyindədir.
+- Rəy, davam, dəstəklənənlər, hesab, moderasiya və admin axtarış siyahılarının ölçüləri: `config/lavbe.php` → `pagination`. Lent ölçüsü `config/feed.php`-də qalır; cursor TTL-i də həmin config mənbəyindədir.
+- Thread-də kök rəylərin hər səhifədəki sayı, cavab səhifəsinin ölçüsü və ilk səhifədəki cavab önbaxışı ayrı pagination dəyərləridir. Səhifə query açarları view/controller kontraktıdır; hər list üçün unikaldır.
 - Cookie müddətləri, cursor TTL, rate-limit cəhdləri və pəncərələri: `cookies`, `config/feed.php → cursor_ttl_minutes`, `rate_limits`.
 - Feed sıralama adları dil fayllarından alınır; config yalnız tərcümə açarını saxlayır.
 - UUID v4 route pattern-i və report target/channel siyahıları `RoutePatterns` sinfində bir dəfə saxlanır.

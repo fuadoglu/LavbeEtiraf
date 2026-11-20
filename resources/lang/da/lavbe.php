@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Godkendte historier vises her på originalsproget. Strømmen blander ikke sprog.',
     'pagination' => 'Sidenavigation',
     'previous' => 'Forrige',
-    'next' => 'Mere',
+    'next' => 'Næste',
     'search_title' => 'Søg',
     'search_label' => 'Søgeord',
     'search_submit' => 'Søg',

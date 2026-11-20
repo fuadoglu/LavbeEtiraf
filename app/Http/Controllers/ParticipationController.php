@@ -20,7 +20,9 @@ class ParticipationController extends Controller
         $ids = $request->session()->get('lavbe_supported', []);
         $ids = is_array($ids) ? array_slice(array_values(array_unique(array_filter($ids, 'is_string'))), 0, 1000) : [];
         $confessions = Confession::query()->public()
-            ->whereIn('public_id', $ids)->with('publicRevision')->orderByDesc('published_at')->get();
+            ->whereIn('public_id', $ids)->with('publicRevision')->orderByDesc('published_at')->orderByDesc('id')
+            ->paginate((int) config('lavbe.pagination.supported'))->withQueryString();
+        abort_if($confessions->currentPage() > $confessions->lastPage(), 404);
 
         return response()->view('participation.supported', compact('confessions'))
             ->header('Cache-Control', 'private, no-store, max-age=0')
@@ -153,7 +155,7 @@ class ParticipationController extends Controller
 
     public function commentStatus(Request $request, string $locale, string $commentPublicId, ParticipationService $participation): Response
     {
-        $comment = ConfessionComment::query()->with(['confession', 'revisions' => fn ($query) => $query->orderByDesc('revision')])
+        $comment = ConfessionComment::query()->with(['confession', 'revisions' => fn ($query) => $query->orderByDesc('revision')->limit(1)])
             ->where('public_id', $commentPublicId)->firstOrFail();
         abort_unless($participation->ownsComment($request, $comment), 404);
 

@@ -17,10 +17,33 @@ class ModerationAdminController extends Controller
 {
     public function index(Request $request): Response|View
     {
-        $grants = ModeratorGrant::query()->with('user')->orderBy('role')->orderBy('locale')->paginate((int) config('lavbe.pagination.moderation'));
-        $users = User::query()->whereNotNull('email_verified_at')->orderBy('email')->get(['id', 'name', 'email']);
+        abort_if($request->isMethod('GET') && $request->query->has('user_search'), 404);
+        $grantPage = $this->requestedPage($request, 'grants_page');
+        $usersPage = $this->requestedPage($request, 'users_page');
+        $grants = ModeratorGrant::query()->with('user')->orderBy('role')->orderBy('locale')->orderBy('id')
+            ->paginate((int) config('lavbe.pagination.moderation'), ['*'], 'grants_page', $grantPage);
+        $userSearch = $request->input('user_search', '');
+        abort_unless(is_string($userSearch), 422);
+        $userSearch = trim($userSearch);
+        abort_if(mb_strlen($userSearch, 'UTF-8') > (int) config('lavbe.limits.account_email'), 422);
+        $users = User::query()->whereNotNull('email_verified_at')->whereKeyNot($request->user()->id)
+            ->when($userSearch === '', fn ($query) => $query->whereRaw('1 = 0'))
+            ->when($userSearch !== '', fn ($query) => $query->where(fn ($users) => $users
+                ->where('email', 'like', '%'.$userSearch.'%')->orWhere('name', 'like', '%'.$userSearch.'%')))
+            ->orderBy('email')->orderBy('id')->paginate((int) config('lavbe.pagination.user_lookup'), ['id', 'name', 'email'], 'users_page', $usersPage);
+        abort_if($grants->currentPage() > $grants->lastPage() || $users->currentPage() > $users->lastPage(), 404);
 
-        return $this->privateView('moderation.grants', compact('grants', 'users'));
+        return $this->privateView('moderation.grants', compact('grants', 'users', 'userSearch'));
+    }
+
+    private function requestedPage(Request $request, string $name): int
+    {
+        $page = $request->input($name, 1);
+        abort_unless((is_string($page) || is_int($page))
+            && preg_match('/^[1-9][0-9]*$/D', (string) $page) === 1
+            && filter_var($page, FILTER_VALIDATE_INT) !== false, 404);
+
+        return (int) $page;
     }
 
     public function store(Request $request, string $locale, LocaleRegistry $locales): Response

@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Təsdiqlənmiş hekayələr öz dilində burada görünəcək. Bu lent başqa dildən məzmun göstərmir.',
     'pagination' => 'Səhifələmə',
     'previous' => 'Əvvəlki',
-    'next' => 'Daha çox',
+    'next' => 'Növbəti səhifə',
     'search_title' => 'Axtar',
     'search_label' => 'Açar söz',
     'search_submit' => 'Axtar',

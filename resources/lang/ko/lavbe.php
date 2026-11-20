@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => '승인된 이야기는 원래 언어로 표시됩니다. 피드에서 언어를 섞지 않습니다.',
     'pagination' => '페이지 이동',
     'previous' => '이전',
-    'next' => '더 보기',
+    'next' => '다음',
     'search_title' => '검색',
     'search_label' => '검색어',
     'search_submit' => '검색',

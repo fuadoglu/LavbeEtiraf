@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Zatwierdzone historie pojawią się tutaj w oryginalnym języku. Wpisy nie mieszają języków.',
     'pagination' => 'Paginacja',
     'previous' => 'Poprzednia',
-    'next' => 'Więcej',
+    'next' => 'Następna',
     'search_title' => 'Szukaj',
     'search_label' => 'Słowo kluczowe',
     'search_submit' => 'Szukaj',

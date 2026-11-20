@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Freigegebene Geschichten erscheinen hier in ihrer Originalsprache. Dieser Feed mischt keine Sprachen.',
     'pagination' => 'Seitennavigation',
     'previous' => 'Zurück',
-    'next' => 'Mehr',
+    'next' => 'Weiter',
     'search_title' => 'Suchen',
     'search_label' => 'Suchbegriff',
     'search_submit' => 'Suchen',
