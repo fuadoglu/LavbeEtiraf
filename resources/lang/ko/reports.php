@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => '이 글 신고하기',
+    'report_action' => '신고하기',
     'report_comment' => '이 댓글 신고하기',
     'community_title' => '운영 원칙 위반 신고',
     'legal_title' => '법적 문제 알리기',

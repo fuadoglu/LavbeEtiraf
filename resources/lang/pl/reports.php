@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Zgłoś to wyznanie',
+    'report_action' => 'Zgłoś',
     'report_comment' => 'Zgłoś tę odpowiedź',
     'community_title' => 'Zgłoś problem',
     'legal_title' => 'Wyślij zgłoszenie prawne',

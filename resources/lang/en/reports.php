@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Report this confession',
+    'report_action' => 'Report',
     'report_comment' => 'Report this response',
     'community_title' => 'Report a community concern',
     'legal_title' => 'Send a legal content notice',

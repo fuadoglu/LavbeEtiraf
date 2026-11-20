@@ -31,11 +31,6 @@
             <p class="story-meta">{{ $revision->author_display_name ?: $confession->author_alias }} <span aria-hidden="true">·</span> <time datetime="{{ $confession->published_at->toAtomString() }}">{{ $confession->published_at->format('Y-m-d') }}</time><span aria-hidden="true">·</span><span class="unique-read-count"><x-icon name="eye" class="icon-small" />{{ __('participation.unique_reads', ['count' => number_format((int) $confession->unique_read_count)]) }}</span></p>
         </header>
         <div class="confession-body">{!! nl2br(e($revision->body)) !!}</div>
-        <div class="confession-report-links">
-        <p><a href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}" data-dialog-open="confession-report-dialog">{{ __('reports.report_confession') }}</a></p>
-        <p><a href="{{ route('reports.legal.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}" data-dialog-open="confession-legal-dialog">{{ __('reports.legal_title') }}</a></p>
-
-        </div>
         </div>
 
         @php($canFollow = auth()->check() && auth()->user()->hasVerifiedEmail())
@@ -55,7 +50,7 @@
                 data-share-url="{{ $canonical }}"
                 data-copied-label="{{ __('participation.share_copied') }}"
                 data-copy-hint="{{ __('participation.share_copy_hint') }}">
-                <x-icon name="share-2" />{{ __('participation.share_confession') }}
+                <x-icon name="share-2" class="icon-small" />{{ __('participation.share_confession') }}
             </button>
             <span class="muted" data-share-status role="status" aria-live="polite"></span>
             <label class="share-fallback" data-share-fallback hidden>
@@ -64,6 +59,8 @@
             </label>
             <noscript><label class="share-fallback"><span>{{ __('participation.share_copy_hint') }}</span><input type="url" readonly value="{{ $canonical }}"></label></noscript>
         </div>
+        <a class="button button-secondary confession-report-button" href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}" data-dialog-open="confession-report-options-dialog"><x-icon name="triangle-alert" class="icon-small" /><span>{{ __('reports.report_action') }}</span></a>
+        <noscript><div class="report-nojs-links"><a href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.community_title') }}</a><a href="{{ route('reports.legal.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.legal_title') }}</a></div></noscript>
 
         </div>
 
@@ -150,6 +147,12 @@
     </article>
 
     @push('dialogs')
+        <x-dialog id="confession-report-options-dialog" :title="__('reports.report_action')">
+            <nav class="report-choice-actions" aria-label="{{ __('reports.report_action') }}">
+                <a class="button button-secondary" href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}" data-dialog-open="confession-report-dialog"><x-icon name="message-circle" class="icon-small" />{{ __('reports.community_title') }}</a>
+                <a class="button button-secondary" href="{{ route('reports.legal.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}" data-dialog-open="confession-legal-dialog"><x-icon name="triangle-alert" class="icon-small" />{{ __('reports.legal_title') }}</a>
+            </nav>
+        </x-dialog>
         <x-dialog id="confession-report-dialog" :title="__('reports.community_title')">
             <p>{{ __('reports.target_confession') }}: {{ $revision->title }}</p>
             @include('reports.form', ['channel' => 'community', 'confession' => $confession, 'targetType' => 'confession', 'targetPublicId' => $confession->public_id, 'locale' => $localeRecord['segment'], 'idempotencyKey' => bin2hex(random_bytes(16))])

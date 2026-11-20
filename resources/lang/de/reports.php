@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Beitrag melden',
+    'report_action' => 'Melden',
     'report_comment' => 'Antwort melden',
     'community_title' => 'Verstoß gegen die Regeln melden',
     'legal_title' => 'Rechtlichen Hinweis senden',

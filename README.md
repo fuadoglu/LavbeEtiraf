@@ -46,6 +46,7 @@
 | Etirafı paylaşmaq | **[LAV-053](https://github.com/fuadoglu/LavbeEtiraf/issues/112) icra olunur.** Etiraf detail-ində canonical linki native paylaşma, clipboard və əl ilə köçürmə variantları ilə paylaşmaq olur. |
 | Tab ikonları və detail əməliyyatları | **[LAV-054](https://github.com/fuadoglu/LavbeEtiraf/issues/114) icra olunur.** Feed tab ikonları sola keçir; dəstək/say, izləmə və paylaşma qısa etiketli üç yan-yana düymə olur. |
 | Qonaq izləmə keçidi | **[LAV-055](https://github.com/fuadoglu/LavbeEtiraf/issues/116) icra olunur.** Giriş çağırışı qonaqdan çıxarılıb; təsdiqlənmiş oxucunun izləmə düyməsi saxlanır. |
+| Şikayət düyməsinin birləşdirilməsi | **[LAV-056](https://github.com/fuadoglu/LavbeEtiraf/issues/118) icra olunur.** Etiraf altında bir “Şikayət et” düyməsi icma şikayəti və hüquqi bildiriş seçimlərini açır. |
 
 ## Codex ilə başla
 

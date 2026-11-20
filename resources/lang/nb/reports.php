@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Rapporter historien',
+    'report_action' => 'Rapporter',
     'report_comment' => 'Rapporter svaret',
     'community_title' => 'Meld fra om et problem',
     'legal_title' => 'Send et juridisk varsel',

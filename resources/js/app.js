@@ -111,8 +111,28 @@
         const dialog = document.getElementById(button.dataset.dialogOpen);
         if (!dialog || typeof dialog.showModal !== 'function') return;
 
+        if (!dialog.dataset.dialogFocusReturnBound) {
+            dialog.dataset.dialogFocusReturnBound = 'true';
+            dialog.addEventListener('close', () => {
+                if (dialog._suppressDialogFocusReturn) {
+                    dialog._suppressDialogFocusReturn = false;
+                    return;
+                }
+                dialog._dialogReturnFocus?.focus?.();
+                dialog._dialogReturnFocus = null;
+            });
+        }
+
         button.addEventListener('click', (event) => {
             event.preventDefault();
+            const currentDialog = button.closest('dialog[open]');
+            if (currentDialog === dialog) return;
+            const returnFocus = currentDialog?._dialogReturnFocus || button;
+            if (currentDialog) {
+                currentDialog._suppressDialogFocusReturn = true;
+                currentDialog.close();
+            }
+            dialog._dialogReturnFocus = returnFocus;
             dialog.showModal();
         });
         dialog.querySelector('[data-dialog-close]')?.addEventListener('click', () => dialog.close());

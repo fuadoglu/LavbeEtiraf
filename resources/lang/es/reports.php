@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Denunciar esta confesión',
+    'report_action' => 'Denunciar',
     'report_comment' => 'Denunciar esta respuesta',
     'community_title' => 'Informar de un problema',
     'legal_title' => 'Enviar una notificación legal',

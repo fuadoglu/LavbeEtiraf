@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Dit verhaal melden',
+    'report_action' => 'Melden',
     'report_comment' => 'Deze reactie melden',
     'community_title' => 'Een probleem melden',
     'legal_title' => 'Een juridische melding doen',

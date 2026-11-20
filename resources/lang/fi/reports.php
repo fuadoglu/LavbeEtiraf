@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Ilmoita kirjoituksesta',
+    'report_action' => 'Ilmoita',
     'report_comment' => 'Ilmoita vastauksesta',
     'community_title' => 'Ilmoita ongelmasta',
     'legal_title' => 'Lähetä oikeudellinen ilmoitus',

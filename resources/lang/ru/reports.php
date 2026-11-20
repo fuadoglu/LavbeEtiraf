@@ -2,6 +2,7 @@
 
 return [
     'report_confession' => 'Пожаловаться на признание',
+    'report_action' => 'Пожаловаться',
     'report_comment' => 'Пожаловаться на комментарий',
     'community_title' => 'Сообщить о нарушении',
     'legal_title' => 'Отправить правовое уведомление',
