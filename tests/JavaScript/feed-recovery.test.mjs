@@ -37,8 +37,9 @@ function setup(fetchResponse) {
     };
     runInNewContext(source, {
         document,
+        navigator: {},
         URL,
-        window: { location: { href: 'http://localhost/az/?category=family&sort=weekly', reload: () => reloads++ } },
+        window: { addEventListener() {}, location: { href: 'http://localhost/az/?category=family&sort=weekly', reload: () => reloads++ } },
         fetch: async (url, options) => {
             requests.push({ url: String(url), options });
             return fetchResponse();
