@@ -26,6 +26,8 @@ return [
     'reviews_close' => 'Chiudi le risposte',
     'support_count' => 'Segni di sostegno: :count',
     'unique_reads' => 'Letture uniche: :count',
+    'public_comments' => ':count commenti',
+    'has_continuation' => 'L’autore ha aggiunto un seguito',
     'remember_device' => 'Ricorda questo dispositivo',
     'manage_comment' => 'Gestisci la mia risposta',
     'comment_state' => 'Stato: :state',

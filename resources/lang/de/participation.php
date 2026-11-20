@@ -26,6 +26,8 @@ return [
     'reviews_close' => 'Neue Antworten schließen',
     'support_count' => 'Unterstützung: :count',
     'unique_reads' => 'Einzigartige Aufrufe: :count',
+    'public_comments' => ':count Kommentare',
+    'has_continuation' => 'Die Autorin oder der Autor hat die Geschichte fortgesetzt',
     'remember_device' => 'Dieses Gerät merken',
     'manage_comment' => 'Meine Antwort verwalten',
     'comment_state' => 'Status: :state',

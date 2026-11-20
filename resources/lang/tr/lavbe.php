@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Yeni',
     'sort_weekly' => 'Bu hafta',
     'sort_popular' => 'Popüler itiraflar',
+    'sort_popular_short' => 'Popüler',
     'sort_updates' => 'Devamı var',
     'topics_button' => 'Konular',
     'categories' => 'İtiraf konusu',

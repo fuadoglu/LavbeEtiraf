@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Neu',
     'sort_weekly' => 'Diese Woche',
     'sort_popular' => 'Beliebte Geständnisse',
+    'sort_popular_short' => 'Beliebt',
     'sort_updates' => 'Mit Fortsetzung',
     'topics_button' => 'Themen',
     'categories' => 'Thema des Geständnisses',

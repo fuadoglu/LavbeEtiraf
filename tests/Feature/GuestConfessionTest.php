@@ -75,6 +75,39 @@ class GuestConfessionTest extends TestCase
         $this->assertTrue($sessionCookie->isSecure());
         $this->assertTrue($sessionCookie->isHttpOnly());
         $this->assertSame('lax', $sessionCookie->getSameSite());
+        $deviceCookie = collect($response->headers->getCookies())->first(fn ($candidate) => $candidate->getName() === 'lavbe_device');
+        $this->assertNotNull($deviceCookie);
+        $this->assertTrue($deviceCookie->isHttpOnly());
+        $this->assertTrue($deviceCookie->isSecure());
+        $this->assertNotSame($deviceCookie->getValue(), Confession::query()->firstOrFail()->ownership->device_token_hash);
+    }
+
+    public function test_remembered_device_lists_only_its_own_confessions_and_device_credential_can_manage_them(): void
+    {
+        $this->post('/az/write', $this->payload('submission-key-'.str_repeat('d', 32)) + ['remember_device' => '1'])->assertCreated();
+        $first = Confession::query()->firstOrFail()->load('ownership');
+        $deviceToken = rtrim(strtr(base64_encode(hash_hmac('sha256', 'remembered-device|'.'submission-key-'.str_repeat('d', 32), (string) config('app.key'), true)), '+/', '-_'), '=');
+        $this->withCookie('lavbe_device', $deviceToken)->post('/az/write', $this->payload('submission-key-'.str_repeat('e', 32)) + ['remember_device' => '1'])
+            ->assertCreated();
+        $second = Confession::query()->whereKeyNot($first->id)->firstOrFail()->load('ownership');
+        $unrelated = Confession::factory()->create(['locale' => 'az', 'title' => 'Unrelated private story']);
+
+        $this->withCookie('lavbe_device', $deviceToken)->get('/az/my/device')
+            ->assertOk()->assertSee('Synthetic title')->assertSee('Baxış gözləyir')->assertDontSee('Unrelated private story')
+            ->assertHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
+        $this->get('/az/my/'.$first->public_id)->assertOk()->assertSee('A synthetic private confession');
+
+        $otherDeviceToken = rtrim(strtr(base64_encode(hash_hmac('sha256', 'remembered-device|'.'another-device-key-'.str_repeat('z', 32), (string) config('app.key'), true)), '+/', '-_'), '=');
+        $this->withCookie('lavbe_device', $otherDeviceToken)->get('/az/my/device')->assertDontSee('Synthetic title');
+        $this->assertNull($unrelated->ownership()->value('device_token_hash'));
+        $this->assertSame($first->ownership->device_token_hash, $second->ownership->device_token_hash);
+    }
+
+    public function test_write_form_explains_publication_and_search_visibility(): void
+    {
+        $this->get('/az/write')->assertOk()
+            ->assertSee('Etirafın təsdiqlənsə, hamıya açıq olacaq və axtarış nəticələrində görünə bilər.')
+            ->assertSee('Etirafını əvvəlcə moderator oxuyacaq.');
     }
 
     public function test_write_rate_limit_returns_a_localized_private_response(): void

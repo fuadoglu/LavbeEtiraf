@@ -65,8 +65,8 @@ class UniqueConfessionReadsTest extends TestCase
         $confession = $this->publishedConfession();
 
         $this->get('/az/')->assertOk()
-            ->assertSee('Unikal oxunuş: 0')
-            ->assertSee('<footer class="story-card-footer">', false);
+            ->assertDontSee('Unikal oxunuş: 0')
+            ->assertDontSee('<footer class="story-card-footer">', false);
 
         $this->get('/az/confession/'.$confession->public_id)->assertOk();
         $this->get('/az/')->assertOk()->assertSee('Unikal oxunuş: 1');

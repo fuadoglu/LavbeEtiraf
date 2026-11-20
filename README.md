@@ -48,6 +48,7 @@
 | Qonaq izləmə keçidi | **[LAV-055](https://github.com/fuadoglu/LavbeEtiraf/issues/116) icra olunur.** Giriş çağırışı qonaqdan çıxarılıb; təsdiqlənmiş oxucunun izləmə düyməsi saxlanır. |
 | Şikayət düyməsinin birləşdirilməsi | **[LAV-056](https://github.com/fuadoglu/LavbeEtiraf/issues/118) icra olunur.** Etiraf altında bir “Şikayət et” düyməsi icma şikayəti və hüquqi bildiriş seçimlərini açır. |
 | Məzmunu ekranda önə çəkmək | **[LAV-057](https://github.com/fuadoglu/LavbeEtiraf/issues/120) tamamlandı.** Lentdə ilk etiraf, yazı formasında mətn sahəsi, detail-də hekayə və müəllif davamı ardıcıllığı yeniləndi; mürəkkəb gündüz/gecə palitrası tətbiq olundu. [PR #121](https://github.com/fuadoglu/LavbeEtiraf/pull/121) `main`-dədir. |
+| UI auditinin qalan düzəlişləri | **[LAV-058](https://github.com/fuadoglu/LavbeEtiraf/issues/123) hazırlanır.** Cihazda yadda saxlanan etiraflar, ictimai axtarış görünürlüğü bildirişi, fəaliyyətli kart altlığı və yığcam mobil sıralama. |
 
 ## Codex ilə başla
 
@@ -65,7 +66,7 @@
 |---|---|
 | **Oxu və kəşf** | Ana lent və kateqoriyalar bir lent şablonundan qurulur. Hər HTML səhifəsində ən çox 12 etiraf olur; nömrəli səhifə keçidləri JavaScript olmadan işləyir. İctimai etiraf səhifəsində unikal oxunuş sayı görünür. |
 | **Anonim yazı** | 18+ istifadəçi qonaq kimi etiraf və rəy yaza bilər. Açıq ad `Lavbe #XXXXXXXX` formasındadır və yalnız həmin etiraf daxilində iştirakçını tanıdır. |
-| **Öz məzmununu idarə et** | İstəyə bağlı cihaz yaddaşı, məxfi bərpa kodu və e-poçt hesabı. Etirafın açıq linki sahiblik hüququ vermir. |
+| **Öz məzmununu idarə et** | İstəyə bağlı cihaz yaddaşı, məxfi bərpa kodu və e-poçt hesabı. Qonaq “Mənim” bölməsində həmin cihazda yadda saxlanmış etiraflarının başlığını və moderasiya vəziyyətini görüb idarə edə bilər. Etirafın açıq linki sahiblik hüququ vermir. |
 | **Rəy və moderasiya** | Rəy etiraf səhifəsinin altından yazılır; təsdiqlənmiş rəylərə reaksiya və birbaşa cavab vermək mümkündür. Etiraf və rəy üçün ayrı hədəfli şikayət, ayrıca hüquqi bildiriş və sahibin bir dəfə etirazı var. Moderasiya paneli **Etiraflar · Rəylər · Şikayətlər · Etirazlar** bölmələrindən ibarətdir. |
 | **Davam və bildiriş** | Müəllifin **Sonra nə oldu?** mətni eyni etirafın altında yayımlanır. Hesab sahibi etirafı izləyib tətbiqdaxili bildiriş və ayrıca seçdiyi halda neytral e-poçt ala bilər. |
 | **Dil və görünüş** | 17 dil, 12 kateqoriya, axtarışlı dil menyusu, yumru bayraqlar, dilin öz adı və ingiliscə adı. Header-də desktop üçün bayraqla tam native ad, mobil üçün yalnız bayraq göstərilir; locale kodu istifadəçiyə çıxmır. Saxlanmış seçim cihaz və ölkə siqnalından üstündür. Seçilmiş lent yalnız həmin dildədir. |

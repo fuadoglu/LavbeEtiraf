@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Новые',
     'sort_weekly' => 'За эту неделю',
     'sort_popular' => 'Популярные признания',
+    'sort_popular_short' => 'Популярные',
     'sort_updates' => 'Есть продолжение',
     'topics_button' => 'Темы',
     'categories' => 'Тема признания',

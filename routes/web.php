@@ -80,6 +80,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
     })->middleware(NormalizeFeedPage::class)->name('home');
 
     Route::get('/supported', [ParticipationController::class, 'supported'])->middleware(PrivateResponseHeaders::class)->name('confessions.supported');
+    Route::get('/my/device', [GuestConfessionController::class, 'deviceIndex'])->middleware(PrivateResponseHeaders::class)->name('confessions.device');
     Route::get('/legal/{page}', function (string $locale, string $page) {
         $copy = __('legal.'.$page);
         abort_unless(is_array($copy) && isset($copy['title'], $copy['body']), 404);

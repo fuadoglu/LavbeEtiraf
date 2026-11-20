@@ -26,6 +26,8 @@ return [
     'reviews_close' => 'Reacties sluiten',
     'support_count' => 'Steunbetuigingen: :count',
     'unique_reads' => 'Unieke weergaven: :count',
+    'public_comments' => ':count reacties',
+    'has_continuation' => 'De auteur heeft een vervolg toegevoegd',
     'remember_device' => 'Dit apparaat onthouden',
     'manage_comment' => 'Mijn reactie beheren',
     'comment_state' => 'Status: :state',

@@ -65,7 +65,7 @@
                 <span>{{ __('guest.write_remember_device') }}</span>
             </label>
 
-            <p class="write-review-note">{{ __('guest.write_intro') }}</p>
+            <p class="write-review-note">{{ __('guest.write_public_search_notice') }} {{ __('guest.write_intro') }}</p>
             <button class="button button-primary" type="submit">{{ __('guest.write_submit') }}</button>
         </form>
     </section>

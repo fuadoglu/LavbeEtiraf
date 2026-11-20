@@ -33,6 +33,10 @@ class UiFoundationTest extends TestCase
         $this->assertStringContainsString('class="feed-topic-picker feed-topic-picker-mobile"', $html);
         $this->assertStringContainsString('.feed-topic-picker-mobile:not([open]) > .topic-panel { display: none; }', file_get_contents(resource_path('css/app.css')));
         $this->assertStringContainsString('.feed-controls:has(.feed-topic-picker-mobile[open]) .sort-panel { grid-column: 1 / -1;', file_get_contents(resource_path('css/app.css')));
+        $this->assertStringContainsString('class="sort-label-full"', $html);
+        $this->assertStringContainsString('class="sort-label-short"', $html);
+        $this->assertStringContainsString('.sort-label-full { display: none; } .sort-label-short { display: inline; }', file_get_contents(resource_path('css/app.css')));
+        $this->assertStringNotContainsString('Unikal oxunuş: 0', $html);
     }
 
     public function test_confession_writing_starts_with_the_story_and_keeps_public_name_opt_in(): void
@@ -54,6 +58,30 @@ class UiFoundationTest extends TestCase
         $this->assertStringNotContainsString('autocomplete="name"', $html);
         $this->assertStringContainsString('name="age_confirmed"', $html);
         $this->assertStringContainsString('name="remember_device"', $html);
+    }
+
+    public function test_feed_hides_empty_zero_read_footer_and_shows_approved_activity(): void
+    {
+        $empty = Confession::factory()->create(['locale' => 'az', 'title' => 'Sakit etiraf']);
+        $active = Confession::factory()->create(['locale' => 'az', 'title' => 'Davam edən etiraf']);
+        $comment = $active->comments()->create([
+            'public_id' => (string) Str::uuid(), 'status' => 'public', 'author_alias' => 'Lavbe #AABBCCDD',
+            'body' => 'Synthetic approved comment.', 'published_at' => now(),
+        ]);
+        $revision = $comment->revisions()->create(['revision' => 1, 'body' => 'Synthetic approved comment.', 'status' => 'approved']);
+        $comment->forceFill(['public_revision_id' => $revision->id])->save();
+        $continuation = ConfessionContinuation::query()->create([
+            'confession_id' => $active->id, 'public_id' => (string) Str::uuid(), 'status' => 'public',
+            'body' => 'Synthetic continuation.', 'published_at' => now(),
+        ]);
+        $continuationRevision = $continuation->revisions()->create(['revision' => 1, 'body' => 'Synthetic continuation.', 'status' => 'approved']);
+        $continuation->forceFill(['public_revision_id' => $continuationRevision->id])->save();
+
+        $html = $this->get('/az/')->assertOk()->getContent();
+        $this->assertStringNotContainsString('Unikal oxunuş: 0', $html);
+        $this->assertStringContainsString('1 rəy', $html);
+        $this->assertStringContainsString('Müəllif davamını yazıb', $html);
+        $this->assertStringNotContainsString('story-card-footer', substr($html, strpos($html, 'Sakit etiraf'), strpos($html, 'Davam edən etiraf') - strpos($html, 'Sakit etiraf')));
     }
 
     public function test_confession_detail_puts_story_before_read_count_and_localizes_its_date(): void

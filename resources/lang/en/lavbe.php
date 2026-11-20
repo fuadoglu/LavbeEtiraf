@@ -7,6 +7,7 @@ return [
     'sort_new' => 'New',
     'sort_weekly' => 'This week',
     'sort_popular' => 'Popular confessions',
+    'sort_popular_short' => 'Popular',
     'sort_updates' => 'Continued',
     'topics_button' => 'Topics',
     'categories' => 'Confession topic',

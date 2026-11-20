@@ -7,6 +7,7 @@ return [
     'sort_new' => '최신',
     'sort_weekly' => '이번 주',
     'sort_popular' => '인기 고백',
+    'sort_popular_short' => '인기',
     'sort_updates' => '후속 이야기 있음',
     'topics_button' => '주제',
     'categories' => '고백 주제',

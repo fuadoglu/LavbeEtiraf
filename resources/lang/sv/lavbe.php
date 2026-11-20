@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Nytt',
     'sort_weekly' => 'Den här veckan',
     'sort_popular' => 'Populära bekännelser',
+    'sort_popular_short' => 'Populära',
     'sort_updates' => 'Med fortsättning',
     'topics_button' => 'Ämnen',
     'categories' => 'Bekännelsens ämne',

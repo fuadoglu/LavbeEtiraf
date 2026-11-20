@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Nouveautés',
     'sort_weekly' => 'Cette semaine',
     'sort_popular' => 'Confessions populaires',
+    'sort_popular_short' => 'Populaires',
     'sort_updates' => 'Avec une suite',
     'topics_button' => 'Thèmes',
     'categories' => 'Sujet de la confidence',

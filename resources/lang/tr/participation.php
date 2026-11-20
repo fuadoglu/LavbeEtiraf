@@ -26,6 +26,8 @@ return [
     'reviews_close' => 'Yeni yorumlara kapat',
     'support_count' => 'Destek sayısı: :count',
     'unique_reads' => 'Tekil okuma: :count',
+    'public_comments' => ':count yorum',
+    'has_continuation' => 'Yazar bir devam bölümü ekledi',
     'remember_device' => 'Bu cihazı hatırla',
     'manage_comment' => 'Yorumumu yönet',
     'comment_state' => 'Durum: :state',

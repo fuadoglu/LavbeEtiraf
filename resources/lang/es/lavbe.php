@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Nuevas',
     'sort_weekly' => 'Esta semana',
     'sort_popular' => 'Confesiones populares',
+    'sort_popular_short' => 'Populares',
     'sort_updates' => 'Con continuación',
     'topics_button' => 'Temas',
     'categories' => 'Tema de la confesión',
