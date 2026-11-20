@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Den här veckan',
     'sort_popular' => 'Populära bekännelser',
     'sort_updates' => 'Med fortsättning',
+    'topics_button' => 'Ämnen',
     'categories' => 'Bekännelsens ämne',
     'all_categories' => 'Alla',
     'category_empty' => 'Det finns inga bekännelser om det här ämnet ännu.',

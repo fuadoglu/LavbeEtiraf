@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'W tym tygodniu',
     'sort_popular' => 'Popularne wyznania',
     'sort_updates' => 'Z kontynuacją',
+    'topics_button' => 'Tematy',
     'categories' => 'Temat wyznania',
     'all_categories' => 'Wszystkie',
     'category_empty' => 'Nie ma jeszcze wyznań na ten temat.',

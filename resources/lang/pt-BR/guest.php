@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Você pode escrever sem se identificar. Informe seu nome apenas se quiser.',
+    'write_options' => 'Opções de compartilhamento',
     'write_title' => 'Escreva um desabafo',
     'write_intro' => 'Após o envio, o texto será analisado e não aparecerá no feed público antes da aprovação.',
     'write_subject' => 'Título (opcional)',

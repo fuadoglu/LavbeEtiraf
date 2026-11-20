@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Tällä viikolla',
     'sort_popular' => 'Suositut tunnustukset',
     'sort_updates' => 'Jatkoa luvassa',
+    'topics_button' => 'Aiheet',
     'categories' => 'Tunnustuksen aihe',
     'all_categories' => 'Kaikki',
     'category_empty' => 'Tästä aiheesta ei ole vielä tunnustuksia.',

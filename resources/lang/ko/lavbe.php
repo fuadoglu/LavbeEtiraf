@@ -8,6 +8,7 @@ return [
     'sort_weekly' => '이번 주',
     'sort_popular' => '인기 고백',
     'sort_updates' => '후속 이야기 있음',
+    'topics_button' => '주제',
     'categories' => '고백 주제',
     'all_categories' => '전체',
     'category_empty' => '이 주제의 고백이 아직 없습니다.',

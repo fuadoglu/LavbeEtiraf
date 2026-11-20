@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Confession;
+use App\Models\ConfessionContinuation;
 use App\Support\Lavbe\FeedCursor;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,6 +13,79 @@ use Tests\TestCase;
 class UiFoundationTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_populated_feed_hides_the_intro_and_uses_compact_topic_and_sort_controls(): void
+    {
+        Confession::factory()->create(['locale' => 'az', 'title' => 'İlk etiraf başlığı']);
+
+        $html = $this->get('/az/')->assertOk()
+            ->assertSee('feed-page', false)
+            ->assertSee('feed-topic-picker-mobile', false)
+            ->assertSee('Mövzular', false)
+            ->assertSee('aria-label="Etirafın mövzusu"', false)
+            ->getContent();
+
+        $this->assertStringNotContainsString('Başqalarının yazdıqlarını oxu.', $html);
+        $this->assertStringContainsString('line-clamp: 3', file_get_contents(resource_path('css/app.css')));
+        $this->assertLessThan(strpos($html, 'class="sort-panel"'), strpos($html, 'feed-heading--populated'));
+        $this->assertStringContainsString('İlk etiraf başlığı', $html);
+        $this->assertSame(26, substr_count($html, '<a class="topic-chip'));
+        $this->assertStringContainsString('class="feed-topic-picker feed-topic-picker-mobile"', $html);
+        $this->assertStringContainsString('.feed-topic-picker-mobile:not([open]) > .topic-panel { display: none; }', file_get_contents(resource_path('css/app.css')));
+        $this->assertStringContainsString('.feed-controls:has(.feed-topic-picker-mobile[open]) .sort-panel { grid-column: 1 / -1;', file_get_contents(resource_path('css/app.css')));
+    }
+
+    public function test_confession_writing_starts_with_the_story_and_keeps_public_name_opt_in(): void
+    {
+        $html = $this->get('/az/write')->assertOk()
+            ->assertSee('Adsız yaza bilərsən.', false)
+            ->assertSee('autocomplete="off"', false)
+            ->getContent();
+
+        $body = strpos($html, 'id="body"');
+        $title = strpos($html, 'id="title"');
+        $author = strpos($html, 'id="author_display_name"');
+        $options = strpos($html, 'class="sharing-options"');
+        $this->assertNotFalse($body);
+        $this->assertNotFalse($title);
+        $this->assertNotFalse($author);
+        $this->assertNotFalse($options);
+        $this->assertTrue($body < $title && $title < $options && $options < $author);
+        $this->assertStringNotContainsString('autocomplete="name"', $html);
+        $this->assertStringContainsString('name="age_confirmed"', $html);
+        $this->assertStringContainsString('name="remember_device"', $html);
+    }
+
+    public function test_confession_detail_puts_story_before_read_count_and_localizes_its_date(): void
+    {
+        $confession = Confession::factory()->create(['locale' => 'az', 'public_id' => (string) Str::uuid()]);
+        $continuation = ConfessionContinuation::query()->create([
+            'confession_id' => $confession->id,
+            'public_id' => (string) Str::uuid(),
+            'status' => 'public',
+            'body' => 'Approved synthetic author continuation.',
+            'published_at' => now(),
+        ]);
+        $continuationRevision = $continuation->revisions()->create([
+            'revision' => 1,
+            'body' => 'Approved synthetic author continuation.',
+            'status' => 'approved',
+        ]);
+        $continuation->forceFill(['public_revision_id' => $continuationRevision->id])->save();
+
+        $html = $this->get('/az/confession/'.$confession->public_id)->assertOk()
+            ->assertSee($confession->published_at->locale('az')->translatedFormat('j F Y'), false)
+            ->assertSee('Approved synthetic author continuation.')
+            ->getContent();
+
+        $title = strpos($html, 'id="confession-title"');
+        $body = strpos($html, 'class="confession-body"');
+        $reads = strpos($html, 'confession-read-count');
+        $continuation = strpos($html, 'Approved synthetic author continuation.');
+        $actions = strpos($html, 'class="confession-actions');
+        $this->assertTrue($title < $body && $body < $reads && $reads < $continuation && $continuation < $actions);
+        $this->assertStringNotContainsString('story-meta">Ailə', $html);
+    }
 
     public function test_language_menu_precedes_the_three_header_icons(): void
     {

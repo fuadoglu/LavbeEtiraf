@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Du kannst anonym schreiben. Teile deinen Namen nur, wenn du möchtest.',
+    'write_options' => 'Weitere Optionen',
     'write_title' => 'Geständnis schreiben',
     'write_intro' => 'Nach dem Absenden wird dein Text geprüft. Vor der Freigabe erscheint er nicht öffentlich.',
     'write_subject' => 'Titel (optional)',

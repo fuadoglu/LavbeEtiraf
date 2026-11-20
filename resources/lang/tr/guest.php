@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'İsmini yazmadan paylaşabilirsin. Adını yalnızca istersen ekle.',
+    'write_options' => 'Paylaşım seçenekleri',
     'write_title' => 'İtiraf yaz',
     'write_intro' => 'Gönderimden sonra metin incelenir; onaylanana kadar herkese açık akışta görünmez.',
     'write_subject' => 'Başlık (isteğe bağlı)',

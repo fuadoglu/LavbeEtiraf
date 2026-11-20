@@ -7,25 +7,25 @@
 <style>
 :root {
   color-scheme: light;
-  --page: #faf7f2;
-  --panel: #fffdf9;
-  --text: #292430;
-  --muted: #5d5762;
-  --action: #64469a;
+  --page: #f8f6f3;
+  --panel: #fffdfc;
+  --text: #30282e;
+  --muted: #685e65;
+  --action: #65394f;
   --on-action: #ffffff;
-  --edge: #8b8092;
-  --line: color-mix(in srgb, var(--edge) 35%, transparent);
-  --hint: color-mix(in srgb, var(--action) 10%, var(--panel));
+  --edge: #92838b;
+  --line: color-mix(in srgb, var(--edge) 30%, transparent);
+  --hint: color-mix(in srgb, var(--action) 8%, var(--panel));
 }
 :root[data-theme="night"] {
   color-scheme: dark;
-  --page: #181521;
-  --panel: #231e30;
-  --text: #f2edf7;
-  --muted: #c3b8cd;
-  --action: #c9b4fc;
-  --on-action: #221638;
-  --edge: #8f819f;
+  --page: #1c191d;
+  --panel: #252126;
+  --text: #f4edf1;
+  --muted: #c5b9c1;
+  --action: #e4b3c8;
+  --on-action: #30282e;
+  --edge: #8c7e87;
 }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--text); background: var(--page); font: 1rem/1.55 system-ui, sans-serif; }
@@ -58,13 +58,27 @@ h1, h2, h3, p { margin: 0; }
 @media (max-width: 440px) { .desktop-links { display: none; } }
 .brand-lockup { display: flex; align-items: center; }
 .brand-logo { display: block; position: relative; width: 132px; aspect-ratio: 3 / 1; overflow: hidden; background: #4b2b3e; -webkit-mask: url('../../public/icons/lavbe-logo.svg') center / 100% 100% no-repeat; mask: url('../../public/icons/lavbe-logo.svg') center / 100% 100% no-repeat; }
-.brand-logo::after { content: ''; position: absolute; inset: 0; background: #9d4458; -webkit-mask: url('../../public/icons/lavbe-heart.svg') center / 100% 100% no-repeat; mask: url('../../public/icons/lavbe-heart.svg') center / 100% 100% no-repeat; }
+.brand-logo::after { content: ''; position: absolute; inset: 0; background: #a44363; -webkit-mask: url('../../public/icons/lavbe-heart.svg') center / 100% 100% no-repeat; mask: url('../../public/icons/lavbe-heart.svg') center / 100% 100% no-repeat; }
 :root[data-theme="night"] .brand-logo { background: #f2dce5; }
-:root[data-theme="night"] .brand-logo::after { background: #d87991; }
+:root[data-theme="night"] .brand-logo::after { background: #ed91ad; }
 .flag { width: 20px; height: 20px; flex: 0 0 20px; border: 1px solid var(--line); border-radius: 50%; background: linear-gradient(#00b5e2 0 33%, #ef3340 33% 66%, #509e2f 66%); }
 .language { display: flex; gap: .45rem; align-items: center; }
 .mobile .current-language, .mobile .language-chevron { display: none; }
 .content { max-width: 670px; min-height: 23rem; padding: 1rem .9rem; margin-inline: auto; }
+.desktop .content:has(.feed-preview-layout) { max-width: 1050px; }
+.feed-preview-layout { display: grid; gap: .8rem; }
+.feed-preview-main { min-width: 0; display: grid; align-content: start; gap: .7rem; }
+.feed-topic-sidebar { display: none; }
+.topic-menu { min-width: 0; }
+.topic-menu summary { display: flex; min-height: 44px; align-items: center; justify-content: space-between; gap: .4rem; padding: .42rem .65rem; border: 1px solid var(--line); border-radius: .65rem; background: var(--panel); font-weight: 650; cursor: pointer; }
+.topic-options { display: none; }
+.topic-menu[open] .topic-options { display: grid; gap: .3rem; margin-block-start: .35rem; padding: .5rem; border: 1px solid var(--line); border-radius: .65rem; background: var(--panel); }
+.topic-options span { padding: .35rem .5rem; border-radius: .4rem; }
+.feed-preview-controls { display: grid; grid-template-columns: minmax(7rem, .8fr) minmax(0, 1.8fr); align-items: center; gap: .5rem; }
+.sort-tabs { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); border-bottom: 1px solid var(--line); }
+.sort-tabs span { display: flex; min-width: 0; min-height: 44px; align-items: center; justify-content: center; gap: .28rem; padding: .35rem .18rem; text-align: center; line-height: 1.2; font-size: .83rem; }
+.sort-tabs .active { color: var(--action); box-shadow: inset 0 -3px var(--action); font-weight: 700; }
+@media (min-width: 851px) { .mobile .feed-topic-sidebar { display: none; } .desktop .feed-preview-layout { grid-template-columns: 220px minmax(0, 670px); justify-content: center; align-items: start; gap: 2rem; } .desktop .topic-menu { display: none; } .desktop .feed-topic-sidebar { display: grid; gap: .3rem; position: sticky; top: .5rem; max-height: 30rem; overflow-y: auto; } .desktop .feed-topic-sidebar span { min-height: 2.55rem; display: flex; align-items: center; padding: .45rem .55rem; border: 1px solid var(--line); border-radius: .6rem; background: var(--panel); font-size: .86rem; } .mobile .topic-menu { display: block; } }
 .stack { display: grid; gap: .75rem; }
 .flow { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
 .flow > * { overflow-wrap: anywhere; }
@@ -91,7 +105,7 @@ textarea { width: 100%; min-height: 9rem; resize: vertical; padding: .75rem; fon
 .story-frame h3, .story-frame .story-title { min-block-size: 2.8rem; margin: 0; }
 .story-frame .story-excerpt { min-block-size: 3.1rem; }
 .story-frame h3, .story-frame p {
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .skeleton .story-title, .skeleton .story-excerpt { display: grid; align-content: center; gap: .48rem; }
 .bar { display: block; height: .68rem; background: var(--line); border-radius: 1rem; }
@@ -127,8 +141,8 @@ textarea { width: 100%; min-height: 9rem; resize: vertical; padding: .75rem; fon
 <template id="top"><div class="top"><span class="brand-lockup"><span class="brand-logo" aria-hidden="true"></span></span><nav class="desktop-links" aria-label="Əsas"><span>Oxu</span><span>Yaz</span><span>Mənim</span></nav><span class="language"><i class="flag"></i><span class="current-language">Azərbaycan dili</span><span class="language-chevron" aria-hidden="true">⌄</span></span></div></template>
 <template id="nav"><div class="nav"><span>Oxu</span><span>Yaz</span><span>Mənim</span></div></template>
 <template id="feed-top">
-  <div class="flow topics"><span class="chip all">Hamısı</span><span class="chip family">Ailə</span><span class="chip">Münasibətlər</span><span class="chip">Bütün mövzular</span></div>
-  <div class="flow"><span class="chip active">Yeni</span><span class="chip">Bu həftə</span><span class="chip">Davamı gəldi</span></div>
+  <div class="feed-preview-controls"><details class="topic-menu"><summary>Mövzular <span aria-hidden="true">⌄</span></summary><div class="topic-options"><span>Hamısı</span><span>Sevgi və münasibətlər</span><span>Ailə arasında</span><span>Dostluq və etibar</span><span>Pul və dolanışıq</span><span>İşdə başıma gələnlər</span><span>Özümə də deyə bilmədiklərim</span><span>Valideyn olmaq</span><span>Məktəb və tələbə həyatı</span><span>Bədənim və sağlamlığım</span><span>Aramızda qalsın</span><span>Vicdan və inanclar</span><span>İtirdiklərim və yeni başlanğıclar</span></div></details>
+  <nav class="sort-tabs" aria-label="Lentin sıralanması"><span class="active">✦ Yeni</span><span>▦ Bu həftə</span><span>♨ Məşhur etiraflar</span></nav></div>
 </template>
 <template id="story">
   <article class="card story-frame"><small class="story-topic">Ailə</small><h3>Bir söhbəti çox gec başladım</h3><p class="story-excerpt">Evə qayıtdığım gün uzun müddət demədiyim sözü dedim.</p></article>
@@ -168,14 +182,16 @@ const title = (text, description = "") => '<h2>' + text + '</h2>' +
   (description ? '<p class="muted">' + description + '</p>' : '');
 function feed(screen, state) {
   const active = screen === "topic" ? "family" : "all";
-  let content = template("feed-top").replace('chip ' + active, 'chip active ' + active);
-  if (state === "empty") return content + notice("Bu mövzuda hələ etiraf yoxdur.") + button("Etiraf yaz", true);
-  if (screen === "topic" && state === "loading") return content + template("skeleton").repeat(2);
+  const topics = ["Hamısı", "Sevgi və münasibətlər", "Ailə arasında", "Dostluq və etibar", "Pul və dolanışıq", "İşdə başıma gələnlər", "Özümə də deyə bilmədiklərim", "Valideyn olmaq", "Məktəb və tələbə həyatı", "Bədənim və sağlamlığım", "Aramızda qalsın", "Vicdan və inanclar", "İtirdiklərim və yeni başlanğıclar"];
+  const aside = '<aside class="feed-topic-sidebar" aria-label="Mövzular">' + topics.map((name, index) => '<span' + (index === (active === "family" ? 2 : 0) ? ' class="chip active"' : '') + '>' + name + '</span>').join("") + '</aside>';
+  let content = '<div class="feed-preview-layout">' + aside + '<main class="feed-preview-main">' + title(screen === 'topic' ? 'Ailə arasında' : 'Etiraflar Vadisi') + template("feed-top");
+  if (state === "empty") return content + notice("Bu mövzuda hələ etiraf yoxdur.") + button("Etiraf yaz", true) + '</main></div>';
+  if (screen === "topic" && state === "loading") return content + template("skeleton").repeat(2) + '</main></div>';
   content += template("story") + template("story-two");
-  if (state === "loading") return content + template("skeleton");
-  if (state === "retry") return content + notice("Lent yüklənmədi. Əvvəlki etiraflar yerindədir.") + button("Yenidən cəhd et");
-  if (state === "end") return content + notice("Lentin sonuna çatdın.");
-  return content + button("Daha çox");
+  if (state === "loading") return content + template("skeleton") + '</main></div>';
+  if (state === "retry") return content + notice("Lent yüklənmədi. Əvvəlki etiraflar yerindədir.") + button("Yenidən cəhd et") + '</main></div>';
+  if (state === "end") return content + notice("Lentin sonuna çatdın.") + '</main></div>';
+  return content + button("Daha çox") + '</main></div>';
 }
 function language(state) {
   const rows = {
@@ -187,8 +203,8 @@ function language(state) {
     '<label>Dil axtar<input ' + (state === "search" ? 'value="rus"' : '') + '></label>' + rows[state] + '</div></div>';
 }
 function read(state) {
-  return '<div class="reader stack">' + title("Bir söhbəti çox gec başladım", "Ailə · Lavbe #7K4M2X9Q") +
-    '<p>Evə qayıtdığım gün uzun müddət demədiyim sözü dedim. Söhbət düşündüyümdən daha sakit keçdi.</p>' +
+  return '<div class="reader stack">' + title("Bir söhbəti çox gec başladım", "Lavbe #7K4M2X9Q · 20 noyabr 2026") +
+    '<p>Evə qayıtdığım gün uzun müddət demədiyim sözü dedim. Söhbət düşündüyümdən daha sakit keçdi.</p><p class="muted">◉ Unikal oxunuş: 24</p>' +
     (state === "ad" ? '<div class="slot">Reklam · rezerv sahə</div>' : '') +
     '<article class="card"><small>Sonra nə oldu?</small><p>Bu dəfə söhbəti yarımçıq qoymadıq.</p></article>' +
     '<div class="flow">' + button("Səni anlayıram") + (state === "closed" ? '' : button("Rəy yaz")) + button("İzlə") + button("Şikayət et") + '</div>' +
@@ -196,10 +212,10 @@ function read(state) {
     button("Növbəti etiraf", true) + '</div>';
 }
 function writer(state, comment) {
-  return '<div class="writer stack">' + title(comment ? "Rəy yaz" : "Etiraf yaz", comment ? "Cavabın baxışdan sonra görünəcək." : "İçində qalanı öz sözlərinlə yaz.") +
+  return '<div class="writer stack">' + title(comment ? "Rəy yaz" : "Etiraf yaz", comment ? "Cavabın baxışdan sonra görünəcək." : "Adsız yaza bilərsən. Adını yalnız özün istəsən paylaş.") +
     (state === "retry" ? notice("Göndəriş alınmadı. Yazdığın mətn burada qaldı.") : '') +
     '<label>Mətn<textarea>' + (state === "retry" ? "Yarımçıq qalan bir söhbət haqqında yazıram." : "") + '</textarea></label>' +
-    (comment ? '' : '<div class="flow"><span class="chip">Mövzu seç</span><span class="chip">Başlıq</span></div>' + notice("Etiraf təsdiqdən sonra yayımlanır və axtarış nəticələrində görünə bilər.")) +
+    (comment ? '' : '<div class="flow"><span class="chip">Başlıq</span><span class="chip">Mövzu</span></div>' + '<details class="sharing-options"><summary>Paylaşım seçimləri</summary><label>Ad və soyad · istəyə bağlı<input autocomplete="off"></label><p class="muted">Adsız paylaşım standart seçimdir.</p></details>' + notice("Etiraf təsdiqdən sonra yayımlanır və axtarış nəticələrində görünə bilər.")) +
     button("Baxışa göndər", true) + (state === "keyboard" ? template("keyboard") : '') + '</div>';
 }
 function sent(state) {

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Możesz napisać anonimowo. Podaj imię i nazwisko tylko wtedy, gdy chcesz.',
+    'write_options' => 'Opcje publikacji',
     'write_title' => 'Napisz wyznanie',
     'write_intro' => 'Po wysłaniu tekst zostanie sprawdzony i nie pojawi się publicznie przed zatwierdzeniem.',
     'write_subject' => 'Tytuł (opcjonalnie)',

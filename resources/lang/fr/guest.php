@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Vous pouvez écrire anonymement. N’ajoutez votre nom que si vous le souhaitez.',
+    'write_options' => 'Options de partage',
     'write_title' => 'Écrire un témoignage',
     'write_intro' => 'Après l’envoi, votre texte sera examiné et restera absent du fil public jusqu’à son approbation.',
     'write_subject' => 'Titre (facultatif)',

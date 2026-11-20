@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Bu həftə',
     'sort_popular' => 'Məşhur etiraflar',
     'sort_updates' => 'Davamı var',
+    'topics_button' => 'Mövzular',
     'categories' => 'Etirafın mövzusu',
     'all_categories' => 'Hamısı',
     'category_empty' => 'Bu mövzuda hələ etiraf yoxdur.',

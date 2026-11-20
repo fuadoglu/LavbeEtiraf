@@ -47,6 +47,7 @@
 | Tab ikonları və detail əməliyyatları | **[LAV-054](https://github.com/fuadoglu/LavbeEtiraf/issues/114) icra olunur.** Feed tab ikonları sola keçir; dəstək/say, izləmə və paylaşma qısa etiketli üç yan-yana düymə olur. |
 | Qonaq izləmə keçidi | **[LAV-055](https://github.com/fuadoglu/LavbeEtiraf/issues/116) icra olunur.** Giriş çağırışı qonaqdan çıxarılıb; təsdiqlənmiş oxucunun izləmə düyməsi saxlanır. |
 | Şikayət düyməsinin birləşdirilməsi | **[LAV-056](https://github.com/fuadoglu/LavbeEtiraf/issues/118) icra olunur.** Etiraf altında bir “Şikayət et” düyməsi icma şikayəti və hüquqi bildiriş seçimlərini açır. |
+| Məzmunu ekranda önə çəkmək | **[LAV-057](https://github.com/fuadoglu/LavbeEtiraf/issues/120) icra olunur.** Lentdə ilk etiraf, yazı formasında mətn sahəsi, detail-də hekayə və müəllif davamı ardıcıllığı yenilənir; mürəkkəb gündüz/gecə palitrası tətbiq olunur. |
 
 ## Codex ilə başla
 

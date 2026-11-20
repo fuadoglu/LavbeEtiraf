@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Voit kirjoittaa nimettömänä. Lisää nimesi vain, jos itse haluat.',
+    'write_options' => 'Julkaisuvalinnat',
     'write_title' => 'Kirjoita tunnustus',
     'write_intro' => 'Lähetyksen jälkeen teksti tarkistetaan. Se ei näy julkisessa syötteessä ennen hyväksyntää.',
     'write_subject' => 'Otsikko (valinnainen)',

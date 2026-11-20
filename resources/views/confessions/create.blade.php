@@ -6,23 +6,19 @@
     <section class="write-page">
         <header class="write-heading">
             <h1>{{ __('guest.write_title') }}</h1>
-            <p>{{ __('guest.write_intro') }}</p>
+            <p class="write-anonymous-note"><x-icon name="shield-check" class="icon-small" />{{ __('guest.write_anonymous') }}</p>
         </header>
 
         <form class="write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
             @csrf
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
-            <x-form-field name="title" :label="__('guest.write_subject')" :error="$errors->first('title')">
-                <input @if($errors->has('title')) aria-describedby="title-description" @endif aria-invalid="{{ $errors->has('title') ? 'true' : 'false' }}" type="text" id="title" name="title" required maxlength="{{ config('lavbe.limits.confession_title') }}" value="{{ old('title') }}" autocomplete="off">
-            </x-form-field>
-
-            <x-form-field name="author_display_name" :label="__('guest.author_name_label')" :hint="__('guest.author_name_hint')" :error="$errors->first('author_display_name')">
-                <input id="author_display_name" name="author_display_name" maxlength="120" value="{{ old('author_display_name') }}" autocomplete="name">
-            </x-form-field>
-
             <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')])" :error="$errors->first('body')">
                 <textarea aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="body" aria-describedby="body-description" name="body" rows="8" maxlength="{{ config('lavbe.limits.confession_body') }}" required>{{ old('body') }}</textarea>
+            </x-form-field>
+
+            <x-form-field name="title" :label="__('guest.write_subject')" :error="$errors->first('title')">
+                <input @if($errors->has('title')) aria-describedby="title-description" @endif aria-invalid="{{ $errors->has('title') ? 'true' : 'false' }}" type="text" id="title" name="title" required maxlength="{{ config('lavbe.limits.confession_title') }}" value="{{ old('title') }}" autocomplete="off">
             </x-form-field>
 
             <x-form-field name="category_key" :label="__('guest.write_topic')">
@@ -42,14 +38,21 @@
                 </ul>
             </details>
 
-            <x-form-field name="response_expectation" :label="__('guest.write_expectation')">
-                <select @if($errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">
-                    <option value="">—</option>
-                    <option value="share" @selected(old('response_expectation') === 'share')>{{ __('guest.write_share') }}</option>
-                    <option value="similar" @selected(old('response_expectation') === 'similar')>{{ __('guest.write_similar') }}</option>
-                    <option value="advice" @selected(old('response_expectation') === 'advice')>{{ __('guest.write_advice') }}</option>
-                </select>
-            </x-form-field>
+            <details class="sharing-options" @if(old('author_display_name') || $errors->has('author_display_name') || old('response_expectation')) open @endif>
+                <summary>{{ __('guest.write_options') }}</summary>
+                <p class="field-description">{{ __('guest.author_name_hint') }}</p>
+                <x-form-field name="author_display_name" :label="__('guest.author_name_label')" :error="$errors->first('author_display_name')">
+                    <input id="author_display_name" name="author_display_name" maxlength="120" value="{{ old('author_display_name') }}" autocomplete="off">
+                </x-form-field>
+                <x-form-field name="response_expectation" :label="__('guest.write_expectation')">
+                    <select @if($errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">
+                        <option value="">—</option>
+                        <option value="share" @selected(old('response_expectation') === 'share')>{{ __('guest.write_share') }}</option>
+                        <option value="similar" @selected(old('response_expectation') === 'similar')>{{ __('guest.write_similar') }}</option>
+                        <option value="advice" @selected(old('response_expectation') === 'advice')>{{ __('guest.write_advice') }}</option>
+                    </select>
+                </x-form-field>
+            </details>
 
             <label class="age-confirmation">
                 <input type="checkbox" name="age_confirmed" value="1" required @checked(old('age_confirmed'))>
@@ -62,6 +65,7 @@
                 <span>{{ __('guest.write_remember_device') }}</span>
             </label>
 
+            <p class="write-review-note">{{ __('guest.write_intro') }}</p>
             <button class="button button-primary" type="submit">{{ __('guest.write_submit') }}</button>
         </form>
     </section>

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Du kan skrive anonymt. Oppgi bare navnet ditt hvis du selv ønsker det.',
+    'write_options' => 'Delingsvalg',
     'write_title' => 'Skriv en bekjennelse',
     'write_intro' => 'Etter innsending blir teksten gjennomgått og vises ikke offentlig før den er godkjent.',
     'write_subject' => 'Tittel (valgfritt)',

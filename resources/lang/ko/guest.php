@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => '이름을 밝히지 않고 작성할 수 있어요. 원할 때만 이름을 공개하세요.',
+    'write_options' => '공개 설정',
     'write_title' => '고백 작성',
     'write_intro' => '제출 후 검토되며 승인 전까지 공개 피드에 표시되지 않습니다.',
     'write_subject' => '제목(선택)',

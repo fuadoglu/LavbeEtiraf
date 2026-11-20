@@ -18,17 +18,24 @@
 @endpush
 
 @section('content')
-    <section aria-labelledby="feed-title">
-        <div class="page-heading feed-heading">
-            <div>
-            <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
-            <p>{{ $topic ? ($topic['descriptions'][app()->getLocale()] ?? $topic['descriptions']['en']) : __('lavbe.feed_subtitle') }}</p>
-            </div>
-        </div>
+    <section class="feed-page" aria-labelledby="feed-title">
+        <div class="feed-layout">
+            <aside class="feed-topic-sidebar" aria-label="{{ __('lavbe.categories') }}">
+                <x-topic-panel variant="desktop" :selected="$category" :categories="$categories" />
+            </aside>
+            <div class="feed-main">
+                <div class="page-heading feed-heading @if($confessions->isNotEmpty()) feed-heading--populated @endif">
+                    <div>
+                        <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
+                        @if($confessions->isEmpty() || $topic)
+                            <p>{{ $topic ? ($topic['descriptions'][app()->getLocale()] ?? $topic['descriptions']['en']) : __('lavbe.feed_subtitle') }}</p>
+                        @endif
+                    </div>
+                </div>
 
-        <div class="feed-controls">
-            <x-topic-panel :selected="$category" :categories="$categories" />
-            <nav class="sort-panel" aria-label="{{ __('lavbe.sort_label') }}">
+                <div class="feed-controls">
+                    <x-topic-panel :selected="$category" :categories="$categories" class="feed-topic-picker-mobile" />
+                    <nav class="sort-panel" aria-label="{{ __('lavbe.sort_label') }}">
                 @foreach($sortLabels as $key => $label)
                     @php
                         $href = $category
@@ -36,9 +43,9 @@
                             : route('home', ['locale' => $lavbeLocale['segment'], 'sort' => $key]);
                     @endphp
                     <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif><x-icon :name="$sortIcons[$key]" class="icon-small" /><span>{{ __($sortLabels[$key]) }}</span></a>
-                @endforeach
-            </nav>
-        </div>
+                    @endforeach
+                    </nav>
+                </div>
 
         @if($confessions->isEmpty())
             <div class="empty-state">
@@ -55,5 +62,7 @@
                 <x-pagination :paginator="$confessions" />
             @endif
         @endif
+            </div>
+        </div>
     </section>
 @endsection

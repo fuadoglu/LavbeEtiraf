@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Cette semaine',
     'sort_popular' => 'Confessions populaires',
     'sort_updates' => 'Avec une suite',
+    'topics_button' => 'Thèmes',
     'categories' => 'Sujet de la confidence',
     'all_categories' => 'Tout',
     'category_empty' => 'Aucune confidence dans ce sujet pour le moment.',

@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Bu hafta',
     'sort_popular' => 'Popüler itiraflar',
     'sort_updates' => 'Devamı var',
+    'topics_button' => 'Konular',
     'categories' => 'İtiraf konusu',
     'all_categories' => 'Tümü',
     'category_empty' => 'Bu konuda henüz itiraf yok.',

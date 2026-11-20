@@ -5,8 +5,8 @@
 | Sıra | Mobil | Masaüstü |
 |---|---|---|
 | 1 | Lavbe, cari dilin yumru bayrağı, dil menyusu | Eyni başlıq, mətnli naviqasiya |
-| 2 | Hamısı, cari mövzu, bir neçə mövzu, Bütün mövzular | Eyni mövzu komponenti daha geniş düzülüşdə |
-| 3 | Yeni, Bu həftə və Məşhur etiraflar — fərqli ikonlu, bərabər ölçülü tablar | Eyni seçimlər |
+| 2 | Yığcam “Mövzular” açılan seçimi, içində bütün 12 kateqoriya | Sol sütunda 12 mövzulu kompakt siyahı, oxu lenti mərkəzdə |
+| 3 | Yeni, Bu həftə və Məşhur etiraflar — fərqli ikonlu, bərabər ölçülü tablar; seçilmiş sıralama mövzu seçiminin yanındadır | Eyni tablar oxu lentinin üstündə |
 | 4 | Bir sütun etiraf kartları | Mərkəzlənmiş oxu sütununda eyni kartlar |
 | 5 | Daha çox və mobil alt naviqasiya | Eyni səhifələmə və ümumi alt hissə |
 
@@ -32,11 +32,14 @@ Kateqoriya səhifəsinin başlığı altında seçilmiş mövzunun həmin dildə
 
 ## Digər ekranların quruluşu
 
-- **Ana lent:** kateqoriya zolağı mobildə üfüqi scrollbar və snap ilə sürüşür; etiraf kartları hover və klaviatura fokusunda yüngül vizual əks əlaqə verir.
+- **Ana lent:** Dolu lentdə giriş mətni gizlənir və ilk etiraf erkən başlayır. Mobildə “Mövzular” seçimi bütün kateqoriyaları açır; açılanda sıralama tam enə keçir. Desktop-da mövzular yığcam sol naviqasiyadır, lent mərkəzdə qalır. Etiraf kartları üç sətirlik parça, hover və klaviatura fokusunda yüngül əks əlaqə verir.
 - **Etiraf:** mövzu, başlıq, anonim ad, tam mətn, Sonra nə oldu, uyğun reklam və oxu hərəkətləri. Rəylər bir səviyyəlidir. Rəy yaz ayrı reklamsız səth açır. İcma şikayəti və hüquqi bildiriş konkret etiraf və ya rəy hədəfinə bağlanır. Sahibin gizlətməyə etirazı yalnız özəl status səhifəsində görünür. Sonra eyni dildən etiraf təklif olunur.
-- **Yaz və rəy:** geniş mətn sahəsi, yığcam əlavə seçimlər, yerli xəta və baxışa göndər düyməsi. Mobil klaviatura kursoru və fokuslu sahəni örtmür. Şəbəkə xətasında DOM-dakı mətn qalır. Cavab alınana qədər uğurlu status göstərilmir.
+- **Yaz və rəy:** əvvəlcə geniş mətn sahəsi, sonra məcburi başlıq və mövzu, bağlı əlavə seçimlər, yerli xəta və baxışa göndər düyməsi. Anonimlik görünən şəkildə bildirilir; açıq ad seçimi ilk renderdə bağlıdır. Mobil klaviatura kursoru və fokuslu sahəni örtmür. Şəbəkə xətasında DOM-dakı mətn qalır. Cavab alınana qədər uğurlu status göstərilmir.
 - **Göndəriş və bərpa:** bərpa kodunun ayrıca görünüşü, kopyalama və Mənim bölməsinə keçid. URL-də və açıq keşdə kod yoxdur.
 - **Mənim:** Etiraflarım, Rəylərim, İzlədiklərim və Bildirişlər. Rejim, giriş, bərpa və quraşdırma əlçatandır.
 - **Dil seçici:** header-də seçilmiş dilin bayrağı və native adı tam yazılır; qısa locale kodu göstərilmir. Mobil enlərdə yalnız bayraq görünür, native ad screen reader üçün əlçatan qalır. Açılan menyuda axtarış, yumru bayraq, native adın altında ingiliscə ad və seçilmiş dil işarəsi var. Mənbə [dil reyestri](../localization.md). JavaScript olmadan dil linkləri açılır.
 - **Admin:** Etiraflar, Rəylər, Şikayətlər və Etirazlar üçün ayrı növbələr. Hüquqi və təcili qruplar önə çıxır; qalanlar ən köhnə gözləyənlə başlayır. Kartda qərar, səbəb və kontekst. Səlahiyyət olmadıqda məlumat render edilmir.
 - **Hüquqi, 404/410, oflayn:** ortaq başlıq və tipoqrafiya, lokallaşdırılmış mesaj, əsas dil lentinə link.
+
+
+Etiraf detail-də breadcrumb kateqoriyanı göstərdiyi üçün başlıq sahəsində kateqoriya təkrarlanmır. Müəllif və oxunaqlı yerli tarix yığcam meta sətrindədir; oxunuş göstəricisi hekayədən sonra qalır. Təsdiqlənmiş müəllif davamı mövcud olduqda, dəstək və şərhlərdən əvvəl verilir.

@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'This week',
     'sort_popular' => 'Popular confessions',
     'sort_updates' => 'Continued',
+    'topics_button' => 'Topics',
     'categories' => 'Confession topic',
     'all_categories' => 'All',
     'category_empty' => 'There are no confessions in this topic yet.',
