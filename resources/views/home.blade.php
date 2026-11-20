@@ -3,6 +3,7 @@
 @php
     $topic = $category ? app(App\Support\Lavbe\LocaleRegistry::class)->category($category) : null;
     $sortLabels = config('lavbe.feed_orders');
+    $sortIcons = ['new' => 'sparkles', 'weekly' => 'calendar-days', 'popular' => 'flame'];
 @endphp
 
 @section('title', ($topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title')).' · Lavbe')
@@ -34,7 +35,7 @@
                             ? route('topic.show', ['locale' => $lavbeLocale['segment'], 'category' => $category, 'sort' => $key])
                             : route('home', ['locale' => $lavbeLocale['segment'], 'sort' => $key]);
                     @endphp
-                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif>{{ __($sortLabels[$key]) }}</a>
+                    <a class="sort-link" href="{{ $href }}" @if($sort === $key) aria-current="page" @endif><x-icon :name="$sortIcons[$key]" />{{ __($sortLabels[$key]) }}</a>
                 @endforeach
             </nav>
         </div>

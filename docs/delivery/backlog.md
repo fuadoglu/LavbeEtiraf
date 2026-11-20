@@ -32,6 +32,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 25 | Footer-dən operator keçidini çıxar və linkləri kiçikləşdir | LAV-048 |
 | 26 | Ana lentin scroll və kart qarşılıqlı təsirlərini cilala | LAV-049 |
 | 27 | Tövsiyə olunan etiraflarda yalnız başlıqları göstər | LAV-050 |
+| 28 | Lent sıralama tablarına ikon əlavə et və ölçülərini bərabərləşdir | LAV-051 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -287,3 +288,9 @@ Mobil mövzu zolağına nazik, görünən scrollbar, üfüqi overscroll containm
 **Asılılıq:** LAV-045. **Qəbul:** DISC-01.
 
 Tövsiyə blokundakı feed kartları sadə, başlıqdan ibarət link siyahısı ilə əvəz et. Tövsiyənin xülasəsi, müəllifi, tarixi, kateqoriyası, oxunuş sayı və digər metadata bu blokda görünməsin. Locale-ə uyğun confession route, üç fərqli kateqoriyadan seçim və mövcud sıralama qorunur. **Sübut:** görünən tövsiyə sayı/başlıq, xülasə və metadata olmaması, feature testi, CSS build və sənəd validatoru.
+
+## LAV-051 · Lent sıralama tablarına ikon əlavə et və ölçülərini bərabərləşdir
+
+**Asılılıq:** LAV-002, LAV-003. **Qəbul:** UI-14, DISC-01.
+
+Yeni, Bu həftə və Məşhur etiraflar tablarına fərqli Lucide SVG ikonları əlavə et. Tabları bütün ekran enlərində eyni üç-sütunlu grid hüceyrədə göstər; dar ekranda label-lar bir neçə sətirə keçəndə ikonlarla toqquşmasın. `aria-current`, focus və locale label-ları saxla. `recommended_heading`-in Azərbaycan mətnini “Başqa etirafları oxu” et; digər locale mətnlərinə toxunma. **Sübut:** üç tabın HTML/ikon yoxlaması, build, UI test və brauzer baxışı.

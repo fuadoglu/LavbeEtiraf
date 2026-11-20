@@ -54,3 +54,5 @@ Eyni etiket və xəta əlaqələri yazı, şikayət, etiraz, bərpa və moderasi
 Saytın footer-i solda ürək vurğulu Lavbe wordmark-ını, sağda isə altı hüquqi/məlumat keçidinin kompakt sırasını göstərir. Operator məlumatı səhifəsi ayrıca URL-dən əlçatandır, footer-də göstərilmir. Əlçatan adlı naviqasiya, altxətli keçidlər, 44 px hündürlük, görünən fokus və cari səhifə üçün `aria-current="page"` saxlanır. Link mətnləri yığcam 0.8rem ölçüdədir. Mobil ölçüdə linklər wordmark-ın altına düşüb səliqəli sətirlənir; sabit mobil naviqasiya üçün alt boşluq qalır. Footer-də ayrıca slogan/signature sətri yoxdur.
 
 Mobil ana lentdə kateqoriya çipləri üfüqi sürüşür, nazik scrollbar sürüşdürmə imkanını göstərir və snap çipi rahat hizalayır. Desktop-da çiplər əvvəlki sətirli düzülüşdə qalır. Lent kartı hover-capable pointer üzərində sakit kölgə alır, klaviatura ilə linkə fokuslananda isə kart sərhədi fokus halqası ilə vurğulanır; reduced-motion seçimi qorunur.
+
+Feed sıralaması üç bərabər sütunlu tabdır: Yeni üçün sparkles, Bu həftə üçün calendar, Məşhur etiraflar üçün flame ikonu. İkonlar dekorativdir; tabın tərcümə olunmuş mətn etiketi və `aria-current` semantikası əsasdır.
