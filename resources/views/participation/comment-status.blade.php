@@ -20,7 +20,7 @@
         <form method="post" action="{{ route('participation.comment.withdraw', ['locale' => $lavbeLocale['segment'], 'commentPublicId' => $comment->public_id]) }}">
             @csrf
             <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-            <x-form-field :label="__('participation.withdraw_comment_confirm')" name="confirm_withdraw"><input id="confirm_withdraw" type="checkbox" name="confirm_withdraw" value="1" required></x-form-field>
+            <x-form-field :label="__('participation.withdraw_comment_confirm')" name="confirm_withdraw"><input @if($errors->has('confirm_withdraw')) aria-describedby="confirm_withdraw-description" @endif aria-invalid="{{ $errors->has('confirm_withdraw') ? 'true' : 'false' }}" id="confirm_withdraw" type="checkbox" name="confirm_withdraw" value="1" required></x-form-field>
             <button class="button button-secondary" type="submit">{{ __('participation.withdraw_comment') }}</button>
         </form>
         <a href="{{ route('confessions.public', ['locale' => $lavbeLocale['segment'], 'publicId' => $comment->confession->public_id]) }}">{{ __('lavbe.feed_title') }}</a>

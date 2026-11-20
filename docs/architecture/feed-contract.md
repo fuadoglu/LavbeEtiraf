@@ -48,3 +48,5 @@ Sıralama uyğunluq, son yayım və ID ilə sabitləşir. UTF-8 tokenləri local
 LAV-019-un yayım ardıcıllığı hissəsində publication_sequence etirafın public vəziyyətinə hər girişində feed_publications sayğacından ayrılır. Public vəziyyətdə redaktə və uşaq materialına görə visibility_version dəyişməsi bu nömrəni dəyişmir. Mövcud public qeydlərə migration zamanı nömrə verilir. Bu metadata mətn və istifadəçi identifikatoru daşımır. Model ilə yayım eyni DB tranzaksiyasında ediləndə sayğac və status birlikdə rollback olunur. Sequence nömrəsi snapshot üzvlüyü ilə birlikdə cursor davamında yoxlanır.
 
 Database cache istifadə ediləndə vaxtı bitmiş snapshot qeydlərinin yığılmaması üçün lavbe:prune-expired-cache gündəlik scheduler-ə əlavə edilib. Əmr yalnız aktiv database cache store-un vaxtı bitmiş qeydlərini silir. Store database deyilsə dəyişiklik etmir. Mövcud cron schedule:run çağırışı bu işi də icra edir.
+
+HTML page=1 digər filtr seçimlərini saxlayaraq 301 ilə əsas URL-ə qayıdır. Yanlış və mövcud olmayan nömrəli səhifələr 404 qaytarır.

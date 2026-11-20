@@ -17,7 +17,7 @@ class ModerationAdminController extends Controller
 {
     public function index(Request $request): Response|View
     {
-        $grants = ModeratorGrant::query()->with('user')->orderBy('role')->orderBy('locale')->paginate(30);
+        $grants = ModeratorGrant::query()->with('user')->orderBy('role')->orderBy('locale')->paginate((int) config('lavbe.pagination.moderation'));
         $users = User::query()->whereNotNull('email_verified_at')->orderBy('email')->get(['id', 'name', 'email']);
 
         return $this->privateView('moderation.grants', compact('grants', 'users'));
@@ -28,9 +28,9 @@ class ModerationAdminController extends Controller
         $data = Validator::make($request->all(), [
             'user_id' => ['required', 'integer', 'exists:users,id'],
             'role' => ['required', 'in:moderator,admin'],
-            'locale' => ['required', 'string', 'max:10'],
-            'reason' => ['required', 'string', 'min:5', 'max:500'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'locale' => ['required', 'string', 'max:'.config('lavbe.limits.locale_segment')],
+            'reason' => ['required', 'string', 'min:'.config('lavbe.limits.moderation_reason_min'), 'max:'.config('lavbe.limits.moderation_reason')],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $target = User::query()->whereKey($data['user_id'])->whereNotNull('email_verified_at')->firstOrFail();
         abort_if($target->id === $request->user()->id, 403);
@@ -84,8 +84,8 @@ class ModerationAdminController extends Controller
     public function revoke(Request $request, string $locale, int $grantId): Response
     {
         $data = Validator::make($request->all(), [
-            'reason' => ['required', 'string', 'min:5', 'max:500'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'reason' => ['required', 'string', 'min:'.config('lavbe.limits.moderation_reason_min'), 'max:'.config('lavbe.limits.moderation_reason')],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $reason = $this->sanitize((string) $data['reason']);
         $idempotencyHash = hash_hmac('sha256', 'revoke|'.$request->user()->id.'|'.$data['idempotency_key'], (string) config('app.key'));
@@ -135,7 +135,7 @@ class ModerationAdminController extends Controller
     {
         $value = strip_tags(preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $value) ?? '');
 
-        return mb_substr(trim($value), 0, 500, 'UTF-8');
+        return mb_substr(trim($value), 0, (int) config('lavbe.limits.sanitized_message'), 'UTF-8');
     }
 
     private function privateView(string $view, array $data = []): Response
