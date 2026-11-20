@@ -41,7 +41,6 @@ return [
     'preferences_save' => 'Lagre innstillinger',
     'preferences_saved' => 'Innstillingene er lagret.',
     'follow' => 'Følg historien',
-    'login_to_follow' => 'Logg inn · bekreft e-post',
     'follow_saved' => 'Du følger nå historien.',
     'follow_removed' => 'Du følger ikke lenger historien.',
     'unfollow' => 'Slutt å følge',

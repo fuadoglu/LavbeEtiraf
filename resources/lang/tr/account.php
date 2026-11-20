@@ -41,7 +41,6 @@ return [
     'preferences_save' => 'Tercihleri kaydet',
     'preferences_saved' => 'Tercihlerin kaydedildi.',
     'follow' => 'Hikâyeyi takip et',
-    'login_to_follow' => 'Giriş yap · e-postanı doğrula',
     'follow_saved' => 'Artık bu itirafı takip ediyorsun.',
     'follow_removed' => 'Bu itirafı takipten çıktın.',
     'unfollow' => 'Takibi bırak',

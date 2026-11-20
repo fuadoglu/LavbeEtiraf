@@ -41,7 +41,6 @@ return [
     'preferences_save' => 'Voorkeuren opslaan',
     'preferences_saved' => 'Je voorkeuren zijn opgeslagen.',
     'follow' => 'Verhaal volgen',
-    'login_to_follow' => 'Log in · bevestig je e-mail',
     'follow_saved' => 'Je volgt dit verhaal nu.',
     'follow_removed' => 'Je volgt dit verhaal niet meer.',
     'unfollow' => 'Niet meer volgen',

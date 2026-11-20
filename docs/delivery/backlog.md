@@ -36,6 +36,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 29 | Etiraf tövsiyələrini qarışdır və təkrarsız et | LAV-052 |
 | 30 | Etiraf detalına paylaş düyməsi əlavə et | LAV-053 |
 | 31 | Feed tab ikonları və etiraf əməliyyatlarını yan-yana düz | LAV-054 |
+| 32 | Qonaqdan izləmək üçün giriş çağırışını çıxar | LAV-055 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -314,4 +315,10 @@ Etiraf səhifəsində mövcud əməliyyatlar sırasına uyğun paylaş düyməsi
 
 **Asılılıq:** LAV-034, LAV-051, LAV-053. **Qəbul:** UI-15.
 
-Yeni, Bu həftə və Məşhur etiraflar ikonlarını label-larının solunda yerləşdir, bərabər üç sütunlu tab ölçüsünü qoru. Etiraf detail-ində dəstək, izləmə/giriş və paylaş əməliyyatlarını üç bərabər yan-yana düymə et; dəstək sayını qısa rəqəm kimi düyməyə daxil et və tam say məlumatını əlçatan addan saxla. Girişsiz izləmə mətnini yığcamlaşdır, amma e-poçt təsdiqi tələbini aydın saxla. “Etirafı paylaş” label-ını dəyişmə. Dar enlərdə üç düymə eyni sırada qalsın, mətn hündürlüyə qırıla bilsin və fokus/hover vəziyyətləri görünsün. **Sübut:** feature DOM, CSS qırılma qaydası, 17 dil mətnləri, build və docs testləri.
+Yeni, Bu həftə və Məşhur etiraflar ikonlarını label-larının solunda yerləşdir, bərabər üç sütunlu tab ölçüsünü qoru. Etiraf detail-ində dəstək, təsdiqlənmiş hesab üçün izləmə və paylaş əməliyyatlarını yan-yana düymə et; dəstək sayını qısa rəqəm kimi düyməyə daxil et və tam say məlumatını əlçatan addan saxla. “Etirafı paylaş” label-ını dəyişmə. Dar enlərdə düymələr eyni sırada qalsın, mətn hündürlüyə qırıla bilsin və fokus/hover vəziyyətləri görünsün. **Sübut:** feature DOM, CSS qırılma qaydası, build və docs testləri.
+
+## LAV-055 · Qonaqdan izləmək üçün giriş çağırışını çıxar
+
+**Asılılıq:** LAV-054. **Qəbul:** UI-15.
+
+Etiraf detail-ində qonağa göstərilən “daxil ol və e-poçtu təsdiqlə” izləmə keçidini və artıq istifadə olunmayan locale mətnlərini çıxar. Təsdiqlənmiş hesabla daxil olan oxucu izləmə düyməsini saxlayır. Qonaq üçün dəstək/say və paylaş düymələri iki bərabər sütunda; təsdiqlənmiş oxucu üçün bu ikisi və izləmə üç bərabər sütunda görünür. **Sübut:** qonaq və təsdiqlənmiş hesab üzrə render feature testləri, responsive CSS və docs yoxlaması.
