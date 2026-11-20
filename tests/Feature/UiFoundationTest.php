@@ -75,7 +75,9 @@ class UiFoundationTest extends TestCase
                 ->assertNotFound()
                 ->assertSee(__('ui.missing', [], $code))
                 ->assertSee(__('ui.back', [], $code))
-                ->assertSee('Lavbe · '.__('lavbe.feed_title', [], $code));
+                ->assertSee('icons/lavbe-logo.svg')
+                ->assertSee('/'.$locale['segment'].'/legal/terms')
+                ->assertDontSee('Lavbe · '.__('lavbe.feed_title', [], $code));
             $this->view('components.feed-skeleton')
                 ->assertSee(__('ui.loading', [], $code))
                 ->assertDontSee('ui.loading');
