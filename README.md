@@ -25,6 +25,7 @@
 | Etirafdan şikayət | **LAV-031 hazırlanıb.** İcma şikayəti və hüquqi bildiriş etiraf səhifəsində accessible dialog popup-da açılır; CI mərhələsindədir. |
 | Popup responsivliyi | **LAV-032 hazırlanır.** Dialog eni, daxili skrollu və mobil safe-area boşluqları yenilənir; viewport baxışı və CI gözləyir. |
 | Mərkəzlənmiş popup | **LAV-033 hazırlanır.** İcma şikayəti və hüquqi bildiriş bütün viewport-larda həm üfüqi, həm də şaquli mərkəzdə açılır. |
+| Başlıq ikonları | **LAV-034 hazırlanır.** Dil seçiminin ardınca axtarış, dəstəklənənlər və görünüş ikonları gəlir. |
 
 ## Codex ilə başla
 

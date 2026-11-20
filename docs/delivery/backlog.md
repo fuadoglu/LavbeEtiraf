@@ -15,6 +15,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 8 | Etiraf bildiriş formalarının modal təqdimatı | LAV-031 |
 | 9 | Modal popup-ların mobil/desktop uyğunlaşması | LAV-032 |
 | 10 | Popup-ların bütün ekranlarda mərkəzlənməsi | LAV-033 |
+| 11 | Başlıq ikonlarının dil menyusundan sonra düzülməsi | LAV-034 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -161,6 +162,12 @@ Dialog en və hündürlüyünü vizual viewport-a bağla, kiçik ekranlarda safe
 **Asılılıq:** LAV-031, LAV-032. **Qəbul:** UI-08.
 
 Mobil üçün tətbiq olunmuş alt kənar margin-ini ləğv et; dialog-u viewport-a fixed inset ilə bağlayıb bütün margin-ləri auto et. Kiçik hündürlükdə də safe-area boşluqları daxilində qalan max-height-i saxla; uzun form daxilən skrollansın. **Sübut:** build və portret, landşaft, masaüstü viewport-larda mərkəzlənmə.
+
+## LAV-034 · Başlıq ikonlarının dil menyusundan sonra düzülməsi
+
+**Asılılıq:** LAV-002, LAV-003, LAV-030. **Qəbul:** UI-09.
+
+Header utility controls sırası: dil menyusu, axtarış, dəstəklənən etiraflar, görünüş rejimi. Mövcud label, route, active state və mobil responsivlik toxunulmaz qalır. **Sübut:** Blade header render-i və build.
 
 ## İş dövrü
 

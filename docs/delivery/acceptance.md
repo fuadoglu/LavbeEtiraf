@@ -36,5 +36,6 @@
 | UI-06 | Etiraf şikayətləri modalda açılır | İcma şikayəti və hüquqi bildiriş keçidləri mövcud formanı əlçatan popup-da açır; bağlama düyməsi, backdrop və Escape ilə qapanır, fokus trigger-ə qayıdır, JavaScript olmayanda linklər ayrıca forma səhifəsini açır |
 | UI-07 | Şikayət popup-ları mobil və masaüstündə uyğunlaşır | Dar ekranlarda dialog viewport və safe-area daxilində qalır, uzun məzmun daxildə skrollanır, bağlama nəzarəti görünən qalır; forma eninə daşmır və düymələr toxunmağa rahatdır |
 | UI-08 | Responsive popup hər viewport-da mərkəzdə açılır | İcma şikayəti və hüquqi bildiriş dialog-u telefon portret/landşaftı, kiçik hündürlük və masaüstü daxil olmaqla mövcud viewport-un həm enində, həm hündürlüyündə mərkəzlənir; safe-area, daxili skroll və görünən bağlama nəzarəti qorunur |
+| UI-09 | Header nəzarətlərinin ardıcıllığı | Başlıqda dil menyusundan dərhal sonra axtarış, dəstəklənənlər və görünüş rejimi ikonları bu ardıcıllıqla gəlir; mövcud linklər və ikon funksiyaları saxlanır |
 
 Test nəticəsini PR-a əlavə et: mühit, əmr və nəticə. Avtomatik test, browser sınağı, manual baxış və xarici hesab doğrulamasını ayrıca qeyd et. 75-ci persentil üçün mobil sahə hədəfləri LCP ≤2,5 s, INP ≤200 ms, CLS ≤0,1. Trafik olmayanda lab nəticəsini sahə ölçümü kimi etiketləmə.
