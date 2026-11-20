@@ -59,6 +59,7 @@ h1, h2, h3, p { margin: 0; }
 .logo { letter-spacing: -.035em; font-size: 1.28rem; }
 .flag { width: 20px; height: 20px; flex: 0 0 20px; border: 1px solid var(--line); border-radius: 50%; background: linear-gradient(#00b5e2 0 33%, #ef3340 33% 66%, #509e2f 66%); }
 .language { display: flex; gap: .45rem; align-items: center; }
+.mobile .current-language, .mobile .language-chevron { display: none; }
 .content { max-width: 670px; min-height: 23rem; padding: 1rem .9rem; margin-inline: auto; }
 .stack { display: grid; gap: .75rem; }
 .flow { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
@@ -119,7 +120,7 @@ textarea { width: 100%; min-height: 9rem; resize: vertical; padding: .75rem; fon
   <section class="pane desktop"><h2>Masaüstü</h2><div class="frame" id="desktop"></div></section>
 </div>
 
-<template id="top"><div class="top"><strong class="logo">Lavbe</strong><nav class="desktop-links" aria-label="Əsas"><span>Oxu</span><span>Yaz</span><span>Mənim</span></nav><span class="language"><i class="flag"></i><span>AZ ▾</span></span></div></template>
+<template id="top"><div class="top"><strong class="logo">Lavbe</strong><nav class="desktop-links" aria-label="Əsas"><span>Oxu</span><span>Yaz</span><span>Mənim</span></nav><span class="language"><i class="flag"></i><span class="current-language">Azərbaycan dili</span><span class="language-chevron" aria-hidden="true">⌄</span></span></div></template>
 <template id="nav"><div class="nav"><span>Oxu</span><span>Yaz</span><span>Mənim</span></div></template>
 <template id="feed-top">
   <div class="flow topics"><span class="chip all">Hamısı</span><span class="chip family">Ailə</span><span class="chip">Münasibətlər</span><span class="chip">Bütün mövzular</span></div>

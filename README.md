@@ -28,7 +28,8 @@
 | Başlıq ikonları | **LAV-034 hazırlanır.** Dil seçiminin ardınca axtarış, dəstəklənənlər və görünüş ikonları gəlir. |
 | Rəy və müzakirə | **LAV-035 tamamlandı.** Etiraf altından rəy yazmaq, açıq rəyə reaksiya vermək və birbaşa cavab yazmaq mümkündür; PR #77 `main`-dədir. |
 | Nömrəli səhifələmə | **LAV-036 tamamlandı.** Feed, axtarış, rəy, davam, şəxsi və moderasiya siyahıları responsiv nömrəli səhifələnir; PR #79 `main`-dədir. |
-| Məşhur etiraflar | **LAV-037 hazırlanır.** “Davamı gələnlər” lent seçimi bütün müddət üzrə dəstək və təsdiqlənmiş rəylərlə hesablanan “Məşhur etiraflar” sıralaması ilə əvəzlənir. |
+| Məşhur etiraflar | **LAV-037 tamamlandı.** Hər müddət üçün dəstək və təsdiqlənmiş rəylərin xalına görə sıralanır; PR #81 `main`-dədir. |
+| Dil seçicisinin responsive görünüşü | **LAV-038 hazırlanır.** Desktop-da bayraq və tam native ad, mobil cihazda yalnız bayraq göstərilir; locale kodu gizlədilir. |
 
 ## Codex ilə başla
 
@@ -49,7 +50,7 @@
 | **Öz məzmununu idarə et** | İstəyə bağlı cihaz yaddaşı, məxfi bərpa kodu və e-poçt hesabı. Etirafın açıq linki sahiblik hüququ vermir. |
 | **Rəy və moderasiya** | Rəy etiraf səhifəsinin altından yazılır; təsdiqlənmiş rəylərə reaksiya və birbaşa cavab vermək mümkündür. Etiraf və rəy üçün ayrı hədəfli şikayət, ayrıca hüquqi bildiriş və sahibin bir dəfə etirazı var. Moderasiya paneli **Etiraflar · Rəylər · Şikayətlər · Etirazlar** bölmələrindən ibarətdir. |
 | **Davam və bildiriş** | Müəllifin **Sonra nə oldu?** mətni eyni etirafın altında yayımlanır. Hesab sahibi etirafı izləyib tətbiqdaxili bildiriş və ayrıca seçdiyi halda neytral e-poçt ala bilər. |
-| **Dil və görünüş** | 17 dil, 12 kateqoriya, axtarışlı dil menyusu, yumru bayraqlar, dilin öz adı və ingiliscə adı. Saxlanmış seçim cihaz və ölkə siqnalından üstündür. Seçilmiş lent yalnız həmin dildədir. |
+| **Dil və görünüş** | 17 dil, 12 kateqoriya, axtarışlı dil menyusu, yumru bayraqlar, dilin öz adı və ingiliscə adı. Header-də desktop üçün bayraqla tam native ad, mobil üçün yalnız bayraq göstərilir; locale kodu istifadəçiyə çıxmır. Saxlanmış seçim cihaz və ölkə siqnalından üstündür. Seçilmiş lent yalnız həmin dildədir. |
 | **PWA və performans** | Gündüz/gecə rejimi, ana ekrana əlavə etmə, statik oflayn görünüş və ayrıca seçilən qaralama yaddaşı. Etiraf və şəxsi məlumat PWA keşinə yazılmır. |
 | **SEO və monetizasiya** | Hər təsdiqlənib yayımlanan etiraf orijinal dilində sabit URL və sitemap qeydi alır. AdSense yeganə monetizasiyadır. Uyğun oxu detalında bir reklam yeri, razılıqdan sonra sanitizasiya olunmuş GA4 ölçümü. |
 

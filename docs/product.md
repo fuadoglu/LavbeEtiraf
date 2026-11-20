@@ -16,6 +16,8 @@ Lavbe anonim, mətn əsaslı etiraf və dəstək platformasıdır. Açılışda 
 
 ## Ekran xəritəsi və davranış
 
+Header dil seçicisi desktop-da cari locale-in bayrağını və tam native adını göstərir, locale kodunu göstərmir; mobil ölçüdə yalnız bayraq görünür, native ad screen reader-lər üçün əlçatan qalır. Açılan menyuda native və ingiliscə adlar saxlanır.
+
 | Ekran | Əsas əməliyyat və nəticə |
 |---|---|
 | Dil lenti və kateqoriya | 12 etirafdan ibarət səhifələri nömrə ilə dəyiş, mövzu dəyiş, seçilmiş dilin içində kəşf et |
