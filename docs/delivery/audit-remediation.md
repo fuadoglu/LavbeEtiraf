@@ -12,3 +12,7 @@ Yerli sübut: composer test — 78 test, 1029 assertion keçdi. AuditUserPathsTe
 - Lent snapshot xərci, rəylərin səhifələnməsi və sitemap sorğu/yaddaş yükünün məhdudlaşdırılması; sintetik yük ölçmələri.
 - Ayrı reklamsız rəy forması, hüquqi səhifələrin əlçatanlığı və sessiya məxfiliyi.
 - Real cihazlar, hüquqi operator məlumatları, backup bərpası və xarici reklam/hostinq yoxlamaları buraxılış qapıları olaraq qalır.
+
+## Sitemap yükü — LAV-022
+
+SEO-01/SEO-02: kateqoriya alternativləri üçün dil+mövzu üzrə tək qruplaşdırılmış COUNT istifadə edilir. İlk sitemap hissəsində cəmi iki say sorğusu var: hissələrin sayı və kateqoriya sayları. Sonrakı hissələr kateqoriya saymır. XML etirafları config/seo.php sitemap_read_batch ilə 500-lük paketlərdə oxuyur; ilk offset-dən sonra ID keyset davamı işləyir. 49 000 sətrin hamısı PHP yaddaşına götürülmür. Hər paket cari public/approved scope-dan gəlir. SitemapScaleTest kiçik batch konfiqurasiyası ilə sorğu limitini, kateqoriya hreflang-larını və hissələr arasında təkrarsız tam bölgünü yoxlayır. Real hosting pik yaddaş və p95 ölçməsi hələ keçirilməyib.
