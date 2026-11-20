@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Bekännelser jag stöttat',
     'supported_empty' => 'Du har inte stöttat några bekännelser ännu.',
     'recommended_heading' => 'Rekommenderade bekännelser',
+    'share_confession' => 'Dela berättelsen',
+    'share_copied' => 'Länken till berättelsen har kopierats.',
+    'share_copy_hint' => 'Kopiera länken nedan.',
 ];

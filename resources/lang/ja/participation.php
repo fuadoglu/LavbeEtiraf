@@ -35,4 +35,7 @@ return [
     'supported_heading' => '応援した告白',
     'supported_empty' => 'まだ応援した告白はありません。',
     'recommended_heading' => 'おすすめの告白',
+    'share_confession' => 'この告白を共有',
+    'share_copied' => '告白のリンクをコピーしました。',
+    'share_copy_hint' => '下のリンクをコピーしてください。',
 ];

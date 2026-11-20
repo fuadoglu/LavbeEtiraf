@@ -121,6 +121,44 @@
         });
     });
 
+    document.querySelectorAll('[data-share-button]').forEach((button) => {
+        const control = button.closest('[data-share-control]');
+        const status = control?.querySelector('[data-share-status]');
+        const fallback = control?.querySelector('[data-share-fallback]');
+        const urlField = control?.querySelector('[data-share-url-field]');
+        if (!status || !fallback || !urlField) return;
+
+        button.addEventListener('click', async () => {
+            const shareData = { title: button.dataset.shareTitle, url: button.dataset.shareUrl };
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                    return;
+                }
+                if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+                await navigator.clipboard.writeText(shareData.url);
+                status.textContent = button.dataset.copiedLabel;
+                return;
+            } catch (error) {
+                if (error?.name === 'AbortError') return;
+                if (navigator.share && navigator.clipboard?.writeText) {
+                    try {
+                        await navigator.clipboard.writeText(shareData.url);
+                        status.textContent = button.dataset.copiedLabel;
+                        return;
+                    } catch {
+                        // The selectable URL remains available below.
+                    }
+                }
+            }
+            urlField.value = shareData.url;
+            fallback.hidden = false;
+            status.textContent = button.dataset.copyHint;
+            urlField.focus();
+            urlField.select();
+        });
+    });
+
     document.querySelectorAll('.topic-panel a').forEach((link) => {
         link.addEventListener('focus', () => {
             link.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'nearest' });

@@ -363,6 +363,10 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .confession-actions .participation-action, .confession-actions > p { margin: 0; }
 .confession-actions .button { border-radius: 2rem; }
 .confession-actions [aria-pressed="true"] { border-color: var(--action); background: var(--hint); color: var(--action); }
+.confession-share { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; min-width: 0; }
+.share-fallback { flex-basis: 100%; display: grid; gap: .35rem; color: var(--muted); font-size: .875rem; }
+.share-fallback[hidden] { display: none; }
+.share-fallback input { width: min(100%, 34rem); min-height: 2.75rem; padding: .55rem .7rem; border: 1px solid var(--edge); border-radius: .6rem; background: var(--surface); }
 .confession-detail .participation-section > h2 { font: 600 1.5rem/1.3 var(--font-body); letter-spacing: -.025em; }
 .confession-detail .participation-card p { margin: 0; }
 .confession-detail .participation-form { padding: clamp(1rem, 3vw, 1.6rem); gap: 1rem; }

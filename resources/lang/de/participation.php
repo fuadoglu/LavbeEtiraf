@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Unterstützte Geständnisse',
     'supported_empty' => 'Du hast noch keine Geständnisse unterstützt.',
     'recommended_heading' => 'Empfohlene Geständnisse',
+    'share_confession' => 'Geständnis teilen',
+    'share_copied' => 'Link zum Geständnis kopiert.',
+    'share_copy_hint' => 'Kopiere den Link unten.',
 ];

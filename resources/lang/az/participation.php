@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Dəstəklədiklərim',
     'supported_empty' => 'Hələ dəstəklədiyin etiraf yoxdur.',
     'recommended_heading' => 'Başqa etirafları oxu',
+    'share_confession' => 'Etirafı paylaş',
+    'share_copied' => 'Etirafın linki kopyalandı.',
+    'share_copy_hint' => 'Linki aşağıdan köçür.',
 ];

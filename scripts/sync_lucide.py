@@ -37,6 +37,7 @@ ICONS = (
     "pen-line",
     "route",
     "search",
+    "share-2",
     "settings-2",
     "shield-check",
     "signpost",
