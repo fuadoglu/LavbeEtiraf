@@ -26,7 +26,7 @@ return [
     'submit' => 'Wyślij zgłoszenie',
     'submit_legal' => 'Wyślij zgłoszenie prawne',
     'received_title' => 'Zgłoszenie przyjęte',
-    'received_community' => 'Dziękujemy. Moderacja rozpatrzy zgłoszenie poufnie.',
+    'received_community' => 'Dziękujemy za zgłoszenie. Trafiło do zespołu moderacji.',
     'received_legal' => 'Zgłoszenie prawne trafiło do odrębnego, poufnego rozpatrzenia.',
     'back_to_story' => 'Wróć do historii',
     'appeal_title' => 'Odwołaj się od decyzji',

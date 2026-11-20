@@ -1,11 +1,13 @@
 <?php
 
 return [
-    'terms' => ['title' => 'İstifadə şərtləri', 'body' => 'Qaralama. Nəşr etməzdən əvvəl yerli tələbləri, faktiki xidmət operatorunu və məlumat təcrübələrini təsdiq edin.'],
-    'community' => ['title' => 'İcma qaydaları', 'body' => 'Qaralama. Nəşr etməzdən əvvəl yerli tələbləri, faktiki xidmət operatorunu və məlumat təcrübələrini təsdiq edin.'],
-    'privacy' => ['title' => 'Məxfilik bildirişi', 'body' => 'Qaralama. Nəşr etməzdən əvvəl yerli tələbləri, faktiki xidmət operatorunu və məlumat təcrübələrini təsdiq edin.'],
-    'cookies' => ['title' => 'Kuki bildirişi', 'body' => 'Qaralama. Nəşr etməzdən əvvəl yerli tələbləri, faktiki xidmət operatorunu və məlumat təcrübələrini təsdiq edin.'],
-    'illegal_content' => ['title' => 'Qanunsuz məzmunu bildirin', 'body' => 'Qaralama. Nəşr etməzdən əvvəl yerli tələbləri, faktiki xidmət operatorunu və məlumat təcrübələrini təsdiq edin.'],
-    'data_request' => ['title' => 'Məxfilik sorğusu', 'body' => 'Qaralama. Nəşr etməzdən əvvəl yerli tələbləri, faktiki xidmət operatorunu və məlumat təcrübələrini təsdiq edin.'],
-    'operator' => ['title' => 'Xidmət operatoru', 'body' => 'Qaralama. Nəşr etməzdən əvvəl yerli tələbləri, faktiki xidmət operatorunu və məlumat təcrübələrini təsdiq edin.'],
+    'terms' => ['title' => 'İstifadə şərtləri', 'body' => 'Etiraf və ya rəy göndərmək üçün 18 yaşın tamam olmalıdır. Öz yaşadıqlarını danış və yalnız paylaşmağa haqqın olan mətn göndər. Yazını əvvəl moderator oxuyur. Təsdiqlənən yazını hər kəs oxuya, keçidini paylaşa və axtarışda tapa bilər.'],
+    'community' => ['title' => 'İcma qaydaları', 'body' => 'Qarşında bir insan olduğunu unutma. Məsləhət istənəndə öz təcrübəndən danış. Təhqir, təhdid, təqib, spam və başqasının ünvanı, nömrəsi və ya onu tanıda biləcək təfərrüatlar burada yolverilməzdir. Bir yazı səni narahat edirsə, onun yanındakı şikayət seçimini aç.'],
+    'privacy' => ['title' => 'Məxfilik bildirişi', 'body' => 'Etiraf yazanda mətnini, seçdiyin mövzunu və göstərmək istədiyin adı saxlayırıq. Moderator yazını dərcdən əvvəl görür. Hesab açsan, giriş üçün e-poçt ünvanın işlədilir. Adını boş saxlaya bilərsən, amma hekayədəki təfərrüatlar səni və ya başqasını tanıda bilər.'],
+    'cookies' => ['title' => 'Kuki bildirişi', 'body' => 'Brauzer kukiləri sessiyanı, dil seçimini və istəsən, bu cihazda yazını idarə etmək imkanını saxlayır. Təkrar oxunuşları ayırmaq üçün birillik oxucu kukisindən istifadə edirik. Kukiləri silsən, yazına bu cihazdan giriş üçün bərpa koduna ehtiyacın ola bilər.'],
+    'illegal_content' => ['title' => 'Qanunsuz məzmunu bildirin', 'body' => 'Etirafın və ya rəyin qanunsuz olduğunu düşünürsənsə, həmin yazının şikayət menyusunda qanunsuz məzmun bildirişini seç. Hansı hissədən söhbət getdiyini və səbəbini izah et. Bərpa kodunu və məsələyə aid olmayan şəxsi məlumatları göndərmə.'],
+    'data_request' => ['title' => 'Məxfilik sorğusu', 'body' => 'Öz etirafını geri çəkmək üçün idarəetmə səhifəsini aç. Girişin itib? Saxladığın bərpa kodundan istifadə et. Geri çəkilən yazı Lavbe-də açıq görünmür. Başqalarının saxladığı nüsxələr və axtarış nəticələri daha uzun müddət qala bilər. Başqası sənin şəxsi məlumatını paylaşıbsa, həmin yazını bildir.'],
+    'operator' => ['title' => 'Xidmət operatoru', 'body' => 'Lavbe.com anonim etirafları və onlara yazılan rəyləri dərc edir. Moderatorlar paylaşımları və şikayətləri nəzərdən keçirirlər. Konkret yazı haqqında müraciəti onun yanındakı şikayət seçimi ilə göndərə bilərsən.'],
+    'rights' => 'Yaşadığın yerdə qüvvədə olan qanundan asılı olaraq məlumatlarına çıxış, düzəliş, silinmə və ya emalın məhdudlaşdırılmasını istəyə, etiraz edə və məlumatların qorunmasına cavabdeh quruma şikayət verə bilərsən. Müraciətində hansı məlumatı və hansı əməli nəzərdə tutduğunu göstər.',
+    'contact_label' => 'Məlumatların qorunması üzrə əlaqə',
 ];

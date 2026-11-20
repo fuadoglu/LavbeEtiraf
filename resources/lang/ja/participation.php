@@ -4,7 +4,7 @@ return [
     'support' => '応援する',
     'unsupport' => '応援を取り消す',
     'comments_heading' => 'コメント',
-    'comments_empty' => 'まだコメントはありません。',
+    'comments_empty' => 'まだコメントはありません。よかったら、最初のひと言をどうぞ。',
     'comments_closed' => '投稿者がコメントの受付を終了しました。',
     'comment_label' => 'コメントを書く',
     'comment_reply' => '返信する',

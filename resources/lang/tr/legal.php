@@ -1,11 +1,13 @@
 <?php
 
 return [
-    'terms' => ['title' => 'Kullanım koşulları', 'body' => 'Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.'],
-    'community' => ['title' => 'Topluluk kuralları', 'body' => 'Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.'],
-    'privacy' => ['title' => 'Gizlilik bildirimi', 'body' => 'Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.'],
-    'cookies' => ['title' => 'Çerez bildirimi', 'body' => 'Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.'],
-    'illegal_content' => ['title' => 'Yasa dışı içeriği bildirin', 'body' => 'Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.'],
-    'data_request' => ['title' => 'Gizlilik talebi', 'body' => 'Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.'],
-    'operator' => ['title' => 'Servis operatörü', 'body' => 'Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.'],
+    'terms' => ['title' => 'Kullanım koşulları', 'body' => 'Hikâye veya yorum göndermek için 18 yaşını doldurmuş olmalısın. Kendi yaşadıklarını anlat ve yalnızca yayımlama hakkına sahip olduğun metinleri gönder. Yazılar yayımlanmadan önce moderatörler tarafından okunur. Yayımlanan metni herkes okuyabilir, bağlantısını paylaşabilir ve arama motorlarında bulabilir.'],
+    'community' => ['title' => 'Topluluk kuralları', 'body' => 'Her yazının arkasında bir insan var. Kendi deneyiminden söz et ve tavsiye vermeden önce yazarın bunu isteyip istemediğine dikkat et. Tehdit, taciz, hakaret, spam ve başkasının kimliğini açığa çıkaracak bilgiler burada yer alamaz. Seni kaygılandıran bir yazıyı veya yorumu yanındaki menüden bildirebilirsin.'],
+    'privacy' => ['title' => 'Gizlilik bildirimi', 'body' => 'Gönderdiğin metni, seçtiğin konuyu ve varsa görünmesini istediğin adı saklarız. Moderatörler yazıyı yayımlanmadan önce okuyabilir. Hesap açarsan giriş için e-posta adresini kullanırız. Adını yazmasan bile anlattığın ayrıntılar seni veya başka birini tanınır hâle getirebilir.'],
+    'cookies' => ['title' => 'Çerez bildirimi', 'body' => 'Çerezler oturumunu sürdürür ve dil seçimini hatırlar. Bu cihazın hatırlanmasını istersen bir çerez yazını sonradan yönetmene yardımcı olur. Aynı yazının tekrar okunmasını ayırt etmek için bir yıl geçerli bir okur çerezi kullanırız. Çerezleri silersen erişim için kurtarma koduna ihtiyaç duyabilirsin.'],
+    'illegal_content' => ['title' => 'Yasa dışı içeriği bildirin', 'body' => 'Bir yazı veya yorumun hukuka aykırı olduğunu düşünüyorsan metnin bildirim menüsünü aç ve hukuka aykırı içerik seçeneğini kullan. Hangi bölümden söz ettiğini ve gerekçeni belirt. Kurtarma kodunu veya konuyla ilgisi olmayan kişisel bilgileri gönderme.'],
+    'data_request' => ['title' => 'Gizlilik talebi', 'body' => 'Yazını geri çekmek için yönetim sayfasını aç. Erişimini kaybettiysen sakladığın kurtarma kodunu kullan. Geri çekilen yazı Lavbe’de herkese açık görünmez. Başka yerlerdeki kopyalar ve arama sonuçları bir süre daha kalabilir. Başkası kişisel bilgilerini yayımladıysa ilgili yazıyı bildir.'],
+    'operator' => ['title' => 'Servis operatörü', 'body' => 'Lavbe.com anonim hikâyeler ve okur yorumları yayımlar. Moderatörler gönderileri inceler ve bildirimleri değerlendirir. Belirli bir yazıyla ilgili bir durumu iletmek için o yazının yanındaki bildirim seçeneğini kullanabilirsin.'],
+    'rights' => 'Geçerli mevzuata göre verilerine erişmeyi, düzeltilmelerini, silinmelerini veya işlenmelerinin sınırlandırılmasını isteyebilir, işlemeye itiraz edebilir ve bir veri koruma kurumuna şikâyette bulunabilirsin. Hangi veriler için nasıl bir işlem istediğini belirt.',
+    'contact_label' => 'Kişisel verilerle ilgili iletişim',
 ];

@@ -26,7 +26,7 @@ return [
     'submit' => 'Skicka anmälan',
     'submit_legal' => 'Skicka juridisk anmälan',
     'received_title' => 'Anmälan mottagen',
-    'received_community' => 'Tack. Moderatorerna granskar din anmälan konfidentiellt.',
+    'received_community' => 'Tack för att du sa till. Din anmälan har kommit fram till moderatorerna.',
     'received_legal' => 'Din juridiska anmälan går vidare till separat, konfidentiell granskning.',
     'back_to_story' => 'Tillbaka till berättelsen',
     'appeal_title' => 'Överklaga ett beslut',

@@ -26,7 +26,7 @@ return [
     'submit' => 'Send rapport',
     'submit_legal' => 'Send juridisk varsel',
     'received_title' => 'Rapport mottatt',
-    'received_community' => 'Takk. Moderatorene behandler rapporten fortrolig.',
+    'received_community' => 'Takk for at du sa fra. Meldingen din har kommet fram til moderatorene.',
     'received_legal' => 'Det juridiske varselet er sendt til separat, fortrolig behandling.',
     'back_to_story' => 'Tilbake til historien',
     'appeal_title' => 'Klag på en avgjørelse',

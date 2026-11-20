@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Vallei van bekentenissen',
-    'feed_subtitle' => 'Lees de verhalen van anderen. Als je wilt, kun je ook je eigen verhaal kwijt.',
+    'feed_subtitle' => 'Lees wat anderen bezighoudt. Misschien wil je op een dag ook jouw verhaal kwijt.',
     'sort_label' => 'Volgorde',
     'sort_new' => 'Nieuw',
     'sort_weekly' => 'Deze week',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Alles',
     'category_empty' => 'Er zijn nog geen bekentenissen over dit onderwerp.',
     'feed_empty' => 'Nog geen bekentenissen gepubliceerd',
-    'feed_empty_description' => 'Goedgekeurde verhalen verschijnen hier in hun oorspronkelijke taal. Deze tijdlijn mengt geen talen.',
+    'feed_empty_description' => 'Jouw verhaal zou hier het eerste kunnen zijn. Je kunt ook later nog eens komen lezen.',
     'pagination' => 'Paginering',
     'previous' => 'Vorige',
     'next' => 'Volgende',

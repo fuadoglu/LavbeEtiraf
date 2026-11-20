@@ -342,3 +342,7 @@ Etiraf mətninin altındakı icma şikayəti və hüquqi bildiriş linklərini �
 **Issue:** [#123](https://github.com/fuadoglu/LavbeEtiraf/issues/123). **Asılılıq:** LAV-004, LAV-006, LAV-009, LAV-037, LAV-043, LAV-057. **Qəbul:** OWN-06, SEO-05, UI-21, UI-22.
 
 Qonaq “Mənim” bölməsində yalnız həmin brauzerdə cihaz yaddaşı açıq razılıqla qeydiyyata alınmış etirafların başlığını və moderation vəziyyətini görüb açsın. Dəyişməyən owner-session, ayrıca recovery secret, account claim, CSRF, `HttpOnly/Secure/SameSite`, HMAC hash, private/no-store və noindex sərhədlərini qoruyun. Yazı forması 17 locale-də təsdiqdən sonra açıq yayım və axtarış sistemlərində görünmə ehtimalını açıq desin. Feed kartı təsdiqlənmiş rəy sayını və ya yayımlanmış davamı faydalı siqnal kimi göstərsin; oxunuş sayı sıfırdırsa göstərilməsin, fəaliyyət və oxunuş yoxdursa alt metadata sətri gizlənsin. Mobil popular sort label qısalsın, desktop full locale label saxlasın. **Sübut:** remembered device isolation/migration/claim testləri; 17 locale key-coverage; feed visibility/activity tests; 320/390 viewport sort-label checks; lint/build/CI və sənəd yoxlaması.
+
+## LAV-060 · 17 dildə oxucu və hüquqi mətnlərin redaktəsi
+
+**Issue:** [#126](https://github.com/fuadoglu/LavbeEtiraf/issues/126). **Asılılıq:** LAV-010, LAV-058. **Qəbul:** LOC-01, LOC-02. Dərc, rəy, hesab, şikayət, bərpa və hüquqi məlumat ekranlarının dil baxışı. Operator əlaqəsi və native sahib təsdiqi üçün docs/localization.md sənədinə bax.

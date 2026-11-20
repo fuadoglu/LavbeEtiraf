@@ -26,7 +26,7 @@ return [
     'submit' => 'Meldung senden',
     'submit_legal' => 'Hinweis senden',
     'received_title' => 'Meldung eingegangen',
-    'received_community' => 'Danke. Das Moderationsteam prüft deine Meldung vertraulich.',
+    'received_community' => 'Danke für den Hinweis. Deine Meldung ist bei der Moderation angekommen.',
     'received_legal' => 'Dein rechtlicher Hinweis liegt zur gesonderten vertraulichen Prüfung vor.',
     'back_to_story' => 'Zurück zum Beitrag',
     'appeal_title' => 'Entscheidung anfechten',

@@ -4,7 +4,7 @@ return [
     'support' => 'Støtt',
     'unsupport' => 'Fjern støtte',
     'comments_heading' => 'Svar',
-    'comments_empty' => 'Ingen svar ennå.',
+    'comments_empty' => 'Ingen har svart ennå. Du kan gjerne være den første.',
     'comments_closed' => 'Den som skrev historien, har stengt for nye svar.',
     'comment_label' => 'Skriv et svar',
     'comment_reply' => 'Svar direkte',

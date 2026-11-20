@@ -12,7 +12,7 @@ return [
     'close' => 'Pencereyi kapat',
     'loading' => 'İtiraflar yükleniyor',
     'missing' => 'Sayfa bulunamadı',
-    'missing_body' => 'Bağlantı değişmiş veya sayfa kaldırılmış olabilir.',
+    'missing_body' => 'Bu sayfayı bulamadık. İstersen akışa dönüp başka bir hikâye okuyabilirsin.',
     'back' => 'İtiraflara dön',
     'preview' => 'Moderasyon önizlemesi',
     'preview_hint' => 'Bu ekranda kurgusal örnekler gösterilir.',

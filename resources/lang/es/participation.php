@@ -4,7 +4,7 @@ return [
     'support' => 'Apoyar',
     'unsupport' => 'Retirar apoyo',
     'comments_heading' => 'Respuestas',
-    'comments_empty' => 'Todavía no hay respuestas.',
+    'comments_empty' => 'Todavía no hay respuestas. Si te apetece, puedes abrir la conversación.',
     'comments_closed' => 'La persona que escribió la historia ha cerrado las respuestas.',
     'comment_label' => 'Escribir una respuesta',
     'comment_reply' => 'Responder directamente',

@@ -11,7 +11,7 @@ return [
     'forgot_title' => 'Reset your password', 'send_reset_link' => 'Send reset link', 'reset_link_sent' => 'If an account exists for that address, a password reset link has been sent.',
     'reset_title' => 'Choose a new password', 'reset_password' => 'Save new password', 'reset_failed' => 'This reset link is invalid or expired.',
     'password_reset' => 'Your password was changed. Sign in with the new password.', 'logout' => 'Sign out', 'my_title' => 'My Lavbe',
-    'my_intro' => 'Your account contains only writing and follows you have linked here.', 'my_confessions' => 'My confessions',
+    'my_intro' => 'Here you’ll find the writing you’ve linked to your account and the stories you follow.', 'my_confessions' => 'My confessions',
     'my_comments' => 'My responses', 'my_follows' => 'Following', 'my_notifications' => 'Notifications', 'nothing_yet' => 'Nothing here yet.', 'open_confession' => 'Open confession',
     'preferences' => 'Notification preferences', 'in_app' => 'In-app notifications', 'email_notifications' => 'Email notifications (optional)',
     'preferences_save' => 'Save preferences', 'preferences_saved' => 'Your preferences were saved.', 'follow' => 'Follow updates', 'follow_saved' => 'This confession was added to your follows.',

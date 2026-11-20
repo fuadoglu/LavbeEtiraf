@@ -4,7 +4,7 @@ return [
     'support' => 'Støt',
     'unsupport' => 'Fjern støtte',
     'comments_heading' => 'Svar',
-    'comments_empty' => 'Ingen svar endnu.',
+    'comments_empty' => 'Ingen har svaret endnu. Du er velkommen til at lægge ud.',
     'comments_closed' => 'Den, der skrev fortællingen, har lukket for nye svar.',
     'comment_label' => 'Skriv et svar',
     'comment_reply' => 'Svar direkte',

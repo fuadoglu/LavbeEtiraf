@@ -26,7 +26,7 @@ return [
     'submit' => 'Bildirimi gönder',
     'submit_legal' => 'Hukuki bildirimi gönder',
     'received_title' => 'Bildirimin alındı',
-    'received_community' => 'Teşekkürler. Moderasyon ekibi bildirimini gizli olarak inceleyecek.',
+    'received_community' => 'Haber verdiğin için teşekkürler. Bildirimin moderatörlere ulaştı.',
     'received_legal' => 'Hukuki bildirimin ayrı ve gizli olarak incelenecek.',
     'back_to_story' => 'İtirafa dön',
     'appeal_title' => 'Karara itiraz et',

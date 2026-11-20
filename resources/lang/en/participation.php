@@ -4,7 +4,7 @@ return [
     'support' => 'Support',
     'unsupport' => 'Stop supporting',
     'comments_heading' => 'Responses',
-    'comments_empty' => 'No responses yet.',
+    'comments_empty' => 'No one has replied yet. You’re welcome to start the conversation.',
     'comments_closed' => 'The author has closed new responses.',
     'comment_label' => 'Write a response',
     'comment_reply' => 'Reply directly',

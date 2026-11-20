@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Valle de las confesiones',
-    'feed_subtitle' => 'Lee lo que otras personas han compartido. Cuando te apetezca, puedes contar tu historia.',
+    'feed_subtitle' => 'Lee lo que otras personas llevan dentro. Si algún día te apetece contarlo, aquí también hay sitio para tu historia.',
     'sort_label' => 'Orden del feed',
     'sort_new' => 'Nuevas',
     'sort_weekly' => 'Esta semana',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Todas',
     'category_empty' => 'Todavía no hay confesiones sobre este tema.',
     'feed_empty' => 'Todavía no hay confesiones publicadas',
-    'feed_empty_description' => 'Las historias aprobadas aparecerán aquí en su idioma original. Este feed no mezcla idiomas.',
+    'feed_empty_description' => 'La tuya podría ser la primera historia. También puedes volver otro día a leer.',
     'pagination' => 'Paginación',
     'previous' => 'Anterior',
     'next' => 'Siguiente',

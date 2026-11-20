@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Senha alterada. Entre com a nova senha.',
     'logout' => 'Sair',
     'my_title' => 'Meu Lavbe',
-    'my_intro' => 'Aqui você encontra os textos e desabafos acompanhados que vinculou à sua conta.',
+    'my_intro' => 'Aqui ficam os textos que você vinculou à sua conta e as histórias que acompanha.',
     'my_confessions' => 'Meus desabafos',
     'my_comments' => 'Meus comentários',
     'my_follows' => 'Desabafos que acompanho',

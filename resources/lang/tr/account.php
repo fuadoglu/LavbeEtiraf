@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Şifren değiştirildi. Yeni şifrenle giriş yap.',
     'logout' => 'Çıkış yap',
     'my_title' => 'Lavbe’m',
-    'my_intro' => 'Burada hesabına bağladığın yazıları ve takip ettiğin hikâyeleri bulabilirsin.',
+    'my_intro' => 'Hesabına bağladığın yazıları ve takip ettiğin hikâyeleri burada bulabilirsin.',
     'my_confessions' => 'İtiraflarım',
     'my_comments' => 'Yorumlarım',
     'my_follows' => 'Takip ettiklerim',

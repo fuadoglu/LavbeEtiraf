@@ -26,7 +26,7 @@ return [
     'submit' => '報告を送る',
     'submit_legal' => '通知を送る',
     'received_title' => '報告を受け付けました',
-    'received_community' => 'ご連絡ありがとうございます。担当者が非公開で確認します。',
+    'received_community' => 'お知らせいただき、ありがとうございます。運営スタッフが通報を受け付けました。',
     'received_legal' => '法的な通知を受け付けました。専用の窓口で非公開で確認します。',
     'back_to_story' => '投稿に戻る',
     'appeal_title' => '判断の見直しを求める',

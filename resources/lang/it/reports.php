@@ -26,7 +26,7 @@ return [
     'submit' => 'Invia segnalazione',
     'submit_legal' => 'Invia segnalazione legale',
     'received_title' => 'Segnalazione ricevuta',
-    'received_community' => 'Grazie. Il team di moderazione esaminerà la segnalazione in via riservata.',
+    'received_community' => 'Grazie per avercelo fatto sapere. La segnalazione è arrivata al gruppo di moderazione.',
     'received_legal' => 'La segnalazione legale sarà esaminata separatamente e in via riservata.',
     'back_to_story' => 'Torna alla storia',
     'appeal_title' => 'Contesta una decisione',

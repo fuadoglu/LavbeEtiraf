@@ -12,7 +12,7 @@ return [
     'close' => 'Sulje ikkuna',
     'loading' => 'Ladataan kirjoituksia',
     'missing' => 'Sivua ei löytynyt',
-    'missing_body' => 'Linkki on saattanut muuttua tai sivu on poistettu.',
+    'missing_body' => 'Sivua ei löytynyt. Voit palata tarinoiden pariin ja valita muuta luettavaa.',
     'back' => 'Takaisin kirjoituksiin',
     'preview' => 'Ylläpidon esikatselu',
     'preview_hint' => 'Esikatselun sisältö on kuvitteellista.',

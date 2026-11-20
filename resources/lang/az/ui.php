@@ -12,7 +12,7 @@ return [
     'close' => 'Pəncərəni bağla',
     'loading' => 'Etiraflar yüklənir',
     'missing' => 'Səhifə tapılmadı',
-    'missing_body' => 'Keçid dəyişmiş və ya səhifə silinmiş ola bilər.',
+    'missing_body' => 'Axtardığın səhifə burada deyil. İstəsən, lentə qayıdıb başqa hekayələri oxuya bilərsən.',
     'back' => 'Etiraflara qayıt',
     'preview' => 'Moderator görünüşü',
     'preview_hint' => 'Bu səhifə uydurma nümunələrlə hazırlanıb.',

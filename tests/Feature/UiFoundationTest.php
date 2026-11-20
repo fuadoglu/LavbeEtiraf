@@ -42,7 +42,7 @@ class UiFoundationTest extends TestCase
     public function test_confession_writing_starts_with_the_story_and_keeps_public_name_opt_in(): void
     {
         $html = $this->get('/az/write')->assertOk()
-            ->assertSee('Adsız yaza bilərsən.', false)
+            ->assertSee(__('guest.write_anonymous', [], 'az'))
             ->assertSee('autocomplete="off"', false)
             ->getContent();
 

@@ -1,11 +1,13 @@
 <?php
 
 return [
-    'terms' => ['title' => 'Käyttöehdot', 'body' => 'Luonnos. Tarkista paikalliset vaatimukset, todellinen palveluntarjoaja ja tietokäytännöt ennen julkaisemista.'],
-    'community' => ['title' => 'yhteisön säännöt', 'body' => 'Luonnos. Tarkista paikalliset vaatimukset, todellinen palveluntarjoaja ja tietokäytännöt ennen julkaisemista.'],
-    'privacy' => ['title' => 'Tietosuojailmoitus', 'body' => 'Luonnos. Tarkista paikalliset vaatimukset, todellinen palveluntarjoaja ja tietokäytännöt ennen julkaisemista.'],
-    'cookies' => ['title' => 'Evästeilmoitus', 'body' => 'Luonnos. Tarkista paikalliset vaatimukset, todellinen palveluntarjoaja ja tietokäytännöt ennen julkaisemista.'],
-    'illegal_content' => ['title' => 'Ilmoita laittomasta sisällöstä', 'body' => 'Luonnos. Tarkista paikalliset vaatimukset, todellinen palveluntarjoaja ja tietokäytännöt ennen julkaisemista.'],
-    'data_request' => ['title' => 'Tietosuojapyyntö', 'body' => 'Luonnos. Tarkista paikalliset vaatimukset, todellinen palveluntarjoaja ja tietokäytännöt ennen julkaisemista.'],
-    'operator' => ['title' => 'Palveluntarjoaja', 'body' => 'Luonnos. Tarkista paikalliset vaatimukset, todellinen palveluntarjoaja ja tietokäytännöt ennen julkaisemista.'],
+    'terms' => ['title' => 'Käyttöehdot', 'body' => 'Tarinan tai kommentin lähettäjän on oltava vähintään 18-vuotias. Kerro omista kokemuksistasi ja julkaise vain tekstiä, jonka jakamiseen sinulla on oikeus. Moderaattori lukee tekstin ennen julkaisua. Julkaistun tarinan voi lukea kuka tahansa, siihen voi jakaa linkin ja se voi löytyä hakukoneella.'],
+    'community' => ['title' => 'yhteisön säännöt', 'body' => 'Jokaisen tarinan takana on ihminen. Kerro omasta kokemuksestasi ja huomioi, toivooko kirjoittaja neuvoja. Uhkailu, häirintä, loukkaukset, roskaposti ja tiedot, joista toisen voi tunnistaa, eivät kuulu tänne. Voit ilmoittaa asiattomasta sisällöstä tekstin omasta valikosta.'],
+    'privacy' => ['title' => 'Tietosuojailmoitus', 'body' => 'Tallennamme lähettämäsi tekstin, valitsemasi aiheen ja mahdollisen näyttönimen. Moderaattorit voivat lukea tekstin ennen julkaisua. Jos luot tilin, kirjautumiseen käytetään sähköpostiosoitettasi. Vaikka jättäisit nimesi pois, kertomasi yksityiskohdat voivat paljastaa sinun tai toisen henkilöllisyyden.'],
+    'cookies' => ['title' => 'Evästeilmoitus', 'body' => 'Evästeillä ylläpidetään istuntoa ja muistetaan kielivalintasi. Jos haluat laitteen muistavan sinut, eväste auttaa sinua hallitsemaan kirjoitustasi. Vuoden voimassa olevalla lukijaevästeellä tunnistetaan saman tarinan toistuvat lukukerrat. Jos poistat evästeet, saatat tarvita palautuskoodia.'],
+    'illegal_content' => ['title' => 'Ilmoita laittomasta sisällöstä', 'body' => 'Jos pidät tarinaa tai kommenttia lainvastaisena, avaa tekstin ilmoitusvalikko ja valitse lainvastaista sisältöä koskeva vaihtoehto. Kerro, mitä kohtaa tarkoitat ja miksi pidät sitä lainvastaisena. Jätä palautuskoodit ja asiaan kuulumattomat henkilötiedot pois.'],
+    'data_request' => ['title' => 'Tietosuojapyyntö', 'body' => 'Voit vetää tarinasi pois julkaisusta sen hallintasivulla. Jos pääsy on kadonnut, käytä talteen ottamaasi palautuskoodia. Tarina poistuu julkisesta näkymästä Lavbessa. Muualla tallennetut kopiot ja hakutulokset voivat näkyä pidempään. Jos joku on julkaissut henkilötietojasi, tee ilmoitus kyseisestä tekstistä.'],
+    'operator' => ['title' => 'Palveluntarjoaja', 'body' => 'Lavbe.com julkaisee nimettömiä tarinoita ja lukijoiden vastauksia. Moderaattorit tarkistavat lähetetyt tekstit ja käsittelevät ilmoitukset. Tiettyä kirjoitusta koskevan asian saat heidän tietoonsa sen ilmoitusvalikon kautta.'],
+    'rights' => 'Sovellettavan lain mukaan sinulla voi olla oikeus saada pääsy tietoihisi, pyytää niiden oikaisua tai poistamista, rajoittaa tai vastustaa käsittelyä ja tehdä valitus tietosuojaviranomaiselle. Kerro, mitä tietoja pyyntö koskee ja mitä haluat niille tehtävän.',
+    'contact_label' => 'Tietosuoja-asioiden yhteystiedot',
 ];

@@ -26,7 +26,7 @@ return [
     'submit' => 'Lähetä ilmoitus',
     'submit_legal' => 'Lähetä oikeudellinen ilmoitus',
     'received_title' => 'Ilmoitus vastaanotettu',
-    'received_community' => 'Kiitos. Ylläpito käsittelee ilmoituksesi luottamuksellisesti.',
+    'received_community' => 'Kiitos, että kerroit asiasta. Ilmoituksesi on nyt moderaattoreilla.',
     'received_legal' => 'Oikeudellinen ilmoituksesi on lähetetty erilliseen luottamukselliseen käsittelyyn.',
     'back_to_story' => 'Takaisin kirjoitukseen',
     'appeal_title' => 'Pyydä päätöksen oikaisua',

@@ -4,7 +4,7 @@ return [
     'support' => 'Stöd',
     'unsupport' => 'Ta tillbaka stödet',
     'comments_heading' => 'Svar',
-    'comments_empty' => 'Inga svar än.',
+    'comments_empty' => 'Ingen har svarat än. Om du vill kan du vara den första.',
     'comments_closed' => 'Den som skrev berättelsen har stängt för nya svar.',
     'comment_label' => 'Skriv ett svar',
     'comment_reply' => 'Svara direkt',

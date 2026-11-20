@@ -12,7 +12,7 @@ return [
     'close' => 'Cerrar ventana',
     'loading' => 'Cargando historias',
     'missing' => 'Página no encontrada',
-    'missing_body' => 'Puede que el enlace haya cambiado o que la página se haya eliminado.',
+    'missing_body' => 'No hemos encontrado esta página. Puedes volver a las historias y elegir otra para leer.',
     'back' => 'Volver a las historias',
     'preview' => 'Vista previa de moderación',
     'preview_hint' => 'Esta vista usa ejemplos ficticios.',

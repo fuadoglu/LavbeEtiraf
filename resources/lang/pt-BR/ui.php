@@ -12,7 +12,7 @@ return [
     'close' => 'Fechar janela',
     'loading' => 'Carregando desabafos',
     'missing' => 'Página não encontrada',
-    'missing_body' => 'O endereço pode ter mudado ou a página pode ter sido removida.',
+    'missing_body' => 'Não encontramos essa página. Você pode voltar para a lista e escolher outra história para ler.',
     'back' => 'Voltar aos desabafos',
     'preview' => 'Prévia da moderação',
     'preview_hint' => 'Esta prévia usa conteúdo fictício.',

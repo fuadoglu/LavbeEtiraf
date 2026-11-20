@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Adgangskoden er ændret. Log ind med den nye adgangskode.',
     'logout' => 'Log ud',
     'my_title' => 'Mit Lavbe',
-    'my_intro' => 'Her finder du de indlæg og fulgte fortællinger, der er knyttet til din konto.',
+    'my_intro' => 'Her finder du de tekster, du har knyttet til din konto, og de historier, du følger.',
     'my_confessions' => 'Mine fortællinger',
     'my_comments' => 'Mine svar',
     'my_follows' => 'Fortællinger, jeg følger',

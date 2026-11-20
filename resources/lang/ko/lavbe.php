@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => '고백의 계곡',
-    'feed_subtitle' => '다른 사람들의 이야기를 읽어 보세요. 마음이 내키면 내 이야기도 들려주세요.',
+    'feed_subtitle' => '다른 사람들은 어떤 마음으로 지내는지 읽어 보세요. 내 이야기도 꺼내고 싶을 때 편하게 들려주세요.',
     'sort_label' => '피드 정렬',
     'sort_new' => '최신',
     'sort_weekly' => '이번 주',
@@ -14,7 +14,7 @@ return [
     'all_categories' => '전체',
     'category_empty' => '이 주제의 고백이 아직 없습니다.',
     'feed_empty' => '아직 공개된 고백이 없습니다',
-    'feed_empty_description' => '승인된 이야기는 원래 언어로 표시됩니다. 피드에서 언어를 섞지 않습니다.',
+    'feed_empty_description' => '아직 올라온 이야기가 없어요. 먼저 이야기를 들려주셔도 좋고, 나중에 다시 들러 주셔도 좋아요.',
     'pagination' => '페이지 이동',
     'previous' => '이전',
     'next' => '다음',

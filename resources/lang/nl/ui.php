@@ -12,7 +12,7 @@ return [
     'close' => 'Venster sluiten',
     'loading' => 'Verhalen worden geladen',
     'missing' => 'Pagina niet gevonden',
-    'missing_body' => 'De link is mogelijk gewijzigd of de pagina is verwijderd.',
+    'missing_body' => 'We kunnen deze pagina niet vinden. In het overzicht kun je verder lezen.',
     'back' => 'Terug naar de verhalen',
     'preview' => 'Moderatievoorbeeld',
     'preview_hint' => 'Dit voorbeeld bevat verzonnen inhoud.',

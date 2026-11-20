@@ -4,7 +4,7 @@ return [
     'support' => 'Dəstək ol',
     'unsupport' => 'Dəstəyi dayandır',
     'comments_heading' => 'Rəylər',
-    'comments_empty' => 'Hələ rəy yoxdur.',
+    'comments_empty' => 'Hələ heç kim rəy yazmayıb. İstəsən, söhbəti sən başlada bilərsən.',
     'comments_closed' => 'Müəllif yeni rəyləri bağlayıb.',
     'comment_label' => 'Rəy yaz',
     'comment_reply' => 'Birbaşa cavab yaz',

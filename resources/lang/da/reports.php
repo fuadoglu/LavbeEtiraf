@@ -26,7 +26,7 @@ return [
     'submit' => 'Send anmeldelse',
     'submit_legal' => 'Send juridisk henvendelse',
     'received_title' => 'Anmeldelse modtaget',
-    'received_community' => 'Tak. Moderatorerne gennemgår din anmeldelse fortroligt.',
+    'received_community' => 'Tak, fordi du sagde til. Moderatorerne har modtaget din anmeldelse.',
     'received_legal' => 'Din juridiske henvendelse er sendt til særskilt, fortrolig behandling.',
     'back_to_story' => 'Tilbage til fortællingen',
     'appeal_title' => 'Klag over en afgørelse',

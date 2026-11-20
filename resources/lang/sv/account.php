@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Lösenordet är ändrat. Logga in med ditt nya lösenord.',
     'logout' => 'Logga ut',
     'my_title' => 'Mitt Lavbe',
-    'my_intro' => 'Här finns de inlägg och berättelser du följer som är kopplade till ditt konto.',
+    'my_intro' => 'Här hittar du texterna du har kopplat till ditt konto och berättelserna du följer.',
     'my_confessions' => 'Mina berättelser',
     'my_comments' => 'Mina svar',
     'my_follows' => 'Berättelser jag följer',

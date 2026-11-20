@@ -1,11 +1,13 @@
 <?php
 
 return [
-    'terms' => ['title' => 'Vilkår for bruk', 'body' => 'Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.'],
-    'community' => ['title' => 'Retningslinjer for fellesskapet', 'body' => 'Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.'],
-    'privacy' => ['title' => 'Personvernerklæring', 'body' => 'Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.'],
-    'cookies' => ['title' => 'Informasjon om informasjonskapsler', 'body' => 'Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.'],
-    'illegal_content' => ['title' => 'Rapporter ulovlig innhold', 'body' => 'Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.'],
-    'data_request' => ['title' => 'Personvernforespørsel', 'body' => 'Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.'],
-    'operator' => ['title' => 'Tjenesteoperatør', 'body' => 'Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.'],
+    'terms' => ['title' => 'Vilkår for bruk', 'body' => 'Du må ha fylt 18 år for å sende inn en historie eller kommentar. Fortell om egne opplevelser, og del bare tekst du har rett til å publisere. En moderator leser teksten før publisering. Publiserte historier kan leses av alle, deles med en lenke og dukke opp i søkemotorer.'],
+    'community' => ['title' => 'Retningslinjer for fellesskapet', 'body' => 'Det er et menneske bak hver historie. Snakk ut fra egne erfaringer, og legg merke til om den som skriver, ønsker råd. Trusler, sjikane, hets, søppelpost og opplysninger som gjør andre gjenkjennelige, hører ikke hjemme her. Du kan melde fra via menyen ved teksten.'],
+    'privacy' => ['title' => 'Personvernerklæring', 'body' => 'Vi lagrer teksten du sender inn, temaet du velger og navnet du eventuelt vil vise. Moderatorer kan lese bidraget før publisering. Oppretter du konto, bruker vi e-postadressen din til innlogging. Selv uten navn kan detaljer i historien gjøre deg eller andre gjenkjennelige.'],
+    'cookies' => ['title' => 'Informasjon om informasjonskapsler', 'body' => 'Informasjonskapsler holder orden på økten din og språkvalget ditt. Ber du oss huske enheten, hjelper en informasjonskapsel deg med å administrere bidraget. En leseridentifikator i en informasjonskapsel med ett års varighet hjelper oss å kjenne igjen gjentatte besøk. Sletter du informasjonskapslene, kan du trenge gjenopprettingskoden.'],
+    'illegal_content' => ['title' => 'Rapporter ulovlig innhold', 'body' => 'Mener du at en historie eller kommentar er ulovlig, åpner du rapporteringsmenyen ved teksten og velger alternativet for ulovlig innhold. Oppgi hvilken del det gjelder, og forklar hvorfor. Ikke ta med gjenopprettingskoder eller personopplysninger som er uten betydning for saken.'],
+    'data_request' => ['title' => 'Personvernforespørsel', 'body' => 'Du kan trekke tilbake historien din fra siden der du administrerer den. Har du mistet tilgangen, bruker du gjenopprettingskoden du har tatt vare på. Historien vises da ikke lenger offentlig på Lavbe. Kopier andre steder og treff i søkemotorer kan bli stående en stund. Meld fra om innlegget hvis noen har publisert personopplysningene dine.'],
+    'operator' => ['title' => 'Tjenesteoperatør', 'body' => 'Lavbe.com publiserer anonyme historier og svar fra leserne. Moderatorene vurderer innsendte tekster og behandler meldinger om innhold. Gjelder det et bestemt innlegg, kan du bruke rapporteringsvalget ved innlegget.'],
+    'rights' => 'Avhengig av hvilke regler som gjelder, kan du be om innsyn, retting, sletting eller begrensning av behandlingen, protestere mot behandlingen og klage til en personvernmyndighet. Oppgi hvilke opplysninger det gjelder, og hva du ønsker gjort.',
+    'contact_label' => 'Kontakt om personvern',
 ];
