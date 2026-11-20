@@ -350,3 +350,9 @@ Qonaq “Mənim” bölməsində yalnız həmin brauzerdə cihaz yaddaşı açı
 Oxucu cookie-sinin müddəti 365 günlük fəaliyyətsizlik qaydasına uyğun uzadılsın; DB-də son aktivlik yenilənsin və köhnə heşlər məhdud paketlərlə gündəlik silinsin. “Cihazı unut” köhnə cihaz və confession cookie-lərini ləğv etsin, bərpa kodunu saxlasın; yeni göndəriş per-confession cookie yaratmasın. E-poçt xətaları artan fasilə, son uğursuzluq vəziyyəti və konkret yenidən növbəyə qoyma əmri ilə idarə olunsun. `pt-BR` URL-i locale reyestrindən qurulsun. Kuki davranışı 17 dildə açıqlansın.
 
 Staging SMTP/MySQL yükü, backup bərpası, CMP/AdSense və hüquqi təsdiq bu kod dəyişikliklərinin sübutu deyil; [əməliyyat qapılarında](operations.md) qalır. **Sübut:** feature testləri, 17 locale-key və docs validatoru, Pint/build, GitHub MySQL CI. Göstərilməyən staging və cihaz sınaqları icra olunmuş sayılmır.
+
+## LAV-060 · Məxfilik qorunan quraşdırıla bilən web app qabığı
+
+**Issue:** [#129](https://github.com/fuadoglu/LavbeEtiraf/issues/129). **Asılılıq:** LAV-002, LAV-006, LAV-010, LAV-059. **Qəbul:** PWA-02.
+
+Locale-ə uyğun web app manifest və mövcud lələk ikonunun 192/512 PNG ölçülərini əlavə et. Təhlükəsiz origin-də service worker-i qeydiyyata al. Yalnız ümumi offline səhifəni quraşdırmada cache-lə; navigation HTML, etiraf, hesab, moderator, şikayət, feed fragment və API cavablarını heç vaxt yazma. Yalnız eyni-origin Vite hash-li asset-i uğurlu GET-dən sonra cache edilə bilər. **Sübut:** manifest/locale route, script qeydiyyatı, worker cache siyasəti üçün avtomatik yoxlamalar; mobil install və airplane mode yalnız staging-də yoxlanır.

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f6f3">
+    <title>Lavbe · Offline</title>
+    <style>
+        :root { color-scheme: light; font-family: system-ui, sans-serif; background: #f8f6f3; color: #3d2c35; }
+        body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 1.5rem; box-sizing: border-box; }
+        main { max-width: 32rem; padding: 2rem; border-radius: 1.25rem; background: #fff; text-align: center; box-shadow: 0 1rem 3rem #3d2c3512; }
+        h1 { margin-top: 0; font-size: clamp(1.6rem, 5vw, 2.4rem); }
+        p { line-height: 1.65; }
+        button { min-height: 2.75rem; border: 0; border-radius: 99rem; padding: .7rem 1.2rem; background: #4b2b3e; color: #fff; font: inherit; cursor: pointer; }
+    </style>
+</head>
+<body>
+<main>
+    <h1>Lavbe</h1>
+    <p>You’re offline. When you reconnect, you can return to the page you wanted to read.</p>
+    <button type="button" onclick="location.reload()">Try again</button>
+</main>
+</body>
+</html>

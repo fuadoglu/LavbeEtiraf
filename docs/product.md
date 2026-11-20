@@ -2,7 +2,7 @@
 
 ## Məqsəd və sərhəd
 
-Lavbe anonim, mətn əsaslı etiraf və dəstək platformasıdır. Açılışda 17 dil, 12 kateqoriya, oxu lenti, iştirak, öz məzmununu idarəetmə, moderasiya və SEO infrastrukturu işləkdir; PWA və reklam inteqrasiyası buraxılışdan əvvəl tamamlanmalı xarici/ayrı işlərdir. AdSense yeganə monetizasiyadır. Məhsula şəkil yükləmə, şəxsi mesaj, ictimai hesab profili, reytinqli istifadəçi cədvəli və ödənişli hesab daxil edilmir.
+Lavbe anonim, mətn əsaslı etiraf və dəstək platformasıdır. Açılışda 17 dil, 12 kateqoriya, oxu lenti, iştirak, öz məzmununu idarəetmə, moderasiya və SEO infrastrukturu işləkdir; locale manifestli, həssas HTML-i offline saxlamayan PWA qabığı tətbiq olunur, cihazda quraşdırma sınağı isə buraxılış qapısıdır. Reklam inteqrasiyası xarici buraxılış qapısıdır. AdSense yeganə monetizasiyadır. Məhsula şəkil yükləmə, şəxsi mesaj, ictimai hesab profili, reytinqli istifadəçi cədvəli və ödənişli hesab daxil edilmir.
 
 ## Rollar
 

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f8f6f3">
+    <link rel="manifest" href="{{ route('pwa.manifest', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}">
+    <link rel="apple-touch-icon" href="{{ asset('icons/lavbe-feather-192.png') }}">
     @hasSection('favicon')
         <link rel="icon" type="image/svg+xml" href="@yield('favicon')" sizes="any">
     @else
