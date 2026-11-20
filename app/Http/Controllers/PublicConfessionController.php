@@ -53,7 +53,6 @@ class PublicConfessionController extends Controller
             ? ConfessionComment::query()->publicApproved()->where('confession_id', $confession->id)
                 ->whereNull('parent_comment_id')->where('public_id', $threadPublicId)->first()
             : null;
-        abort_if($threadReplies && $threadReplies->currentPage() > $threadReplies->lastPage(), 404);
         $threadReplies = $threadRoot
             ? ConfessionComment::query()->publicApproved()->where('parent_comment_id', $threadRoot->id)->with([
                 'publicRevision', 'response.publicRevision', 'ownership',
@@ -61,6 +60,7 @@ class PublicConfessionController extends Controller
                 ->paginate((int) config('lavbe.pagination.comment_replies'), ['*'], 'reply_page')
                 ->appends($request->except('reply_page'))
             : null;
+        abort_if($threadReplies && $threadReplies->currentPage() > $threadReplies->lastPage(), 404);
         $comments = ConfessionComment::query()->publicApproved()->with([
             'publicRevision', 'response.publicRevision', 'ownership',
             'replies' => fn ($query) => $query->publicApproved()->with(['publicRevision', 'response.publicRevision', 'ownership'])

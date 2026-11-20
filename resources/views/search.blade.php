@@ -12,7 +12,7 @@
         <form method="post" action="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}" class="form-field" data-search-form>
             @csrf
             <label for="feed-search">{{ __('lavbe.search_label') }}</label>
-            <input id="feed-search" type="search" name="q" value="{{ $query }}" maxlength="{{ config('lavbe.limits.search_query') }}" autocomplete="off">
+            <input id="feed-search" type="search" name="q" value="" maxlength="{{ config('lavbe.limits.search_query') }}" autocomplete="off">
             <button class="button" type="submit">{{ __('lavbe.search_submit') }}</button>
         </form>
         @if($results)

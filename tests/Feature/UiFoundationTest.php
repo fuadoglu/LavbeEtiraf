@@ -200,7 +200,8 @@ class UiFoundationTest extends TestCase
             ->assertOk()
             ->assertDontSee('Other locale story')
             ->assertDontSee('Private draft')
-            ->assertSee('Daha çox')
+            ->assertSee('Növbəti səhifə')
+            ->assertSee('pagination-number', false)
             ->assertSee('Sınaq hekayəsi');
 
         $this->get('/az/?page=2')
