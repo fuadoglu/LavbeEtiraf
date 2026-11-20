@@ -54,17 +54,21 @@ class PublicConfessionController extends Controller
             ->whereNotNull('category_key')
             ->select(['confessions.id', 'confessions.category_key'])
             ->selectRaw('ROW_NUMBER() OVER (PARTITION BY confessions.category_key ORDER BY confessions.support_count DESC, confessions.published_at DESC, confessions.id DESC) AS category_rank');
-        $recommendationIds = DB::query()->fromSub($rankedRecommendations, 'ranked_recommendations')
-            ->where('category_rank', 1)
+        $recommendationPoolIds = DB::query()->fromSub($rankedRecommendations, 'ranked_recommendations')
+            ->where('category_rank', '<=', (int) config('lavbe.recommendation_pool_per_category'))
             ->select('id');
-        $recommended = Confession::query()->public()
+        $recommendationPool = Confession::query()->public()
             ->where('locale', $confession->locale)
             ->whereNotNull('category_key')
             ->where('category_key', '!=', (string) $revision->category_key)
-            ->whereIn('confessions.id', $recommendationIds)
+            ->whereIn('confessions.id', $recommendationPoolIds)
             ->with('publicRevision')
-            ->orderByDesc('support_count')->orderByDesc('published_at')->orderByDesc('id')
-            ->limit(3)->get();
+            ->get();
+        $recommended = $recommendationPool->groupBy('category_key')
+            ->map(fn ($categoryStories) => $categoryStories->random())
+            ->shuffle()
+            ->take((int) config('lavbe.recommendation_count'))
+            ->values();
         $threadPublicId = $request->query('thread');
         $threadRoot = is_string($threadPublicId) && preg_match('/^'.RoutePatterns::UUID_V4.'$/D', $threadPublicId)
             ? ConfessionComment::query()->publicApproved()->where('confession_id', $confession->id)

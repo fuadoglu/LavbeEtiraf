@@ -53,6 +53,8 @@ return [
     ],
     'public_title_excerpt' => 70,
     'seo_description_excerpt' => 240,
+    'recommendation_pool_per_category' => 8,
+    'recommendation_count' => 3,
     'alias_suffix_characters' => 8,
     'rate_limits' => [
         'routes' => [

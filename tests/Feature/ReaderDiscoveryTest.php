@@ -40,33 +40,60 @@ class ReaderDiscoveryTest extends TestCase
         $revision = $story->revisions()->create(['revision' => 2, 'title' => $story->title, 'author_display_name' => 'Nigar Məmmədova', 'body' => $story->body, 'category_key' => 'family', 'status' => 'approved']);
         $story->forceFill(['public_revision_id' => $revision->id])->save();
         Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'family', 'title' => 'AZ same-category story']);
-        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => 'AZ lower-ranked work story', 'excerpt' => 'Lower ranked recommendation excerpt must stay hidden.', 'support_count' => 1]);
-        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => 'AZ leading work story', 'excerpt' => 'Recommendation excerpt must stay hidden.', 'support_count' => 12]);
-        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'money', 'title' => 'AZ money story']);
-        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'values', 'title' => 'AZ values story']);
+        $workStories = collect(['AZ lower-ranked work story', 'AZ leading work story', 'AZ another work story', 'AZ fourth work story', 'AZ fifth work story'])
+            ->map(fn (string $title, int $index) => Confession::factory()->create([
+                'public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => $title,
+                'excerpt' => $index === 1 ? 'Recommendation excerpt must stay hidden.' : null,
+                'support_count' => $index === 1 ? 12 : max(1, 5 - $index),
+            ]));
+        $moneyStory = Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'money', 'title' => 'AZ money story']);
+        $valuesStory = Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'values', 'title' => 'AZ values story']);
         Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'en', 'category_key' => 'education', 'title' => 'EN synthetic recommendation']);
 
-        $response = $this->get('/az/confession/'.$story->public_id)->assertOk()
-            ->assertSee('Nigar Məmmədova')
-            ->assertSee('Başqa etirafları oxu')
-            ->assertSee('AZ leading work story')
-            ->assertSee('AZ money story')
-            ->assertSee('AZ values story')
-            ->assertDontSee('AZ lower-ranked work story')
-            ->assertDontSee('AZ same-category story')
-            ->assertDontSee('EN synthetic recommendation')
-            ->assertDontSee('Recommendation excerpt must stay hidden.')
-            ->assertSee('class="recommended-story-link"', false);
+        $eligible = $workStories->concat([$moneyStory, $valuesStory])->keyBy('public_id');
+        $observedWorkTitles = collect();
+        $observedOrders = collect();
 
-        $this->assertSame(3, substr_count($response->getContent(), 'class="recommended-story-link"'));
+        for ($attempt = 0; $attempt < 30; $attempt++) {
+            $response = $this->get('/az/confession/'.$story->public_id)->assertOk()
+                ->assertSee('Nigar Məmmədova')
+                ->assertSee('Başqa etirafları oxu')
+                ->assertDontSee('AZ same-category story')
+                ->assertDontSee('EN synthetic recommendation')
+                ->assertDontSee('Recommendation excerpt must stay hidden.')
+                ->assertSee('class="recommended-story-link"', false);
 
-        $document = new \DOMDocument;
-        @$document->loadHTML('<?xml encoding="UTF-8">'.$response->getContent());
-        $xpath = new \DOMXPath($document);
-        $recommendationSection = $xpath->query('//section[@aria-labelledby="recommended-heading"]')->item(0);
-        $this->assertNotNull($recommendationSection);
-        $this->assertSame(3, $xpath->query('.//a[@class="recommended-story-link"]', $recommendationSection)->length);
-        $this->assertSame(0, $xpath->query('.//*[@class="story-meta" or @class="story-excerpt" or @class="story-author" or @class="unique-read-count"]', $recommendationSection)->length);
+            $document = new \DOMDocument;
+            @$document->loadHTML('<?xml encoding="UTF-8">'.$response->getContent());
+            $xpath = new \DOMXPath($document);
+            $recommendationSection = $xpath->query('//section[@aria-labelledby="recommended-heading"]')->item(0);
+            $this->assertNotNull($recommendationSection);
+            $links = $xpath->query('.//a[@class="recommended-story-link"]', $recommendationSection);
+            $this->assertSame(3, $links->length);
+            $this->assertSame(0, $xpath->query('.//*[@class="story-meta" or @class="story-excerpt" or @class="story-author" or @class="unique-read-count"]', $recommendationSection)->length);
+
+            $publicIds = collect();
+            $categories = collect();
+            $titles = collect();
+            foreach ($links as $link) {
+                preg_match('~/confession/([0-9a-f-]{36})$~', $link->getAttribute('href'), $matches);
+                $this->assertNotEmpty($matches[1] ?? null);
+                $publicIds->push($matches[1]);
+                $storyCandidate = $eligible->get($matches[1]);
+                $this->assertNotNull($storyCandidate);
+                $categories->push($storyCandidate->category_key);
+                $titles->push(trim($link->textContent));
+            }
+
+            $this->assertCount(3, $publicIds->unique());
+            $this->assertCount(3, $categories->unique());
+            $this->assertNotContains('family', $categories->all());
+            $observedWorkTitles = $observedWorkTitles->merge($titles->filter(fn (string $title) => str_contains($title, 'work story')));
+            $observedOrders->push($titles->implode('|'));
+        }
+
+        $this->assertGreaterThan(1, $observedWorkTitles->unique()->count(), 'Recommendations should vary among candidates in the same category.');
+        $this->assertGreaterThan(1, $observedOrders->unique()->count(), 'Recommendation category order should be shuffled between requests.');
     }
 
     public function test_feed_sort_tabs_have_distinct_icons_and_equal_grid_columns(): void
