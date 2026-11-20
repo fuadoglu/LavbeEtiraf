@@ -42,3 +42,5 @@ Sintetik qəbul nümunələri:
 İstinadlar: [GA4 və şəxsi məlumat](https://support.google.com/analytics/answer/6366371) · [Basic Consent Mode](https://developers.google.com/tag-platform/security/concepts/consent-mode) · [AdSense UGC](https://support.google.com/adsense/answer/1355699)
 
 [Sınaqlar: ADV-01, ADV-02 və ADV-03](../delivery/acceptance.md)
+
+Sessiya sürücüsü database olduqda validasiya zamanı flash edilən etiraf/rəy mətni sessiya payload-unda şifrəli saxlanır (`SESSION_ENCRYPT=true`). İstehsal APP_KEY və backup ayrılığı, sessiya saxlama müddəti və backup retention operator tərəfindən ayrıca təsdiqlənməlidir; şifrələmə bu əməliyyat qərarlarını əvəz etmir.
