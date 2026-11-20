@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Confession;
 use App\Models\ConfessionComment;
 use App\Support\Lavbe\LocaleRegistry;
+use App\Support\Lavbe\RoutePatterns;
 use App\Support\Participation\ParticipationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -46,11 +47,12 @@ class ParticipationController extends Controller
         $data = Validator::make($request->all(), [
             'body' => ['required', 'string', 'max:'.config('lavbe.limits.comment_request_body')],
             'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
+            'parent_public_id' => ['nullable', 'regex:/^'.RoutePatterns::UUID_V4.'$/'],
             'remember_device' => ['sometimes', 'accepted'],
         ])->validate();
         $body = trim((string) $data['body']);
         abort_if($body === '' || mb_strlen($body, 'UTF-8') > (int) config('lavbe.limits.comment_body'), 422);
-        $result = $participation->submitComment($request, $publicId, $body, $data['idempotency_key']);
+        $result = $participation->submitComment($request, $publicId, $body, $data['idempotency_key'], $data['parent_public_id'] ?? null);
         $response = response()->view('participation.submitted', [
             'confession' => $result['confession'],
             'comment' => $result['comment'],
@@ -71,6 +73,20 @@ class ParticipationController extends Controller
         }
 
         return $response;
+    }
+
+    public function commentReaction(Request $request, string $locale, string $publicId, string $commentPublicId, ParticipationService $participation): Response
+    {
+        if ($limited = $this->limit($request, 'comment_reaction')) {
+            return $limited;
+        }
+        $data = Validator::make($request->all(), [
+            'action' => ['required', 'in:react,unreact'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
+        ])->validate();
+        $participation->setCommentReaction($request, $publicId, $commentPublicId, $data['action'] === 'react', $data['idempotency_key']);
+
+        return redirect()->to(route('confessions.public', ['locale' => $locale, 'publicId' => $publicId]).'#comment-'.$commentPublicId);
     }
 
     public function continuation(Request $request, string $locale, string $publicId, ParticipationService $participation): Response

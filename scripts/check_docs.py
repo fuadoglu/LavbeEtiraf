@@ -14,7 +14,7 @@ EXPECTED_LOCALES = tuple("en de fr nl sv nb da fi ja ko es it pt-BR pl tr az ru"
 EXPECTED_CATEGORIES = tuple(
     "relationships family friends work education money identity values wellbeing grief life-changes everyday".split()
 )
-EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)} | {"LAV-030", "LAV-031", "LAV-032", "LAV-033", "LAV-034"}
+EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)} | {"LAV-030", "LAV-031", "LAV-032", "LAV-033", "LAV-034", "LAV-035"}
 LINK = re.compile(r"!?\[[^\]\n]+\]\(([^)\s]+)\)")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
 ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS|CFG|DISC)-\d{2}\b")

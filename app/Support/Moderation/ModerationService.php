@@ -240,6 +240,10 @@ class ModerationService
             abort_unless($confession->status === 'public', 409);
             [$target, $revision] = $this->lockParticipationTarget($type, $targetId, $revisionId, $confessionId);
             abort_unless($target->lock_version === $expectedLockVersion, 409);
+            if ($type === 'comment' && $target->parent_comment_id !== null && in_array($decision, ['approve', 'restore'], true)) {
+                abort_unless(ConfessionComment::query()->publicApproved()->whereKey($target->parent_comment_id)
+                    ->where('confession_id', $confession->id)->exists(), 409);
+            }
             $previousState = (string) $target->status;
             $eventType = null;
             if ($decision === 'approve') {
@@ -268,6 +272,27 @@ class ModerationService
                         'visibility_version' => DB::raw('visibility_version + 1'),
                         'updated_at' => now(),
                     ]);
+                    if ($target->parent_comment_id === null) {
+                        $replyIds = ConfessionComment::query()->where('parent_comment_id', $target->id)->pluck('id');
+                        if ($replyIds->isNotEmpty()) {
+                            ConfessionComment::query()->whereIn('id', $replyIds)->where('status', 'public')->update([
+                                'status' => 'hidden', 'body' => '',
+                                'lock_version' => DB::raw('lock_version + 1'),
+                                'visibility_version' => DB::raw('visibility_version + 1'), 'updated_at' => now(),
+                            ]);
+                            ConfessionComment::query()->whereIn('id', $replyIds)->where('status', 'unpublished')->update([
+                                'status' => 'rejected', 'body' => '',
+                                'lock_version' => DB::raw('lock_version + 1'),
+                                'visibility_version' => DB::raw('visibility_version + 1'), 'updated_at' => now(),
+                            ]);
+                            DB::table('confession_comment_revisions')->whereIn('comment_id', $replyIds)->where('status', 'pending')
+                                ->update(['status' => 'cancelled', 'updated_at' => now()]);
+                            DB::table('comment_responses')->whereIn('comment_id', $replyIds)->where('status', 'public')->update([
+                                'status' => 'hidden', 'body' => '',
+                                'visibility_version' => DB::raw('visibility_version + 1'), 'updated_at' => now(),
+                            ]);
+                        }
+                    }
                 }
             } else {
                 abort_unless($target->status === 'hidden' && $revision->status === 'approved', 409);

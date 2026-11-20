@@ -161,6 +161,28 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .participation-section { display: grid; gap: 1rem; margin-block-start: 2rem; }
 .participation-section h2 { margin: 0; }
 .participation-card, .participation-form, .author-response { display: grid; gap: .7rem; padding: 1rem; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); }
+.confession-comments { scroll-margin-top: 5rem; }
+.comment-card { min-width: 0; gap: .8rem; scroll-margin-top: 5rem; }
+.comment-card-header .story-meta { margin: 0; }
+.comment-card > .confession-body { overflow-wrap: anywhere; }
+.comment-card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem .9rem; }
+.comment-card-actions > form { margin: 0; }
+.comment-card-actions > a { display: inline-flex; min-height: 2.75rem; align-items: center; font-size: .9rem; }
+.comment-reaction[aria-pressed="true"] { background: var(--hint); color: var(--action); }
+.comment-reaction-count { min-width: 1.25rem; text-align: center; font-variant-numeric: tabular-nums; }
+.comment-replies { display: grid; gap: .65rem; margin-inline-start: clamp(.65rem, 4vw, 1.35rem); padding-inline-start: clamp(.65rem, 3vw, 1rem); border-inline-start: 2px solid var(--line); }
+.comment-reply-card { border-radius: 1rem; background: var(--hint); }
+.comment-reply-composer { border-top: 1px solid var(--line); padding-top: .6rem; }
+.comment-reply-composer > summary { display: flex; min-height: 2.75rem; align-items: center; color: var(--action); cursor: pointer; font-weight: 650; }
+.comment-reply-composer[open] > summary { margin-block-end: .7rem; }
+.comment-reply-composer .participation-form, .comment-inline-form { display: grid; gap: .8rem; }
+.comment-reply-composer .participation-form { padding: .8rem; border-radius: .9rem; }
+.comment-reply-composer textarea, .comment-composer textarea { min-height: 7rem; }
+.comment-composer { margin-block-start: .5rem; }
+.comment-more-replies { display: inline-flex; min-height: 2.75rem; align-items: center; font-weight: 650; }
+.comment-pagination { display: flex; flex-wrap: wrap; gap: .6rem; }
+.comment-pagination a { display: inline-flex; min-height: 2.75rem; align-items: center; }
+.comment-context { margin: 0; padding: .75rem; border-inline-start: 3px solid var(--edge); background: var(--hint); color: var(--muted); }
 .participation-action { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-block: 1.25rem; }
 .author-response { margin-block-start: .8rem; background: var(--hint); }
 .participation-card .confession-body, .participation-section .confession-body { line-height: 1.7; overflow-wrap: anywhere; }
