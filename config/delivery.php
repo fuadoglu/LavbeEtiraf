@@ -16,5 +16,9 @@ return [
         'batch_max' => 500,
         'email_batch_size' => 100,
         'email_claim_minutes' => 15,
+        'email_retry_initial_seconds' => 60,
+        'email_retry_max_seconds' => 21600,
+        'email_retry_exponent_max' => 8,
+        'email_max_attempts' => 8,
     ],
 ];

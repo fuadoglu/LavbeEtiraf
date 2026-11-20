@@ -54,11 +54,19 @@ class ParticipationNotificationDelivery
     {
         $sent = 0;
         $notifications = UserNotification::query()->whereNull('email_sent_at')->whereNull('email_skipped_at')
+            ->whereNull('email_failed_at')
+            ->where(function ($query): void {
+                $query->whereNull('email_next_attempt_at')->orWhere('email_next_attempt_at', '<=', now());
+            })
             ->where(function ($query): void {
                 $query->whereNull('email_claimed_at')->orWhere('email_claimed_at', '<', now()->subMinutes((int) config('delivery.notifications.email_claim_minutes')));
             })->orderBy('id')->limit($limit)->pluck('id');
         foreach ($notifications as $notificationId) {
             $claimed = UserNotification::query()->whereKey($notificationId)->whereNull('email_sent_at')->whereNull('email_skipped_at')
+                ->whereNull('email_failed_at')
+                ->where(function ($query): void {
+                    $query->whereNull('email_next_attempt_at')->orWhere('email_next_attempt_at', '<=', now());
+                })
                 ->where(function ($query): void {
                     $query->whereNull('email_claimed_at')->orWhere('email_claimed_at', '<', now()->subMinutes((int) config('delivery.notifications.email_claim_minutes')));
                 })->update(['email_claimed_at' => now()]);
@@ -79,12 +87,21 @@ class ParticipationNotificationDelivery
                 Notification::sendNow($user, new FollowedConfessionActivity);
                 $notification->forceFill([
                     'email_sent_at' => now(), 'email_claimed_at' => null,
+                    'email_next_attempt_at' => null,
                     'email_attempts' => $notification->email_attempts + 1, 'last_error_code' => null,
                 ])->save();
                 $sent++;
             } catch (Throwable) {
+                $attempts = $notification->email_attempts + 1;
+                $maxAttempts = max(1, (int) config('delivery.notifications.email_max_attempts', 8));
+                $initialDelay = max(1, (int) config('delivery.notifications.email_retry_initial_seconds', 60));
+                $maxDelay = max($initialDelay, (int) config('delivery.notifications.email_retry_max_seconds', 21600));
+                $exponent = min(max(0, $attempts - 1), max(0, (int) config('delivery.notifications.email_retry_exponent_max', 8)));
+                $delay = min($maxDelay, $initialDelay * (2 ** $exponent));
                 $notification->forceFill([
                     'email_claimed_at' => null, 'email_attempts' => $notification->email_attempts + 1,
+                    'email_next_attempt_at' => $attempts >= $maxAttempts ? null : now()->addSeconds($delay),
+                    'email_failed_at' => $attempts >= $maxAttempts ? now() : null,
                     'last_error_code' => 'mail_delivery_failed',
                 ])->save();
             }

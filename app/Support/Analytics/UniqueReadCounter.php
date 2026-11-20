@@ -11,8 +11,6 @@ class UniqueReadCounter
 {
     public const COOKIE_NAME = 'lavbe_reader_id';
 
-    private const COOKIE_MINUTES = 525600;
-
     public function record(Request $request, Confession $confession): ?Cookie
     {
         if ($this->isPrefetch($request)) {
@@ -28,7 +26,7 @@ class UniqueReadCounter
         $cookie = cookie(
             self::COOKIE_NAME,
             $readerId,
-            self::COOKIE_MINUTES,
+            max(1, (int) config('analytics.unique_read_retention_days', 365)) * 1440,
             '/',
             null,
             $request->isSecure() || (bool) config('session.secure'),
@@ -63,11 +61,17 @@ class UniqueReadCounter
             $inserted = DB::table('confession_readers')->insertOrIgnore([
                 'confession_id' => $confession->getKey(),
                 'reader_hash' => $readerHash,
+                'last_seen_at' => now(),
             ]);
 
             if ($inserted === 1) {
                 DB::table('confessions')->where('id', $confession->getKey())->increment('unique_read_count');
                 $currentCount++;
+            } else {
+                DB::table('confession_readers')
+                    ->where('confession_id', $confession->getKey())
+                    ->where('reader_hash', $readerHash)
+                    ->update(['last_seen_at' => now()]);
             }
 
             $confession->setAttribute('unique_read_count', $currentCount);

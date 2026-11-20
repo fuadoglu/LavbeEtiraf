@@ -63,12 +63,7 @@ class GuestConfessionTest extends TestCase
         $payload['remember_device'] = '1';
         $response = $this->call('POST', 'https://localhost/az/write', $payload)->assertCreated();
         $confession = Confession::query()->firstOrFail();
-        $cookie = collect($response->headers->getCookies())->first(fn ($cookie) => $cookie->getName() === 'lavbe_owner_'.$confession->public_id);
-
-        $this->assertNotNull($cookie);
-        $this->assertTrue($cookie->isHttpOnly());
-        $this->assertTrue($cookie->isSecure());
-        $this->assertSame('strict', $cookie->getSameSite());
+        $this->assertNull(collect($response->headers->getCookies())->first(fn ($cookie) => $cookie->getName() === 'lavbe_owner_'.$confession->public_id));
 
         $sessionCookie = collect($response->headers->getCookies())->first(fn ($candidate) => $candidate->getName() === config('session.cookie'));
         $this->assertNotNull($sessionCookie);
@@ -80,6 +75,35 @@ class GuestConfessionTest extends TestCase
         $this->assertTrue($deviceCookie->isHttpOnly());
         $this->assertTrue($deviceCookie->isSecure());
         $this->assertNotSame($deviceCookie->getValue(), Confession::query()->firstOrFail()->ownership->device_token_hash);
+    }
+
+    public function test_forget_device_revokes_device_and_legacy_owner_credentials_but_preserves_recovery(): void
+    {
+        $payload = $this->payload('submission-key-'.str_repeat('q', 32));
+        $payload['remember_device'] = '1';
+        $response = $this->post('/az/write', $payload)->assertCreated();
+        $confession = Confession::query()->firstOrFail()->load('ownership');
+        $deviceCookie = $response->getCookie('lavbe_device');
+        $this->assertNotNull($deviceCookie);
+        $recoveryHash = $confession->ownership->recovery_token_hash;
+        $legacyToken = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+        $confession->ownership->forceFill([
+            'owner_token_hash' => hash_hmac('sha256', $legacyToken, (string) config('app.key')),
+        ])->save();
+
+        $forget = $this->withCookie('lavbe_device', $deviceCookie->getValue())
+            ->withCookie('lavbe_owner_'.$confession->public_id, $legacyToken)
+            ->post('/az/my/device/forget')
+            ->assertRedirect('/az/my/device')
+            ->assertHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
+
+        $this->assertNotNull(collect($forget->headers->getCookies())->first(fn ($cookie) => $cookie->getName() === 'lavbe_device' && $cookie->getExpiresTime() < time()));
+        $confession->refresh()->load('ownership');
+        $this->assertNull($confession->ownership->device_token_hash);
+        $this->assertNotSame(hash_hmac('sha256', $legacyToken, (string) config('app.key')), $confession->ownership->owner_token_hash);
+        $this->assertSame($recoveryHash, $confession->ownership->recovery_token_hash);
+        $this->withCookie('lavbe_device', $deviceCookie->getValue())->get('/az/my/'.$confession->public_id)->assertNotFound();
+        $this->withCookie('lavbe_owner_'.$confession->public_id, $legacyToken)->get('/az/my/'.$confession->public_id)->assertNotFound();
     }
 
     public function test_remembered_device_lists_only_its_own_confessions_and_device_credential_can_manage_them(): void

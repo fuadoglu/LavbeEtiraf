@@ -6,6 +6,14 @@
     <section class="write-page submission-result">
         <h1>{{ __('guest.device_title') }}</h1>
         <p>{{ __('guest.device_intro') }}</p>
+        @if(session('status'))<x-status tone="success">{{ session('status') }}</x-status>@endif
+        @if($canForgetDevice)
+            <form method="post" action="{{ route('confessions.device.forget', ['locale' => $lavbeLocale['segment']]) }}" class="device-forget-form">
+                @csrf
+                <p>{{ __('guest.device_forget_hint') }}</p>
+                <button class="button button-secondary" type="submit">{{ __('guest.device_forget') }}</button>
+            </form>
+        @endif
         @if($confessions->isEmpty())
             <p>{{ __('guest.device_empty') }}</p>
             <a href="{{ route('account.login', ['locale' => $lavbeLocale['segment']]) }}">{{ __('account.login_title') }}</a>
