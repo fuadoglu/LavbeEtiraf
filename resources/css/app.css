@@ -155,7 +155,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .site-footer-brand-link .brand-wordmark { width: clamp(6.5rem, 9vw, 7.5rem); }
 .site-footer-navigation { min-width: 0; }
 .site-footer-navigation ul { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .15rem .3rem; padding: 0; margin: 0; list-style: none; }
-.site-footer-navigation a { display: flex; min-height: 2.75rem; align-items: center; padding: .3rem .45rem; border-radius: .5rem; color: var(--muted); font-size: .88rem; text-decoration: underline; text-underline-offset: .18em; overflow-wrap: anywhere; }
+.site-footer-navigation a { display: flex; min-height: 2.75rem; align-items: center; padding: .3rem .45rem; border-radius: .5rem; color: var(--muted); font-size: .8rem; text-decoration: underline; text-underline-offset: .18em; overflow-wrap: anywhere; }
 .site-footer-navigation a:hover, .site-footer-navigation a[aria-current="page"] { color: var(--action); background: var(--hint); text-decoration-color: currentColor; }
 .primary-nav { display: flex; justify-content: center; gap: .3rem; padding: 0; border: 0; background: transparent; }
 .nav-link { display: inline-flex; min-width: 5.5rem; min-height: 2.75rem; align-items: center; justify-content: center; gap: .4rem; padding: .45rem .8rem; border-radius: .6rem; color: var(--muted); text-decoration: none; }

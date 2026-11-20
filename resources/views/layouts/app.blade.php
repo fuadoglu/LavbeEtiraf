@@ -42,7 +42,7 @@
                 </a>
                 <nav class="site-footer-navigation" aria-label="{{ __('navigation.footer') }}">
                     <ul>
-                        @foreach(['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request', 'operator'] as $legalPage)
+                        @foreach(['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request'] as $legalPage)
                             <li><a href="{{ route('legal.page', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en'), 'page' => $legalPage]) }}" @if(request()->route('page') === $legalPage) aria-current="page" @endif>{{ __('legal.'.$legalPage.'.title') }}</a></li>
                         @endforeach
                     </ul>
