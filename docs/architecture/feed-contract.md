@@ -12,11 +12,11 @@ Bu sənəd ana və kateqoriya lentinin server, JavaScript və botlar üçün vah
 
 ## İcra sərhədi (LAV-003)
 
-`/{locale}/` və `/{locale}/topics/{key}` serverdə ilkin HTML və 12-lik paginator verir. Read model `confessions` cədvəlindən yalnız `status=public`, `published_at` dolu və cari locale qeydlərini oxuyur. Sınaq məlumatı yalnız test factory-dədir; production seeder yoxdur. Yeni sıra `published_at DESC, id DESC`-dir. Həftəlik rejim son 7 günü eyni xronoloji sırada göstərir; updates rejimi `updated_at DESC, id DESC` istifadə edir. Bunlar ilkin oxu sıralarıdır, sabit snapshot və hesablama balı hələ deyil.
+`/{locale}/` və `/{locale}/topics/{key}` serverdə ilkin HTML və 12-lik paginator verir. Read model `confessions` cədvəlindən yalnız `status=public`, `published_at` dolu və cari locale qeydlərini oxuyur. Sınaq məlumatı yalnız test factory-dədir; production seeder yoxdur. Yeni sıra `published_at DESC, id DESC`-dir. LAV-019-da həftəlik rejim son yeddi günün aktiv dəstək və təsdiqlənmiş unikal rəyçi xalından, updates rejimi isə son açıq təsdiqlənmiş davamdan istifadə edir. Sabit cursor/snapshot hissəsi bu mərhələdə açıqdır.
 
 Cursor Laravel `Crypt` ilə autentifikasiya/şifrələmə olunur; locale, kateqoriya, order, offset, versiya və 60 dəqiqəlik bitmə vaxtına bağlanır. Fragment endpoint HTML qaytarır, `X-Robots-Tag: noindex` və `Cache-Control: no-store` verir. Axtarış GET formu göstərir və POST ilə axtarır; mətn URL-də saxlanmır, nəticələr locale və public status ilə məhdudlaşır, cavab noindex/no-store/private/no-referrer-dir. DB-də tam mətn axtarışı üçün bu scope-da sadə LIKE istifadə olunur.
 
-LAV-003-də snapshot cədvəli, visibility revision, support/comment cədvəllərinə əsaslanan score, Tokyo/Seoul tokenizer və MySQL full-text index yoxdur. Həftəlik/updates snapshot və ranking LAV-004/005 məzmun həyat dövrü ilə birlikdə əlavə edilməlidir. Tətbiq hazırkı modeli onların mövcud olduğunu iddia etmir.
+LAV-019-un ranking hissəsi mövcud support/comment/continuation cədvəllərini və approved public revision kontraktını istifadə edir. Unikal rəyçi eyni etiraf daxilində sabit anonim alias ilə sayılır. Köhnə etiraf da son yeddi gündə fəaliyyət aldıqda həftəlik sıraya yüksələ bilər. Xal, çəki və zaman pəncərəsi config/feed.php mənbəyindədir. Sabit snapshot/keyset və MySQL full-text/tokenizer işi hələ tamamlanmayıb.
 
 Hər iki lent eyni sorğuda `locale`, kateqoriya və cari açıq vəziyyəti yoxlayır. Açıq başlıq, snippet və kart yalnız təsdiqlənmiş versiyadan gəlir. Sıralama `new`, `weekly` və `updates` allowlist-dən gəlir. Əsas standart `new`-dur, axtarış motoruna təqdim olunan ardıcıl səhifələr də bu sıradadır.
 
