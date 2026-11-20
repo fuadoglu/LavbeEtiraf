@@ -37,8 +37,6 @@ return [
         'guest_idempotency' => 64,
     ],
     'pagination' => [
-        'feed' => 12,
-        'feed_cursor_overfetch' => 1,
         'account' => 50,
         'moderation' => 30,
         'moderation_history' => 50,
@@ -47,7 +45,6 @@ return [
         'locale_minutes' => 60 * 24 * 365,
         'owner_minutes' => 60 * 24 * 365,
     ],
-    'feed_cursor_ttl_minutes' => 60,
     'public_title_excerpt' => 70,
     'seo_description_excerpt' => 240,
     'alias_suffix_characters' => 8,

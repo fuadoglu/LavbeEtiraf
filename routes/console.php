@@ -10,3 +10,4 @@ Artisan::command('inspire', function () {
 
 Schedule::command('lavbe:deliver-notifications')->everyMinute()->withoutOverlapping();
 Schedule::command('lavbe:indexnow')->everyMinute()->withoutOverlapping();
+Schedule::command('lavbe:prune-expired-cache')->daily()->withoutOverlapping();

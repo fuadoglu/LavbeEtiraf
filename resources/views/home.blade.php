@@ -55,7 +55,7 @@
                 </nav>
             @endif
         @endif
-        @if($feedCursor && $confessions->total() > config('lavbe.pagination.feed'))
+        @if($feedCursor && $confessions->total() > config('feed.page_size'))
             <button type="button" class="button button-secondary" data-feed-more data-endpoint="{{ route('feed.fragment', ['locale' => $lavbeLocale['segment'], 'order' => $sort, 'category' => $category]) }}">
                 {{ __('lavbe.next') }}
             </button>
