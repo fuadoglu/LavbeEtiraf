@@ -33,3 +33,7 @@ SEO-04/UI-02: ilk lent sorğusunda cache-ə yazılan üzvlər config/feed.php sn
 ## Başlıqda axtarış — LAV-024
 
 UI-01/UI-04: axtarış yeganə ikon kimi başlıqda dil və rejim idarələrinin yanındadır. Lent başlığından təkrarlanan axtarış düyməsi çıxarılıb. Axtarışın öz POST forması və no-store davranışı saxlanır. UiFoundationTest ana, mövzu və axtarış ekranlarında tək başlıq ikonunu yoxlayır.
+
+## Sessiya məxfiliyi — LAV-026
+
+Database sessiyalarında flash edilən uğursuz yazı mətni şifrəli saxlanır: config/session.php və nümunə mühitdə SESSION_ENCRYPT default true-dur. SessionPrivacyTest sintetik qaralamanın xam sessiya payload-unda olmadığını və açarla bərpa olunduğunu yoxlayır. Lokal ignored mühitdə də ayar true edilib. İstehsal açarı, backup retention və real sessiya TTL operator baxışı olaraq qalır.
