@@ -3,7 +3,7 @@
 return [
     'write_title' => 'Write a confession',
     'write_intro' => 'After submission, your confession goes to moderator review and stays out of the public feed until approved.',
-    'write_subject' => 'Title (optional)',
+    'write_subject' => 'Title',
     'write_body' => 'Your confession',
     'write_body_hint' => 'You can write up to :limit characters.',
     'write_topic' => 'Topic',
@@ -43,4 +43,9 @@ return [
     'write_confirm_republish' => 'I confirm that I want this previously published version reviewed again.',
     'write_withdrawn' => 'This confession is withdrawn and is not public.',
     'write_republish_pending' => 'A request to review this version again is pending.',
+    'validation_title_required' => 'A title is required.',
+    'author_name_label' => 'Name (optional)',
+    'author_name_hint' => 'If you add your name, it will be shown publicly with the confession.',
+    'author_name_label' => 'Name (optional)',
+    'author_name_hint' => 'If you add your name, it will be shown publicly with the confession.',
 ];

@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => '以前公開されたこの版を再審査することを確認します。',
     'write_withdrawn' => 'この告白は取り下げられており、公開されていません。',
     'write_republish_pending' => 'この版の再審査依頼は保留中です。',
+    'validation_title_required' => 'タイトルは必須です。',
+    'author_name_label' => '名前（任意）',
+    'author_name_hint' => '名前を入力すると告白と一緒に公開されます。',
 ];

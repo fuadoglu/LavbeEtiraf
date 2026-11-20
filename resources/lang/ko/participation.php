@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => '내 댓글을 내리겠습니다.',
     'withdraw_comment' => '내 댓글 내리기',
     'recover_comment' => '내 댓글 접근 권한 복구',
+    'supported_heading' => '응원한 고백',
+    'supported_empty' => '아직 응원한 고백이 없습니다.',
+    'recommended_heading' => '추천 고백',
 ];

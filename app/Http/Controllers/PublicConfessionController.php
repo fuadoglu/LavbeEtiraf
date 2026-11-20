@@ -43,6 +43,9 @@ class PublicConfessionController extends Controller
         $revision = $confession->publicRevision;
         $description = $confession->excerpt ?: mb_substr(trim(preg_replace('/\s+/u', ' ', $revision->body) ?? ''), 0, (int) config('lavbe.seo_description_excerpt'), 'UTF-8');
         $category = $locales->category((string) $revision->category_key);
+        $recommended = Confession::query()->public()->where('locale', $confession->locale)
+            ->whereKeyNot($confession->id)->where('category_key', $confession->category_key)
+            ->with('publicRevision')->orderByDesc('support_count')->orderByDesc('published_at')->limit(3)->get();
         $comments = ConfessionComment::query()->with([
             'publicRevision' => fn ($query) => $query->where('status', 'approved'),
             'response.publicRevision' => fn ($query) => $query->where('status', 'approved'),
@@ -71,7 +74,7 @@ class PublicConfessionController extends Controller
         $ownerCanParticipate = app(GuestConfessionController::class)->canManage($request, $confession);
         $hasSupported = $participation->hasSupport($request, $confession);
 
-        return response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds'))
+        return response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds', 'recommended'))
             ->header('Cache-Control', 'private, no-store, max-age=0')
             ->header('X-Robots-Tag', 'index, follow')
             ->header('Referrer-Policy', 'no-referrer')

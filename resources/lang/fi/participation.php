@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Haluan poistaa vastaukseni.',
     'withdraw_comment' => 'Poista vastaukseni',
     'recover_comment' => 'Palauta pääsy vastaukseeni',
+    'supported_heading' => 'Tukemani tunnustukset',
+    'supported_empty' => 'Et ole vielä tukenut tunnustuksia.',
+    'recommended_heading' => 'Suositellut tunnustukset',
 ];

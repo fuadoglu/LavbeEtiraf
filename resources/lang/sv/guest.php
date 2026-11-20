@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Jag bekräftar att den tidigare publicerade versionen ska granskas igen.',
     'write_withdrawn' => 'Bekännelsen är tillbakadragen och inte offentlig.',
     'write_republish_pending' => 'Begäran om ny granskning väntar.',
+    'validation_title_required' => 'En rubrik krävs.',
+    'author_name_label' => 'Namn (valfritt)',
+    'author_name_hint' => 'Om du anger ditt namn visas det offentligt med bekännelsen.',
 ];

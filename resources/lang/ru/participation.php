@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Я хочу убрать свой комментарий.',
     'withdraw_comment' => 'Убрать мой комментарий',
     'recover_comment' => 'Восстановить доступ к моему комментарию',
+    'supported_heading' => 'Поддержанные признания',
+    'supported_empty' => 'Вы ещё не поддержали ни одного признания.',
+    'recommended_heading' => 'Рекомендуемые признания',
 ];

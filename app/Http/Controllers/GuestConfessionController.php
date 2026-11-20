@@ -44,7 +44,8 @@ class GuestConfessionController extends Controller
 
         $categoryKeys = array_column($locales->catalog()['categories'], 'key');
         $validator = Validator::make($request->all(), [
-            'title' => ['nullable', 'string', 'max:'.config('lavbe.limits.confession_title')],
+            'title' => ['required', 'string', 'max:'.config('lavbe.limits.confession_title')],
+            'author_display_name' => ['nullable', 'string', 'max:120'],
             'body' => ['required', 'string', function (string $attribute, mixed $value, \Closure $fail): void {
                 if (mb_strlen(trim((string) $value), 'UTF-8') > (int) config('lavbe.limits.confession_body')) {
                     $fail(__('guest.validation_body_max', ['limit' => config('lavbe.limits.confession_body')]));
@@ -58,6 +59,7 @@ class GuestConfessionController extends Controller
         ], [
             'body.required' => __('guest.validation_body_required'),
             'age_confirmed.accepted' => __('guest.validation_age_required'),
+            'title.required' => __('guest.validation_title_required'),
             'title.max' => __('guest.validation_title_max'),
             'category_key.in' => __('guest.validation_topic'),
             'response_expectation.in' => __('guest.validation_expectation'),
@@ -69,10 +71,11 @@ class GuestConfessionController extends Controller
         if ($validator->fails()) {
             return redirect()->route('confessions.create', ['locale' => $locale])
                 ->withErrors($validator)
-                ->withInput($request->only(['title', 'body', 'category_key', 'response_expectation', 'age_confirmed', 'remember_device', 'idempotency_key']));
+                ->withInput($request->only(['title', 'author_display_name', 'body', 'category_key', 'response_expectation', 'age_confirmed', 'remember_device', 'idempotency_key']));
         }
         $data = $validator->validated();
-        $data['title'] = isset($data['title']) ? trim($data['title']) : null;
+        $data['title'] = trim($data['title']);
+        $data['author_display_name'] = isset($data['author_display_name']) ? trim($data['author_display_name']) : null;
         $data['body'] = trim($data['body']);
         $idempotencyHash = $this->keyedHash($data['idempotency_key']);
         $persistentOwnerToken = $request->boolean('remember_device') ? $this->randomToken() : null;
@@ -83,6 +86,7 @@ class GuestConfessionController extends Controller
             'body' => $data['body'],
             'category_key' => $data['category_key'] ?? null,
             'response_expectation' => $data['response_expectation'] ?? null,
+            'author_display_name' => trim((string) ($request->input('author_display_name') ?? '')),
             'age_confirmed' => true,
         ], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
 
@@ -106,6 +110,7 @@ class GuestConfessionController extends Controller
                 $confession->revisions()->create([
                     'revision' => 1,
                     'title' => $data['title'],
+                    'author_display_name' => $data['author_display_name'] ?: null,
                     'body' => $data['body'],
                     'category_key' => $data['category_key'] ?? null,
                     'response_expectation' => $data['response_expectation'] ?? null,

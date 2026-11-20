@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Confirmo que esta versão publicada anteriormente deve ser analisada novamente.',
     'write_withdrawn' => 'Este desabafo foi retirado e não está público.',
     'write_republish_pending' => 'A solicitação de nova análise está pendente.',
+    'validation_title_required' => 'O título é obrigatório.',
+    'author_name_label' => 'Nome (opcional)',
+    'author_name_hint' => 'Se você informar seu nome, ele será exibido publicamente com o desabafo.',
 ];

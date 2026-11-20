@@ -5,6 +5,7 @@
     </a>
     <x-site-navigation />
     <div class="header-actions">
+        <a class="icon-button header-supported" href="{{ route('confessions.supported', ['locale' => $lavbeLocale['segment']]) }}" aria-label="{{ __('participation.supported_heading') }}" title="{{ __('participation.supported_heading') }}"><x-icon name="heart" /></a>
         <a class="icon-button header-search" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}" aria-label="{{ __('lavbe.search_title') }}" title="{{ __('lavbe.search_title') }}" @if(request()->routeIs('search')) aria-current="page" @endif><x-icon name="search" /></a>
         <details class="language-menu">
             <summary class="icon-button language-button" aria-label="{{ $lavbeLocale['native'] }}">

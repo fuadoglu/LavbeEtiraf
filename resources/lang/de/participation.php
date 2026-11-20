@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Ich möchte meine Antwort entfernen.',
     'withdraw_comment' => 'Meine Antwort entfernen',
     'recover_comment' => 'Zugriff auf meine Antwort wiederherstellen',
+    'supported_heading' => 'Unterstützte Geständnisse',
+    'supported_empty' => 'Du hast noch keine Geständnisse unterstützt.',
+    'recommended_heading' => 'Empfohlene Geständnisse',
 ];

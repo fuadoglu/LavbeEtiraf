@@ -14,10 +14,10 @@ EXPECTED_LOCALES = tuple("en de fr nl sv nb da fi ja ko es it pt-BR pl tr az ru"
 EXPECTED_CATEGORIES = tuple(
     "relationships family friends work education money identity values wellbeing grief life-changes everyday".split()
 )
-EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)}
+EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)} | {"LAV-030"}
 LINK = re.compile(r"!?\[[^\]\n]+\]\(([^)\s]+)\)")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
-ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS|CFG)-\d{2}\b")
+ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS|CFG|DISC)-\d{2}\b")
 ACCEPTANCE_ROW = re.compile(r"^\| (" + ACCEPTANCE_ID.pattern + r") \|", re.MULTILINE)
 ISSUE_HEADING = re.compile(r"^## (LAV-\d{3}) · .+$", re.MULTILINE)
 PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9_]*)\}")
@@ -259,7 +259,8 @@ def check_guest_translations(directory, catalog, report):
         "write_remember_device", "write_conflict_body", "write_not_found", "write_unavailable",
         "validation_topic", "validation_expectation", "validation_refresh", "write_too_many",
         "write_withdraw", "write_confirm_withdraw", "write_republish", "write_confirm_republish",
-        "write_withdrawn", "write_republish_pending",
+        "write_withdrawn", "write_republish_pending", "author_name_label", "author_name_hint",
+        "validation_title_required",
     }
     for locale in catalog["locales"]:
         folder = locale["code"]

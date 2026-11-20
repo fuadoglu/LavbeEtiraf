@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Je confirme que cette version déjà publiée doit être vérifiée à nouveau.',
     'write_withdrawn' => 'Cette confidence a été retirée. Elle n’est plus visible.',
     'write_republish_pending' => 'La demande de nouvelle vérification est en attente.',
+    'validation_title_required' => 'Le titre est obligatoire.',
+    'author_name_label' => 'Nom (facultatif)',
+    'author_name_hint' => 'Si vous indiquez votre nom, il sera affiché publiquement avec la confession.',
 ];

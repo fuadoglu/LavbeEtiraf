@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Quero retirar meu comentário.',
     'withdraw_comment' => 'Retirar meu comentário',
     'recover_comment' => 'Recuperar o acesso ao meu comentário',
+    'supported_heading' => 'Desabafos apoiados',
+    'supported_empty' => 'Você ainda não apoiou nenhum desabafo.',
+    'recommended_heading' => 'Desabafos recomendados',
 ];

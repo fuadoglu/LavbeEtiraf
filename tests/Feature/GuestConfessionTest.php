@@ -26,6 +26,20 @@ class GuestConfessionTest extends TestCase
         Cache::flush();
     }
 
+    public function test_title_is_required_and_optional_author_name_stays_in_pending_revision(): void
+    {
+        $payload = $this->payload();
+        unset($payload['title']);
+        $this->from('/az/write')->post('/az/write', $payload)->assertRedirect('/az/write')->assertSessionHasErrors('title');
+        $payload = $this->payload('submission-key-'.str_repeat('n', 32));
+        $payload['author_display_name'] = 'Nigar Məmmədova';
+        $response = $this->post('/az/write', $payload)->assertCreated();
+        $story = Confession::query()->firstOrFail();
+        $this->assertSame('Synthetic title', $story->revisions()->firstOrFail()->title);
+        $this->assertSame('Nigar Məmmədova', $story->revisions()->firstOrFail()->author_display_name);
+        $response->assertDontSee('Nigar Məmmədova');
+    }
+
     public function test_write_form_is_localized_private_and_keeps_idempotency_out_of_the_url(): void
     {
         $response = $this->get('/az/write')

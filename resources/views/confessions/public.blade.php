@@ -25,7 +25,7 @@
         <header class="page-heading confession-heading">
             @if($category)<p class="story-meta">{{ $category['labels'][$localeRecord['code']] ?? $category['labels']['en'] }}</p>@endif
             <h1 id="confession-title">{{ $revision->title ?: __('lavbe.untitled_confession') }}</h1>
-            <p class="story-meta">{{ $confession->author_alias }} <span aria-hidden="true">·</span> <time datetime="{{ $confession->published_at->toAtomString() }}">{{ $confession->published_at->format('Y-m-d') }}</time></p>
+            <p class="story-meta">{{ $revision->author_display_name ?: $confession->author_alias }} <span aria-hidden="true">·</span> <time datetime="{{ $confession->published_at->toAtomString() }}">{{ $confession->published_at->format('Y-m-d') }}</time></p>
         </header>
         <div class="confession-body">{!! nl2br(e($revision->body)) !!}</div>
         <div class="confession-report-links">
@@ -50,6 +50,13 @@
         @endif
 
         </div>
+
+        @if($recommended->isNotEmpty())
+            <section class="participation-section" aria-labelledby="recommended-heading">
+                <h2 id="recommended-heading">{{ __('participation.recommended_heading') }}</h2>
+                <div class="confession-feed feed-list"><x-feed-items :confessions="$recommended" /></div>
+            </section>
+        @endif
 
         @if($continuations->isNotEmpty())
             <section class="participation-section" aria-labelledby="continuation-heading">

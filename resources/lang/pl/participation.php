@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Chcę wycofać swoją odpowiedź.',
     'withdraw_comment' => 'Wycofaj odpowiedź',
     'recover_comment' => 'Odzyskaj dostęp do mojej odpowiedzi',
+    'supported_heading' => 'Wspierane wyznania',
+    'supported_empty' => 'Nie wspierasz jeszcze żadnych wyznań.',
+    'recommended_heading' => 'Polecane wyznania',
 ];

@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Ik wil mijn reactie verwijderen.',
     'withdraw_comment' => 'Mijn reactie verwijderen',
     'recover_comment' => 'Toegang tot mijn reactie herstellen',
+    'supported_heading' => 'Gesteunde verhalen',
+    'supported_empty' => 'Je hebt nog geen verhalen gesteund.',
+    'recommended_heading' => 'Aanbevolen verhalen',
 ];

@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Jag vill ta bort mitt svar.',
     'withdraw_comment' => 'Ta bort mitt svar',
     'recover_comment' => 'Återställ åtkomsten till mitt svar',
+    'supported_heading' => 'Bekännelser jag stöttat',
+    'supported_empty' => 'Du har inte stöttat några bekännelser ännu.',
+    'recommended_heading' => 'Rekommenderade bekännelser',
 ];

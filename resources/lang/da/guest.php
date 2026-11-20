@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Jeg bekræfter, at den tidligere udgivne version skal gennemgås igen.',
     'write_withdrawn' => 'Bekendelsen er trukket tilbage og er ikke offentlig.',
     'write_republish_pending' => 'Anmodningen om en ny gennemgang afventer.',
+    'validation_title_required' => 'En titel er påkrævet.',
+    'author_name_label' => 'Navn (valgfrit)',
+    'author_name_hint' => 'Hvis du tilføjer dit navn, vises det offentligt ved historien.',
 ];

@@ -13,6 +13,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ParticipationController extends Controller
 {
+    public function supported(Request $request, string $locale, LocaleRegistry $locales): Response
+    {
+        abort_unless($locales->bySegment($locale), 404);
+        $ids = $request->session()->get('lavbe_supported', []);
+        $ids = is_array($ids) ? array_slice(array_values(array_unique(array_filter($ids, 'is_string'))), 0, 1000) : [];
+        $confessions = Confession::query()->public()
+            ->whereIn('public_id', $ids)->with('publicRevision')->orderByDesc('published_at')->get();
+
+        return response()->view('participation.supported', compact('confessions'))
+            ->header('Cache-Control', 'private, no-store, max-age=0')
+            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
+            ->header('Referrer-Policy', 'no-referrer');
+    }
+
     public function commentForm(string $locale, string $publicId, LocaleRegistry $locales): Response
     {
         $story = Confession::query()->public()->where('locale', $locales->contentCode($locale))
@@ -102,6 +116,10 @@ class ParticipationController extends Controller
             'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $participation->setSupport($request, $publicId, $data['action'] === 'support', $data['idempotency_key']);
+        $ids = $request->session()->get('lavbe_supported', []);
+        $ids = is_array($ids) ? $ids : [];
+        $ids = $data['action'] === 'support' ? [...$ids, $publicId] : array_values(array_diff($ids, [$publicId]));
+        $request->session()->put('lavbe_supported', array_slice(array_values(array_unique($ids)), -1000));
 
         return redirect()->route('confessions.public', ['locale' => $locale, 'publicId' => $publicId]);
     }

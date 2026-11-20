@@ -3,7 +3,7 @@
 return [
     'write_title' => 'Etiraf yaz',
     'write_intro' => 'Etirafını əvvəlcə moderator oxuyacaq. Yalnız təsdiqləndikdən sonra başqaları onu görə biləcək.',
-    'write_subject' => 'Başlıq (istəyə bağlı)',
+    'write_subject' => 'Başlıq',
     'write_body' => 'Etirafın mətni',
     'write_body_hint' => ':limit simvoladək yaza bilərsən.',
     'write_topic' => 'Mövzu',
@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Bu etirafın yenidən paylaşılması üçün moderatorun ona bir daha baxmasını istəyirəm.',
     'write_withdrawn' => 'Etirafını geri çəkmisən. İndi onu başqaları görə bilmir.',
     'write_republish_pending' => 'Etirafına yenidən baxılması üçün istəyini aldıq.',
+    'validation_title_required' => 'Etirafın başlığı məcburidir.',
+    'author_name_label' => 'Ad və soyad (istəyə bağlı)',
+    'author_name_hint' => 'Adını yazsan, dərc olunan etirafın yanında hamıya görünəcək.',
 ];

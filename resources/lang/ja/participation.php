@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => '自分のコメントを取り下げます。',
     'withdraw_comment' => 'コメントを取り下げる',
     'recover_comment' => '自分のコメントへのアクセスを復旧',
+    'supported_heading' => '応援した告白',
+    'supported_empty' => 'まだ応援した告白はありません。',
+    'recommended_heading' => 'おすすめの告白',
 ];
