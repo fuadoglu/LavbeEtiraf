@@ -29,7 +29,8 @@
 | Rəy və müzakirə | **LAV-035 tamamlandı.** Etiraf altından rəy yazmaq, açıq rəyə reaksiya vermək və birbaşa cavab yazmaq mümkündür; PR #77 `main`-dədir. |
 | Nömrəli səhifələmə | **LAV-036 tamamlandı.** Feed, axtarış, rəy, davam, şəxsi və moderasiya siyahıları responsiv nömrəli səhifələnir; PR #79 `main`-dədir. |
 | Məşhur etiraflar | **LAV-037 tamamlandı.** Hər müddət üçün dəstək və təsdiqlənmiş rəylərin xalına görə sıralanır; PR #81 `main`-dədir. |
-| Dil seçicisinin responsive görünüşü | **LAV-038 hazırlanır.** Desktop-da bayraq və tam native ad, mobil cihazda yalnız bayraq göstərilir; locale kodu gizlədilir. |
+| Dil seçicisinin responsive görünüşü | **LAV-038 tamamlandı.** Desktop-da bayraq və tam native ad, mobil cihazda yalnız bayraq göstərilir; PR #83 `main`-dədir. |
+| Azərbaycan nümunələri və wordmark | **LAV-039 hazırlanır.** Hər kateqoriyaya ikinci yerli nümunə və Caveat fontlu Lucide lələk loqosu əlavə olunur. |
 
 ## Codex ilə başla
 
@@ -76,7 +77,7 @@ composer test
 php artisan serve
 ```
 
-İlk giriş `http://127.0.0.1:8000` dil seçiminə yönləndirir, məsələn `http://127.0.0.1:8000/en/`; Laravel health endpoint-i `http://127.0.0.1:8000/up` ünvanındadır. Açıq lent və detail yalnız cari locale-də canlı status, yayımlanma vaxtı və təsdiqlənmiş public revision-ı olan qeydlərdən qurulur. İctimai detail `/{locale}/confession/{public_id}`, sitemap index `/sitemap.xml` ünvanındadır. İstehsal etirafı və ilkin seed yoxdur.
+İlk giriş `http://127.0.0.1:8000` dil seçiminə yönləndirir, məsələn `http://127.0.0.1:8000/en/`; Laravel health endpoint-i `http://127.0.0.1:8000/up` ünvanındadır. Açıq lent və detail yalnız cari locale-də canlı status, yayımlanma vaxtı və təsdiqlənmiş public revision-ı olan qeydlərdən qurulur. İctimai detail `/{locale}/confession/{public_id}`, sitemap index `/sitemap.xml` ünvanındadır. İstehsal etirafı və production seed yoxdur. Lokal baxış üçün `php artisan db:seed --class=AzerbaijaniDemoConfessionSeeder` yalnız local mühitdə iki uydurma etiraf/kateqoriya yaradır.
 
 ## Sənəd xəritəsi
 

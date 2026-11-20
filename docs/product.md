@@ -18,6 +18,8 @@ Lavbe anonim, mətn əsaslı etiraf və dəstək platformasıdır. Açılışda 
 
 Header dil seçicisi desktop-da cari locale-in bayrağını və tam native adını göstərir, locale kodunu göstərmir; mobil ölçüdə yalnız bayraq görünür, native ad screen reader-lər üçün əlçatan qalır. Açılan menyuda native və ingiliscə adlar saxlanır.
 
+Lavbe wordmark-ı lisenziyalı Lucide lələk ikonu və Caveat əl yazısı şrifti ilə göstərilir. Eyni lələk SVG-si favicon-dur; şrift repo daxilində lokal host olunur.
+
 | Ekran | Əsas əməliyyat və nəticə |
 |---|---|
 | Dil lenti və kateqoriya | 12 etirafdan ibarət səhifələri nömrə ilə dəyiş, mövzu dəyiş, seçilmiş dilin içində kəşf et |

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f7f3eb">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('icons/lucide/feather.svg') }}">
+    <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
     <title>@yield('title', 'Lavbe · '.__('lavbe.feed_title'))</title>
     @stack('head')
     <script>

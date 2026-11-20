@@ -2,6 +2,10 @@
 
 Vahid Blade komponentləri ictimai sayt, hesab, admin, hüquqi və xəta səhifələrində tətbiq olunur. Mərkəzi CSS dəyişənləri rəng, boşluq, tipoqrafiya, toxunma sahəsi, fokus və keçid vaxtlarını idarə edir. Dil mətnləri komponentə parametr kimi gəlir.
 
+## Lavbe wordmark-ı
+
+Header-dəki köhnə hərf nişanı yerli [Lucide Feather SVG-si](https://github.com/lucide-icons/lucide/blob/main/icons/feather.svg) ilə əvəzlənir; favicon da eyni SVG faylını göstərir. “Lavbe” sözü yalnız wordmark-da Caveat əl yazısı ailəsi və 600 çəkisi ilə göstərilir; qalan interfeys sans-serif sistem şriftində qalır. Caveat WOFF2 repo daxilində host olunur; onun [SIL Open Font License](https://github.com/googlefonts/caveat/blob/main/OFL.txt) bildirişi `resources/fonts/Caveat-OFL.txt`-də saxlanır. Lucide ISC lisenziyası `public/icons/lucide/LICENSE` faylındadır.
+
 ## Rəng və rejim
 
 | Rol | Gündüz | Gecə |
@@ -31,7 +35,7 @@ Oxu lentində axtarış başlığın yanında, mövzular və sıralama isə kart
 
 Ortaq naviqasiya etiketləri, dil axtarışı, əsas məzmuna keçid və rejim düyməsinin əlçatan adları 17 dildə navigation.php mənbəyindən alınır. Rejim dəyişəndə JavaScript əlçatan adı həmin dildə yeniləyir.
 
-Lokal məzmun baxışı üçün `php artisan db:seed --class=AzerbaijaniDemoConfessionSeeder` əmri 12 kateqoriyanın hərəsinə bir Azərbaycan dilində uydurma etiraf əlavə edir. Əmr yalnız local mühitdə işləyir, təkrar icra dublikat yaratmır. Hər nümunənin açıq pointer-i öz approved revision-ına bağlanır. Seeder ayrıca çağırılır.
+Lokal məzmun baxışı üçün `php artisan db:seed --class=AzerbaijaniDemoConfessionSeeder` əmri sabit 12 kateqoriyanın hərəsinə iki Azərbaycan dilində uydurma etiraf əlavə edir. Əmr yalnız local mühitdə işləyir, təkrar icra dublikat yaratmır. Hər nümunənin açıq pointer-i öz approved revision-ına bağlanır. Seeder ayrıca çağırılır və `DatabaseSeeder`-ə qoşulmur.
 
 Açıq etiraf səhifəsi lent kartları ilə eyni səth, sərhəd, radius və kölgə qaydasını paylaşır. Başlıq iri sans-serif, müəllif və tarix köməkçi metadata sətrindədir. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
 
