@@ -60,7 +60,7 @@ class ModerationController extends Controller
             'confessions.lock_version',
         ], $revisionFields))
             ->orderBy('confession_revisions.created_at')
-            ->paginate(30)
+            ->paginate((int) config('lavbe.pagination.moderation'))
             ->withQueryString();
 
         $isAdmin = $request->user()->moderatorGrants()
@@ -102,9 +102,9 @@ class ModerationController extends Controller
             'expected_lock_version' => ['required', 'integer', 'min:1'],
             'decision' => ['required', 'in:approve,request_changes,reject,hide,restore,terminal_delete'],
             'reason_code' => ['required', 'in:acceptable,privacy,harassment,threat,spam,explicit,legal,other'],
-            'author_message' => ['nullable', 'string', 'max:500'],
-            'internal_note' => ['nullable', 'string', 'max:1000'],
-            'idempotency_key' => ['required', 'string', 'regex:/^[a-f0-9]{32}$/'],
+            'author_message' => ['nullable', 'string', 'max:'.config('lavbe.limits.moderation_author_message')],
+            'internal_note' => ['nullable', 'string', 'max:'.config('lavbe.limits.moderation_internal_note')],
+            'idempotency_key' => ['required', 'string', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
             'restore_reviewed' => ['sometimes', 'accepted'],
         ])->validate();
         if (in_array($data['decision'], ['request_changes', 'reject'], true) && trim((string) ($data['author_message'] ?? '')) === '') {
@@ -139,22 +139,22 @@ class ModerationController extends Controller
         ])->where('status', 'unpublished')
             ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
-            ->orderBy('created_at')->limit(50)->get();
+            ->orderBy('created_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
         $visibleComments = ConfessionComment::query()->with(['confession', 'publicRevision'])
             ->where('status', 'public')->whereNotNull('public_revision_id')
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
-            ->orderByDesc('published_at')->limit(50)->get();
+            ->orderByDesc('published_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
         $continuations = ConfessionContinuation::query()->with([
             'confession',
             'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision'),
         ])->where('status', 'unpublished')
             ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
-            ->orderBy('created_at')->limit(50)->get();
+            ->orderBy('created_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
         $visibleContinuations = ConfessionContinuation::query()->with(['confession', 'publicRevision'])
             ->where('status', 'public')->whereNotNull('public_revision_id')
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
-            ->orderByDesc('published_at')->limit(50)->get();
+            ->orderByDesc('published_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
         $responses = CommentResponse::query()->with([
             'comment.confession',
             'comment.publicRevision',
@@ -162,11 +162,11 @@ class ModerationController extends Controller
         ])->where('status', 'unpublished')
             ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
             ->whereHas('comment', fn ($query) => $query->where('status', 'public')->whereHas('confession', fn ($parent) => $parent->public()->whereIn('locale', $allowed)))
-            ->orderBy('created_at')->limit(50)->get();
+            ->orderBy('created_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
         $visibleResponses = CommentResponse::query()->with(['comment.confession', 'publicRevision'])
             ->where('status', 'public')->whereNotNull('public_revision_id')
             ->whereHas('comment', fn ($query) => $query->where('status', 'public')->whereHas('confession', fn ($parent) => $parent->public()->whereIn('locale', $allowed)))
-            ->orderByDesc('published_at')->limit(50)->get();
+            ->orderByDesc('published_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
 
         return $this->privateView('moderation.participation', compact('comments', 'visibleComments', 'continuations', 'visibleContinuations', 'responses', 'visibleResponses'));
     }
@@ -177,7 +177,7 @@ class ModerationController extends Controller
         $items = ReportGroup::query()->with('confession')->where('status', 'pending')
             ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))
             ->orderByRaw("CASE priority WHEN 'legal' THEN 0 WHEN 'urgent' THEN 1 ELSE 2 END")
-            ->orderBy('first_reported_at')->paginate(30)->withQueryString();
+            ->orderBy('first_reported_at')->paginate((int) config('lavbe.pagination.moderation'))->withQueryString();
 
         return $this->privateView('moderation.reports', compact('items'));
     }
@@ -204,7 +204,7 @@ class ModerationController extends Controller
             'revision_id' => ['required', 'integer', 'min:1'],
             'decision' => ['required', 'in:dismiss,hide'],
             'reason_code' => ['required', 'in:no_violation,privacy,harassment,threat,spam,explicit,legal,other'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $reports->decide($request->user(), $groupId, (int) $data['expected_group_lock_version'], (int) $data['expected_parent_lock_version'],
             (int) $data['expected_target_lock_version'], (int) $data['revision_id'], $data['decision'], $data['reason_code'], $data['idempotency_key'],
@@ -217,7 +217,7 @@ class ModerationController extends Controller
     {
         $allowed = $request->user()->moderatorGrants()->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')->pluck('locale')->unique();
         $items = ModerationAppeal::query()->with(['confession', 'hideAudit'])->where('status', 'pending')
-            ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))->orderBy('created_at')->paginate(30)->withQueryString();
+            ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))->orderBy('created_at')->paginate((int) config('lavbe.pagination.moderation'))->withQueryString();
 
         return $this->privateView('moderation.appeals', compact('items'));
     }
@@ -239,7 +239,7 @@ class ModerationController extends Controller
             'expected_appeal_lock_version' => ['required', 'integer', 'min:1'], 'expected_parent_lock_version' => ['required', 'integer', 'min:1'],
             'expected_target_lock_version' => ['required', 'integer', 'min:1'], 'revision_id' => ['required', 'integer', 'min:1'],
             'decision' => ['required', 'in:uphold,restore'], 'reason_code' => ['required', 'in:privacy,harassment,threat,spam,explicit,legal,other'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $appeals->resolve($request->user(), $appealId, (int) $data['expected_appeal_lock_version'], (int) $data['expected_parent_lock_version'],
             (int) $data['expected_target_lock_version'], (int) $data['revision_id'], $data['decision'], $data['reason_code'], $data['idempotency_key'],
@@ -256,7 +256,7 @@ class ModerationController extends Controller
             'expected_parent_lock_version' => ['required', 'integer', 'min:1'],
             'decision' => ['required', 'in:approve,reject,hide'],
             'reason_code' => ['required', 'in:acceptable,privacy,harassment,threat,spam,explicit,legal,other'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $moderation->decideParticipation(
             $request->user(), $type, $targetId, (int) $data['revision_id'], (int) $data['expected_lock_version'],

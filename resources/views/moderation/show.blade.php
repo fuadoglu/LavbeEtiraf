@@ -25,7 +25,7 @@
             <input type="hidden" name="expected_lock_version" value="{{ $confession->lock_version }}">
             <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
             <x-form-field :label="__('moderation.reason_code')" name="reason_code">
-                <select name="reason_code" required>
+                <select @if($errors->has('reason_code')) aria-describedby="reason_code-description" @endif aria-invalid="{{ $errors->has('reason_code') ? 'true' : 'false' }}" id="reason_code" name="reason_code" required>
                     <option value="acceptable">{{ __('moderation.reason_acceptable') }}</option>
                     <option value="privacy">{{ __('moderation.reason_privacy') }}</option>
                     <option value="harassment">{{ __('moderation.reason_harassment') }}</option>
@@ -36,10 +36,10 @@
                     <option value="other">{{ __('moderation.reason_other') }}</option>
                 </select>
             </x-form-field>
-            <x-form-field :label="__('moderation.author_message')" name="author_message" :hint="__('moderation.author_message_required')"><textarea name="author_message" rows="4" maxlength="500"></textarea></x-form-field>
-            <x-form-field :label="__('moderation.internal_note')" name="internal_note"><textarea name="internal_note" rows="3" maxlength="1000"></textarea></x-form-field>
+            <x-form-field :label="__('moderation.author_message')" name="author_message" :hint="__('moderation.author_message_required')"><textarea aria-describedby="author_message-description" aria-invalid="{{ $errors->has('author_message') ? 'true' : 'false' }}" id="author_message" name="author_message" rows="4" maxlength="{{ config('lavbe.limits.moderation_author_message') }}"></textarea></x-form-field>
+            <x-form-field :label="__('moderation.internal_note')" name="internal_note"><textarea @if($errors->has('internal_note')) aria-describedby="internal_note-description" @endif aria-invalid="{{ $errors->has('internal_note') ? 'true' : 'false' }}" id="internal_note" name="internal_note" rows="3" maxlength="{{ config('lavbe.limits.moderation_internal_note') }}"></textarea></x-form-field>
             @if($confession->status === 'hidden')
-                <x-form-field :label="__('moderation.restore_reviewed')" name="restore_reviewed"><input type="checkbox" name="restore_reviewed" value="1" required></x-form-field>
+                <x-form-field :label="__('moderation.restore_reviewed')" name="restore_reviewed"><input @if($errors->has('restore_reviewed')) aria-describedby="restore_reviewed-description" @endif aria-invalid="{{ $errors->has('restore_reviewed') ? 'true' : 'false' }}" id="restore_reviewed" type="checkbox" name="restore_reviewed" value="1" required></x-form-field>
             @endif
             <label for="decision">{{ __('moderation.decision') }}</label>
             <select id="decision" name="decision" required>

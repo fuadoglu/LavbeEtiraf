@@ -14,10 +14,10 @@ EXPECTED_LOCALES = tuple("en de fr nl sv nb da fi ja ko es it pt-BR pl tr az ru"
 EXPECTED_CATEGORIES = tuple(
     "relationships family friends work education money identity values wellbeing grief life-changes everyday".split()
 )
-EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(16)}
+EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)}
 LINK = re.compile(r"!?\[[^\]\n]+\]\(([^)\s]+)\)")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
-ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS)-\d{2}\b")
+ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS|CFG)-\d{2}\b")
 ACCEPTANCE_ROW = re.compile(r"^\| (" + ACCEPTANCE_ID.pattern + r") \|", re.MULTILINE)
 ISSUE_HEADING = re.compile(r"^## (LAV-\d{3}) · .+$", re.MULTILINE)
 PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9_]*)\}")
@@ -129,7 +129,7 @@ def check_backlog(root, report):
     report.check(len(acceptance_set) == len(acceptance_ids), "Duplicate acceptance matrix ID.")
     headers = list(ISSUE_HEADING.finditer(backlog))
     work_ids = [header.group(1) for header in headers]
-    report.check(set(work_ids) == EXPECTED_WORK_IDS and len(work_ids) == len(EXPECTED_WORK_IDS), "LAV-000–015 must each have a section.")
+    report.check(set(work_ids) == EXPECTED_WORK_IDS and len(work_ids) == len(EXPECTED_WORK_IDS), "Backlog must have one section for each expected LAV work item.")
     used = set()
     ordered_dependencies = set()
     for index, header in enumerate(headers):
@@ -336,7 +336,7 @@ def main():
         raise SystemExit(f"Invalid specification: {exc}") from exc
     if report.errors:
         raise SystemExit("\n".join(report.errors))
-    print(f"Verified {documents} documents, {acceptance_count} acceptance IDs, 16 work items, 17 locales and 204 category labels.")
+    print(f"Verified {documents} documents, {acceptance_count} acceptance IDs, {len(EXPECTED_WORK_IDS)} work items, 17 locales and 204 category labels.")
     if options.packages is not None:
         print("Verified 17 locale package shapes.")
 

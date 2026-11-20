@@ -126,7 +126,7 @@ class GuestConfessionTest extends TestCase
         $payload['body'] = 'A different synthetic payload';
         $this->post('/az/write', $payload)
             ->assertStatus(409)
-            ->assertSee('Mətn dəyişib.');
+            ->assertSee('Bu sorğu əvvəlki göndərişdən fərqli mətnlə gəldi');
         $this->assertDatabaseCount('confessions', 1);
     }
 
@@ -198,13 +198,16 @@ class GuestConfessionTest extends TestCase
         $this->assertDatabaseCount('confessions', 1);
     }
 
-    public function test_submission_hint_and_validation_share_the_configured_limit(): void
+    public function test_configured_confession_length_drives_the_form_and_server_validation(): void
     {
-        config(['lavbe.limits.confession_body' => 7]);
-        $this->get('/az/write')->assertOk()->assertSee('7 simvoladək');
-        $payload = $this->payload();
-        $payload['body'] = str_repeat('a', 8);
-        $this->post('/az/write', $payload)->assertSessionHasErrors(['body' => __('guest.validation_body_max', ['limit' => 7])]);
+        config(['lavbe.limits.confession_body' => 5]);
+
+        $this->get('/az/write')->assertOk()->assertSee('maxlength="5"', false);
+
+        $payload = $this->payload('submission-key-'.str_repeat('x', 32));
+        $payload['body'] = '123456';
+        $this->post('/az/write', $payload)->assertSessionHasErrors('body');
+        $this->assertDatabaseCount('confessions', 0);
     }
 
     public function test_revision_text_cannot_be_updated_in_place(): void

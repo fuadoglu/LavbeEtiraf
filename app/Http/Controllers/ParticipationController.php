@@ -13,16 +13,16 @@ class ParticipationController extends Controller
 {
     public function comment(Request $request, string $locale, string $publicId, ParticipationService $participation): Response
     {
-        if ($limited = $this->limit($request, 'comment', 4)) {
+        if ($limited = $this->limit($request, 'comment')) {
             return $limited;
         }
         $data = Validator::make($request->all(), [
-            'body' => ['required', 'string', 'max:5000'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'body' => ['required', 'string', 'max:'.config('lavbe.limits.comment_request_body')],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
             'remember_device' => ['sometimes', 'accepted'],
         ])->validate();
         $body = trim((string) $data['body']);
-        abort_if($body === '' || mb_strlen($body, 'UTF-8') > 1200, 422);
+        abort_if($body === '' || mb_strlen($body, 'UTF-8') > (int) config('lavbe.limits.comment_body'), 422);
         $result = $participation->submitComment($request, $publicId, $body, $data['idempotency_key']);
         $response = response()->view('participation.submitted', [
             'confession' => $result['confession'],
@@ -33,7 +33,7 @@ class ParticipationController extends Controller
             $response->headers->setCookie(cookie(
                 'lavbe_comment_'.$result['comment']->public_id,
                 $result['owner_token'],
-                60 * 24 * 365,
+                (int) config('lavbe.cookies.owner_minutes'),
                 '/',
                 null,
                 $request->isSecure() || app()->environment('production'),
@@ -48,16 +48,16 @@ class ParticipationController extends Controller
 
     public function continuation(Request $request, string $locale, string $publicId, ParticipationService $participation): Response
     {
-        if ($limited = $this->limit($request, 'continuation', 3)) {
+        if ($limited = $this->limit($request, 'continuation')) {
             return $limited;
         }
         $data = Validator::make($request->all(), [
-            'body' => ['required', 'string', 'max:25000'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'body' => ['required', 'string', 'max:'.config('lavbe.limits.continuation_request_body')],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
             'confirm_continuation' => ['accepted'],
         ])->validate();
         $body = trim((string) $data['body']);
-        abort_if($body === '' || mb_strlen($body, 'UTF-8') > config('lavbe.limits.continuation_body'), 422);
+        abort_if($body === '' || mb_strlen($body, 'UTF-8') > (int) config('lavbe.limits.continuation_body'), 422);
         $participation->submitContinuation($request, $publicId, $body, $data['idempotency_key']);
 
         return redirect()->route('confessions.status', ['locale' => $locale, 'publicId' => $publicId])->with('status', __('participation.continuation_pending'));
@@ -65,15 +65,15 @@ class ParticipationController extends Controller
 
     public function respond(Request $request, string $locale, string $publicId, string $commentPublicId, ParticipationService $participation): Response
     {
-        if ($limited = $this->limit($request, 'author-response', 5)) {
+        if ($limited = $this->limit($request, 'author_response')) {
             return $limited;
         }
         $data = Validator::make($request->all(), [
-            'body' => ['required', 'string', 'max:5000'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'body' => ['required', 'string', 'max:'.config('lavbe.limits.comment_request_body')],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $body = trim((string) $data['body']);
-        abort_if($body === '' || mb_strlen($body, 'UTF-8') > 1200, 422);
+        abort_if($body === '' || mb_strlen($body, 'UTF-8') > (int) config('lavbe.limits.response_body'), 422);
         $participation->respondToComment($request, $publicId, $commentPublicId, $body, $data['idempotency_key']);
 
         return redirect()->route('confessions.public', ['locale' => $locale, 'publicId' => $publicId])->with('status', __('participation.response_pending'));
@@ -81,12 +81,12 @@ class ParticipationController extends Controller
 
     public function support(Request $request, string $locale, string $publicId, ParticipationService $participation): Response
     {
-        if ($limited = $this->limit($request, 'support', 30)) {
+        if ($limited = $this->limit($request, 'support')) {
             return $limited;
         }
         $data = Validator::make($request->all(), [
             'action' => ['required', 'in:support,unsupport'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $participation->setSupport($request, $publicId, $data['action'] === 'support', $data['idempotency_key']);
 
@@ -97,7 +97,7 @@ class ParticipationController extends Controller
     {
         $data = Validator::make($request->all(), [
             'open' => ['required', 'boolean'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $participation->setReviewsOpen($request, $publicId, (bool) $data['open'], $data['idempotency_key']);
 
@@ -128,11 +128,11 @@ class ParticipationController extends Controller
 
     public function recover(Request $request, string $locale, string $commentPublicId, ParticipationService $participation): Response
     {
-        if ($limited = $this->limit($request, 'comment-recovery', 5)) {
+        if ($limited = $this->limit($request, 'comment_recovery')) {
             return $limited;
         }
         $data = Validator::make($request->all(), [
-            'recovery_code' => ['required', 'string', 'min:32', 'max:64', 'regex:/^[A-Za-z0-9_-]+$/'],
+            'recovery_code' => ['required', 'string', 'min:'.config('lavbe.limits.recovery_code_min'), 'max:'.config('lavbe.limits.recovery_code'), 'regex:/^[A-Za-z0-9_-]+$/'],
             'remember_device' => ['sometimes', 'accepted'],
         ])->validate();
         $result = $participation->recoverComment($request, $commentPublicId, $data['recovery_code']);
@@ -141,7 +141,7 @@ class ParticipationController extends Controller
             $response->headers->setCookie(cookie(
                 'lavbe_comment_'.$commentPublicId,
                 $result['owner_token'],
-                60 * 24 * 365,
+                (int) config('lavbe.cookies.owner_minutes'),
                 '/',
                 null,
                 $request->isSecure() || app()->environment('production'),
@@ -158,7 +158,7 @@ class ParticipationController extends Controller
     {
         $data = Validator::make($request->all(), [
             'confirm_withdraw' => ['accepted'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
         ])->validate();
         $parentPublicId = ConfessionComment::query()->where('public_id', $commentPublicId)->with('confession:id,public_id')->first()?->confession?->public_id;
         $participation->withdrawComment($request, $commentPublicId, $data['idempotency_key']);
@@ -169,16 +169,17 @@ class ParticipationController extends Controller
         return redirect()->route('home', ['locale' => $locale]);
     }
 
-    private function limit(Request $request, string $action, int $maximum): ?Response
+    private function limit(Request $request, string $action): ?Response
     {
+        $limit = config('lavbe.rate_limits.actions.'.$action);
         $key = 'participation:'.hash_hmac('sha256', $action.'|'.(string) $request->ip(), (string) config('app.key'));
-        if (RateLimiter::tooManyAttempts($key, $maximum)) {
+        if (RateLimiter::tooManyAttempts($key, $limit['attempts'])) {
             return response()->view('confessions.limited', [], 429)
                 ->header('Retry-After', (string) RateLimiter::availableIn($key))
                 ->header('Cache-Control', 'private, no-store, max-age=0')
                 ->header('X-Robots-Tag', 'noindex, nofollow');
         }
-        RateLimiter::hit($key, 60);
+        RateLimiter::hit($key, $limit['decay_seconds']);
 
         return null;
     }

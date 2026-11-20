@@ -1,0 +1,12 @@
+<?php
+
+return [
+    'read' => 'Czytaj',
+    'write' => 'Napisz',
+    'mine' => 'Moja przestrzeń',
+    'label' => 'Nawigacja główna',
+    'skip' => 'Przejdź do treści',
+    'language_search' => 'Szukaj języków',
+    'theme_night' => 'Włącz tryb ciemny',
+    'theme_day' => 'Włącz tryb jasny',
+];

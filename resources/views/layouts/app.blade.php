@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <x-theme-colors />
+    <meta name="theme-color" content="#f7f3eb">
     <title>@yield('title', 'Lavbe · '.__('lavbe.feed_title'))</title>
     @stack('head')
     <script>
@@ -14,8 +14,7 @@
                 const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
                 const theme = saved === 'day' || saved === 'night' ? saved : system;
                 document.documentElement.dataset.theme = theme;
-                const color = document.querySelector('meta[name="theme-color"]');
-                color.content = color.dataset[theme];
+                document.querySelector('meta[name="theme-color"]').content = theme === 'night' ? '#211d19' : '#f7f3eb';
             } catch {
                 document.documentElement.dataset.theme = 'day';
             }
@@ -24,7 +23,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <a class="skip-link" href="#main">{{ __('ui.skip') }}</a>
+    <a class="skip-link" href="#main">{{ __('navigation.skip') }}</a>
     <div class="app-shell">
         <x-site-header />
         <main id="main" class="page-content" tabindex="-1">

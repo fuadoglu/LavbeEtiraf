@@ -27,9 +27,9 @@ class AccountAuthController extends Controller
     {
         $request->merge(['email' => mb_strtolower(trim((string) $request->input('email')))]);
         $data = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:80'],
-            'email' => ['required', 'email:rfc', 'max:254', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:12', 'max:200', 'confirmed'],
+            'name' => ['required', 'string', 'max:'.config('lavbe.limits.account_name')],
+            'email' => ['required', 'email:rfc', 'max:'.config('lavbe.limits.account_email'), 'unique:users,email'],
+            'password' => ['required', 'string', 'min:'.config('lavbe.limits.account_password_min'), 'max:'.config('lavbe.limits.account_password'), 'confirmed'],
         ])->validate();
         $user = User::query()->create([
             'name' => trim(strip_tags($data['name'])), 'email' => mb_strtolower(trim($data['email'])),
@@ -53,7 +53,7 @@ class AccountAuthController extends Controller
     {
         $request->merge(['email' => mb_strtolower(trim((string) $request->input('email')))]);
         $credentials = Validator::make($request->all(), [
-            'email' => ['required', 'email:rfc', 'max:254'], 'password' => ['required', 'string', 'max:200'],
+            'email' => ['required', 'email:rfc', 'max:'.config('lavbe.limits.account_email')], 'password' => ['required', 'string', 'max:'.config('lavbe.limits.account_password')],
         ])->validate();
         $credentials['email'] = mb_strtolower(trim($credentials['email']));
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
@@ -118,7 +118,7 @@ class AccountAuthController extends Controller
     public function forgot(Request $request, string $locale): RedirectResponse
     {
         $request->merge(['email' => mb_strtolower(trim((string) $request->input('email')))]);
-        $data = Validator::make($request->all(), ['email' => ['required', 'email:rfc', 'max:254']])->validate();
+        $data = Validator::make($request->all(), ['email' => ['required', 'email:rfc', 'max:'.config('lavbe.limits.account_email')]])->validate();
         Password::sendResetLink(['email' => mb_strtolower(trim($data['email']))]);
 
         return back()->with('status', __('account.reset_link_sent'));
@@ -133,8 +133,8 @@ class AccountAuthController extends Controller
     {
         $request->merge(['email' => mb_strtolower(trim((string) $request->input('email')))]);
         $data = Validator::make($request->all(), [
-            'token' => ['required', 'string'], 'email' => ['required', 'email:rfc', 'max:254'],
-            'password' => ['required', 'string', 'min:12', 'max:200', 'confirmed'],
+            'token' => ['required', 'string'], 'email' => ['required', 'email:rfc', 'max:'.config('lavbe.limits.account_email')],
+            'password' => ['required', 'string', 'min:'.config('lavbe.limits.account_password_min'), 'max:'.config('lavbe.limits.account_password'), 'confirmed'],
         ])->validate();
         $status = Password::reset([
             'email' => mb_strtolower(trim($data['email'])), 'password' => $data['password'],

@@ -1,8 +1,11 @@
 @props(['label', 'name', 'hint' => null, 'error' => null, 'id' => null])
-@php($fieldId = $id ?? $name)
+@php
+    $fieldId = $id ?? $name;
+    $error = $error ?? $errors->first($name);
+@endphp
 <div class="form-field">
     <label for="{{ $fieldId }}">{{ $label }}</label>
-    {{ $slot->withAttributes(['id' => $fieldId, 'name' => $name, 'aria-describedby' => $hint || $error ? $fieldId.'-description' : null, 'aria-invalid' => $error ? 'true' : 'false']) }}
+    {{ $slot }}
     @if($hint || $error)
         <p class="field-description" id="{{ $fieldId }}-description">{{ $error ?: $hint }}</p>
     @endif
