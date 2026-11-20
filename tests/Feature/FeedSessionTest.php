@@ -26,7 +26,7 @@ class FeedSessionTest extends TestCase
     {
         $stories = Confession::factory()->count(7)->create()->reverse()->values();
         $first = $this->get('/az/')->assertOk();
-        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 0);
+        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 2);
         $this->assertSame($stories->take(2)->modelKeys(), $first->viewData('confessions')->getCollection()->modelKeys());
 
         $stories[0]->forceFill(['status' => 'hidden'])->save();
@@ -51,7 +51,7 @@ class FeedSessionTest extends TestCase
     {
         $stories = Confession::factory()->count(5)->create()->reverse()->values();
         $this->get('/az/?sort=weekly')->assertOk();
-        $cursor = app(FeedCursor::class)->issue('az', null, 'weekly', 0);
+        $cursor = app(FeedCursor::class)->issue('az', null, 'weekly', 2);
         DB::table('confession_support_reactions')->insert([
             'confession_id' => $stories[4]->id, 'participant_hash' => hash('sha256', 'synthetic'),
             'is_active' => true, 'created_at' => now(), 'updated_at' => now(),
@@ -76,7 +76,7 @@ class FeedSessionTest extends TestCase
             $continuations[] = $continuation;
         }
         $this->get('/az/?sort=updates')->assertOk();
-        $cursor = app(FeedCursor::class)->issue('az', null, 'updates', 0);
+        $cursor = app(FeedCursor::class)->issue('az', null, 'updates', 2);
         $continuations[2]->forceFill(['status' => 'hidden'])->save();
         $continuations[4]->forceFill(['published_at' => now()->addHour()])->save();
         $page = $this->fragment($cursor, 'updates');
@@ -91,7 +91,7 @@ class FeedSessionTest extends TestCase
     {
         Confession::factory()->count(6)->create();
         $this->get('/az/')->assertOk();
-        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 0);
+        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 2);
         $state = app(FeedCursor::class)->read($cursor, 'az', null, 'new');
         $this->travel(30)->minutes();
         $next = $this->fragment($cursor)['next_cursor'];
@@ -105,7 +105,7 @@ class FeedSessionTest extends TestCase
     {
         Confession::factory()->create(['title' => 'Synthetic secret title', 'body' => 'Synthetic secret body']);
         Confession::factory()->create(['published_at' => now()->addDay()]);
-        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 0);
+        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 2);
         $state = app(FeedCursor::class)->read($cursor, 'az', null, 'new');
         $members = Cache::get('lavbe:feed:'.$state['snapshot']);
         $this->assertCount(1, $members);
@@ -119,7 +119,7 @@ class FeedSessionTest extends TestCase
         config(['feed.snapshot_max_members' => 3, 'feed.page_size' => 2]);
         Confession::factory()->count(5)->create(['locale' => 'az']);
         $first = $this->get('/az')->assertOk();
-        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 0);
+        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 2);
         $state = app(FeedCursor::class)->read($cursor, 'az', null, 'new');
         $this->assertCount(3, Cache::get('lavbe:feed:'.$state['snapshot']));
         $this->assertSame(5, $first->viewData('confessions')->total());
