@@ -17,7 +17,7 @@
                 <input @if($errors->has('title')) aria-describedby="title-description" @endif aria-invalid="{{ $errors->has('title') ? 'true' : 'false' }}" type="text" id="title" name="title" maxlength="{{ config('lavbe.limits.confession_title') }}" value="{{ old('title') }}" autocomplete="off">
             </x-form-field>
 
-            <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint')" :error="$errors->first('body')">
+            <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')])" :error="$errors->first('body')">
                 <textarea aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="body" aria-describedby="body-description" name="body" rows="8" maxlength="{{ config('lavbe.limits.confession_body') }}" required>{{ old('body') }}</textarea>
             </x-form-field>
 

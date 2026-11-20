@@ -1,3 +1,26 @@
 <?php
 
-return ['feed_title' => 'Confession Valley', 'feed_subtitle' => 'Read, listen, and know you are not alone.', 'sort_label' => 'Feed order', 'sort_new' => 'New', 'sort_weekly' => 'This week', 'sort_updates' => 'New updates', 'categories' => 'Confession topic', 'all_categories' => 'All', 'category_empty' => 'There are no confessions in this topic yet.', 'feed_empty' => 'No published confessions yet', 'feed_empty_description' => 'Approved stories will appear here in their original language. This feed does not mix languages.', 'pagination' => 'Pagination', 'previous' => 'Previous', 'next' => 'More', 'search_title' => 'Search', 'search_label' => 'Keyword', 'search_submit' => 'Search', 'search_empty' => 'No matching confessions found', 'retry' => 'Try again', 'refresh' => 'Refresh feed', 'untitled_confession' => 'Untitled confession', 'breadcrumb' => 'Breadcrumb navigation'];
+return [
+    'feed_title' => 'Confession Valley',
+    'feed_subtitle' => 'Read what others have shared, or tell your own story when you’re ready.',
+    'sort_label' => 'Feed order',
+    'sort_new' => 'New',
+    'sort_weekly' => 'This week',
+    'sort_updates' => 'Stories with updates',
+    'categories' => 'Confession topic',
+    'all_categories' => 'All',
+    'category_empty' => 'There are no confessions in this topic yet.',
+    'feed_empty' => 'No published confessions yet',
+    'feed_empty_description' => 'Approved stories will appear here in their original language. This feed does not mix languages.',
+    'pagination' => 'Pagination',
+    'previous' => 'Previous',
+    'next' => 'More',
+    'search_title' => 'Search',
+    'search_label' => 'Keyword',
+    'search_submit' => 'Search',
+    'search_empty' => 'No matching confessions found',
+    'retry' => 'Try again',
+    'refresh' => 'Refresh feed',
+    'untitled_confession' => 'Untitled confession',
+    'breadcrumb' => 'Breadcrumb navigation',
+];

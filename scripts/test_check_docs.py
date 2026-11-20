@@ -140,7 +140,7 @@ class DocsTests(unittest.TestCase):
     def test_feed_ui_translation_contract_fails_when_key_is_missing(self):
         path = self.root / "resources/lang/ja/lavbe.php"
         content = path.read_text(encoding="utf-8")
-        content = content.replace(", 'refresh' => 'フィードを更新'", "")
+        content = "\n".join(line for line in content.split("\n") if "'refresh' =>" not in line)
         path.write_text(content, encoding="utf-8")
         report, _, _ = verify(self.root)
         self.assertTrue(any("resources/lang/ja/lavbe.php: feed translation keys differ" in error for error in report.errors))
