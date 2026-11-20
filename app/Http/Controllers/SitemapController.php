@@ -33,26 +33,24 @@ class SitemapController extends Controller
     {
         abort_unless($locales->bySegment($locale), 404);
         abort_unless($page >= 1 && $page <= $this->pageCount($locale), 404);
-        $categories = $this->eligibleCategories($locale, $locales);
+        $counts = $page === 1 ? $this->categoryCounts() : [];
+        $categories = $page === 1 ? $this->eligibleCategories($locale, $locales, $counts) : [];
         $alternates = $locales->all();
         $base = rtrim((string) config('app.url'), '/');
         $perPage = $this->confessionPageSize();
         $offset = ($page - 1) * $perPage;
-        $rows = $this->publicQuery($locale)->orderBy('id')->offset($offset)->limit($perPage)->get([
-            'id', 'public_id', 'public_updated_at', 'published_at',
-        ]);
 
-        return response()->stream(function () use ($locale, $categories, $alternates, $base, $rows, $page): void {
+        return response()->stream(function () use ($locale, $categories, $alternates, $base, $page, $counts, $offset, $perPage): void {
             echo '<?xml version="1.0" encoding="UTF-8"?>';
             echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
             if ($page === 1) {
                 $this->writeAlternateUrl($base.'/'.$locale, $alternates, $base);
                 foreach ($categories as $category) {
-                    $categoryAlternates = $this->categoryAlternates($category['key'], $alternates);
+                    $categoryAlternates = $this->categoryAlternates($category['key'], $alternates, $counts);
                     $this->writeAlternateUrl($base.'/'.$locale.'/topics/'.$category['key'], $categoryAlternates, $base, $category['key']);
                 }
             }
-            foreach ($rows as $row) {
+            foreach ($this->confessionRows($locale, $offset, $perPage) as $row) {
                 $path = '/'.$locale.'/confession/'.$row->public_id;
                 $lastmod = $row->public_updated_at ?: $row->published_at;
                 echo '<url><loc>'.$this->xml($base.$path).'</loc>';
@@ -88,12 +86,12 @@ class SitemapController extends Controller
     }
 
     /** @return list<array{key: string}> */
-    private function eligibleCategories(string $locale, LocaleRegistry $locales): array
+    private function eligibleCategories(string $locale, LocaleRegistry $locales, array $counts): array
     {
         $minimum = (int) config('seo.category_min_public_items', 5);
         $eligible = [];
         foreach ($locales->catalog()['categories'] as $category) {
-            $count = $this->categoryPublicCount($locale, $category['key']);
+            $count = $counts[app(LocaleRegistry::class)->contentCode($locale)][$category['key']] ?? 0;
             if ($count >= $minimum) {
                 $eligible[] = ['key' => $category['key']];
             }
@@ -102,16 +100,45 @@ class SitemapController extends Controller
         return $eligible;
     }
 
-    private function categoryAlternates(string $category, array $locales): array
+    private function categoryAlternates(string $category, array $locales, array $counts): array
     {
         $minimum = (int) config('seo.category_min_public_items', 5);
 
-        return array_values(array_filter($locales, fn (array $locale): bool => $this->categoryPublicCount($locale['segment'], $category) >= $minimum));
+        return array_values(array_filter($locales, fn (array $locale): bool => ($counts[$locale['code']][$category] ?? 0) >= $minimum));
     }
 
-    private function categoryPublicCount(string $locale, string $category): int
+    private function categoryCounts(): array
     {
-        return $this->publicQuery($locale)->where('category_key', $category)->count();
+        $counts = [];
+        foreach ($this->publicQuery()->select('locale', 'category_key')->selectRaw('COUNT(*) AS total')
+            ->groupBy('locale', 'category_key')->get() as $row) {
+            $counts[$row->locale][$row->category_key] = (int) $row->total;
+        }
+
+        return $counts;
+    }
+
+    private function confessionRows(string $locale, int $offset, int $remaining): \Generator
+    {
+        $lastId = null;
+        $batchSize = max(1, min(1000, (int) config('seo.sitemap_read_batch', 500)));
+        while ($remaining > 0) {
+            $query = $this->publicQuery($locale)->orderBy('id')->limit(min($batchSize, $remaining));
+            if ($lastId === null) {
+                $query->offset($offset);
+            } else {
+                $query->where('id', '>', $lastId);
+            }
+            $rows = $query->get(['id', 'public_id', 'public_updated_at', 'published_at']);
+            if ($rows->isEmpty()) {
+                break;
+            }
+            foreach ($rows as $row) {
+                yield $row;
+                $lastId = $row->id;
+                $remaining--;
+            }
+        }
     }
 
     private function pageCount(string $locale): int
@@ -126,10 +153,10 @@ class SitemapController extends Controller
         return max(1, min(49000, (int) config('seo.sitemap_max_urls', 50000) - 32));
     }
 
-    private function publicQuery(string $locale): Builder
+    private function publicQuery(?string $locale = null): Builder
     {
         return DB::table('confessions')
-            ->where('confessions.locale', app(LocaleRegistry::class)->contentCode($locale))
+            ->when($locale !== null, fn (Builder $query) => $query->where('confessions.locale', app(LocaleRegistry::class)->contentCode($locale)))
             ->where('confessions.status', 'public')
             ->whereNotNull('confessions.published_at')
             ->whereNotNull('confessions.public_revision_id')
