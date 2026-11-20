@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Dolina wyznań',
-    'feed_subtitle' => 'Poczytaj historie innych osób. Jeśli masz ochotę, opowiedz też swoją.',
+    'feed_subtitle' => 'Przeczytaj, co innym leży na sercu. Kiedy zechcesz, możesz też opowiedzieć swoją historię.',
     'sort_label' => 'Kolejność wpisów',
     'sort_new' => 'Nowe',
     'sort_weekly' => 'W tym tygodniu',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Wszystkie',
     'category_empty' => 'Nie ma jeszcze wyznań na ten temat.',
     'feed_empty' => 'Nie opublikowano jeszcze żadnych wyznań',
-    'feed_empty_description' => 'Zatwierdzone historie pojawią się tutaj w oryginalnym języku. Wpisy nie mieszają języków.',
+    'feed_empty_description' => 'Twoja historia może być tutaj pierwsza. Możesz też zajrzeć później i poczytać.',
     'pagination' => 'Paginacja',
     'previous' => 'Poprzednia',
     'next' => 'Następna',

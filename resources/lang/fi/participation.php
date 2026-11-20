@@ -4,7 +4,7 @@ return [
     'support' => 'Tue',
     'unsupport' => 'Peru tuki',
     'comments_heading' => 'Vastaukset',
-    'comments_empty' => 'Ei vielä vastauksia.',
+    'comments_empty' => 'Kukaan ei ole vielä vastannut. Voit halutessasi aloittaa keskustelun.',
     'comments_closed' => 'Kirjoittaja on sulkenut vastaukset.',
     'comment_label' => 'Kirjoita vastaus',
     'comment_reply' => 'Vastaa suoraan',

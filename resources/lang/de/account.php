@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Dein Passwort wurde geändert. Melde dich mit dem neuen Passwort an.',
     'logout' => 'Abmelden',
     'my_title' => 'Mein Lavbe',
-    'my_intro' => 'Hier siehst du die Beiträge und Geschichten, die du mit deinem Konto verknüpft hast.',
+    'my_intro' => 'Hier findest du die Beiträge, die du mit deinem Konto verknüpft hast, und die Geschichten, denen du folgst.',
     'my_confessions' => 'Meine Beiträge',
     'my_comments' => 'Meine Antworten',
     'my_follows' => 'Abonnierte Beiträge',

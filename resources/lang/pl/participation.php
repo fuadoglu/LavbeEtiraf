@@ -4,7 +4,7 @@ return [
     'support' => 'Wesprzyj',
     'unsupport' => 'Cofnij wsparcie',
     'comments_heading' => 'Odpowiedzi',
-    'comments_empty' => 'Nie ma jeszcze odpowiedzi.',
+    'comments_empty' => 'Nie ma jeszcze odpowiedzi. Jeśli masz ochotę, możesz zacząć rozmowę.',
     'comments_closed' => 'Osoba, która podzieliła się historią, zamknęła odpowiedzi.',
     'comment_label' => 'Napisz odpowiedź',
     'comment_reply' => 'Odpowiedz bezpośrednio',

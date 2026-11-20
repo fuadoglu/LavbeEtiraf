@@ -12,7 +12,7 @@ return [
     'close' => 'Luk vinduet',
     'loading' => 'Henter fortællinger',
     'missing' => 'Siden blev ikke fundet',
-    'missing_body' => 'Linket kan være ændret, eller siden kan være fjernet.',
+    'missing_body' => 'Vi kan ikke finde siden. Du kan vende tilbage til oversigten og læse en anden historie.',
     'back' => 'Tilbage til fortællingerne',
     'preview' => 'Forhåndsvisning for moderatorer',
     'preview_hint' => 'Her vises opdigtede eksempler.',

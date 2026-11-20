@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Contraseña cambiada. Inicia sesión con la nueva.',
     'logout' => 'Cerrar sesión',
     'my_title' => 'Mi Lavbe',
-    'my_intro' => 'Aquí encontrarás las publicaciones y los seguimientos vinculados a tu cuenta.',
+    'my_intro' => 'Aquí encontrarás los textos que has vinculado a tu cuenta y las historias que sigues.',
     'my_confessions' => 'Mis confesiones',
     'my_comments' => 'Mis respuestas',
     'my_follows' => 'Historias que sigo',

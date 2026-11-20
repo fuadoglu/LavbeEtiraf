@@ -4,7 +4,7 @@ return [
     'support' => 'Unterstützen',
     'unsupport' => 'Unterstützung beenden',
     'comments_heading' => 'Antworten',
-    'comments_empty' => 'Noch keine Antworten.',
+    'comments_empty' => 'Noch hat niemand geantwortet. Wenn du magst, mach den Anfang.',
     'comments_closed' => 'Derzeit sind keine neuen Antworten möglich.',
     'comment_label' => 'Antwort schreiben',
     'comment_reply' => 'Direkt antworten',

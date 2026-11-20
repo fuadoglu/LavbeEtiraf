@@ -12,7 +12,7 @@ return [
     'close' => 'Chiudi la finestra',
     'loading' => 'Caricamento delle storie',
     'missing' => 'Pagina non trovata',
-    'missing_body' => 'Il link potrebbe essere cambiato o la pagina potrebbe essere stata rimossa.',
+    'missing_body' => 'Non abbiamo trovato questa pagina. Puoi tornare all’elenco e scegliere un’altra storia da leggere.',
     'back' => 'Torna alle storie',
     'preview' => 'Anteprima della moderazione',
     'preview_hint' => 'Questa anteprima usa contenuti di fantasia.',

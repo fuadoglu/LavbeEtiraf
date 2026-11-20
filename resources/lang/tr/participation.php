@@ -4,7 +4,7 @@ return [
     'support' => 'Destek ol',
     'unsupport' => 'Desteği geri al',
     'comments_heading' => 'Yorumlar',
-    'comments_empty' => 'Henüz yorum yok.',
+    'comments_empty' => 'Henüz yorum yok. İçinden gelirse ilk sözü sen söyleyebilirsin.',
     'comments_closed' => 'Yazar yeni yorumlara kapattı.',
     'comment_label' => 'Yorum yaz',
     'comment_reply' => 'Doğrudan yanıtla',

@@ -26,7 +26,7 @@ return [
     'submit' => 'Send report',
     'submit_legal' => 'Send legal notice',
     'received_title' => 'Report received',
-    'received_community' => 'Thank you. The report has been added to the private moderation review queue.',
+    'received_community' => 'Thanks for letting us know. Your report is with the moderation team.',
     'received_legal' => 'The legal notice has been added to its separate private review queue.',
     'back_to_story' => 'Return to the story',
     'appeal_title' => 'Appeal a moderation decision',

@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Valle delle confessioni',
-    'feed_subtitle' => 'Leggi le storie degli altri. Se te la senti, puoi raccontare anche la tua.',
+    'feed_subtitle' => 'Leggi quello che gli altri hanno nel cuore. Quando te la senti, qui c’è spazio anche per la tua storia.',
     'sort_label' => 'Ordine del feed',
     'sort_new' => 'Nuove',
     'sort_weekly' => 'Questa settimana',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Tutte',
     'category_empty' => 'Non ci sono ancora confessioni su questo argomento.',
     'feed_empty' => 'Non ci sono ancora confessioni pubblicate',
-    'feed_empty_description' => 'Le storie approvate appariranno qui nella lingua originale. Il feed non mescola le lingue.',
+    'feed_empty_description' => 'La tua potrebbe essere la prima storia. Puoi anche tornare a leggere quando vuoi.',
     'pagination' => 'Paginazione',
     'previous' => 'Precedente',
     'next' => 'Successiva',

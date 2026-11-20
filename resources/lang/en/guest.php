@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'write_anonymous' => 'You can write without your name. Add it only if you choose to.',
+    'write_anonymous' => 'You can leave your name out.',
     'write_options' => 'Sharing options',
     'write_title' => 'Write a confession',
     'write_intro' => 'After submission, your confession goes to moderator review and stays out of the public feed until approved.',
@@ -15,7 +15,8 @@ return [
     'write_public_search_notice' => 'If approved, your confession will be public and may appear in search results.',
     'write_subject' => 'Title',
     'write_body' => 'Your confession',
-    'write_body_hint' => 'You can write up to :limit characters.',
+    'write_body_hint' => 'Start wherever feels right. You have up to :limit characters.',
+    'characters_remaining' => 'characters left',
     'write_topic' => 'Topic',
     'topic_guide' => 'What belongs in each topic?',
     'write_expectation' => 'What would you like from readers? (optional)',
@@ -24,10 +25,10 @@ return [
     'write_advice' => 'Get advice',
     'write_age' => 'I confirm that I am at least 18 and have read the submission rules.',
     'write_submit' => 'Send for review',
-    'write_pending_title' => 'Your confession was sent for review',
-    'write_pending_body' => 'A moderator must approve it before it appears in the public feed.',
+    'write_pending_title' => 'We’ve received your story',
+    'write_pending_body' => 'A moderator will read it first. Once approved, it will appear in this language’s feed.',
     'write_recovery_title' => 'Your recovery code',
-    'write_recovery_once' => 'Save this code somewhere safe now. It will not be shown again.',
+    'write_recovery_once' => 'Keep this code somewhere safe. This is the only time you’ll see it.',
     'write_owner_link' => 'View my submission status',
     'write_recover_title' => 'Recover confession',
     'write_recovery_code' => 'Recovery code',
@@ -55,8 +56,6 @@ return [
     'write_withdrawn' => 'This confession is withdrawn and is not public.',
     'write_republish_pending' => 'A request to review this version again is pending.',
     'validation_title_required' => 'A title is required.',
-    'author_name_label' => 'Name (optional)',
-    'author_name_hint' => 'If you add your name, it will be shown publicly with the confession.',
     'author_name_label' => 'Name (optional)',
     'author_name_hint' => 'If you add your name, it will be shown publicly with the confession.',
 ];

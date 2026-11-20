@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'write_anonymous' => 'Adsız yaza bilərsən. Adını yalnız özün istəsən paylaş.',
+    'write_anonymous' => 'Adını yazmağa ehtiyac yoxdur.',
     'write_options' => 'Paylaşım seçimləri',
     'write_title' => 'Etiraf yaz',
     'write_intro' => 'Etirafını əvvəlcə moderator oxuyacaq. Yalnız təsdiqləndikdən sonra başqaları onu görə biləcək.',
@@ -15,7 +15,8 @@ return [
     'write_public_search_notice' => 'Etirafın təsdiqlənsə, hamıya açıq olacaq və axtarış nəticələrində görünə bilər.',
     'write_subject' => 'Başlıq',
     'write_body' => 'Etirafın mətni',
-    'write_body_hint' => ':limit simvoladək yaza bilərsən.',
+    'write_body_hint' => 'Sözə haradan başlamaq rahatdırsa, oradan başla. :limit işarəyə qədər yaza bilərsən.',
+    'characters_remaining' => 'simvol qalıb',
     'write_topic' => 'Mövzu',
     'topic_guide' => 'Hər mövzuya hansı etiraf uyğundur?',
     'write_expectation' => 'Oxuculardan nə gözləyirsən? (istəyə bağlı)',
@@ -25,9 +26,9 @@ return [
     'write_age' => 'Ən azı 18 yaşım var və paylaşım qaydalarını oxumuşam.',
     'write_submit' => 'Baxışa göndər',
     'write_pending_title' => 'Etirafını aldıq',
-    'write_pending_body' => 'Moderator etirafına baxacaq. Təsdiqləndikdən sonra etirafın lentdə görünəcək.',
+    'write_pending_body' => 'Moderator yazını oxuyacaq. Təsdiqlənsə, bu dildəki lentdə görünəcək.',
     'write_recovery_title' => 'Bərpa kodun',
-    'write_recovery_once' => 'Bu kodu indi təhlükəsiz yerdə saxla. Sonra yenidən göstərilməyəcək.',
+    'write_recovery_once' => 'Bərpa kodunu indi təhlükəsiz yerdə saxla. Bu kod bir daha göstərilməyəcək.',
     'write_owner_link' => 'Etirafımın vəziyyətinə bax',
     'write_recover_title' => 'Etirafı bərpa et',
     'write_recovery_code' => 'Bərpa kodu',

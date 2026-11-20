@@ -4,7 +4,7 @@ return [
     'support' => 'Soutenir',
     'unsupport' => 'Retirer mon soutien',
     'comments_heading' => 'Réponses',
-    'comments_empty' => 'Aucune réponse pour le moment.',
+    'comments_empty' => 'Personne n’a encore répondu. Si vous le souhaitez, vous pouvez ouvrir la discussion.',
     'comments_closed' => 'L’auteur n’accepte plus de réponses.',
     'comment_label' => 'Écrire une réponse',
     'comment_reply' => 'Répondre directement',

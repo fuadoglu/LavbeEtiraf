@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Bekännelsedalen',
-    'feed_subtitle' => 'Läs vad andra har berättat. Om du vill kan du också dela din egen historia.',
+    'feed_subtitle' => 'Läs vad andra bär på. När du vill finns det plats för din berättelse också.',
     'sort_label' => 'Flödets ordning',
     'sort_new' => 'Nytt',
     'sort_weekly' => 'Den här veckan',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Alla',
     'category_empty' => 'Det finns inga bekännelser om det här ämnet ännu.',
     'feed_empty' => 'Inga bekännelser har publicerats ännu',
-    'feed_empty_description' => 'Godkända berättelser visas här på originalspråket. Flödet blandar inte språk.',
+    'feed_empty_description' => 'Din berättelse kan bli den första här. Du är också välkommen tillbaka för att läsa senare.',
     'pagination' => 'Sidnumrering',
     'previous' => 'Föregående',
     'next' => 'Nästa',

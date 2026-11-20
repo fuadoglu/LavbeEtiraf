@@ -26,7 +26,7 @@ return [
     'submit' => 'Melding versturen',
     'submit_legal' => 'Juridische melding versturen',
     'received_title' => 'Melding ontvangen',
-    'received_community' => 'Bedankt. De moderators bekijken je melding vertrouwelijk.',
+    'received_community' => 'Bedankt voor je melding. Die is bij de moderators aangekomen.',
     'received_legal' => 'Je juridische melding wordt apart en vertrouwelijk beoordeeld.',
     'back_to_story' => 'Terug naar het verhaal',
     'appeal_title' => 'Bezwaar maken',

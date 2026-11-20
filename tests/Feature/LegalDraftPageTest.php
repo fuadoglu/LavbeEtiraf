@@ -31,6 +31,22 @@ class LegalDraftPageTest extends TestCase
         $this->get('/az/legal/unknown')->assertNotFound();
     }
 
+    public function test_privacy_pages_show_local_rights_and_configured_contact(): void
+    {
+        config(['lavbe.operator_name' => 'Example Operator', 'lavbe.privacy_email' => 'privacy@example.test']);
+
+        foreach (app(LocaleRegistry::class)->all() as $locale) {
+            $this->get('/'.$locale['segment'].'/legal/privacy')->assertOk()
+                ->assertSee(__('legal.rights', [], $locale['code']))
+                ->assertSee('Example Operator')
+                ->assertSee('mailto:privacy@example.test', false);
+
+            $pages = require lang_path($locale['code'].'/legal.php');
+            $bodies = array_column(array_filter($pages, 'is_array'), 'body');
+            $this->assertCount(7, array_unique($bodies));
+        }
+    }
+
     public function test_footer_has_compact_named_navigation_and_omits_the_signature_line(): void
     {
         $response = $this->get('/az/legal/privacy')->assertOk();

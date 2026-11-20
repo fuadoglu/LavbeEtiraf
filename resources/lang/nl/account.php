@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Je wachtwoord is gewijzigd. Log in met je nieuwe wachtwoord.',
     'logout' => 'Uitloggen',
     'my_title' => 'Mijn Lavbe',
-    'my_intro' => 'Hier vind je de bijdragen en gevolgde verhalen die aan je account zijn gekoppeld.',
+    'my_intro' => 'Hier vind je de bijdragen die je aan je account hebt gekoppeld en de verhalen die je volgt.',
     'my_confessions' => 'Mijn verhalen',
     'my_comments' => 'Mijn reacties',
     'my_follows' => 'Gevolgde verhalen',

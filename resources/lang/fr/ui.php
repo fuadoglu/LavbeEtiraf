@@ -12,7 +12,7 @@ return [
     'close' => 'Fermer la fenêtre',
     'loading' => 'Chargement des confidences',
     'missing' => 'Page introuvable',
-    'missing_body' => 'Le lien a peut-être changé ou la page a été supprimée.',
+    'missing_body' => 'Nous n’avons pas trouvé cette page. Vous pouvez revenir au fil pour lire d’autres témoignages.',
     'back' => 'Revenir aux confidences',
     'preview' => 'Aperçu de la modération',
     'preview_hint' => 'Cet aperçu utilise des exemples fictifs.',

@@ -4,7 +4,7 @@ return [
     'support' => 'Apoiar',
     'unsupport' => 'Retirar apoio',
     'comments_heading' => 'Comentários',
-    'comments_empty' => 'Ainda não há comentários.',
+    'comments_empty' => 'Ainda não há comentários. Se quiser, você pode começar a conversa.',
     'comments_closed' => 'Quem escreveu este desabafo encerrou os comentários.',
     'comment_label' => 'Escrever um comentário',
     'comment_reply' => 'Responder diretamente',

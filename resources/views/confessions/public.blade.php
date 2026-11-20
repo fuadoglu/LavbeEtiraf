@@ -30,7 +30,7 @@
             <p class="story-meta confession-author-meta"><span>{{ $revision->author_display_name ?: $confession->author_alias }}</span><span aria-hidden="true">·</span><time datetime="{{ $confession->published_at->toAtomString() }}" lang="{{ $localeRecord['code'] }}">{{ $confession->published_at->locale($localeRecord['code'])->translatedFormat('j F Y') }}</time></p>
         </header>
         <div class="confession-body">{!! nl2br(e($revision->body)) !!}</div>
-        <p class="unique-read-count confession-read-count"><x-icon name="eye" class="icon-small" />{{ __('participation.unique_reads', ['count' => number_format((int) $confession->unique_read_count)]) }}</p>
+        <p class="unique-read-count confession-read-count" role="img" aria-label="{{ __('participation.unique_reads', ['count' => number_format((int) $confession->unique_read_count)]) }}"><x-icon name="eye" class="icon-small" /><span aria-hidden="true">{{ number_format((int) $confession->unique_read_count) }}</span></p>
         </div>
 
         @if($continuations->isNotEmpty())

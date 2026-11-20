@@ -60,3 +60,7 @@ Hüquqi səhifələrin provisional mətni `draft` statusundadır. `approved` rea
 Sahib baxışı üçün Codex hər ekranı açarlarına görə qruplaşdırılmış müqayisə ixracı hazırlayır. Hər sətir `locale, group, key, current_text, previous_text` daşıyır. Baxış qeydi `locale, package_version, git_ref, status` saxlayır. Dəyişən versiyada yalnız diff baxışa çıxır. Son qərarı məhsul sahibi verir. Açılış üçün 17 təsdiqlənmiş paket, vizual sınaq, ayrıca 17 dil üzrə mövcud moderator və real başlanğıc məzmunu tələb olunur.
 
 Yoxlama: `python3 scripts/check_docs.py` spesifikasiyanı, `python3 scripts/check_docs.py --packages resources/lavbe/locales` yaradılmış paketləri yoxlayır. Tətbiqdə 17 paket yaradılanadək ikinci əmr buraxılış backlog tapşırığıdır.
+
+### LAV-061 · Mətnlərin redaktəsi
+
+Oxu, yazı, rəy, şikayət, hesab və bərpa ekranlarında istifadəçiyə hər dilin öz müraciət formasında xitab edilir. Başlıq məcburidir. Açıq yazı kənarda surətlənə və axtarışda görünə bilər. Hüquqi səhifələri real davranışla birlikdə yenilə. İstehsaldan əvvəl operatorun təsdiqlədiyi açıq hüquqi adı və nəzarət edilən poçt ünvanını LAVBE_OPERATOR_NAME və LAVBE_PRIVACY_EMAIL ilə qur. Hüquqi əsaslar, alıcılar, ötürmələr, məlumat növləri üzrə saxlama müddətləri və müvafiq bazarın tələbləri ayrıca təsdiqlənməlidir. Bu redaktə hüquqi və native sahib baxışını açıq saxlayır.

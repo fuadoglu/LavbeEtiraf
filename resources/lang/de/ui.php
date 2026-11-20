@@ -12,7 +12,7 @@ return [
     'close' => 'Fenster schließen',
     'loading' => 'Beiträge werden geladen',
     'missing' => 'Seite nicht gefunden',
-    'missing_body' => 'Vielleicht hat sich der Link geändert oder die Seite wurde entfernt.',
+    'missing_body' => 'Diese Seite konnten wir nicht finden. Im Feed kannst du andere Geschichten lesen.',
     'back' => 'Zurück zu den Beiträgen',
     'preview' => 'Moderationsvorschau',
     'preview_hint' => 'Diese Vorschau zeigt erfundene Inhalte.',

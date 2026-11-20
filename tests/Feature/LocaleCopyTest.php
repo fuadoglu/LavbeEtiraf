@@ -61,7 +61,11 @@ class LocaleCopyTest extends TestCase
             $this->get($base.'/my/'.$story->public_id.'/recover')->assertOk()->assertSee(Lang::get('guest.write_recovery_code', [], $code));
             $this->get($base.'/write')->assertOk()
                 ->assertSee(Lang::get('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')], $code))
+                ->assertSee(Lang::get('guest.characters_remaining', [], $code))
                 ->assertSee(Lang::get('guest.write_public_search_notice', [], $code));
+            $this->get($base.'/account/password/forgot')->assertOk()
+                ->assertSee($base.'/account/login', false)
+                ->assertSee(Lang::get('account.login_title', [], $code));
             $this->get($base.'/my/device')->assertOk()->assertSee(Lang::get('guest.device_title', [], $code));
             $this->get(route('account.login', ['locale' => $locale['segment']]))->assertOk()
                 ->assertSee(Lang::get('account.login_title', [], $code));

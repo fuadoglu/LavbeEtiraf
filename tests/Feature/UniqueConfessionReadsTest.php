@@ -20,7 +20,7 @@ class UniqueConfessionReadsTest extends TestCase
         $confession = $this->publishedConfession();
 
         $firstRead = $this->get('/az/confession/'.$confession->public_id)->assertOk();
-        $firstRead->assertSee('Unikal oxunuş: 1');
+        $firstRead->assertSee('aria-label="Unikal oxunuş: 1"', false)->assertSee('aria-hidden="true">1</span>', false);
         $cookie = $firstRead->getCookie(UniqueReadCounter::COOKIE_NAME);
 
         $this->assertNotNull($cookie);
@@ -30,13 +30,13 @@ class UniqueConfessionReadsTest extends TestCase
         $this->assertMatchesRegularExpression('/\A[a-f0-9]{64}\z/', $readerId);
 
         $repeatRead = $this->withCookie(UniqueReadCounter::COOKIE_NAME, $readerId)
-            ->get('/az/confession/'.$confession->public_id)->assertOk()->assertSee('Unikal oxunuş: 1');
+            ->get('/az/confession/'.$confession->public_id)->assertOk()->assertSee('aria-label="Unikal oxunuş: 1"', false);
         $this->assertSame($readerId, $repeatRead->getCookie(UniqueReadCounter::COOKIE_NAME)?->getValue());
         $this->assertSame(1, $confession->fresh()->unique_read_count);
 
         $otherProfile = bin2hex(random_bytes(32));
         $this->withCookie(UniqueReadCounter::COOKIE_NAME, $otherProfile)
-            ->get('/az/confession/'.$confession->public_id)->assertOk()->assertSee('Unikal oxunuş: 2');
+            ->get('/az/confession/'.$confession->public_id)->assertOk()->assertSee('aria-label="Unikal oxunuş: 2"', false);
         $this->assertSame(2, $confession->fresh()->unique_read_count);
 
         $storedHash = DB::table('confession_readers')->where('confession_id', $confession->id)->value('reader_hash');
@@ -69,7 +69,7 @@ class UniqueConfessionReadsTest extends TestCase
             ->assertDontSee('<footer class="story-card-footer">', false);
 
         $this->get('/az/confession/'.$confession->public_id)->assertOk();
-        $this->get('/az/')->assertOk()->assertSee('Unikal oxunuş: 1');
+        $this->get('/az/')->assertOk()->assertSee('aria-label="Unikal oxunuş: 1"', false)->assertSee('aria-hidden="true">1</span>', false);
     }
 
     public function test_unpublished_prefetched_and_known_bot_details_do_not_count_as_reads(): void

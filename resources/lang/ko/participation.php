@@ -4,7 +4,7 @@ return [
     'support' => '응원하기',
     'unsupport' => '응원 취소',
     'comments_heading' => '댓글',
-    'comments_empty' => '아직 댓글이 없어요.',
+    'comments_empty' => '아직 댓글이 없어요. 전하고 싶은 말이 있다면 첫 댓글을 남겨 보세요.',
     'comments_closed' => '글쓴이가 댓글을 닫았어요.',
     'comment_label' => '댓글 쓰기',
     'comment_reply' => '답글 쓰기',

@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Password modificata. Accedi con quella nuova.',
     'logout' => 'Esci',
     'my_title' => 'Il mio Lavbe',
-    'my_intro' => 'Qui trovi i contributi e le storie seguite che hai collegato all’account.',
+    'my_intro' => 'Qui trovi i testi che hai collegato al tuo account e le storie che segui.',
     'my_confessions' => 'Le mie confessioni',
     'my_comments' => 'Le mie risposte',
     'my_follows' => 'Storie che seguo',

@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Etiraflar Vadisi',
-    'feed_subtitle' => 'Başqalarının yazdıqlarını oxu. Ürəyindən keçsə, sən də öz hekayəni bölüş.',
+    'feed_subtitle' => 'Ürəyində qalan bir söz varsa, burada öz dilində yaza bilərsən.',
     'sort_label' => 'Lentin sıralanması',
     'sort_new' => 'Yeni',
     'sort_weekly' => 'Bu həftə',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Hamısı',
     'category_empty' => 'Bu mövzuda hələ etiraf yoxdur.',
     'feed_empty' => 'Hələ dərc olunmuş etiraf yoxdur',
-    'feed_empty_description' => 'Təsdiqlənmiş hekayələr öz dilində burada görünəcək. Bu lent başqa dildən məzmun göstərmir.',
+    'feed_empty_description' => 'Burada ilk hekayə səninki ola bilər. İstəsən, sonra gəlib başqalarının yazdıqlarını da oxuya bilərsən.',
     'pagination' => 'Səhifələmə',
     'previous' => 'Əvvəlki',
     'next' => 'Növbəti səhifə',

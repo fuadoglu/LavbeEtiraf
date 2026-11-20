@@ -26,7 +26,7 @@ return [
     'submit' => '신고 보내기',
     'submit_legal' => '법적 통지 보내기',
     'received_title' => '신고를 접수했어요',
-    'received_community' => '알려 주셔서 고마워요. 운영진이 비공개로 검토할게요.',
+    'received_community' => '알려 주셔서 고맙습니다. 운영팀에 신고가 접수됐어요.',
     'received_legal' => '법적 통지를 접수했어요. 별도 절차에 따라 비공개로 검토해요.',
     'back_to_story' => '이야기로 돌아가기',
     'appeal_title' => '운영 결정에 이의 제기',

@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Passordet er endret. Logg inn med det nye passordet.',
     'logout' => 'Logg ut',
     'my_title' => 'Min Lavbe-side',
-    'my_intro' => 'Her finner du innlegg og historier du følger, som er knyttet til kontoen din.',
+    'my_intro' => 'Her finner du tekstene du har knyttet til kontoen din, og historiene du følger.',
     'my_confessions' => 'Mine historier',
     'my_comments' => 'Mine svar',
     'my_follows' => 'Historier jeg følger',

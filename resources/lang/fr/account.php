@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Votre mot de passe a été modifié. Connectez-vous avec le nouveau.',
     'logout' => 'Se déconnecter',
     'my_title' => 'Mon Lavbe',
-    'my_intro' => 'Retrouvez ici les publications et les suivis rattachés à votre compte.',
+    'my_intro' => 'Retrouvez ici les textes rattachés à votre compte et les témoignages que vous suivez.',
     'my_confessions' => 'Mes confidences',
     'my_comments' => 'Mes réponses',
     'my_follows' => 'Mon suivi',

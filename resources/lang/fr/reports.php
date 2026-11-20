@@ -26,7 +26,7 @@ return [
     'submit' => 'Envoyer le signalement',
     'submit_legal' => 'Envoyer le signalement juridique',
     'received_title' => 'Signalement reçu',
-    'received_community' => 'Merci. L’équipe de modération examinera votre signalement en privé.',
+    'received_community' => 'Merci de nous avoir prévenus. Votre signalement a bien été transmis à l’équipe de modération.',
     'received_legal' => 'Votre signalement juridique sera examiné séparément, en toute confidentialité.',
     'back_to_story' => 'Revenir à la confidence',
     'appeal_title' => 'Contester une décision',

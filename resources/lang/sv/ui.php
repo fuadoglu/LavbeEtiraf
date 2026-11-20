@@ -12,7 +12,7 @@ return [
     'close' => 'Stäng fönstret',
     'loading' => 'Läser in berättelser',
     'missing' => 'Sidan hittades inte',
-    'missing_body' => 'Länken kan ha ändrats eller sidan tagits bort.',
+    'missing_body' => 'Vi hittar inte sidan. Gå gärna tillbaka till flödet och läs en annan berättelse.',
     'back' => 'Tillbaka till berättelserna',
     'preview' => 'Förhandsvisning för moderatorer',
     'preview_hint' => 'Här visas påhittade exempel.',

@@ -4,7 +4,7 @@ return [
     'support' => 'Steun',
     'unsupport' => 'Steun intrekken',
     'comments_heading' => 'Reacties',
-    'comments_empty' => 'Nog geen reacties.',
+    'comments_empty' => 'Er heeft nog niemand gereageerd. Wil je iets kwijt, dan kun je als eerste reageren.',
     'comments_closed' => 'De schrijver heeft de reacties gesloten.',
     'comment_label' => 'Schrijf een reactie',
     'comment_reply' => 'Direct reageren',

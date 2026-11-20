@@ -14,7 +14,8 @@
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
             <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')])" :error="$errors->first('body')">
-                <textarea aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="body" aria-describedby="body-description" name="body" rows="8" maxlength="{{ config('lavbe.limits.confession_body') }}" required>{{ old('body') }}</textarea>
+                <textarea aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="body" aria-describedby="body-description body-remaining" name="body" rows="8" maxlength="{{ config('lavbe.limits.confession_body') }}" data-character-count-input required>{{ old('body') }}</textarea>
+                <p class="character-counter"><output id="body-remaining" for="body" data-character-count data-max="{{ config('lavbe.limits.confession_body') }}">{{ max(0, (int) config('lavbe.limits.confession_body') - mb_strlen((string) old('body'), 'UTF-8')) }}</output> {{ __('guest.characters_remaining') }}</p>
             </x-form-field>
 
             <x-form-field name="title" :label="__('guest.write_subject')" :error="$errors->first('title')">
@@ -38,8 +39,8 @@
                 </ul>
             </details>
 
-            <details class="sharing-options" @if(old('author_display_name') || $errors->has('author_display_name') || old('response_expectation')) open @endif>
-                <summary>{{ __('guest.write_options') }}</summary>
+            <section class="sharing-options" aria-labelledby="sharing-options-heading">
+                <h2 id="sharing-options-heading">{{ __('guest.write_options') }}</h2>
                 <p class="field-description">{{ __('guest.author_name_hint') }}</p>
                 <x-form-field name="author_display_name" :label="__('guest.author_name_label')" :error="$errors->first('author_display_name')">
                     <input id="author_display_name" name="author_display_name" maxlength="120" value="{{ old('author_display_name') }}" autocomplete="off">
@@ -52,7 +53,7 @@
                         <option value="advice" @selected(old('response_expectation') === 'advice')>{{ __('guest.write_advice') }}</option>
                     </select>
                 </x-form-field>
-            </details>
+            </section>
 
             <label class="age-confirmation">
                 <input type="checkbox" name="age_confirmed" value="1" required @checked(old('age_confirmed'))>
