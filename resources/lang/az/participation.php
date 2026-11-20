@@ -34,5 +34,5 @@ return [
     'recover_comment' => 'Rəyimə girişi bərpa et',
     'supported_heading' => 'Dəstəklədiklərim',
     'supported_empty' => 'Hələ dəstəklədiyin etiraf yoxdur.',
-    'recommended_heading' => 'Etirafı dəstəklə',
+    'recommended_heading' => 'Başqa etirafları oxu',
 ];

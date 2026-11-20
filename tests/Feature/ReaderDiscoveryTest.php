@@ -48,6 +48,7 @@ class ReaderDiscoveryTest extends TestCase
 
         $response = $this->get('/az/confession/'.$story->public_id)->assertOk()
             ->assertSee('Nigar Məmmədova')
+            ->assertSee('Başqa etirafları oxu')
             ->assertSee('AZ leading work story')
             ->assertSee('AZ money story')
             ->assertSee('AZ values story')
@@ -66,5 +67,19 @@ class ReaderDiscoveryTest extends TestCase
         $this->assertNotNull($recommendationSection);
         $this->assertSame(3, $xpath->query('.//a[@class="recommended-story-link"]', $recommendationSection)->length);
         $this->assertSame(0, $xpath->query('.//*[@class="story-meta" or @class="story-excerpt" or @class="story-author" or @class="unique-read-count"]', $recommendationSection)->length);
+    }
+
+    public function test_feed_sort_tabs_have_distinct_icons_and_equal_grid_columns(): void
+    {
+        $response = $this->get('/az')->assertOk()
+            ->assertSee('icons/lucide/sparkles.svg')
+            ->assertSee('icons/lucide/calendar-days.svg')
+            ->assertSee('icons/lucide/flame.svg')
+            ->assertSee(__('lavbe.sort_new'))
+            ->assertSee(__('lavbe.sort_weekly'))
+            ->assertSee(__('lavbe.sort_popular'));
+
+        $this->assertSame(3, substr_count($response->getContent(), 'class="sort-link'));
+        $this->assertStringContainsString('grid-template-columns: repeat(3, minmax(0, 1fr))', file_get_contents(resource_path('css/app.css')));
     }
 }

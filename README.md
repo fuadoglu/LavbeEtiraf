@@ -41,6 +41,7 @@
 | Footer-də operator keçidini çıxar | **[LAV-048](https://github.com/fuadoglu/LavbeEtiraf/issues/102) icra olunur.** Operator səhifəsi birbaşa URL ilə qalır, qalan footer keçidləri kiçik şriftlə göstərilir. |
 | Ana lentin UI polish-i | **[LAV-049](https://github.com/fuadoglu/LavbeEtiraf/issues/104) icra olunur.** Mobil kateqoriya zolağının scroll göstəricisi və kartların hover/fokus əks əlaqəsi cilalanır; ekran skeleti saxlanır. |
 | Tövsiyə olunan etiraflarda yalnız başlıq | **[LAV-050](https://github.com/fuadoglu/LavbeEtiraf/issues/106) icra olunur.** Etiraf səhifəsində tövsiyələr başlıq linkləri kimi görünür; xülasə və metadata göstərilmir. |
+| Sıralama tablarının ikonları və ölçüsü | **[LAV-051](https://github.com/fuadoglu/LavbeEtiraf/issues/108) icra olunur.** Üç feed tabında fərqli ikonlar, bərabər ölçü və yeni tövsiyə başlığı. |
 
 ## Codex ilə başla
 

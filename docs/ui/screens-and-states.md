@@ -6,7 +6,7 @@
 |---|---|---|
 | 1 | Lavbe, cari dilin yumru bayrağı, dil menyusu | Eyni başlıq, mətnli naviqasiya |
 | 2 | Hamısı, cari mövzu, bir neçə mövzu, Bütün mövzular | Eyni mövzu komponenti daha geniş düzülüşdə |
-| 3 | Yeni · Bu həftə · Davamı gəldi | Eyni seçimlər |
+| 3 | Yeni, Bu həftə və Məşhur etiraflar — fərqli ikonlu, bərabər ölçülü tablar | Eyni seçimlər |
 | 4 | Bir sütun etiraf kartları | Mərkəzlənmiş oxu sütununda eyni kartlar |
 | 5 | Daha çox və mobil alt naviqasiya | Eyni səhifələmə və ümumi alt hissə |
 
