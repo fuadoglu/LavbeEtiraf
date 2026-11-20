@@ -41,7 +41,6 @@ return [
     'preferences_save' => '設定を保存',
     'preferences_saved' => '設定を保存しました。',
     'follow' => '更新をフォロー',
-    'login_to_follow' => 'ログイン · メールを確認',
     'follow_saved' => 'この投稿をフォローしました。',
     'follow_removed' => 'フォローを解除しました。',
     'unfollow' => 'フォローを解除',

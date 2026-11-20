@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Confession;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -107,11 +108,11 @@ class ReaderDiscoveryTest extends TestCase
             $this->assertCount(3, $categories->unique());
             $this->assertNotContains('family', $categories->all());
             if ($attempt === 0) {
-                $actions = $xpath->query('//div[@class="confession-actions"]')->item(0);
+                $actions = $xpath->query('//div[contains(concat(" ", normalize-space(@class), " "), " confession-actions ")]')->item(0);
                 $this->assertNotNull($actions);
-                $this->assertSame(3, $xpath->query('./form[contains(@class, "support-action")] | ./a[contains(@class, "confession-follow-link")] | ./div[@data-share-control]', $actions)->length);
+                $this->assertSame(2, $xpath->query('./form[contains(@class, "support-action")] | ./div[@data-share-control]', $actions)->length);
                 $this->assertSame(1, $xpath->query('./form[contains(@class, "support-action")]/button/span[@class="support-count"]', $actions)->length);
-                $this->assertSame(1, $xpath->query('./a[contains(@class, "confession-follow-link")]/span[contains(@class, "icon")]', $actions)->length);
+                $this->assertSame(0, $xpath->query('./a[contains(@href, "/account/login")]', $actions)->length);
             }
             $observedWorkTitles = $observedWorkTitles->merge($titles->filter(fn (string $title) => str_contains($title, 'work story')));
             $observedOrders->push($titles->implode('|'));
@@ -119,6 +120,16 @@ class ReaderDiscoveryTest extends TestCase
 
         $this->assertGreaterThan(1, $observedWorkTitles->unique()->count(), 'Recommendations should vary among candidates in the same category.');
         $this->assertGreaterThan(1, $observedOrders->unique()->count(), 'Recommendation category order should be shuffled between requests.');
+
+        $reader = User::factory()->create(['email_verified_at' => now()]);
+        $response = $this->actingAs($reader)->get('/az/confession/'.$story->public_id)->assertOk()->assertSee(__('account.follow'));
+        $document = new \DOMDocument;
+        @$document->loadHTML('<?xml encoding="UTF-8">'.$response->getContent());
+        $xpath = new \DOMXPath($document);
+        $actions = $xpath->query('//div[contains(concat(" ", normalize-space(@class), " "), " confession-actions ")]')->item(0);
+        $this->assertNotNull($actions);
+        $this->assertSame(3, $xpath->query('./form[contains(@class, "support-action")] | ./form[contains(@class, "follow-action")] | ./div[@data-share-control]', $actions)->length);
+        $this->assertSame(1, $xpath->query('./form[contains(@class, "follow-action")]/button', $actions)->length);
     }
 
     public function test_feed_sort_tabs_have_distinct_icons_and_equal_grid_columns(): void

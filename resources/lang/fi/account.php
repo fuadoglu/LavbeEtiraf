@@ -41,7 +41,6 @@ return [
     'preferences_save' => 'Tallenna asetukset',
     'preferences_saved' => 'Asetukset tallennettiin.',
     'follow' => 'Seuraa kirjoitusta',
-    'login_to_follow' => 'Kirjaudu · vahvista sähköposti',
     'follow_saved' => 'Kirjoitus lisättiin seurantaasi.',
     'follow_removed' => 'Kirjoitus poistettiin seurannastasi.',
     'unfollow' => 'Lopeta seuraaminen',

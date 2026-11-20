@@ -41,7 +41,6 @@ return [
     'preferences_save' => 'Salvar preferências',
     'preferences_saved' => 'Suas preferências foram salvas.',
     'follow' => 'Acompanhar novidades',
-    'login_to_follow' => 'Entre · confirme seu e-mail',
     'follow_saved' => 'Agora você acompanha este desabafo.',
     'follow_removed' => 'Você deixou de acompanhar este desabafo.',
     'unfollow' => 'Deixar de acompanhar',
