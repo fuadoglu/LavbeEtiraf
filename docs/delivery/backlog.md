@@ -13,6 +13,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 6 | Layihə sabit dəyərlərinin auditi | LAV-016 |
 | 7 | Oxucu kəşfi və açıq müəllif adı | LAV-030 |
 | 8 | Etiraf bildiriş formalarının modal təqdimatı | LAV-031 |
+| 9 | Modal popup-ların mobil/desktop uyğunlaşması | LAV-032 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -147,6 +148,12 @@ Ortaq başlıqda ürək nişanı cari sessiyanın dəstəklədiyi etirafların s
 **Asılılıq:** LAV-002, LAV-008. **Qəbul:** UI-06.
 
 Etiraf detalındakı icma şikayəti və hüquqi bildiriş native dialog popup-da formanı dərhal göstərir. Paylaşılan form hissəsi ayrıca GET səhifələrdə də eyni qalır. `showModal()` dəstəyi olmadıqda və ya JavaScript sönülü olduqda href ayrıca forma səhifəsinə aparır. Server endpoint, CSRF, rate limit, private response headers və hüquqi/adi şikayət axınları dəyişmir. **Sübut:** dialog klaviatura/backdrop bağlanması və fokusun trigger-ə qayıtması, form POST davranışı və JS-siz fallback.
+
+## LAV-032 · Modal popup-ların mobil/desktop uyğunlaşması
+
+**Asılılıq:** LAV-031. **Qəbul:** UI-07.
+
+Dialog en və hündürlüyünü vizual viewport-a bağla, kiçik ekranlarda safe-area kənarlarını saxla və uzun məzmunu öz daxilində skrolla. Başlıq və bağlama düyməsi skroll zamanı görünən qalsın; sahələr dar eni aşmasın. Masaüstündə dialog ortalanmış, oxunaqlı eni saxlasın. **Sübut:** build və 320/360/390/768/1366px enlər, aşağı/landscape hündürlüklərdə responsive UI baxışı.
 
 ## İş dövrü
 
