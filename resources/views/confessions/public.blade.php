@@ -101,7 +101,11 @@
         @if($recommended->isNotEmpty())
             <section class="participation-section" aria-labelledby="recommended-heading">
                 <h2 id="recommended-heading">{{ __('participation.recommended_heading') }}</h2>
-                <div class="confession-feed feed-list"><x-feed-items :confessions="$recommended" /></div>
+                <ul class="recommended-story-list">
+                    @foreach($recommended as $recommendation)
+                        <li><a class="recommended-story-link" href="{{ route('confessions.public', ['locale' => app(App\Support\Lavbe\LocaleRegistry::class)->urlSegment($recommendation->locale), 'publicId' => $recommendation->public_id]) }}">{{ $recommendation->title ?: __('lavbe.untitled_confession') }}</a></li>
+                    @endforeach
+                </ul>
             </section>
         @endif
 

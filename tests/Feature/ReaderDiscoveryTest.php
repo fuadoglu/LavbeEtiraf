@@ -40,8 +40,8 @@ class ReaderDiscoveryTest extends TestCase
         $revision = $story->revisions()->create(['revision' => 2, 'title' => $story->title, 'author_display_name' => 'Nigar Məmmədova', 'body' => $story->body, 'category_key' => 'family', 'status' => 'approved']);
         $story->forceFill(['public_revision_id' => $revision->id])->save();
         Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'family', 'title' => 'AZ same-category story']);
-        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => 'AZ lower-ranked work story', 'support_count' => 1]);
-        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => 'AZ leading work story', 'support_count' => 12]);
+        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => 'AZ lower-ranked work story', 'excerpt' => 'Lower ranked recommendation excerpt must stay hidden.', 'support_count' => 1]);
+        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => 'AZ leading work story', 'excerpt' => 'Recommendation excerpt must stay hidden.', 'support_count' => 12]);
         Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'money', 'title' => 'AZ money story']);
         Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'values', 'title' => 'AZ values story']);
         Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'en', 'category_key' => 'education', 'title' => 'EN synthetic recommendation']);
@@ -53,8 +53,18 @@ class ReaderDiscoveryTest extends TestCase
             ->assertSee('AZ values story')
             ->assertDontSee('AZ lower-ranked work story')
             ->assertDontSee('AZ same-category story')
-            ->assertDontSee('EN synthetic recommendation');
+            ->assertDontSee('EN synthetic recommendation')
+            ->assertDontSee('Recommendation excerpt must stay hidden.')
+            ->assertSee('class="recommended-story-link"', false);
 
-        $this->assertSame(3, substr_count($response->getContent(), 'class="story-card"'));
+        $this->assertSame(3, substr_count($response->getContent(), 'class="recommended-story-link"'));
+
+        $document = new \DOMDocument;
+        @$document->loadHTML('<?xml encoding="UTF-8">'.$response->getContent());
+        $xpath = new \DOMXPath($document);
+        $recommendationSection = $xpath->query('//section[@aria-labelledby="recommended-heading"]')->item(0);
+        $this->assertNotNull($recommendationSection);
+        $this->assertSame(3, $xpath->query('.//a[@class="recommended-story-link"]', $recommendationSection)->length);
+        $this->assertSame(0, $xpath->query('.//*[@class="story-meta" or @class="story-excerpt" or @class="story-author" or @class="unique-read-count"]', $recommendationSection)->length);
     }
 }
