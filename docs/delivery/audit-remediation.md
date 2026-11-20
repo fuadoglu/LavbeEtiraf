@@ -29,3 +29,7 @@ MOD-03 və UI-02: etiraf detalında rəylər konfiqurasiyadakı 20-lik HTML səh
 ## Lent snapshot həcmi — LAV-025
 
 SEO-04/UI-02: ilk lent sorğusunda cache-ə yazılan üzvlər config/feed.php snapshot_max_members ilə məhdudlaşdırılır (standart 1000). Bütün arxiv nömrəli HTML səhifələrdə görünür; cursor-lu rahat davam seçilmiş axınla bitir. İlk səhifənin ümumi sayı ayrıca SQL COUNT-dan gəlir. FeedSessionTest azaldılmış limitlə cache ölçüsünü, fragment sonunu və HTML page 3 əlçatanlığını yoxlayır. Bu, PHP yaddaş və cache yazısı üçün sərhəd yaradır; SQL say sorğusu və real host cavab vaxtı ayrıca ölçülməlidir.
+
+## Başlıqda axtarış — LAV-024
+
+UI-01/UI-04: axtarış yeganə ikon kimi başlıqda dil və rejim idarələrinin yanındadır. Lent başlığından təkrarlanan axtarış düyməsi çıxarılıb. Axtarışın öz POST forması və no-store davranışı saxlanır. UiFoundationTest ana, mövzu və axtarış ekranlarında tək başlıq ikonunu yoxlayır.

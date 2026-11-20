@@ -13,6 +13,17 @@ class UiFoundationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_search_is_a_single_header_icon_beside_language_and_theme_controls(): void
+    {
+        foreach (['/az', '/az/topics/family', '/az/search'] as $path) {
+            $html = $this->get($path)->assertOk()->getContent();
+            $this->assertSame(1, substr_count($html, 'class="icon-button header-search"'));
+            $this->assertStringNotContainsString('class="button button-secondary feed-search"', $html);
+            $this->assertLessThan(strpos($html, 'class="language-menu"'), strpos($html, 'class="icon-button header-search"'));
+            $this->assertLessThan(strpos($html, 'class="icon-button theme-button"'), strpos($html, 'class="icon-button header-search"'));
+        }
+    }
+
     public function test_public_form_labels_and_descriptions_reference_existing_controls(): void
     {
         $confession = Confession::factory()->create(['public_id' => (string) Str::uuid()]);
