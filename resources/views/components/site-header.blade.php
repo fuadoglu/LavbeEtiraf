@@ -15,7 +15,7 @@
                 @csrf
                 <input type="hidden" name="return_to" value="{{ request()->getRequestUri() }}">
                 <label for="locale-search">{{ __('navigation.language_search') }}</label>
-                <input id="locale-search" type="search" data-language-search placeholder="English, 日本語, pt-BR…" autocomplete="off">
+                <input id="locale-search" type="search" data-language-search autocomplete="off">
                 <div class="language-options" data-language-options>
                     @foreach(app(App\Support\Lavbe\LocaleRegistry::class)->all() as $language)
                         <button type="submit" name="locale" value="{{ $language['segment'] }}" lang="{{ $language['code'] }}" dir="{{ $language['dir'] }}" data-language-option data-search="{{ mb_strtolower(implode(' ', app(App\Support\Lavbe\LocaleRegistry::class)->searchableNames($language))) }}" @if(app()->getLocale() === $language['code']) aria-current="true" @endif>

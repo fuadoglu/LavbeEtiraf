@@ -129,8 +129,8 @@ class UiFoundationTest extends TestCase
     {
         $this->get('/_ui/admin-preview')
             ->assertOk()
-            ->assertSee('Bu, admin paneli deyil')
-            ->assertSee('Nümunə material, real istifadəçi məlumatı deyil');
+            ->assertSee(__('ui.preview_hint'))
+            ->assertSee(__('ui.sample_title'));
 
         $this->get('/admin')->assertNotFound();
     }
