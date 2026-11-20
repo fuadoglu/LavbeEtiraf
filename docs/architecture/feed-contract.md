@@ -38,3 +38,5 @@ Sıralama uyğunluq, son yayım və ID ilə sabitləşir. UTF-8 tokenləri local
 İstinad: [Google Search Central, səhifələmə](https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading)
 
 [Sınaqlar: UI-02, SEO-01 və SEO-04](../delivery/acceptance.md)
+
+LAV-019-un yayım ardıcıllığı hissəsində publication_sequence etirafın public vəziyyətinə hər girişində feed_publications sayğacından ayrılır. Public vəziyyətdə redaktə və uşaq materialına görə visibility_version dəyişməsi bu nömrəni dəyişmir. Mövcud public qeydlərə migration zamanı nömrə verilir. Bu metadata mətn və istifadəçi identifikatoru daşımır. Model ilə yayım eyni DB tranzaksiyasında ediləndə sayğac və status birlikdə rollback olunur. Sequence nömrəsinin özü snapshot üzvlüyünü əvəz etmir. Cursor sərhədinə bağlanması növbəti LAV-019 addımıdır.

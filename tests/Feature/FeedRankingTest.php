@@ -63,6 +63,38 @@ class FeedRankingTest extends TestCase
         $this->assertSame([$earlier->id], $this->rank('updates'));
     }
 
+    public function test_publication_sequence_changes_only_when_reentering_the_public_feed(): void
+    {
+        $first = Confession::factory()->create();
+        $second = Confession::factory()->create();
+        $this->assertGreaterThan($first->publication_sequence, $second->publication_sequence);
+        $initial = $first->publication_sequence;
+
+        $first->forceFill(['body' => 'Synthetic approved edit', 'visibility_version' => 2])->save();
+        $this->assertSame($initial, $first->fresh()->publication_sequence);
+        $first->forceFill(['status' => 'hidden'])->save();
+        $this->assertSame($initial, $first->fresh()->publication_sequence);
+        $first->forceFill(['status' => 'public'])->save();
+        $this->assertGreaterThan($second->publication_sequence, $first->fresh()->publication_sequence);
+    }
+
+    public function test_publication_sequence_and_visibility_roll_back_together(): void
+    {
+        $confession = Confession::factory()->create(['status' => 'hidden']);
+        $this->assertNull($confession->publication_sequence);
+        try {
+            DB::transaction(function () use ($confession): void {
+                $confession->forceFill(['status' => 'public'])->save();
+                throw new \RuntimeException('Synthetic transaction failure');
+            });
+        } catch (\RuntimeException) {
+            // Check the stored state after the interrupted publication.
+        }
+        $this->assertSame('hidden', $confession->fresh()->status);
+        $this->assertNull($confession->fresh()->publication_sequence);
+        $this->assertDatabaseCount('feed_publications', 0);
+    }
+
     private function rank(string $order): array
     {
         return app(FeedQuery::class)->build('az', null, $order)->get()->modelKeys();
