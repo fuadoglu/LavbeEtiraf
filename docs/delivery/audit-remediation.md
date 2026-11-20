@@ -25,3 +25,7 @@ LAV-021 yerli sübut: composer test — 80 test / 19 117 assertion keçdi. Local
 ## Rəy səhifələməsi — LAV-023
 
 MOD-03 və UI-02: etiraf detalında rəylər konfiqurasiyadakı 20-lik HTML səhifələrlə göstərilir. Növbəti/Geri keçidləri JavaScript tələb etmir və rəylər başlığına qayıdır. Yalnız həmin səhifənin təsdiqli revision, müəllif cavabı və sahiblik məlumatı yüklənir. Cari public scope və private/no-store qorunur. CommentPaginationTest görünmə limiti, səhifələrarası keçid, gizlədilmiş rəyin çıxması və valideyn gizlədilməsini yoxlayır. Müəllif davamlarının yüklənməsi və lent snapshot optimallaşdırması hələ ayrıca qalır.
+
+## Lent snapshot həcmi — LAV-025
+
+SEO-04/UI-02: ilk lent sorğusunda cache-ə yazılan üzvlər config/feed.php snapshot_max_members ilə məhdudlaşdırılır (standart 1000). Bütün arxiv nömrəli HTML səhifələrdə görünür; cursor-lu rahat davam seçilmiş axınla bitir. İlk səhifənin ümumi sayı ayrıca SQL COUNT-dan gəlir. FeedSessionTest azaldılmış limitlə cache ölçüsünü, fragment sonunu və HTML page 3 əlçatanlığını yoxlayır. Bu, PHP yaddaş və cache yazısı üçün sərhəd yaradır; SQL say sorğusu və real host cavab vaxtı ayrıca ölçülməlidir.
