@@ -73,7 +73,9 @@
       "remember_device": "Özel erişim için bu cihazı hatırla",
       "submit": "İncelemeye gönder",
       "invalid": "Girişlerinizi kontrol edin. Metin sınırı {limit} karakterdir.",
-      "network_error": "Bunu şu anda gönderemedik. Tekrar deneyin."
+      "network_error": "Bunu şu anda gönderemedik. Tekrar deneyin.",
+      "draft_saved": "Taslağınız bu cihazda en fazla 24 saat saklanır.",
+      "draft_storage_error": "Bu tarayıcı taslağınızı bu cihaza kaydedemedi."
     },
     "submit": {
       "pending": "İtirafınız incelenmeyi bekliyor.",
@@ -170,9 +172,13 @@
       "install": "Lavbe'yi yükleyin",
       "install_help_ios": "Safari'de Paylaş'a ve ardından Ana Ekrana Ekle'ye dokunun.",
       "offline_title": "Çevrimdışısınız",
-      "offline_body": "Kaydedilen bazı sayfalar hâlâ kullanılabilir durumda olabilir.",
+      "offline_body": "Kaydettiğin taslak bu cihazda kalır. Çevrim dışıyken hiçbir şey gönderilmez.",
       "back_online": "Tekrar çevrimiçisiniz.",
-      "draft_expired": "Kaydedilen bu taslağın süresi doldu."
+      "draft_expired": "Kaydedilen bu taslağın süresi doldu.",
+      "push_enabled": "Bu cihazda anlık bildirimler açık.",
+      "push_disabled": "Bu cihazda anlık bildirimler kapalı.",
+      "push_denied": "Açmak için tarayıcı ayarlarından bildirimlere izin ver.",
+      "push_unavailable": "Bu cihaz anlık bildirimleri desteklemiyor."
     },
     "errors": {
       "not_found": "Sayfa bulunamadı",

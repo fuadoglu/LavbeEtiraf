@@ -10,6 +10,8 @@ use App\Http\Controllers\ModerationController;
 use App\Http\Controllers\ModeratorAuthController;
 use App\Http\Controllers\ParticipationController;
 use App\Http\Controllers\PublicConfessionController;
+use App\Http\Controllers\PushSubscriptionController;
+use App\Http\Controllers\PwaController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\NormalizeFeedPage;
@@ -31,6 +33,7 @@ Route::pattern('targetPublicId', RoutePatterns::UUID_V4);
 Route::pattern('commentPublicId', RoutePatterns::UUID_V4);
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/service-worker.js', [PwaController::class, 'worker'])->name('pwa.worker');
 Route::get('/{key}.txt', IndexNowKeyController::class)->where('key', '[A-Za-z0-9-]{8,128}')->name('indexnow.key');
 
 Route::get('/', function (Request $request, LocaleRegistry $locales) {
@@ -43,6 +46,8 @@ Route::get('/', function (Request $request, LocaleRegistry $locales) {
 })->name('root');
 
 Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middleware(SetLocale::class)->group(function (): void {
+    Route::get('/manifest.webmanifest', [PwaController::class, 'manifest'])->name('pwa.manifest');
+    Route::get('/offline', [PwaController::class, 'offline'])->name('pwa.offline');
     $routeThrottle = static function (string $key): string {
         $limit = config('lavbe.rate_limits.routes.'.$key);
 
@@ -157,6 +162,9 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
     Route::middleware(['auth', 'verified', PrivateResponseHeaders::class])->group(function (): void {
         Route::get('/my', [AccountController::class, 'home'])->name('account.home');
         Route::put('/my/preferences', [AccountController::class, 'preferences'])->name('account.preferences');
+        Route::post('/my/push-subscriptions/status', [PushSubscriptionController::class, 'status'])->middleware('throttle:20,1')->name('account.push-subscriptions.status');
+        Route::post('/my/push-subscriptions', [PushSubscriptionController::class, 'store'])->middleware('throttle:8,1')->name('account.push-subscriptions.store');
+        Route::delete('/my/push-subscriptions', [PushSubscriptionController::class, 'destroy'])->middleware('throttle:8,1')->name('account.push-subscriptions.destroy');
         Route::post('/my/follows/{publicId}', [AccountController::class, 'follow'])->name('account.follow');
         Route::delete('/my/follows/{publicId}', [AccountController::class, 'unfollow'])->name('account.unfollow');
         Route::post('/my/notifications/{notificationId}/read', [AccountController::class, 'readNotification'])->whereNumber('notificationId')->name('account.notifications.read');

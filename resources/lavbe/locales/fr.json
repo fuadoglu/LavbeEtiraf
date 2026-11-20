@@ -73,7 +73,9 @@
       "remember_device": "Mémoriser cet appareil pour un accès privé",
       "submit": "Envoyer pour examen",
       "invalid": "Vérifiez vos entrées. La limite de texte est de {limit} caractères.",
-      "network_error": "Nous ne pouvons pas l'envoyer pour le moment. Essayer à nouveau."
+      "network_error": "Nous ne pouvons pas l'envoyer pour le moment. Essayer à nouveau.",
+      "draft_saved": "Votre brouillon est enregistré sur cet appareil pendant 24 heures maximum.",
+      "draft_storage_error": "Ce navigateur n’a pas pu enregistrer votre brouillon sur cet appareil."
     },
     "submit": {
       "pending": "Vos aveux sont en attente d'examen.",
@@ -171,9 +173,13 @@
       "install": "Installer Lavbe",
       "install_help_ios": "Dans Safari, appuyez sur Partager, puis sur Ajouter à l'écran d'accueil.",
       "offline_title": "Vous êtes hors ligne",
-      "offline_body": "Certaines pages enregistrées peuvent encore être disponibles.",
+      "offline_body": "Votre brouillon enregistré reste sur cet appareil. Rien n’est envoyé hors ligne.",
       "back_online": "Vous êtes de nouveau en ligne.",
-      "draft_expired": "Ce brouillon enregistré a expiré."
+      "draft_expired": "Ce brouillon enregistré a expiré.",
+      "push_enabled": "Les notifications push sont activées sur cet appareil.",
+      "push_disabled": "Les notifications push sont désactivées sur cet appareil.",
+      "push_denied": "Autorisez les notifications dans les réglages du navigateur pour les activer.",
+      "push_unavailable": "Les notifications push ne sont pas disponibles sur cet appareil."
     },
     "errors": {
       "not_found": "Page introuvable",

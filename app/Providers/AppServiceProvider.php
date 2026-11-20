@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Support\Lavbe\LocaleRegistry;
+use App\Support\Push\MinishlinkWebPushGateway;
+use App\Support\Push\WebPushGateway;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\URL;
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(LocaleRegistry::class);
+        $this->app->bind(WebPushGateway::class, MinishlinkWebPushGateway::class);
     }
 
     /**

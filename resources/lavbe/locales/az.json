@@ -73,7 +73,9 @@
       "remember_device": "Şəxsi giriş üçün bu cihazı yadda saxlayın",
       "submit": "Nəzərdən keçirilməsi üçün göndərin",
       "invalid": "Girişlərinizi yoxlayın. Mətn limiti {limit} simvollarıdır.",
-      "network_error": "Biz bunu indi göndərə bilmədik. Yenidən cəhd edin."
+      "network_error": "Biz bunu indi göndərə bilmədik. Yenidən cəhd edin.",
+      "draft_saved": "Qaralamanız bu cihazda 24 saata qədər saxlanır.",
+      "draft_storage_error": "Brauzer qaralamanızı bu cihazda saxlaya bilmədi."
     },
     "submit": {
       "pending": "Etirafınız nəzərdən keçirilməsini gözləyir.",
@@ -170,9 +172,13 @@
       "install": "Lavbe quraşdırın",
       "install_help_ios": "Safari-də Paylaş vurun, sonra Əsas Ekrana əlavə edin.",
       "offline_title": "Siz oflaynsınız",
-      "offline_body": "Bəzi saxlanmış səhifələr hələ də mövcud ola bilər.",
+      "offline_body": "Yadda saxladığın qaralama bu cihazda qalır. Oflayn olanda heç nə göndərilmir.",
       "back_online": "Siz yenidən onlaynsınız.",
-      "draft_expired": "Bu saxlanmış qaralamanın vaxtı keçib."
+      "draft_expired": "Bu saxlanmış qaralamanın vaxtı keçib.",
+      "push_enabled": "Bu cihazda push bildirişləri aktivdir.",
+      "push_disabled": "Bu cihazda push bildirişləri söndürülüb.",
+      "push_denied": "Push bildirişlərini aktivləşdirmək üçün brauzer ayarlarında icazə ver.",
+      "push_unavailable": "Bu cihazda push bildirişləri dəstəklənmir."
     },
     "errors": {
       "not_found": "Səhifə tapılmadı",

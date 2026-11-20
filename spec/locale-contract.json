@@ -74,7 +74,9 @@
       "remember_device",
       "submit",
       "invalid",
-      "network_error"
+      "network_error",
+      "draft_saved",
+      "draft_storage_error"
     ],
     "submit": [
       "pending",
@@ -170,7 +172,11 @@
       "offline_title",
       "offline_body",
       "back_online",
-      "draft_expired"
+      "draft_expired",
+      "push_enabled",
+      "push_disabled",
+      "push_denied",
+      "push_unavailable"
     ],
     "errors": [
       "not_found",

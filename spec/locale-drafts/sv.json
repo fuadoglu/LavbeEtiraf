@@ -73,7 +73,9 @@
       "remember_device": "Kom ihåg den här enheten för privat åtkomst",
       "submit": "Skicka för granskning",
       "invalid": "Kontrollera dina inlägg. Textgränsen är {limit} tecken.",
-      "network_error": "Vi kunde inte skicka detta just nu. Försök igen."
+      "network_error": "Vi kunde inte skicka detta just nu. Försök igen.",
+      "draft_saved": "Ditt utkast sparas på den här enheten i upp till 24 timmar.",
+      "draft_storage_error": "Webbläsaren kunde inte spara utkastet på den här enheten."
     },
     "submit": {
       "pending": "Din bekännelse väntar på granskning.",
@@ -170,9 +172,13 @@
       "install": "Installera Lavbe",
       "install_help_ios": "I Safari trycker du på Dela och sedan på Lägg till på startskärmen.",
       "offline_title": "Du är offline",
-      "offline_body": "Vissa sparade sidor kan fortfarande vara tillgängliga.",
+      "offline_body": "Ditt sparade utkast finns kvar på den här enheten. Inget skickas när du är offline.",
       "back_online": "Du är online igen.",
-      "draft_expired": "Detta sparade utkast har upphört att gälla."
+      "draft_expired": "Detta sparade utkast har upphört att gälla.",
+      "push_enabled": "Pushnotiser är aktiverade på den här enheten.",
+      "push_disabled": "Pushnotiser är inaktiverade på den här enheten.",
+      "push_denied": "Tillåt aviseringar i webbläsarens inställningar för att aktivera dem.",
+      "push_unavailable": "Pushnotiser stöds inte på den här enheten."
     },
     "errors": {
       "not_found": "Sidan hittades inte",

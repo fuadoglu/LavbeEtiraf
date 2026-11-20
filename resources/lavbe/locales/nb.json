@@ -73,7 +73,9 @@
       "remember_device": "Husk denne enheten for privat tilgang",
       "submit": "Send for vurdering",
       "invalid": "Sjekk oppføringene dine. Tekstgrensen er {limit} tegn.",
-      "network_error": "Vi kunne ikke sende dette akkurat nå. Prøv igjen."
+      "network_error": "Vi kunne ikke sende dette akkurat nå. Prøv igjen.",
+      "draft_saved": "Utkastet ditt lagres på denne enheten i opptil 24 timer.",
+      "draft_storage_error": "Denne nettleseren kunne ikke lagre utkastet på denne enheten."
     },
     "submit": {
       "pending": "Din tilståelse venter på vurdering.",
@@ -170,9 +172,13 @@
       "install": "Installer Lavbe",
       "install_help_ios": "I Safari trykker du på Del og deretter Legg til på startskjermen.",
       "offline_title": "Du er frakoblet",
-      "offline_body": "Noen lagrede sider kan fortsatt være tilgjengelige.",
+      "offline_body": "Det lagrede utkastet blir på denne enheten. Ingenting sendes mens du er frakoblet.",
       "back_online": "Du er tilbake online.",
-      "draft_expired": "Dette lagrede utkastet er utløpt."
+      "draft_expired": "Dette lagrede utkastet er utløpt.",
+      "push_enabled": "Pushvarsler er slått på for denne enheten.",
+      "push_disabled": "Pushvarsler er slått av for denne enheten.",
+      "push_denied": "Tillat varsler i nettleserinnstillingene for å slå dem på.",
+      "push_unavailable": "Pushvarsler støttes ikke på denne enheten."
     },
     "errors": {
       "not_found": "Finner ikke siden",

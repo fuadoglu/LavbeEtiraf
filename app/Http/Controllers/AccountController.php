@@ -6,6 +6,8 @@ use App\Models\Confession;
 use App\Models\ConfessionComment;
 use App\Models\UserNotification;
 use App\Support\Accounts\AccountOwnershipService;
+use App\Support\Lavbe\LocalePackageMessages;
+use App\Support\Push\WebPushConfiguration;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AccountController extends Controller
 {
-    public function home(Request $request, string $locale): Response|View
+    public function home(Request $request, string $locale, LocalePackageMessages $messages, WebPushConfiguration $webPush): Response|View
     {
         $user = $request->user();
         $confessions = Confession::query()->whereHas('ownership', fn ($query) => $query->where('user_id', $user->id))
@@ -25,7 +27,11 @@ class AccountController extends Controller
         $follows = $user->followedConfessions()->public()->with('publicRevision')->orderByPivot('created_at', 'desc')->get();
         $notifications = $user->accountNotifications()->where('in_app', true)->orderByDesc('created_at')->limit((int) config('lavbe.pagination.account'))->get();
 
-        return response()->view('account.home', compact('user', 'confessions', 'comments', 'follows', 'notifications'))
+        $pwaMessages = $messages->group($locale, 'pwa');
+        $notificationMessages = $messages->group($locale, 'notifications');
+        $webPushPublicKey = $webPush->isReady() ? config('services.webpush.public_key') : null;
+
+        return response()->view('account.home', compact('user', 'confessions', 'comments', 'follows', 'notifications', 'pwaMessages', 'notificationMessages', 'webPushPublicKey'))
             ->header('Cache-Control', 'private, no-store, max-age=0')
             ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
             ->header('Referrer-Policy', 'no-referrer');

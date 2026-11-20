@@ -73,7 +73,9 @@
       "remember_device": "Recuerda este dispositivo para acceso privado",
       "submit": "Enviar para revisión",
       "invalid": "Revisa tus entradas. El límite de texto es {limit} caracteres.",
-      "network_error": "No pudimos enviar esto en este momento. Intentar otra vez."
+      "network_error": "No pudimos enviar esto en este momento. Intentar otra vez.",
+      "draft_saved": "Tu borrador se guarda en este dispositivo durante un máximo de 24 horas.",
+      "draft_storage_error": "Este navegador no pudo guardar tu borrador en este dispositivo."
     },
     "submit": {
       "pending": "Tu confesión está esperando revisión.",
@@ -171,9 +173,13 @@
       "install": "Instalar Lavbe",
       "install_help_ios": "En Safari, toque Compartir y luego Agregar a la pantalla de inicio.",
       "offline_title": "Estás desconectado",
-      "offline_body": "Es posible que algunas páginas guardadas aún estén disponibles.",
+      "offline_body": "Tu borrador guardado permanece en este dispositivo. No se envía nada mientras estás sin conexión.",
       "back_online": "Estás nuevamente en línea.",
-      "draft_expired": "Este borrador guardado ha caducado."
+      "draft_expired": "Este borrador guardado ha caducado.",
+      "push_enabled": "Las notificaciones push están activadas en este dispositivo.",
+      "push_disabled": "Las notificaciones push están desactivadas en este dispositivo.",
+      "push_denied": "Permite las notificaciones en la configuración del navegador para activarlas.",
+      "push_unavailable": "Este dispositivo no admite notificaciones push."
     },
     "errors": {
       "not_found": "Página no encontrada",
