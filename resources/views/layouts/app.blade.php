@@ -31,6 +31,11 @@
         </main>
         <footer class="site-footer">
             <p>Lavbe · {{ __('lavbe.feed_title') }}</p>
+            <nav aria-label="{{ __('navigation.label') }}">
+                @foreach(['terms', 'community', 'privacy'] as $legalPage)
+                    <a href="{{ route('legal.page', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en'), 'page' => $legalPage]) }}">{{ __('legal.'.$legalPage.'.title') }}</a>
+                @endforeach
+            </nav>
         </footer>
     </div>
     @stack('dialogs')
