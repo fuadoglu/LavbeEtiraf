@@ -21,6 +21,7 @@ use App\Support\Lavbe\FeedCursor;
 use App\Support\Lavbe\FeedQuery;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
@@ -50,7 +51,17 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
             ->all();
 
-        $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate(12)->withQueryString();
+        $feedCursor = null;
+        $pageSize = (int) config('feed.page_size');
+        if (LengthAwarePaginator::resolveCurrentPage() === 1) {
+            $cursors = app(FeedCursor::class);
+            $initial = $cursors->page($cursors->issue(app()->getLocale(), $category, $sort, 0), app()->getLocale(), $category, $sort, $pageSize);
+            $confessions = new LengthAwarePaginator($initial['items'], $initial['total'], $pageSize, 1, ['path' => $request->url()]);
+            $feedCursor = $initial['next_cursor'];
+        } else {
+            $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate($pageSize);
+        }
+        $confessions->withQueryString();
 
         $canonical = route('home', ['locale' => $locale], false).($confessions->currentPage() > 1 ? '?page='.$confessions->currentPage() : '');
 
@@ -60,7 +71,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             'locale' => $request->attributes->get('lavbe.locale'),
             'categories' => $categories,
             'confessions' => $confessions,
-            'feedCursor' => $confessions->currentPage() === 1 ? app(FeedCursor::class)->issue(app()->getLocale(), $category, $sort, $confessions->lastItem() ?? 0) : null,
+            'feedCursor' => $feedCursor,
             'canonical' => $canonical,
             'categoryIndexable' => $category === null || $confessions->total() >= (int) config('seo.category_min_public_items', 5),
         ]);
@@ -149,7 +160,17 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         $sort = $request->query('sort', 'new');
         abort_unless(in_array($sort, array_keys(config('lavbe.feed_orders')), true), 404);
 
-        $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate(12)->withQueryString();
+        $feedCursor = null;
+        $pageSize = (int) config('feed.page_size');
+        if (LengthAwarePaginator::resolveCurrentPage() === 1) {
+            $cursors = app(FeedCursor::class);
+            $initial = $cursors->page($cursors->issue(app()->getLocale(), $category, $sort, 0), app()->getLocale(), $category, $sort, $pageSize);
+            $confessions = new LengthAwarePaginator($initial['items'], $initial['total'], $pageSize, 1, ['path' => $request->url()]);
+            $feedCursor = $initial['next_cursor'];
+        } else {
+            $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate($pageSize);
+        }
+        $confessions->withQueryString();
 
         $canonical = route('topic.show', ['locale' => $locale, 'category' => $category], false).($confessions->currentPage() > 1 ? '?page='.$confessions->currentPage() : '');
 
@@ -161,7 +182,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
                 ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
                 ->all(),
             'confessions' => $confessions,
-            'feedCursor' => $confessions->currentPage() === 1 ? app(FeedCursor::class)->issue(app()->getLocale(), $category, $sort, $confessions->lastItem() ?? 0) : null,
+            'feedCursor' => $feedCursor,
             'canonical' => $canonical,
             'categoryIndexable' => $confessions->total() >= (int) config('seo.category_min_public_items', 5),
         ]);
@@ -174,12 +195,10 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         $category = $request->query('category');
         $category = $category === null ? null : (string) $category;
         abort_if($category !== null && ! $locales->category($category), 400);
-        $position = $cursors->read((string) $request->query('cursor', ''), app()->getLocale(), $category, $order)['offset'];
-        $items = $feed->build(app()->getLocale(), $category, $order)->skip($position)->take(13)->get();
-        $hasMore = $items->count() > 12;
-        $items = $items->take(12);
-        $nextPosition = $position + $items->count();
-        $nextCursor = $hasMore ? $cursors->issue(app()->getLocale(), $category, $order, $nextPosition) : null;
+        $page = $cursors->page((string) $request->query('cursor', ''), app()->getLocale(), $category, $order, (int) config('feed.page_size'));
+        $items = $page['items'];
+        $hasMore = $page['has_more'];
+        $nextCursor = $page['next_cursor'];
 
         return response()->json([
             'html' => view('components.feed-items', ['confessions' => $items])->render(),

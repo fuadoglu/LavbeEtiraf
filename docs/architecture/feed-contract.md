@@ -10,13 +10,19 @@ Bu sənəd ana və kateqoriya lentinin server, JavaScript və botlar üçün vah
 | Davam fragmenti | Daha çox düyməsi və mövqe qorunması | `/{locale}/feed-fragment?cursor=…`. Server ilk HTML-də imzalı cursor verir. Hər cavab HTML fragment, növbəti URL və cursor, sona çatma göstəricisi verir. |
 | Açıq axtarış forması | Həmin dildə təsdiqlənmiş etiraf tapmaq | `/{locale}/search`. Açılış GET-dir, axtarış mətni POST ilə ötürülür. İctimai cavab noindex, no-store, reklamsız, analitika sorğusu göndərmir. |
 
-## İcra sərhədi (LAV-003)
+## Cari tətbiq
 
-`/{locale}/` və `/{locale}/topics/{key}` serverdə ilkin HTML və 12-lik paginator verir. Read model `confessions` cədvəlindən yalnız `status=public`, `published_at` dolu və cari locale qeydlərini oxuyur. Sınaq məlumatı yalnız test factory-dədir; production seeder yoxdur. Yeni sıra `published_at DESC, id DESC`-dir. LAV-019-da həftəlik rejim son yeddi günün aktiv dəstək və təsdiqlənmiş unikal rəyçi xalından, updates rejimi isə son açıq təsdiqlənmiş davamdan istifadə edir. Sabit cursor/snapshot hissəsi bu mərhələdə açıqdır.
+İlk HTML səhifəsi ilə fragmentlər eyni dondurulmuş üzvlük siyahısından gəlir. Siyahı cari approved/public sorğusundan bir dəfə götürülür. Hər üzv üçün yalnız etiraf ID-si, publication_sequence və ilkin yayım vaxtı cache-də saxlanır. Mətn, başlıq, sessiya və sahiblik məlumatı snapshot-a daxil edilmir. Cache üçün Laravel-in mövcud database/file store-u kifayətdir.
 
-Cursor Laravel `Crypt` ilə autentifikasiya/şifrələmə olunur; locale, kateqoriya, order, offset, versiya və 60 dəqiqəlik bitmə vaxtına bağlanır. Fragment endpoint HTML qaytarır, `X-Robots-Tag: noindex` və `Cache-Control: no-store` verir. Axtarış GET formu göstərir və POST ilə axtarır; mətn URL-də saxlanmır, nəticələr locale və public status ilə məhdudlaşır, cavab noindex/no-store/private/no-referrer-dir. DB-də tam mətn axtarışı üçün bu scope-da sadə LIKE istifadə olunur.
+Cursor Laravel Crypt ilə autentifikasiya/şifrələmə olunur və locale, kateqoriya, order, snapshot ID-si, son mövqe/sort cütü, as_of, yuxarı yayım nömrəsi və ilkin bitmə vaxtına bağlanır. Yeni sıralamada son yayım vaxtı/ID cütündən əvvəlki üzvlər seçilir. Həftəlik və davam sırası dəyişsə də snapshot mövqeləri saxlanır. Sonrakı cursor ilkin TTL-i uzatmır. Cache qeydi itəndə və ya TTL bitəndə 410 qaytarılır. Köhnə v1 cursor da 410 ilə yeni sessiyaya yönəldilir.
 
-LAV-019-un ranking hissəsi mövcud support/comment/continuation cədvəllərini və approved public revision kontraktını istifadə edir. Unikal rəyçi eyni etiraf daxilində sabit anonim alias ilə sayılır. Köhnə etiraf da son yeddi gündə fəaliyyət aldıqda həftəlik sıraya yüksələ bilər. Xal, çəki və zaman pəncərəsi config/feed.php mənbəyindədir. Sabit snapshot/keyset və MySQL full-text/tokenizer işi hələ tamamlanmayıb.
+Hər paket üzvləri kiçik qruplarla oxuyur və cari public scope, locale/kateqoriya, approved revision və publication_sequence uyğunluğunu yenidən yoxlayır. Gizli, silinmiş və yenidən public olmuş qeydlər keçilir. Boşluqlar növbəti uyğun üzvlərlə doldurulur. Növbəti mövqe baxılmış son snapshot mövqeyidir. Yeni dərc olunmuş qeyd mövcud snapshot-a daxil olmur. Snapshot üzvlüyü nömrəsi əvvəldən ayrılmış, amma ilk oxu zamanı hələ görünməyən tranzaksiyanı da kənarda saxlayır.
+
+Səhifə 2 və sonrakı nömrəli HTML arxiv səhifələri cari query-ni istifadə edir. İlk səhifə ilə daha çox yükləmə sabit sessiyanı bölüşür. Axtarış eyni locale və public scope-da sadə LIKE istifadə edir. MySQL full-text/tokenizer işi ayrıca qalır.
+
+Həftəlik xal config/feed.php üzrə son yeddi gündə aktiv dəstək üçün 1, təsdiqlənmiş unikal rəyçi üçün 2-dir. Unikal rəyçi eyni etiraf daxilində sabit anonim alias ilə sayılır. Köhnə etiraf da son yeddi gündə fəaliyyət aldıqda həftəlik sıraya yüksələ bilər. Davam sırası yalnız canlı approved davamı olan valideynləri göstərir.
+
+Ayrılmış SQLite yaddaş bazasında 1 000 sintetik etiraf üçün snapshot metadata JSON ölçüsü 59 787 bayt, bir lokal capture ölçməsi 47,24 ms oldu. Bunlar lokal ölçmələrdir. Snapshot ölçüsü üzv sayı ilə artır. Production workload və real cache store performansı buraxılışdan əvvəl ayrıca ölçülür.
 
 Hər iki lent eyni sorğuda `locale`, kateqoriya və cari açıq vəziyyəti yoxlayır. Açıq başlıq, snippet və kart yalnız təsdiqlənmiş versiyadan gəlir. Sıralama `new`, `weekly` və `updates` allowlist-dən gəlir. Əsas standart `new`-dur, axtarış motoruna təqdim olunan ardıcıl səhifələr də bu sıradadır.
 
@@ -39,4 +45,4 @@ Sıralama uyğunluq, son yayım və ID ilə sabitləşir. UTF-8 tokenləri local
 
 [Sınaqlar: UI-02, SEO-01 və SEO-04](../delivery/acceptance.md)
 
-LAV-019-un yayım ardıcıllığı hissəsində publication_sequence etirafın public vəziyyətinə hər girişində feed_publications sayğacından ayrılır. Public vəziyyətdə redaktə və uşaq materialına görə visibility_version dəyişməsi bu nömrəni dəyişmir. Mövcud public qeydlərə migration zamanı nömrə verilir. Bu metadata mətn və istifadəçi identifikatoru daşımır. Model ilə yayım eyni DB tranzaksiyasında ediləndə sayğac və status birlikdə rollback olunur. Sequence nömrəsinin özü snapshot üzvlüyünü əvəz etmir. Cursor sərhədinə bağlanması növbəti LAV-019 addımıdır.
+LAV-019-un yayım ardıcıllığı hissəsində publication_sequence etirafın public vəziyyətinə hər girişində feed_publications sayğacından ayrılır. Public vəziyyətdə redaktə və uşaq materialına görə visibility_version dəyişməsi bu nömrəni dəyişmir. Mövcud public qeydlərə migration zamanı nömrə verilir. Bu metadata mətn və istifadəçi identifikatoru daşımır. Model ilə yayım eyni DB tranzaksiyasında ediləndə sayğac və status birlikdə rollback olunur. Sequence nömrəsi snapshot üzvlüyü ilə birlikdə cursor davamında yoxlanır.
