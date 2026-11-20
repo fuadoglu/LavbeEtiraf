@@ -100,6 +100,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .feed-list { display: grid; gap: 1.1rem; }
 .story-card { padding: 1rem 1.05rem; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); }
 .story-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; color: var(--muted); font-size: .84rem; }
+.unique-read-count { display: inline-flex; align-items: center; gap: .25rem; }
 .story-topic { font-weight: 650; }
 .topic-chip { gap: .42rem; }
 .topic-chip-icon { color: currentColor; }

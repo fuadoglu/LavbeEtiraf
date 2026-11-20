@@ -24,6 +24,7 @@ Sistem rejimi ilkin seçimdir. Gündüz və Gecə brauzerdə yadda qalır. İlk 
 - Başlıq, mobil Oxu/Yaz/Mənim naviqasiyası, masaüstü naviqasiya, düymə, sahə, dialoq, mövzu seçimi, status, bildiriş, kart, skelet, səhifələmə və oflayn ekran.
 - Kart hiyerarxiyası: mövzu, unikallaşdırılmış başlıq, təsdiqlənmiş mətndən qısa parça, lazım olduqda Davamı gəldi. Skeleton eyni kart komponentinin geometriyasından istifadə edir.
 - 12 kateqoriyanın hər birinin mövzuya uyğun, unikal Lucide SVG-si var. İkon adın yanında həm kateqoriya naviqasiyasında, həm lent kartlarında göstərilir; ikon dekorativdir və mətn etiketi linkin əlçatan adını təmin edir. Yazı formasındakı açıla bilən mövzu bələdçisi adla yanaşı sərhəd izahını göstərir. Kateqoriyanın sabit açarları və ikon xəritəsi [lokalizasiya xəritəsində](../localization.md#kateqoriyaların-sabit-xəritəsi) saxlanır.
+- Ana lent lələk favicon-unu saxlayır. Kateqoriya lentində və etiraf detail-ində həmin kateqoriyanın yerli Lucide SVG-si favicon olur; kateqoriyasız ümumi səhifələr lələk ikonuna qayıdır.
 - Lucide ikonları yerli SVG dəsti kimi verilir. Yalnız istifadə olunan ikonları saxla, dəstin lisenziya bildirişlərini əlavə et. Etiketli ikonlar dekorativ sayılır, tək ikonlu düymənin əlçatan adı var. Bayraqlar eyni ölçüdə yerli yumru SVG-lərdir, dil etiketi yanında qalır.
 - Aşağıdan açılan panellər fokusun geri qaytarılmasını, Escape ilə bağlanmanı və klaviatura idarəsini dəstəkləyir. Təbii düymə və link semantikası qorunur. Azaldılmış hərəkətdə skelet və keçidlər sabitdir.
 - Görünüş və hərəkət istifadəçini həssas detal yazmağa sövq etmir. Reklam sahəsi heç bir sistem düyməsinə bənzəmir.
@@ -38,9 +39,9 @@ Ortaq naviqasiya etiketləri, dil axtarışı, əsas məzmuna keçid və rejim d
 
 Lokal məzmun baxışı üçün `php artisan db:seed --class=AzerbaijaniDemoConfessionSeeder` əmri sabit 12 kateqoriyanın hərəsinə ən azı iki Azərbaycan dilində uydurma etiraf əlavə edir. Köhnə yas hekayələri yeni `life-changes` mövzusunda qalır; həmin kateqoriyada dörd uyğun nümunə olur. Valideynlik üçün iki yeni hekayə əlavə edilir. Əmr yalnız local mühitdə işləyir, təkrar icra dublikat yaratmır. Hər nümunənin açıq pointer-i öz approved revision-ına bağlanır. Seeder ayrıca çağırılır və `DatabaseSeeder`-ə qoşulmur.
 
-Açıq etiraf səhifəsi lent kartları ilə eyni səth, sərhəd, radius və kölgə qaydasını paylaşır. Başlıq iri sans-serif, müəllif və tarix köməkçi metadata sətrindədir. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
+Açıq etiraf səhifəsi lent kartları ilə eyni səth, sərhəd, radius və kölgə qaydasını paylaşır. Başlıq iri sans-serif, müəllif, tarix və unikal oxunuş sayı köməkçi metadata sətrindədir. Oxunuş göstəricisi ayrıca göz ikonu daşıyır. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
 
-Ortaq palitra krem fon, isti qəhvəyi vurğu və ağ kart səthlərindən qurulur. Lent və detail başlıqları eyni sans-serif ailəsindədir. Lent kartında kateqoriya və tarix yuxarıda, anonim ad aşağıda görünür.
+Ortaq palitra krem fon, isti qəhvəyi vurğu və ağ kart səthlərindən qurulur. Lent və detail başlıqları eyni sans-serif ailəsindədir. Lent kartında kateqoriya, tarix və unikal oxunuş yuxarıda, anonim ad aşağıda görünür.
 
 Dil seçiminin hər sətrində flag-icons dəstindən yerli SVG bayraq, native ad və onun altında ingiliscə ad göstərilir. Seçilmiş dil işarələnir. Dəstin mənbə commit-i və MIT lisenziyası public/icons/flags qovluğunda saxlanır.
 

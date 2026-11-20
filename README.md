@@ -8,7 +8,7 @@
 
 | Hissə | Vəziyyət |
 |---|---|
-| Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və 44 qəbul ssenarisi repodadır. |
+| Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və qəbul ssenariləri repodadır. |
 | UI atlası | **Hazırdır.** 18 ekranın mobil və masaüstü görünüşləri, gündüz/gecə və əsas vəziyyətləri yoxlamaq mümkündür. |
 | Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya, hər dildə mövzu adı və izahı. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
 | Laravel tətbiqi | **LAV-001 tamamlanıb.** Laravel 13/Blade əsası, MySQL smoke testi və CI `main`-dədir. |
@@ -33,6 +33,7 @@
 | Azərbaycan nümunələri | **[LAV-039](https://github.com/fuadoglu/LavbeEtiraf/issues/84) tamamlanıb.** Hər kateqoriyaya ikinci yerli nümunə əlavə olunub. |
 | Yeni kateqoriya xəritəsi | **[LAV-040](https://github.com/fuadoglu/LavbeEtiraf/issues/86) icra olunur.** 12 kateqoriyanın adı və izahı 17 dildə yenilənir; əvvəlki yas etirafları yeni uyğun kateqoriyaya keçirilir. |
 | Təqdim olunan logo | **[LAV-041](https://github.com/fuadoglu/LavbeEtiraf/issues/88) icra olunur.** Tam logo vektor SVG-dir, lələk isə SVG/ICO favicon kimi istifadə olunur. |
+| Unikal oxunuş və kateqoriya favicon-ları | **[LAV-043](https://github.com/fuadoglu/LavbeEtiraf/issues/92) icra olunur.** Açıq etiraf oxunuşları brauzer profilinə görə bir dəfə sayılır; kateqoriya və etiraf səhifələri mövzu ikonunu favicon kimi istifadə edir. |
 
 ## Codex ilə başla
 
@@ -48,7 +49,7 @@
 
 | Sahə | Lavbe-nin davranışı |
 |---|---|
-| **Oxu və kəşf** | Ana lent və kateqoriyalar bir lent şablonundan qurulur. Hər HTML səhifəsində ən çox 12 etiraf olur; nömrəli səhifə keçidləri JavaScript olmadan işləyir. |
+| **Oxu və kəşf** | Ana lent və kateqoriyalar bir lent şablonundan qurulur. Hər HTML səhifəsində ən çox 12 etiraf olur; nömrəli səhifə keçidləri JavaScript olmadan işləyir. İctimai etiraf səhifəsində unikal oxunuş sayı görünür. |
 | **Anonim yazı** | 18+ istifadəçi qonaq kimi etiraf və rəy yaza bilər. Açıq ad `Lavbe #XXXXXXXX` formasındadır və yalnız həmin etiraf daxilində iştirakçını tanıdır. |
 | **Öz məzmununu idarə et** | İstəyə bağlı cihaz yaddaşı, məxfi bərpa kodu və e-poçt hesabı. Etirafın açıq linki sahiblik hüququ vermir. |
 | **Rəy və moderasiya** | Rəy etiraf səhifəsinin altından yazılır; təsdiqlənmiş rəylərə reaksiya və birbaşa cavab vermək mümkündür. Etiraf və rəy üçün ayrı hədəfli şikayət, ayrıca hüquqi bildiriş və sahibin bir dəfə etirazı var. Moderasiya paneli **Etiraflar · Rəylər · Şikayətlər · Etirazlar** bölmələrindən ibarətdir. |

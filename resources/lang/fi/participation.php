@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Salli uudet vastaukset',
     'reviews_close' => 'Sulje vastaukset',
     'support_count' => 'Tuenilmauksia: :count',
+    'unique_reads' => 'Yksittäiset katselut: :count',
     'remember_device' => 'Muista tämä laite',
     'manage_comment' => 'Hallitse vastaustani',
     'comment_state' => 'Tila: :state',

@@ -19,6 +19,7 @@ ICONS = (
     "circle-x",
     "coffee",
     "compass",
+    "eye",
     "feather",
     "fingerprint",
     "graduation-cap",

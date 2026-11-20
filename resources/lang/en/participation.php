@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Allow new responses',
     'reviews_close' => 'Close new responses',
     'support_count' => 'Shows of support: :count',
+    'unique_reads' => 'Unique reads: :count',
     'remember_device' => 'Remember this device',
     'manage_comment' => 'Manage my response',
     'comment_state' => 'Status: :state',

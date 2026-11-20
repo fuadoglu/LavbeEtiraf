@@ -24,7 +24,7 @@ class Confession extends Model
         'locale', 'category_key', 'status', 'title', 'body', 'excerpt', 'published_at', 'public_updated_at',
         'public_id', 'author_alias', 'response_expectation', 'submission_key_hash', 'payload_fingerprint',
         'age_confirmed_at', 'public_revision_id', 'lock_version', 'visibility_version', 'ever_public', 'deleted_at', 'republish_requested_at',
-        'reviews_open', 'support_count',
+        'reviews_open', 'support_count', 'unique_read_count',
     ];
 
     protected static function booted(): void
@@ -50,6 +50,7 @@ class Confession extends Model
             'publication_sequence' => 'integer',
             'reviews_open' => 'boolean',
             'support_count' => 'integer',
+            'unique_read_count' => 'integer',
         ];
     }
 

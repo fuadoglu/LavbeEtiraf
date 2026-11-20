@@ -3,7 +3,7 @@
     $availableIcons = [
         'baby', 'arrow-left', 'book-open', 'briefcase-business', 'calendar-days', 'chevron-down',
         'circle-check', 'circle-x', 'coffee', 'compass', 'feather', 'fingerprint', 'graduation-cap',
-        'heart', 'heart-handshake', 'heart-pulse', 'house', 'info', 'languages', 'list-filter',
+        'eye', 'heart', 'heart-handshake', 'heart-pulse', 'house', 'info', 'languages', 'list-filter',
         'menu', 'message-circle', 'moon', 'pen-line', 'route', 'search', 'settings-2', 'shield-check',
         'signpost', 'sun', 'triangle-alert', 'user-round', 'users-round', 'wallet', 'x',
     ];

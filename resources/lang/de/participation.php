@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Neue Antworten zulassen',
     'reviews_close' => 'Neue Antworten schließen',
     'support_count' => 'Unterstützung: :count',
+    'unique_reads' => 'Einzigartige Aufrufe: :count',
     'remember_device' => 'Dieses Gerät merken',
     'manage_comment' => 'Meine Antwort verwalten',
     'comment_state' => 'Status: :state',

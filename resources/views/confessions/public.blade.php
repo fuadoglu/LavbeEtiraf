@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('title', (($revision->title ?: mb_substr($revision->body, 0, config('lavbe.public_title_excerpt'), 'UTF-8')).' · Lavbe'))
+@if($category)
+    @section('favicon', asset('icons/lucide/'.$category['icon'].'.svg'))
+@endif
 
 @push('head')
     <link rel="canonical" href="{{ $canonical }}">
@@ -25,7 +28,7 @@
         <header class="page-heading confession-heading">
             @if($category)<p class="story-meta">{{ $category['labels'][$localeRecord['code']] ?? $category['labels']['en'] }}</p>@endif
             <h1 id="confession-title">{{ $revision->title ?: __('lavbe.untitled_confession') }}</h1>
-            <p class="story-meta">{{ $revision->author_display_name ?: $confession->author_alias }} <span aria-hidden="true">·</span> <time datetime="{{ $confession->published_at->toAtomString() }}">{{ $confession->published_at->format('Y-m-d') }}</time></p>
+            <p class="story-meta">{{ $revision->author_display_name ?: $confession->author_alias }} <span aria-hidden="true">·</span> <time datetime="{{ $confession->published_at->toAtomString() }}">{{ $confession->published_at->format('Y-m-d') }}</time><span aria-hidden="true">·</span><span class="unique-read-count"><x-icon name="eye" class="icon-small" />{{ __('participation.unique_reads', ['count' => number_format((int) $confession->unique_read_count)]) }}</span></p>
         </header>
         <div class="confession-body">{!! nl2br(e($revision->body)) !!}</div>
         <div class="confession-report-links">

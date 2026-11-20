@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'Permitir novos comentários',
     'reviews_close' => 'Encerrar comentários',
     'support_count' => 'Manifestações de apoio: :count',
+    'unique_reads' => 'Leituras únicas: :count',
     'remember_device' => 'Lembrar deste dispositivo',
     'manage_comment' => 'Gerenciar meu comentário',
     'comment_state' => 'Situação: :state',

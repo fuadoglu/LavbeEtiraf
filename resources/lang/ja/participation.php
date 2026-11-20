@@ -25,6 +25,7 @@ return [
     'reviews_open' => 'コメントを受け付ける',
     'reviews_close' => 'コメントの受付を終了する',
     'support_count' => '応援の数：:count',
+    'unique_reads' => 'ユニーク閲覧数: :count',
     'remember_device' => 'この端末を記憶する',
     'manage_comment' => '自分のコメントを管理する',
     'comment_state' => '状態：:state',

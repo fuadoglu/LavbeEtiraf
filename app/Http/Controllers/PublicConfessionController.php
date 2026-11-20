@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Confession;
 use App\Models\ConfessionComment;
 use App\Models\ConfessionContinuation;
+use App\Support\Analytics\UniqueReadCounter;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Lavbe\RoutePatterns;
 use App\Support\Participation\ParticipationService;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PublicConfessionController extends Controller
 {
-    public function show(Request $request, string $locale, string $publicId, LocaleRegistry $locales, ParticipationService $participation): Response|View
+    public function show(Request $request, string $locale, string $publicId, LocaleRegistry $locales, ParticipationService $participation, UniqueReadCounter $readCounter): Response|View
     {
         $localeRecord = $locales->bySegment($locale);
         abort_unless($localeRecord, 404);
@@ -39,6 +40,8 @@ class PublicConfessionController extends Controller
             && (int) $confession->publicRevision?->confession_id === (int) $confession->id,
             404,
         );
+
+        $readerCookie = $readCounter->record($request, $confession);
 
         $path = '/'.$locale.'/confession/'.$confession->public_id;
         $canonical = rtrim((string) config('app.url'), '/').$path;
@@ -115,11 +118,13 @@ class PublicConfessionController extends Controller
         $ownerCanParticipate = app(GuestConfessionController::class)->canManage($request, $confession);
         $hasSupported = $participation->hasSupport($request, $confession);
 
-        return response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds', 'recommended', 'threadRoot', 'threadPublicId', 'threadReplies', 'reactedCommentIds'))
+        $response = response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds', 'recommended', 'threadRoot', 'threadPublicId', 'threadReplies', 'reactedCommentIds'))
             ->header('Cache-Control', 'private, no-store, max-age=0')
             ->header('X-Robots-Tag', 'index, follow')
             ->header('Referrer-Policy', 'no-referrer')
             ->header('X-Content-Type-Options', 'nosniff');
+
+        return $readerCookie ? $response->withCookie($readerCookie) : $response;
     }
 
     private function clearStaleResponseRevision(ConfessionComment $comment): void
