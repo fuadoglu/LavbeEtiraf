@@ -13,14 +13,21 @@ class UiFoundationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_search_is_a_single_header_icon_beside_language_and_theme_controls(): void
+    public function test_language_menu_precedes_the_three_header_icons(): void
     {
         foreach (['/az', '/az/topics/family', '/az/search'] as $path) {
             $html = $this->get($path)->assertOk()->getContent();
             $this->assertSame(1, substr_count($html, 'class="icon-button header-search"'));
             $this->assertStringNotContainsString('class="button button-secondary feed-search"', $html);
-            $this->assertLessThan(strpos($html, 'class="language-menu"'), strpos($html, 'class="icon-button header-search"'));
-            $this->assertLessThan(strpos($html, 'class="icon-button theme-button"'), strpos($html, 'class="icon-button header-search"'));
+            $language = strpos($html, 'class="language-menu"');
+            $search = strpos($html, 'class="icon-button header-search"');
+            $supported = strpos($html, 'class="icon-button header-supported"');
+            $theme = strpos($html, 'class="icon-button theme-button"');
+            $this->assertNotFalse($language);
+            $this->assertNotFalse($search);
+            $this->assertNotFalse($supported);
+            $this->assertNotFalse($theme);
+            $this->assertTrue($language < $search && $search < $supported && $supported < $theme);
         }
     }
 
