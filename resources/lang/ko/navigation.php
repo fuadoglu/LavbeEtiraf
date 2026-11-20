@@ -6,6 +6,7 @@ return [
     'mine' => '내 공간',
     'label' => '주 탐색',
     'skip' => '본문으로 이동',
+    'footer' => '법률 정보 및 링크',
     'language_search' => '언어 검색',
     'theme_night' => '다크 모드로 전환',
     'theme_day' => '라이트 모드로 전환',

@@ -36,12 +36,25 @@
             @yield('content')
         </main>
         <footer class="site-footer">
-            <p>Lavbe · {{ __('lavbe.feed_title') }}</p>
-            <nav aria-label="{{ __('navigation.label') }}">
-                @foreach(['terms', 'community', 'privacy'] as $legalPage)
-                    <a href="{{ route('legal.page', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en'), 'page' => $legalPage]) }}">{{ __('legal.'.$legalPage.'.title') }}</a>
-                @endforeach
-            </nav>
+            <div class="site-footer-inner">
+                <div class="site-footer-brand">
+                    <a class="site-footer-brand-link" href="{{ route('home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}" aria-label="Lavbe">
+                        <span class="brand-wordmark" aria-hidden="true" style="--brand-logo-mask: url('{{ asset('icons/lavbe-logo.svg') }}'); --brand-heart-mask: url('{{ asset('icons/lavbe-heart.svg') }}')"></span>
+                    </a>
+                    <p>{{ __('lavbe.feed_subtitle') }}</p>
+                </div>
+                <div class="site-footer-navigation">
+                    <h2 id="site-footer-links-heading">{{ __('navigation.footer') }}</h2>
+                    <nav aria-labelledby="site-footer-links-heading">
+                        <ul>
+                            @foreach(['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request', 'operator'] as $legalPage)
+                                <li><a href="{{ route('legal.page', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en'), 'page' => $legalPage]) }}" @if(request()->route('page') === $legalPage) aria-current="page" @endif>{{ __('legal.'.$legalPage.'.title') }}</a></li>
+                            @endforeach
+                        </ul>
+                    </nav>
+                </div>
+                <p class="site-footer-signature">Lavbe · {{ __('lavbe.feed_title') }}</p>
+            </div>
         </footer>
     </div>
     @stack('dialogs')

@@ -27,6 +27,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 20 | Etiraf oxunuşlarını brauzer profilinə görə unikallaşdır və kateqoriya favicon-u göstər | LAV-043 |
 | 21 | Unikal oxunuş sayını etiraf kartının alt sağında göstər | LAV-044 |
 | 22 | Tövsiyə olunan etirafları müxtəlif kateqoriyalardan göstər | LAV-045 |
+| 23 | Footer-i əlçatan və responsive standartlara uyğunlaşdır | LAV-046 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -252,3 +253,9 @@ Lent kartında oxunuş göstəricisini yuxarıdakı kateqoriya/tarix metadata s�
 **Asılılıq:** LAV-030. **Qəbul:** DISC-01.
 
 Etiraf detail-ində cari etirafı və onun kateqoriyasını çıxar. Eyni dildəki açıq/təsdiqlənmiş etiraflardan hər kateqoriya üçün dəstək sayı, yayım vaxtı və ID-yə görə ən yaxşı namizədi seç; kateqoriya başına yalnız birini götür, ən güclü üç fərqli kateqoriyanı göstər. Mövcud kart görünüşü, locale filter-i və public scope saxlanır. **Sübut:** kateqoriya təkrarı, cari kateqoriya, dil sərhədi, sıralama və maksimum say feature sınaqları, build, sənəd validatoru və CI.
+
+## LAV-046 · Footer-i əlçatan və responsive standartlara uyğunlaşdır
+
+**Asılılıq:** LAV-002, LAV-030. **Qəbul:** UI-05.
+
+Footer-i mövcud Lavbe wordmark-ı və lokallaşdırılmış təsviri ilə saytın vizual dilinə uyğunlaşdır. Bütün yeddi mövcud hüquqi/məlumat səhifəsini cari dildə adlandırılmış, ayrıca naviqasiya landmark-ında göstər; cari səhifəni `aria-current` ilə işarələ. Mobil grid, 44 px toxunma hündürlüyü, görünən fokus, rəng kontrastı, mətnin böyüməsi və safe-area/fixed mobil naviqasiya boşluğunu qoruyub 320 px ekranda yoxla. Operator, müəllif hüququ və əlaqə barədə təsdiqlənməmiş fakt əlavə etmə. **Sübut:** bütün 17 locale üçün link və səhifə feature yoxlaması, responsive CSS build, Blade cache və sənəd validatoru.

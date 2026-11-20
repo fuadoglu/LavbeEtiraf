@@ -29,7 +29,7 @@ Header-də istifadəçinin təqdim etdiyi tam vektor logo göstərilir. Onun lə
 | Mənim | Bağlanmış Etiraflarım və Rəylərim, İzlədiklərim, Bildirişlər, tətbiqdaxili/e-poçt seçimi, giriş və parol bərpası |
 | Şikayət | Etiraf və ya rəy hədəfi, səbəb, istəyə bağlı izah, qəbul təsdiqi |
 | Admin | Etiraflar, Rəylər, Şikayətlər. Dil və status filtri. Kartdan qərar. |
-| Kömək və hüquqi | Qaydalar, məxfilik, seçimlər, qanunsuz məzmun, əlaqə, əlçatan dil keçidi |
+| Kömək və hüquqi | Footer-dən istifadə şərtləri, icma qaydaları, məxfilik və kuki bildirişləri, qanunsuz məzmun bildirişi, məxfilik sorğusu və operator məlumatı səhifələrinə cari dildə keçid |
 
 ## Əsas qaydalar
 

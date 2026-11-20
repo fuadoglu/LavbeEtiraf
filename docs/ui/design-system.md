@@ -50,3 +50,5 @@ Hesab formalarında hər etiket konkret input ID-sinə bağlıdır. Validasiya x
 Eyni etiket və xəta əlaqələri yazı, şikayət, etiraz, bərpa və moderasiya formalarında da tətbiq olunur. Moderator icazələrinin ləğvində hər səbəb sahəsinin ID-si grant ID-sinə görə unikaldır. HTML sınaqları ictimai formalarda etiket hədəflərini, təkrarlanan ID-ləri və aria-describedby istinadlarını yoxlayır.
 
 404, dialoq, yüklənmə və footer mətnləri də cari locale ilə render olunur. Bu UI mətnləri LAV-010 native-copy mənbəyindəki 17 dil paketindən götürülüb. Məhsul sahibinin yekun dil baxışı LAV-010-da izlənir.
+
+Saytın footer-i eyni wordmark-ı və lokallaşdırılmış qısa təsviri saxlayır; yeddi mövcud hüquqi/məlumat səhifəsi görünən başlıqlı ayrıca naviqasiya landmark-ında verilir. Keçidlər altxətli, ən azı 44 px hündürlükdədir, klaviatura fokusu görünür, cari səhifə `aria-current="page"` ilə bildirilir. Desktop-da linklər üç sütunda, mobil ölçüdə iki sütunda düzülür; mətn böyüdükdə qırılır, safe-area və sabit mobil naviqasiya üçün alt boşluq qalır.
