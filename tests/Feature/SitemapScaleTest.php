@@ -27,7 +27,7 @@ class SitemapScaleTest extends TestCase
         $this->assertStringContainsString('hreflang="pt-BR" href="http://localhost/pt-br/topics/family"', $xml);
         $counts = $queries->filter(fn ($sql) => str_contains(strtolower($sql), 'count(*)'));
         $this->assertCount(2, $counts); // One page count and one grouped category count.
-        $reads = $queries->filter(fn ($sql) => str_contains($sql, '"public_id"'));
+        $reads = $queries->filter(fn ($sql) => str_contains($sql, 'public_id'));
         $this->assertCount(4, $reads); // Three bounded reads plus end detection.
         foreach ($reads as $sql) {
             $this->assertStringContainsString('limit 2', $sql);
