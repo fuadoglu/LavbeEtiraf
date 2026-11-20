@@ -20,6 +20,7 @@ class FeedCursor
             ->where('confessions.published_at', '<=', $asOf)
             ->whereNotNull('confessions.publication_sequence')
             ->select(['confessions.id', 'confessions.publication_sequence', 'confessions.published_at'])
+            ->limit(max((int) config('feed.page_size') + 1, (int) config('feed.snapshot_max_members')))
             ->get()->map(fn (Confession $item): array => [
                 'id' => $item->id,
                 'sequence' => $item->publication_sequence,
