@@ -31,6 +31,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 24 | Footer-də ürəkli Lavbe loqosu və sağda yığcam keçidlər | LAV-047 |
 | 25 | Footer-dən operator keçidini çıxar və linkləri kiçikləşdir | LAV-048 |
 | 26 | Ana lentin scroll və kart qarşılıqlı təsirlərini cilala | LAV-049 |
+| 27 | Tövsiyə olunan etiraflarda yalnız başlıqları göstər | LAV-050 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -255,7 +256,7 @@ Lent kartında oxunuş göstəricisini yuxarıdakı kateqoriya/tarix metadata s�
 
 **Asılılıq:** LAV-030. **Qəbul:** DISC-01.
 
-Etiraf detail-ində cari etirafı və onun kateqoriyasını çıxar. Eyni dildəki açıq/təsdiqlənmiş etiraflardan hər kateqoriya üçün dəstək sayı, yayım vaxtı və ID-yə görə ən yaxşı namizədi seç; kateqoriya başına yalnız birini götür, ən güclü üç fərqli kateqoriyanı göstər. Mövcud kart görünüşü, locale filter-i və public scope saxlanır. **Sübut:** kateqoriya təkrarı, cari kateqoriya, dil sərhədi, sıralama və maksimum say feature sınaqları, build, sənəd validatoru və CI.
+Etiraf detail-ində cari etirafı və onun kateqoriyasını çıxar. Eyni dildəki açıq/təsdiqlənmiş etiraflardan hər kateqoriya üçün dəstək sayı, yayım vaxtı və ID-yə görə ən yaxşı namizədi seç; kateqoriya başına yalnız birini götür, ən güclü üç fərqli kateqoriyanın yalnız başlıqlarını linklə göstər. **Sübut:** kateqoriya təkrarı, cari kateqoriya, dil sərhədi, sıralama, maksimum say və yalnız başlıq görünüşü feature sınaqları, build, sənəd validatoru və CI.
 
 ## LAV-046 · Footer-i əlçatan və responsive standartlara uyğunlaşdır
 
@@ -280,3 +281,9 @@ Footer-də `operator` keçidini göstərmə; operator məlumatı səhifəsinin m
 **Asılılıq:** LAV-002, LAV-003. **Qəbul:** UI-13.
 
 Mobil mövzu zolağına nazik, görünən scrollbar, üfüqi overscroll containment və proximity scroll snap əlavə et; mövcud responsive naviqasiya və URL-lər dəyişmir. Kartlarda yalnız hover-capable pointer üçün yumşaq sərhəd/kölgə, klaviatura fokusu üçün focus-within halqası göstər. Transform və davamlı animasiya əlavə etmə; global reduced-motion qaydasını saxla. **Sübut:** desktop/mobile browser baxışı, focus/hover CSS, CSS build və sənəd validatoru.
+
+## LAV-050 · Tövsiyə olunan etiraflarda yalnız başlıqları göstər
+
+**Asılılıq:** LAV-045. **Qəbul:** DISC-01.
+
+Tövsiyə blokundakı feed kartları sadə, başlıqdan ibarət link siyahısı ilə əvəz et. Tövsiyənin xülasəsi, müəllifi, tarixi, kateqoriyası, oxunuş sayı və digər metadata bu blokda görünməsin. Locale-ə uyğun confession route, üç fərqli kateqoriyadan seçim və mövcud sıralama qorunur. **Sübut:** görünən tövsiyə sayı/başlıq, xülasə və metadata olmaması, feature testi, CSS build və sənəd validatoru.
