@@ -111,6 +111,19 @@ class FeedSessionTest extends TestCase
         $this->assertGreaterThan(0, $state['upper_sequence']);
     }
 
+    public function test_database_snapshot_cleanup_keeps_active_entries(): void
+    {
+        config(['cache.default' => 'database']);
+        Cache::put('lavbe:feed:expired-synthetic', ['id' => 1], now()->addSecond());
+        Cache::put('lavbe:feed:active-synthetic', ['id' => 2], now()->addHour());
+        $this->travel(2)->seconds();
+
+        $this->artisan('lavbe:prune-expired-cache')->assertSuccessful();
+        $this->assertNull(Cache::get('lavbe:feed:expired-synthetic'));
+        $this->assertSame(['id' => 2], Cache::get('lavbe:feed:active-synthetic'));
+        $this->assertDatabaseCount('cache', 1);
+    }
+
     private function fragment(string $cursor, string $order = 'new'): array
     {
         return $this->getJson('/az/feed-fragment?'.http_build_query(['cursor' => $cursor, 'order' => $order]))
