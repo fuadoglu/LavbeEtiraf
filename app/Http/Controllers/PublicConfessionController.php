@@ -52,7 +52,7 @@ class PublicConfessionController extends Controller
             ->where('status', 'public')
             ->whereHas('publicRevision', fn ($query) => $query->where('status', 'approved')
                 ->whereColumn('confession_comment_revisions.comment_id', 'confession_comments.id'))
-            ->orderBy('published_at')->orderBy('id')->get();
+            ->orderBy('published_at')->orderBy('id')->simplePaginate((int) config('lavbe.pagination.comments'), ['*'], 'comments_page');
         foreach ($comments as $comment) {
             $response = $comment->response;
             if ($response && (int) ($response->publicRevision?->response_id ?? 0) !== (int) $response->id) {

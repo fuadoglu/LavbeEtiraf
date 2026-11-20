@@ -37,6 +37,7 @@ return [
         'guest_idempotency' => 64,
     ],
     'pagination' => [
+        'comments' => 20,
         'account' => 50,
         'moderation' => 30,
         'moderation_history' => 50,

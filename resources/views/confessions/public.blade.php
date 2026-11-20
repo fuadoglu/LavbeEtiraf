@@ -92,6 +92,12 @@
             @empty
                 <p class="muted">{{ __('participation.comments_empty') }}</p>
             @endforelse
+            @if($comments->hasPages())
+                <nav class="sort-panel" aria-label="{{ __('lavbe.pagination') }}">
+                    @if($comments->previousPageUrl())<a href="{{ $comments->previousPageUrl() }}#comments-heading">{{ __('lavbe.previous') }}</a>@endif
+                    @if($comments->nextPageUrl())<a rel="next" href="{{ $comments->nextPageUrl() }}#comments-heading">{{ __('lavbe.next') }}</a>@endif
+                </nav>
+            @endif
 
             @if($confession->reviews_open)
                 <form method="post" action="{{ route('confessions.comments.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-form">
