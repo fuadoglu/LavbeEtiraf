@@ -230,6 +230,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .form-field [aria-invalid="true"] { border-color: var(--danger); }
 .language-button { cursor: pointer; }
 .language-menu[open] summary { background: var(--hint); }
+.language-current-name { white-space: nowrap; }
 .language-picker { position: absolute; inset-inline-end: max(.75rem, calc((100vw - 72rem) / 2)); top: calc(100% + .3rem); display: grid; gap: .5rem; width: min(21rem, calc(100vw - 1.5rem)); max-height: 65dvh; grid-template-rows: auto auto minmax(0, 1fr); padding: 1rem; border: 1px solid var(--line); border-radius: .9rem; background: var(--surface-raised); box-shadow: var(--shadow); }
 .language-picker input { width: 100%; padding: .6rem; border: 1px solid var(--edge); border-radius: .5rem; }
 .language-options { overflow-y: auto; overscroll-behavior: contain; padding: .3rem; }
@@ -239,6 +240,8 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 600px) {
     html { scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
     .nav-link { min-width: 0; }
+    .language-button { width: 2.75rem; min-width: 2.75rem; gap: 0; padding-inline: 0; }
+    .language-current-name, .language-button > .icon { display: none; }
 }
 
 .feed-heading { margin-block: .5rem 1.6rem; }

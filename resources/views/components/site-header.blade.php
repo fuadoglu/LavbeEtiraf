@@ -8,7 +8,7 @@
         <details class="language-menu">
             <summary class="icon-button language-button" aria-label="{{ $lavbeLocale['native'] }}">
                 <img class="language-flag" src="{{ asset('icons/flags/'.strtolower($lavbeLocale['flag']).'.svg') }}" alt="" width="24" height="24">
-                <span>{{ strtoupper($lavbeLocale['segment']) }}</span>
+                <span class="language-current-name">{{ $lavbeLocale['native'] }}</span>
                 <x-icon name="chevron-down" class="icon-small" />
             </summary>
             <form method="post" action="{{ route('locale.select', ['locale' => $lavbeLocale['segment']]) }}" class="language-picker">

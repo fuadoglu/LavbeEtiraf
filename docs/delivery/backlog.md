@@ -19,6 +19,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 12 | Etiraf altında thread-li rəy və reaksiya | LAV-035 |
 | 13 | Bütün artan siyahıların nömrəli səhifələnməsi | LAV-036 |
 | 14 | Davamı gələnlər lentinin Məşhur etiraflarla əvəzlənməsi | LAV-037 |
+| 15 | Seçilmiş dilin desktop və mobil header təqdimatı | LAV-038 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -193,3 +194,9 @@ Hər issue məqsədi, asılılığı, qəbul ID-si və sübutu daşıyır. Branc
 **Asılılıq:** LAV-003, LAV-007, LAV-036. **Qəbul:** FEED-01, LOC-02, PAG-01.
 
 Oxucu lentindəki “Davamı gələnlər” sıralamasını “Məşhur etiraflar” sıralaması ilə əvəz et. Xal bütün müddət üzrə aktiv dəstək reaksiyalarını və təsdiqlənmiş unikal açıq rəyçiləri mövcud çəki qaydası ilə hesablayır; bərabərlik yayım vaxtı və ID ilə həll olunur. Davam məzmunu etirafın detail səhifəsində qalır, fragment API-nin mövcud davam sırası isə geriyə uyğunluq üçün ayrıca saxlanır. 17 dilin etiketlərini və lent müqaviləsini yenilə. **Sübut:** sıralama sorğusu, dil paketləri, pagination/filter davranışı, build, Pint, sənəd validatorları və CI.
+
+## LAV-038 · Header-də seçilmiş dilin native adı
+
+**Asılılıq:** LAV-002, LAV-003, LAV-010, LAV-034. **Qəbul:** UI-11, LOC-01.
+
+Desktop header-də cari locale kodunu gizlədib bayraq, tam native ad və dropdown işarəsi göstər. Mobil enlərdə native ad və dropdown işarəsini vizual gizlət, yalnız bayraq saxla; accessible name native dildən gəlməlidir. Axtarışlı seçim menyusunun native/ingilis adları, seçilmiş işarəsi və POST davranışı qorunur. Ekran spesifikasiyası və atlası uyğunlaşdır. **Sübut:** render edilmiş Blade, CSS build, atlas görünüşü, Pint və sənəd yoxlaması; ayrıca cihaz sınağı aparılıbsa nəticəsi göstərilir.
