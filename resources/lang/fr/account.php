@@ -41,7 +41,7 @@ return [
     'preferences_save' => 'Enregistrer mes préférences',
     'preferences_saved' => 'Vos préférences sont enregistrées.',
     'follow' => 'Suivre la suite',
-    'login_to_follow' => 'Connectez-vous et confirmez votre adresse e-mail pour suivre cette confidence.',
+    'login_to_follow' => 'Connectez-vous · confirmez l’e-mail',
     'follow_saved' => 'Cette confidence figure désormais dans votre suivi.',
     'follow_removed' => 'Cette confidence a été retirée de votre suivi.',
     'unfollow' => 'Ne plus suivre',

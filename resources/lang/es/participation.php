@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'support' => 'Mostrar apoyo',
-    'unsupport' => 'Retirar mi apoyo',
+    'support' => 'Apoyar',
+    'unsupport' => 'Retirar apoyo',
     'comments_heading' => 'Respuestas',
     'comments_empty' => 'Todavía no hay respuestas.',
     'comments_closed' => 'La persona que escribió la historia ha cerrado las respuestas.',

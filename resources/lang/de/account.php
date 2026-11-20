@@ -41,7 +41,7 @@ return [
     'preferences_save' => 'Einstellungen speichern',
     'preferences_saved' => 'Einstellungen gespeichert.',
     'follow' => 'Updates abonnieren',
-    'login_to_follow' => 'Melde dich an und bestätige deine E-Mail-Adresse, um Updates zu abonnieren.',
+    'login_to_follow' => 'Anmelden · E-Mail bestätigen',
     'follow_saved' => 'Du folgst diesem Beitrag jetzt.',
     'follow_removed' => 'Du folgst diesem Beitrag nicht mehr.',
     'unfollow' => 'Nicht mehr folgen',

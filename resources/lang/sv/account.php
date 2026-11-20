@@ -41,7 +41,7 @@ return [
     'preferences_save' => 'Spara inställningar',
     'preferences_saved' => 'Dina inställningar har sparats.',
     'follow' => 'Följ berättelsen',
-    'login_to_follow' => 'Logga in och bekräfta din e-postadress för att följa berättelsen.',
+    'login_to_follow' => 'Logga in · bekräfta e-post',
     'follow_saved' => 'Du följer nu berättelsen.',
     'follow_removed' => 'Du följer inte längre berättelsen.',
     'unfollow' => 'Sluta följa',

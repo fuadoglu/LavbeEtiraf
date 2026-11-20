@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'support' => 'Unterstützung zeigen',
-    'unsupport' => 'Unterstützung zurücknehmen',
+    'support' => 'Unterstützen',
+    'unsupport' => 'Unterstützung beenden',
     'comments_heading' => 'Antworten',
     'comments_empty' => 'Noch keine Antworten.',
     'comments_closed' => 'Derzeit sind keine neuen Antworten möglich.',

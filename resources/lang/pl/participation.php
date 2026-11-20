@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'support' => 'Okaż wsparcie',
+    'support' => 'Wesprzyj',
     'unsupport' => 'Cofnij wsparcie',
     'comments_heading' => 'Odpowiedzi',
     'comments_empty' => 'Nie ma jeszcze odpowiedzi.',

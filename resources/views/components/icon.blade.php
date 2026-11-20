@@ -1,7 +1,7 @@
 @props(['name'])
 @php
     $availableIcons = [
-        'baby', 'arrow-left', 'book-open', 'briefcase-business', 'calendar-days', 'chevron-down',
+        'baby', 'arrow-left', 'bell', 'book-open', 'briefcase-business', 'calendar-days', 'chevron-down',
         'circle-check', 'circle-x', 'coffee', 'compass', 'feather', 'fingerprint', 'graduation-cap',
         'eye', 'heart', 'heart-handshake', 'heart-pulse', 'house', 'info', 'languages', 'list-filter',
         'menu', 'message-circle', 'moon', 'pen-line', 'route', 'search', 'share-2', 'settings-2', 'shield-check', 'sparkles', 'flame',

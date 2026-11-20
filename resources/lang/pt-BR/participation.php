@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'support' => 'Demonstrar apoio',
-    'unsupport' => 'Retirar meu apoio',
+    'support' => 'Apoiar',
+    'unsupport' => 'Retirar apoio',
     'comments_heading' => 'Comentários',
     'comments_empty' => 'Ainda não há comentários.',
     'comments_closed' => 'Quem escreveu este desabafo encerrou os comentários.',

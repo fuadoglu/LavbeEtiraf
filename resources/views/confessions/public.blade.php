@@ -39,17 +39,16 @@
         </div>
 
         <div class="confession-actions">
-        <form method="post" action="{{ route('confessions.support', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-action">
+        <form method="post" action="{{ route('confessions.support', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-action support-action">
             @csrf
             <input type="hidden" name="action" value="{{ $hasSupported ? 'unsupport' : 'support' }}">
             <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-            <button class="button button-secondary" aria-pressed="{{ $hasSupported ? 'true' : 'false' }}" type="submit"><x-icon name="heart" />{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }}</button>
-            <span class="muted">{{ __('participation.support_count', ['count' => $confession->support_count]) }}</span>
+            <button class="button button-secondary" aria-label="{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }} · {{ __('participation.support_count', ['count' => number_format((int) $confession->support_count)]) }}" aria-pressed="{{ $hasSupported ? 'true' : 'false' }}" type="submit"><x-icon name="heart" class="icon-small" /><span>{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }}</span><span class="support-count" aria-hidden="true">{{ number_format((int) $confession->support_count) }}</span></button>
         </form>
         @if(auth()->check() && auth()->user()->hasVerifiedEmail())
-            <form method="post" action="{{ route('account.follow', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-action">@csrf<button class="button button-secondary" type="submit">{{ __('account.follow') }}</button></form>
+            <form method="post" action="{{ route('account.follow', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-action follow-action">@csrf<button class="button button-secondary" type="submit"><x-icon name="bell" class="icon-small" /><span>{{ __('account.follow') }}</span></button></form>
         @else
-            <p><a href="{{ route('account.login', ['locale' => $localeRecord['segment']]) }}">{{ __('account.login_to_follow') }}</a></p>
+            <a class="button button-secondary confession-follow-link" href="{{ route('account.login', ['locale' => $localeRecord['segment']]) }}"><x-icon name="bell" class="icon-small" /><span>{{ __('account.login_to_follow') }}</span></a>
         @endif
         <div class="confession-share" data-share-control>
             <button class="button button-secondary" type="button" data-share-button

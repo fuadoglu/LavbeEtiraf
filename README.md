@@ -44,6 +44,7 @@
 | Sıralama tablarının ikonları və ölçüsü | **[LAV-051](https://github.com/fuadoglu/LavbeEtiraf/issues/108) icra olunur.** Üç feed tabında fərqli ikonlar, bərabər ölçü və yeni tövsiyə başlığı. |
 | Tövsiyələrin müxtəlifliyi | **[LAV-052](https://github.com/fuadoglu/LavbeEtiraf/issues/110) icra olunur.** “Başqa etirafları oxu” hər dəfə məhdud uyğun hovuzdan fərqli kateqoriyalarda təsadüfi, təkrarsız başlıqlar seçir. |
 | Etirafı paylaşmaq | **[LAV-053](https://github.com/fuadoglu/LavbeEtiraf/issues/112) icra olunur.** Etiraf detail-ində canonical linki native paylaşma, clipboard və əl ilə köçürmə variantları ilə paylaşmaq olur. |
+| Tab ikonları və detail əməliyyatları | **[LAV-054](https://github.com/fuadoglu/LavbeEtiraf/issues/114) icra olunur.** Feed tab ikonları sola keçir; dəstək/say, izləmə və paylaşma qısa etiketli üç yan-yana düymə olur. |
 
 ## Codex ilə başla
 

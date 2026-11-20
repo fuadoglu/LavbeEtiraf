@@ -35,6 +35,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 28 | Lent sıralama tablarına ikon əlavə et və ölçülərini bərabərləşdir | LAV-051 |
 | 29 | Etiraf tövsiyələrini qarışdır və təkrarsız et | LAV-052 |
 | 30 | Etiraf detalına paylaş düyməsi əlavə et | LAV-053 |
+| 31 | Feed tab ikonları və etiraf əməliyyatlarını yan-yana düz | LAV-054 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -308,3 +309,9 @@ Yeni, Bu həftə və Məşhur etiraflar tablarına fərqli Lucide SVG ikonları 
 **Asılılıq:** LAV-006. **Qəbul:** SHARE-01.
 
 Etiraf səhifəsində mövcud əməliyyatlar sırasına uyğun paylaş düyməsi göstər. Təhlükəsiz Web Share API olduqda canonical URL və təsdiqlənmiş başlığı paylaş; əks halda clipboard-a yaz, clipboard mövcud deyilsə və ya xətaya düşərsə seçilə bilən canonical URL-i aç. Statusu canlı regionla elan et; paylaş pəncərəsinin istifadəçi tərəfindən bağlanmasını xəta kimi göstərmə. Düymə, nəticə və fallback mətnləri 17 locale-də verilir. JavaScript söndürüldükdə URL əl ilə kopyalana bilən formada qalır. **Sübut:** Blade feature və JavaScript unit testləri, 17 dil paketi, CSS/JS build və sənəd yoxlaması.
+
+## LAV-054 · Feed tab ikonları və etiraf əməliyyatlarını yan-yana düz
+
+**Asılılıq:** LAV-034, LAV-051, LAV-053. **Qəbul:** UI-15.
+
+Yeni, Bu həftə və Məşhur etiraflar ikonlarını label-larının solunda yerləşdir, bərabər üç sütunlu tab ölçüsünü qoru. Etiraf detail-ində dəstək, izləmə/giriş və paylaş əməliyyatlarını üç bərabər yan-yana düymə et; dəstək sayını qısa rəqəm kimi düyməyə daxil et və tam say məlumatını əlçatan addan saxla. Girişsiz izləmə mətnini yığcamlaşdır, amma e-poçt təsdiqi tələbini aydın saxla. “Etirafı paylaş” label-ını dəyişmə. Dar enlərdə üç düymə eyni sırada qalsın, mətn hündürlüyə qırıla bilsin və fokus/hover vəziyyətləri görünsün. **Sübut:** feature DOM, CSS qırılma qaydası, 17 dil mətnləri, build və docs testləri.

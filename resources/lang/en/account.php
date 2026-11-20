@@ -15,7 +15,7 @@ return [
     'my_comments' => 'My responses', 'my_follows' => 'Following', 'my_notifications' => 'Notifications', 'nothing_yet' => 'Nothing here yet.', 'open_confession' => 'Open confession',
     'preferences' => 'Notification preferences', 'in_app' => 'In-app notifications', 'email_notifications' => 'Email notifications (optional)',
     'preferences_save' => 'Save preferences', 'preferences_saved' => 'Your preferences were saved.', 'follow' => 'Follow updates',
-    'login_to_follow' => 'Sign in and verify your email to follow updates.', 'follow_saved' => 'This confession was added to your follows.',
+    'login_to_follow' => 'Sign in · verify email', 'follow_saved' => 'This confession was added to your follows.',
     'follow_removed' => 'This confession was removed from your follows.', 'unfollow' => 'Unfollow', 'claim' => 'Add this writing to my account',
     'claim_complete' => 'This writing is now linked to your account. Its previous guest access was revoked.',
     'notification_subject' => 'New activity on a confession you follow', 'notification_greeting' => 'Hello',

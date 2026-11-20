@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'support' => 'Soutenir cette personne',
+    'support' => 'Soutenir',
     'unsupport' => 'Retirer mon soutien',
     'comments_heading' => 'Réponses',
     'comments_empty' => 'Aucune réponse pour le moment.',
