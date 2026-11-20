@@ -128,7 +128,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .skeleton-medium { width: 67%; }
 .skeleton-title { width: 72%; height: 1rem; }
 @keyframes skeleton-pulse { 50% { opacity: .45; } }
-.dialog { width: min(100%, 36rem); max-width: calc(100vw - 2rem); max-height: min(85vh, 44rem); max-height: min(85dvh, 44rem); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 0; border: 1px solid var(--edge); border-radius: 1.15rem; background: var(--surface-raised); color: var(--text); box-shadow: var(--shadow); }
+.dialog { position: fixed; inset: 0; width: min(100%, 36rem); max-width: calc(100vw - 2rem); max-height: min(85vh, 44rem); max-height: min(85dvh, 44rem); margin: auto; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 0; border: 1px solid var(--edge); border-radius: 1.15rem; background: var(--surface-raised); color: var(--text); box-shadow: var(--shadow); }
 .dialog::backdrop { background: rgb(17 14 22 / 54%); }
 .dialog-panel { min-width: 0; }
 .dialog-header { position: sticky; z-index: 1; top: 0; display: flex; align-items: center; justify-content: space-between; gap: .7rem; padding: .9rem 1rem; border-bottom: 1px solid var(--line); background: var(--surface-raised); }
@@ -141,7 +141,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .dialog-content .form-field { min-width: 0; }
 .dialog-content .form-field :is(select, textarea) { min-width: 0; max-width: 100%; }
 @media (max-width: 600px) {
-    .dialog { width: calc(100vw - 1rem); max-width: calc(100vw - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right)); max-height: calc(100vh - 1rem); max-height: calc(100dvh - 1rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)); margin-block-start: auto; margin-block-end: max(.5rem, env(safe-area-inset-bottom)); border-radius: 1.1rem; }
+    .dialog { width: calc(100vw - 1rem); max-width: calc(100vw - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right)); max-height: calc(100vh - 1rem); max-height: calc(100dvh - 1rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)); border-radius: 1.1rem; }
     .dialog-header { padding: .75rem .85rem; }
     .dialog-content { padding: .85rem; }
     .dialog-content .write-form { gap: .9rem; }

@@ -14,6 +14,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 7 | Oxucu kəşfi və açıq müəllif adı | LAV-030 |
 | 8 | Etiraf bildiriş formalarının modal təqdimatı | LAV-031 |
 | 9 | Modal popup-ların mobil/desktop uyğunlaşması | LAV-032 |
+| 10 | Popup-ların bütün ekranlarda mərkəzlənməsi | LAV-033 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -154,6 +155,12 @@ Etiraf detalındakı icma şikayəti və hüquqi bildiriş native dialog popup-d
 **Asılılıq:** LAV-031. **Qəbul:** UI-07.
 
 Dialog en və hündürlüyünü vizual viewport-a bağla, kiçik ekranlarda safe-area kənarlarını saxla və uzun məzmunu öz daxilində skrolla. Başlıq və bağlama düyməsi skroll zamanı görünən qalsın; sahələr dar eni aşmasın. Masaüstündə dialog ortalanmış, oxunaqlı eni saxlasın. **Sübut:** build və 320/360/390/768/1366px enlər, aşağı/landscape hündürlüklərdə responsive UI baxışı.
+
+## LAV-033 · Popup-ların bütün ekranlarda mərkəzlənməsi
+
+**Asılılıq:** LAV-031, LAV-032. **Qəbul:** UI-08.
+
+Mobil üçün tətbiq olunmuş alt kənar margin-ini ləğv et; dialog-u viewport-a fixed inset ilə bağlayıb bütün margin-ləri auto et. Kiçik hündürlükdə də safe-area boşluqları daxilində qalan max-height-i saxla; uzun form daxilən skrollansın. **Sübut:** build və portret, landşaft, masaüstü viewport-larda mərkəzlənmə.
 
 ## İş dövrü
 
