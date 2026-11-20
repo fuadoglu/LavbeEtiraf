@@ -11,7 +11,7 @@ class UserNotification extends Model
 
     protected $fillable = [
         'user_id', 'event_key', 'event_type', 'in_app', 'read_at', 'email_sent_at', 'email_skipped_at',
-        'email_claimed_at', 'email_attempts', 'last_error_code', 'created_at',
+        'email_claimed_at', 'email_attempts', 'email_next_attempt_at', 'email_failed_at', 'last_error_code', 'created_at',
     ];
 
     protected function casts(): array
@@ -19,6 +19,7 @@ class UserNotification extends Model
         return [
             'in_app' => 'boolean', 'read_at' => 'immutable_datetime', 'email_sent_at' => 'immutable_datetime',
             'email_skipped_at' => 'immutable_datetime', 'email_claimed_at' => 'immutable_datetime',
+            'email_next_attempt_at' => 'immutable_datetime', 'email_failed_at' => 'immutable_datetime',
             'created_at' => 'immutable_datetime', 'email_attempts' => 'integer',
         ];
     }

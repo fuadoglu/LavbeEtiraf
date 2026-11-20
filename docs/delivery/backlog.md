@@ -342,3 +342,11 @@ Etiraf mətninin altındakı icma şikayəti və hüquqi bildiriş linklərini �
 **Issue:** [#123](https://github.com/fuadoglu/LavbeEtiraf/issues/123). **Asılılıq:** LAV-004, LAV-006, LAV-009, LAV-037, LAV-043, LAV-057. **Qəbul:** OWN-06, SEO-05, UI-21, UI-22.
 
 Qonaq “Mənim” bölməsində yalnız həmin brauzerdə cihaz yaddaşı açıq razılıqla qeydiyyata alınmış etirafların başlığını və moderation vəziyyətini görüb açsın. Dəyişməyən owner-session, ayrıca recovery secret, account claim, CSRF, `HttpOnly/Secure/SameSite`, HMAC hash, private/no-store və noindex sərhədlərini qoruyun. Yazı forması 17 locale-də təsdiqdən sonra açıq yayım və axtarış sistemlərində görünmə ehtimalını açıq desin. Feed kartı təsdiqlənmiş rəy sayını və ya yayımlanmış davamı faydalı siqnal kimi göstərsin; oxunuş sayı sıfırdırsa göstərilməsin, fəaliyyət və oxunuş yoxdursa alt metadata sətri gizlənsin. Mobil popular sort label qısalsın, desktop full locale label saxlasın. **Sübut:** remembered device isolation/migration/claim testləri; 17 locale key-coverage; feed visibility/activity tests; 320/390 viewport sort-label checks; lint/build/CI və sənəd yoxlaması.
+
+## LAV-059 · Buraxılış auditi: oxucu saxlanması, qonaq cihazı və bildiriş retry-si
+
+**Issue:** [#125](https://github.com/fuadoglu/LavbeEtiraf/issues/125). **Asılılıq:** LAV-004, LAV-009, LAV-010, LAV-014, LAV-058. **Qəbul:** READ-02, OWN-07, OPS-04, LOC-04.
+
+Oxucu cookie-sinin müddəti 365 günlük fəaliyyətsizlik qaydasına uyğun uzadılsın; DB-də son aktivlik yenilənsin və köhnə heşlər məhdud paketlərlə gündəlik silinsin. “Cihazı unut” köhnə cihaz və confession cookie-lərini ləğv etsin, bərpa kodunu saxlasın; yeni göndəriş per-confession cookie yaratmasın. E-poçt xətaları artan fasilə, son uğursuzluq vəziyyəti və konkret yenidən növbəyə qoyma əmri ilə idarə olunsun. `pt-BR` URL-i locale reyestrindən qurulsun. Kuki davranışı 17 dildə açıqlansın.
+
+Staging SMTP/MySQL yükü, backup bərpası, CMP/AdSense və hüquqi təsdiq bu kod dəyişikliklərinin sübutu deyil; [əməliyyat qapılarında](operations.md) qalır. **Sübut:** feature testləri, 17 locale-key və docs validatoru, Pint/build, GitHub MySQL CI. Göstərilməyən staging və cihaz sınaqları icra olunmuş sayılmır.

@@ -42,6 +42,47 @@ class AccountWorkflowTest extends TestCase
         Notification::assertSentToTimes($user, FollowedConfessionActivity::class, 2);
     }
 
+    public function test_failed_email_uses_backoff_without_starving_later_notifications(): void
+    {
+        $user = User::factory()->create(['email_notifications' => true]);
+        $items = collect(['poison', 'later'])->map(fn (string $key) => UserNotification::query()->create([
+            'user_id' => $user->id, 'event_key' => hash('sha256', 'synthetic-retry-'.$key),
+            'event_type' => 'continuation', 'in_app' => true, 'created_at' => now(),
+        ]));
+        config(['delivery.notifications.email_batch_size' => 1, 'delivery.notifications.email_retry_initial_seconds' => 60]);
+        Notification::shouldReceive('sendNow')->times(3)->andReturnUsing(static function (): void {
+            static $calls = 0;
+            if (++$calls === 1) {
+                throw new \RuntimeException('Synthetic provider failure');
+            }
+        });
+
+        $this->artisan('lavbe:deliver-notifications')->assertSuccessful();
+        $this->assertNotNull($items[0]->fresh()->email_next_attempt_at);
+        $this->assertNull($items[0]->fresh()->email_failed_at);
+        $this->artisan('lavbe:deliver-notifications')->assertSuccessful();
+        $this->assertNotNull($items[1]->fresh()->email_sent_at);
+        $this->assertNull($items[0]->fresh()->email_sent_at);
+
+        $this->travel(60)->seconds();
+        $this->artisan('lavbe:deliver-notifications')->assertSuccessful();
+        $this->assertNotNull($items[0]->fresh()->email_sent_at);
+        $this->assertSame(2, $items[0]->fresh()->email_attempts);
+    }
+
+    public function test_follow_link_uses_registered_pt_br_url_segment(): void
+    {
+        $user = User::factory()->create();
+        [$confession] = $this->ownedConfession(public: true);
+        $confession->forceFill(['locale' => 'pt-BR'])->save();
+        DB::table('confession_follows')->insert(['user_id' => $user->id, 'confession_id' => $confession->id, 'created_at' => now()]);
+
+        $this->actingAs($user)->get('/az/my')->assertOk()
+            ->assertSee('/pt-br/confession/'.$confession->public_id, false)
+            ->assertDontSee('/pt-BR/confession/'.$confession->public_id, false);
+        $this->get('/pt-br/confession/'.$confession->public_id)->assertOk();
+    }
+
     public function test_account_validation_errors_are_linked_to_their_fields(): void
     {
         config(['session.driver' => 'array']);

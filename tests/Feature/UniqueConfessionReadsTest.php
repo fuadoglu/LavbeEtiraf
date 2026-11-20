@@ -99,6 +99,27 @@ class UniqueConfessionReadsTest extends TestCase
         $this->assertTrue($response->getCookie(UniqueReadCounter::COOKIE_NAME)?->isSecure());
     }
 
+    public function test_repeat_read_refreshes_retention_without_increasing_unique_count_and_pruner_removes_idle_hashes(): void
+    {
+        config(['analytics.unique_read_retention_days' => 1]);
+        $confession = $this->publishedConfession();
+        $first = $this->get('/az/confession/'.$confession->public_id)->assertOk();
+        $readerId = $first->getCookie(UniqueReadCounter::COOKIE_NAME)?->getValue();
+        $this->assertNotNull($readerId);
+        $firstSeen = DB::table('confession_readers')->value('last_seen_at');
+
+        $this->travel(12)->hours();
+        $this->withCookie(UniqueReadCounter::COOKIE_NAME, $readerId)->get('/az/confession/'.$confession->public_id)->assertOk();
+        $this->assertSame(1, $confession->fresh()->unique_read_count);
+        $refreshedSeen = DB::table('confession_readers')->value('last_seen_at');
+        $this->assertNotSame($firstSeen, $refreshedSeen);
+
+        DB::table('confession_readers')->where('confession_id', $confession->id)->update(['last_seen_at' => now()->subDays(2)]);
+        $this->artisan('lavbe:prune-confession-readers', ['--batches' => 1])->assertSuccessful();
+        $this->assertDatabaseCount('confession_readers', 0);
+        $this->assertSame(1, $confession->fresh()->unique_read_count);
+    }
+
     public function test_category_and_confession_pages_use_their_category_favicon(): void
     {
         foreach (app(LocaleRegistry::class)->catalog()['categories'] as $category) {
