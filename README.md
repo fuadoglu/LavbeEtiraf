@@ -48,7 +48,7 @@
 | Qonaq izləmə keçidi | **[LAV-055](https://github.com/fuadoglu/LavbeEtiraf/issues/116) icra olunur.** Giriş çağırışı qonaqdan çıxarılıb; təsdiqlənmiş oxucunun izləmə düyməsi saxlanır. |
 | Şikayət düyməsinin birləşdirilməsi | **[LAV-056](https://github.com/fuadoglu/LavbeEtiraf/issues/118) icra olunur.** Etiraf altında bir “Şikayət et” düyməsi icma şikayəti və hüquqi bildiriş seçimlərini açır. |
 | Məzmunu ekranda önə çəkmək | **[LAV-057](https://github.com/fuadoglu/LavbeEtiraf/issues/120) tamamlandı.** Lentdə ilk etiraf, yazı formasında mətn sahəsi, detail-də hekayə və müəllif davamı ardıcıllığı yeniləndi; mürəkkəb gündüz/gecə palitrası tətbiq olundu. [PR #121](https://github.com/fuadoglu/LavbeEtiraf/pull/121) `main`-dədir. |
-| UI auditinin qalan düzəlişləri | **[LAV-058](https://github.com/fuadoglu/LavbeEtiraf/issues/123) hazırlanır.** Cihazda yadda saxlanan etiraflar, ictimai axtarış görünürlüğü bildirişi, fəaliyyətli kart altlığı və yığcam mobil sıralama. |
+| UI auditinin qalan düzəlişləri | **[LAV-058](https://github.com/fuadoglu/LavbeEtiraf/issues/123) tamamlandı.** Cihazda yadda saxlanan etiraflar, 17 dildə ictimai axtarış görünürlüğü bildirişi, fəaliyyətli kart altlığı və yığcam mobil sıralama. [PR #124](https://github.com/fuadoglu/LavbeEtiraf/pull/124) ilə. |
 
 ## Codex ilə başla
 
