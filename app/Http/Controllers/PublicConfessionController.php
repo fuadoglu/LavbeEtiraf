@@ -6,8 +6,10 @@ use App\Models\Confession;
 use App\Models\ConfessionComment;
 use App\Models\ConfessionContinuation;
 use App\Support\Lavbe\LocaleRegistry;
+use App\Support\Lavbe\RoutePatterns;
 use App\Support\Participation\ParticipationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -46,24 +48,58 @@ class PublicConfessionController extends Controller
         $recommended = Confession::query()->public()->where('locale', $confession->locale)
             ->whereKeyNot($confession->id)->where('category_key', $confession->category_key)
             ->with('publicRevision')->orderByDesc('support_count')->orderByDesc('published_at')->limit(3)->get();
-        $comments = ConfessionComment::query()->with([
-            'publicRevision' => fn ($query) => $query->where('status', 'approved'),
-            'response.publicRevision' => fn ($query) => $query->where('status', 'approved'),
-            'ownership',
-        ])
-            ->where('confession_id', $confession->id)
-            ->where('status', 'public')
-            ->whereHas('publicRevision', fn ($query) => $query->where('status', 'approved')
-                ->whereColumn('confession_comment_revisions.comment_id', 'confession_comments.id'))
-            ->orderBy('published_at')->orderBy('id')->simplePaginate((int) config('lavbe.pagination.comments'), ['*'], 'comments_page');
+        $threadPublicId = $request->query('thread');
+        $threadRoot = is_string($threadPublicId) && preg_match('/^'.RoutePatterns::UUID_V4.'$/D', $threadPublicId)
+            ? ConfessionComment::query()->publicApproved()->where('confession_id', $confession->id)
+                ->whereNull('parent_comment_id')->where('public_id', $threadPublicId)->first()
+            : null;
+        $threadReplies = $threadRoot
+            ? ConfessionComment::query()->publicApproved()->where('parent_comment_id', $threadRoot->id)->with([
+                'publicRevision', 'response.publicRevision', 'ownership',
+            ])->orderBy('published_at')->orderBy('id')
+                ->simplePaginate((int) config('lavbe.pagination.comment_replies'), ['*'], 'reply_page')
+                ->appends($request->except('reply_page'))
+            : null;
+        $comments = ConfessionComment::query()->publicApproved()->with([
+            'publicRevision', 'response.publicRevision', 'ownership',
+            'replies' => fn ($query) => $query->publicApproved()->with(['publicRevision', 'response.publicRevision', 'ownership'])
+                ->orderBy('published_at')->orderBy('id')->limit(3),
+        ])->where('confession_id', $confession->id)->whereNull('parent_comment_id')
+            ->orderBy('published_at')->orderBy('id')
+            ->simplePaginate((int) config('lavbe.pagination.comments'), ['*'], 'comments_page')
+            ->appends($request->except('reply_page'));
+        $replyCounts = DB::table('confession_comments as replies')
+            ->join('confession_comment_revisions as revisions', function ($join): void {
+                $join->on('revisions.id', '=', 'replies.public_revision_id')
+                    ->on('revisions.comment_id', '=', 'replies.id')
+                    ->where('revisions.status', 'approved');
+            })
+            ->whereIn('replies.parent_comment_id', $comments->pluck('id'))
+            ->where('replies.status', 'public')
+            ->groupBy('replies.parent_comment_id')
+            ->selectRaw('replies.parent_comment_id, COUNT(*) AS aggregate')
+            ->pluck('aggregate', 'parent_comment_id');
+        $visibleComments = collect();
         foreach ($comments as $comment) {
-            $response = $comment->response;
-            if ($response && (int) ($response->publicRevision?->response_id ?? 0) !== (int) $response->id) {
-                $response->setRelation('publicRevision', null);
+            $comment->setAttribute('public_replies_count', (int) ($replyCounts[$comment->id] ?? 0));
+            $visibleComments->push($comment);
+            foreach ($comment->replies as $reply) {
+                $visibleComments->push($reply);
+            }
+            $this->clearStaleResponseRevision($comment);
+            foreach ($comment->replies as $reply) {
+                $this->clearStaleResponseRevision($reply);
             }
         }
-        $ownedCommentIds = $comments->filter(fn (ConfessionComment $comment): bool => $participation->ownsComment($request, $comment))
+        if ($threadReplies) {
+            foreach ($threadReplies as $reply) {
+                $visibleComments->push($reply);
+                $this->clearStaleResponseRevision($reply);
+            }
+        }
+        $ownedCommentIds = $visibleComments->filter(fn (ConfessionComment $comment): bool => $participation->ownsComment($request, $comment))
             ->pluck('id')->all();
+        $reactedCommentIds = $participation->activeCommentReactionIds($request, $confession, $visibleComments->pluck('id')->all());
         $continuations = ConfessionContinuation::query()->with('publicRevision')
             ->where('confession_id', $confession->id)
             ->where('status', 'public')
@@ -74,10 +110,18 @@ class PublicConfessionController extends Controller
         $ownerCanParticipate = app(GuestConfessionController::class)->canManage($request, $confession);
         $hasSupported = $participation->hasSupport($request, $confession);
 
-        return response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds', 'recommended'))
+        return response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds', 'recommended', 'threadRoot', 'threadPublicId', 'threadReplies', 'reactedCommentIds'))
             ->header('Cache-Control', 'private, no-store, max-age=0')
             ->header('X-Robots-Tag', 'index, follow')
             ->header('Referrer-Policy', 'no-referrer')
             ->header('X-Content-Type-Options', 'nosniff');
+    }
+
+    private function clearStaleResponseRevision(ConfessionComment $comment): void
+    {
+        $response = $comment->response;
+        if ($response && (int) ($response->publicRevision?->response_id ?? 0) !== (int) $response->id) {
+            $response->setRelation('publicRevision', null);
+        }
     }
 }

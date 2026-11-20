@@ -137,13 +137,13 @@ class ModerationController extends Controller
             ->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')
             ->pluck('locale')->unique()->values();
         $comments = ConfessionComment::query()->with([
-            'confession',
+            'confession', 'parent.publicRevision',
             'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision'),
         ])->where('status', 'unpublished')
             ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
             ->orderBy('created_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
-        $visibleComments = ConfessionComment::query()->with(['confession', 'publicRevision'])
+        $visibleComments = ConfessionComment::query()->with(['confession', 'publicRevision', 'parent.publicRevision'])
             ->where('status', 'public')->whereNotNull('public_revision_id')
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
             ->orderByDesc('published_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();

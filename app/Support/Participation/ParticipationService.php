@@ -82,8 +82,17 @@ class ParticipationService
             abort_if(! $comment, 404);
             abort_unless($this->ownsComment($request, $comment), 404);
             abort_unless(in_array($comment->status, ['unpublished', 'public', 'hidden'], true), 409);
-            $comment->delete();
-            if ($comment->status === 'public') {
+            $wasPublic = $comment->status === 'public';
+            if ($comment->replies()->exists()) {
+                $this->hideThreadReplies($comment);
+                $comment->forceFill(['status' => 'withdrawn', 'body' => '']);
+                $comment->lock_version++;
+                $comment->visibility_version++;
+                $comment->save();
+            } else {
+                $comment->delete();
+            }
+            if ($wasPublic) {
                 $parent->visibility_version++;
                 $parent->lock_version++;
                 $parent->save();
@@ -99,6 +108,35 @@ class ParticipationService
         }, 3);
     }
 
+    public function hideThreadReplies(ConfessionComment $comment): void
+    {
+        $publicReplyIds = $comment->replies()->where('status', 'public')->pluck('id');
+        $comment->replies()->whereIn('id', $publicReplyIds)->update([
+            'status' => 'hidden',
+            'body' => '',
+            'lock_version' => DB::raw('lock_version + 1'),
+            'visibility_version' => DB::raw('visibility_version + 1'),
+            'updated_at' => now(),
+        ]);
+        if ($publicReplyIds->isNotEmpty()) {
+            DB::table('comment_responses')->whereIn('comment_id', $publicReplyIds)->where('status', 'public')->update([
+                'status' => 'hidden', 'body' => '', 'visibility_version' => DB::raw('visibility_version + 1'), 'updated_at' => now(),
+            ]);
+        }
+        $pendingIds = $comment->replies()->where('status', 'unpublished')->pluck('id');
+        if ($pendingIds->isNotEmpty()) {
+            $comment->replies()->whereIn('id', $pendingIds)->update([
+                'status' => 'rejected',
+                'body' => '',
+                'lock_version' => DB::raw('lock_version + 1'),
+                'visibility_version' => DB::raw('visibility_version + 1'),
+                'updated_at' => now(),
+            ]);
+            DB::table('confession_comment_revisions')->whereIn('comment_id', $pendingIds)->where('status', 'pending')
+                ->update(['status' => 'cancelled', 'updated_at' => now()]);
+        }
+    }
+
     public function hasSupport(Request $request, Confession $confession): bool
     {
         $participantHash = $this->keyedHash('participation|'.$confession->id.'|'.$request->session()->getId());
@@ -111,14 +149,19 @@ class ParticipationService
     }
 
     /** @return array{confession: Confession, comment: ConfessionComment, recovery_code: string, owner_token: string} */
-    public function submitComment(Request $request, string $publicId, string $body, string $idempotencyKey): array
+    public function submitComment(Request $request, string $publicId, string $body, string $idempotencyKey, ?string $parentPublicId = null): array
     {
-        return DB::transaction(function () use ($request, $publicId, $body, $idempotencyKey): array {
+        return DB::transaction(function () use ($request, $publicId, $body, $idempotencyKey, $parentPublicId): array {
             $confession = $this->lockPublicConfession($publicId);
             abort_unless($confession->reviews_open, 409);
             $participant = $this->participant($request, $confession);
-            $idempotencyHash = $this->commandHash('comment', $confession->id, $participant->participant_hash, $idempotencyKey);
-            $fingerprint = $this->fingerprint([$confession->id, $body]);
+            $parent = null;
+            if ($parentPublicId !== null) {
+                $parent = ConfessionComment::query()->publicApproved()->where('confession_id', $confession->id)
+                    ->whereNull('parent_comment_id')->where('public_id', $parentPublicId)->lockForUpdate()->firstOrFail();
+            }
+            $idempotencyHash = $this->commandHash($parent ? 'comment-reply' : 'comment', $confession->id, $participant->participant_hash, $idempotencyKey);
+            $fingerprint = $this->fingerprint($parent ? [$confession->id, $parent->id, $body] : [$confession->id, $body]);
             $existing = ConfessionComment::query()->where('idempotency_hash', $idempotencyHash)->first();
             if ($existing) {
                 abort_unless(hash_equals((string) $existing->idempotency_fingerprint, $fingerprint), 409);
@@ -130,6 +173,7 @@ class ParticipationService
             $ownerToken = $this->randomToken();
             $comment = ConfessionComment::query()->create([
                 'confession_id' => $confession->id,
+                'parent_comment_id' => $parent?->id,
                 'public_id' => (string) Str::uuid(),
                 'status' => 'unpublished',
                 'author_alias' => $participant->author_alias,
@@ -148,6 +192,71 @@ class ParticipationService
             $confession->save();
 
             return ['confession' => $confession, 'comment' => $comment, 'recovery_code' => $recoveryCode, 'owner_token' => $ownerToken];
+        }, 3);
+    }
+
+    /** @param list<int> $commentIds @return list<int> */
+    public function activeCommentReactionIds(Request $request, Confession $confession, array $commentIds): array
+    {
+        if ($commentIds === []) {
+            return [];
+        }
+        $participantHash = $this->participationHash($request, $confession);
+
+        return DB::table('confession_comment_reactions')->whereIn('comment_id', $commentIds)
+            ->where('participant_hash', $participantHash)->where('is_active', true)
+            ->pluck('comment_id')->map(fn ($id): int => (int) $id)->all();
+    }
+
+    public function setCommentReaction(Request $request, string $publicId, string $commentPublicId, bool $active, string $idempotencyKey): void
+    {
+        DB::transaction(function () use ($request, $publicId, $commentPublicId, $active, $idempotencyKey): void {
+            $confession = $this->lockPublicConfession($publicId);
+            $comment = ConfessionComment::query()->publicApproved()->where('confession_id', $confession->id)
+                ->where('public_id', $commentPublicId)->lockForUpdate()->firstOrFail();
+            if ($comment->parent_comment_id !== null) {
+                abort_unless(ConfessionComment::query()->publicApproved()->whereKey($comment->parent_comment_id)
+                    ->where('confession_id', $confession->id)->exists(), 404);
+            }
+            $participantHash = $this->participationHash($request, $confession);
+            $commandHash = $this->commandHash('comment-reaction', $confession->id, $participantHash, $idempotencyKey);
+            $fingerprint = $this->fingerprint([$comment->id, $active]);
+            $existing = DB::table('participation_idempotencies')->where('idempotency_hash', $commandHash)->first();
+            if ($existing) {
+                abort_unless(hash_equals((string) $existing->payload_fingerprint, $fingerprint), 409);
+
+                return;
+            }
+
+            $reaction = DB::table('confession_comment_reactions')->where('comment_id', $comment->id)
+                ->where('participant_hash', $participantHash)->lockForUpdate()->first();
+            $wasActive = (bool) ($reaction?->is_active ?? false);
+            if ($reaction) {
+                DB::table('confession_comment_reactions')->where('id', $reaction->id)->update([
+                    'is_active' => $active,
+                    'updated_at' => now(),
+                ]);
+            } elseif ($active) {
+                DB::table('confession_comment_reactions')->insert([
+                    'comment_id' => $comment->id,
+                    'participant_hash' => $participantHash,
+                    'is_active' => true,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+            if ($wasActive !== $active) {
+                DB::table('confession_comments')->where('id', $comment->id)
+                    ->update(['reaction_count' => DB::raw('reaction_count + '.($active ? 1 : '-1'))]);
+            }
+            DB::table('participation_idempotencies')->insert([
+                'idempotency_hash' => $commandHash,
+                'payload_fingerprint' => $fingerprint,
+                'target_type' => 'comment_reaction',
+                'target_id' => $comment->id,
+                'action' => $active ? 'reaction_on' : 'reaction_off',
+                'created_at' => now(),
+            ]);
         }, 3);
     }
 
@@ -305,7 +414,7 @@ class ParticipationService
 
     private function participant(Request $request, Confession $confession): ConfessionParticipant
     {
-        $hash = $this->keyedHash('participation|'.$confession->id.'|'.$request->session()->getId());
+        $hash = $this->participationHash($request, $confession);
         $participant = ConfessionParticipant::query()->where('confession_id', $confession->id)->where('participant_hash', $hash)->lockForUpdate()->first();
         if ($participant) {
             return $participant;
@@ -316,6 +425,11 @@ class ParticipationService
             'participant_hash' => $hash,
             'author_alias' => 'Lavbe #'.strtoupper(substr(bin2hex(random_bytes(4)), 0, (int) config('lavbe.alias_suffix_characters'))),
         ]);
+    }
+
+    private function participationHash(Request $request, Confession $confession): string
+    {
+        return $this->keyedHash('participation|'.$confession->id.'|'.$request->session()->getId());
     }
 
     private function enqueue(Confession $confession, string $eventType, ?int $targetId): void

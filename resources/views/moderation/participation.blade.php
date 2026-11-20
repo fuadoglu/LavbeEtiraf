@@ -25,6 +25,9 @@
                     @endphp
                     <article class="participation-card">
                         <p>{{ __('moderation.public_parent') }}: <a href="{{ route('confessions.public', ['locale' => $parent->locale, 'publicId' => $parent->public_id]) }}">{{ $parent->title ?: __('moderation.untitled') }}</a></p>
+                        @if($item instanceof \App\Models\ConfessionComment && $item->parent?->publicRevision)
+                            <blockquote class="comment-context"><strong>{{ __('participation.comment_reply') }}</strong><div class="confession-body">{!! nl2br(e($item->parent->publicRevision->body)) !!}</div></blockquote>
+                        @endif
                         @if($item instanceof \App\Models\ConfessionComment)<p>{{ $item->author_alias }}</p>@endif
                         <div class="confession-body">{!! nl2br(e($revision?->body ?? '')) !!}</div>
                         @if($revision)
@@ -60,6 +63,9 @@
                     @endphp
                     <article class="participation-card">
                         <p>{{ __('moderation.public_parent') }}: <a href="{{ route('confessions.public', ['locale' => $parent->locale, 'publicId' => $parent->public_id]) }}">{{ $parent->title ?: __('moderation.untitled') }}</a></p>
+                        @if($item instanceof \App\Models\ConfessionComment && $item->parent?->publicRevision)
+                            <blockquote class="comment-context"><strong>{{ __('participation.comment_reply') }}</strong><div class="confession-body">{!! nl2br(e($item->parent->publicRevision->body)) !!}</div></blockquote>
+                        @endif
                         <div class="confession-body">{!! nl2br(e($item->publicRevision->body)) !!}</div>
                         <form method="post" action="{{ route('moderation.participation.decide', ['locale' => request()->route('locale'), 'type' => $set['type'], 'targetId' => $targetId]) }}">
                             @csrf

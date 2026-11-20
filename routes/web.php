@@ -120,6 +120,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         ->middleware(PrivateResponseHeaders::class)->name('appeals.store');
     Route::get('/confession/{publicId}/comment', [ParticipationController::class, 'commentForm'])->middleware(PrivateResponseHeaders::class)->name('confessions.comments.create');
     Route::post('/confession/{publicId}/comments', [ParticipationController::class, 'comment'])->middleware(PrivateResponseHeaders::class)->name('confessions.comments.store');
+    Route::post('/confession/{publicId}/comments/{commentPublicId}/reaction', [ParticipationController::class, 'commentReaction'])->middleware(PrivateResponseHeaders::class)->name('confessions.comments.reaction');
     Route::post('/confession/{publicId}/comments/{commentPublicId}/response', [ParticipationController::class, 'respond'])->middleware(PrivateResponseHeaders::class)->name('confessions.comment.response');
     Route::post('/confession/{publicId}/continuations', [ParticipationController::class, 'continuation'])->middleware(PrivateResponseHeaders::class)->name('confessions.continuations.store');
     Route::post('/confession/{publicId}/support', [ParticipationController::class, 'support'])->middleware(PrivateResponseHeaders::class)->name('confessions.support');

@@ -16,6 +16,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 9 | Modal popup-ların mobil/desktop uyğunlaşması | LAV-032 |
 | 10 | Popup-ların bütün ekranlarda mərkəzlənməsi | LAV-033 |
 | 11 | Başlıq ikonlarının dil menyusundan sonra düzülməsi | LAV-034 |
+| 12 | Etiraf altında thread-li rəy və reaksiya | LAV-035 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -75,9 +76,9 @@ Etiraf HTML-si, sabit canonical, status, həqiqi lastmod, locale sitemap, kateqo
 
 **Asılılıq:** LAV-004, LAV-005, LAV-006. **Qəbul:** MOD-03, OWN-03.
 
-Ayrı rəy formu, bir səviyyə, müəllif cavabı, eyni hekayədə davam, dəstək və rəy seçimi. Yalnız təsdiq edilmiş canlı uşaq materialı göstər. **Sübut:** rəy bağlama, rəy gizlətmə, paralel valideyn gizlətməsi və bildiriş təkrarı sınaqları.
+Ayrı rəy formu, rəyə birbaşa cavab, müəllif cavabı, eyni hekayədə davam, dəstək və rəy reaksiyası. Yalnız təsdiq edilmiş canlı uşaq materialı göstər. **Sübut:** rəy bağlama, rəy gizlətmə, paralel valideyn gizlətməsi və bildiriş təkrarı sınaqları.
 
-**Tətbiq kontraktı:** Rəy və müəllif cavabı mətnləri dəyişməz revision-larda gözləyir; yalnız moderatorun təsdiqlədiyi cari revision ictimai olur. Rəy sahibi anonim iştirakçı alias-ı, sessiya, seçilən cihaz cookie-si və rotasiya olunan birdəfəlik bərpa kodu ilə idarə edir. Bərpa sirri yalnız HMAC heşi ilə saxlanır. Müəllifin rəyə bir cavab yeri var; düzəliş yeni pending revision yaradır. Davam yalnız etiraf sahibinə açıqdır. Rəyin açıq/bağlı seçimi yeni göndərişi bloklayır, əvvəl təsdiqlənmiş rəyləri saxlayır. Dəstək etiraf-sessiya iştirakçısı üzrə unikal aktiv reaksiyadır; say parent kilidi altında dəyişir. Moderasiya qərarı parent lock, target/revision lock, audit və outbox-u eyni tranzaksiyada yazır. Uşaq təsdiqi/gizlətməsi parent visibility version-ını artırır; parent gizlədilməsi bütün uşaq sorğularını public scope-dan çıxarır. Rəy bildirişləri 15 dəqiqəlik outbox qrup açarı ilə birləşir, davam başına bir hadisə yaranır. Outbox-da mətn yoxdur, çatdırılma LAV-009-a aiddir. İctimai detail-in iştirakçıya görə dəyişən HTML-i `private, no-store` olur.
+**Tətbiq kontraktı:** Rəy, birbaşa cavab və müəllif cavabı mətnləri dəyişməz revision-larda gözləyir; yalnız moderatorun təsdiqlədiyi cari revision ictimai olur. Rəy sahibi anonim iştirakçı alias-ı, sessiya, seçilən cihaz cookie-si və rotasiya olunan birdəfəlik bərpa kodu ilə idarə edir. Bərpa sirri yalnız HMAC heşi ilə saxlanır. Rəy thread-i birbaşa cavab səviyyəsi ilə məhdudlaşır; cavaba cavab qəbul edilmir. Oxucu hər təsdiqlənmiş açıq rəydə sessiya üzrə unikal reaksiya verib geri götürə bilər. Müəllifin rəyə ayrıca bir cavab yeri qalır; düzəliş yeni pending revision yaradır. Davam yalnız etiraf sahibinə açıqdır. Rəyin açıq/bağlı seçimi yeni göndərişi bloklayır, əvvəl təsdiqlənmiş rəyləri saxlayır. Dəstək etiraf-sessiya iştirakçısı üzrə unikal aktiv reaksiyadır; say parent kilidi altında dəyişir. Moderasiya qərarı parent lock, target/revision lock, audit və outbox-u eyni tranzaksiyada yazır. Uşaq təsdiqi/gizlətməsi parent visibility version-ını artırır; parent gizlədilməsi bütün uşaq sorğularını public scope-dan çıxarır. Rəy bildirişləri 15 dəqiqəlik outbox qrup açarı ilə birləşir, davam başına bir hadisə yaranır. Outbox-da mətn yoxdur, çatdırılma LAV-009-a aiddir. İctimai detail-in iştirakçıya görə dəyişən HTML-i `private, no-store` olur.
 
 **Hazırkı sübut:** SQLite feature suite comment privacy/recovery, rəy bağlama, support idempotency və geri götürmə, continuation, author response və comment-hide cascade-ni yoxlayır. MariaDB lokal ayrılmış test bazasında bütün migration-lar və MySQL qrupundakı 6 test/74 assertion, o cümlədən close-review/submit və parent-hide/comment-publish prosesslərarası yarışları keçir.
 
@@ -168,6 +169,12 @@ Mobil üçün tətbiq olunmuş alt kənar margin-ini ləğv et; dialog-u viewpor
 **Asılılıq:** LAV-002, LAV-003, LAV-030. **Qəbul:** UI-09.
 
 Header utility controls sırası: dil menyusu, axtarış, dəstəklənən etiraflar, görünüş rejimi. Mövcud label, route, active state və mobil responsivlik toxunulmaz qalır. **Sübut:** Blade header render-i və build.
+
+## LAV-035 · Etiraf altında thread-li rəy və reaksiya
+
+**Asılılıq:** LAV-007. **Qəbul:** UI-10, OWN-05, MOD-05.
+
+Etiraf detalında rəy formu, hər açıq rəydə sessiya üzrə dəyişdirilə bilən bəyənmə və üst səviyyəli rəylərdə birbaşa cavab formu göstərilir. Thread yalnız bir cavab səviyyəsinə icazə verir. `parent_public_id` eyni etirafda açıq və təsdiqlənmiş kök rəyi göstərməlidir; server bunu həm göndərişdə, həm də moderasiya təsdiqində yenidən yoxlayır. Cavablar mövcud rəy moderasiyası və sahiblik/bərpa axınından keçir. Ana rəy gizlədiləndə açıq cavablar gizlənir, pending cavablar ləğv edilir; ana bərpa olunsa belə cavablar avtomatik dərc edilmir. Cavab önbaxışı məhdud saydadır və ayrıca səhifələnir; moderasiya növbəsində cavabın hədəf rəyi görünür. **Sübut:** inline forma, ana rəy yoxlaması, reaksiya idempotentliyi/geri götürmə, pending məxfiliyi, cavab moderasiyası, gizlətmə/bərpa keçidi, sənəd və build yoxlamaları.
 
 ## İş dövrü
 

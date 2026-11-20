@@ -38,6 +38,7 @@ return [
     ],
     'pagination' => [
         'comments' => 20,
+        'comment_replies' => 20,
         'account' => 50,
         'moderation' => 30,
         'moderation_history' => 50,
@@ -67,6 +68,7 @@ return [
             'moderator_login' => ['attempts' => 5, 'decay_seconds' => 60],
             'moderator_mfa' => ['attempts' => 5, 'decay_seconds' => 60],
             'comment' => ['attempts' => 4, 'decay_seconds' => 60],
+            'comment_reaction' => ['attempts' => 30, 'decay_seconds' => 60],
             'continuation' => ['attempts' => 3, 'decay_seconds' => 60],
             'author_response' => ['attempts' => 5, 'decay_seconds' => 60],
             'support' => ['attempts' => 30, 'decay_seconds' => 60],

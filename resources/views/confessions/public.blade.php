@@ -51,6 +51,56 @@
 
         </div>
 
+        <section class="participation-section confession-comments" aria-labelledby="comments-heading" id="comments">
+            <h2 id="comments-heading">{{ __('participation.comments_heading') }}</h2>
+            @forelse($comments as $comment)
+                @include('participation.comment-card', ['comment' => $comment, 'allowReply' => true, 'nested' => false, 'confession' => $confession, 'localeRecord' => $localeRecord, 'ownerCanParticipate' => $ownerCanParticipate, 'commentsOpen' => $confession->reviews_open, 'ownedCommentIds' => $ownedCommentIds, 'reactedCommentIds' => $reactedCommentIds])
+                @if($threadRoot?->id === $comment->id && $threadReplies)
+                    <div class="comment-replies" aria-label="{{ __('participation.comment_replies_count', ['count' => $comment->public_replies_count]) }}">
+                        @foreach($threadReplies as $reply)
+                            @include('participation.comment-card', ['comment' => $reply, 'allowReply' => false, 'nested' => true, 'confession' => $confession, 'localeRecord' => $localeRecord, 'ownerCanParticipate' => $ownerCanParticipate, 'commentsOpen' => $confession->reviews_open, 'ownedCommentIds' => $ownedCommentIds, 'reactedCommentIds' => $reactedCommentIds])
+                        @endforeach
+                        @if($threadReplies->hasPages())
+                            <nav class="comment-pagination" aria-label="{{ __('participation.comment_replies_count', ['count' => $comment->public_replies_count]) }}">
+                                @if($threadReplies->previousPageUrl())<a href="{{ $threadReplies->previousPageUrl() }}#comment-{{ $comment->public_id }}">{{ __('lavbe.previous') }}</a>@endif
+                                @if($threadReplies->nextPageUrl())<a href="{{ $threadReplies->nextPageUrl() }}#comment-{{ $comment->public_id }}">{{ __('lavbe.next') }}</a>@endif
+                            </nav>
+                        @endif
+                    </div>
+                @else
+                    @foreach($comment->replies as $reply)
+                        @include('participation.comment-card', ['comment' => $reply, 'allowReply' => false, 'nested' => true, 'confession' => $confession, 'localeRecord' => $localeRecord, 'ownerCanParticipate' => $ownerCanParticipate, 'commentsOpen' => $confession->reviews_open, 'ownedCommentIds' => $ownedCommentIds, 'reactedCommentIds' => $reactedCommentIds])
+                    @endforeach
+                    @if($comment->public_replies_count > $comment->replies->count())
+                        <a class="comment-more-replies" href="{{ request()->fullUrlWithQuery(['thread' => $comment->public_id, 'reply_page' => 1]) }}#comment-{{ $comment->public_id }}">{{ __('participation.comment_replies_count', ['count' => $comment->public_replies_count]) }}</a>
+                    @endif
+                @endif
+            @empty
+                <p class="muted">{{ __('participation.comments_empty') }}</p>
+            @endforelse
+            @if($comments->hasPages())
+                <nav class="sort-panel" aria-label="{{ __('lavbe.pagination') }}">
+                    @if($comments->previousPageUrl())<a href="{{ $comments->previousPageUrl() }}#comments-heading">{{ __('lavbe.previous') }}</a>@endif
+                    @if($comments->nextPageUrl())<a rel="next" href="{{ $comments->nextPageUrl() }}#comments-heading">{{ __('lavbe.next') }}</a>@endif
+                </nav>
+            @endif
+
+            @if($confession->reviews_open)
+                <form id="comment-composer" method="post" action="{{ route('confessions.comments.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-form comment-composer">
+                    @csrf
+                    <input type="hidden" name="comment_scope" value="inline">
+                    <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                    <x-form-field :label="__('participation.comment_label')" name="body" id="comment-body-new" :error="old('comment_scope') === 'inline' ? $errors->first('body') : null">
+                        <textarea id="comment-body-new" name="body" maxlength="{{ config('lavbe.limits.comment_body') }}" @if(old('comment_scope') === 'inline' && $errors->has('body')) aria-describedby="comment-body-new-description" @endif aria-invalid="{{ old('comment_scope') === 'inline' && $errors->has('body') ? 'true' : 'false' }}" required>{{ old('comment_scope') === 'inline' ? old('body') : '' }}</textarea>
+                    </x-form-field>
+                    <label class="age-confirmation"><input id="remember-comment-device" type="checkbox" name="remember_device" value="1"><span>{{ __('participation.remember_device') }}</span></label>
+                    <button class="button button-primary" type="submit">{{ __('participation.comment_submit') }}</button>
+                </form>
+            @else
+                <p class="muted">{{ __('participation.comments_closed') }}</p>
+            @endif
+        </section>
+
         @if($recommended->isNotEmpty())
             <section class="participation-section" aria-labelledby="recommended-heading">
                 <h2 id="recommended-heading">{{ __('participation.recommended_heading') }}</h2>
@@ -69,49 +119,6 @@
                 @endforeach
             </section>
         @endif
-
-        <section class="participation-section" aria-labelledby="comments-heading">
-            <h2 id="comments-heading">{{ __('participation.comments_heading') }}</h2>
-            @forelse($comments as $comment)
-                <article class="participation-card">
-                    <p class="story-meta">{{ $comment->author_alias }}</p>
-                    <div class="confession-body">{!! nl2br(e($comment->publicRevision->body)) !!}</div>
-                    <p class="muted"><time datetime="{{ $comment->published_at->toAtomString() }}">{{ $comment->published_at->format('Y-m-d') }}</time></p>
-                    @if(in_array($comment->id, $ownedCommentIds, true))
-                        <a href="{{ route('participation.comment.status', ['locale' => $localeRecord['segment'], 'commentPublicId' => $comment->public_id]) }}">{{ __('participation.manage_comment') }}</a>
-                    @endif
-                    <a href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'comment', 'targetPublicId' => $comment->public_id]) }}">{{ __('reports.report_comment') }}</a>
-                    <a href="{{ route('reports.legal.create', ['locale' => $localeRecord['segment'], 'type' => 'comment', 'targetPublicId' => $comment->public_id]) }}">{{ __('reports.legal_title') }}</a>
-                    @if($comment->response?->status === 'public' && $comment->response->publicRevision?->status === 'approved')
-                        <aside class="author-response">
-                            <strong>{{ __('participation.author_response') }}</strong>
-                            <div class="confession-body">{!! nl2br(e($comment->response->publicRevision->body)) !!}</div>
-                        </aside>
-                    @elseif($ownerCanParticipate && $comment->status === 'public')
-                        <form method="post" action="{{ route('confessions.comment.response', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id, 'commentPublicId' => $comment->public_id]) }}">
-                            @csrf
-                            <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                            <x-form-field :label="__('participation.author_response')" name="body" :id="'response-body-'.$comment->id"><textarea @if($errors->has('body')) aria-describedby="response-body-{{ $comment->id }}-description" @endif aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="response-body-{{ $comment->id }}" name="body" maxlength="{{ config('lavbe.limits.response_body') }}" required></textarea></x-form-field>
-                            <button class="button button-secondary" type="submit">{{ __('participation.comment_submit') }}</button>
-                        </form>
-                    @endif
-                </article>
-            @empty
-                <p class="muted">{{ __('participation.comments_empty') }}</p>
-            @endforelse
-            @if($comments->hasPages())
-                <nav class="sort-panel" aria-label="{{ __('lavbe.pagination') }}">
-                    @if($comments->previousPageUrl())<a href="{{ $comments->previousPageUrl() }}#comments-heading">{{ __('lavbe.previous') }}</a>@endif
-                    @if($comments->nextPageUrl())<a rel="next" href="{{ $comments->nextPageUrl() }}#comments-heading">{{ __('lavbe.next') }}</a>@endif
-                </nav>
-            @endif
-
-            @if($confession->reviews_open)
-                <a class="button button-primary" href="{{ route('confessions.comments.create', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}">{{ __('participation.comment_label') }}</a>
-            @else
-                <p class="muted">{{ __('participation.comments_closed') }}</p>
-            @endif
-        </section>
 
         @if($ownerCanParticipate)
             <section class="participation-section" aria-labelledby="owner-continuation-heading">
