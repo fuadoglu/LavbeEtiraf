@@ -297,6 +297,8 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .feed-controls .sort-link { flex: 1 1 auto; border-radius: 0; }
 .feed-controls .sort-link[aria-current="page"] { background: transparent; border-color: transparent; color: var(--action); box-shadow: inset 0 -3px var(--action); }
 .confession-feed .story-card, .confession-reading-card { padding: clamp(1.25rem, 3vw, 2rem); box-shadow: 0 2px 8px color-mix(in srgb, var(--text) 4%, transparent); overflow-wrap: anywhere; }
+.confession-feed .story-card { transition: border-color 140ms ease, box-shadow 140ms ease; }
+.confession-feed .story-card:focus-within { border-color: var(--action); box-shadow: 0 0 0 3px color-mix(in srgb, var(--action) 16%, transparent); }
 .confession-feed .story-title { font: 700 clamp(1.3rem, 3vw, 1.6rem)/1.35 var(--font-body); }
 .confession-feed .story-title a { text-decoration: none; }
 .confession-feed .story-title a:is(:hover, :focus-visible) { color: var(--action); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
@@ -374,7 +376,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .confession-feed .story-title { margin-block: 0 .7rem; }
 .confession-feed .story-author { display: flex; align-items: center; gap: .45rem; color: var(--muted); font-size: .85rem; }
 @media (hover: hover) {
-    .confession-feed .story-card:hover { border-color: var(--edge); }
+    .confession-feed .story-card:hover { border-color: var(--edge); box-shadow: 0 10px 26px color-mix(in srgb, var(--text) 7%, transparent); }
 }
 
 .language-flag { display: block; flex-shrink: 0; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); }
@@ -401,4 +403,9 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
     .primary-nav .nav-link { overflow-wrap: anywhere; padding-inline: .35rem; }
     .age-confirmation { align-items: center; min-height: 2.75rem; }
     .site-footer { padding-bottom: calc(5.2rem + env(safe-area-inset-bottom)); }
+    .feed-controls .topic-panel { scroll-snap-type: x proximity; overscroll-behavior-inline: contain; scrollbar-color: var(--edge) transparent; scrollbar-width: thin; }
+    .feed-controls .topic-panel::-webkit-scrollbar { height: .25rem; }
+    .feed-controls .topic-panel::-webkit-scrollbar-track { background: transparent; }
+    .feed-controls .topic-panel::-webkit-scrollbar-thumb { border-radius: 999px; background: var(--edge); }
+    .feed-controls .topic-chip { scroll-snap-align: start; }
 }
