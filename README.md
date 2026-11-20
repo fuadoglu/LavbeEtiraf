@@ -8,9 +8,9 @@
 
 | Hissə | Vəziyyət |
 |---|---|
-| Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və 39 qəbul ssenarisi repodadır. |
+| Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və 44 qəbul ssenarisi repodadır. |
 | UI atlası | **Hazırdır.** 18 ekranın mobil və masaüstü görünüşləri, gündüz/gecə və əsas vəziyyətləri yoxlamaq mümkündür. |
-| Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya və 204 kateqoriya etiketi. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
+| Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya, hər dildə mövzu adı və izahı. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
 | Laravel tətbiqi | **LAV-001 tamamlanıb.** Laravel 13/Blade əsası, MySQL smoke testi və CI `main`-dədir. |
 | Ortaq UI komponentləri | **LAV-002 tamamlanıb.** UI-01/UI-04 baza komponentləri və sübutları `main`-dədir. |
 | Dil reyestri və lent | **LAV-003 tamamlanıb.** UI-02/LOC-01: dil seçimi, feed read model, 12 kartlıq HTML səhifələmə, cursor, axtarış və 17 dil üzrə ilkin mətnlər `main`-dədir. |
@@ -30,7 +30,8 @@
 | Nömrəli səhifələmə | **LAV-036 tamamlandı.** Feed, axtarış, rəy, davam, şəxsi və moderasiya siyahıları responsiv nömrəli səhifələnir; PR #79 `main`-dədir. |
 | Məşhur etiraflar | **LAV-037 tamamlandı.** Hər müddət üçün dəstək və təsdiqlənmiş rəylərin xalına görə sıralanır; PR #81 `main`-dədir. |
 | Dil seçicisinin responsive görünüşü | **LAV-038 tamamlandı.** Desktop-da bayraq və tam native ad, mobil cihazda yalnız bayraq göstərilir; PR #83 `main`-dədir. |
-| Azərbaycan nümunələri və wordmark | **LAV-039 hazırlanır.** Hər kateqoriyaya ikinci yerli nümunə və Caveat fontlu Lucide lələk loqosu əlavə olunur. |
+| Azərbaycan nümunələri və wordmark | **[LAV-039](https://github.com/fuadoglu/LavbeEtiraf/issues/84) tamamlanıb.** Hər kateqoriyaya ikinci yerli nümunə və Caveat fontlu Lucide lələk loqosu əlavə olunub. |
+| Yeni kateqoriya xəritəsi | **[LAV-040](https://github.com/fuadoglu/LavbeEtiraf/issues/86) icra olunur.** 12 kateqoriyanın adı və izahı 17 dildə yenilənir; əvvəlki yas etirafları yeni uyğun kateqoriyaya keçirilir. |
 
 ## Codex ilə başla
 

@@ -7,6 +7,7 @@ return [
     'write_body' => 'Je bekentenis',
     'write_body_hint' => 'Je kunt maximaal :limit tekens schrijven.',
     'write_topic' => 'Onderwerp',
+    'topic_guide' => 'Welke verhalen passen bij welk onderwerp?',
     'write_expectation' => 'Wat hoop je van lezers te horen? (optioneel)',
     'write_share' => 'Ik wil gewoon mijn verhaal kwijt',
     'write_similar' => 'Vergelijkbare ervaringen horen',

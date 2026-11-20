@@ -7,6 +7,7 @@ return [
     'write_body' => 'Dein Geständnis',
     'write_body_hint' => 'Du hast Platz für :limit Zeichen.',
     'write_topic' => 'Thema',
+    'topic_guide' => 'Worum geht es in den einzelnen Themen?',
     'write_expectation' => 'Was wünschst du dir von anderen? (freiwillig)',
     'write_share' => 'Ich möchte das einfach erzählen',
     'write_similar' => 'Ähnliche Erfahrungen hören',

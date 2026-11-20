@@ -24,7 +24,7 @@ Lavbe wordmark-ı lisenziyalı Lucide lələk ikonu və Caveat əl yazısı şri
 |---|---|
 | Dil lenti və kateqoriya | 12 etirafdan ibarət səhifələri nömrə ilə dəyiş, mövzu dəyiş, seçilmiş dilin içində kəşf et |
 | Etiraf | Tam mətn, anonim müəllif, təsdiqlənmiş davam və rəylər; səhifənin altında rəy yaz, rəylərə reaksiya ver və konkret rəyə birbaşa cavab yaz; paylaş, izlə, dəstək, popup-da icma şikayəti və hüquqi bildiriş |
-| Yaz və redaktə | Məcburi başlıq, mətn və istəyə bağlı kateqoriya, istəyə bağlı cavab gözləntisi və yeni rəylərə icazə. Göndərişin dili görünür. |
+| Yaz və redaktə | Məcburi başlıq, mətn və istəyə bağlı kateqoriya, istəyə bağlı cavab gözləntisi və yeni rəylərə icazə. Kateqoriya seçimi bütün 17 dildə mövzu adını verir və açıla bilən bələdçidə həmin mövzunun sərhədini izah edir. Göndərişin dili görünür. |
 | Göndəriş təsdiqi | Baxış statusu, cihaz seçimi, məxfi bərpa kodu. Paylaşım URL-si yayımdan sonra. |
 | Mənim | Bağlanmış Etiraflarım və Rəylərim, İzlədiklərim, Bildirişlər, tətbiqdaxili/e-poçt seçimi, giriş və parol bərpası |
 | Şikayət | Etiraf və ya rəy hədəfi, səbəb, istəyə bağlı izah, qəbul təsdiqi |
@@ -35,6 +35,7 @@ Lavbe wordmark-ı lisenziyalı Lucide lələk ikonu və Caveat əl yazısı şri
 
 - Etiraf və rəy göndərişi 18+ məhsul siyasətidir. Açıq oxu saxlanır. Bazar üzrə tətbiq üsulunu [buraxılış](delivery/operations.md) müəyyən edir.
 - Etiraf mövzusu boşdursa moderator təyin edir. Bir əsas kateqoriya seçilir. Cavab gözləntisi istəyə bağlıdır: sadəcə bölüşmək, bənzər təcrübə eşitmək və ya fikir almaq.
+- Kateqoriya adları və izahları [12 mövzulu xəritəyə](localization.md#kateqoriyaların-sabit-xəritəsi) əsaslanır. Valideynlik `grief` tarixi açarında, yas və yeni başlanğıclar isə `life-changes` açarında saxlanır; köhnə `grief` etirafları data migration ilə yeni uyğun kateqoriyaya keçir.
 - Mətn sadə Unicode mətnidir. Mətn limitlərinin işlək mənbəyi `config/lavbe.php`-dəki `limits` bölməsidir; forma və server yoxlamaları eyni dəyərləri oxuyur. Başlanğıc maksimumları etiraf və davam üçün 6 000, rəy üçün 1 200, başlıq üçün 120 simvoldur. UTF-8 və emoji qəbul olunur. Sintetik SEO söz minimumu yoxdur. Xarici URL mətn kimi görünür.
 - İstəyə bağlı müəllif ad-soyadı ayrıca revision sahəsində saxlanır və yalnız həmin revision təsdiqlənəndə açıq görünür. İstifadəçi ad yazmasa etiraf çərçivəsində sabit `Lavbe #XXXXXXXX` formatındadır. Müəllifə Müəllif nişanı verilir. Başqa etirafda fərqli açıq ad verilir. İctimai profil və müəllifin digər etirafları siyahısı yaradılmır.
 - Rəy yazma sahəsi etiraf səhifəsinin altında görünür. Rəy və ona birbaşa cavab eyni moderasiya, sahiblik və bərpa qaydalarını keçir; cavab daha dərin nested thread yarada bilməz. Qonaq hər açıq rəyə sessiya üzrə bir reaksiya verib geri götürə bilər. Əsas rəy gizlədiləndə ona verilən cavablar da gizlənir; əsas rəy bərpa olunsa belə cavablar ayrıca moderasiya qərarı olmadan açılmır. Yeni rəyləri bağlamaq əvvəlki təsdiqlənmiş rəyləri gizlətmir. Şikayət ayrı işləyir. Müəllifin davamı eyni etiraf URL-sində tarixlə göstərilir.

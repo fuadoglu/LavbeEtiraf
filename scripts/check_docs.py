@@ -12,12 +12,12 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_LOCALES = tuple("en de fr nl sv nb da fi ja ko es it pt-BR pl tr az ru".split())
 EXPECTED_CATEGORIES = tuple(
-    "relationships family friends work education money identity values wellbeing grief life-changes everyday".split()
+    "relationships family friends money work identity grief education wellbeing everyday values life-changes".split()
 )
-EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)} | {"LAV-030", "LAV-031", "LAV-032", "LAV-033", "LAV-034", "LAV-035", "LAV-036", "LAV-037", "LAV-038", "LAV-039"}
+EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)} | {"LAV-030", "LAV-031", "LAV-032", "LAV-033", "LAV-034", "LAV-035", "LAV-036", "LAV-037", "LAV-038", "LAV-039", "LAV-040"}
 LINK = re.compile(r"!?\[[^\]\n]+\]\(([^)\s]+)\)")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
-ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS|CFG|DISC|PAG|FEED|DEMO|BRAND)-\d{2}\b")
+ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS|CFG|DISC|PAG|FEED|DEMO|BRAND|TAX)-\d{2}\b")
 ACCEPTANCE_ROW = re.compile(r"^\| (" + ACCEPTANCE_ID.pattern + r") \|", re.MULTILINE)
 ISSUE_HEADING = re.compile(r"^## (LAV-\d{3}) · .+$", re.MULTILINE)
 PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9_]*)\}")
@@ -27,7 +27,7 @@ LANGUAGE_ROW = re.compile(
     re.MULTILINE,
 )
 CATEGORY_ROW = re.compile(
-    r"^\| ([a-z-]+) \| ([^|]+) \| ([^|]+) \| ([a-z0-9-]+) \|$", re.MULTILINE
+    r"^\| ([a-z-]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([a-z0-9-]+) \|$", re.MULTILINE
 )
 
 
@@ -92,13 +92,16 @@ def check_catalog(root, catalog, contract, report):
     )
     category_rows = [tuple(cell.strip() for cell in row) for row in CATEGORY_ROW.findall(local)]
     report.check(
-        category_rows == [(item["key"], item["labels"].get("az"), item["labels"].get("en"), item["icon"]) for item in categories],
+        category_rows == [(item["key"], item["labels"].get("az"), item["labels"].get("en"), item["descriptions"].get("az"), item["icon"]) for item in categories],
         "Localized category table differs from spec/catalog.json.",
     )
     for item in categories:
         labels = item["labels"]
         report.check(set(labels) == set(EXPECTED_LOCALES), f"{item['key']}: category label locales differ.")
         report.check(all(isinstance(value, str) and value.strip() for value in labels.values()), f"{item['key']}: empty category label.")
+        descriptions = item["descriptions"]
+        report.check(set(descriptions) == set(EXPECTED_LOCALES), f"{item['key']}: category description locales differ.")
+        report.check(all(isinstance(value, str) and value.strip() for value in descriptions.values()), f"{item['key']}: empty category description.")
 
     detection = catalog["first_visit"]
     report.check(detection["fallback"] in EXPECTED_LOCALES, "Unknown locale fallback.")
@@ -250,7 +253,7 @@ def check_feed_translations(directory, catalog, report):
 
 def check_guest_translations(directory, catalog, report):
     expected_keys = {
-        "write_title", "write_intro", "write_subject", "write_body", "write_body_hint", "write_topic",
+        "write_title", "write_intro", "write_subject", "write_body", "write_body_hint", "write_topic", "topic_guide",
         "write_expectation", "write_share", "write_similar", "write_advice", "write_age", "write_submit",
         "write_pending_title", "write_pending_body", "write_recovery_title", "write_recovery_once",
         "write_owner_link", "write_recover_title", "write_recovery_code", "write_recover_submit",
@@ -308,7 +311,7 @@ def main():
         raise SystemExit(f"Invalid specification: {exc}") from exc
     if report.errors:
         raise SystemExit("\n".join(report.errors))
-    print(f"Verified {documents} documents, {acceptance_count} acceptance IDs, {len(EXPECTED_WORK_IDS)} work items, 17 locales and 204 category labels.")
+    print(f"Verified {documents} documents, {acceptance_count} acceptance IDs, {len(EXPECTED_WORK_IDS)} work items, 17 locales and 408 category label/description strings.")
     if options.packages is not None:
         print("Verified 17 locale package shapes.")
 

@@ -30,6 +30,7 @@ class GuestConfessionController extends Controller
             'categories' => collect($locales->catalog()['categories'])->map(fn (array $item): array => [
                 'key' => $item['key'],
                 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en'],
+                'description' => $item['descriptions'][app()->getLocale()] ?? $item['descriptions']['en'],
             ]),
             'idempotencyKey' => $this->randomToken(),
         ]);

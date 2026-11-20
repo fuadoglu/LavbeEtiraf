@@ -175,10 +175,11 @@ Son vaxtlar günlər bir-birinə oxşayır. Səhər tələs, işə get, evə qay
                     if (Confession::query()->where('submission_key_hash', $key)->exists()) {
                         continue;
                     }
+                    $storedCategory = $version < 3 && $category === 'grief' ? 'life-changes' : $category;
 
                     $confession = Confession::query()->create([
                         'locale' => 'az',
-                        'category_key' => $category,
+                        'category_key' => $storedCategory,
                         'status' => 'unpublished',
                         'title' => $title,
                         'body' => $body,
@@ -192,7 +193,7 @@ Son vaxtlar günlər bir-birinə oxşayır. Səhər tələs, işə get, evə qay
                         'revision' => 1,
                         'title' => $title,
                         'body' => $body,
-                        'category_key' => $category,
+                        'category_key' => $storedCategory,
                         'status' => 'approved',
                     ]);
                     $confession->forceFill([
@@ -203,6 +204,57 @@ Son vaxtlar günlər bir-birinə oxşayır. Səhər tələs, işə get, evə qay
                         'ever_public' => true,
                     ])->save();
                 }
+            }
+        });
+
+        $parenthoodStories = [
+            [
+                'Bu gün oğluma atamın mənə dediyi o cümləni dedim',
+                'Bu gün oğlum nəyisə yerə salanda əsəbiləşib atamın illər əvvəl mənə dediyi cümləni təkrar etdim. Söz ağzımdan çıxan kimi otaq sakitləşdi. Oğlum başını aşağı saldı, mən isə öz uşaqlığıma qayıtmış kimi oldum.
+
+İllərdir özümə söz vermişdim ki, onunla başqa cür danışacağam. Sonra üzr istədim, yanında oturub nə üçün əsəbiləşdiyimi izah etdim. Hələ də içimdə narahatlıq var. Amma bu dəfə susub keçmədim. Bəlkə də dəyişmək heç vaxt səhv etməmək deyil, səhvi görəndə geri dönüb uşağın gözünə baxmaqdır.',
+            ],
+            [
+                'Valideyn olmaqdan qorxduğumu heç kimə deyə bilmirəm',
+                'Hamı uşaq sahibi olmağın nə qədər gözəl olduğunu danışır. Mən də uşaqları sevirəm, amma bəzən bu qərarın məsuliyyətini düşünəndə içimə qorxu düşür. Özümə sual verirəm: yorulanda səbirli ola biləcəyəmmi, ona ehtiyacı olan diqqəti verəcəyəmmi?
+
+Bu tərəddüdü dilə gətirəndə elə bil insanları məyus edəcəyəm. Ona görə mövzunu dəyişirəm. Bəlkə cavabı indi bilməmək də dürüst bir cavabdır. Hələ qərar verməmişəm, sadəcə öz səsimi başqalarının gözləntisindən ayırmağa çalışıram.',
+            ],
+        ];
+
+        DB::transaction(function () use ($parenthoodStories): void {
+            foreach ($parenthoodStories as $index => [$title, $body]) {
+                $key = hash('sha256', 'lavbe-local-az-demo-v3|parenthood|'.($index + 1));
+                if (Confession::query()->where('submission_key_hash', $key)->exists()) {
+                    continue;
+                }
+
+                $confession = Confession::query()->create([
+                    'locale' => 'az',
+                    'category_key' => 'grief',
+                    'status' => 'unpublished',
+                    'title' => $title,
+                    'body' => $body,
+                    'excerpt' => Str::limit($body, 220),
+                    'public_id' => (string) Str::uuid(),
+                    'author_alias' => 'Lavbe #'.strtoupper(bin2hex(random_bytes(4))),
+                    'submission_key_hash' => $key,
+                    'reviews_open' => true,
+                ]);
+                $revision = $confession->revisions()->create([
+                    'revision' => 1,
+                    'title' => $title,
+                    'body' => $body,
+                    'category_key' => 'grief',
+                    'status' => 'approved',
+                ]);
+                $confession->forceFill([
+                    'status' => 'public',
+                    'public_revision_id' => $revision->id,
+                    'published_at' => now(),
+                    'public_updated_at' => now(),
+                    'ever_public' => true,
+                ])->save();
             }
         });
     }

@@ -18,7 +18,7 @@
         <div class="page-heading feed-heading">
             <div>
             <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
-            <p>{{ __('lavbe.feed_subtitle') }}</p>
+            <p>{{ $topic ? ($topic['descriptions'][app()->getLocale()] ?? $topic['descriptions']['en']) : __('lavbe.feed_subtitle') }}</p>
             </div>
         </div>
 

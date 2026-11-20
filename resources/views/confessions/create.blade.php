@@ -33,6 +33,14 @@
                     @endforeach
                 </select>
             </x-form-field>
+            <details class="topic-guide">
+                <summary>{{ __('guest.topic_guide') }}</summary>
+                <ul>
+                    @foreach($categories as $category)
+                        <li><strong>{{ $category['label'] }}</strong><span>{{ $category['description'] }}</span></li>
+                    @endforeach
+                </ul>
+            </details>
 
             <x-form-field name="response_expectation" :label="__('guest.write_expectation')">
                 <select @if($errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">

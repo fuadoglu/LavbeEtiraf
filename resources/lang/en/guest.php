@@ -7,6 +7,7 @@ return [
     'write_body' => 'Your confession',
     'write_body_hint' => 'You can write up to :limit characters.',
     'write_topic' => 'Topic',
+    'topic_guide' => 'What belongs in each topic?',
     'write_expectation' => 'What would you like from readers? (optional)',
     'write_share' => 'I just want to share',
     'write_similar' => 'Hear similar experiences',

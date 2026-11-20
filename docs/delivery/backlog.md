@@ -21,6 +21,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 14 | Davamı gələnlər lentinin Məşhur etiraflarla əvəzlənməsi | LAV-037 |
 | 15 | Seçilmiş dilin desktop və mobil header təqdimatı | LAV-038 |
 | 16 | Azərbaycan nümunələri və Lavbe wordmark loqosu | LAV-039 |
+| 17 | 17 dildə yeni mövzu taksonomiyası | LAV-040 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -207,3 +208,10 @@ Desktop header-də cari locale kodunu gizlədib bayraq, tam native ad və dropdo
 **Asılılıq:** LAV-002, LAV-003, LAV-038. **Qəbul:** DEMO-01, BRAND-01, UI-01.
 
 Yerli demo seeder-ə 12 sabit kateqoriya üçün bir-birindən fərqli, təbii Azərbaycan dilində uydurma etiraf əlavə et; əvvəlki hekayələri və təkrar çağırışın idempotentliyini saxla, production seed yoluna qoşma. Mövcud monoqramı açıq lisenziyalı Lucide Feather ikonu ilə əvəzlə, eyni SVG-ni favicon mənbəyi et. “Lavbe” wordmark-ına Caveat əl yazısı fontu tətbiq et, fontu lokal paketlə və lisenziyasını saxla. Ekran atlasını, dizayn sistemi, məhsul və backlog sənədlərini yenilə. **Sübut:** seeder mühit yoxlaması/idempotent nəticə, font/icon lisenziyası, build, Pint, Blade cache, sənəd yoxlaması və CI.
+
+
+## LAV-040 · Kateqoriyaları yenilə və mövcud yas etiraflarını təsnif et
+
+**Asılılıq:** LAV-003, LAV-010, LAV-039. **Qəbul:** TAX-01, LOC-02, DEMO-01.
+
+İstifadəçinin təqdim etdiyi 12 mövzunu sabit daxili açarlara uyğunlaşdır. 17 dildə həm kateqoriya adlarını, həm izahlarını yaz; izahı kateqoriya lentində, yazı formasındakı bələdçidə və moderasiya baxışında göstər. Köhnə `grief` məzmunu yeni `life-changes` mövzusuna uyğundur; bir dəfəlik migration mövcud confession və revision kateqoriyalarını dəyişir, audit/outbox qeydlərinə toxunmur. Tarixi `grief` açarı yeni “Valideyn olmaq” mövzusuna təyin edilir; local demo seeder-in iki valideynlik nümunəsi əlavə olunur, əvvəlki yas nümunələri `life-changes`-də saxlanır. Migration mövzu açarı metadatasını dəyişir, confession mətnini və müəllif məlumatını oxumur və loglamır. **Sübut:** 17 locale üzrə catalog yoxlaması, data migration və seeder idempotentliyi, sənəd validatoru və CI.

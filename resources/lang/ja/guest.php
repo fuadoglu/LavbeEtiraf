@@ -7,6 +7,7 @@ return [
     'write_body' => '告白の内容',
     'write_body_hint' => ':limit文字まで書けます。',
     'write_topic' => 'テーマ',
+    'topic_guide' => 'それぞれのテーマに合う内容',
     'write_expectation' => '読んだ人にどうしてほしいですか？（任意）',
     'write_share' => 'ただ聞いてほしい',
     'write_similar' => '似た経験を聞く',
