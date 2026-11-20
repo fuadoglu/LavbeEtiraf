@@ -39,9 +39,9 @@ Ortaq naviqasiya etiketləri, dil axtarışı, əsas məzmuna keçid və rejim d
 
 Lokal məzmun baxışı üçün `php artisan db:seed --class=AzerbaijaniDemoConfessionSeeder` əmri sabit 12 kateqoriyanın hərəsinə ən azı iki Azərbaycan dilində uydurma etiraf əlavə edir. Köhnə yas hekayələri yeni `life-changes` mövzusunda qalır; həmin kateqoriyada dörd uyğun nümunə olur. Valideynlik üçün iki yeni hekayə əlavə edilir. Əmr yalnız local mühitdə işləyir, təkrar icra dublikat yaratmır. Hər nümunənin açıq pointer-i öz approved revision-ına bağlanır. Seeder ayrıca çağırılır və `DatabaseSeeder`-ə qoşulmur.
 
-Açıq etiraf səhifəsi lent kartları ilə eyni səth, sərhəd, radius və kölgə qaydasını paylaşır. Başlıq iri sans-serif, müəllif, tarix və unikal oxunuş sayı köməkçi metadata sətrindədir. Oxunuş göstəricisi ayrıca göz ikonu daşıyır. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
+Lent kartında unikal oxunuş göstəricisi müəllif adının qarşısında, alt footer-in sağ kənarında yerləşir; dar ekranda footer sətirə keçir. Etiraf detail-ində müəllif, tarix və unikal oxunuş sayı köməkçi metadata sətrindədir. Oxunuş göstəricisi ayrıca göz ikonu daşıyır. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
 
-Ortaq palitra krem fon, isti qəhvəyi vurğu və ağ kart səthlərindən qurulur. Lent və detail başlıqları eyni sans-serif ailəsindədir. Lent kartında kateqoriya, tarix və unikal oxunuş yuxarıda, anonim ad aşağıda görünür.
+Ortaq palitra krem fon, isti qəhvəyi vurğu və ağ kart səthlərindən qurulur. Lent və detail başlıqları eyni sans-serif ailəsindədir. Lent kartında kateqoriya və tarix yuxarıda, müəllif və unikal oxunuş isə alt footer-in sol və sağında görünür.
 
 Dil seçiminin hər sətrində flag-icons dəstindən yerli SVG bayraq, native ad və onun altında ingiliscə ad göstərilir. Seçilmiş dil işarələnir. Dəstin mənbə commit-i və MIT lisenziyası public/icons/flags qovluğunda saxlanır.
 

@@ -101,6 +101,9 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .story-card { padding: 1rem 1.05rem; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); }
 .story-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; color: var(--muted); font-size: .84rem; }
 .unique-read-count { display: inline-flex; align-items: center; gap: .25rem; }
+.story-card-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .45rem; margin-block-start: 1rem; padding-block-start: .85rem; border-top: 1px solid var(--line); }
+.story-card-footer .story-author { margin: 0; padding: 0; border: 0; }
+.story-card-footer .unique-read-count { margin-inline-start: auto; white-space: nowrap; }
 .story-topic { font-weight: 650; }
 .topic-chip { gap: .42rem; }
 .topic-chip-icon { color: currentColor; }
@@ -361,7 +364,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .confession-feed .story-meta time { margin: 0; }
 .confession-feed .story-topic { display: inline-flex; align-items: center; gap: .35rem; padding: .3rem .65rem; border-radius: .6rem; background: var(--hint); color: var(--action); }
 .confession-feed .story-title { margin-block: 0 .7rem; }
-.confession-feed .story-author { display: flex; align-items: center; gap: .45rem; margin: 1.1rem 0 0; padding-block-start: .85rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+.confession-feed .story-author { display: flex; align-items: center; gap: .45rem; color: var(--muted); font-size: .85rem; }
 @media (hover: hover) {
     .confession-feed .story-card:hover { border-color: var(--edge); }
 }

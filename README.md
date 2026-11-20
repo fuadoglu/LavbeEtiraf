@@ -33,7 +33,8 @@
 | Azərbaycan nümunələri | **[LAV-039](https://github.com/fuadoglu/LavbeEtiraf/issues/84) tamamlanıb.** Hər kateqoriyaya ikinci yerli nümunə əlavə olunub. |
 | Yeni kateqoriya xəritəsi | **[LAV-040](https://github.com/fuadoglu/LavbeEtiraf/issues/86) icra olunur.** 12 kateqoriyanın adı və izahı 17 dildə yenilənir; əvvəlki yas etirafları yeni uyğun kateqoriyaya keçirilir. |
 | Təqdim olunan logo | **[LAV-041](https://github.com/fuadoglu/LavbeEtiraf/issues/88) icra olunur.** Tam logo vektor SVG-dir, lələk isə SVG/ICO favicon kimi istifadə olunur. |
-| Unikal oxunuş və kateqoriya favicon-ları | **[LAV-043](https://github.com/fuadoglu/LavbeEtiraf/issues/92) icra olunur.** Açıq etiraf oxunuşları brauzer profilinə görə bir dəfə sayılır; kateqoriya və etiraf səhifələri mövzu ikonunu favicon kimi istifadə edir. |
+| Unikal oxunuş və kateqoriya favicon-ları | **[LAV-043](https://github.com/fuadoglu/LavbeEtiraf/issues/92) tamamlandı.** Brauzer profili üzrə oxunuş sayı və kateqoriya favicon-ları [PR #93](https://github.com/fuadoglu/LavbeEtiraf/pull/93) ilə `main`-dədir. |
+| Etiraf kartında oxunuş sayı | **[LAV-044](https://github.com/fuadoglu/LavbeEtiraf/issues/94) icra olunur.** Göstərici kartın aşağı sağ küncünə yerləşdirilir. |
 
 ## Codex ilə başla
 

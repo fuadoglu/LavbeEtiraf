@@ -25,6 +25,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 18 | Təqdim olunan Lavbe logosu və lələk favicon-u | LAV-041 |
 | 19 | 12 kateqoriya üçün unikal və mövzuya uyğun ikonlar | LAV-042 |
 | 20 | Etiraf oxunuşlarını brauzer profilinə görə unikallaşdır və kateqoriya favicon-u göstər | LAV-043 |
+| 21 | Unikal oxunuş sayını etiraf kartının alt sağında göstər | LAV-044 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -238,3 +239,9 @@ PR #85-də əlavə olunan Lucide/Caveat wordmark [LAV-041](#lav-041--təqdim-olu
 **Asılılıq:** LAV-006, LAV-042. **Qəbul:** READ-01, FAV-01.
 
 Yalnız açıq/təsdiqlənmiş etiraf detail GET sorğusunda birinci tərəf brauzer profili cookie-si ilə oxunuş say. Xam tokeni yox, confession üzrə ayrıca HMAC heşi saxla; DB unikal məhdudiyyəti paralel sorğularda da dublikatı dayandırsın. IP, user-agent, referer və etiraf mətni ölçmə cədvəlinə daxil olmasın. Oxunuş sayını lent kartlarında və detail-də 17 dildə göstər. Kateqoriya lentində və həmin kateqoriyadakı etirafda kateqoriyanın öz yerli SVG-sini favicon et; ümumi səhifələrdə lələk qalsın. Cookie silinməsi, 365 gündən çox fəaliyyətsizlik və başqa profilin yeni oxucu kimi sayılması məhdudiyyətini, həmçinin kuki bildirişinin buraxılışdan əvvəl hüquqi baxışa ehtiyacını sənədləşdir. Etiraf daimi silinəndə oxucu heşləri və sayğac da silinir. **Sübut:** unikal/müxtəlif cookie feature sınaqları, count görünməsi, migration, favicon head, build, sənəd validatoru və CI.
+
+## LAV-044 · Kartda oxunuş sayının yeri
+
+**Asılılıq:** LAV-043. **Qəbul:** UI-12.
+
+Lent kartında oxunuş göstəricisini yuxarıdakı kateqoriya/tarix metadata sətrindən çıxarıb kartın alt sağındakı footer-ə yerləşdir. Müəllif adını footer-in solunda saxla; dar mobil enlərdə elementlər səliqəli qırılmalı və oxunuş sağ kənara hizalanmalıdır. Etiraf detail səhifəsinin göstəricisinə toxunma. **Sübut:** HTML/feature yoxlaması, 320 px responsiv baxış, CSS build və sənəd validatoru.
