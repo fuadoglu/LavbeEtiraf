@@ -35,13 +35,13 @@ Dil seçici ilk ekranda cari dili işarələyir. Desktop header-də bayraqla yan
 | friends | Dostluq və etibar | Friendship & Trust | Dost sirri, paxıllıq, birtərəfli dostluq, çevrədən kənarda qalmaq və böyüdükcə yadlaşmaq. | users-round |
 | money | Pul və dolanışıq | Money & Making Ends Meet | Borc, gizli xərclər, maaş fərqi, ailəyə maddi kömək və pulun münasibətlərə təsiri. | wallet |
 | work | İşdə başıma gələnlər | Things That Happen at Work | Rəhbər və həmkarlar, haqsızlıq, səhv, ambisiya, işsizlik və uğurun görünməyən tərəfi. | briefcase-business |
-| identity | Özümə də deyə bilmədiklərim | Things I Can’t Even Tell Myself | Adını qoymaq çətin olan hisslər, kimlik, tənhalıq, özünəinam və daxili ziddiyyətlər. | user-round |
+| identity | Özümə də deyə bilmədiklərim | Things I Can’t Even Tell Myself | Adını qoymaq çətin olan hisslər, kimlik, tənhalıq, özünəinam və daxili ziddiyyətlər. | fingerprint |
 | grief | Valideyn olmaq | Being a Parent | Övlad böyütmək, valideyn olmaq istəyi və tərəddüdü, səbir, məsuliyyət və öz uşaqlığından qalanlar. | baby |
 | education | Məktəb və tələbə həyatı | School & Student Life | İmtahan, müəllim, ixtisas seçimi, uğursuzluq qorxusu və tələbəlikdə aidiyyət hissi. | graduation-cap |
 | wellbeing | Bədənim və sağlamlığım | My Body & Health | Görünüş, xəstəlik, fiziki və psixoloji sağlamlıq, başqalarının görə bilmədiyi çətinliklər. | heart-pulse |
-| everyday | Aramızda qalsın | Between Us | Gündəlik həyatın xırda sirləri, gülməli vərdişlər, yöndəmsiz anlar və gözlənilməz yaxşılıqlar. | calendar-days |
+| everyday | Aramızda qalsın | Between Us | Gündəlik həyatın xırda sirləri, gülməli vərdişlər, yöndəmsiz anlar və gözlənilməz yaxşılıqlar. | coffee |
 | values | Vicdan və inanclar | Conscience & Beliefs | Doğru bildiyinlə etdiyin arasındakı fərq, din, ənənə, bağışlamaq, susmaq və sözünü demək. | compass |
-| life-changes | İtirdiklərim və yeni başlanğıclar | Loss & New Beginnings | Yas, həsrət, köç, geridə qalan həyat və ayrılıqdan sonra özünə yer tapmaq. | route |
+| life-changes | İtirdiklərim və yeni başlanğıclar | Loss & New Beginnings | Yas, həsrət, köç, geridə qalan həyat və ayrılıqdan sonra özünə yer tapmaq. | signpost |
 
 Etirafın əsas mövzusu seçilir. Borc və dolanışıq əsasdırsa `money`, dostluqdakı etibar və kənarda qalmaq əsasdırsa `friends`, romantik yaxınlıq və ayrılıq əsasdırsa `relationships` seçilir. Valideynlik və övlad böyütmək `grief` sabit daxili açarı altında, yas, həsrət, köç və yeni həyata uyğunlaşma isə `life-changes` altında yerləşir. `grief` açarı URL və tətbiq müqaviləsi sabit qalsın deyə saxlanmış tarixi texniki açardır; istifadəçiyə valideynlik adı göstərilir. Mövcud `grief` etirafları `life-changes` kateqoriyasına bir dəfəlik migration ilə keçir. Digər kateqoriyalar istifadəçinin verdiyi yeni mövzu sərhədlərinə uyğun olaraq eyni açarla davam edir.
 

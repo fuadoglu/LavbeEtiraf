@@ -37,7 +37,7 @@
                 <summary>{{ __('guest.topic_guide') }}</summary>
                 <ul>
                     @foreach($categories as $category)
-                        <li><strong>{{ $category['label'] }}</strong><span>{{ $category['description'] }}</span></li>
+                        <li><strong><x-icon :name="$category['icon']" class="icon-small" />{{ $category['label'] }}</strong><span>{{ $category['description'] }}</span></li>
                     @endforeach
                 </ul>
             </details>

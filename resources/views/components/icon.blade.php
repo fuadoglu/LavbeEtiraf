@@ -1,10 +1,11 @@
 @props(['name'])
 @php
     $availableIcons = [
-        'arrow-left', 'book-open', 'chevron-down', 'circle-check', 'circle-x', 'feather',
-        'heart', 'info', 'languages', 'list-filter', 'menu', 'message-circle',
-        'moon', 'pen-line', 'search', 'settings-2', 'shield-check', 'sun',
-        'triangle-alert', 'user-round', 'x',
+        'baby', 'arrow-left', 'book-open', 'briefcase-business', 'calendar-days', 'chevron-down',
+        'circle-check', 'circle-x', 'coffee', 'compass', 'feather', 'fingerprint', 'graduation-cap',
+        'heart', 'heart-handshake', 'heart-pulse', 'house', 'info', 'languages', 'list-filter',
+        'menu', 'message-circle', 'moon', 'pen-line', 'route', 'search', 'settings-2', 'shield-check',
+        'signpost', 'sun', 'triangle-alert', 'user-round', 'users-round', 'wallet', 'x',
     ];
     abort_unless(in_array($name, $availableIcons, true), 404);
 @endphp

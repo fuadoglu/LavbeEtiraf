@@ -31,6 +31,7 @@ class GuestConfessionController extends Controller
                 'key' => $item['key'],
                 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en'],
                 'description' => $item['descriptions'][app()->getLocale()] ?? $item['descriptions']['en'],
+                'icon' => $item['icon'],
             ]),
             'idempotencyKey' => $this->randomToken(),
         ]);

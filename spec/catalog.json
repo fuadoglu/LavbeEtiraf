@@ -352,7 +352,7 @@
     },
     {
       "key": "identity",
-      "icon": "user-round",
+      "icon": "fingerprint",
       "labels": {
         "en": "Things I Can’t Even Tell Myself",
         "de": "Was ich mir selbst nicht sagen kann",
@@ -520,7 +520,7 @@
     },
     {
       "key": "everyday",
-      "icon": "calendar-days",
+      "icon": "coffee",
       "labels": {
         "en": "Between Us",
         "de": "Unter uns",
@@ -604,7 +604,7 @@
     },
     {
       "key": "life-changes",
-      "icon": "route",
+      "icon": "signpost",
       "labels": {
         "en": "Loss & New Beginnings",
         "de": "Verlust und Neubeginn",

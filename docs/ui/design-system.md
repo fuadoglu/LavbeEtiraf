@@ -23,7 +23,7 @@ Sistem rejimi ilkin seçimdir. Gündüz və Gecə brauzerdə yadda qalır. İlk 
 
 - Başlıq, mobil Oxu/Yaz/Mənim naviqasiyası, masaüstü naviqasiya, düymə, sahə, dialoq, mövzu seçimi, status, bildiriş, kart, skelet, səhifələmə və oflayn ekran.
 - Kart hiyerarxiyası: mövzu, unikallaşdırılmış başlıq, təsdiqlənmiş mətndən qısa parça, lazım olduqda Davamı gəldi. Skeleton eyni kart komponentinin geometriyasından istifadə edir.
-- 12 kateqoriyanın lokallaşdırılmış adı lentdə, yazı formasındakı açıla bilən mövzu bələdçisi isə adla yanaşı sərhəd izahını göstərir. Kateqoriyanın sabit açarları [lokalizasiya xəritəsində](../localization.md#kateqoriyaların-sabit-xəritəsi) saxlanır.
+- 12 kateqoriyanın hər birinin mövzuya uyğun, unikal Lucide SVG-si var. İkon adın yanında həm kateqoriya naviqasiyasında, həm lent kartlarında göstərilir; ikon dekorativdir və mətn etiketi linkin əlçatan adını təmin edir. Yazı formasındakı açıla bilən mövzu bələdçisi adla yanaşı sərhəd izahını göstərir. Kateqoriyanın sabit açarları və ikon xəritəsi [lokalizasiya xəritəsində](../localization.md#kateqoriyaların-sabit-xəritəsi) saxlanır.
 - Lucide ikonları yerli SVG dəsti kimi verilir. Yalnız istifadə olunan ikonları saxla, dəstin lisenziya bildirişlərini əlavə et. Etiketli ikonlar dekorativ sayılır, tək ikonlu düymənin əlçatan adı var. Bayraqlar eyni ölçüdə yerli yumru SVG-lərdir, dil etiketi yanında qalır.
 - Aşağıdan açılan panellər fokusun geri qaytarılmasını, Escape ilə bağlanmanı və klaviatura idarəsini dəstəkləyir. Təbii düymə və link semantikası qorunur. Azaldılmış hərəkətdə skelet və keçidlər sabitdir.
 - Görünüş və hərəkət istifadəçini həssas detal yazmağa sövq etmir. Reklam sahəsi heç bir sistem düyməsinə bənzəmir.
