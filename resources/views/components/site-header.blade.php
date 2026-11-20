@@ -5,8 +5,6 @@
     </a>
     <x-site-navigation />
     <div class="header-actions">
-        <a class="icon-button header-supported" href="{{ route('confessions.supported', ['locale' => $lavbeLocale['segment']]) }}" aria-label="{{ __('participation.supported_heading') }}" title="{{ __('participation.supported_heading') }}"><x-icon name="heart" /></a>
-        <a class="icon-button header-search" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}" aria-label="{{ __('lavbe.search_title') }}" title="{{ __('lavbe.search_title') }}" @if(request()->routeIs('search')) aria-current="page" @endif><x-icon name="search" /></a>
         <details class="language-menu">
             <summary class="icon-button language-button" aria-label="{{ $lavbeLocale['native'] }}">
                 <img class="language-flag" src="{{ asset('icons/flags/'.strtolower($lavbeLocale['flag']).'.svg') }}" alt="" width="24" height="24">
@@ -32,6 +30,8 @@
                 </div>
             </form>
         </details>
+        <a class="icon-button header-search" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}" aria-label="{{ __('lavbe.search_title') }}" title="{{ __('lavbe.search_title') }}" @if(request()->routeIs('search')) aria-current="page" @endif><x-icon name="search" /></a>
+        <a class="icon-button header-supported" href="{{ route('confessions.supported', ['locale' => $lavbeLocale['segment']]) }}" aria-label="{{ __('participation.supported_heading') }}" title="{{ __('participation.supported_heading') }}"><x-icon name="heart" /></a>
         <button class="icon-button theme-button" type="button" data-theme-toggle aria-pressed="false" data-label-night="{{ __('navigation.theme_night') }}" data-label-day="{{ __('navigation.theme_day') }}" aria-label="{{ __('navigation.theme_night') }}" >
             <x-icon name="moon" class="theme-icon-night" />
             <x-icon name="sun" class="theme-icon-day" />
