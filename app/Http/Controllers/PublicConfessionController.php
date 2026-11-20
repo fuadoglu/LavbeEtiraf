@@ -20,7 +20,7 @@ class PublicConfessionController extends Controller
 
         $confession = Confession::query()->with('publicRevision')
             ->where('public_id', $publicId)
-            ->where('locale', $locale)
+            ->where('locale', app(LocaleRegistry::class)->contentCode($locale))
             ->first();
 
         if ($confession?->status === 'deleted') {

@@ -121,8 +121,8 @@ class UiFoundationTest extends TestCase
     {
         config(['lavbe.limits.search_query' => 5]);
 
-        $this->get('/en/search?q=12345')->assertOk();
-        $this->get('/en/search?q=123456')->assertStatus(422);
+        $this->post('/en/search', ['q' => '12345'])->assertOk();
+        $this->post('/en/search', ['q' => '123456'])->assertStatus(422);
     }
 
     public function test_admin_preview_is_synthetic_and_is_not_exposed_as_an_admin_route(): void

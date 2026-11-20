@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Confession;
 use App\Models\ConfessionComment;
+use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Moderation\ReportService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -71,13 +72,13 @@ class ReportController extends Controller
     {
         abort_unless(in_array($type, ['confession', 'comment'], true), 404);
         if ($type === 'confession') {
-            $confession = Confession::query()->where('public_id', $publicId)->where('locale', $locale)->public()->firstOrFail();
+            $confession = Confession::query()->where('public_id', $publicId)->where('locale', app(LocaleRegistry::class)->contentCode($locale))->public()->firstOrFail();
 
             return [$confession, null];
         }
         $comment = ConfessionComment::query()->with('confession')
             ->where('public_id', $publicId)->where('status', 'public')
-            ->whereHas('confession', fn ($query) => $query->where('locale', $locale)->public())
+            ->whereHas('confession', fn ($query) => $query->where('locale', app(LocaleRegistry::class)->contentCode($locale))->public())
             ->whereHas('publicRevision', fn ($query) => $query->where('status', 'approved'))
             ->firstOrFail();
 

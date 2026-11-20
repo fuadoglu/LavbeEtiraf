@@ -221,14 +221,14 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
 
     Route::match(['GET', 'POST'], '/search', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
         abort_unless($locales->bySegment($locale), 404);
-        $query = trim((string) ($request->isMethod('post') ? $request->input('q', '') : $request->query('q', '')));
+        $query = trim((string) ($request->isMethod('post') ? $request->input('q', '') : ''));
         abort_if(mb_strlen($query, 'UTF-8') > (int) config('lavbe.limits.search_query'), 422);
         $results = null;
         if ($query !== '') {
             $results = $feed->build(app()->getLocale(), null, 'new')
                 ->where(function ($builder) use ($query): void {
                     $builder->where('title', 'like', '%'.$query.'%')->orWhere('body', 'like', '%'.$query.'%');
-                })->paginate((int) config('feed.page_size'));
+                })->paginate((int) config('feed.page_size'), ['*'], 'page', max(1, (int) $request->input('page', 1)));
         }
 
         return response()->view('search', compact('query', 'results'))

@@ -46,7 +46,7 @@ class SitemapController extends Controller
             echo '<?xml version="1.0" encoding="UTF-8"?>';
             echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
             if ($page === 1) {
-                $this->writeAlternateUrl($base.'/'.$locale.'/', $alternates, $base);
+                $this->writeAlternateUrl($base.'/'.$locale, $alternates, $base);
                 foreach ($categories as $category) {
                     $categoryAlternates = $this->categoryAlternates($category['key'], $alternates);
                     $this->writeAlternateUrl($base.'/'.$locale.'/topics/'.$category['key'], $categoryAlternates, $base, $category['key']);
@@ -77,12 +77,12 @@ class SitemapController extends Controller
     {
         echo '<url><loc>'.$this->xml($url).'</loc>';
         foreach ($locales as $locale) {
-            $path = '/'.$locale['segment'].'/'.($category === null ? '' : 'topics/'.$category);
+            $path = '/'.$locale['segment'].($category === null ? '' : '/topics/'.$category);
             echo '<xhtml:link rel="alternate" hreflang="'.$this->xml($locale['code']).'" href="'.$this->xml($base.$path).'"/>';
         }
         $fallback = collect($locales)->firstWhere('code', 'en');
         if ($fallback) {
-            echo '<xhtml:link rel="alternate" hreflang="x-default" href="'.$this->xml($base.'/'.$fallback['segment'].'/'.($category === null ? '' : 'topics/'.$category)).'"/>';
+            echo '<xhtml:link rel="alternate" hreflang="x-default" href="'.$this->xml($base.'/'.$fallback['segment'].($category === null ? '' : '/topics/'.$category)).'"/>';
         }
         echo '</url>';
     }
@@ -129,7 +129,7 @@ class SitemapController extends Controller
     private function publicQuery(string $locale): Builder
     {
         return DB::table('confessions')
-            ->where('confessions.locale', $locale)
+            ->where('confessions.locale', app(LocaleRegistry::class)->contentCode($locale))
             ->where('confessions.status', 'public')
             ->whereNotNull('confessions.published_at')
             ->whereNotNull('confessions.public_revision_id')

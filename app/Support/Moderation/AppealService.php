@@ -9,6 +9,7 @@ use App\Models\ModerationAppeal;
 use App\Models\ModerationAudit;
 use App\Models\ModeratorGrant;
 use App\Models\User;
+use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Participation\ParticipationService;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ class AppealService
                 $confession = Confession::query()->whereKey($meta['confession']->id)->lockForUpdate()->firstOrFail();
                 if ($type === 'confession') {
                     $target = Confession::query()->whereKey($meta['target']->id)->lockForUpdate()->firstOrFail();
-                    abort_unless($target->locale === $locale && $target->status === 'hidden', 404);
+                    abort_unless($target->locale === app(LocaleRegistry::class)->contentCode($locale) && $target->status === 'hidden', 404);
                     abort_unless(app(GuestConfessionController::class)->canManage($request, $target), 404);
                     $targetType = 'confession';
                 } else {
@@ -183,12 +184,12 @@ class AppealService
     private function targetMeta(string $locale, string $type, string $publicId): array
     {
         if ($type === 'confession') {
-            $confession = Confession::query()->where('public_id', $publicId)->where('locale', $locale)->firstOrFail();
+            $confession = Confession::query()->where('public_id', $publicId)->where('locale', app(LocaleRegistry::class)->contentCode($locale))->firstOrFail();
 
             return ['confession' => $confession, 'target' => $confession];
         }
         $target = ConfessionComment::query()->with('confession')
-            ->where('public_id', $publicId)->whereHas('confession', fn ($query) => $query->where('locale', $locale))
+            ->where('public_id', $publicId)->whereHas('confession', fn ($query) => $query->where('locale', app(LocaleRegistry::class)->contentCode($locale)))
             ->firstOrFail();
 
         return ['confession' => $target->confession, 'target' => $target];

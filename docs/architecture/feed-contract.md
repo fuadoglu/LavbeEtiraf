@@ -50,3 +50,5 @@ LAV-019-un yayım ardıcıllığı hissəsində publication_sequence etirafın p
 Database cache istifadə ediləndə vaxtı bitmiş snapshot qeydlərinin yığılmaması üçün lavbe:prune-expired-cache gündəlik scheduler-ə əlavə edilib. Əmr yalnız aktiv database cache store-un vaxtı bitmiş qeydlərini silir. Store database deyilsə dəyişiklik etmir. Mövcud cron schedule:run çağırışı bu işi də icra edir.
 
 HTML page=1 digər filtr seçimlərini saxlayaraq 301 ilə əsas URL-ə qayıdır. Yanlış və mövcud olmayan nömrəli səhifələr 404 qaytarır.
+
+LAV-020 audit düzəlişi: axtarış yalnız POST mətnini işləyir. Növbəti/Geri idarələri CSRF-li HTML POST formalarıdır; eyni sorğu və səhifə nömrəsi form body-də ötürülür. Sorğu URL-ə və sessiyaya yazılmır, cavab private/no-store və no-referrer qalır. Dil reyestrinin contentCode() nəticəsi bazada, urlSegment() nəticəsi keçidlərdə işlənir; pt-BR məzmunu pt-br URL-lərində açılır. Sitemap ana ünvanları canonical kimi son slash olmadan verilir. robots.txt yalnız Laravel marşrutundan gəlir; public qovluğunda onu kölgələyən fayl yoxdur.

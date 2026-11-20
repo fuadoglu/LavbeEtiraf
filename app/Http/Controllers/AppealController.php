@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Confession;
 use App\Models\ConfessionComment;
+use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Moderation\AppealService;
 use App\Support\Participation\ParticipationService;
 use Illuminate\Http\Request;
@@ -46,10 +47,10 @@ class AppealController extends Controller
     {
         abort_unless(in_array($type, ['confession', 'comment'], true), 404);
         if ($type === 'confession') {
-            return [Confession::query()->where('public_id', $publicId)->where('locale', $locale)->where('status', 'hidden')->firstOrFail(), null];
+            return [Confession::query()->where('public_id', $publicId)->where('locale', app(LocaleRegistry::class)->contentCode($locale))->where('status', 'hidden')->firstOrFail(), null];
         }
         $comment = ConfessionComment::query()->with('confession')->where('public_id', $publicId)
-            ->where('status', 'hidden')->whereHas('confession', fn ($query) => $query->where('locale', $locale)->where('status', 'public'))->firstOrFail();
+            ->where('status', 'hidden')->whereHas('confession', fn ($query) => $query->where('locale', app(LocaleRegistry::class)->contentCode($locale))->where('status', 'public'))->firstOrFail();
 
         return [$comment->confession, $comment];
     }
