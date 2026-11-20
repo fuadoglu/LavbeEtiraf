@@ -15,14 +15,16 @@
 
 @section('content')
     <section aria-labelledby="feed-title">
-        <div class="page-heading">
+        <div class="page-heading feed-heading">
+            <div>
             <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
             <p>{{ __('lavbe.feed_subtitle') }}</p>
+            </div>
+            <a class="button button-secondary feed-search" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}"><x-icon name="search" />{{ __('lavbe.search_title') }}</a>
         </div>
 
         <div class="feed-controls">
             <x-topic-panel :selected="$category" :categories="$categories" />
-            <a class="button button-secondary" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}">{{ __('lavbe.search_title') }}</a>
             <nav class="sort-panel" aria-label="{{ __('lavbe.sort_label') }}">
                 @foreach($sortLabels as $key => $label)
                     @php
@@ -37,9 +39,10 @@
 
         @if($confessions->isEmpty())
             <div class="empty-state">
-                <x-icon name="book-open" class="icon-large" />
+                <span class="empty-mark"><x-icon name="book-open" class="icon-large" /></span>
                 <h2>{{ $category ? __('lavbe.category_empty') : __('lavbe.feed_empty') }}</h2>
                 <p>{{ __('lavbe.feed_empty_description') }}</p>
+                <a class="button" href="{{ route('confessions.create', ['locale' => $lavbeLocale['segment']]) }}"><x-icon name="pen-line" />{{ __('guest.write_title') }}</a>
             </div>
         @else
             <div class="confession-feed feed-list" aria-label="{{ __('lavbe.feed_title') }}" data-feed data-next-cursor="{{ $feedCursor }}">

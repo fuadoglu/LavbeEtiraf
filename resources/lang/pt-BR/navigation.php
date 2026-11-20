@@ -1,0 +1,12 @@
+<?php
+
+return [
+    'read' => 'Ler',
+    'write' => 'Escrever',
+    'mine' => 'Meu espaço',
+    'label' => 'Navegação principal',
+    'skip' => 'Pular para o conteúdo',
+    'language_search' => 'Buscar idiomas',
+    'theme_night' => 'Ativar modo escuro',
+    'theme_day' => 'Ativar modo claro',
+];
