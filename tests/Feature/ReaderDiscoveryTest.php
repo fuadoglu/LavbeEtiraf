@@ -34,13 +34,27 @@ class ReaderDiscoveryTest extends TestCase
         $this->get('/az/supported')->assertOk()->assertSee(__('participation.supported_empty'));
     }
 
-    public function test_public_story_shows_same_locale_recommendations_and_approved_optional_name(): void
+    public function test_public_story_shows_distinct_category_recommendations_in_same_locale_and_approved_optional_name(): void
     {
         $story = Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'family']);
         $revision = $story->revisions()->create(['revision' => 2, 'title' => $story->title, 'author_display_name' => 'Nigar Məmmədova', 'body' => $story->body, 'category_key' => 'family', 'status' => 'approved']);
         $story->forceFill(['public_revision_id' => $revision->id])->save();
-        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'family', 'title' => 'AZ synthetic recommendation']);
-        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'en', 'category_key' => 'family', 'title' => 'EN synthetic recommendation']);
-        $this->get('/az/confession/'.$story->public_id)->assertOk()->assertSee('Nigar Məmmədova')->assertSee('AZ synthetic recommendation')->assertDontSee('EN synthetic recommendation');
+        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'family', 'title' => 'AZ same-category story']);
+        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => 'AZ lower-ranked work story', 'support_count' => 1]);
+        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => 'AZ leading work story', 'support_count' => 12]);
+        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'money', 'title' => 'AZ money story']);
+        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'values', 'title' => 'AZ values story']);
+        Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'en', 'category_key' => 'education', 'title' => 'EN synthetic recommendation']);
+
+        $response = $this->get('/az/confession/'.$story->public_id)->assertOk()
+            ->assertSee('Nigar Məmmədova')
+            ->assertSee('AZ leading work story')
+            ->assertSee('AZ money story')
+            ->assertSee('AZ values story')
+            ->assertDontSee('AZ lower-ranked work story')
+            ->assertDontSee('AZ same-category story')
+            ->assertDontSee('EN synthetic recommendation');
+
+        $this->assertSame(3, substr_count($response->getContent(), 'class="story-card"'));
     }
 }

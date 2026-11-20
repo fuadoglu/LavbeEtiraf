@@ -48,9 +48,23 @@ class PublicConfessionController extends Controller
         $revision = $confession->publicRevision;
         $description = $confession->excerpt ?: mb_substr(trim(preg_replace('/\s+/u', ' ', $revision->body) ?? ''), 0, (int) config('lavbe.seo_description_excerpt'), 'UTF-8');
         $category = $locales->category((string) $revision->category_key);
-        $recommended = Confession::query()->public()->where('locale', $confession->locale)
-            ->whereKeyNot($confession->id)->where('category_key', $confession->category_key)
-            ->with('publicRevision')->orderByDesc('support_count')->orderByDesc('published_at')->limit(3)->get();
+        $rankedRecommendations = Confession::query()->public()
+            ->where('locale', $confession->locale)
+            ->whereKeyNot($confession->id)
+            ->whereNotNull('category_key')
+            ->select(['confessions.id', 'confessions.category_key'])
+            ->selectRaw('ROW_NUMBER() OVER (PARTITION BY confessions.category_key ORDER BY confessions.support_count DESC, confessions.published_at DESC, confessions.id DESC) AS category_rank');
+        $recommendationIds = DB::query()->fromSub($rankedRecommendations, 'ranked_recommendations')
+            ->where('category_rank', 1)
+            ->select('id');
+        $recommended = Confession::query()->public()
+            ->where('locale', $confession->locale)
+            ->whereNotNull('category_key')
+            ->where('category_key', '!=', (string) $revision->category_key)
+            ->whereIn('confessions.id', $recommendationIds)
+            ->with('publicRevision')
+            ->orderByDesc('support_count')->orderByDesc('published_at')->orderByDesc('id')
+            ->limit(3)->get();
         $threadPublicId = $request->query('thread');
         $threadRoot = is_string($threadPublicId) && preg_match('/^'.RoutePatterns::UUID_V4.'$/D', $threadPublicId)
             ? ConfessionComment::query()->publicApproved()->where('confession_id', $confession->id)
