@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#f7f3eb">
-    <title>@yield('title', 'Lavbe · Etiraflar Vadisi')</title>
+    <title>@yield('title', 'Lavbe · '.__('lavbe.feed_title'))</title>
     @stack('head')
     <script>
         (() => {
@@ -30,7 +30,7 @@
             @yield('content')
         </main>
         <footer class="site-footer">
-            <p>Lavbe · Etiraflar Vadisi</p>
+            <p>Lavbe · {{ __('lavbe.feed_title') }}</p>
         </footer>
     </div>
     @stack('dialogs')

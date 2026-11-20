@@ -19,7 +19,7 @@
             @if($results->isEmpty())
                 <p>{{ __('lavbe.search_empty') }}</p>
             @else
-                <div class="feed-list"><x-feed-items :confessions="$results" /></div>
+                <div class="confession-feed feed-list"><x-feed-items :confessions="$results" /></div>
                 @if($results->hasPages())
                     <nav aria-label="{{ __('lavbe.pagination') }}" class="sort-panel">
                         @if($results->previousPageUrl())<a href="{{ $results->previousPageUrl() }}">{{ __('lavbe.previous') }}</a>@endif

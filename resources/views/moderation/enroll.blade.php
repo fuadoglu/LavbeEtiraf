@@ -12,7 +12,7 @@
         <p><code dir="ltr">{{ $provisioningUri }}</code></p>
         <form method="post" action="{{ route('moderation.mfa.confirm', ['locale' => request()->route('locale')]) }}">
             @csrf
-            <x-form-field :label="__('moderation.verify_code')" name="code"><input type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" required></x-form-field>
+            <x-form-field :label="__('moderation.verify_code')" name="code"><input @if($errors->has('code')) aria-describedby="code-description" @endif aria-invalid="{{ $errors->has('code') ? 'true' : 'false' }}" id="code" type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" required></x-form-field>
             @error('code')<p role="alert">{{ $message }}</p>@enderror
             <button class="button button-primary" type="submit">{{ __('moderation.confirm_setup') }}</button>
         </form>

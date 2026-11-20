@@ -296,3 +296,18 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .form-field:has(input[type="checkbox"]) > label { grid-column: 2; grid-row: 1; font-weight: 400; }
 .form-field input[type="checkbox"] { grid-column: 1; grid-row: 1; width: 1.15rem; height: 1.15rem; min-height: 0; margin-top: .3rem; accent-color: var(--action); }
 .form-field:has(input[type="checkbox"]) > .field-description { grid-column: 2; }
+
+
+/* Keep long translated labels and form controls within the reading column. */
+.page-content { overflow-wrap: anywhere; }
+.feed-controls .sort-link { white-space: normal; text-align: center; }
+.form-field { min-width: 0; }
+.form-field :is(input, select, textarea) { min-width: 0; max-width: 100%; }
+.form-field textarea { padding: .85rem 1rem; line-height: 1.72; }
+.admin-tabs { flex-wrap: wrap; }
+.primary-nav .nav-link { text-align: center; line-height: 1.25; }
+@media (max-width: 600px) {
+    .primary-nav .nav-link { overflow-wrap: anywhere; padding-inline: .35rem; }
+    .age-confirmation { align-items: center; min-height: 2.75rem; }
+    .site-footer { padding-bottom: calc(5.2rem + env(safe-area-inset-bottom)); }
+}
