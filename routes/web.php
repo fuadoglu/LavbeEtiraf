@@ -59,7 +59,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         }
 
         $categories = collect($locales->catalog()['categories'])
-            ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
+            ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en'], 'icon' => $item['icon']])
             ->all();
 
         $pageSize = (int) config('feed.page_size');
@@ -183,7 +183,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             'sort' => $sort,
             'locale' => $request->attributes->get('lavbe.locale'),
             'categories' => collect($locales->catalog()['categories'])
-                ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
+                ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en'], 'icon' => $item['icon']])
                 ->all(),
             'confessions' => $confessions,
             'canonical' => $canonical,

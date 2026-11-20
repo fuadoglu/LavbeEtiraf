@@ -23,6 +23,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 16 | Azərbaycan nümunələri və Lavbe wordmark loqosu | LAV-039 |
 | 17 | 17 dildə yeni mövzu taksonomiyası | LAV-040 |
 | 18 | Təqdim olunan Lavbe logosu və lələk favicon-u | LAV-041 |
+| 19 | 12 kateqoriya üçün unikal və mövzuya uyğun ikonlar | LAV-042 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -224,3 +225,9 @@ PR #85-də əlavə olunan Lucide/Caveat wordmark [LAV-041](#lav-041--təqdim-olu
 **Asılılıq:** LAV-002, LAV-039. **Qəbul:** BRAND-01.
 
 İstifadəçinin verdiyi şəffaf logo şəklini tam vektor konturlara çevir. Mövcud başlıq yerində bütöv lələk və “Lavbe” söz nişanını göstər; mövcud naviqasiya və digər ekranları dəyişmə. Əsas rəng və ürək vurğusu CSS dəyişənləri ilə idarə olunsun, SVG `currentColor` ilə rənglənə bilsin. Eyni logodakı lələk konturunu ayrıca SVG favicon və uyğun ICO fallback et. SVG-də raster/base64 yerləşdirmə olmasın. **Sübut:** SVG path quruluşu, açıq fon preview-u, favicon preview-u, Blade kompilyasiyası, build, sənəd validatoru və CI.
+
+## LAV-042 · Kateqoriyalara unikal mövzu ikonları
+
+**Asılılıq:** LAV-040. **Qəbul:** CAT-01.
+
+12 sabit kateqoriya açarına mövzu mənasına uyğun, bir-birindən fərqli Lucide SVG seç. İkonları lokal açıq mənbə paketindən build zamanı sinxronlaşdır; naviqasiya çiplərində və etiraf kartlarında lokallaşdırılmış adla yanaşı göstər. Dekorativ ikonlar link adını əvəz etmir. **Sübut:** kataloqda ikon unikallığı, build və sənəd yoxlaması.

@@ -22,7 +22,7 @@ Header-də istifadəçinin təqdim etdiyi tam vektor logo göstərilir. Onun lə
 
 | Ekran | Əsas əməliyyat və nəticə |
 |---|---|
-| Dil lenti və kateqoriya | 12 etirafdan ibarət səhifələri nömrə ilə dəyiş, mövzu dəyiş, seçilmiş dilin içində kəşf et |
+| Dil lenti və kateqoriya | 12 etirafdan ibarət səhifələri nömrə ilə dəyiş, hər kateqoriyanın unikal mövzu ikonunu gör, mövzu dəyiş və seçilmiş dilin içində kəşf et |
 | Etiraf | Tam mətn, anonim müəllif, təsdiqlənmiş davam və rəylər; səhifənin altında rəy yaz, rəylərə reaksiya ver və konkret rəyə birbaşa cavab yaz; paylaş, izlə, dəstək, popup-da icma şikayəti və hüquqi bildiriş |
 | Yaz və redaktə | Məcburi başlıq, mətn və istəyə bağlı kateqoriya, istəyə bağlı cavab gözləntisi və yeni rəylərə icazə. Kateqoriya seçimi bütün 17 dildə mövzu adını verir və açıla bilən bələdçidə həmin mövzunun sərhədini izah edir. Göndərişin dili görünür. |
 | Göndəriş təsdiqi | Baxış statusu, cihaz seçimi, məxfi bərpa kodu. Paylaşım URL-si yayımdan sonra. |
