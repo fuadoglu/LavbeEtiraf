@@ -8,7 +8,7 @@
         <form class="write-form" method="post" action="{{ route('confessions.recovery', ['locale' => $lavbeLocale['segment'], 'publicId' => $publicId]) }}">
             @csrf
             <x-form-field name="recovery_code" :label="__('guest.write_recovery_code')" :error="$errors->first('recovery_code')">
-                <input type="text" name="recovery_code" required minlength="40" maxlength="64" autocomplete="off" autocapitalize="none" spellcheck="false" dir="ltr">
+                <input type="text" name="recovery_code" required minlength="{{ config('lavbe.limits.recovery_code_min') }}" maxlength="{{ config('lavbe.limits.recovery_code') }}" autocomplete="off" autocapitalize="none" spellcheck="false" dir="ltr">
             </x-form-field>
             <label class="age-confirmation">
                 <input type="checkbox" name="remember_device" value="1">

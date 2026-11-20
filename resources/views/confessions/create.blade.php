@@ -14,11 +14,11 @@
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
             <x-form-field name="title" :label="__('guest.write_subject')" :error="$errors->first('title')">
-                <input type="text" name="title" value="{{ old('title') }}" autocomplete="off">
+                <input type="text" name="title" maxlength="{{ config('lavbe.limits.confession_title') }}" value="{{ old('title') }}" autocomplete="off">
             </x-form-field>
 
             <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint')" :error="$errors->first('body')">
-                <textarea name="body" rows="8" required>{{ old('body') }}</textarea>
+                <textarea name="body" rows="8" maxlength="{{ config('lavbe.limits.confession_body') }}" required>{{ old('body') }}</textarea>
             </x-form-field>
 
             <x-form-field name="category_key" :label="__('guest.write_topic')">

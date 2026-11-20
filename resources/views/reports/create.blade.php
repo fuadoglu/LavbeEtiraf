@@ -28,7 +28,7 @@
                 </select>
             </x-form-field>
             <x-form-field :label="__('reports.'.($channel === 'legal' ? 'legal_details' : 'details'))" name="details" :hint="__('reports.details_hint')" :error="$errors->first('details')">
-                <textarea id="details" name="details" maxlength="1200" @required($channel === 'legal')>{{ old('details') }}</textarea>
+                <textarea id="details" name="details" maxlength="{{ config('lavbe.limits.report_details') }}" @required($channel === 'legal')>{{ old('details') }}</textarea>
             </x-form-field>
             <button class="button button-primary" type="submit">{{ __('reports.submit'.($channel === 'legal' ? '_legal' : '')) }}</button>
         </form>

@@ -17,7 +17,7 @@
             </x-form-field>
             <x-form-field :label="__('moderation.grant_role')" name="role"><select name="role" required><option value="moderator">{{ __('moderation.grant_moderator') }}</option><option value="admin">{{ __('moderation.grant_admin') }}</option></select></x-form-field>
             <x-form-field :label="__('moderation.grant_language')" name="locale"><select name="locale" required>@foreach(app(\App\Support\Lavbe\LocaleRegistry::class)->all() as $language)<option value="{{ $language['segment'] }}">{{ $language['segment'] }}</option>@endforeach<option value="*">*</option></select></x-form-field>
-            <x-form-field :label="__('moderation.grant_reason')" name="reason"><textarea name="reason" rows="3" minlength="5" maxlength="500" required></textarea></x-form-field>
+            <x-form-field :label="__('moderation.grant_reason')" name="reason"><textarea name="reason" rows="3" minlength="{{ config('lavbe.limits.moderation_reason_min') }}" maxlength="{{ config('lavbe.limits.moderation_reason') }}" required></textarea></x-form-field>
             <button class="button button-primary" type="submit">{{ __('moderation.grant_submit') }}</button>
         </form>
         @forelse($grants as $grant)
@@ -27,7 +27,7 @@
                     <form method="post" action="{{ route('moderation.grants.revoke', ['locale' => request()->route('locale'), 'grantId' => $grant->id]) }}">
                         @csrf
                         <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                        <x-form-field :label="__('moderation.grant_reason')" name="reason"><textarea name="reason" rows="2" minlength="5" maxlength="500" required></textarea></x-form-field>
+                        <x-form-field :label="__('moderation.grant_reason')" name="reason"><textarea name="reason" rows="2" minlength="{{ config('lavbe.limits.moderation_reason_min') }}" maxlength="{{ config('lavbe.limits.moderation_reason') }}" required></textarea></x-form-field>
                         <button class="button button-secondary" type="submit">{{ __('moderation.grant_revoke') }}</button>
                     </form>
                 @endif

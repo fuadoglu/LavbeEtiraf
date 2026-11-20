@@ -198,6 +198,18 @@ class GuestConfessionTest extends TestCase
         $this->assertDatabaseCount('confessions', 1);
     }
 
+    public function test_configured_confession_length_drives_the_form_and_server_validation(): void
+    {
+        config(['lavbe.limits.confession_body' => 5]);
+
+        $this->get('/az/write')->assertOk()->assertSee('maxlength="5"', false);
+
+        $payload = $this->payload('submission-key-'.str_repeat('x', 32));
+        $payload['body'] = '123456';
+        $this->post('/az/write', $payload)->assertSessionHasErrors('body');
+        $this->assertDatabaseCount('confessions', 0);
+    }
+
     public function test_revision_text_cannot_be_updated_in_place(): void
     {
         $this->post('/az/write', $this->payload())->assertCreated();

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', (($revision->title ?: mb_substr($revision->body, 0, 70, 'UTF-8')).' · Lavbe'))
+@section('title', (($revision->title ?: mb_substr($revision->body, 0, config('lavbe.public_title_excerpt'), 'UTF-8')).' · Lavbe'))
 
 @push('head')
     <link rel="canonical" href="{{ $canonical }}">
@@ -77,7 +77,7 @@
                         <form method="post" action="{{ route('confessions.comment.response', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id, 'commentPublicId' => $comment->public_id]) }}">
                             @csrf
                             <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                            <x-form-field :label="__('participation.author_response')" name="body" :id="'response-body-'.$comment->id"><textarea name="body" maxlength="1200" required></textarea></x-form-field>
+                            <x-form-field :label="__('participation.author_response')" name="body" :id="'response-body-'.$comment->id"><textarea name="body" maxlength="{{ config('lavbe.limits.response_body') }}" required></textarea></x-form-field>
                             <button class="button button-secondary" type="submit">{{ __('participation.comment_submit') }}</button>
                         </form>
                     @endif
@@ -90,7 +90,7 @@
                 <form method="post" action="{{ route('confessions.comments.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-form">
                     @csrf
                     <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                    <x-form-field :label="__('participation.comment_label')" name="body" id="comment-body"><textarea name="body" maxlength="1200" required></textarea></x-form-field>
+                    <x-form-field :label="__('participation.comment_label')" name="body" id="comment-body"><textarea name="body" maxlength="{{ config('lavbe.limits.comment_body') }}" required></textarea></x-form-field>
                     <x-form-field :label="__('participation.remember_device')" name="remember_device"><input id="remember_device" type="checkbox" name="remember_device" value="1"></x-form-field>
                     <button class="button button-primary" type="submit">{{ __('participation.comment_submit') }}</button>
                 </form>
@@ -105,7 +105,7 @@
                 <form method="post" action="{{ route('confessions.continuations.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}">
                     @csrf
                     <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                    <x-form-field :label="__('participation.continuation_label')" name="body"><textarea id="continuation-body" name="body" maxlength="6000" required></textarea></x-form-field>
+                    <x-form-field :label="__('participation.continuation_label')" name="body"><textarea id="continuation-body" name="body" maxlength="{{ config('lavbe.limits.continuation_body') }}" required></textarea></x-form-field>
                     <x-form-field :label="__('participation.continuation_confirm')" name="confirm_continuation"><input id="confirm_continuation" type="checkbox" name="confirm_continuation" value="1" required></x-form-field>
                     <button class="button button-primary" type="submit">{{ __('participation.comment_submit') }}</button>
                 </form>

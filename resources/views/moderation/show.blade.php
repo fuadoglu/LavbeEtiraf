@@ -36,8 +36,8 @@
                     <option value="other">{{ __('moderation.reason_other') }}</option>
                 </select>
             </x-form-field>
-            <x-form-field :label="__('moderation.author_message')" name="author_message" :hint="__('moderation.author_message_required')"><textarea name="author_message" rows="4" maxlength="500"></textarea></x-form-field>
-            <x-form-field :label="__('moderation.internal_note')" name="internal_note"><textarea name="internal_note" rows="3" maxlength="1000"></textarea></x-form-field>
+            <x-form-field :label="__('moderation.author_message')" name="author_message" :hint="__('moderation.author_message_required')"><textarea name="author_message" rows="4" maxlength="{{ config('lavbe.limits.moderation_author_message') }}"></textarea></x-form-field>
+            <x-form-field :label="__('moderation.internal_note')" name="internal_note"><textarea name="internal_note" rows="3" maxlength="{{ config('lavbe.limits.moderation_internal_note') }}"></textarea></x-form-field>
             @if($confession->status === 'hidden')
                 <x-form-field :label="__('moderation.restore_reviewed')" name="restore_reviewed"><input type="checkbox" name="restore_reviewed" value="1" required></x-form-field>
             @endif

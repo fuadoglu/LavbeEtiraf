@@ -386,6 +386,6 @@ class ModerationService
         $value = strip_tags($value);
         $value = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $value) ?? '';
 
-        return mb_substr(trim($value), 0, 500, 'UTF-8');
+        return mb_substr(trim($value), 0, (int) config('lavbe.limits.sanitized_message'), 'UTF-8');
     }
 }
