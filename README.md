@@ -34,7 +34,8 @@
 | Yeni kateqoriya xəritəsi | **[LAV-040](https://github.com/fuadoglu/LavbeEtiraf/issues/86) icra olunur.** 12 kateqoriyanın adı və izahı 17 dildə yenilənir; əvvəlki yas etirafları yeni uyğun kateqoriyaya keçirilir. |
 | Təqdim olunan logo | **[LAV-041](https://github.com/fuadoglu/LavbeEtiraf/issues/88) icra olunur.** Tam logo vektor SVG-dir, lələk isə SVG/ICO favicon kimi istifadə olunur. |
 | Unikal oxunuş və kateqoriya favicon-ları | **[LAV-043](https://github.com/fuadoglu/LavbeEtiraf/issues/92) tamamlandı.** Brauzer profili üzrə oxunuş sayı və kateqoriya favicon-ları [PR #93](https://github.com/fuadoglu/LavbeEtiraf/pull/93) ilə `main`-dədir. |
-| Etiraf kartında oxunuş sayı | **[LAV-044](https://github.com/fuadoglu/LavbeEtiraf/issues/94) icra olunur.** Göstərici kartın aşağı sağ küncünə yerləşdirilir. |
+| Etiraf kartında oxunuş sayı | **[LAV-044](https://github.com/fuadoglu/LavbeEtiraf/issues/94) tamamlandı.** Göstərici kartın aşağı sağ küncündədir; [PR #95](https://github.com/fuadoglu/LavbeEtiraf/pull/95) `main`-dədir. |
+| Müxtəlif kateqoriyalardan tövsiyələr | **[LAV-045](https://github.com/fuadoglu/LavbeEtiraf/issues/96) icra olunur.** Etiraf səhifəsinin altında təkrarsız, eyni dildə və başqa kateqoriyalardan seçilən etiraflar göstərilir. |
 
 ## Codex ilə başla
 

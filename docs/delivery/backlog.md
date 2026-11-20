@@ -26,6 +26,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 19 | 12 kateqoriya üçün unikal və mövzuya uyğun ikonlar | LAV-042 |
 | 20 | Etiraf oxunuşlarını brauzer profilinə görə unikallaşdır və kateqoriya favicon-u göstər | LAV-043 |
 | 21 | Unikal oxunuş sayını etiraf kartının alt sağında göstər | LAV-044 |
+| 22 | Tövsiyə olunan etirafları müxtəlif kateqoriyalardan göstər | LAV-045 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -153,7 +154,7 @@ Dəyişdirilə bilən məhsul limitləri, səhifələmə, cookie müddətləri, 
 
 **Asılılıq:** LAV-006, LAV-007, LAV-010. **Qəbul:** DISC-01, OWN-04, UI-05.
 
-Ortaq başlıqda ürək nişanı cari sessiyanın dəstəklədiyi etirafların siyahısını açır. Siyahı bütün dillərdəki açıq etirafları əhatə edir, amma private/no-store/noindex qalır. Hər açıq etirafın altında eyni dil və kateqoriyadan ən çox üç tövsiyə göstərilir. Etiraf başlığı məcburidir; müəllif istəyə görə ad-soyadını yaza bilər. Ad təsdiqlənmiş revision-ın bir hissəsi olur və yalnız həmin revision açıq olanda görünür. Footer-dən hüquqi/standart səhifələrə keçid saxlanır. **Sübut:** session scope, cross-locale supported list, public recommendation filters, approval-only public author, title validation və footer route feature testləri.
+Ortaq başlıqda ürək nişanı cari sessiyanın dəstəklədiyi etirafların siyahısını açır. Siyahı bütün dillərdəki açıq etirafları əhatə edir, amma private/no-store/noindex qalır. Hər açıq etirafın altında eyni dildə, cari etirafın kateqoriyasından fərqli və bir-birindən təkrarlanmayan kateqoriyalardan ən çox üç tövsiyə göstərilir. Etiraf başlığı məcburidir; müəllif istəyə görə ad-soyadını yaza bilər. Ad təsdiqlənmiş revision-ın bir hissəsi olur və yalnız həmin revision açıq olanda görünür. Footer-dən hüquqi/standart səhifələrə keçid saxlanır. **Sübut:** session scope, cross-locale supported list, kateqoriya üzrə unikal public recommendation filters, approval-only public author, title validation və footer route feature testləri.
 
 ## LAV-031 · Etiraf bildiriş formalarının modal təqdimatı
 
@@ -245,3 +246,9 @@ Yalnız açıq/təsdiqlənmiş etiraf detail GET sorğusunda birinci tərəf bra
 **Asılılıq:** LAV-043. **Qəbul:** UI-12.
 
 Lent kartında oxunuş göstəricisini yuxarıdakı kateqoriya/tarix metadata sətrindən çıxarıb kartın alt sağındakı footer-ə yerləşdir. Müəllif adını footer-in solunda saxla; dar mobil enlərdə elementlər səliqəli qırılmalı və oxunuş sağ kənara hizalanmalıdır. Etiraf detail səhifəsinin göstəricisinə toxunma. **Sübut:** HTML/feature yoxlaması, 320 px responsiv baxış, CSS build və sənəd validatoru.
+
+## LAV-045 · Tövsiyələri kateqoriyalar arasında müxtəlifləşdir
+
+**Asılılıq:** LAV-030. **Qəbul:** DISC-01.
+
+Etiraf detail-ində cari etirafı və onun kateqoriyasını çıxar. Eyni dildəki açıq/təsdiqlənmiş etiraflardan hər kateqoriya üçün dəstək sayı, yayım vaxtı və ID-yə görə ən yaxşı namizədi seç; kateqoriya başına yalnız birini götür, ən güclü üç fərqli kateqoriyanı göstər. Mövcud kart görünüşü, locale filter-i və public scope saxlanır. **Sübut:** kateqoriya təkrarı, cari kateqoriya, dil sərhədi, sıralama və maksimum say feature sınaqları, build, sənəd validatoru və CI.
