@@ -19,7 +19,7 @@ Lavbe anonim, mətn əsaslı etiraf və dəstək platformasıdır. Açılışda 
 | Ekran | Əsas əməliyyat və nəticə |
 |---|---|
 | Dil lenti və kateqoriya | Oxu, mövzu dəyiş, daha çox yüklə, seçilmiş dilin içində kəşf et |
-| Etiraf | Tam mətn, anonim müəllif, təsdiqlənmiş davam və rəylər, paylaş, izlə, dəstək, şikayət, növbəti etiraf |
+| Etiraf | Tam mətn, anonim müəllif, təsdiqlənmiş davam və rəylər, paylaş, izlə, dəstək, popup-da icma şikayəti və hüquqi bildiriş, növbəti etiraf |
 | Yaz və redaktə | Məcburi başlıq, mətn və istəyə bağlı kateqoriya, istəyə bağlı cavab gözləntisi və yeni rəylərə icazə. Göndərişin dili görünür. |
 | Göndəriş təsdiqi | Baxış statusu, cihaz seçimi, məxfi bərpa kodu. Paylaşım URL-si yayımdan sonra. |
 | Mənim | Bağlanmış Etiraflarım və Rəylərim, İzlədiklərim, Bildirişlər, tətbiqdaxili/e-poçt seçimi, giriş və parol bərpası |

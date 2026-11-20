@@ -22,6 +22,7 @@
 | Hesab, Mənim bölməsi və bildirişlər | **[LAV-009](https://github.com/fuadoglu/LavbeEtiraf/issues/22) icra olunur.** Email təsdiqi, parol bərpası, guest sahiblik iddiası, user-scope izləmə və opt-in neytral bildirişlər bu branch-də hazırlanıb; PR/CI mərhələsi qalır. |
 | İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
 | Oxucu kəşfi və müəllif adı | **LAV-030 hazırlanıb.** Başlıqda dəstək ürəyi, dəstəklənənlərin private siyahısı, etiraf tövsiyələri, məcburi başlıq və istəyə bağlı açıq ad-soyad PR/CI mərhələsindədir; hüquqi səhifələr ortaq footer-dən açılır. |
+| Etirafdan şikayət | **LAV-031 hazırlanıb.** İcma şikayəti və hüquqi bildiriş etiraf səhifəsində accessible dialog popup-da açılır; CI mərhələsindədir. |
 
 ## Codex ilə başla
 

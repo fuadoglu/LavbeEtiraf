@@ -29,8 +29,8 @@
         </header>
         <div class="confession-body">{!! nl2br(e($revision->body)) !!}</div>
         <div class="confession-report-links">
-        <p><a href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.report_confession') }}</a></p>
-        <p><a href="{{ route('reports.legal.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.legal_title') }}</a></p>
+        <p><a href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}" data-dialog-open="confession-report-dialog">{{ __('reports.report_confession') }}</a></p>
+        <p><a href="{{ route('reports.legal.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}" data-dialog-open="confession-legal-dialog">{{ __('reports.legal_title') }}</a></p>
 
         </div>
         </div>
@@ -126,4 +126,16 @@
             </section>
         @endif
     </article>
+
+    @push('dialogs')
+        <x-dialog id="confession-report-dialog" :title="__('reports.community_title')">
+            <p>{{ __('reports.target_confession') }}: {{ $revision->title }}</p>
+            @include('reports.form', ['channel' => 'community', 'confession' => $confession, 'targetType' => 'confession', 'targetPublicId' => $confession->public_id, 'locale' => $localeRecord['segment'], 'idempotencyKey' => bin2hex(random_bytes(16))])
+        </x-dialog>
+        <x-dialog id="confession-legal-dialog" :title="__('reports.legal_title')">
+            <p>{{ __('reports.target_confession') }}: {{ $revision->title }}</p>
+            <x-status tone="warning">{{ __('reports.legal_separation') }}</x-status>
+            @include('reports.form', ['channel' => 'legal', 'confession' => $confession, 'targetType' => 'confession', 'targetPublicId' => $confession->public_id, 'locale' => $localeRecord['segment'], 'idempotencyKey' => bin2hex(random_bytes(16))])
+        </x-dialog>
+    @endpush
 @endsection
