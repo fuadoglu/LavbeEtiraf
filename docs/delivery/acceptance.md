@@ -29,5 +29,6 @@
 | SEO-04 | Dərc və silmə zamanı nömrəli HTML/cursor | Canonical HTML adi linklə işləyir. Aktiv cursor yeni qeydi qəbul etmir, silinəni keçib düzgün davam edir, vaxtı bitmiş cursor 410 və yeniləmə çağırışı verir |
 | ADV-03 | Rəy səthinə keçid, account və oflayn | Ayrı form və şəxsi səthdə reklam və GA4 sorğusu yoxdur. Bildiriş e-poçtu ayrıca opt-in tələb edir və məzmun/alias/şikayət/sahiblik sirri daşımır; tətbiq və cache heç bir sirr və ya qaralama daşımır |
 | OPS-03 | Faktiki buraxılış qapıları | Hüquqi operator, hosting/region, 17 dil moderatoru və baxışı, xarici hesablar, backup və səlahiyyətli buraxılış qeydləri bağlıdır |
+| CFG-01 | Məhsul limiti konfiqurasiyadan dəyişdirilir | Forma və server validasiyası eyni mərkəzi dəyəri istifadə edir; dəyişdirilə bilən limit, pagination və rate-limit mənbəyi audit sənədində göstərilir; sabit protokol literal-ları əsaslandırılır |
 
 Test nəticəsini PR-a əlavə et: mühit, əmr və nəticə. Avtomatik test, browser sınağı, manual baxış və xarici hesab doğrulamasını ayrıca qeyd et. 75-ci persentil üçün mobil sahə hədəfləri LCP ≤2,5 s, INP ≤200 ms, CLS ≤0,1. Trafik olmayanda lab nəticəsini sahə ölçümü kimi etiketləmə.

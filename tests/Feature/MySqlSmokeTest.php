@@ -34,6 +34,7 @@ class MySqlSmokeTest extends TestCase
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('moderation_outbox'));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('push_subscriptions'));
         $this->assertTrue(DB::getSchemaBuilder()->hasTable('web_push_deliveries'));
+        $this->assertTrue(DB::getSchemaBuilder()->hasTable('indexnow_deliveries'));
         foreach (['report_groups', 'report_submissions', 'moderation_appeals'] as $table) {
             $this->assertTrue(DB::getSchemaBuilder()->hasTable($table), 'Missing moderation report table: '.$table);
         }

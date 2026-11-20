@@ -32,7 +32,7 @@
             <x-feed-skeleton :count="2" />
         </details>
         <x-form-field label="Material axtarışı" name="preview-search" hint="Nümunə sahədir; axtarış funksiyası qoşulmayıb.">
-            <input type="search" placeholder="Etiraf üzrə axtar" disabled>
+            <input aria-describedby="preview-search-description" aria-invalid="{{ $errors->has('preview-search') ? 'true' : 'false' }}" id="preview-search" type="search" placeholder="Etiraf üzrə axtar" disabled name="preview-search">
         </x-form-field>
     </section>
 @endsection

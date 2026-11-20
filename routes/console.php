@@ -8,5 +8,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::command('lavbe:deliver-notifications --limit=100')->everyMinute()->withoutOverlapping();
+Schedule::command('lavbe:deliver-notifications')->everyMinute()->withoutOverlapping();
+Schedule::command('lavbe:indexnow')->everyMinute()->withoutOverlapping();
+Schedule::command('lavbe:prune-expired-cache')->daily()->withoutOverlapping();
 Schedule::command('lavbe:deliver-web-push --limit=10')->everyMinute()->withoutOverlapping();

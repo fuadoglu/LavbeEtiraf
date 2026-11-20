@@ -15,8 +15,9 @@ use Throwable;
 
 class ParticipationNotificationDelivery
 {
-    public function dispatch(int $limit = 100): array
+    public function dispatch(?int $limit = null): array
     {
+        $limit = max(1, min((int) config('delivery.notifications.batch_max'), $limit ?? (int) config('delivery.notifications.batch_size')));
         $created = DB::transaction(function () use ($limit): int {
             $events = ParticipationOutbox::query()->whereNull('dispatched_at')->orderBy('id')->limit($limit)->lockForUpdate()->get();
             $created = 0;
@@ -62,7 +63,7 @@ class ParticipationNotificationDelivery
             return $created;
         }, 3);
 
-        return ['created' => $created, 'emails_sent' => $this->sendPendingEmails(100)];
+        return ['created' => $created, 'emails_sent' => $this->sendPendingEmails(max(1, (int) config('delivery.notifications.email_batch_size')))];
     }
 
     private function sendPendingEmails(int $limit): int
@@ -70,12 +71,12 @@ class ParticipationNotificationDelivery
         $sent = 0;
         $notifications = UserNotification::query()->whereNull('email_sent_at')->whereNull('email_skipped_at')
             ->where(function ($query): void {
-                $query->whereNull('email_claimed_at')->orWhere('email_claimed_at', '<', now()->subMinutes(15));
+                $query->whereNull('email_claimed_at')->orWhere('email_claimed_at', '<', now()->subMinutes((int) config('delivery.notifications.email_claim_minutes')));
             })->orderBy('id')->limit($limit)->pluck('id');
         foreach ($notifications as $notificationId) {
             $claimed = UserNotification::query()->whereKey($notificationId)->whereNull('email_sent_at')->whereNull('email_skipped_at')
                 ->where(function ($query): void {
-                    $query->whereNull('email_claimed_at')->orWhere('email_claimed_at', '<', now()->subMinutes(15));
+                    $query->whereNull('email_claimed_at')->orWhere('email_claimed_at', '<', now()->subMinutes((int) config('delivery.notifications.email_claim_minutes')));
                 })->update(['email_claimed_at' => now()]);
             if ($claimed !== 1) {
                 continue;

@@ -20,14 +20,15 @@ class ModeratorAuthController extends Controller
     public function login(Request $request, string $locale): Response
     {
         $data = Validator::make($request->all(), [
-            'email' => ['required', 'email', 'max:255'],
-            'password' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:'.config('lavbe.limits.moderator_email')],
+            'password' => ['required', 'string', 'max:'.config('lavbe.limits.moderator_password')],
         ])->validate();
         $rateKey = 'moderator-login:'.hash_hmac('sha256', mb_strtolower($data['email']).'|'.$request->ip(), (string) config('app.key'));
-        if (RateLimiter::tooManyAttempts($rateKey, 5)) {
+        $limit = config('lavbe.rate_limits.actions.moderator_login');
+        if (RateLimiter::tooManyAttempts($rateKey, $limit['attempts'])) {
             return back()->withErrors(['email' => __('moderation.too_many')]);
         }
-        RateLimiter::hit($rateKey, 60);
+        RateLimiter::hit($rateKey, $limit['decay_seconds']);
 
         if (! Auth::attempt(['email' => $data['email'], 'password' => $data['password']], false)) {
             return back()->withErrors(['email' => __('moderation.login_failed')])->onlyInput('email');
@@ -98,12 +99,13 @@ class ModeratorAuthController extends Controller
     public function verifyChallenge(Request $request, string $locale, ModeratorMfaService $mfa): Response
     {
         $this->assertActiveAccount($request);
-        $data = Validator::make($request->all(), ['code' => ['required', 'string', 'min:6', 'max:32', 'regex:/^[A-Za-z0-9_-]+$/']])->validate();
+        $data = Validator::make($request->all(), ['code' => ['required', 'string', 'min:'.config('lavbe.limits.moderator_code_min'), 'max:'.config('lavbe.limits.moderator_code'), 'regex:/^[A-Za-z0-9_-]+$/']])->validate();
         $rateKey = 'moderator-mfa:'.hash_hmac('sha256', $request->user()->id.'|'.$request->ip(), (string) config('app.key'));
-        if (RateLimiter::tooManyAttempts($rateKey, 5)) {
+        $limit = config('lavbe.rate_limits.actions.moderator_mfa');
+        if (RateLimiter::tooManyAttempts($rateKey, $limit['attempts'])) {
             return back()->withErrors(['code' => __('moderation.too_many')]);
         }
-        RateLimiter::hit($rateKey, 60);
+        RateLimiter::hit($rateKey, $limit['decay_seconds']);
 
         if (! $mfa->verify($request->user(), $data['code'])) {
             return back()->withErrors(['code' => __('moderation.invalid_code')]);

@@ -4,12 +4,83 @@ namespace Tests\Feature;
 
 use App\Models\Confession;
 use App\Support\Lavbe\FeedCursor;
+use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class UiFoundationTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_public_form_labels_and_descriptions_reference_existing_controls(): void
+    {
+        $confession = Confession::factory()->create(['public_id' => (string) Str::uuid()]);
+        foreach ([
+            '/az/write',
+            '/az/account/login',
+            '/az/account/register',
+            '/az/moderation/login',
+            '/az/my/'.$confession->public_id.'/recover',
+            '/az/report/confession/'.$confession->public_id,
+            '/az/confession/'.$confession->public_id,
+        ] as $path) {
+            $response = $this->get($path);
+            $this->assertSame(200, $response->status(), $path);
+            $html = $response->getContent();
+            $document = new \DOMDocument;
+            @$document->loadHTML('<?xml encoding="UTF-8">'.$html);
+            $xpath = new \DOMXPath($document);
+            $ids = [];
+            foreach ($xpath->query('//*[@id]') as $element) {
+                $id = $element->getAttribute('id');
+                $this->assertArrayNotHasKey($id, $ids, $path.' duplicates '.$id);
+                $ids[$id] = $element->tagName;
+            }
+            foreach ($xpath->query('//label[@for]') as $label) {
+                $target = $label->getAttribute('for');
+                $this->assertContains($ids[$target] ?? null, ['input', 'select', 'textarea'], $path.' label '.$target);
+            }
+            foreach ($xpath->query('//*[@aria-describedby]') as $element) {
+                foreach (explode(' ', $element->getAttribute('aria-describedby')) as $id) {
+                    $this->assertArrayHasKey($id, $ids, $path.' missing description '.$id);
+                }
+            }
+        }
+    }
+
+    public function test_error_and_shared_component_copy_is_localized_in_every_locale(): void
+    {
+        foreach (app(LocaleRegistry::class)->all() as $locale) {
+            $code = $locale['code'];
+            $this->get('/'.$locale['segment'].'/topics/does-not-exist')
+                ->assertNotFound()
+                ->assertSee(__('ui.missing', [], $code))
+                ->assertSee(__('ui.back', [], $code))
+                ->assertSee('Lavbe · '.__('lavbe.feed_title', [], $code));
+            $this->view('components.feed-skeleton')
+                ->assertSee(__('ui.loading', [], $code))
+                ->assertDontSee('ui.loading');
+            $this->view('components.dialog', ['id' => 'synthetic-dialog', 'title' => 'Synthetic title', 'slot' => ''])
+                ->assertSee(__('ui.close', [], $code))
+                ->assertDontSee('ui.close');
+        }
+    }
+
+    public function test_feed_pages_normalize_first_page_and_reject_invalid_or_empty_pages(): void
+    {
+        foreach (['/az/', '/az/topics/family'] as $path) {
+            $response = $this->get($path.'?page=1&sort=weekly');
+            $response->assertStatus(301);
+            $location = $response->headers->get('Location');
+            $this->assertStringNotContainsString('page=', $location);
+            $this->assertStringContainsString('sort=weekly', $location);
+            foreach (['0', '-1', 'abc', '1.5', '999999999999999999999999', '2', 'page[]=1'] as $page) {
+                $query = str_contains($page, '=') ? $page : 'page='.$page;
+                $this->get($path.'?'.$query)->assertNotFound();
+            }
+        }
+    }
 
     protected function setUp(): void
     {
@@ -42,8 +113,16 @@ class UiFoundationTest extends TestCase
     {
         $this->get('/az/topics/not-a-category')
             ->assertNotFound()
-            ->assertSee('Bu səhifə tapılmadı')
-            ->assertSee('Oxu lentinə qayıt');
+            ->assertSee('Səhifə tapılmadı')
+            ->assertSee('Etiraflara qayıt');
+    }
+
+    public function test_search_query_limit_is_configurable_on_the_server(): void
+    {
+        config(['lavbe.limits.search_query' => 5]);
+
+        $this->get('/en/search?q=12345')->assertOk();
+        $this->get('/en/search?q=123456')->assertStatus(422);
     }
 
     public function test_admin_preview_is_synthetic_and_is_not_exposed_as_an_admin_route(): void
