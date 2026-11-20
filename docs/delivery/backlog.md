@@ -30,6 +30,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 23 | Footer-i əlçatan və responsive standartlara uyğunlaşdır | LAV-046 |
 | 24 | Footer-də ürəkli Lavbe loqosu və sağda yığcam keçidlər | LAV-047 |
 | 25 | Footer-dən operator keçidini çıxar və linkləri kiçikləşdir | LAV-048 |
+| 26 | Ana lentin scroll və kart qarşılıqlı təsirlərini cilala | LAV-049 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -273,3 +274,9 @@ Footer-i sol wordmark və sağda yığcam, əlçatan adlandırılmış hüquqi k
 **Asılılıq:** LAV-047. **Qəbul:** UI-05.
 
 Footer-də `operator` keçidini göstərmə; operator məlumatı səhifəsinin marşrutu birbaşa URL ilə əlçatan qalsın. Qalan altı linkin şriftini `.88rem`-dən `.8rem`-ə endir, 44 px toxunma hündürlüyünü və bütün responsive/əlçatan davranışı saxla. **Sübut:** 17 locale üzrə footer-də operator keçidinin olmaması və səhifənin HTTP 200 cavabı, CSS build, sənəd validatoru.
+
+## LAV-049 · Ana lentin scroll və kart qarşılıqlı təsirlərini cilala
+
+**Asılılıq:** LAV-002, LAV-003. **Qəbul:** UI-13.
+
+Mobil mövzu zolağına nazik, görünən scrollbar, üfüqi overscroll containment və proximity scroll snap əlavə et; mövcud responsive naviqasiya və URL-lər dəyişmir. Kartlarda yalnız hover-capable pointer üçün yumşaq sərhəd/kölgə, klaviatura fokusu üçün focus-within halqası göstər. Transform və davamlı animasiya əlavə etmə; global reduced-motion qaydasını saxla. **Sübut:** desktop/mobile browser baxışı, focus/hover CSS, CSS build və sənəd validatoru.
