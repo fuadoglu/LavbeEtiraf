@@ -29,6 +29,7 @@
 }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--text); background: var(--page); font: 1rem/1.55 system-ui, sans-serif; }
+@font-face { font-family: Caveat; src: url('../../resources/fonts/caveat-latin-600.woff2') format('woff2'); font-weight: 600; font-display: swap; }
 button, select, input, textarea { font: inherit; color: inherit; }
 button, input, select, textarea, .button, .chip {
   border: 1px solid var(--edge); background: var(--panel); border-radius: .65rem; min-block-size: 44px;
@@ -56,7 +57,9 @@ h1, h2, h3, p { margin: 0; }
 .desktop .nav, .mobile .desktop-links { display: none; }
 .desktop-links { display: flex; gap: 1rem; font-weight: 625; }
 @media (max-width: 440px) { .desktop-links { display: none; } }
-.logo { letter-spacing: -.035em; font-size: 1.28rem; }
+.brand-lockup { display: flex; align-items: center; gap: .3rem; }
+.brand-feather { width: 27px; height: 27px; color: var(--action); }
+.logo { color: var(--action); font: 600 2rem/.9 Caveat, cursive; letter-spacing: -.045em; }
 .flag { width: 20px; height: 20px; flex: 0 0 20px; border: 1px solid var(--line); border-radius: 50%; background: linear-gradient(#00b5e2 0 33%, #ef3340 33% 66%, #509e2f 66%); }
 .language { display: flex; gap: .45rem; align-items: center; }
 .mobile .current-language, .mobile .language-chevron { display: none; }
@@ -120,7 +123,7 @@ textarea { width: 100%; min-height: 9rem; resize: vertical; padding: .75rem; fon
   <section class="pane desktop"><h2>Masaüstü</h2><div class="frame" id="desktop"></div></section>
 </div>
 
-<template id="top"><div class="top"><strong class="logo">Lavbe</strong><nav class="desktop-links" aria-label="Əsas"><span>Oxu</span><span>Yaz</span><span>Mənim</span></nav><span class="language"><i class="flag"></i><span class="current-language">Azərbaycan dili</span><span class="language-chevron" aria-hidden="true">⌄</span></span></div></template>
+<template id="top"><div class="top"><span class="brand-lockup"><svg class="brand-feather" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.086 18.412A2 2 0 0112.67 19H5v-7.672a2 2 0 01.586-1.414L11.75 3.75a6 6 0 118.49 8.49z"/><path d="M16 8 2 22"/><path d="M17.488 15H9"/></svg><strong class="logo">Lavbe</strong></span><nav class="desktop-links" aria-label="Əsas"><span>Oxu</span><span>Yaz</span><span>Mənim</span></nav><span class="language"><i class="flag"></i><span class="current-language">Azərbaycan dili</span><span class="language-chevron" aria-hidden="true">⌄</span></span></div></template>
 <template id="nav"><div class="nav"><span>Oxu</span><span>Yaz</span><span>Mənim</span></div></template>
 <template id="feed-top">
   <div class="flow topics"><span class="chip all">Hamısı</span><span class="chip family">Ailə</span><span class="chip">Münasibətlər</span><span class="chip">Bütün mövzular</span></div>

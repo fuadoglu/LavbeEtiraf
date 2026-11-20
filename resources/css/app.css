@@ -2,6 +2,14 @@
 
 @source '../../resources/views/**/*.blade.php';
 
+@font-face {
+    font-family: 'Caveat';
+    src: url('../fonts/caveat-latin-600.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+}
+
 :root {
     color-scheme: light;
     --page: #f7f3eb;
@@ -19,6 +27,7 @@
     --warning: #875600;
     --shadow: 0 14px 40px rgb(31 24 38 / 16%);
     --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-brand: 'Caveat', cursive;
 }
 
 :root[data-theme="night"] {
@@ -51,8 +60,10 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .skip-link:focus { transform: translateY(0); }
 .app-shell { min-height: 100vh; display: flex; flex-direction: column; }
 .site-header { position: sticky; z-index: 5; inset-block-start: 0; display: flex; align-items: center; justify-content: space-between; min-height: 4.25rem; padding: .5rem max(1rem, calc((100vw - 72rem) / 2)); background: var(--surface); border-bottom: 1px solid var(--line); }
-.brand { display: inline-flex; align-items: center; gap: .55rem; color: var(--text); font-size: 1.28rem; font-weight: 750; letter-spacing: -.035em; text-decoration: none; }
-.brand-mark { display: grid; width: 2rem; height: 2rem; place-items: center; border-radius: 50%; background: var(--action); color: var(--action-contrast); font-size: 1.05rem; letter-spacing: 0; }
+.brand { display: inline-flex; align-items: center; gap: .35rem; color: var(--text); font-size: 1.28rem; font-weight: 750; letter-spacing: -.035em; text-decoration: none; }
+.brand-mark { display: grid; width: 2rem; height: 2rem; place-items: center; color: var(--action); }
+.brand-mark .icon { width: 1.9rem; height: 1.9rem; flex-basis: 1.9rem; }
+.brand-wordmark { color: var(--action); font-family: var(--font-brand); font-size: 2.15rem; font-weight: 600; letter-spacing: -.045em; line-height: .95; }
 .header-actions { display: flex; align-items: center; gap: .5rem; }
 .icon-button { display: inline-flex; min-width: 2.75rem; min-height: 2.75rem; align-items: center; justify-content: center; gap: .4rem; border: 1px solid transparent; border-radius: .65rem; background: transparent; color: var(--text); cursor: pointer; }
 .icon-button:hover { border-color: var(--line); background: var(--hint); }

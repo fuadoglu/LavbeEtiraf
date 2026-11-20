@@ -14,6 +14,7 @@ ICONS = (
     "chevron-down",
     "circle-check",
     "circle-x",
+    "feather",
     "heart",
     "info",
     "languages",

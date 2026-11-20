@@ -20,6 +20,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 13 | Bütün artan siyahıların nömrəli səhifələnməsi | LAV-036 |
 | 14 | Davamı gələnlər lentinin Məşhur etiraflarla əvəzlənməsi | LAV-037 |
 | 15 | Seçilmiş dilin desktop və mobil header təqdimatı | LAV-038 |
+| 16 | Azərbaycan nümunələri və Lavbe wordmark loqosu | LAV-039 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -200,3 +201,9 @@ Oxucu lentindəki “Davamı gələnlər” sıralamasını “Məşhur etirafla
 **Asılılıq:** LAV-002, LAV-003, LAV-010, LAV-034. **Qəbul:** UI-11, LOC-01.
 
 Desktop header-də cari locale kodunu gizlədib bayraq, tam native ad və dropdown işarəsi göstər. Mobil enlərdə native ad və dropdown işarəsini vizual gizlət, yalnız bayraq saxla; accessible name native dildən gəlməlidir. Axtarışlı seçim menyusunun native/ingilis adları, seçilmiş işarəsi və POST davranışı qorunur. Ekran spesifikasiyası və atlası uyğunlaşdır. **Sübut:** render edilmiş Blade, CSS build, atlas görünüşü, Pint və sənəd yoxlaması; ayrıca cihaz sınağı aparılıbsa nəticəsi göstərilir.
+
+## LAV-039 · Azərbaycan nümunələri və Lavbe wordmark loqosu
+
+**Asılılıq:** LAV-002, LAV-003, LAV-038. **Qəbul:** DEMO-01, BRAND-01, UI-01.
+
+Yerli demo seeder-ə 12 sabit kateqoriya üçün bir-birindən fərqli, təbii Azərbaycan dilində uydurma etiraf əlavə et; əvvəlki hekayələri və təkrar çağırışın idempotentliyini saxla, production seed yoluna qoşma. Mövcud monoqramı açıq lisenziyalı Lucide Feather ikonu ilə əvəzlə, eyni SVG-ni favicon mənbəyi et. “Lavbe” wordmark-ına Caveat əl yazısı fontu tətbiq et, fontu lokal paketlə və lisenziyasını saxla. Ekran atlasını, dizayn sistemi, məhsul və backlog sənədlərini yenilə. **Sübut:** seeder mühit yoxlaması/idempotent nəticə, font/icon lisenziyası, build, Pint, Blade cache, sənəd yoxlaması və CI.
