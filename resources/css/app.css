@@ -196,7 +196,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .feed-heading { margin-block: .5rem 1.6rem; }
 .feed-heading h1 { color: var(--text); font-size: clamp(2rem, 4.6vw, 2.9rem); font-weight: 750; letter-spacing: -.045em; line-height: 1.15; }
 .feed-heading p { max-width: 42ch; line-height: 1.6; }
-.feed-search { border-radius: 2rem; border-color: var(--line); }
+.header-search[aria-current="page"] { background: var(--hint); }
 .feed-controls { gap: 1.1rem; }
 .feed-controls .topic-panel { padding-inline: .25rem; }
 .topic-chip { border-color: var(--line); font-weight: 550; }
@@ -215,11 +215,11 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .confession-feed .story-excerpt, .empty-state p { text-wrap: pretty; }
 .confession-feed time, .confession-detail time { font-variant-numeric: tabular-nums; }
 @media (hover: hover) {
-    .feed-search:hover, .feed-controls .sort-link:not([aria-current]):hover { background: var(--surface-raised); border-color: var(--edge); }
+    .header-search:hover, .feed-controls .sort-link:not([aria-current]):hover { background: var(--surface-raised); border-color: var(--edge); }
     .empty-state .button:hover { background: color-mix(in srgb, var(--action) 90%, var(--text)); }
 }
 @media (prefers-reduced-motion: no-preference) {
-    .feed-search, .empty-state .button, .topic-chip, .sort-link { transition: background-color 140ms ease, border-color 140ms ease; }
+    .header-search, .empty-state .button, .topic-chip, .sort-link { transition: background-color 140ms ease, border-color 140ms ease; }
 }
 
 .feed-controls + .empty-state {

@@ -20,7 +20,6 @@
             <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
             <p>{{ __('lavbe.feed_subtitle') }}</p>
             </div>
-            <a class="button button-secondary feed-search" href="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}"><x-icon name="search" />{{ __('lavbe.search_title') }}</a>
         </div>
 
         <div class="feed-controls">
