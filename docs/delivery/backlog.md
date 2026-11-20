@@ -12,6 +12,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 5 | Ölçüm, xarici axtarış və tam buraxılış | LAV-013, LAV-014, LAV-015 |
 | 6 | Layihə sabit dəyərlərinin auditi | LAV-016 |
 | 7 | Oxucu kəşfi və açıq müəllif adı | LAV-030 |
+| 8 | Etiraf bildiriş formalarının modal təqdimatı | LAV-031 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -140,6 +141,12 @@ Dəyişdirilə bilən məhsul limitləri, səhifələmə, cookie müddətləri, 
 **Asılılıq:** LAV-006, LAV-007, LAV-010. **Qəbul:** DISC-01, OWN-04, UI-05.
 
 Ortaq başlıqda ürək nişanı cari sessiyanın dəstəklədiyi etirafların siyahısını açır. Siyahı bütün dillərdəki açıq etirafları əhatə edir, amma private/no-store/noindex qalır. Hər açıq etirafın altında eyni dil və kateqoriyadan ən çox üç tövsiyə göstərilir. Etiraf başlığı məcburidir; müəllif istəyə görə ad-soyadını yaza bilər. Ad təsdiqlənmiş revision-ın bir hissəsi olur və yalnız həmin revision açıq olanda görünür. Footer-dən hüquqi/standart səhifələrə keçid saxlanır. **Sübut:** session scope, cross-locale supported list, public recommendation filters, approval-only public author, title validation və footer route feature testləri.
+
+## LAV-031 · Etiraf bildiriş formalarının modal təqdimatı
+
+**Asılılıq:** LAV-002, LAV-008. **Qəbul:** UI-06.
+
+Etiraf detalındakı icma şikayəti və hüquqi bildiriş native dialog popup-da formanı dərhal göstərir. Paylaşılan form hissəsi ayrıca GET səhifələrdə də eyni qalır. `showModal()` dəstəyi olmadıqda və ya JavaScript sönülü olduqda href ayrıca forma səhifəsinə aparır. Server endpoint, CSRF, rate limit, private response headers və hüquqi/adi şikayət axınları dəyişmir. **Sübut:** dialog klaviatura/backdrop bağlanması və fokusun trigger-ə qayıtması, form POST davranışı və JS-siz fallback.
 
 ## İş dövrü
 

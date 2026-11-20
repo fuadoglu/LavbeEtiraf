@@ -111,7 +111,10 @@
         const dialog = document.getElementById(button.dataset.dialogOpen);
         if (!dialog || typeof dialog.showModal !== 'function') return;
 
-        button.addEventListener('click', () => dialog.showModal());
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            dialog.showModal();
+        });
         dialog.querySelector('[data-dialog-close]')?.addEventListener('click', () => dialog.close());
         dialog.addEventListener('click', (event) => {
             if (event.target === dialog) dialog.close();
