@@ -26,6 +26,8 @@ return [
     'reviews_close' => 'Stäng för nya svar',
     'support_count' => 'Antal stödmarkeringar: :count',
     'unique_reads' => 'Unika visningar: :count',
+    'public_comments' => ':count kommentarer',
+    'has_continuation' => 'Författaren har skrivit en fortsättning',
     'remember_device' => 'Kom ihåg den här enheten',
     'manage_comment' => 'Hantera mitt svar',
     'comment_state' => 'Status: :state',

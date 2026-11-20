@@ -26,6 +26,8 @@ return [
     'reviews_close' => '새 댓글 닫기',
     'support_count' => '응원 :count개',
     'unique_reads' => '고유 조회수: :count',
+    'public_comments' => '댓글 :count개',
+    'has_continuation' => '작성자가 후속 이야기를 추가했습니다',
     'remember_device' => '이 기기 기억하기',
     'manage_comment' => '내 댓글 관리',
     'comment_state' => '상태: :state',

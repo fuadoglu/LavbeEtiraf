@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Nowe',
     'sort_weekly' => 'W tym tygodniu',
     'sort_popular' => 'Popularne wyznania',
+    'sort_popular_short' => 'Popularne',
     'sort_updates' => 'Z kontynuacją',
     'topics_button' => 'Tematy',
     'categories' => 'Temat wyznania',

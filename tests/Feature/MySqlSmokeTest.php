@@ -40,6 +40,7 @@ class MySqlSmokeTest extends TestCase
             $this->assertTrue(DB::getSchemaBuilder()->hasTable($table), 'Missing account table: '.$table);
         }
         $this->assertTrue(DB::getSchemaBuilder()->hasColumn('confession_ownerships', 'user_id'));
+        $this->assertTrue(DB::getSchemaBuilder()->hasColumn('confession_ownerships', 'device_token_hash'));
         $this->assertTrue(DB::getSchemaBuilder()->hasColumn('comment_ownerships', 'user_id'));
         foreach ([
             'confession_comments', 'confession_comment_revisions', 'comment_ownerships', 'comment_responses',

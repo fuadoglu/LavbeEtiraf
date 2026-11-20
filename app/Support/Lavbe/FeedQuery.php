@@ -11,7 +11,11 @@ class FeedQuery
     /** @return Builder<Confession> */
     public function build(string $locale, ?string $category, string $order): Builder
     {
-        $query = Confession::query()->public()->where('locale', $locale)->select('confessions.*');
+        $query = Confession::query()->public()->where('locale', $locale)->select('confessions.*')
+            ->withCount(['comments as public_comment_count' => fn ($comments) => $comments->publicApproved()])
+            ->withCount(['continuations as public_continuation_count' => fn ($continuations) => $continuations
+                ->where('status', 'public')->whereNotNull('public_revision_id')
+                ->whereHas('publicRevision', fn ($revision) => $revision->where('status', 'approved'))]);
 
         if ($category !== null) {
             $query->where('category_key', $category);

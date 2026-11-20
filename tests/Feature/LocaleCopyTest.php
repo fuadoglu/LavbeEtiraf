@@ -59,7 +59,10 @@ class LocaleCopyTest extends TestCase
             $story = Confession::factory()->create(['locale' => $code, 'public_id' => (string) Str::uuid()]);
             $this->get($base.'/report/confession/'.$story->public_id)->assertOk()->assertSee(Lang::get('reports.details_hint', [], $code));
             $this->get($base.'/my/'.$story->public_id.'/recover')->assertOk()->assertSee(Lang::get('guest.write_recovery_code', [], $code));
-            $this->get($base.'/write')->assertOk()->assertSee(Lang::get('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')], $code));
+            $this->get($base.'/write')->assertOk()
+                ->assertSee(Lang::get('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')], $code))
+                ->assertSee(Lang::get('guest.write_public_search_notice', [], $code));
+            $this->get($base.'/my/device')->assertOk()->assertSee(Lang::get('guest.device_title', [], $code));
             $this->get(route('account.login', ['locale' => $locale['segment']]))->assertOk()
                 ->assertSee(Lang::get('account.login_title', [], $code));
             $this->get($base.'/topics/unknown-topic')->assertNotFound()->assertSee(Lang::get('ui.missing', [], $code));

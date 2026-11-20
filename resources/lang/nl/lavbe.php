@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Nieuw',
     'sort_weekly' => 'Deze week',
     'sort_popular' => 'Populaire bekentenissen',
+    'sort_popular_short' => 'Populair',
     'sort_updates' => 'Met vervolg',
     'topics_button' => 'Onderwerpen',
     'categories' => 'Onderwerp van de bekentenis',

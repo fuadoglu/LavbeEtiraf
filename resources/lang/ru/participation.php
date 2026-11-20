@@ -26,6 +26,8 @@ return [
     'reviews_close' => 'Закрыть комментарии',
     'support_count' => 'Поддержали: :count',
     'unique_reads' => 'Уникальные просмотры: :count',
+    'public_comments' => ':count комментариев',
+    'has_continuation' => 'Автор добавил продолжение',
     'remember_device' => 'Запомнить это устройство',
     'manage_comment' => 'Управление моим комментарием',
     'comment_state' => 'Статус: :state',

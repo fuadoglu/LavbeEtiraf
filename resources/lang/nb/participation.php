@@ -26,6 +26,8 @@ return [
     'reviews_close' => 'Steng for nye svar',
     'support_count' => 'Støttemarkeringer: :count',
     'unique_reads' => 'Unike visninger: :count',
+    'public_comments' => ':count kommentarer',
+    'has_continuation' => 'Forfatteren har skrevet en fortsettelse',
     'remember_device' => 'Husk denne enheten',
     'manage_comment' => 'Administrer svaret mitt',
     'comment_state' => 'Status: :state',

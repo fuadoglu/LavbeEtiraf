@@ -37,6 +37,20 @@ class GuestConfessionController extends Controller
         ]);
     }
 
+    public function deviceIndex(Request $request, string $locale, LocaleRegistry $locales): Response|View
+    {
+        abort_unless($locales->bySegment($locale), 404);
+        $token = $request->cookie('lavbe_device');
+        $confessions = collect();
+        if (is_string($token) && preg_match('/^[A-Za-z0-9_-]{40,48}$/', $token)) {
+            $confessions = Confession::query()->whereHas('ownership', fn ($query) => $query
+                ->whereNull('user_id')->where('device_token_hash', $this->keyedHash($token)))
+                ->with('revisions')->orderByDesc('created_at')->paginate((int) config('feed.page_size'));
+        }
+
+        return $this->privateView('confessions.device-index', compact('confessions'));
+    }
+
     public function store(Request $request, string $locale, LocaleRegistry $locales): Response|View
     {
         abort_unless($locales->bySegment($locale), 404);
@@ -80,7 +94,9 @@ class GuestConfessionController extends Controller
         $data['author_display_name'] = isset($data['author_display_name']) ? trim($data['author_display_name']) : null;
         $data['body'] = trim($data['body']);
         $idempotencyHash = $this->keyedHash($data['idempotency_key']);
-        $persistentOwnerToken = $request->boolean('remember_device') ? $this->randomToken() : null;
+        $rememberDevice = $request->boolean('remember_device');
+        $persistentOwnerToken = $rememberDevice ? $this->randomToken() : null;
+        $deviceToken = $rememberDevice ? ($request->cookie('lavbe_device') ?: $this->deviceTokenForSubmission($data['idempotency_key'])) : null;
         $sessionTokenHash = $this->keyedHash($request->session()->getId());
         $fingerprint = $this->keyedHash(json_encode([
             'locale' => app()->getLocale(),
@@ -93,7 +109,7 @@ class GuestConfessionController extends Controller
         ], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
 
         try {
-            [$confession, $recoveryCode] = DB::transaction(function () use ($data, $idempotencyHash, $fingerprint, $persistentOwnerToken, $sessionTokenHash): array {
+            [$confession, $recoveryCode] = DB::transaction(function () use ($data, $idempotencyHash, $fingerprint, $persistentOwnerToken, $deviceToken, $sessionTokenHash): array {
                 $publicId = (string) Str::uuid();
                 $recoveryCode = $this->randomToken();
 
@@ -123,6 +139,7 @@ class GuestConfessionController extends Controller
                     'session_token_hash' => $sessionTokenHash,
                     'owner_token_hash' => $persistentOwnerToken ? $this->keyedHash($persistentOwnerToken) : $sessionTokenHash,
                     'recovery_token_hash' => $this->keyedHash($recoveryCode),
+                    'device_token_hash' => $deviceToken ? $this->keyedHash($deviceToken) : null,
                 ]);
 
                 return [$confession, $recoveryCode];
@@ -140,7 +157,15 @@ class GuestConfessionController extends Controller
                 return $this->privateView('confessions.conflict', [], 409);
             }
 
-            return $this->privateView('confessions.duplicate', ['confession' => $confession]);
+            $response = $this->privateView('confessions.duplicate', ['confession' => $confession]);
+            $savedDeviceHash = $confession->ownership?->device_token_hash;
+            if ($deviceToken !== null && is_string($savedDeviceHash) && hash_equals($savedDeviceHash, $this->keyedHash($deviceToken))
+                && $request->cookie('lavbe_device') !== $deviceToken) {
+                $secure = $request->isSecure() || app()->environment('production');
+                $response->headers->setCookie(cookie('lavbe_device', $deviceToken, (int) config('lavbe.cookies.owner_minutes'), '/', null, $secure, true, false, 'strict'));
+            }
+
+            return $response;
         }
 
         $response = $this->privateView('confessions.submitted', [
@@ -149,6 +174,10 @@ class GuestConfessionController extends Controller
         ], 201);
         if ($persistentOwnerToken !== null) {
             $response->headers->setCookie($this->ownerCookie($request, $confession, $persistentOwnerToken));
+        }
+        if ($deviceToken !== null && $request->cookie('lavbe_device') !== $deviceToken) {
+            $secure = $request->isSecure() || app()->environment('production');
+            $response->headers->setCookie(cookie('lavbe_device', $deviceToken, (int) config('lavbe.cookies.owner_minutes'), '/', null, $secure, true, false, 'strict'));
         }
 
         return $response;
@@ -377,8 +406,11 @@ class GuestConfessionController extends Controller
         $ownerCookieHash = $ownership?->owner_token_hash;
         $sessionMatches = is_string($sessionHash) && hash_equals($sessionHash, $this->keyedHash($request->session()->getId()));
         $cookieMatches = is_string($token) && is_string($ownerCookieHash) && hash_equals($ownerCookieHash, $this->keyedHash($token));
+        $deviceToken = $request->cookie('lavbe_device');
+        $deviceMatches = is_string($deviceToken) && is_string($ownership?->device_token_hash)
+            && hash_equals($ownership->device_token_hash, $this->keyedHash($deviceToken));
 
-        return $sessionMatches || $cookieMatches;
+        return $sessionMatches || $cookieMatches || $deviceMatches;
     }
 
     private function ownerCookie(Request $request, Confession $confession, string $token): Cookie
@@ -396,6 +428,11 @@ class GuestConfessionController extends Controller
     private function randomToken(): string
     {
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+    }
+
+    private function deviceTokenForSubmission(string $idempotencyKey): string
+    {
+        return rtrim(strtr(base64_encode(hash_hmac('sha256', 'remembered-device|'.$idempotencyKey, (string) config('app.key'), true)), '+/', '-_'), '=');
     }
 
     private function keyedHash(string $value): string

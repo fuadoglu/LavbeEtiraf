@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Uudet',
     'sort_weekly' => 'Tällä viikolla',
     'sort_popular' => 'Suositut tunnustukset',
+    'sort_popular_short' => 'Suositut',
     'sort_updates' => 'Jatkoa luvassa',
     'topics_button' => 'Aiheet',
     'categories' => 'Tunnustuksen aihe',

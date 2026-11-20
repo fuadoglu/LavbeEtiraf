@@ -7,7 +7,7 @@
         <x-icon name="pen-line" />
         <span>{{ __('navigation.write') }}</span>
     </a>
-    <a class="nav-link @if(request()->routeIs('account.*')) is-active @endif" href="{{ route('account.home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}">
+    <a class="nav-link @if(request()->routeIs('account.*', 'confessions.device')) is-active @endif" href="{{ auth()->check() ? route('account.home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) : route('confessions.device', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}">
         <x-icon name="user-round" />
         <span>{{ __('navigation.mine') }}</span>
     </a>

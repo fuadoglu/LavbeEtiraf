@@ -7,6 +7,7 @@ return [
     'sort_new' => '新着',
     'sort_weekly' => '今週',
     'sort_popular' => '人気の告白',
+    'sort_popular_short' => '人気',
     'sort_updates' => '続きあり',
     'topics_button' => 'テーマ',
     'categories' => '告白のテーマ',

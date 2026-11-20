@@ -7,6 +7,7 @@ return [
     'sort_new' => 'Nyt',
     'sort_weekly' => 'Denne uge',
     'sort_popular' => 'Populære bekendelser',
+    'sort_popular_short' => 'Populære',
     'sort_updates' => 'Med fortsættelse',
     'topics_button' => 'Emner',
     'categories' => 'Bekendelsens emne',

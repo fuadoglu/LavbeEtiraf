@@ -26,6 +26,8 @@ return [
     'reviews_close' => 'Encerrar comentários',
     'support_count' => 'Manifestações de apoio: :count',
     'unique_reads' => 'Leituras únicas: :count',
+    'public_comments' => ':count comentários',
+    'has_continuation' => 'A pessoa autora adicionou uma continuação',
     'remember_device' => 'Lembrar deste dispositivo',
     'manage_comment' => 'Gerenciar meu comentário',
     'comment_state' => 'Situação: :state',

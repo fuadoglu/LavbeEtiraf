@@ -26,6 +26,8 @@ return [
     'reviews_close' => 'Sulje vastaukset',
     'support_count' => 'Tuenilmauksia: :count',
     'unique_reads' => 'Yksittäiset katselut: :count',
+    'public_comments' => ':count kommenttia',
+    'has_continuation' => 'Kirjoittaja on lisännyt jatko-osan',
     'remember_device' => 'Muista tämä laite',
     'manage_comment' => 'Hallitse vastaustani',
     'comment_state' => 'Tila: :state',
