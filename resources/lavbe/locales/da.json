@@ -194,7 +194,9 @@
       "ads": "Tillad annoncering",
       "save": "Gem valg",
       "decline": "Afvis valgfri cookies",
-      "withdraw": "Ændre eller trække samtykke tilbage"
+      "withdraw": "Ændre eller trække samtykke tilbage",
+      "description": "Valgfri analyse hjælper os med at forstå generel læseaktivitet. Du kan ændre dette valg når som helst.",
+      "ads_unavailable": "Annoncer er ikke tilgængelige, fordi ingen godkendt samtykkeudbyder er konfigureret."
     },
     "legal": {
       "terms": "Vilkår for brug",

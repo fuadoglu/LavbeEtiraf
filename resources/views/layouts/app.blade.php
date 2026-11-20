@@ -6,6 +6,10 @@
     <meta name="color-scheme" content="light dark">
     <x-theme-colors />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="lavbe-analytics-id" content="{{ config('services.analytics.measurement_id') }}">
+    @if($analyticsContext ?? null)
+        <meta name="lavbe-analytics-context" content="{{ base64_encode(json_encode($analyticsContext, JSON_THROW_ON_ERROR)) }}">
+    @endif
     <link rel="manifest" href="{{ route('pwa.manifest', ['locale' => request()->route('locale') ?? app(\App\Support\Lavbe\LocaleRegistry::class)->fallback()['segment']]) }}">
     <link rel="apple-touch-icon" href="/icons/lavbe-apple-touch.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,8 +41,22 @@
         </main>
         <footer class="site-footer">
             <p>Lavbe · {{ __('lavbe.feed_title') }}</p>
+            <button class="footer-link" type="button" data-consent-open>{{ $consentMessages['settings'] }}</button>
         </footer>
     </div>
     @stack('dialogs')
+    <dialog class="consent-dialog" data-consent-dialog aria-labelledby="consent-title">
+        <form method="dialog" data-consent-form>
+            <h2 id="consent-title">{{ $consentMessages['settings'] }}</h2>
+            <p>{{ $consentMessages['description'] }}</p>
+            <label class="consent-option"><input type="checkbox" data-analytics-consent> {{ $consentMessages['analytics'] }}</label>
+            <label class="consent-option"><input type="checkbox" data-ads-consent disabled> {{ $consentMessages['ads'] }}</label>
+            <p class="consent-note">{{ $consentMessages['ads_unavailable'] }}</p>
+            <div class="consent-actions">
+                <button class="button button-primary" type="submit" value="save" data-consent-save>{{ $consentMessages['save'] }}</button>
+                <button class="button button-secondary" type="button" data-consent-decline>{{ $consentMessages['decline'] }}</button>
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>

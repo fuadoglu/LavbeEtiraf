@@ -63,6 +63,12 @@
             </section>
         @endif
 
+        @if($nextConfession)
+            <nav class="next-confession" aria-label="{{ __('lavbe.next') }}">
+                <a class="button button-secondary" data-next-confession href="{{ route('confessions.public', ['locale' => $localeRecord['segment'], 'publicId' => $nextConfession->public_id]) }}">{{ __('lavbe.next') }}</a>
+            </nav>
+        @endif
+
         <section class="participation-section" aria-labelledby="comments-heading">
             <h2 id="comments-heading">{{ __('participation.comments_heading') }}</h2>
             @forelse($comments as $comment)

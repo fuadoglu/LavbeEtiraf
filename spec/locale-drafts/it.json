@@ -195,7 +195,9 @@
       "ads": "Consenti pubblicità",
       "save": "Salva scelte",
       "decline": "Rifiuta i cookie facoltativi",
-      "withdraw": "Modificare o revocare il consenso"
+      "withdraw": "Modificare o revocare il consenso",
+      "description": "Le analisi facoltative ci aiutano a comprendere l’attività generale di lettura. Puoi modificare questa scelta in qualsiasi momento.",
+      "ads_unavailable": "La pubblicità non è disponibile perché non è configurato un fornitore di consenso approvato."
     },
     "legal": {
       "terms": "Condizioni d'uso",

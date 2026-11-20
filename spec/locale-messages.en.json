@@ -186,9 +186,11 @@
     "unavailable": "The service is temporarily unavailable."
   },
   "consent": {
+    "description": "Optional analytics helps us understand general reading activity. You can change this choice at any time.",
     "settings": "Privacy settings",
     "analytics": "Allow analytics",
     "ads": "Allow advertising",
+    "ads_unavailable": "Advertising is currently unavailable because no approved consent provider is configured.",
     "save": "Save choices",
     "decline": "Decline optional cookies",
     "withdraw": "Change or withdraw consent"

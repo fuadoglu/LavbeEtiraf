@@ -9,6 +9,10 @@ return [
         'max_attempts' => (int) env('WEBPUSH_MAX_ATTEMPTS', 8),
     ],
 
+    'analytics' => [
+        'measurement_id' => env('GA4_MEASUREMENT_ID'),
+    ],
+
     'indexnow' => [
         'key' => env('INDEXNOW_KEY'),
         'max_attempts' => (int) env('INDEXNOW_MAX_ATTEMPTS', 8),

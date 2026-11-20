@@ -187,9 +187,11 @@
       "unavailable"
     ],
     "consent": [
+      "description",
       "settings",
       "analytics",
       "ads",
+      "ads_unavailable",
       "save",
       "decline",
       "withdraw"

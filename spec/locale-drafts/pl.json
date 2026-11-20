@@ -196,7 +196,9 @@
       "ads": "Zezwól na reklamy",
       "save": "Zapisz wybory",
       "decline": "Odrzuć opcjonalne pliki cookie",
-      "withdraw": "Zmień lub wycofaj zgodę"
+      "withdraw": "Zmień lub wycofaj zgodę",
+      "description": "Opcjonalna analityka pomaga nam rozumieć ogólną aktywność czytelniczą. Możesz zmienić ten wybór w dowolnym momencie.",
+      "ads_unavailable": "Reklamy są niedostępne, ponieważ nie skonfigurowano zatwierdzonego dostawcy zgód."
     },
     "legal": {
       "terms": "Warunki użytkowania",

@@ -194,7 +194,9 @@
       "ads": "Werbung zulassen",
       "save": "Auswahl speichern",
       "decline": "Optionale Cookies ablehnen",
-      "withdraw": "Einwilligung ändern oder widerrufen"
+      "withdraw": "Einwilligung ändern oder widerrufen",
+      "description": "Optionale Analysen helfen uns, allgemeine Leseaktivitäten zu verstehen. Sie können diese Auswahl jederzeit ändern.",
+      "ads_unavailable": "Werbung ist nicht verfügbar, da kein zugelassener Einwilligungsanbieter eingerichtet ist."
     },
     "legal": {
       "terms": "Nutzungsbedingungen",

@@ -33,6 +33,22 @@ class PublicSeoTest extends TestCase
         $this->assertStringContainsString('no-store', $response->headers->get('Cache-Control'));
     }
 
+    public function test_public_detail_links_to_the_next_live_confession_in_its_own_locale(): void
+    {
+        $current = $this->publishedConfession('en', 'Current synthetic story');
+        $next = $this->publishedConfession('en', 'Next synthetic story');
+        $otherLocale = $this->publishedConfession('ru', 'Other locale story');
+        $hidden = $this->publishedConfession('en', 'Hidden story');
+        $hidden->forceFill(['status' => 'hidden'])->save();
+
+        $this->get('/en/confession/'.$current->public_id)
+            ->assertOk()
+            ->assertSee('data-next-confession', false)
+            ->assertSee('/en/confession/'.$next->public_id, false)
+            ->assertDontSee($otherLocale->public_id)
+            ->assertDontSee($hidden->public_id);
+    }
+
     public function test_public_detail_status_and_sitemap_follow_publication_lifecycle(): void
     {
         $published = $this->publishedConfession('az', 'published');

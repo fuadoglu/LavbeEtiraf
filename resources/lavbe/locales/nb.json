@@ -194,7 +194,9 @@
       "ads": "Tillat annonsering",
       "save": "Lagre valg",
       "decline": "Avslå valgfrie informasjonskapsler",
-      "withdraw": "Endre eller trekke tilbake samtykke"
+      "withdraw": "Endre eller trekke tilbake samtykke",
+      "description": "Valgfri analyse hjelper oss med å forstå generell leseaktivitet. Du kan endre valget når som helst.",
+      "ads_unavailable": "Annonser er ikke tilgjengelige fordi ingen godkjent samtykkeleverandør er konfigurert."
     },
     "legal": {
       "terms": "Vilkår for bruk",

@@ -16,8 +16,8 @@
 | SEO-01 | Hər dil üzrə yayımdan dərhal sonra | 200, ilkin HTML, canonical, məzmun üçün daxili link və düzgün sitemap, dil dəyişdirmə yoxdur |
 | SEO-02 | Redaktə, geri çəkmə və daimi silmə | Real dəyişiklik lastmod-u yeniləyir, geri çəkilən sitemap-dən çıxır, daimi silinən URL 410, preview və keş təmiz |
 | SEO-03 | IndexNow və Search Console/Bing yoxlaması | Təkrar cəhd, düzgün URL dəyişiklikləri, həqiqi xarici yoxlama sübutu, domen profili düzgün |
-| ADV-01 | Consent yoxdur/var, az dili, uyğun olmayan rəy | Uyğunluq dəyişəndə ads kodu çıxarılır, az və şəxsi ekranlarda reklam yoxdur, qlobal söndürmə işləyir |
-| ADV-02 | GA4 şəbəkə izi, razılıq və hadisə | Razılıqdan əvvəl GA sorğusu yoxdur. Sonra açıq mətn, title, xam URL/referrer, etiraf ID-si və sahiblik məlumatı sızmır |
+| ADV-01 | Consent yoxdur/var, az dili, uyğun olmayan rəy | Təsdiqlənmiş CMP və reklam uyğunluğu yoxdursa reklam kodu çıxmır; az və şəxsi ekranlarda reklam yoxdur, qlobal söndürmə işləyir |
+| ADV-02 | GA4 şəbəkə izi, razılıq və hadisə | Razılıqdan əvvəl GA sorğusu yoxdur. Sonra açıq mətn, title, xam URL/referrer, etiraf ID-si və sahiblik məlumatı sızmır; geri alma yeni göndərişi dayandırır |
 | PWA-01 | Quraşdırma, köhnə keş, oflayn və push | Yalnız versiyalı statik aktiv və açıq locale offline shell cache olunur; etiraf, account, auth və yazı cavabı saxlanmır; qaralama ayrıca razılıqla maksimum 24 saat cihazda qalır və uğurlu submit-dən sonra silinir; offline göndəriş baş vermir, push yalnız neytral bildiriş daşıyır |
 | OPS-01 | Yüklə, cron dayanması və qayıtması | Açıq oxu və yazı işləyir, cron üst-üstə düşmür, outbox təkrar göndərişdən qorunur |
 | OPS-02 | Silmədən əvvəlki backup, bərpa və reklamlı sürət | Silinmiş mətn geri açılmır, rollback sənədlidir, reklamlı və reklamsız mobil performans ayrıca qeydə alınır |

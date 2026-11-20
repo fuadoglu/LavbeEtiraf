@@ -195,7 +195,9 @@
       "ads": "Autoriser la publicité",
       "save": "Enregistrer les choix",
       "decline": "Refuser les cookies facultatifs",
-      "withdraw": "Modifier ou retirer le consentement"
+      "withdraw": "Modifier ou retirer le consentement",
+      "description": "Les statistiques facultatives nous aident à comprendre la lecture en général. Vous pouvez modifier ce choix à tout moment.",
+      "ads_unavailable": "La publicité est indisponible car aucun fournisseur de consentement approuvé n’est configuré."
     },
     "legal": {
       "terms": "Conditions d'utilisation",

@@ -85,6 +85,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .story-title a { color: inherit; text-decoration-thickness: .08em; text-underline-offset: .16em; }
 .story-excerpt { margin: 0; color: var(--muted); line-height: 1.8; }
 .confession-detail { width: min(100%, 42rem); margin-inline: auto; }
+.next-confession { display: flex; justify-content: flex-end; margin-block: 1.5rem; padding-block-start: 1rem; border-top: 1px solid var(--line); }
 .confession-body { overflow-wrap: anywhere; line-height: 1.75; }
 .empty-state { display: grid; justify-items: center; gap: .65rem; padding: clamp(1.5rem, 6vw, 2.5rem) 1rem; border: 1px dashed var(--edge); border-radius: .9rem; text-align: center; }
 .empty-state .icon { color: var(--action); }
@@ -118,6 +119,15 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .button:disabled { cursor: not-allowed; opacity: .56; }
 .site-footer { padding: 1rem; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: .85rem; }
 .site-footer p { margin: 0; }
+.footer-link { min-height: 2.75rem; margin-block-start: .35rem; padding: .35rem .55rem; border: 0; border-radius: .45rem; background: transparent; color: var(--action); text-decoration: underline; text-underline-offset: .18em; cursor: pointer; }
+.consent-dialog { width: min(calc(100% - 2rem), 32rem); max-height: min(88vh, 40rem); padding: 1.25rem; border: 1px solid var(--edge); border-radius: 1rem; background: var(--surface-raised); color: var(--text); box-shadow: var(--shadow); }
+.consent-dialog::backdrop { background: rgb(17 14 22 / 58%); }
+.consent-dialog h2 { margin: 0; font-size: 1.3rem; }
+.consent-dialog p { color: var(--muted); }
+.consent-option { display: flex; align-items: center; gap: .65rem; min-height: 2.8rem; }
+.consent-option input { width: 1.15rem; height: 1.15rem; accent-color: var(--action); }
+.consent-note { font-size: .9rem; }
+.consent-actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-block-start: 1rem; }
 .primary-nav { display: flex; justify-content: center; gap: .3rem; padding: 0; border: 0; background: transparent; }
 .nav-link { display: inline-flex; min-width: 5.5rem; min-height: 2.75rem; align-items: center; justify-content: center; gap: .4rem; padding: .45rem .8rem; border-radius: .6rem; color: var(--muted); text-decoration: none; }
 .nav-link[aria-disabled="true"] { opacity: .48; }
