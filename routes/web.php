@@ -194,7 +194,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
     Route::get('/feed-fragment', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed, FeedCursor $cursors) {
         abort_unless($locales->bySegment($locale), 404);
         $order = (string) $request->query('order', 'new');
-        abort_unless(in_array($order, array_keys(config('lavbe.feed_orders')), true), 400);
+        abort_unless(in_array($order, config('lavbe.feed_cursor_orders'), true), 400);
         $category = $request->query('category');
         $category = $category === null ? null : (string) $category;
         abort_if($category !== null && ! $locales->category($category), 400);
