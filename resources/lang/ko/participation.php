@@ -35,4 +35,7 @@ return [
     'supported_heading' => '응원한 고백',
     'supported_empty' => '아직 응원한 고백이 없습니다.',
     'recommended_heading' => '추천 고백',
+    'share_confession' => '이 고백 공유하기',
+    'share_copied' => '고백 링크를 복사했습니다.',
+    'share_copy_hint' => '아래 링크를 복사하세요.',
 ];

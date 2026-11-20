@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Tukemani tunnustukset',
     'supported_empty' => 'Et ole vielä tukenut tunnustuksia.',
     'recommended_heading' => 'Suositellut tunnustukset',
+    'share_confession' => 'Jaa tämä tarina',
+    'share_copied' => 'Linkki tarinaan kopioitiin.',
+    'share_copy_hint' => 'Kopioi alla oleva linkki.',
 ];

@@ -34,6 +34,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 27 | Tövsiyə olunan etiraflarda yalnız başlıqları göstər | LAV-050 |
 | 28 | Lent sıralama tablarına ikon əlavə et və ölçülərini bərabərləşdir | LAV-051 |
 | 29 | Etiraf tövsiyələrini qarışdır və təkrarsız et | LAV-052 |
+| 30 | Etiraf detalına paylaş düyməsi əlavə et | LAV-053 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -301,3 +302,9 @@ Yeni, Bu həftə və Məşhur etiraflar tablarına fərqli Lucide SVG ikonları 
 **Asılılıq:** LAV-045, LAV-050. **Qəbul:** DISC-01.
 
 “Başqa etirafları oxu” blokunda cari etirafı və kateqoriyasını, başqa dilləri və açıq/təsdiqlənməmiş olmayan qeydləri çıxar. Hər uyğun kateqoriyadan dəstək/yayım sırası ilə ən çox səkkiz namizəddən ibarət məhdud hovuz yarat; hər sorğuda hər kateqoriyadan təsadüfi bir etiraf seç, kateqoriyaları da qarışdır və ən çox üç fərqli başlıq göstər. Beləliklə ən çox dəstəklənən etiraf həmişə avtomatik seçilmir, nəticədə nə etiraf ID-si, nə də kateqoriya təkrarlanır. Hovuz ölçüsü və nəticə sayı konfiqurasiyadadır; tam cədvəl üzrə təsadüfi sıralama etmə. **Sübut:** uyğunluq filtrləri, kateqoriya/ID unikallığı, maksimum say, namizəd variasiyası, build və sənəd yoxlaması.
+
+## LAV-053 · Etiraf detalına paylaş düyməsi əlavə et
+
+**Asılılıq:** LAV-006. **Qəbul:** SHARE-01.
+
+Etiraf səhifəsində mövcud əməliyyatlar sırasına uyğun paylaş düyməsi göstər. Təhlükəsiz Web Share API olduqda canonical URL və təsdiqlənmiş başlığı paylaş; əks halda clipboard-a yaz, clipboard mövcud deyilsə və ya xətaya düşərsə seçilə bilən canonical URL-i aç. Statusu canlı regionla elan et; paylaş pəncərəsinin istifadəçi tərəfindən bağlanmasını xəta kimi göstərmə. Düymə, nəticə və fallback mətnləri 17 locale-də verilir. JavaScript söndürüldükdə URL əl ilə kopyalana bilən formada qalır. **Sübut:** Blade feature və JavaScript unit testləri, 17 dil paketi, CSS/JS build və sənəd yoxlaması.

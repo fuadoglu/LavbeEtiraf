@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Støttede historier',
     'supported_empty' => 'Du har ikke støttet nogen historier endnu.',
     'recommended_heading' => 'Anbefalede historier',
+    'share_confession' => 'Del historien',
+    'share_copied' => 'Linket til historien er kopieret.',
+    'share_copy_hint' => 'Kopiér linket nedenfor.',
 ];

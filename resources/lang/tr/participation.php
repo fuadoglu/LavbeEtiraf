@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Desteklediklerim',
     'supported_empty' => 'Henüz hiçbir itirafı desteklemedin.',
     'recommended_heading' => 'Önerilen itiraflar',
+    'share_confession' => 'Bu itirafı paylaş',
+    'share_copied' => 'İtiraf bağlantısı kopyalandı.',
+    'share_copy_hint' => 'Aşağıdaki bağlantıyı kopyalayın.',
 ];

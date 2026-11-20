@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Gesteunde verhalen',
     'supported_empty' => 'Je hebt nog geen verhalen gesteund.',
     'recommended_heading' => 'Aanbevolen verhalen',
+    'share_confession' => 'Deel dit verhaal',
+    'share_copied' => 'Link naar het verhaal gekopieerd.',
+    'share_copy_hint' => 'Kopieer de link hieronder.',
 ];

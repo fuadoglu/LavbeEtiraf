@@ -51,6 +51,21 @@
         @else
             <p><a href="{{ route('account.login', ['locale' => $localeRecord['segment']]) }}">{{ __('account.login_to_follow') }}</a></p>
         @endif
+        <div class="confession-share" data-share-control>
+            <button class="button button-secondary" type="button" data-share-button
+                data-share-title="{{ $revision->title ?: __('lavbe.untitled_confession') }}"
+                data-share-url="{{ $canonical }}"
+                data-copied-label="{{ __('participation.share_copied') }}"
+                data-copy-hint="{{ __('participation.share_copy_hint') }}">
+                <x-icon name="share-2" />{{ __('participation.share_confession') }}
+            </button>
+            <span class="muted" data-share-status role="status" aria-live="polite"></span>
+            <label class="share-fallback" data-share-fallback hidden>
+                <span>{{ __('participation.share_copy_hint') }}</span>
+                <input type="url" readonly value="{{ $canonical }}" data-share-url-field>
+            </label>
+            <noscript><label class="share-fallback"><span>{{ __('participation.share_copy_hint') }}</span><input type="url" readonly value="{{ $canonical }}"></label></noscript>
+        </div>
 
         </div>
 

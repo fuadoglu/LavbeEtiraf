@@ -34,6 +34,18 @@ class ReaderDiscoveryTest extends TestCase
         $this->get('/az/supported')->assertOk()->assertSee(__('participation.supported_empty'));
     }
 
+    public function test_share_control_copy_is_available_in_all_supported_locales(): void
+    {
+        foreach (['en', 'de', 'fr', 'nl', 'sv', 'nb', 'da', 'fi', 'ja', 'ko', 'es', 'it', 'pt-BR', 'pl', 'tr', 'az', 'ru'] as $locale) {
+            app()->setLocale($locale);
+
+            foreach (['share_confession', 'share_copied', 'share_copy_hint'] as $key) {
+                $this->assertNotSame('participation.'.$key, __('participation.'.$key), "Missing {$key} translation for {$locale}.");
+                $this->assertNotSame('', trim(__('participation.'.$key)));
+            }
+        }
+    }
+
     public function test_public_story_shows_distinct_category_recommendations_in_same_locale_and_approved_optional_name(): void
     {
         $story = Confession::factory()->create(['public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'family']);
@@ -55,9 +67,15 @@ class ReaderDiscoveryTest extends TestCase
         $observedOrders = collect();
 
         for ($attempt = 0; $attempt < 30; $attempt++) {
-            $response = $this->get('/az/confession/'.$story->public_id)->assertOk()
+            $response = $this->get('/az/confession/'.$story->public_id);
+            $response->assertOk()
                 ->assertSee('Nigar Məmmədova')
                 ->assertSee('Başqa etirafları oxu')
+                ->assertSee(__('participation.share_confession'))
+                ->assertSee('data-share-button', false)
+                ->assertSee('share-2.svg', false)
+                ->assertSee('<noscript>', false)
+                ->assertSee('data-share-url="'.rtrim((string) config('app.url'), '/').'/az/confession/'.$story->public_id.'"', false)
                 ->assertDontSee('AZ same-category story')
                 ->assertDontSee('EN synthetic recommendation')
                 ->assertDontSee('Recommendation excerpt must stay hidden.')

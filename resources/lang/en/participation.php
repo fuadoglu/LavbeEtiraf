@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Stories I supported',
     'supported_empty' => 'You have not supported any stories yet.',
     'recommended_heading' => 'Recommended stories',
+    'share_confession' => 'Share this story',
+    'share_copied' => 'Story link copied.',
+    'share_copy_hint' => 'Copy the link below.',
 ];

@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Confessions soutenues',
     'supported_empty' => 'Vous n’avez encore soutenu aucune confession.',
     'recommended_heading' => 'Confessions recommandées',
+    'share_confession' => 'Partager cette confession',
+    'share_copied' => 'Lien de la confession copié.',
+    'share_copy_hint' => 'Copiez le lien ci-dessous.',
 ];

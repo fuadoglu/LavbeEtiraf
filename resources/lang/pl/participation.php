@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Wspierane wyznania',
     'supported_empty' => 'Nie wspierasz jeszcze żadnych wyznań.',
     'recommended_heading' => 'Polecane wyznania',
+    'share_confession' => 'Udostępnij to wyznanie',
+    'share_copied' => 'Link do wyznania skopiowano.',
+    'share_copy_hint' => 'Skopiuj link poniżej.',
 ];

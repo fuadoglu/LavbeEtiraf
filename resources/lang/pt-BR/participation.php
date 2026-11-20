@@ -35,4 +35,7 @@ return [
     'supported_heading' => 'Desabafos apoiados',
     'supported_empty' => 'Você ainda não apoiou nenhum desabafo.',
     'recommended_heading' => 'Desabafos recomendados',
+    'share_confession' => 'Compartilhar este relato',
+    'share_copied' => 'Link do relato copiado.',
+    'share_copy_hint' => 'Copie o link abaixo.',
 ];
