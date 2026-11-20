@@ -38,15 +38,15 @@ class GuestConfessionController extends Controller
     public function store(Request $request, string $locale, LocaleRegistry $locales): Response|View
     {
         abort_unless($locales->bySegment($locale), 404);
-        if ($limited = $this->rateLimited($request, 'submission', 10)) {
+        if ($limited = $this->rateLimited($request, 'submission', 'guest_submission')) {
             return $limited;
         }
 
         $categoryKeys = array_column($locales->catalog()['categories'], 'key');
         $validator = Validator::make($request->all(), [
-            'title' => ['nullable', 'string', 'max:120'],
+            'title' => ['nullable', 'string', 'max:'.config('lavbe.limits.confession_title')],
             'body' => ['required', 'string', function (string $attribute, mixed $value, \Closure $fail): void {
-                if (mb_strlen(trim((string) $value), 'UTF-8') > 6000) {
+                if (mb_strlen(trim((string) $value), 'UTF-8') > (int) config('lavbe.limits.confession_body')) {
                     $fail(__('guest.validation_body_max'));
                 }
             }],
@@ -54,7 +54,7 @@ class GuestConfessionController extends Controller
             'response_expectation' => ['nullable', Rule::in(['share', 'similar', 'advice'])],
             'age_confirmed' => ['accepted'],
             'remember_device' => ['sometimes', 'accepted'],
-            'idempotency_key' => ['required', 'string', 'regex:/^[A-Za-z0-9_-]{40,64}$/'],
+            'idempotency_key' => ['required', 'string', 'regex:/^[A-Za-z0-9_-]{'.config('lavbe.limits.guest_idempotency_min').','.config('lavbe.limits.guest_idempotency').'}$/'],
         ], [
             'body.required' => __('guest.validation_body_required'),
             'age_confirmed.accepted' => __('guest.validation_age_required'),
@@ -176,13 +176,13 @@ class GuestConfessionController extends Controller
 
     private function ownerTransition(Request $request, string $publicId, string $action): Response
     {
-        if ($limited = $this->rateLimited($request, 'owner-transition', 10)) {
+        if ($limited = $this->rateLimited($request, 'owner-transition', 'guest_owner_transition')) {
             return $limited;
         }
         $field = $action === 'withdraw' ? 'confirm_withdraw' : 'confirm_republish';
         $validator = Validator::make($request->all(), [
             'expected_lock_version' => ['required', 'integer', 'min:1'],
-            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{32}$/'],
+            'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
             $field => ['accepted'],
         ]);
         if ($validator->fails()) {
@@ -303,12 +303,12 @@ class GuestConfessionController extends Controller
 
     public function recover(Request $request, string $locale, string $publicId): Response|View
     {
-        if ($limited = $this->rateLimited($request, 'recovery', 5)) {
+        if ($limited = $this->rateLimited($request, 'recovery', 'guest_recovery')) {
             return $limited;
         }
 
         $validator = Validator::make($request->all(), [
-            'recovery_code' => ['required', 'string', 'regex:/^[A-Za-z0-9_-]{40,64}$/'],
+            'recovery_code' => ['required', 'string', 'regex:/^[A-Za-z0-9_-]{'.config('lavbe.limits.recovery_code_min').','.config('lavbe.limits.recovery_code').'}$/'],
         ], ['recovery_code.regex' => __('guest.write_not_found'), 'recovery_code.required' => __('guest.write_not_found')]);
         if ($validator->fails()) {
             return redirect()->route('confessions.recovery.form', [
@@ -378,7 +378,7 @@ class GuestConfessionController extends Controller
     {
         $secure = $request->isSecure() || app()->environment('production');
 
-        return cookie($this->ownerCookieName($confession), $token, 60 * 24 * 365, '/', null, $secure, true, false, 'strict');
+        return cookie($this->ownerCookieName($confession), $token, (int) config('lavbe.cookies.owner_minutes'), '/', null, $secure, true, false, 'strict');
     }
 
     private function ownerCookieName(Confession $confession): string
@@ -396,16 +396,17 @@ class GuestConfessionController extends Controller
         return hash_hmac('sha256', $value, (string) config('app.key'));
     }
 
-    private function rateLimited(Request $request, string $action, int $maximum): ?Response
+    private function rateLimited(Request $request, string $action, string $limitKey): ?Response
     {
+        $limit = config('lavbe.rate_limits.actions.'.$limitKey);
         $identity = $action.'|'.(string) $request->ip();
         $key = 'lavbe:guest-rate:'.hash_hmac('sha256', $identity, (string) config('app.key'));
-        if (RateLimiter::tooManyAttempts($key, $maximum)) {
+        if (RateLimiter::tooManyAttempts($key, $limit['attempts'])) {
             return $this->privateView('confessions.limited', [], 429)
                 ->header('Retry-After', (string) RateLimiter::availableIn($key));
         }
 
-        RateLimiter::hit($key, 60);
+        RateLimiter::hit($key, $limit['decay_seconds']);
 
         return null;
     }

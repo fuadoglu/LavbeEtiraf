@@ -6,12 +6,12 @@ Vahid Blade komponentləri ictimai sayt, hesab, admin, hüquqi və xəta səhif�
 
 | Rol | Gündüz | Gecə |
 |---|---|---|
-| Fon | `#FAF7F2` | `#181521` |
-| Səth | `#FFFDF9` | `#231E30` |
-| Əsas mətn | `#292430` | `#F2EDF7` |
-| Köməkçi mətn | `#5D5762` | `#C3B8CD` |
-| Əsas düymə və yazısı | `#64469A` / `#FFFFFF` | `#C9B4FC` / `#221638` |
-| Aktiv sahənin sərhədi | `#8B8092` | `#8F819F` |
+| Fon | `#F7F3EB` | `#211D19` |
+| Səth | `#FFFDF8` | `#2B2520` |
+| Əsas mətn | `#352C26` | `#F5ECE0` |
+| Köməkçi mətn | `#716257` | `#CBBBA9` |
+| Əsas düymə və yazısı | `#79513A` / `#FFFFFF` | `#E6B68E` / `#302117` |
+| Aktiv sahənin sərhədi | `#A18B79` | `#A28B78` |
 
 Sistem rejimi ilkin seçimdir. Gündüz və Gecə brauzerdə yadda qalır. İlk görüntüdə uyğun rəng tətbiq edilir. Mətn kontrastı WCAG AA üzrə yoxlanır. Fokus göstəricisi və statusun yazısı rəngdən ayrıca görünür. Sistem şriftləri yerli yazı sisteminə uyğun seçilir. Mətn sahəsi 17–18 px, əsas toxunma sahələri ən az 44 × 44 px, oxu sütunu masaüstündə maksimum 42 rem. Kiçik ekranın minimum sınaq eni 320 CSS px-dir.
 
@@ -26,3 +26,21 @@ Sistem rejimi ilkin seçimdir. Gündüz və Gecə brauzerdə yadda qalır. İlk 
 Performans büdcəsi ilkin mobil oxu səhifəsi üçün sıxılmış birinci tərəf CSS ≤35 KB, JS ≤25 KB. Reklam və razılıq skriptləri ayrıca ölçülür.
 
 İstinadlar: [Lucide lisenziyası](https://lucide.dev/license) · [WCAG 2.2](https://www.w3.org/TR/WCAG22/) · [rəng və mədəniyyət araşdırması](https://doi.org/10.1177/0956797620948810)
+
+Oxu lentində axtarış başlığın yanında, mövzular və sıralama isə kartlardan əvvəl yerləşir. Boş lentdən yazı formasına birbaşa keçid var. Dil paneli açılarkən fokus axtarışa keçir. Escape paneli bağlayır və fokusu dil seçiminə qaytarır.
+
+Ortaq naviqasiya etiketləri, dil axtarışı, əsas məzmuna keçid və rejim düyməsinin əlçatan adları 17 dildə navigation.php mənbəyindən alınır. Rejim dəyişəndə JavaScript əlçatan adı həmin dildə yeniləyir.
+
+Lokal məzmun baxışı üçün `php artisan db:seed --class=AzerbaijaniDemoConfessionSeeder` əmri 12 kateqoriyanın hərəsinə bir Azərbaycan dilində uydurma etiraf əlavə edir. Əmr yalnız local mühitdə işləyir, təkrar icra dublikat yaratmır. Hər nümunənin açıq pointer-i öz approved revision-ına bağlanır. Seeder ayrıca çağırılır.
+
+Açıq etiraf səhifəsi lent kartları ilə eyni səth, sərhəd, radius və kölgə qaydasını paylaşır. Başlıq iri sans-serif, müəllif və tarix köməkçi metadata sətrindədir. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
+
+Ortaq palitra krem fon, isti qəhvəyi vurğu və ağ kart səthlərindən qurulur. Lent və detail başlıqları eyni sans-serif ailəsindədir. Lent kartında kateqoriya və tarix yuxarıda, anonim ad aşağıda görünür.
+
+Dil seçiminin hər sətrində flag-icons dəstindən yerli SVG bayraq, native ad və onun altında ingiliscə ad göstərilir. Seçilmiş dil işarələnir. Dəstin mənbə commit-i və MIT lisenziyası public/icons/flags qovluğunda saxlanır.
+
+Hesab formalarında hər etiket konkret input ID-sinə bağlıdır. Validasiya xətası sahənin altında göstərilir və aria-describedby ilə həmin sahəyə bağlanır. Checkbox elementləri adi mətn inputunun tam en və minimum hündürlük qaydasından ayrıca ölçülənir.
+
+Eyni etiket və xəta əlaqələri yazı, şikayət, etiraz, bərpa və moderasiya formalarında da tətbiq olunur. Moderator icazələrinin ləğvində hər səbəb sahəsinin ID-si grant ID-sinə görə unikaldır. HTML sınaqları ictimai formalarda etiket hədəflərini, təkrarlanan ID-ləri və aria-describedby istinadlarını yoxlayır.
+
+404, dialoq, yüklənmə və footer mətnləri də cari locale ilə render olunur. Bu UI mətnləri LAV-010 native-copy mənbəyindəki 17 dil paketindən götürülüb. Məhsul sahibinin yekun dil baxışı LAV-010-da izlənir.

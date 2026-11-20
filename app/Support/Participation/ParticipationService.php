@@ -314,7 +314,7 @@ class ParticipationService
         return ConfessionParticipant::query()->create([
             'confession_id' => $confession->id,
             'participant_hash' => $hash,
-            'author_alias' => 'Lavbe #'.strtoupper(substr(bin2hex(random_bytes(4)), 0, 8)),
+            'author_alias' => 'Lavbe #'.strtoupper(substr(bin2hex(random_bytes(4)), 0, (int) config('lavbe.alias_suffix_characters'))),
         ]);
     }
 

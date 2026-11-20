@@ -19,11 +19,11 @@ class AccountController extends Controller
     {
         $user = $request->user();
         $confessions = Confession::query()->whereHas('ownership', fn ($query) => $query->where('user_id', $user->id))
-            ->with(['revisions' => fn ($query) => $query->orderByDesc('revision')])->orderByDesc('updated_at')->limit(50)->get();
+            ->with(['revisions' => fn ($query) => $query->orderByDesc('revision')])->orderByDesc('updated_at')->limit((int) config('lavbe.pagination.account'))->get();
         $comments = ConfessionComment::query()->with(['confession', 'revisions' => fn ($query) => $query->orderByDesc('revision')])
-            ->whereHas('ownership', fn ($query) => $query->where('user_id', $user->id))->orderByDesc('updated_at')->limit(50)->get();
+            ->whereHas('ownership', fn ($query) => $query->where('user_id', $user->id))->orderByDesc('updated_at')->limit((int) config('lavbe.pagination.account'))->get();
         $follows = $user->followedConfessions()->public()->with('publicRevision')->orderByPivot('created_at', 'desc')->get();
-        $notifications = $user->accountNotifications()->where('in_app', true)->orderByDesc('created_at')->limit(50)->get();
+        $notifications = $user->accountNotifications()->where('in_app', true)->orderByDesc('created_at')->limit((int) config('lavbe.pagination.account'))->get();
 
         return response()->view('account.home', compact('user', 'confessions', 'comments', 'follows', 'notifications'))
             ->header('Cache-Control', 'private, no-store, max-age=0')
