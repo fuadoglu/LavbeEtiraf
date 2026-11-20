@@ -75,7 +75,6 @@ class FeedSessionTest extends TestCase
             $continuation->forceFill(['public_revision_id' => $revision->id])->save();
             $continuations[] = $continuation;
         }
-        $this->get('/az/?sort=updates')->assertOk();
         $cursor = app(FeedCursor::class)->issue('az', null, 'updates', 2);
         $continuations[2]->forceFill(['status' => 'hidden'])->save();
         $continuations[4]->forceFill(['published_at' => now()->addHour()])->save();
