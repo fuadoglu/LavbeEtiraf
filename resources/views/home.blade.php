@@ -44,21 +44,12 @@
                 <a class="button" href="{{ route('confessions.create', ['locale' => $lavbeLocale['segment']]) }}"><x-icon name="pen-line" />{{ __('guest.write_title') }}</a>
             </div>
         @else
-            <div class="confession-feed feed-list" aria-label="{{ __('lavbe.feed_title') }}" data-feed data-next-cursor="{{ $feedCursor }}">
+            <div class="confession-feed feed-list" aria-label="{{ __('lavbe.feed_title') }}">
                 <x-feed-items :confessions="$confessions" />
             </div>
             @if($confessions->hasPages())
-            <nav aria-label="{{ __('lavbe.pagination') }}" class="sort-panel">
-                    @if($confessions->previousPageUrl()) <a href="{{ $confessions->previousPageUrl() }}">{{ __('lavbe.previous') }}</a> @endif
-                    @if($confessions->nextPageUrl()) <a href="{{ $confessions->nextPageUrl() }}">{{ __('lavbe.next') }}</a> @endif
-                </nav>
+                <x-pagination :paginator="$confessions" />
             @endif
-        @endif
-        @if($feedCursor && $confessions->total() > config('feed.page_size'))
-            <button type="button" class="button button-secondary" data-feed-more data-endpoint="{{ route('feed.fragment', ['locale' => $lavbeLocale['segment'], 'order' => $sort, 'category' => $category]) }}">
-                {{ __('lavbe.next') }}
-            </button>
-            <button type="button" class="muted" data-feed-status data-retry-label="{{ __('lavbe.retry') }}" data-refresh-label="{{ __('lavbe.refresh') }}" hidden aria-live="polite"></button>
         @endif
     </section>
 @endsection

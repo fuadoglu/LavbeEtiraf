@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Goedgekeurde verhalen verschijnen hier in hun oorspronkelijke taal. Deze tijdlijn mengt geen talen.',
     'pagination' => 'Paginering',
     'previous' => 'Vorige',
-    'next' => 'Meer',
+    'next' => 'Volgende',
     'search_title' => 'Zoeken',
     'search_label' => 'Zoekterm',
     'search_submit' => 'Zoeken',

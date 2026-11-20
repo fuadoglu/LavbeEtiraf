@@ -20,11 +20,18 @@ class AccountController extends Controller
     {
         $user = $request->user();
         $confessions = Confession::query()->whereHas('ownership', fn ($query) => $query->where('user_id', $user->id))
-            ->with(['revisions' => fn ($query) => $query->orderByDesc('revision')])->orderByDesc('updated_at')->limit((int) config('lavbe.pagination.account'))->get();
-        $comments = ConfessionComment::query()->with(['confession', 'revisions' => fn ($query) => $query->orderByDesc('revision')])
-            ->whereHas('ownership', fn ($query) => $query->where('user_id', $user->id))->orderByDesc('updated_at')->limit((int) config('lavbe.pagination.account'))->get();
-        $follows = $user->followedConfessions()->public()->with('publicRevision')->orderByPivot('created_at', 'desc')->get();
-        $notifications = $user->accountNotifications()->where('in_app', true)->orderByDesc('created_at')->limit((int) config('lavbe.pagination.account'))->get();
+            ->with(['revisions' => fn ($query) => $query->orderByDesc('revision')->limit(1)])->orderByDesc('updated_at')->orderByDesc('id')
+            ->paginate((int) config('lavbe.pagination.account'), ['*'], 'confessions_page')->withQueryString();
+        $comments = ConfessionComment::query()->with(['confession', 'revisions' => fn ($query) => $query->orderByDesc('revision')->limit(1)])
+            ->whereHas('ownership', fn ($query) => $query->where('user_id', $user->id))->orderByDesc('updated_at')->orderByDesc('id')
+            ->paginate((int) config('lavbe.pagination.account'), ['*'], 'comments_page')->withQueryString();
+        $follows = $user->followedConfessions()->public()->with('publicRevision')->orderByPivot('created_at', 'desc')->orderByDesc('confessions.id')
+            ->paginate((int) config('lavbe.pagination.account'), ['*'], 'follows_page')->withQueryString();
+        $notifications = $user->accountNotifications()->where('in_app', true)->orderByDesc('created_at')->orderByDesc('id')
+            ->paginate((int) config('lavbe.pagination.account'), ['*'], 'notifications_page')->withQueryString();
+        foreach ([$confessions, $comments, $follows, $notifications] as $list) {
+            abort_if($list->currentPage() > $list->lastPage(), 404);
+        }
 
         return response()->view('account.home', compact('user', 'confessions', 'comments', 'follows', 'notifications'))
             ->header('Cache-Control', 'private, no-store, max-age=0')

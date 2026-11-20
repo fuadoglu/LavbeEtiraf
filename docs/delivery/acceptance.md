@@ -4,7 +4,7 @@
 |---|---|---|
 | BAS-01 | Təmiz checkout və MySQL ailəsi ilə CI | Asılılıqlar lock faylından qurulur, smoke test və sənəd yoxlaması keçir, prod mühit açarı tələb olunmur |
 | UI-01 | Ana, mövzu, 404 və admin | Ortaq komponentlər, Lucide, fokus, gündüz/gecə və sabit mobil quruluş |
-| UI-02 | Rusca Ailə lenti, şəbəkə kəsilməsi və təkrar | HTML-də rusca kartlar, skelet eyni ölçüdə, köhnə kartlar qorunur, təkrar ID yoxdur, JS olmadan HTML səhifələmə |
+| UI-02 | Rusca Ailə lenti və nömrəli HTML səhifələmə | Dilə uyğun etiraf kartları ilkin HTML-də gəlir; bir səhifə 12 kartla məhdudlaşır, nömrəli/əvvəlki/növbəti adi linklər filtri saxlayır və JavaScript olmadan işləyir |
 | UI-03 | 320 px, iPhone Safari, Android Chrome, standalone | Klaviatura kursoru örtmür, mətni xəta silmir, geri keçid mövqeyi mümkünsə bərpa edir |
 | LOC-01 | İlk giriş, əl ilə dil və birbaşa URL | Seçim ardıcıllığı işləyir, seçilmiş dil yadda qalır, konkret URL ölkəyə görə yönləndirilmir, axtarış native və English adları tapır |
 | LOC-02 | 17 paket və 12 kateqoriya | Açarlar, placeholder, slug, yazı və hüquqi səhifə mətnləri tamdır, sahibin baxış versiyası ayrıdır |
@@ -40,5 +40,6 @@
 | UI-10 | Etiraf altında yazı, reaksiya və birbaşa cavab | Açıq rəylər bölməsində etiraf səhifəsinin özündə rəy sahəsi var; hər açıq rəy üçün sessiya reaksiyası və birbaşa cavab formu görünür, cavablar ana rəydən vizual ayrılır |
 | OWN-05 | Rəy thread-i və sessiya reaksiyası | Cavab yalnız həmin etirafdakı açıq, təsdiqlənmiş, üst səviyyəli rəyə yazıla bilər; cavaba cavab rədd edilir. Reaksiya iştirakçı/sessiya və rəy üzrə unikaldır, toggle/idempotent-dir. Hər rəy və cavab ayrıca owner proof ilə idarə olunur |
 | MOD-05 | Ana rəy gizlədiləndə cavabların məxfiliyi | Cavablar moderator baxışına pending qalır və təsdiqlənmədən görünmür; ana rəy gizlədiləndə açıq cavablar da gizlənir, pending cavablar ləğv edilir, ana bərpası cavabları özbaşına yayımlamır |
+| PAG-01 | Uzun siyahılar və paralel səhifələmə | Etiraf, axtarış, rəy/cavab, davam, dəstəklənənlər, hesab və moderasiya siyahıları səhifə ölçüsü ilə məhdudlaşır; idarə cari, yaxın və ilk/son səhifələrə keçir. Eyni ekrandakı siyahıların query parametrləri ayrıdır, filtr/axtarış qorunur, private səthlər private/no-store qalır, etibarsız və son səhifədən kənar nömrə 404 qaytarır |
 
 Test nəticəsini PR-a əlavə et: mühit, əmr və nəticə. Avtomatik test, browser sınağı, manual baxış və xarici hesab doğrulamasını ayrıca qeyd et. 75-ci persentil üçün mobil sahə hədəfləri LCP ≤2,5 s, INP ≤200 ms, CLS ≤0,1. Trafik olmayanda lab nəticəsini sahə ölçümü kimi etiketləmə.

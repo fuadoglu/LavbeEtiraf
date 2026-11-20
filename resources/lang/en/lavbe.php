@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Approved stories will appear here in their original language. This feed does not mix languages.',
     'pagination' => 'Pagination',
     'previous' => 'Previous',
-    'next' => 'More',
+    'next' => 'Next page',
     'search_title' => 'Search',
     'search_label' => 'Keyword',
     'search_submit' => 'Search',

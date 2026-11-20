@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'As histórias aprovadas aparecerão aqui no idioma original. Este feed não mistura idiomas.',
     'pagination' => 'Paginação',
     'previous' => 'Anterior',
-    'next' => 'Ver mais',
+    'next' => 'Próxima',
     'search_title' => 'Buscar',
     'search_label' => 'Palavra-chave',
     'search_submit' => 'Buscar',

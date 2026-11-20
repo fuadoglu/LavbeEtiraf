@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Onaylanan hikâyeler burada özgün dillerinde görünür. Akış farklı dilleri karıştırmaz.',
     'pagination' => 'Sayfalama',
     'previous' => 'Önceki',
-    'next' => 'Daha fazla',
+    'next' => 'Sonraki',
     'search_title' => 'Ara',
     'search_label' => 'Anahtar kelime',
     'search_submit' => 'Ara',

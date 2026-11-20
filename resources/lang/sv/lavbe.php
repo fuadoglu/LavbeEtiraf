@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Godkända berättelser visas här på originalspråket. Flödet blandar inte språk.',
     'pagination' => 'Sidnumrering',
     'previous' => 'Föregående',
-    'next' => 'Mer',
+    'next' => 'Nästa',
     'search_title' => 'Sök',
     'search_label' => 'Sökord',
     'search_submit' => 'Sök',

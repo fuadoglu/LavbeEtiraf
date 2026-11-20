@@ -18,12 +18,12 @@ use App\Http\Middleware\RequireFreshModeratorMfa;
 use App\Http\Middleware\RequireModeratorAccount;
 use App\Http\Middleware\RequireModeratorAdmin;
 use App\Http\Middleware\SetLocale;
+use App\Http\Middleware\ValidatePaginationParameters;
 use App\Support\Lavbe\FeedCursor;
 use App\Support\Lavbe\FeedQuery;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Lavbe\RoutePatterns;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Route;
 
 Route::pattern('publicId', RoutePatterns::UUID_V4);
@@ -42,7 +42,7 @@ Route::get('/', function (Request $request, LocaleRegistry $locales) {
     return redirect()->route('home', ['locale' => $locale['segment']], 302);
 })->name('root');
 
-Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middleware(SetLocale::class)->group(function (): void {
+Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middleware([SetLocale::class, ValidatePaginationParameters::class])->group(function (): void {
     $routeThrottle = static function (string $key): string {
         $limit = config('lavbe.rate_limits.routes.'.$key);
 
@@ -62,17 +62,8 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
             ->all();
 
-        $feedCursor = null;
         $pageSize = (int) config('feed.page_size');
-        if (LengthAwarePaginator::resolveCurrentPage() === 1) {
-            $cursors = app(FeedCursor::class);
-            $initial = $cursors->page($cursors->issue(app()->getLocale(), $category, $sort, 0), app()->getLocale(), $category, $sort, $pageSize);
-            $confessions = new LengthAwarePaginator($initial['items'], $feed->build(app()->getLocale(), $category, $sort)->count(), $pageSize, 1, ['path' => $request->url()]);
-            $feedCursor = $initial['next_cursor'];
-        } else {
-            $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate($pageSize);
-        }
-        $confessions->withQueryString();
+        $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate($pageSize)->withQueryString();
         abort_if($confessions->currentPage() > $confessions->lastPage(), 404);
 
         $canonical = route('home', ['locale' => $locale], false).($confessions->currentPage() > 1 ? '?page='.$confessions->currentPage() : '');
@@ -83,7 +74,6 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             'locale' => $request->attributes->get('lavbe.locale'),
             'categories' => $categories,
             'confessions' => $confessions,
-            'feedCursor' => $feedCursor,
             'canonical' => $canonical,
             'categoryIndexable' => $category === null || $confessions->total() >= (int) config('seo.category_min_public_items', 5),
         ]);
@@ -182,17 +172,8 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         $sort = $request->query('sort', 'new');
         abort_unless(in_array($sort, array_keys(config('lavbe.feed_orders')), true), 404);
 
-        $feedCursor = null;
         $pageSize = (int) config('feed.page_size');
-        if (LengthAwarePaginator::resolveCurrentPage() === 1) {
-            $cursors = app(FeedCursor::class);
-            $initial = $cursors->page($cursors->issue(app()->getLocale(), $category, $sort, 0), app()->getLocale(), $category, $sort, $pageSize);
-            $confessions = new LengthAwarePaginator($initial['items'], $feed->build(app()->getLocale(), $category, $sort)->count(), $pageSize, 1, ['path' => $request->url()]);
-            $feedCursor = $initial['next_cursor'];
-        } else {
-            $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate($pageSize);
-        }
-        $confessions->withQueryString();
+        $confessions = $feed->build(app()->getLocale(), $category, $sort)->paginate($pageSize)->withQueryString();
         abort_if($confessions->currentPage() > $confessions->lastPage(), 404);
 
         $canonical = route('topic.show', ['locale' => $locale, 'category' => $category], false).($confessions->currentPage() > 1 ? '?page='.$confessions->currentPage() : '');
@@ -205,7 +186,6 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
                 ->map(fn (array $item): array => ['key' => $item['key'], 'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en']])
                 ->all(),
             'confessions' => $confessions,
-            'feedCursor' => $feedCursor,
             'canonical' => $canonical,
             'categoryIndexable' => $confessions->total() >= (int) config('seo.category_min_public_items', 5),
         ]);
@@ -233,6 +213,10 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
 
     Route::match(['GET', 'POST'], '/search', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
         abort_unless($locales->bySegment($locale), 404);
+        $requestedPage = $request->input('page', 1);
+        abort_unless((is_string($requestedPage) || is_int($requestedPage))
+            && preg_match('/^[1-9][0-9]*$/D', (string) $requestedPage) === 1
+            && filter_var($requestedPage, FILTER_VALIDATE_INT) !== false, 404);
         $query = trim((string) ($request->isMethod('post') ? $request->input('q', '') : ''));
         abort_if(mb_strlen($query, 'UTF-8') > (int) config('lavbe.limits.search_query'), 422);
         $results = null;
@@ -240,7 +224,8 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             $results = $feed->build(app()->getLocale(), null, 'new')
                 ->where(function ($builder) use ($query): void {
                     $builder->where('title', 'like', '%'.$query.'%')->orWhere('body', 'like', '%'.$query.'%');
-                })->paginate((int) config('feed.page_size'), ['*'], 'page', max(1, (int) $request->input('page', 1)));
+                })->paginate((int) config('feed.page_size'), ['*'], 'page', (int) $requestedPage);
+            abort_if($results->currentPage() > $results->lastPage(), 404);
         }
 
         return response()->view('search', compact('query', 'results'))
@@ -292,7 +277,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         Route::post('/confessions/{confessionId}/decision', [ModerationController::class, 'decide'])->whereNumber('confessionId')->name('moderation.decide');
 
         Route::middleware(RequireModeratorAdmin::class)->group(function (): void {
-            Route::get('/grants', [ModerationAdminController::class, 'index'])->name('moderation.grants');
+            Route::match(['GET', 'POST'], '/grants', [ModerationAdminController::class, 'index'])->name('moderation.grants');
             Route::post('/grants', [ModerationAdminController::class, 'store'])->name('moderation.grants.store');
             Route::post('/grants/{grantId}/revoke', [ModerationAdminController::class, 'revoke'])->whereNumber('grantId')->name('moderation.grants.revoke');
         });

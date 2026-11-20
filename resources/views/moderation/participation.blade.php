@@ -16,7 +16,7 @@
             'pending_continuations' => ['items' => $continuations, 'type' => 'continuation', 'public' => false],
         ] as $heading => $set)
             <section class="participation-section">
-                <h2>{{ __('moderation.'.$heading) }}</h2>
+                <h2 id="{{ $heading }}">{{ __('moderation.'.$heading) }}</h2>
                 @forelse($set['items'] as $item)
                     @php
                         $parent = $item instanceof \App\Models\CommentResponse ? $item->comment->confession : $item->confession;
@@ -46,6 +46,7 @@
                 @empty
                     <p class="muted">—</p>
                 @endforelse
+                <x-pagination :paginator="$set['items']" :fragment="$heading" />
             </section>
         @endforeach
 
@@ -55,7 +56,7 @@
             'visible_continuations' => ['items' => $visibleContinuations, 'type' => 'continuation'],
         ] as $heading => $set)
             <section class="participation-section">
-                <h2>{{ __('moderation.'.$heading) }}</h2>
+                <h2 id="{{ $heading }}">{{ __('moderation.'.$heading) }}</h2>
                 @forelse($set['items'] as $item)
                     @php
                         $parent = $item instanceof \App\Models\CommentResponse ? $item->comment->confession : $item->confession;
@@ -80,6 +81,7 @@
                 @empty
                     <p class="muted">—</p>
                 @endforelse
+                <x-pagination :paginator="$set['items']" :fragment="$heading" />
             </section>
         @endforeach
     </section>

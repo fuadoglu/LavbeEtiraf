@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Les récits approuvés apparaîtront ici dans leur langue d’origine. Ce fil ne mélange pas les langues.',
     'pagination' => 'Pagination',
     'previous' => 'Précédent',
-    'next' => 'Voir plus',
+    'next' => 'Suivant',
     'search_title' => 'Rechercher',
     'search_label' => 'Mot-clé',
     'search_submit' => 'Rechercher',

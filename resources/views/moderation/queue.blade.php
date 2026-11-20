@@ -34,6 +34,6 @@
         @empty
             <x-status>{{ __('moderation.queue_empty') }}</x-status>
         @endforelse
-        {{ $items->links() }}
+        <x-pagination :paginator="$items" />
     </section>
 @endsection

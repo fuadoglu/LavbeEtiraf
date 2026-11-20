@@ -14,7 +14,7 @@ return [
     'feed_empty_description' => 'Hyväksytyt tarinat näkyvät täällä alkuperäisellä kielellään. Syöte ei sekoita kieliä.',
     'pagination' => 'Sivunumerointi',
     'previous' => 'Edellinen',
-    'next' => 'Lisää',
+    'next' => 'Seuraava',
     'search_title' => 'Hae',
     'search_label' => 'Hakusana',
     'search_submit' => 'Hae',

@@ -9,6 +9,7 @@ use App\Models\ConfessionContinuation;
 use App\Models\ConfessionRevision;
 use App\Models\ModerationAppeal;
 use App\Models\ReportGroup;
+use App\Models\ReportSubmission;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Moderation\AppealService;
 use App\Support\Moderation\ModerationService;
@@ -60,8 +61,10 @@ class ModerationController extends Controller
             'confessions.lock_version',
         ], $revisionFields))
             ->orderBy('confession_revisions.created_at')
-            ->paginate((int) config('lavbe.pagination.moderation'))
+            ->orderBy('confessions.id')->orderBy('confession_revisions.id')
+            ->paginate((int) config('lavbe.pagination.moderation'), ['*'], 'queue_page')
             ->withQueryString();
+        abort_if($items->currentPage() > $items->lastPage(), 404);
 
         $isAdmin = $request->user()->moderatorGrants()
             ->where('role', 'admin')->where('locale', '*')->where('is_active', true)->whereNull('revoked_at')->exists();
@@ -71,16 +74,16 @@ class ModerationController extends Controller
 
     public function show(Request $request, string $locale, int $confessionId, LocaleRegistry $locales): Response|View
     {
-        $confession = Confession::query()->with(['revisions' => fn ($query) => $query->orderByDesc('revision')])->findOrFail($confessionId);
+        $confession = Confession::query()->findOrFail($confessionId);
         $this->assertLocaleGrant($request, $confession->locale);
         $requestedRevisionId = $request->query('revision_id');
         $revision = $requestedRevisionId
-            ? $confession->revisions->firstWhere('id', (int) $requestedRevisionId)
+            ? $confession->revisions()->whereKey((int) $requestedRevisionId)->first()
             : ($confession->status === 'hidden'
-                ? $confession->revisions->firstWhere('id', $confession->public_revision_id)
-                : $confession->revisions->firstWhere('status', 'pending'));
-        $revision ??= $confession->revisions->firstWhere('id', $confession->public_revision_id)
-            ?? $confession->revisions->first();
+                ? $confession->revisions()->whereKey($confession->public_revision_id)->first()
+                : $confession->revisions()->where('status', 'pending')->orderByDesc('revision')->first());
+        $revision ??= ($confession->public_revision_id ? $confession->revisions()->whereKey($confession->public_revision_id)->first() : null)
+            ?? $confession->revisions()->orderByDesc('revision')->first();
         abort_unless($revision, 404);
 
         $publicRevision = $confession->public_revision_id
@@ -138,38 +141,41 @@ class ModerationController extends Controller
             ->pluck('locale')->unique()->values();
         $comments = ConfessionComment::query()->with([
             'confession', 'parent.publicRevision',
-            'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision'),
+            'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision')->limit(1),
         ])->where('status', 'unpublished')
             ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
-            ->orderBy('created_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
+            ->orderBy('created_at')->orderBy('id')->paginate((int) config('lavbe.pagination.moderation_history'), ['*'], 'pending_comments_page')->withQueryString();
         $visibleComments = ConfessionComment::query()->with(['confession', 'publicRevision', 'parent.publicRevision'])
             ->where('status', 'public')->whereNotNull('public_revision_id')
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
-            ->orderByDesc('published_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
+            ->orderByDesc('published_at')->orderByDesc('id')->paginate((int) config('lavbe.pagination.moderation_history'), ['*'], 'visible_comments_page')->withQueryString();
         $continuations = ConfessionContinuation::query()->with([
             'confession',
-            'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision'),
+            'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision')->limit(1),
         ])->where('status', 'unpublished')
             ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
-            ->orderBy('created_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
+            ->orderBy('created_at')->orderBy('id')->paginate((int) config('lavbe.pagination.moderation_history'), ['*'], 'pending_continuations_page')->withQueryString();
         $visibleContinuations = ConfessionContinuation::query()->with(['confession', 'publicRevision'])
             ->where('status', 'public')->whereNotNull('public_revision_id')
             ->whereHas('confession', fn ($query) => $query->public()->whereIn('locale', $allowed))
-            ->orderByDesc('published_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
+            ->orderByDesc('published_at')->orderByDesc('id')->paginate((int) config('lavbe.pagination.moderation_history'), ['*'], 'visible_continuations_page')->withQueryString();
         $responses = CommentResponse::query()->with([
             'comment.confession',
             'comment.publicRevision',
-            'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision'),
+            'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision')->limit(1),
         ])->where('status', 'unpublished')
             ->whereHas('revisions', fn ($query) => $query->where('status', 'pending'))
             ->whereHas('comment', fn ($query) => $query->where('status', 'public')->whereHas('confession', fn ($parent) => $parent->public()->whereIn('locale', $allowed)))
-            ->orderBy('created_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
+            ->orderBy('created_at')->orderBy('id')->paginate((int) config('lavbe.pagination.moderation_history'), ['*'], 'pending_responses_page')->withQueryString();
         $visibleResponses = CommentResponse::query()->with(['comment.confession', 'publicRevision'])
             ->where('status', 'public')->whereNotNull('public_revision_id')
             ->whereHas('comment', fn ($query) => $query->where('status', 'public')->whereHas('confession', fn ($parent) => $parent->public()->whereIn('locale', $allowed)))
-            ->orderByDesc('published_at')->limit((int) config('lavbe.pagination.moderation_history'))->get();
+            ->orderByDesc('published_at')->orderByDesc('id')->paginate((int) config('lavbe.pagination.moderation_history'), ['*'], 'visible_responses_page')->withQueryString();
+        foreach ([$comments, $visibleComments, $continuations, $visibleContinuations, $responses, $visibleResponses] as $list) {
+            abort_if($list->currentPage() > $list->lastPage(), 404);
+        }
 
         return $this->privateView('moderation.participation', compact('comments', 'visibleComments', 'continuations', 'visibleContinuations', 'responses', 'visibleResponses'));
     }
@@ -180,20 +186,26 @@ class ModerationController extends Controller
         $items = ReportGroup::query()->with('confession')->where('status', 'pending')
             ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))
             ->orderByRaw("CASE priority WHEN 'legal' THEN 0 WHEN 'urgent' THEN 1 ELSE 2 END")
-            ->orderBy('first_reported_at')->paginate((int) config('lavbe.pagination.moderation'))->withQueryString();
+            ->orderBy('first_reported_at')->orderBy('id')->paginate((int) config('lavbe.pagination.moderation'), ['*'], 'reports_page')->withQueryString();
+        abort_if($items->currentPage() > $items->lastPage(), 404);
 
         return $this->privateView('moderation.reports', compact('items'));
     }
 
     public function report(Request $request, string $locale, int $groupId): Response|View
     {
-        $group = ReportGroup::query()->with(['confession.publicRevision', 'submissions'])->findOrFail($groupId);
+        $group = ReportGroup::query()->with('confession.publicRevision')->findOrFail($groupId);
         $this->assertLocaleGrant($request, $group->confession->locale);
+        $submissions = ReportSubmission::query()->where('report_group_id', $group->id)
+            ->orderBy('created_at')->orderBy('id')
+            ->paginate((int) config('lavbe.pagination.moderation_history'), ['*'], 'submissions_page')
+            ->withQueryString();
+        abort_if($submissions->currentPage() > $submissions->lastPage(), 404);
         $target = $group->target_type === 'confession'
             ? $group->confession
             : ConfessionComment::query()->with('publicRevision')->findOrFail($group->target_id);
 
-        return $this->privateView('moderation.report', compact('group', 'target'));
+        return $this->privateView('moderation.report', compact('group', 'target', 'submissions'));
     }
 
     public function decideReport(Request $request, string $locale, int $groupId, ReportService $reports): Response
@@ -220,7 +232,9 @@ class ModerationController extends Controller
     {
         $allowed = $request->user()->moderatorGrants()->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')->pluck('locale')->unique();
         $items = ModerationAppeal::query()->with(['confession', 'hideAudit'])->where('status', 'pending')
-            ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))->orderBy('created_at')->paginate((int) config('lavbe.pagination.moderation'))->withQueryString();
+            ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))->orderBy('created_at')->orderBy('id')
+            ->paginate((int) config('lavbe.pagination.moderation'), ['*'], 'appeals_page')->withQueryString();
+        abort_if($items->currentPage() > $items->lastPage(), 404);
 
         return $this->privateView('moderation.appeals', compact('items'));
     }

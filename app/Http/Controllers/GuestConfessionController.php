@@ -160,7 +160,7 @@ class GuestConfessionController extends Controller
         }
 
         return $this->privateView('confessions.status', [
-            'confession' => $confession->load(['revisions' => fn ($query) => $query->orderByDesc('revision')]),
+            'confession' => $confession->load(['revisions' => fn ($query) => $query->orderByDesc('revision')->limit(1)]),
         ]);
     }
 

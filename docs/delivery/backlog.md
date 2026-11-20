@@ -17,6 +17,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 10 | Popup-ların bütün ekranlarda mərkəzlənməsi | LAV-033 |
 | 11 | Başlıq ikonlarının dil menyusundan sonra düzülməsi | LAV-034 |
 | 12 | Etiraf altında thread-li rəy və reaksiya | LAV-035 |
+| 13 | Bütün artan siyahıların nömrəli səhifələnməsi | LAV-036 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -175,6 +176,12 @@ Header utility controls sırası: dil menyusu, axtarış, dəstəklənən etiraf
 **Asılılıq:** LAV-007. **Qəbul:** UI-10, OWN-05, MOD-05.
 
 Etiraf detalında rəy formu, hər açıq rəydə sessiya üzrə dəyişdirilə bilən bəyənmə və üst səviyyəli rəylərdə birbaşa cavab formu göstərilir. Thread yalnız bir cavab səviyyəsinə icazə verir. `parent_public_id` eyni etirafda açıq və təsdiqlənmiş kök rəyi göstərməlidir; server bunu həm göndərişdə, həm də moderasiya təsdiqində yenidən yoxlayır. Cavablar mövcud rəy moderasiyası və sahiblik/bərpa axınından keçir. Ana rəy gizlədiləndə açıq cavablar gizlənir, pending cavablar ləğv edilir; ana bərpa olunsa belə cavablar avtomatik dərc edilmir. Cavab önbaxışı məhdud saydadır və ayrıca səhifələnir; moderasiya növbəsində cavabın hədəf rəyi görünür. **Sübut:** inline forma, ana rəy yoxlaması, reaksiya idempotentliyi/geri götürmə, pending məxfiliyi, cavab moderasiyası, gizlətmə/bərpa keçidi, sənəd və build yoxlamaları.
+
+## LAV-036 · Bütün artan siyahıların nömrəli səhifələnməsi
+
+**Asılılıq:** LAV-003, LAV-007, LAV-009, LAV-030, LAV-035. **Qəbul:** PAG-01, UI-02.
+
+Artan bütün istifadəçi və moderasiya siyahılarına mərkəzi ölçü, stabil ikinci sıralama açarı və paylaşılan responsiv idarə əlavə olunur. İlk, son və cari səhifələr, yaxın nömrələr, ellipsis, əvvəlki/növbəti, bölmə anchor-u və müstəqil query açarı işləyir. Axtarış paginasiya POST formu ilə sorğunu URL/referrer-dən kənar saxlayır; private siyahıların no-store davranışı qalır. Feed-dən sonsuz kart əlavə etmə UI-sı çıxarılır; ana/kateqoriya feed-i də nömrəli, adi HTML səhifələrindən istifadə edir. Moderasiya adminində hesab seçimi bütün verified user-ləri yaddaşa yükləmək əvəzinə axtarış və səhifələmə ilə işləyir. **Sübut:** public/account/moderation list controller və view-lər, invalid page cavabı, responsive control, build, sənəd və CI yoxlamaları.
 
 ## İş dövrü
 

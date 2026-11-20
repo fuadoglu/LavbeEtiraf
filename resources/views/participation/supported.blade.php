@@ -5,6 +5,6 @@
 <section class="stack" aria-labelledby="supported-title">
     <h1 id="supported-title">{{ __('participation.supported_heading') }}</h1>
     @if($confessions->isEmpty())<p>{{ __('participation.supported_empty') }}</p>
-    @else<div class="confession-feed feed-list"><x-feed-items :confessions="$confessions" /></div>@endif
+    @else<div class="confession-feed feed-list"><x-feed-items :confessions="$confessions" /></div><x-pagination :paginator="$confessions" />@endif
 </section>
 @endsection
