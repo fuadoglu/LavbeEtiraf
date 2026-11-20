@@ -28,6 +28,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 21 | Unikal oxunuş sayını etiraf kartının alt sağında göstər | LAV-044 |
 | 22 | Tövsiyə olunan etirafları müxtəlif kateqoriyalardan göstər | LAV-045 |
 | 23 | Footer-i əlçatan və responsive standartlara uyğunlaşdır | LAV-046 |
+| 24 | Footer-də ürəkli Lavbe loqosu və sağda yığcam keçidlər | LAV-047 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -259,3 +260,9 @@ Etiraf detail-ində cari etirafı və onun kateqoriyasını çıxar. Eyni dildə
 **Asılılıq:** LAV-002, LAV-030. **Qəbul:** UI-05.
 
 Footer-i mövcud Lavbe wordmark-ı və lokallaşdırılmış təsviri ilə saytın vizual dilinə uyğunlaşdır. Bütün yeddi mövcud hüquqi/məlumat səhifəsini cari dildə adlandırılmış, ayrıca naviqasiya landmark-ında göstər; cari səhifəni `aria-current` ilə işarələ. Mobil grid, 44 px toxunma hündürlüyü, görünən fokus, rəng kontrastı, mətnin böyüməsi və safe-area/fixed mobil naviqasiya boşluğunu qoruyub 320 px ekranda yoxla. Operator, müəllif hüququ və əlaqə barədə təsdiqlənməmiş fakt əlavə etmə. **Sübut:** bütün 17 locale üçün link və səhifə feature yoxlaması, responsive CSS build, Blade cache və sənəd validatoru.
+
+## LAV-047 · Footer-də ürəkli Lavbe loqosu və sağda yığcam keçidlər
+
+**Asılılıq:** LAV-046. **Qəbul:** UI-05.
+
+Footer-i sol wordmark və sağda yığcam, əlçatan adlandırılmış hüquqi keçidlərlə bir sırada göstər. Wordmark-da Lavbe-nin “v” hərfinin yerindəki ürək vurğusu kiçik ölçüdə də tanınsın. Çıxarılmış “Lavbe · Etiraflar Vadisi” signature sətrini göstərmə. Yeddi lokallaşdırılmış link, cari səhifənin `aria-current` işarəsi, 44 px hədəf, mobil qırılma və alt safe-area boşluğu saxlanır. **Sübut:** HTML/feature sınağı, CSS build, 320 px və desktop vizual baxış, sənəd yoxlaması.

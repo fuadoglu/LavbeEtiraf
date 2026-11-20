@@ -51,4 +51,4 @@ Eyni etiket və xəta əlaqələri yazı, şikayət, etiraz, bərpa və moderasi
 
 404, dialoq, yüklənmə və footer mətnləri də cari locale ilə render olunur. Bu UI mətnləri LAV-010 native-copy mənbəyindəki 17 dil paketindən götürülüb. Məhsul sahibinin yekun dil baxışı LAV-010-da izlənir.
 
-Saytın footer-i eyni wordmark-ı və lokallaşdırılmış qısa təsviri saxlayır; yeddi mövcud hüquqi/məlumat səhifəsi görünən başlıqlı ayrıca naviqasiya landmark-ında verilir. Keçidlər altxətli, ən azı 44 px hündürlükdədir, klaviatura fokusu görünür, cari səhifə `aria-current="page"` ilə bildirilir. Desktop-da linklər üç sütunda, mobil ölçüdə iki sütunda düzülür; mətn böyüdükdə qırılır, safe-area və sabit mobil naviqasiya üçün alt boşluq qalır.
+Saytın footer-i solda ürək vurğulu Lavbe wordmark-ını, sağda isə yeddi hüquqi/məlumat keçidinin kompakt sırasını göstərir. Əlçatan adlı naviqasiya, altxətli keçidlər, ən azı 44 px hündürlük, görünən fokus və cari səhifə üçün `aria-current="page"` saxlanır. Mobil ölçüdə linklər wordmark-ın altına düşüb səliqəli sətirlənir; sabit mobil naviqasiya üçün alt boşluq qalır. Footer-də ayrıca slogan/signature sətri yoxdur.

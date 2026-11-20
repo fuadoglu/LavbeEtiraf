@@ -27,12 +27,13 @@ class LegalDraftPageTest extends TestCase
         $this->get('/az/legal/unknown')->assertNotFound();
     }
 
-    public function test_footer_has_a_named_navigation_and_marks_the_current_legal_page(): void
+    public function test_footer_has_compact_named_navigation_and_omits_the_signature_line(): void
     {
         $response = $this->get('/az/legal/privacy')->assertOk();
-        $response->assertSee('<nav aria-labelledby="site-footer-links-heading">', false)
-            ->assertSee('<h2 id="site-footer-links-heading">Hüquqi və məlumat keçidləri</h2>', false)
+        $response->assertSee('<nav class="site-footer-navigation" aria-label="Hüquqi və məlumat keçidləri">', false)
             ->assertSee('aria-current="page"', false)
-            ->assertSee('/az/legal/operator', false);
+            ->assertSee('/az/legal/operator', false)
+            ->assertSee('--brand-heart-mask: url(', false)
+            ->assertDontSee('Lavbe · Etiraflar Vadisi', false);
     }
 }
