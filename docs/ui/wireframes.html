@@ -224,7 +224,7 @@ function content(screen, state) {
   switch (screen) {
     case "home": case "topic": return feed(screen, state);
     case "topics": return title("Bütün mövzular") +
-      '<div class="flow">' + ["Sevgi və münasibətlər","Ailə","Dostluq və sosial həyat","İş və karyera","Təhsil","Pul və maliyyə","Özüm və kimliyim","İnanc və dəyərlər","Sağlamlıq və rifah","İtki və yas","Həyat dəyişiklikləri","Gündəlik həyat"].map(label => button(label)).join("") + '</div>';
+      '<div class="flow">' + ["Sevgi və münasibətlər","Ailə arasında","Dostluq və etibar","Pul və dolanışıq","İşdə başıma gələnlər","Özümə də deyə bilmədiklərim","Valideyn olmaq","Məktəb və tələbə həyatı","Bədənim və sağlamlığım","Aramızda qalsın","Vicdan və inanclar","İtirdiklərim və yeni başlanğıclar"].map(label => button(label)).join("") + '</div>';
     case "search": return title("Etiraf axtar", "Axtarış cari dil üzrə işləyir.") +
       '<label>Axtar <input type="search" value="ailə"></label>' + button("Axtar", true) +
       (state === "empty" ? notice("Uyğun etiraf tapılmadı.") : template("story"));

@@ -7,6 +7,7 @@ return [
     'write_body' => 'La tua confessione',
     'write_body_hint' => 'Puoi scrivere fino a :limit caratteri.',
     'write_topic' => 'Argomento',
+    'topic_guide' => 'Quali storie rientrano in ogni tema?',
     'write_expectation' => 'Cosa vorresti da chi ti legge? (facoltativo)',
     'write_share' => 'Voglio solo raccontarlo',
     'write_similar' => 'Ascoltare esperienze simili',

@@ -7,6 +7,7 @@ return [
     'write_body' => 'Din bekendelse',
     'write_body_hint' => 'Du kan skrive op til :limit tegn.',
     'write_topic' => 'Emne',
+    'topic_guide' => 'Hvilke historier hører til under hvert emne?',
     'write_expectation' => 'Hvad håber du på fra læserne? (valgfrit)',
     'write_share' => 'Jeg vil bare gerne dele min historie',
     'write_similar' => 'Høre lignende erfaringer',

@@ -7,6 +7,7 @@ return [
     'write_body' => 'Bekjennelsen din',
     'write_body_hint' => 'Du kan skrive opptil :limit tegn.',
     'write_topic' => 'Tema',
+    'topic_guide' => 'Hva hører hjemme under hvert tema?',
     'write_expectation' => 'Hva ønsker du fra leserne? (valgfritt)',
     'write_share' => 'Jeg vil bare fortelle',
     'write_similar' => 'Høre lignende erfaringer',

@@ -7,6 +7,7 @@ return [
     'write_body' => 'Tunnustuksesi',
     'write_body_hint' => 'Voit kirjoittaa enintään :limit merkkiä.',
     'write_topic' => 'Aihe',
+    'topic_guide' => 'Millaiset tarinat kuuluvat kuhunkin aiheeseen?',
     'write_expectation' => 'Mitä toivot lukijoilta? (valinnainen)',
     'write_share' => 'Haluan vain kertoa tästä',
     'write_similar' => 'Kuulla samankaltaisista kokemuksista',

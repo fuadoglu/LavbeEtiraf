@@ -7,6 +7,7 @@ return [
     'write_body' => 'İtirafın',
     'write_body_hint' => ':limit karaktere kadar yazabilirsin.',
     'write_topic' => 'Konu',
+    'topic_guide' => 'Her konu başlığına hangi itiraflar uygun?',
     'write_expectation' => 'Okuyanlardan ne bekliyorsun? (isteğe bağlı)',
     'write_share' => 'Sadece içimi dökmek istiyorum',
     'write_similar' => 'Benzer deneyimleri duymak',

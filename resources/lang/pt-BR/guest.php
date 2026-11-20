@@ -7,6 +7,7 @@ return [
     'write_body' => 'Seu desabafo',
     'write_body_hint' => 'Você pode escrever até :limit caracteres.',
     'write_topic' => 'Tema',
+    'topic_guide' => 'Que histórias combinam com cada tema?',
     'write_expectation' => 'O que você espera de quem vai ler? (opcional)',
     'write_share' => 'Só quero desabafar',
     'write_similar' => 'Ouvir experiências parecidas',

@@ -4,11 +4,12 @@
 
 @section('content')
     <section class="write-page">
+        @php($topic = $revision->category_key ? app(\App\Support\Lavbe\LocaleRegistry::class)->category($revision->category_key) : null)
         <a href="{{ route('moderation.queue', ['locale' => request()->route('locale')]) }}">{{ __('moderation.back_to_queue') }}</a>
         <h1>{{ __('moderation.revision_title') }}</h1>
         <dl>
             <dt>{{ __('moderation.target_language') }}</dt><dd>{{ $confession->locale }}</dd>
-            <dt>{{ __('moderation.topic') }}</dt><dd>{{ $revision->category_key ?? '—' }}</dd>
+            <dt>{{ __('moderation.topic') }}</dt><dd>{{ $topic['labels'][app()->getLocale()] ?? $topic['labels']['en'] ?? '—' }} @if($topic)<span class="field-description">{{ $topic['descriptions'][app()->getLocale()] ?? $topic['descriptions']['en'] }}</span>@endif</dd>
             <dt>{{ __('moderation.state') }}</dt><dd>{{ $confession->status }} · {{ $revision->status }} · {{ $confession->lock_version }}</dd>
         </dl>
         @if($publicRevision && $publicRevision->id !== $revision->id)

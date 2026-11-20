@@ -28,22 +28,22 @@ Dil seçici ilk ekranda cari dili işarələyir. Desktop header-də bayraqla yan
 
 ## Kateqoriyaların sabit xəritəsi
 
-| Açar | Azərbaycanca | English | Lucide |
-|---|---|---|---|
-| relationships | Sevgi və münasibətlər | Love & Relationships | heart-handshake |
-| family | Ailə | Family | house |
-| friends | Dostluq və sosial həyat | Friends & Social Life | users-round |
-| work | İş və karyera | Work & Career | briefcase-business |
-| education | Təhsil | Education | graduation-cap |
-| money | Pul və maliyyə | Money & Finances | wallet |
-| identity | Özüm və kimliyim | Self & Identity | user-round |
-| values | İnanc və dəyərlər | Beliefs & Values | compass |
-| wellbeing | Sağlamlıq və rifah | Health & Wellbeing | heart-pulse |
-| grief | İtki və yas | Loss & Grief | flower-2 |
-| life-changes | Həyat dəyişiklikləri | Life Changes | route |
-| everyday | Gündəlik həyat | Everyday Life | calendar-days |
+| Açar | Azərbaycanca | English | Məna (AZ) | Lucide |
+|---|---|---|---|---|
+| relationships | Sevgi və münasibətlər | Love & Relationships | Gizli sevgi, evlilik, yaxınlıq, qısqanclıq, xəyanət və ayrılıq. | heart-handshake |
+| family | Ailə arasında | Family Ties | Valideyn, bacı-qardaş və qohumlarla münasibət, ailə sirri, borcluluq hissi və şəxsi sərhədlər. | house |
+| friends | Dostluq və etibar | Friendship & Trust | Dost sirri, paxıllıq, birtərəfli dostluq, çevrədən kənarda qalmaq və böyüdükcə yadlaşmaq. | users-round |
+| money | Pul və dolanışıq | Money & Making Ends Meet | Borc, gizli xərclər, maaş fərqi, ailəyə maddi kömək və pulun münasibətlərə təsiri. | wallet |
+| work | İşdə başıma gələnlər | Things That Happen at Work | Rəhbər və həmkarlar, haqsızlıq, səhv, ambisiya, işsizlik və uğurun görünməyən tərəfi. | briefcase-business |
+| identity | Özümə də deyə bilmədiklərim | Things I Can’t Even Tell Myself | Adını qoymaq çətin olan hisslər, kimlik, tənhalıq, özünəinam və daxili ziddiyyətlər. | user-round |
+| grief | Valideyn olmaq | Being a Parent | Övlad böyütmək, valideyn olmaq istəyi və tərəddüdü, səbir, məsuliyyət və öz uşaqlığından qalanlar. | baby |
+| education | Məktəb və tələbə həyatı | School & Student Life | İmtahan, müəllim, ixtisas seçimi, uğursuzluq qorxusu və tələbəlikdə aidiyyət hissi. | graduation-cap |
+| wellbeing | Bədənim və sağlamlığım | My Body & Health | Görünüş, xəstəlik, fiziki və psixoloji sağlamlıq, başqalarının görə bilmədiyi çətinliklər. | heart-pulse |
+| everyday | Aramızda qalsın | Between Us | Gündəlik həyatın xırda sirləri, gülməli vərdişlər, yöndəmsiz anlar və gözlənilməz yaxşılıqlar. | calendar-days |
+| values | Vicdan və inanclar | Conscience & Beliefs | Doğru bildiyinlə etdiyin arasındakı fərq, din, ənənə, bağışlamaq, susmaq və sözünü demək. | compass |
+| life-changes | İtirdiklərim və yeni başlanğıclar | Loss & New Beginnings | Yas, həsrət, köç, geridə qalan həyat və ayrılıqdan sonra özünə yer tapmaq. | route |
 
-Etirafın əsas mövzusu seçilir. Borc əsasdırsa money, etibar əsasdırsa relationships. Köç və uyğunlaşma əsasdırsa life-changes. Everyday gündəlik vərdiş və hadisələr üçündür. Kateqoriyasız göndəriş ayrıca baxış vəziyyətidir. Hər paket kateqoriyanın qısa adı, izahı və unikal URL hissəsini verir.
+Etirafın əsas mövzusu seçilir. Borc və dolanışıq əsasdırsa `money`, dostluqdakı etibar və kənarda qalmaq əsasdırsa `friends`, romantik yaxınlıq və ayrılıq əsasdırsa `relationships` seçilir. Valideynlik və övlad böyütmək `grief` sabit daxili açarı altında, yas, həsrət, köç və yeni həyata uyğunlaşma isə `life-changes` altında yerləşir. `grief` açarı URL və tətbiq müqaviləsi sabit qalsın deyə saxlanmış tarixi texniki açardır; istifadəçiyə valideynlik adı göstərilir. Mövcud `grief` etirafları `life-changes` kateqoriyasına bir dəfəlik migration ilə keçir. Digər kateqoriyalar istifadəçinin verdiyi yeni mövzu sərhədlərinə uyğun olaraq eyni açarla davam edir.
 
 ## Paket müqaviləsi
 
@@ -51,7 +51,7 @@ Bir reyestr dil kodu, URL seqmenti, native ad, ingilis adı, bayraq, yazı istiq
 
 ## Maşınla yoxlanılan dil müqaviləsi
 
-[Kateqoriya və dil kataloqu](../spec/catalog.json) 17 locale və 204 kateqoriya adı üçün başlanğıc redaktə variantını saxlayır. İkon və kateqoriya açarı sabitdir. Kateqoriya tərcümələri draft statusundadır. [Açar müqaviləsi](../spec/locale-contract.json) məcburi UI qruplarını, placeholder və cəm qaydasını, kateqoriya və hüquqi səhifə sahələrini açıq müəyyən edir.
+[Kateqoriya və dil kataloqu](../spec/catalog.json) 17 locale üzrə 204 kateqoriya adı və 204 mövzu izahının redaktə variantını saxlayır. İkon və kateqoriya açarı sabitdir. Kateqoriya tərcümələri draft statusundadır. [Açar müqaviləsi](../spec/locale-contract.json) məcburi UI qruplarını, placeholder və cəm qaydasını, kateqoriya və hüquqi səhifə sahələrini açıq müəyyən edir.
 
 Tam dil paketi müqaviləsi LAV-010-da `resources/lavbe/locales/<segment>.json` olaraq qalır. LAV-003 ana ekran üçün `resources/lang/<locale>/lavbe.php` fayllarında yalnız feed, kateqoriya, sıralama, səhifələmə və axtarış mətnlərini gətirir; 17 faylın hər biri bu məhdud açar dəstini daşıyır. Kateqoriya adları reyestr kimi `spec/catalog.json`-dan oxunur. Bu ilkin UI mətnləri hüquqi, moderasiya, email və digər tam paket qruplarının əvəzi deyil.
 

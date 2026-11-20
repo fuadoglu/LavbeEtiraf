@@ -7,6 +7,7 @@ return [
     'write_body' => 'Votre témoignage',
     'write_body_hint' => 'Vous pouvez écrire jusqu’à :limit caractères.',
     'write_topic' => 'Thème',
+    'topic_guide' => 'Quels récits correspondent à chaque thème ?',
     'write_expectation' => 'Qu’attendez-vous des personnes qui vous lisent ? (facultatif)',
     'write_share' => 'J’ai simplement envie de me confier',
     'write_similar' => 'Lire des expériences similaires',

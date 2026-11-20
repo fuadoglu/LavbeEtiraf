@@ -7,6 +7,7 @@ return [
     'write_body' => 'Din bekännelse',
     'write_body_hint' => 'Du kan skriva upp till :limit tecken.',
     'write_topic' => 'Ämne',
+    'topic_guide' => 'Vad hör hemma i varje ämne?',
     'write_expectation' => 'Vad önskar du av läsarna? (valfritt)',
     'write_share' => 'Jag vill bara dela med mig',
     'write_similar' => 'Höra liknande erfarenheter',

@@ -12,6 +12,8 @@
 
 Ana lent Hamısı seçimi ilə açılır. Kateqoriya səhifəsi həmin lentin kateqoriya filtrli görünüşüdür. Dil seçimi, kateqoriya, sıralama və səhifələmə serverdə etibarlı qiymətlər üzrə tətbiq edilir. İlk sorğu hazır HTML qaytarır. İlk renderdə skeletlə mətnin üstü örtülmür.
 
+Kateqoriya səhifəsinin başlığı altında seçilmiş mövzunun həmin dildə izahı görünür. Etiraf yazı formasındakı mövzu bələdçisi açıla bilən siyahıdır; JavaScript olmadan da 12 mövzunun adını və sərhədini oxumaq mümkündür.
+
 İlkin və növbəti paket 12 kartdır. **Daha çox** adi HTML linkidir. JavaScript sabit sessiya cursor-u ilə kartları əlavə edir. Server query, canonical, sıralama, təkrar və vaxtı bitmiş cursor üçün [lent müqaviləsi](../architecture/feed-contract.md) əsas götürülür. Geri düyməsi dil, mövzu, sıralama və mümkün olduqda oxu mövqeyini bərpa edir.
 
 [Wireframe atlası](wireframes.html) mobil və masaüstü ekranların təsdiq edilə bilən düzülüşünü, gözləmə, boş, xəta və oflayn vəziyyətlərini göstərir.

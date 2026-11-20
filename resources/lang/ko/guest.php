@@ -7,6 +7,7 @@ return [
     'write_body' => '고백 내용',
     'write_body_hint' => '최대 :limit자까지 쓸 수 있어요.',
     'write_topic' => '주제',
+    'topic_guide' => '각 주제에 어울리는 이야기',
     'write_expectation' => '읽는 분들에게 바라는 게 있나요? (선택)',
     'write_share' => '그냥 털어놓고 싶어요',
     'write_similar' => '비슷한 경험을 듣고 싶어요',

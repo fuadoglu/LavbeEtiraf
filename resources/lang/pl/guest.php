@@ -7,6 +7,7 @@ return [
     'write_body' => 'Treść wyznania',
     'write_body_hint' => 'Możesz napisać do :limit znaków.',
     'write_topic' => 'Temat',
+    'topic_guide' => 'Jakie historie pasują do poszczególnych tematów?',
     'write_expectation' => 'Czego oczekujesz od czytających? (opcjonalnie)',
     'write_share' => 'Chcę się po prostu podzielić swoją historią',
     'write_similar' => 'Poznać podobne doświadczenia',

@@ -7,6 +7,7 @@ return [
     'write_body' => 'Etirafın mətni',
     'write_body_hint' => ':limit simvoladək yaza bilərsən.',
     'write_topic' => 'Mövzu',
+    'topic_guide' => 'Hər mövzuya hansı etiraf uyğundur?',
     'write_expectation' => 'Oxuculardan nə gözləyirsən? (istəyə bağlı)',
     'write_share' => 'Sadəcə bölüşmək istəyirəm',
     'write_similar' => 'Oxşar şeylər yaşayanları dinləmək istəyirəm',

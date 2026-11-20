@@ -114,6 +114,12 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .write-heading h1, .write-page h1 { margin: 0; }
 .write-heading p, .write-page > p { margin: 0; color: var(--muted); }
 .write-form { display: grid; gap: 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); }
+.topic-guide { padding: .7rem .8rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--hint); }
+.topic-guide summary { min-height: 2.75rem; align-content: center; color: var(--action); cursor: pointer; font-weight: 650; }
+.topic-guide ul { display: grid; gap: .7rem; margin: .5rem 0 0; padding-inline-start: 1.2rem; }
+.topic-guide li { padding-inline-start: .15rem; }
+.topic-guide li strong, .topic-guide li span { display: block; }
+.topic-guide li span { color: var(--muted); font-size: .9rem; }
 .age-confirmation { display: flex; align-items: flex-start; gap: .6rem; line-height: 1.45; }
 .age-confirmation input { width: 1.1rem; height: 1.1rem; margin-top: .15rem; accent-color: var(--action); }
 .submission-result { padding: 1.2rem; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); }
