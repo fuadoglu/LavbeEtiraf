@@ -1,5 +1,9 @@
 (() => {
     const root = document.documentElement;
+    if (window.isSecureContext && 'serviceWorker' in navigator) {
+        window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {}));
+    }
+
     const languageSearch = document.querySelector('[data-language-search]');
     if (languageSearch) {
         const menu = languageSearch.closest('details');

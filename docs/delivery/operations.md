@@ -12,7 +12,7 @@
 | AdSense aktivləşdirmə | Operator | Verified domen, uyğun consent, ads.txt və mobil yerləşim, Policy Center yoxlaması |
 | Tam buraxılış | Məhsul sahibi | İşlədilmiş qəbul matrisi, real shared hosting smoke/yük, restore və rollback sübutu |
 
-Hazırkı repoda işlək web app manifest və service worker qeydiyyatı yoxdur; PWA quraşdırma və offline davranışı ayrıca icra və telefonlarda sınaq tələb edir. Şəxsi səhifələr offline cache-ə düşməməlidir. AdSense, CMP və GA4 üçün də canlı inteqrasiya burada təsdiqlənməyib; monetizasiya və ölçmə xarici razılıqla ayrıca yoxlanmalıdır. Məhsulun mövcud funksiyaları reklamsız işə hazır ola bilər. AdSense-in xarici təsdiqi reklam açarından asılı buraxılış əməliyyatıdır. Şəxsi operator qeydləri və real xidmət məlumatı açıq repoda saxlanmır. Əsas seçim Aİ regionunda məlumatın yeri aydın olan shared hostingdir. Faktiki provayder təsdiqlənənədək istehsal qabiliyyəti barədə iddia yoxdur.
+PWA manifesti və təhlükəsiz ümumi offline fallback tətbiq olunur; şəxsi səhifələr offline cache-ə düşməməlidir. Quraşdırma, iOS/Android ikon davranışı və airplane-mode axını real staging domenində cihazlarla sınaqdan keçirilməyənədək təsdiqlənmiş sayılmır. AdSense, CMP və GA4 üçün də canlı inteqrasiya burada təsdiqlənməyib; monetizasiya və ölçmə xarici razılıqla ayrıca yoxlanmalıdır. Məhsulun mövcud funksiyaları reklamsız işə hazır ola bilər. AdSense-in xarici təsdiqi reklam açarından asılı buraxılış əməliyyatıdır. Şəxsi operator qeydləri və real xidmət məlumatı açıq repoda saxlanmır. Əsas seçim Aİ regionunda məlumatın yeri aydın olan shared hostingdir. Faktiki provayder təsdiqlənənədək istehsal qabiliyyəti barədə iddia yoxdur.
 
 ## İstehsal quraşdırması
 
