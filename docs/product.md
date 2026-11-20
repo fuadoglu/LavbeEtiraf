@@ -22,9 +22,9 @@ Header-də istifadəçinin təqdim etdiyi tam vektor logo göstərilir. Onun lə
 
 | Ekran | Əsas əməliyyat və nəticə |
 |---|---|
-| Dil lenti və kateqoriya | 12 etirafdan ibarət səhifələri nömrə ilə dəyiş, hər kateqoriyanın unikal mövzu ikonunu gör, mövzu dəyiş və seçilmiş dilin içində kəşf et |
+| Dil lenti və kateqoriya | Dolu lentdə etiraflar erkən görünür; mövzunu açılan filtrdən seç, desktop-da yan siyahıdan keç. 12 etiraflıq səhifələri nömrə ilə dəyiş, hər kateqoriyanın unikal ikonunu gör və seçilmiş dildə kəşf et |
 | Etiraf | Tam mətn, anonim müəllif, unikal oxunuş sayı, təsdiqlənmiş davam və rəylər; səhifənin altında rəy yaz, rəylərə reaksiya ver və konkret rəyə birbaşa cavab yaz; eyni dildə, başqa kateqoriyalardan təsadüfi seçilmiş ən çox üç fərqli etirafın yalnız başlıqlarını tövsiyə kimi göstər; etirafı paylaş, izlə, dəstək ol; bu üç əməliyyat detail səhifəsində yan-yana düymələrdir; popup-da icma şikayəti və hüquqi bildiriş. Etiraf öz kateqoriyasının favicon-unu göstərir. |
-| Yaz və redaktə | Məcburi başlıq, mətn və istəyə bağlı kateqoriya, istəyə bağlı cavab gözləntisi və yeni rəylərə icazə. Kateqoriya seçimi bütün 17 dildə mövzu adını verir və açıla bilən bələdçidə həmin mövzunun sərhədini izah edir. Göndərişin dili görünür. |
+| Yaz və redaktə | Əvvəlcə hekayə mətni üçün sahə görünür. Başlıq məcburidir; kateqoriya, cavab gözləntisi və yeni rəylərə icazə istəyə bağlıdır. Adsız paylaşma imkanı əvvəlcədən aydın bildirilir, müəllif istəsə açıq adını əlavə edir. Kateqoriya seçimi bütün 17 dildə mövzu adını verir və açıla bilən bələdçidə həmin mövzunun sərhədini izah edir. Göndərişin dili görünür. |
 | Göndəriş təsdiqi | Baxış statusu, cihaz seçimi, məxfi bərpa kodu. Paylaşım URL-si yayımdan sonra. |
 | Mənim | Bağlanmış Etiraflarım və Rəylərim, İzlədiklərim, Bildirişlər, tətbiqdaxili/e-poçt seçimi, giriş və parol bərpası |
 | Şikayət | Etiraf və ya rəy hədəfi, səbəb, istəyə bağlı izah, qəbul təsdiqi |

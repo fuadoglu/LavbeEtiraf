@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Denne uge',
     'sort_popular' => 'Populære bekendelser',
     'sort_updates' => 'Med fortsættelse',
+    'topics_button' => 'Emner',
     'categories' => 'Bekendelsens emne',
     'all_categories' => 'Alle',
     'category_empty' => 'Der er endnu ingen bekendelser om dette emne.',

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'You can write without your name. Add it only if you choose to.',
+    'write_options' => 'Sharing options',
     'write_title' => 'Write a confession',
     'write_intro' => 'After submission, your confession goes to moderator review and stays out of the public feed until approved.',
     'write_subject' => 'Title',

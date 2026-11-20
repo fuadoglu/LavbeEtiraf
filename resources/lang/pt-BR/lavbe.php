@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Esta semana',
     'sort_popular' => 'Confissões populares',
     'sort_updates' => 'Com continuação',
+    'topics_button' => 'Temas',
     'categories' => 'Tema da confissão',
     'all_categories' => 'Todas',
     'category_empty' => 'Ainda não há confissões sobre este tema.',

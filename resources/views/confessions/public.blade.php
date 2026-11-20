@@ -26,12 +26,25 @@
         </nav>
         <div class="confession-reading-card">
         <header class="page-heading confession-heading">
-            @if($category)<p class="story-meta">{{ $category['labels'][$localeRecord['code']] ?? $category['labels']['en'] }}</p>@endif
             <h1 id="confession-title">{{ $revision->title ?: __('lavbe.untitled_confession') }}</h1>
-            <p class="story-meta">{{ $revision->author_display_name ?: $confession->author_alias }} <span aria-hidden="true">·</span> <time datetime="{{ $confession->published_at->toAtomString() }}">{{ $confession->published_at->format('Y-m-d') }}</time><span aria-hidden="true">·</span><span class="unique-read-count"><x-icon name="eye" class="icon-small" />{{ __('participation.unique_reads', ['count' => number_format((int) $confession->unique_read_count)]) }}</span></p>
+            <p class="story-meta confession-author-meta"><span>{{ $revision->author_display_name ?: $confession->author_alias }}</span><span aria-hidden="true">·</span><time datetime="{{ $confession->published_at->toAtomString() }}" lang="{{ $localeRecord['code'] }}">{{ $confession->published_at->locale($localeRecord['code'])->translatedFormat('j F Y') }}</time></p>
         </header>
         <div class="confession-body">{!! nl2br(e($revision->body)) !!}</div>
+        <p class="unique-read-count confession-read-count"><x-icon name="eye" class="icon-small" />{{ __('participation.unique_reads', ['count' => number_format((int) $confession->unique_read_count)]) }}</p>
         </div>
+
+        @if($continuations->isNotEmpty())
+            <section class="participation-section confession-continuations" aria-labelledby="continuation-heading">
+                <h2 id="continuation-heading">{{ __('participation.continuation_heading') }}</h2>
+                @foreach($continuations as $continuation)
+                    <article class="participation-card">
+                        <div class="confession-body">{!! nl2br(e($continuation->publicRevision->body)) !!}</div>
+                        <p class="muted"><time datetime="{{ $continuation->published_at->toAtomString() }}" lang="{{ $localeRecord['code'] }}">{{ $continuation->published_at->locale($localeRecord['code'])->translatedFormat('j F Y') }}</time></p>
+                    </article>
+                @endforeach
+                <x-pagination :paginator="$continuations" :fragment="'continuation-heading'" />
+            </section>
+        @endif
 
         @php($canFollow = auth()->check() && auth()->user()->hasVerifiedEmail())
         <div class="confession-actions @if($canFollow) has-follow-action @endif">
@@ -116,19 +129,6 @@
                         <li><a class="recommended-story-link" href="{{ route('confessions.public', ['locale' => app(App\Support\Lavbe\LocaleRegistry::class)->urlSegment($recommendation->locale), 'publicId' => $recommendation->public_id]) }}">{{ $recommendation->title ?: __('lavbe.untitled_confession') }}</a></li>
                     @endforeach
                 </ul>
-            </section>
-        @endif
-
-        @if($continuations->isNotEmpty())
-            <section class="participation-section" aria-labelledby="continuation-heading">
-                <h2 id="continuation-heading">{{ __('participation.continuation_heading') }}</h2>
-                @foreach($continuations as $continuation)
-                    <article class="participation-card">
-                        <div class="confession-body">{!! nl2br(e($continuation->publicRevision->body)) !!}</div>
-                        <p class="muted"><time datetime="{{ $continuation->published_at->toAtomString() }}">{{ $continuation->published_at->format('Y-m-d') }}</time></p>
-                    </article>
-                @endforeach
-                <x-pagination :paginator="$continuations" :fragment="'continuation-heading'" />
             </section>
         @endif
 

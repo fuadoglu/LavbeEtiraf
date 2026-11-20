@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Deze week',
     'sort_popular' => 'Populaire bekentenissen',
     'sort_updates' => 'Met vervolg',
+    'topics_button' => 'Onderwerpen',
     'categories' => 'Onderwerp van de bekentenis',
     'all_categories' => 'Alles',
     'category_empty' => 'Er zijn nog geen bekentenissen over dit onderwerp.',

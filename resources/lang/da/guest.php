@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Du kan skrive anonymt. Del kun dit navn, hvis du selv ønsker det.',
+    'write_options' => 'Delingsvalg',
     'write_title' => 'Skriv en bekendelse',
     'write_intro' => 'Efter indsendelse sendes teksten til moderation og vises ikke offentligt, før den er godkendt.',
     'write_subject' => 'Titel (valgfri)',

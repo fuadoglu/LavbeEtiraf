@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Diese Woche',
     'sort_popular' => 'Beliebte Geständnisse',
     'sort_updates' => 'Mit Fortsetzung',
+    'topics_button' => 'Themen',
     'categories' => 'Thema des Geständnisses',
     'all_categories' => 'Alle',
     'category_empty' => 'Zu diesem Thema gibt es noch keine Geständnisse.',

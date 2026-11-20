@@ -8,6 +8,7 @@ return [
     'sort_weekly' => 'Denne uken',
     'sort_popular' => 'Populære betroelser',
     'sort_updates' => 'Med fortsettelse',
+    'topics_button' => 'Temaer',
     'categories' => 'Tema for bekjennelsen',
     'all_categories' => 'Alle',
     'category_empty' => 'Det finnes ingen bekjennelser om dette temaet ennå.',

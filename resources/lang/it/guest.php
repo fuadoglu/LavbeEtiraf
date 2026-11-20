@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Puoi scrivere in forma anonima. Aggiungi il tuo nome solo se lo desideri.',
+    'write_options' => 'Opzioni di condivisione',
     'write_title' => 'Scrivi una confessione',
     'write_intro' => 'Dopo l’invio, il testo sarà esaminato e non apparirà nel feed pubblico finché non verrà approvato.',
     'write_subject' => 'Titolo (facoltativo)',

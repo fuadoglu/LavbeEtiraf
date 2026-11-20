@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => '名前を出さずに書けます。希望する場合だけ名前を公開できます。',
+    'write_options' => '公開オプション',
     'write_title' => '告白を書く',
     'write_intro' => '送信後に内容の確認が行われ、承認されるまで公開フィードには表示されません。',
     'write_subject' => 'タイトル（任意）',

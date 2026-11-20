@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Adsız yaza bilərsən. Adını yalnız özün istəsən paylaş.',
+    'write_options' => 'Paylaşım seçimləri',
     'write_title' => 'Etiraf yaz',
     'write_intro' => 'Etirafını əvvəlcə moderator oxuyacaq. Yalnız təsdiqləndikdən sonra başqaları onu görə biləcək.',
     'write_subject' => 'Başlıq',

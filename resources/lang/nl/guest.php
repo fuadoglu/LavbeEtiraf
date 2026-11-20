@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Je kunt anoniem schrijven. Voeg je naam alleen toe als je dat zelf wilt.',
+    'write_options' => 'Deelopties',
     'write_title' => 'Schrijf een bekentenis',
     'write_intro' => 'Na verzending wordt je tekst beoordeeld. Tot goedkeuring verschijnt die niet in de openbare feed.',
     'write_subject' => 'Titel (optioneel)',

@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'write_anonymous' => 'Du kan skriva anonymt. Ange bara ditt namn om du själv vill.',
+    'write_options' => 'Publiceringsval',
     'write_title' => 'Skriv en bekännelse',
     'write_intro' => 'Efter inskick granskas texten och visas inte offentligt förrän den har godkänts.',
     'write_subject' => 'Rubrik (valfri)',

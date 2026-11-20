@@ -14,7 +14,7 @@ EXPECTED_LOCALES = tuple("en de fr nl sv nb da fi ja ko es it pt-BR pl tr az ru"
 EXPECTED_CATEGORIES = tuple(
     "relationships family friends money work identity grief education wellbeing everyday values life-changes".split()
 )
-EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)} | {f"LAV-{number:03d}" for number in range(30, 57)}
+EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)} | {f"LAV-{number:03d}" for number in range(30, 58)}
 LINK = re.compile(r"!?\[[^\]\n]+\]\(([^)\s]+)\)")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
 ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS|CFG|DISC|PAG|FEED|DEMO|BRAND|TAX|CAT|READ|FAV|SHARE)-\d{2}\b")
@@ -228,7 +228,7 @@ def check_packages(directory, catalog, contract, report):
 
 def check_feed_translations(directory, catalog, report):
     expected_keys = {
-        "feed_title", "feed_subtitle", "sort_label", "sort_new", "sort_weekly", "sort_popular", "sort_updates",
+        "feed_title", "feed_subtitle", "sort_label", "topics_button", "sort_new", "sort_weekly", "sort_popular", "sort_updates",
         "categories", "all_categories", "category_empty", "feed_empty", "feed_empty_description",
         "pagination", "previous", "next", "search_title", "search_label", "search_submit",
         "search_empty", "retry", "refresh",
@@ -255,7 +255,7 @@ def check_feed_translations(directory, catalog, report):
 
 def check_guest_translations(directory, catalog, report):
     expected_keys = {
-        "write_title", "write_intro", "write_subject", "write_body", "write_body_hint", "write_topic", "topic_guide",
+        "write_title", "write_intro", "write_anonymous", "write_options", "write_subject", "write_body", "write_body_hint", "write_topic", "topic_guide",
         "write_expectation", "write_share", "write_similar", "write_advice", "write_age", "write_submit",
         "write_pending_title", "write_pending_body", "write_recovery_title", "write_recovery_once",
         "write_owner_link", "write_recover_title", "write_recovery_code", "write_recover_submit",
