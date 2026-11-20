@@ -1,9 +1,10 @@
 const STATIC_CACHE_PREFIX = 'lavbe-static-';
 const OFFLINE_CACHE_PREFIX = 'lavbe-offline-';
+const DEFAULT_LOCALE = __LAVBE_DEFAULT_LOCALE__;
 const SUPPORTED_LOCALES = new Set(__LAVBE_LOCALES__);
 
 function offlinePath(locale) {
-    const segment = SUPPORTED_LOCALES.has(locale) ? locale : 'en';
+    const segment = SUPPORTED_LOCALES.has(locale) ? locale : DEFAULT_LOCALE;
     return `/${segment}/offline`;
 }
 
@@ -73,9 +74,9 @@ self.addEventListener('fetch', (event) => {
 
     if (request.mode === 'navigate') {
         event.respondWith(fetch(request).catch(async () => {
-            const locale = url.pathname.split('/').filter(Boolean)[0] || 'en';
+            const locale = url.pathname.split('/').filter(Boolean)[0] || DEFAULT_LOCALE;
             const path = offlinePath(locale);
-            return (await caches.open(`${OFFLINE_CACHE_PREFIX}${SUPPORTED_LOCALES.has(locale) ? locale : 'en'}`)).match(path)
+            return (await caches.open(`${OFFLINE_CACHE_PREFIX}${SUPPORTED_LOCALES.has(locale) ? locale : DEFAULT_LOCALE}`)).match(path)
                 || Response.error();
         }));
     }
@@ -92,7 +93,7 @@ self.addEventListener('push', (event) => {
 
     const title = typeof payload.title === 'string' ? payload.title.slice(0, 80) : 'Lavbe';
     const body = payload.body.slice(0, 160);
-    const locale = typeof payload.locale === 'string' && SUPPORTED_LOCALES.has(payload.locale) ? payload.locale : 'en';
+    const locale = typeof payload.locale === 'string' && SUPPORTED_LOCALES.has(payload.locale) ? payload.locale : DEFAULT_LOCALE;
     event.waitUntil(self.registration.showNotification(title, {
         body,
         lang: locale,
@@ -105,7 +106,7 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
     event.notification.close();
-    const target = new URL(typeof event.notification.data?.url === 'string' ? event.notification.data.url : '/en/my', self.location.origin);
+    const target = new URL(typeof event.notification.data?.url === 'string' ? event.notification.data.url : `/${DEFAULT_LOCALE}/my`, self.location.origin);
     const parts = target.pathname.split('/').filter(Boolean);
     if (target.origin !== self.location.origin || parts.length !== 2 || !SUPPORTED_LOCALES.has(parts[0]) || parts[1] !== 'my') return;
     event.waitUntil((async () => {
