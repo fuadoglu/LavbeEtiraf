@@ -37,6 +37,7 @@
 | Etiraf kartında oxunuş sayı | **[LAV-044](https://github.com/fuadoglu/LavbeEtiraf/issues/94) tamamlandı.** Göstərici kartın aşağı sağ küncündədir; [PR #95](https://github.com/fuadoglu/LavbeEtiraf/pull/95) `main`-dədir. |
 | Müxtəlif kateqoriyalardan tövsiyələr | **[LAV-045](https://github.com/fuadoglu/LavbeEtiraf/issues/96) icra olunur.** Etiraf səhifəsinin altında təkrarsız, eyni dildə və başqa kateqoriyalardan seçilən etiraflar göstərilir. |
 | Əlçatan və uyğunlaşdırılmış footer | **[LAV-046](https://github.com/fuadoglu/LavbeEtiraf/issues/98) icra olunur.** Yeddi lokallaşdırılmış hüquqi/məlumat keçidi, responsiv quruluş və klaviatura/semantik əlçatanlıq. |
+| Yığcam footer və ürəkli Lavbe wordmark-ı | **[LAV-047](https://github.com/fuadoglu/LavbeEtiraf/issues/100) icra olunur.** Loqo solda, kompakt hüquqi keçidlər sağda; footer signature sətri çıxarılır. |
 
 ## Codex ilə başla
 

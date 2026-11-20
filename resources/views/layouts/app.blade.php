@@ -37,23 +37,16 @@
         </main>
         <footer class="site-footer">
             <div class="site-footer-inner">
-                <div class="site-footer-brand">
-                    <a class="site-footer-brand-link" href="{{ route('home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}" aria-label="Lavbe">
-                        <span class="brand-wordmark" aria-hidden="true" style="--brand-logo-mask: url('{{ asset('icons/lavbe-logo.svg') }}'); --brand-heart-mask: url('{{ asset('icons/lavbe-heart.svg') }}')"></span>
-                    </a>
-                    <p>{{ __('lavbe.feed_subtitle') }}</p>
-                </div>
-                <div class="site-footer-navigation">
-                    <h2 id="site-footer-links-heading">{{ __('navigation.footer') }}</h2>
-                    <nav aria-labelledby="site-footer-links-heading">
-                        <ul>
-                            @foreach(['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request', 'operator'] as $legalPage)
-                                <li><a href="{{ route('legal.page', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en'), 'page' => $legalPage]) }}" @if(request()->route('page') === $legalPage) aria-current="page" @endif>{{ __('legal.'.$legalPage.'.title') }}</a></li>
-                            @endforeach
-                        </ul>
-                    </nav>
-                </div>
-                <p class="site-footer-signature">Lavbe · {{ __('lavbe.feed_title') }}</p>
+                <a class="site-footer-brand-link" href="{{ route('home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}" aria-label="Lavbe">
+                    <span class="brand-wordmark" aria-hidden="true" style="--brand-logo-mask: url('{{ asset('icons/lavbe-logo.svg') }}'); --brand-heart-mask: url('{{ asset('icons/lavbe-heart.svg') }}')"></span>
+                </a>
+                <nav class="site-footer-navigation" aria-label="{{ __('navigation.footer') }}">
+                    <ul>
+                        @foreach(['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request', 'operator'] as $legalPage)
+                            <li><a href="{{ route('legal.page', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en'), 'page' => $legalPage]) }}" @if(request()->route('page') === $legalPage) aria-current="page" @endif>{{ __('legal.'.$legalPage.'.title') }}</a></li>
+                        @endforeach
+                    </ul>
+                </nav>
             </div>
         </footer>
     </div>
