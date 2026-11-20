@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Jeg vil fjerne svaret mitt.',
     'withdraw_comment' => 'Fjern svaret mitt',
     'recover_comment' => 'Gjenopprett tilgangen til svaret mitt',
+    'supported_heading' => 'Historier jeg støtter',
+    'supported_empty' => 'Du har ikke støttet noen historier ennå.',
+    'recommended_heading' => 'Anbefalte historier',
 ];

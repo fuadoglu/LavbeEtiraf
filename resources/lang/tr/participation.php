@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Yorumumu geri çekmek istiyorum.',
     'withdraw_comment' => 'Yorumumu geri çek',
     'recover_comment' => 'Yorumuma erişimi geri al',
+    'supported_heading' => 'Desteklediklerim',
+    'supported_empty' => 'Henüz hiçbir itirafı desteklemedin.',
+    'recommended_heading' => 'Önerilen itiraflar',
 ];

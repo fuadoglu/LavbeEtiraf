@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Confirmo que quiero que se revise de nuevo esta versión publicada anteriormente.',
     'write_withdrawn' => 'Esta confesión está retirada y no es pública.',
     'write_republish_pending' => 'La solicitud para revisar de nuevo esta versión está pendiente.',
+    'validation_title_required' => 'El título es obligatorio.',
+    'author_name_label' => 'Nombre (opcional)',
+    'author_name_hint' => 'Si añades tu nombre, aparecerá públicamente junto a la confesión.',
 ];

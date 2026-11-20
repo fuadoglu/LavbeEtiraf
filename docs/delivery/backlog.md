@@ -11,6 +11,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 4 | 17 dil, cihaz sınaqları və PWA | LAV-010, LAV-011, LAV-012 |
 | 5 | Ölçüm, xarici axtarış və tam buraxılış | LAV-013, LAV-014, LAV-015 |
 | 6 | Layihə sabit dəyərlərinin auditi | LAV-016 |
+| 7 | Oxucu kəşfi və açıq müəllif adı | LAV-030 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -133,6 +134,12 @@ Real hosting, cron, SMTP, rollback, məlumatın geri gəlməməsi, 17 dilin isti
 **Asılılıq:** cari tətbiq. **Qəbul:** CFG-01.
 
 Dəyişdirilə bilən məhsul limitləri, səhifələmə, cookie müddətləri, cursor TTL və rate-limit-lər `config/lavbe.php`-də mərkəzləşdirilir; forma və server yoxlamaları eyni dəyərləri oxuyur. Lokalizə olunan lent sıralama adları dil fayllarından gəlir. Route UUID/şikayət kontraktları təkrarsız pattern sinfində saxlanır. **Sübut:** konfiqurasiya ilə limit dəyişəndə server və forma uyğunluğu testləri, mövcud test/build və sənəd validatorları. `docs/architecture/hardcode-audit.md` qalan istisnaları və növbəti audit sahələrini qeyd edir. Stabil HTTP/HTML/XML, kriptoqrafik, RFC/ISO, verilənlər bazası enum/sxem və fixture protokolları məhsul tuning dəyəri olmadığından avtomatik config-ə daşınmır.
+
+## LAV-030 · Oxucu kəşfi və açıq müəllif adı
+
+**Asılılıq:** LAV-006, LAV-007, LAV-010. **Qəbul:** DISC-01, OWN-04, UI-05.
+
+Ortaq başlıqda ürək nişanı cari sessiyanın dəstəklədiyi etirafların siyahısını açır. Siyahı bütün dillərdəki açıq etirafları əhatə edir, amma private/no-store/noindex qalır. Hər açıq etirafın altında eyni dil və kateqoriyadan ən çox üç tövsiyə göstərilir. Etiraf başlığı məcburidir; müəllif istəyə görə ad-soyadını yaza bilər. Ad təsdiqlənmiş revision-ın bir hissəsi olur və yalnız həmin revision açıq olanda görünür. Footer-dən hüquqi/standart səhifələrə keçid saxlanır. **Sübut:** session scope, cross-locale supported list, public recommendation filters, approval-only public author, title validation və footer route feature testləri.
 
 ## İş dövrü
 

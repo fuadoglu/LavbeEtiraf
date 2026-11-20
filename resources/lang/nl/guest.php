@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Ik bevestig dat deze eerder gepubliceerde versie opnieuw wordt beoordeeld.',
     'write_withdrawn' => 'Deze bekentenis is ingetrokken en is niet openbaar.',
     'write_republish_pending' => 'Het verzoek om deze versie opnieuw te beoordelen staat open.',
+    'validation_title_required' => 'Een titel is verplicht.',
+    'author_name_label' => 'Naam (optioneel)',
+    'author_name_hint' => 'Als je je naam invult, wordt die openbaar bij de bekentenis getoond.',
 ];

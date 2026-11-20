@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Rəyimi silmək istədiyimi təsdiqləyirəm',
     'withdraw_comment' => 'Rəyimi sil',
     'recover_comment' => 'Rəyimə girişi bərpa et',
+    'supported_heading' => 'Dəstəklədiklərim',
+    'supported_empty' => 'Hələ dəstəklədiyin etiraf yoxdur.',
+    'recommended_heading' => 'Etirafı dəstəklə',
 ];

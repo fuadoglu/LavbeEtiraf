@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'Voglio ritirare la mia risposta.',
     'withdraw_comment' => 'Ritira la mia risposta',
     'recover_comment' => 'Recupera l’accesso alla mia risposta',
+    'supported_heading' => 'Confessioni sostenute',
+    'supported_empty' => 'Non hai ancora sostenuto confessioni.',
+    'recommended_heading' => 'Confessioni consigliate',
 ];

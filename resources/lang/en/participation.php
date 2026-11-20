@@ -27,4 +27,7 @@ return [
     'withdraw_comment_confirm' => 'I confirm I want to remove my response',
     'withdraw_comment' => 'Remove my response',
     'recover_comment' => 'Recover access to my response',
+    'supported_heading' => 'Stories I supported',
+    'supported_empty' => 'You have not supported any stories yet.',
+    'recommended_heading' => 'Recommended stories',
 ];

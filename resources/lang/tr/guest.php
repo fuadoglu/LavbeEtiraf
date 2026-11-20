@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Daha önce yayımlanan bu sürümün yeniden incelenmesini onaylıyorum.',
     'write_withdrawn' => 'Bu itiraf geri çekildi ve herkese açık değil.',
     'write_republish_pending' => 'Bu sürümün yeniden incelenme isteği bekliyor.',
+    'validation_title_required' => 'Başlık zorunludur.',
+    'author_name_label' => 'Ad soyad (isteğe bağlı)',
+    'author_name_hint' => 'Adını yazarsan itirafla birlikte herkese açık gösterilir.',
 ];

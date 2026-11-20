@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Vahvistan, että aiemmin julkaistu versio tarkistetaan uudelleen.',
     'write_withdrawn' => 'Tunnustus on poistettu julkisesta näkyvyydestä.',
     'write_republish_pending' => 'Uudelleentarkistuspyyntö odottaa käsittelyä.',
+    'validation_title_required' => 'Otsikko vaaditaan.',
+    'author_name_label' => 'Nimi (valinnainen)',
+    'author_name_hint' => 'Jos lisäät nimesi, se näkyy julkisesti tunnustuksen yhteydessä.',
 ];

@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Jeg bekrefter at den tidligere publiserte versjonen skal vurderes på nytt.',
     'write_withdrawn' => 'Bekjennelsen er trukket tilbake og er ikke offentlig.',
     'write_republish_pending' => 'Forespørselen om ny vurdering venter.',
+    'validation_title_required' => 'Tittel er påkrevd.',
+    'author_name_label' => 'Navn (valgfritt)',
+    'author_name_hint' => 'Hvis du legger til navnet ditt, vises det offentlig med bekjennelsen.',
 ];

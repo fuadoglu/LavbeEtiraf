@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Ich bestätige, dass diese frühere veröffentlichte Version erneut geprüft werden soll.',
     'write_withdrawn' => 'Dieses Geständnis wurde zurückgezogen und ist nicht öffentlich.',
     'write_republish_pending' => 'Die erneute Prüfung dieser Version steht noch aus.',
+    'validation_title_required' => 'Ein Titel ist erforderlich.',
+    'author_name_label' => 'Name (optional)',
+    'author_name_hint' => 'Wenn du deinen Namen angibst, wird er öffentlich beim Geständnis angezeigt.',
 ];

@@ -376,6 +376,7 @@ class ModerationService
 
         return hash_hmac('sha256', json_encode([
             'title' => $revision->title,
+            'author_display_name' => $revision->author_display_name,
             'body' => $revision->body,
             'category_key' => $revision->category_key,
         ], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), (string) config('app.key'));

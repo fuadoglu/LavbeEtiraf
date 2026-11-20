@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Confermo che questa versione già pubblicata venga riesaminata.',
     'write_withdrawn' => 'Questa confessione è stata ritirata e non è pubblica.',
     'write_republish_pending' => 'La richiesta di riesame è in attesa.',
+    'validation_title_required' => 'Il titolo è obbligatorio.',
+    'author_name_label' => 'Nome (facoltativo)',
+    'author_name_hint' => 'Se aggiungi il tuo nome, sarà mostrato pubblicamente con la confessione.',
 ];

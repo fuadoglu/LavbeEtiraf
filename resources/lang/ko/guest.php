@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => '이전에 공개된 버전을 다시 검토해 달라고 확인합니다.',
     'write_withdrawn' => '이 고백은 철회되어 공개되지 않습니다.',
     'write_republish_pending' => '이 버전의 재검토 요청이 대기 중입니다.',
+    'validation_title_required' => '제목은 필수입니다.',
+    'author_name_label' => '이름(선택)',
+    'author_name_hint' => '이름을 입력하면 고백과 함께 공개됩니다.',
 ];

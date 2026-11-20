@@ -43,4 +43,7 @@ return [
     'write_confirm_republish' => 'Potwierdzam ponowne sprawdzenie wcześniej opublikowanej wersji.',
     'write_withdrawn' => 'To wyznanie zostało wycofane i nie jest publiczne.',
     'write_republish_pending' => 'Prośba o ponowną ocenę oczekuje na rozpatrzenie.',
+    'validation_title_required' => 'Tytuł jest wymagany.',
+    'author_name_label' => 'Imię i nazwisko (opcjonalnie)',
+    'author_name_hint' => 'Jeśli podasz imię i nazwisko, będzie widoczne publicznie przy wyznaniu.',
 ];

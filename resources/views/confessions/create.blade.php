@@ -14,7 +14,11 @@
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
             <x-form-field name="title" :label="__('guest.write_subject')" :error="$errors->first('title')">
-                <input @if($errors->has('title')) aria-describedby="title-description" @endif aria-invalid="{{ $errors->has('title') ? 'true' : 'false' }}" type="text" id="title" name="title" maxlength="{{ config('lavbe.limits.confession_title') }}" value="{{ old('title') }}" autocomplete="off">
+                <input @if($errors->has('title')) aria-describedby="title-description" @endif aria-invalid="{{ $errors->has('title') ? 'true' : 'false' }}" type="text" id="title" name="title" required maxlength="{{ config('lavbe.limits.confession_title') }}" value="{{ old('title') }}" autocomplete="off" required>
+            </x-form-field>
+
+            <x-form-field name="author_display_name" :label="__('guest.author_name_label')" :hint="__('guest.author_name_hint')" :error="$errors->first('author_display_name')">
+                <input id="author_display_name" name="author_display_name" maxlength="120" value="{{ old('author_display_name') }}" autocomplete="name">
             </x-form-field>
 
             <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')])" :error="$errors->first('body')">
