@@ -26,7 +26,7 @@ return [
     'submit' => 'Enviar denuncia',
     'submit_legal' => 'Enviar notificación legal',
     'received_title' => 'Denuncia recibida',
-    'received_community' => 'Gracias. El equipo de moderación revisará tu denuncia en privado.',
+    'received_community' => 'Gracias por avisarnos. El equipo de moderación ha recibido tu aviso.',
     'received_legal' => 'Tu notificación legal se revisará por separado y en privado.',
     'back_to_story' => 'Volver a la historia',
     'appeal_title' => 'Recurrir una decisión',

@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'La vallée des confidences',
-    'feed_subtitle' => 'Lisez les confidences des autres. Si vous en avez envie, partagez la vôtre.',
+    'feed_subtitle' => 'Lisez ce que d’autres ont sur le cœur. Si vous en avez envie, vous pouvez aussi raconter votre histoire.',
     'sort_label' => 'Ordre du fil',
     'sort_new' => 'Nouveautés',
     'sort_weekly' => 'Cette semaine',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Tout',
     'category_empty' => 'Aucune confidence dans ce sujet pour le moment.',
     'feed_empty' => 'Aucune confidence publiée pour le moment',
-    'feed_empty_description' => 'Les récits approuvés apparaîtront ici dans leur langue d’origine. Ce fil ne mélange pas les langues.',
+    'feed_empty_description' => 'Votre histoire pourrait être la première ici. Vous pouvez aussi repasser un peu plus tard.',
     'pagination' => 'Pagination',
     'previous' => 'Précédent',
     'next' => 'Suivant',

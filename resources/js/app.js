@@ -4,6 +4,17 @@
         window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {}));
     }
 
+    const characterInput = document.querySelector('[data-character-count-input]');
+    const characterCount = document.querySelector('[data-character-count]');
+    if (characterInput && characterCount) {
+        const maximum = Number(characterCount.dataset.max);
+        const updateRemaining = () => {
+            characterCount.value = String(Math.max(0, maximum - [...characterInput.value].length));
+        };
+        updateRemaining();
+        characterInput.addEventListener('input', updateRemaining);
+    }
+
     const languageSearch = document.querySelector('[data-language-search]');
     if (languageSearch) {
         const menu = languageSearch.closest('details');

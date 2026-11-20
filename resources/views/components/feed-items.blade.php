@@ -17,7 +17,7 @@
                 <span class="story-activity"><x-icon name="message-circle" class="icon-small" />{{ __('participation.has_continuation') }}</span>
             @endif
             @if($confession->unique_read_count > 0)
-                <span class="unique-read-count"><x-icon name="eye" class="icon-small" />{{ __('participation.unique_reads', ['count' => number_format((int) $confession->unique_read_count)]) }}</span>
+                <span class="unique-read-count" role="img" aria-label="{{ __('participation.unique_reads', ['count' => number_format((int) $confession->unique_read_count)]) }}"><x-icon name="eye" class="icon-small" /><span aria-hidden="true">{{ number_format((int) $confession->unique_read_count) }}</span></span>
             @endif
         </footer>
         @endif

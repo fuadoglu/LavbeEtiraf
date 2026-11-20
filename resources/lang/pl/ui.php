@@ -12,7 +12,7 @@ return [
     'close' => 'Zamknij okno',
     'loading' => 'Wczytywanie historii',
     'missing' => 'Nie znaleziono strony',
-    'missing_body' => 'Adres mógł się zmienić lub strona została usunięta.',
+    'missing_body' => 'Nie udało się znaleźć tej strony. Możesz wrócić do listy i wybrać inną historię.',
     'back' => 'Wróć do historii',
     'preview' => 'Podgląd moderacji',
     'preview_hint' => 'Podgląd zawiera fikcyjne przykłady.',

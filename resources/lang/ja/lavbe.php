@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => '告白の谷',
-    'feed_subtitle' => 'みんなの話を読んでみませんか。話したくなったら、あなたのことも聞かせてください。',
+    'feed_subtitle' => '誰かがそっと打ち明けた話を読んでみませんか。あなたも、話したくなったときにどうぞ。',
     'sort_label' => '表示順',
     'sort_new' => '新着',
     'sort_weekly' => '今週',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'すべて',
     'category_empty' => 'このテーマの告白はまだありません。',
     'feed_empty' => '公開された告白はまだありません',
-    'feed_empty_description' => '承認された物語は元の言語で表示されます。このフィードでは言語を混在させません。',
+    'feed_empty_description' => 'ここにはまだ投稿がありません。最初の話を書いても、また後で読みに来ても大丈夫です。',
     'pagination' => 'ページ移動',
     'previous' => '前へ',
     'next' => '次へ',

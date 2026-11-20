@@ -26,7 +26,7 @@ return [
     'submit' => 'Enviar denúncia',
     'submit_legal' => 'Enviar notificação jurídica',
     'received_title' => 'Denúncia recebida',
-    'received_community' => 'Agradecemos o aviso. A moderação vai analisar sua denúncia em sigilo.',
+    'received_community' => 'Agradecemos o aviso. Sua denúncia chegou à equipe de moderação.',
     'received_legal' => 'Sua notificação jurídica será analisada separadamente e em sigilo.',
     'back_to_story' => 'Voltar ao desabafo',
     'appeal_title' => 'Contestar uma decisão',

@@ -12,7 +12,7 @@ return [
     'close' => 'Close window',
     'loading' => 'Loading stories',
     'missing' => 'Page not found',
-    'missing_body' => 'The link may have changed or the page may have been removed.',
+    'missing_body' => 'We couldn’t find that page. You can head back to the feed and pick up another story.',
     'back' => 'Back to stories',
     'preview' => 'Moderator preview',
     'preview_hint' => 'This preview uses fictional content.',

@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Hasło zostało zmienione. Zaloguj się nowym hasłem.',
     'logout' => 'Wyloguj się',
     'my_title' => 'Moje Lavbe',
-    'my_intro' => 'Tu znajdziesz wpisy i obserwowane historie powiązane z Twoim kontem.',
+    'my_intro' => 'Tutaj znajdziesz teksty powiązane z Twoim kontem i historie, które obserwujesz.',
     'my_confessions' => 'Moje wyznania',
     'my_comments' => 'Moje odpowiedzi',
     'my_follows' => 'Obserwowane',

@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'operator_name' => env('LAVBE_OPERATOR_NAME'),
+    'privacy_email' => env('LAVBE_PRIVACY_EMAIL'),
+
     // Stable product limits live here so validators and UI fields share one source.
     'limits' => [
         'confession_title' => 120,

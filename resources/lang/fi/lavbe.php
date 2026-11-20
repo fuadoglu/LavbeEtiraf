@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Tunnustusten laakso',
-    'feed_subtitle' => 'Lue muiden tarinoita. Halutessasi voit kertoa myös omasi.',
+    'feed_subtitle' => 'Lue, mitä muiden mielessä liikkuu. Täällä on tilaa myös sinun tarinallesi, kun haluat kertoa sen.',
     'sort_label' => 'Syötteen järjestys',
     'sort_new' => 'Uudet',
     'sort_weekly' => 'Tällä viikolla',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Kaikki',
     'category_empty' => 'Tästä aiheesta ei ole vielä tunnustuksia.',
     'feed_empty' => 'Tunnustuksia ei ole vielä julkaistu',
-    'feed_empty_description' => 'Hyväksytyt tarinat näkyvät täällä alkuperäisellä kielellään. Syöte ei sekoita kieliä.',
+    'feed_empty_description' => 'Sinun tarinasi voisi olla täällä ensimmäinen. Voit myös palata myöhemmin lukemaan.',
     'pagination' => 'Sivunumerointi',
     'previous' => 'Edellinen',
     'next' => 'Seuraava',

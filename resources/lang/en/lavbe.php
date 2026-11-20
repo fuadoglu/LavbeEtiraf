@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Confession Valley',
-    'feed_subtitle' => 'Read what others have shared, or tell your own story when you’re ready.',
+    'feed_subtitle' => 'Read what’s on someone else’s mind. When you’re ready, there’s room for your story too.',
     'sort_label' => 'Feed order',
     'sort_new' => 'New',
     'sort_weekly' => 'This week',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'All',
     'category_empty' => 'There are no confessions in this topic yet.',
     'feed_empty' => 'No published confessions yet',
-    'feed_empty_description' => 'Approved stories will appear here in their original language. This feed does not mix languages.',
+    'feed_empty_description' => 'Yours could be the first story here. You’re welcome to come back and read anytime.',
     'pagination' => 'Pagination',
     'previous' => 'Previous',
     'next' => 'Next page',

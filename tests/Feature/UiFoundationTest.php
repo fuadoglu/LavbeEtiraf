@@ -42,7 +42,7 @@ class UiFoundationTest extends TestCase
     public function test_confession_writing_starts_with_the_story_and_keeps_public_name_opt_in(): void
     {
         $html = $this->get('/az/write')->assertOk()
-            ->assertSee('Adsız yaza bilərsən.', false)
+            ->assertSee(__('guest.write_anonymous', [], 'az'))
             ->assertSee('autocomplete="off"', false)
             ->getContent();
 
@@ -56,6 +56,10 @@ class UiFoundationTest extends TestCase
         $this->assertNotFalse($options);
         $this->assertTrue($body < $title && $title < $options && $options < $author);
         $this->assertStringNotContainsString('autocomplete="name"', $html);
+        $this->assertStringContainsString('data-character-count', $html);
+        $this->assertStringContainsString('>6000</output>', $html);
+        $this->assertStringNotContainsString('<details class="sharing-options"', $html);
+        $this->assertStringContainsString('<section class="sharing-options"', $html);
         $this->assertStringContainsString('name="age_confirmed"', $html);
         $this->assertStringContainsString('name="remember_device"', $html);
     }

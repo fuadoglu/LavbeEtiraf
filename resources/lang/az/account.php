@@ -28,7 +28,7 @@ return [
     'password_reset' => 'Şifrən dəyişdirildi. Yeni şifrə ilə daxil ol.',
     'logout' => 'Çıxış',
     'my_title' => 'Lavbe bölməm',
-    'my_intro' => 'Hesabında yalnız buraya bağladığın yazılar və izləmələr görünür.',
+    'my_intro' => 'Hesabına bağladığın yazıları və izlədiyin hekayələri burada tapa bilərsən.',
     'my_confessions' => 'Etiraflarım',
     'my_comments' => 'Rəylərim',
     'my_follows' => 'İzlədiklərim',

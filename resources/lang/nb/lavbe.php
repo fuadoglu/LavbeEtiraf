@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Bekjennelsesdalen',
-    'feed_subtitle' => 'Les det andre har delt. Hvis du vil, kan du også fortelle din egen historie.',
+    'feed_subtitle' => 'Les hva andre går og tenker på. Når du vil, er det plass til historien din også.',
     'sort_label' => 'Rekkefølge i strømmen',
     'sort_new' => 'Nytt',
     'sort_weekly' => 'Denne uken',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Alle',
     'category_empty' => 'Det finnes ingen bekjennelser om dette temaet ennå.',
     'feed_empty' => 'Ingen bekjennelser er publisert ennå',
-    'feed_empty_description' => 'Godkjente historier vises her på originalspråket. Strømmen blander ikke språk.',
+    'feed_empty_description' => 'Din historie kan bli den første her. Du er også velkommen tilbake for å lese senere.',
     'pagination' => 'Sidenavigasjon',
     'previous' => 'Forrige',
     'next' => 'Neste',

@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Bekendelsernes dal',
-    'feed_subtitle' => 'Læs, hvad andre har delt. Har du lyst, kan du også fortælle din egen historie.',
+    'feed_subtitle' => 'Læs, hvad andre går og tumler med. Når du har lyst, er der også plads til din historie.',
     'sort_label' => 'Rækkefølge',
     'sort_new' => 'Nyt',
     'sort_weekly' => 'Denne uge',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Alle',
     'category_empty' => 'Der er endnu ingen bekendelser om dette emne.',
     'feed_empty' => 'Der er endnu ikke udgivet bekendelser',
-    'feed_empty_description' => 'Godkendte historier vises her på originalsproget. Strømmen blander ikke sprog.',
+    'feed_empty_description' => 'Din historie kan blive den første her. Du er også velkommen til at kigge forbi senere.',
     'pagination' => 'Sidenavigation',
     'previous' => 'Forrige',
     'next' => 'Næste',

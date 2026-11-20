@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'İtiraf Vadisi',
-    'feed_subtitle' => 'Başkalarının anlattıklarını oku. İçinden gelirse kendi hikâyeni de paylaş.',
+    'feed_subtitle' => 'Başkalarının içinden geçenleri oku. Bir gün anlatmak istersen burada senin hikâyene de yer var.',
     'sort_label' => 'Akış sıralaması',
     'sort_new' => 'Yeni',
     'sort_weekly' => 'Bu hafta',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Tümü',
     'category_empty' => 'Bu konuda henüz itiraf yok.',
     'feed_empty' => 'Henüz yayımlanmış itiraf yok',
-    'feed_empty_description' => 'Onaylanan hikâyeler burada özgün dillerinde görünür. Akış farklı dilleri karıştırmaz.',
+    'feed_empty_description' => 'Buradaki ilk hikâye seninki olabilir. İstersen daha sonra okumak için yine uğra.',
     'pagination' => 'Sayfalama',
     'previous' => 'Önceki',
     'next' => 'Sonraki',

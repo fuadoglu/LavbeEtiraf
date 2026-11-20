@@ -2,7 +2,7 @@
 
 return [
     'feed_title' => 'Tal der Geständnisse',
-    'feed_subtitle' => 'Lies, was andere erzählen. Wenn du magst, kannst du auch deine Geschichte teilen.',
+    'feed_subtitle' => 'Lies, was andere bewegt. Vielleicht möchtest du irgendwann auch deine Geschichte erzählen.',
     'sort_label' => 'Sortierung',
     'sort_new' => 'Neu',
     'sort_weekly' => 'Diese Woche',
@@ -14,7 +14,7 @@ return [
     'all_categories' => 'Alle',
     'category_empty' => 'Zu diesem Thema gibt es noch keine Geständnisse.',
     'feed_empty' => 'Noch keine Geständnisse veröffentlicht',
-    'feed_empty_description' => 'Freigegebene Geschichten erscheinen hier in ihrer Originalsprache. Dieser Feed mischt keine Sprachen.',
+    'feed_empty_description' => 'Hier könnte deine Geschichte als Erste stehen. Du kannst auch später wieder vorbeischauen.',
     'pagination' => 'Seitennavigation',
     'previous' => 'Zurück',
     'next' => 'Weiter',

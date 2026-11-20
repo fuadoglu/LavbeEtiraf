@@ -28,7 +28,7 @@ return [
     'password_reset' => '비밀번호를 바꿨어요. 새 비밀번호로 로그인해 주세요.',
     'logout' => '로그아웃',
     'my_title' => '내 공간',
-    'my_intro' => '계정에 연결한 글과 팔로우한 이야기를 여기서 볼 수 있어요.',
+    'my_intro' => '계정에 연결한 글과 새 소식을 받아 보는 이야기를 여기에서 확인할 수 있어요.',
     'my_confessions' => '내 글',
     'my_comments' => '내 댓글',
     'my_follows' => '팔로우한 이야기',

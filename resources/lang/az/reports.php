@@ -26,7 +26,7 @@ return [
     'submit' => 'Şikayəti göndər',
     'submit_legal' => 'Hüquqi bildirişi göndər',
     'received_title' => 'Şikayət qəbul edildi',
-    'received_community' => 'Xəbər verdiyin üçün sağ ol. Moderatorlar şikayətinə məxfi qaydada baxacaqlar.',
+    'received_community' => 'Xəbər verdiyin üçün sağ ol. Şikayətini moderatorlar nəzərdən keçirəcəklər.',
     'received_legal' => 'Hüquqi bildiriş ayrıca məxfi baxış növbəsinə əlavə edildi.',
     'back_to_story' => 'Hekayəyə qayıt',
     'appeal_title' => 'Moderasiya qərarına etiraz et',

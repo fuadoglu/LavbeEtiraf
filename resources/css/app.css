@@ -473,9 +473,10 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .write-form > .form-field:first-of-type textarea { min-height: 12rem; }
 .write-review-note { margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.55; }
 .sharing-options { display: grid; gap: .7rem; padding: .75rem .85rem; border: 1px solid var(--line); border-radius: .8rem; background: color-mix(in srgb, var(--hint) 45%, var(--surface)); }
-.sharing-options > summary { min-height: 2rem; color: var(--action); cursor: pointer; font-weight: 650; }
+.sharing-options > h2 { margin: 0; color: var(--action); font-size: 1rem; line-height: 1.4; }
 .sharing-options > .field-description { margin: 0; }
-.sharing-options:not([open]) { padding-block: .55rem; }
+.character-counter { margin: .35rem 0 0; color: var(--muted); font-size: .82rem; text-align: end; }
+.password-back-link { margin-top: 1rem; }
 .topic-guide { padding: .65rem .85rem; border: 1px solid var(--line); border-radius: .8rem; }
 .topic-guide > summary { min-height: 2rem; cursor: pointer; font-weight: 600; }
 
