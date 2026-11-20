@@ -4,7 +4,7 @@ Vahid Blade komponentləri ictimai sayt, hesab, admin, hüquqi və xəta səhif�
 
 ## Lavbe wordmark-ı
 
-Header-dəki köhnə hərf nişanı yerli [Lucide Feather SVG-si](https://github.com/lucide-icons/lucide/blob/main/icons/feather.svg) ilə əvəzlənir; favicon da eyni SVG faylını göstərir. “Lavbe” sözü yalnız wordmark-da Caveat əl yazısı ailəsi və 600 çəkisi ilə göstərilir; qalan interfeys sans-serif sistem şriftində qalır. Caveat WOFF2 repo daxilində host olunur; onun [SIL Open Font License](https://github.com/googlefonts/caveat/blob/main/OFL.txt) bildirişi `resources/fonts/Caveat-OFL.txt`-də saxlanır. Lucide ISC lisenziyası `public/icons/lucide/LICENSE` faylındadır.
+Header-də istifadəçinin verdiyi lələk və “Lavbe” söz nişanı birlikdə tam vektor SVG kimi göstərilir. Əsas rəng `--brand-logo-color`, çəhrayı ürək vurğusu `--brand-accent-color` CSS dəyişənidir; gündüz/gecə rejimi uyğun rəng seçir və hər ikisi istənilən CSS rəngi ilə əvəz oluna bilər. Lələyin eyni konturu ayrıca `public/icons/lavbe-feather.svg` favicon-udur; raster ehtiyatı da həmin SVG-dən yaradılır. SVG-lərdə base64 və ya raster şəkil yoxdur.
 
 ## Rəng və rejim
 

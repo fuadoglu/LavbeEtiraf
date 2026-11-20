@@ -30,8 +30,9 @@
 | Nömrəli səhifələmə | **LAV-036 tamamlandı.** Feed, axtarış, rəy, davam, şəxsi və moderasiya siyahıları responsiv nömrəli səhifələnir; PR #79 `main`-dədir. |
 | Məşhur etiraflar | **LAV-037 tamamlandı.** Hər müddət üçün dəstək və təsdiqlənmiş rəylərin xalına görə sıralanır; PR #81 `main`-dədir. |
 | Dil seçicisinin responsive görünüşü | **LAV-038 tamamlandı.** Desktop-da bayraq və tam native ad, mobil cihazda yalnız bayraq göstərilir; PR #83 `main`-dədir. |
-| Azərbaycan nümunələri və wordmark | **[LAV-039](https://github.com/fuadoglu/LavbeEtiraf/issues/84) tamamlanıb.** Hər kateqoriyaya ikinci yerli nümunə və Caveat fontlu Lucide lələk loqosu əlavə olunub. |
+| Azərbaycan nümunələri | **[LAV-039](https://github.com/fuadoglu/LavbeEtiraf/issues/84) tamamlanıb.** Hər kateqoriyaya ikinci yerli nümunə əlavə olunub. |
 | Yeni kateqoriya xəritəsi | **[LAV-040](https://github.com/fuadoglu/LavbeEtiraf/issues/86) icra olunur.** 12 kateqoriyanın adı və izahı 17 dildə yenilənir; əvvəlki yas etirafları yeni uyğun kateqoriyaya keçirilir. |
+| Təqdim olunan logo | **[LAV-041](https://github.com/fuadoglu/LavbeEtiraf/issues/88) icra olunur.** Tam logo vektor SVG-dir, lələk isə SVG/ICO favicon kimi istifadə olunur. |
 
 ## Codex ilə başla
 

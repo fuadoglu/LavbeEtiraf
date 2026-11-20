@@ -22,6 +22,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 15 | Seçilmiş dilin desktop və mobil header təqdimatı | LAV-038 |
 | 16 | Azərbaycan nümunələri və Lavbe wordmark loqosu | LAV-039 |
 | 17 | 17 dildə yeni mövzu taksonomiyası | LAV-040 |
+| 18 | Təqdim olunan Lavbe logosu və lələk favicon-u | LAV-041 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -209,9 +210,17 @@ Desktop header-də cari locale kodunu gizlədib bayraq, tam native ad və dropdo
 
 Yerli demo seeder-ə 12 sabit kateqoriya üçün bir-birindən fərqli, təbii Azərbaycan dilində uydurma etiraf əlavə et; əvvəlki hekayələri və təkrar çağırışın idempotentliyini saxla, production seed yoluna qoşma. Mövcud monoqramı açıq lisenziyalı Lucide Feather ikonu ilə əvəzlə, eyni SVG-ni favicon mənbəyi et. “Lavbe” wordmark-ına Caveat əl yazısı fontu tətbiq et, fontu lokal paketlə və lisenziyasını saxla. Ekran atlasını, dizayn sistemi, məhsul və backlog sənədlərini yenilə. **Sübut:** seeder mühit yoxlaması/idempotent nəticə, font/icon lisenziyası, build, Pint, Blade cache, sənəd yoxlaması və CI.
 
+PR #85-də əlavə olunan Lucide/Caveat wordmark [LAV-041](#lav-041--təqdim-olunan-lavbe-logosu-və-lələk-favicon-u) ilə istifadəçinin verdiyi vektor logo ilə əvəz olunur. LAV-039-un Azərbaycan demo hekayələri saxlanır.
+
 
 ## LAV-040 · Kateqoriyaları yenilə və mövcud yas etiraflarını təsnif et
 
 **Asılılıq:** LAV-003, LAV-010, LAV-039. **Qəbul:** TAX-01, LOC-02, DEMO-01.
 
 İstifadəçinin təqdim etdiyi 12 mövzunu sabit daxili açarlara uyğunlaşdır. 17 dildə həm kateqoriya adlarını, həm izahlarını yaz; izahı kateqoriya lentində, yazı formasındakı bələdçidə və moderasiya baxışında göstər. Köhnə `grief` məzmunu yeni `life-changes` mövzusuna uyğundur; bir dəfəlik migration mövcud confession və revision kateqoriyalarını dəyişir, audit/outbox qeydlərinə toxunmur. Tarixi `grief` açarı yeni “Valideyn olmaq” mövzusuna təyin edilir; local demo seeder-in iki valideynlik nümunəsi əlavə olunur, əvvəlki yas nümunələri `life-changes`-də saxlanır. Migration mövzu açarı metadatasını dəyişir, confession mətnini və müəllif məlumatını oxumur və loglamır. **Sübut:** 17 locale üzrə catalog yoxlaması, data migration və seeder idempotentliyi, sənəd validatoru və CI.
+
+## LAV-041 · Təqdim olunan Lavbe logosu və lələk favicon-u
+
+**Asılılıq:** LAV-002, LAV-039. **Qəbul:** BRAND-01.
+
+İstifadəçinin verdiyi şəffaf logo şəklini tam vektor konturlara çevir. Mövcud başlıq yerində bütöv lələk və “Lavbe” söz nişanını göstər; mövcud naviqasiya və digər ekranları dəyişmə. Əsas rəng və ürək vurğusu CSS dəyişənləri ilə idarə olunsun, SVG `currentColor` ilə rənglənə bilsin. Eyni logodakı lələk konturunu ayrıca SVG favicon və uyğun ICO fallback et. SVG-də raster/base64 yerləşdirmə olmasın. **Sübut:** SVG path quruluşu, açıq fon preview-u, favicon preview-u, Blade kompilyasiyası, build, sənəd validatoru və CI.

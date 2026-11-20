@@ -1,7 +1,6 @@
 <header class="site-header">
     <a class="brand" href="{{ route('home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}" aria-label="Lavbe">
-        <span class="brand-mark" aria-hidden="true"><x-icon name="feather" /></span>
-        <span class="brand-wordmark">Lavbe</span>
+        <span class="brand-wordmark" aria-hidden="true" style="--brand-logo-mask: url('{{ asset('icons/lavbe-logo.svg') }}'); --brand-heart-mask: url('{{ asset('icons/lavbe-heart.svg') }}')"></span>
     </a>
     <x-site-navigation />
     <div class="header-actions">
