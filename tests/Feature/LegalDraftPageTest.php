@@ -15,7 +15,7 @@ class LegalDraftPageTest extends TestCase
         foreach (app(LocaleRegistry::class)->all() as $locale) {
             $base = '/'.$locale['segment'];
             $home = $this->get($base)->assertOk();
-            foreach (['terms', 'community', 'privacy'] as $page) {
+            foreach (['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request', 'operator'] as $page) {
                 $home->assertSee($base.'/legal/'.$page);
                 $response = $this->get($base.'/legal/'.$page)->assertOk()
                     ->assertSee(__('legal.'.$page.'.title', [], $locale['code']))
@@ -25,5 +25,14 @@ class LegalDraftPageTest extends TestCase
             }
         }
         $this->get('/az/legal/unknown')->assertNotFound();
+    }
+
+    public function test_footer_has_a_named_navigation_and_marks_the_current_legal_page(): void
+    {
+        $response = $this->get('/az/legal/privacy')->assertOk();
+        $response->assertSee('<nav aria-labelledby="site-footer-links-heading">', false)
+            ->assertSee('<h2 id="site-footer-links-heading">Hüquqi və məlumat keçidləri</h2>', false)
+            ->assertSee('aria-current="page"', false)
+            ->assertSee('/az/legal/operator', false);
     }
 }
