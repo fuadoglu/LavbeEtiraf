@@ -14,10 +14,10 @@ EXPECTED_LOCALES = tuple("en de fr nl sv nb da fi ja ko es it pt-BR pl tr az ru"
 EXPECTED_CATEGORIES = tuple(
     "relationships family friends work education money identity values wellbeing grief life-changes everyday".split()
 )
-EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)} | {"LAV-030", "LAV-031", "LAV-032", "LAV-033", "LAV-034", "LAV-035", "LAV-036"}
+EXPECTED_WORK_IDS = {f"LAV-{number:03d}" for number in range(17)} | {"LAV-030", "LAV-031", "LAV-032", "LAV-033", "LAV-034", "LAV-035", "LAV-036", "LAV-037"}
 LINK = re.compile(r"!?\[[^\]\n]+\]\(([^)\s]+)\)")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
-ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS|CFG|DISC|PAG)-\d{2}\b")
+ACCEPTANCE_ID = re.compile(r"\b(?:DOC|BAS|UI|LOC|OWN|MOD|SEO|ADV|PWA|OPS|CFG|DISC|PAG|FEED)-\d{2}\b")
 ACCEPTANCE_ROW = re.compile(r"^\| (" + ACCEPTANCE_ID.pattern + r") \|", re.MULTILINE)
 ISSUE_HEADING = re.compile(r"^## (LAV-\d{3}) · .+$", re.MULTILINE)
 PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9_]*)\}")
@@ -223,7 +223,7 @@ def check_packages(directory, catalog, contract, report):
 
 def check_feed_translations(directory, catalog, report):
     expected_keys = {
-        "feed_title", "feed_subtitle", "sort_label", "sort_new", "sort_weekly", "sort_updates",
+        "feed_title", "feed_subtitle", "sort_label", "sort_new", "sort_weekly", "sort_popular", "sort_updates",
         "categories", "all_categories", "category_empty", "feed_empty", "feed_empty_description",
         "pagination", "previous", "next", "search_title", "search_label", "search_submit",
         "search_empty", "retry", "refresh",

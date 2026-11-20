@@ -18,6 +18,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 11 | Başlıq ikonlarının dil menyusundan sonra düzülməsi | LAV-034 |
 | 12 | Etiraf altında thread-li rəy və reaksiya | LAV-035 |
 | 13 | Bütün artan siyahıların nömrəli səhifələnməsi | LAV-036 |
+| 14 | Davamı gələnlər lentinin Məşhur etiraflarla əvəzlənməsi | LAV-037 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -186,3 +187,9 @@ Artan bütün istifadəçi və moderasiya siyahılarına mərkəzi ölçü, stab
 ## İş dövrü
 
 Hər issue məqsədi, asılılığı, qəbul ID-si və sübutu daşıyır. Branch → commit → push → draft/hazır PR → CI → sahib baxışı. Sprint sonunda nəticə, blok, cavabdeh və növbəti prioritet yazılır. CI adı sabitləşəndən sonra main üçün yoxlama qaydası tətbiq edilir. GitHub statusunu sprint sənədində təkrarlama. Sənədlər push olunanda yeni Codex icrası avtomatik başlanmır.
+
+## LAV-037 · Məşhur etiraflar lenti
+
+**Asılılıq:** LAV-003, LAV-007, LAV-036. **Qəbul:** FEED-01, LOC-02, PAG-01.
+
+Oxucu lentindəki “Davamı gələnlər” sıralamasını “Məşhur etiraflar” sıralaması ilə əvəz et. Xal bütün müddət üzrə aktiv dəstək reaksiyalarını və təsdiqlənmiş unikal açıq rəyçiləri mövcud çəki qaydası ilə hesablayır; bərabərlik yayım vaxtı və ID ilə həll olunur. Davam məzmunu etirafın detail səhifəsində qalır, fragment API-nin mövcud davam sırası isə geriyə uyğunluq üçün ayrıca saxlanır. 17 dilin etiketlərini və lent müqaviləsini yenilə. **Sübut:** sıralama sorğusu, dil paketləri, pagination/filter davranışı, build, Pint, sənəd validatorları və CI.

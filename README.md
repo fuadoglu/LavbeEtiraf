@@ -27,7 +27,8 @@
 | Mərkəzlənmiş popup | **LAV-033 hazırlanır.** İcma şikayəti və hüquqi bildiriş bütün viewport-larda həm üfüqi, həm də şaquli mərkəzdə açılır. |
 | Başlıq ikonları | **LAV-034 hazırlanır.** Dil seçiminin ardınca axtarış, dəstəklənənlər və görünüş ikonları gəlir. |
 | Rəy və müzakirə | **LAV-035 tamamlandı.** Etiraf altından rəy yazmaq, açıq rəyə reaksiya vermək və birbaşa cavab yazmaq mümkündür; PR #77 `main`-dədir. |
-| Nömrəli səhifələmə | **LAV-036 icra olunur.** Feed, axtarış, rəy, davam, şəxsi və moderasiya siyahılarına responsiv, əlçatan nömrəli səhifələmə əlavə edilir. |
+| Nömrəli səhifələmə | **LAV-036 tamamlandı.** Feed, axtarış, rəy, davam, şəxsi və moderasiya siyahıları responsiv nömrəli səhifələnir; PR #79 `main`-dədir. |
+| Məşhur etiraflar | **LAV-037 hazırlanır.** “Davamı gələnlər” lent seçimi bütün müddət üzrə dəstək və təsdiqlənmiş rəylərlə hesablanan “Məşhur etiraflar” sıralaması ilə əvəzlənir. |
 
 ## Codex ilə başla
 

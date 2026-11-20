@@ -5,6 +5,7 @@
 | BAS-01 | Təmiz checkout və MySQL ailəsi ilə CI | Asılılıqlar lock faylından qurulur, smoke test və sənəd yoxlaması keçir, prod mühit açarı tələb olunmur |
 | UI-01 | Ana, mövzu, 404 və admin | Ortaq komponentlər, Lucide, fokus, gündüz/gecə və sabit mobil quruluş |
 | UI-02 | Rusca Ailə lenti və nömrəli HTML səhifələmə | Dilə uyğun etiraf kartları ilkin HTML-də gəlir; bir səhifə 12 kartla məhdudlaşır, nömrəli/əvvəlki/növbəti adi linklər filtri saxlayır və JavaScript olmadan işləyir |
+| FEED-01 | Məşhur etirafların sıralanması | İctimai lent aktiv dəstək reaksiyalarını və təsdiqlənmiş unikal rəyləri bütün müddət üzrə çəkili xal ilə sıralayır; bərabərlikdə yayım tarixi və ID sabit ardıcıllıq yaradır; dil və kateqoriya filtrləri, pagination və görünürlük yoxlaması qorunur |
 | UI-03 | 320 px, iPhone Safari, Android Chrome, standalone | Klaviatura kursoru örtmür, mətni xəta silmir, geri keçid mövqeyi mümkünsə bərpa edir |
 | LOC-01 | İlk giriş, əl ilə dil və birbaşa URL | Seçim ardıcıllığı işləyir, seçilmiş dil yadda qalır, konkret URL ölkəyə görə yönləndirilmir, axtarış native və English adları tapır |
 | LOC-02 | 17 paket və 12 kateqoriya | Açarlar, placeholder, slug, yazı və hüquqi səhifə mətnləri tamdır, sahibin baxış versiyası ayrıdır |

@@ -17,11 +17,12 @@ class FeedQuery
             $query->where('category_key', $category);
         }
 
-        if ($order === 'weekly') {
-            $since = now()->subDays((int) config('feed.weekly_days'));
+        if (in_array($order, ['weekly', 'popular'], true)) {
+            $since = $order === 'weekly' ? now()->subDays((int) config('feed.weekly_days')) : null;
             $supports = DB::table('confession_support_reactions')
                 ->select('confession_id')->selectRaw('COUNT(*) AS supports')
-                ->where('is_active', true)->where('updated_at', '>=', $since)
+                ->where('is_active', true)
+                ->when($since, fn ($query) => $query->where('updated_at', '>=', $since))
                 ->groupBy('confession_id');
             $commenters = DB::table('confession_comments as comments')
                 ->join('confession_comment_revisions as revisions', function ($join): void {
@@ -30,14 +31,15 @@ class FeedQuery
                 })
                 ->select('comments.confession_id')->selectRaw('COUNT(DISTINCT comments.author_alias) AS commenters')
                 ->where('comments.status', 'public')->where('revisions.status', 'approved')
-                ->where('comments.published_at', '>=', $since)
+                ->when($since, fn ($query) => $query->where('comments.published_at', '>=', $since))
                 ->groupBy('comments.confession_id');
 
-            $query->leftJoinSub($supports, 'weekly_supports', 'weekly_supports.confession_id', '=', 'confessions.id')
-                ->leftJoinSub($commenters, 'weekly_commenters', 'weekly_commenters.confession_id', '=', 'confessions.id')
-                ->orderByRaw('COALESCE(weekly_supports.supports, 0) * ? + COALESCE(weekly_commenters.commenters, 0) * ? DESC', [
-                    (int) config('feed.support_weight'), (int) config('feed.commenter_weight'),
-                ]);
+            $query->leftJoinSub($supports, 'ranked_supports', 'ranked_supports.confession_id', '=', 'confessions.id')
+                ->leftJoinSub($commenters, 'ranked_commenters', 'ranked_commenters.confession_id', '=', 'confessions.id');
+
+            $query->reorder()->orderByRaw('COALESCE(ranked_supports.supports, 0) * ? + COALESCE(ranked_commenters.commenters, 0) * ? DESC', [
+                (int) config('feed.support_weight'), (int) config('feed.commenter_weight'),
+            ]);
         } elseif ($order === 'updates') {
             $continuations = DB::table('confession_continuations as continuations')
                 ->join('confession_continuation_revisions as revisions', function ($join): void {
