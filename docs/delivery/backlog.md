@@ -10,6 +10,7 @@ GitHub Issues icra statusunun mənbəyidir. Bu sənəd iş həcmini, məsuliyyə
 | 3 | Rəy, şikayət, davam və şəxsi idarəetmə | LAV-007, LAV-008, LAV-009 |
 | 4 | 17 dil, cihaz sınaqları və PWA | LAV-010, LAV-011, LAV-012 |
 | 5 | Ölçüm, xarici axtarış və tam buraxılış | LAV-013, LAV-014, LAV-015 |
+| 6 | Layihə sabit dəyərlərinin auditi | LAV-016 |
 
 ## LAV-000 · İcra spesifikasiyası
 
@@ -121,11 +122,19 @@ Kiçik mobil, iOS Safari, Android Chrome, masaüstü və standalone. Gündüz/ge
 
 Search Console, Bing, IndexNow outbox, iş nəticəsi və retry, sitemap və status auditi. **Sübut:** testdə provider contract və retry. İstehsalda təsdiqlənmiş domen, sitemap və canlı bildiriş qeydi. İndeks mövqeyi xarici nəticədir.
 
+IndexNow yalnız HTTPS `APP_URL` host-u üçün işləyir; `INDEXNOW_KEY` yoxdursa dispatcher heç nə göndərmir. Key faylı yalnız konfiqurasiya olduqda açılır. Outbox çatdırılması `lavbe:indexnow` scheduler əmri ilədir. Search Console/Bing property və sitemap canlı yoxlaması operatorun buraxılış qapısıdır; production sirri repository-yə əlavə edilmir. Rəsmi Bing sənədi legacy SOAP/POX API üçün 2026-08-31 retirement tarixini göstərdiyindən legacy submit route istifadə edilmir.
+
 ## LAV-015 · Shared hosting buraxılış sübutu
 
 **Asılılıq:** LAV-010, LAV-011, LAV-012, LAV-013, LAV-014. **Qəbul:** OPS-01, OPS-02, OPS-03.
 
 Real hosting, cron, SMTP, rollback, məlumatın geri gəlməməsi, 17 dilin istismar təminatı və istifadəçi axınları. Əvvəl staging, sonra yayım səlahiyyəti. **Sübut:** runbook, rollback və real yükləmə nəticəsi. Hesab və hüquqi təsdiqlər [əməliyyat qapılarına](operations.md) uyğun bağlanır.
+
+## LAV-016 · Layihə üzrə hardcode auditi
+
+**Asılılıq:** cari tətbiq. **Qəbul:** CFG-01.
+
+Dəyişdirilə bilən məhsul limitləri, səhifələmə, cookie müddətləri, cursor TTL və rate-limit-lər `config/lavbe.php`-də mərkəzləşdirilir; forma və server yoxlamaları eyni dəyərləri oxuyur. Lokalizə olunan lent sıralama adları dil fayllarından gəlir. Route UUID/şikayət kontraktları təkrarsız pattern sinfində saxlanır. **Sübut:** konfiqurasiya ilə limit dəyişəndə server və forma uyğunluğu testləri, mövcud test/build və sənəd validatorları. `docs/architecture/hardcode-audit.md` qalan istisnaları və növbəti audit sahələrini qeyd edir. Stabil HTTP/HTML/XML, kriptoqrafik, RFC/ISO, verilənlər bazası enum/sxem və fixture protokolları məhsul tuning dəyəri olmadığından avtomatik config-ə daşınmır.
 
 ## İş dövrü
 

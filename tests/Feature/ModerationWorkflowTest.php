@@ -296,6 +296,11 @@ class ModerationWorkflowTest extends TestCase
         ])->assertRedirect('/az/moderation/grants');
         $this->assertDatabaseHas('moderator_grants', ['user_id' => $target->id, 'role' => 'moderator', 'locale' => 'az', 'is_active' => 1]);
         $this->assertDatabaseHas('moderation_audits', ['decision' => 'grant', 'target_key' => (string) $target->id]);
+        $targetGrant = ModeratorGrant::query()->where('user_id', $target->id)->firstOrFail();
+        $this->get('/az/moderation/grants')->assertOk()
+            ->assertSee('for="revoke-reason-'.$targetGrant->id.'"', false)
+            ->assertSee('id="revoke-reason-'.$targetGrant->id.'"', false)
+            ->assertSee('id="reason"', false);
 
         $this->post('/az/moderation/grants', [
             'user_id' => $adminUser->id,

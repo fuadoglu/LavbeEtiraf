@@ -41,7 +41,7 @@ class PublicConfessionController extends Controller
         $path = '/'.$locale.'/confession/'.$confession->public_id;
         $canonical = rtrim((string) config('app.url'), '/').$path;
         $revision = $confession->publicRevision;
-        $description = $confession->excerpt ?: mb_substr(trim(preg_replace('/\s+/u', ' ', $revision->body) ?? ''), 0, 240, 'UTF-8');
+        $description = $confession->excerpt ?: mb_substr(trim(preg_replace('/\s+/u', ' ', $revision->body) ?? ''), 0, (int) config('lavbe.seo_description_excerpt'), 'UTF-8');
         $category = $locales->category((string) $revision->category_key);
         $comments = ConfessionComment::query()->with([
             'publicRevision' => fn ($query) => $query->where('status', 'approved'),

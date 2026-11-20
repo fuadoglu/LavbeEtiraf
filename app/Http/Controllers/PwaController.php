@@ -27,8 +27,8 @@ class PwaController extends Controller
             'display' => 'standalone',
             'display_override' => ['standalone'],
             'orientation' => 'portrait-primary',
-            'background_color' => '#faf7f2',
-            'theme_color' => '#faf7f2',
+            'background_color' => config('theme.day'),
+            'theme_color' => config('theme.day'),
             'icons' => [
                 ['src' => '/icons/lavbe-192.png', 'sizes' => '192x192', 'type' => 'image/png', 'purpose' => 'any'],
                 ['src' => '/icons/lavbe-512.png', 'sizes' => '512x512', 'type' => 'image/png', 'purpose' => 'any'],
@@ -68,7 +68,10 @@ class PwaController extends Controller
         $source = @file_get_contents($path);
         abort_unless(is_string($source), 503);
         $segments = array_column($locales->all(), 'segment');
-        $source = str_replace('__LAVBE_LOCALES__', json_encode($segments, JSON_THROW_ON_ERROR), $source);
+        $source = strtr($source, [
+            '__LAVBE_LOCALES__' => json_encode($segments, JSON_THROW_ON_ERROR),
+            '__LAVBE_DEFAULT_LOCALE__' => json_encode($locales->fallback()['segment'], JSON_THROW_ON_ERROR),
+        ]);
 
         return response($source, 200, [
             'Content-Type' => 'application/javascript; charset=UTF-8',

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', (($revision->title ?: mb_substr($revision->body, 0, 70, 'UTF-8')).' · Lavbe'))
+@section('title', (($revision->title ?: mb_substr($revision->body, 0, config('lavbe.public_title_excerpt'), 'UTF-8')).' · Lavbe'))
 
 @push('head')
     <link rel="canonical" href="{{ $canonical }}">
@@ -14,28 +14,33 @@
 
 @section('content')
     <article class="confession-detail" aria-labelledby="confession-title">
-        <nav aria-label="{{ __('lavbe.breadcrumb') }}">
+        <nav class="confession-breadcrumb" aria-label="{{ __('lavbe.breadcrumb') }}">
             <a href="{{ route('home', ['locale' => $localeRecord['segment']]) }}">{{ __('lavbe.feed_title') }}</a>
             @if($category)
                 <span aria-hidden="true">›</span>
                 <a href="{{ route('topic.show', ['locale' => $localeRecord['segment'], 'category' => $revision->category_key]) }}">{{ $category['labels'][$localeRecord['code']] ?? $category['labels']['en'] }}</a>
             @endif
         </nav>
-        <header class="page-heading">
-            @if($category)<p>{{ $category['labels'][$localeRecord['code']] ?? $category['labels']['en'] }}</p>@endif
+        <div class="confession-reading-card">
+        <header class="page-heading confession-heading">
+            @if($category)<p class="story-meta">{{ $category['labels'][$localeRecord['code']] ?? $category['labels']['en'] }}</p>@endif
             <h1 id="confession-title">{{ $revision->title ?: __('lavbe.untitled_confession') }}</h1>
-            <p>{{ $confession->author_alias }}</p>
+            <p class="story-meta">{{ $confession->author_alias }} <span aria-hidden="true">·</span> <time datetime="{{ $confession->published_at->toAtomString() }}">{{ $confession->published_at->format('Y-m-d') }}</time></p>
         </header>
         <div class="confession-body">{!! nl2br(e($revision->body)) !!}</div>
-        <p class="muted"><time datetime="{{ $confession->published_at->toAtomString() }}">{{ $confession->published_at->format('Y-m-d') }}</time></p>
+        <div class="confession-report-links">
         <p><a href="{{ route('reports.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.report_confession') }}</a></p>
         <p><a href="{{ route('reports.legal.create', ['locale' => $localeRecord['segment'], 'type' => 'confession', 'targetPublicId' => $confession->public_id]) }}">{{ __('reports.legal_title') }}</a></p>
 
+        </div>
+        </div>
+
+        <div class="confession-actions">
         <form method="post" action="{{ route('confessions.support', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-action">
             @csrf
             <input type="hidden" name="action" value="{{ $hasSupported ? 'unsupport' : 'support' }}">
             <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-            <button class="button button-secondary" type="submit">{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }}</button>
+            <button class="button button-secondary" aria-pressed="{{ $hasSupported ? 'true' : 'false' }}" type="submit"><x-icon name="heart" />{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }}</button>
             <span class="muted">{{ __('participation.support_count', ['count' => $confession->support_count]) }}</span>
         </form>
         @if(auth()->check() && auth()->user()->hasVerifiedEmail())
@@ -43,6 +48,8 @@
         @else
             <p><a href="{{ route('account.login', ['locale' => $localeRecord['segment']]) }}">{{ __('account.login_to_follow') }}</a></p>
         @endif
+
+        </div>
 
         @if($continuations->isNotEmpty())
             <section class="participation-section" aria-labelledby="continuation-heading">
@@ -83,7 +90,7 @@
                         <form method="post" action="{{ route('confessions.comment.response', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id, 'commentPublicId' => $comment->public_id]) }}">
                             @csrf
                             <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                            <x-form-field :label="__('participation.author_response')" name="body" :id="'response-body-'.$comment->id"><textarea name="body" maxlength="1200" required></textarea></x-form-field>
+                            <x-form-field :label="__('participation.author_response')" name="body" :id="'response-body-'.$comment->id"><textarea @if($errors->has('body')) aria-describedby="response-body-{{ $comment->id }}-description" @endif aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="response-body-{{ $comment->id }}" name="body" maxlength="{{ config('lavbe.limits.response_body') }}" required></textarea></x-form-field>
                             <button class="button button-secondary" type="submit">{{ __('participation.comment_submit') }}</button>
                         </form>
                     @endif
@@ -96,8 +103,8 @@
                 <form method="post" action="{{ route('confessions.comments.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-form">
                     @csrf
                     <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                    <x-form-field :label="__('participation.comment_label')" name="body" id="comment-body"><textarea name="body" maxlength="1200" required></textarea></x-form-field>
-                    <x-form-field :label="__('participation.remember_device')" name="remember_device"><input id="remember_device" type="checkbox" name="remember_device" value="1"></x-form-field>
+                    <x-form-field :label="__('participation.comment_label')" name="body" id="comment-body"><textarea @if($errors->has('body')) aria-describedby="comment-body-description" @endif aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="comment-body" name="body" maxlength="{{ config('lavbe.limits.comment_body') }}" required></textarea></x-form-field>
+                    <label class="age-confirmation"><input id="remember_device" type="checkbox" name="remember_device" value="1"><span>{{ __('participation.remember_device') }}</span></label>
                     <button class="button button-primary" type="submit">{{ __('participation.comment_submit') }}</button>
                 </form>
             @else
@@ -111,8 +118,8 @@
                 <form method="post" action="{{ route('confessions.continuations.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}">
                     @csrf
                     <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                    <x-form-field :label="__('participation.continuation_label')" name="body"><textarea id="continuation-body" name="body" maxlength="6000" required></textarea></x-form-field>
-                    <x-form-field :label="__('participation.continuation_confirm')" name="confirm_continuation"><input id="confirm_continuation" type="checkbox" name="confirm_continuation" value="1" required></x-form-field>
+                    <x-form-field :label="__('participation.continuation_label')" name="body" id="continuation-body"><textarea @if($errors->has('body')) aria-describedby="continuation-body-description" @endif aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="continuation-body" name="body" maxlength="{{ config('lavbe.limits.continuation_body') }}" required></textarea></x-form-field>
+                    <label class="age-confirmation"><input id="confirm_continuation" type="checkbox" name="confirm_continuation" value="1" required><span>{{ __('participation.continuation_confirm') }}</span></label>
                     <button class="button button-primary" type="submit">{{ __('participation.comment_submit') }}</button>
                 </form>
             </section>

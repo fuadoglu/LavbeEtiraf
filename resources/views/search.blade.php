@@ -12,14 +12,14 @@
         <form method="post" action="{{ route('search', ['locale' => $lavbeLocale['segment']]) }}" class="form-field" data-search-form>
             @csrf
             <label for="feed-search">{{ __('lavbe.search_label') }}</label>
-            <input id="feed-search" type="search" name="q" value="" maxlength="120" autocomplete="off">
+            <input id="feed-search" type="search" name="q" value="" maxlength="{{ config('lavbe.limits.search_query') }}" autocomplete="off">
             <button class="button" type="submit">{{ __('lavbe.search_submit') }}</button>
         </form>
         @if($results)
             @if($results->isEmpty())
                 <p>{{ __('lavbe.search_empty') }}</p>
             @else
-                <div class="feed-list"><x-feed-items :confessions="$results" /></div>
+                <div class="confession-feed feed-list"><x-feed-items :confessions="$results" /></div>
                 @if($results->hasPages())
                     <nav aria-label="{{ __('lavbe.pagination') }}" class="sort-panel">
                         @if($results->previousPageUrl())<a href="{{ $results->previousPageUrl() }}">{{ __('lavbe.previous') }}</a>@endif

@@ -27,7 +27,9 @@ class HealthCheckTest extends TestCase
             ->assertSee('Lavbe')
             ->assertSee('Confession Valley')
             ->assertSee('All')
-            ->assertSee('Oxu');
+            ->assertSee('Read')
+            ->assertSee('Write')
+            ->assertSee('My space');
     }
 
     public function test_consent_controls_are_present_without_loading_third_party_tags(): void

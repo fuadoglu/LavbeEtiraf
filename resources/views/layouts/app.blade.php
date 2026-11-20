@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="#faf7f2">
+    <x-theme-colors />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="lavbe-analytics-id" content="{{ config('services.analytics.measurement_id') }}">
     @if($analyticsContext ?? null)
         <meta name="lavbe-analytics-context" content="{{ base64_encode(json_encode($analyticsContext, JSON_THROW_ON_ERROR)) }}">
     @endif
-    <link rel="manifest" href="{{ route('pwa.manifest', ['locale' => request()->route('locale') ?? 'en']) }}">
+    <link rel="manifest" href="{{ route('pwa.manifest', ['locale' => request()->route('locale') ?? app(\App\Support\Lavbe\LocaleRegistry::class)->fallback()['segment']]) }}">
     <link rel="apple-touch-icon" href="/icons/lavbe-apple-touch.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>@yield('title', 'Lavbe · Etiraflar Vadisi')</title>
+    <title>@yield('title', 'Lavbe · '.__('lavbe.feed_title'))</title>
     @stack('head')
     <script>
         (() => {
@@ -23,7 +23,8 @@
                 const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
                 const theme = saved === 'day' || saved === 'night' ? saved : system;
                 document.documentElement.dataset.theme = theme;
-                document.querySelector('meta[name="theme-color"]').content = theme === 'night' ? '#181521' : '#faf7f2';
+                const color = document.querySelector('meta[name="theme-color"]');
+                color.content = color.dataset[theme];
             } catch {
                 document.documentElement.dataset.theme = 'day';
             }
@@ -32,14 +33,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <a class="skip-link" href="#main">Əsas məzmuna keç</a>
+    <a class="skip-link" href="#main">{{ __('navigation.skip') }}</a>
     <div class="app-shell">
         <x-site-header />
         <main id="main" class="page-content" tabindex="-1">
             @yield('content')
         </main>
         <footer class="site-footer">
-            <p>Lavbe · Etiraflar Vadisi</p>
+            <p>Lavbe · {{ __('lavbe.feed_title') }}</p>
             <button class="footer-link" type="button" data-consent-open>{{ $consentMessages['settings'] }}</button>
         </footer>
     </div>
