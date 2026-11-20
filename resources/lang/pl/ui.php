@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Podgląd zawiera fikcyjne przykłady.',
     'sample_title' => 'Przykładowa historia',
     'sample_text' => 'Tak wygląda historia po zatwierdzeniu.',
+    'check_fields' => 'Sprawdź te dane',
+    'language_no_match' => 'Nie znaleziono języka. Spróbuj wpisać inną nazwę.',
 ];

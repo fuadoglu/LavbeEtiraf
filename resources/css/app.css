@@ -536,3 +536,11 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
     .feed-controls:has(.feed-topic-picker-mobile[open]) .sort-panel { grid-column: 1 / -1; width: 100%; }
     .feed-topic-picker-mobile .topic-chip > span { min-width: 0; white-space: normal; overflow-wrap: anywhere; text-align: start; line-height: 1.25; }
 }
+
+.form-errors {
+    border-inline-start: 3px solid var(--danger);
+    padding: .75rem 1rem;
+    background: var(--surface);
+}
+.form-errors h2 { margin: 0; font-size: 1.125rem; }
+.form-errors ul { margin-block: .4rem 0; padding-inline-start: 1.25rem; }

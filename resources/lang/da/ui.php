@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Her vises opdigtede eksempler.',
     'sample_title' => 'Eksempelfortælling',
     'sample_text' => 'Sådan ser en godkendt fortælling ud.',
+    'check_fields' => 'Tjek disse oplysninger',
+    'language_no_match' => 'Vi fandt ikke sproget. Prøv et andet navn.',
 ];

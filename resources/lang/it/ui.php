@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Questa anteprima usa contenuti di fantasia.',
     'sample_title' => 'Storia di esempio',
     'sample_text' => 'Ecco come apparirà la storia dopo l’approvazione.',
+    'check_fields' => 'Controlla questi dati',
+    'language_no_match' => 'Nessuna lingua trovata. Prova con un altro nome.',
 ];

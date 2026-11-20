@@ -356,3 +356,9 @@ Staging SMTP/MySQL yükü, backup bərpası, CMP/AdSense və hüquqi təsdiq bu 
 **Issue:** [#129](https://github.com/fuadoglu/LavbeEtiraf/issues/129). **Asılılıq:** LAV-002, LAV-006, LAV-010, LAV-059. **Qəbul:** PWA-02.
 
 Locale-ə uyğun web app manifest və mövcud lələk ikonunun 192/512 PNG ölçülərini əlavə et. Təhlükəsiz origin-də service worker-i qeydiyyata al. Yalnız ümumi offline səhifəni quraşdırmada cache-lə; navigation HTML, etiraf, hesab, moderator, şikayət, feed fragment və API cavablarını heç vaxt yazma. Yalnız eyni-origin Vite hash-li asset-i uğurlu GET-dən sonra cache edilə bilər. **Sübut:** manifest/locale route, script qeydiyyatı, worker cache siyasəti üçün avtomatik yoxlamalar; mobil install və airplane mode yalnız staging-də yoxlanır.
+
+## LAV-061 · Yazı xətasından qayıdış və cihazdan idarəetmə
+
+**Issue:** [#131](https://github.com/fuadoglu/LavbeEtiraf/issues/131). **Asılılıq:** LAV-058, LAV-060. **Qəbul:** UI-01, UI-02, LOC-01.
+
+Etiraf və rəy göndərərkən xətadan müvafiq sahəyə klaviatura ilə keçmək mümkün olmalıdır. Dil axtarışında boş nəticə bildirilməli, cihaz girişinin ləğvi aydın ikinci addım tələb etməlidir. Sınaq tapşırıqları və müşahidə meyarları [ekran sənədində](../ui/screens-and-states.md) saxlanılır.

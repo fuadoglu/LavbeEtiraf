@@ -8,7 +8,12 @@
     if (languageSearch) {
         const menu = languageSearch.closest('details');
         menu.addEventListener('toggle', () => {
-            if (menu.open) languageSearch.focus();
+            if (menu.open) {
+                languageSearch.focus();
+            } else {
+                languageSearch.value = '';
+                filterLanguages();
+            }
         });
         menu.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
@@ -20,11 +25,21 @@
             if (!menu.contains(event.target)) menu.open = false;
         });
         const options = [...document.querySelectorAll('[data-language-option]')];
-        languageSearch.addEventListener('input', () => {
+        const noMatches = menu.querySelector('[data-language-empty]');
+        function filterLanguages() {
             const query = languageSearch.value.trim().toLocaleLowerCase();
             options.forEach((option) => {
                 option.hidden = query !== '' && !option.dataset.search.toLocaleLowerCase().includes(query);
             });
+            noMatches.hidden = options.some(option => !option.hidden);
+        }
+        languageSearch.addEventListener('input', filterLanguages);
+        languageSearch.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' || event.isComposing) return;
+            event.preventDefault();
+            const matches = options.filter(option => !option.hidden);
+            if (matches.length === 1) matches[0].click();
+            else matches[0]?.focus();
         });
     }
 

@@ -40,6 +40,21 @@ class GuestConfessionTest extends TestCase
         $response->assertDontSee('Nigar Məmmədova');
     }
 
+    public function test_invalid_optional_choice_reopens_settings_and_links_to_the_field(): void
+    {
+        $payload = $this->payload();
+        $payload['response_expectation'] = 'invalid-choice';
+
+        $response = $this->from('/az/write')->post('/az/write', $payload)
+            ->assertSessionHasErrors('response_expectation');
+
+        $this->withCookie(config('session.cookie'), $response->getCookie(config('session.cookie'))->getValue())
+            ->get('/az/write')->assertOk()
+            ->assertSee('href="#response_expectation"', false)
+            ->assertSee('class="sharing-options"  open', false)
+            ->assertSee($payload['body']);
+    }
+
     public function test_write_form_is_localized_private_and_keeps_idempotency_out_of_the_url(): void
     {
         $response = $this->get('/az/write')

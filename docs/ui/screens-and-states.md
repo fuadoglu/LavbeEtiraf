@@ -43,3 +43,21 @@ Kateqoriya səhifəsinin başlığı altında seçilmiş mövzunun həmin dildə
 
 
 Etiraf detail-də breadcrumb kateqoriyanı göstərdiyi üçün başlıq sahəsində kateqoriya təkrarlanmır. Müəllif və oxunaqlı yerli tarix yığcam meta sətrindədir; oxunuş göstəricisi hekayədən sonra qalır. Təsdiqlənmiş müəllif davamı mövcud olduqda, dəstək və şərhlərdən əvvəl verilir.
+
+## Tapşırıq əsasında UX yoxlaması
+
+Etiraf platformasında uğur meyarı ekranda qalma müddəti deyil. Oxucu hekayəni tapa bilir, müəllif nəyi kimə göndərdiyini anlayır və paylaşımına təhlükəsiz qayıda bilir. Sınaqda aşağıdakı tapşırıqları iştirakçıya düymələrin adını demədən verin.
+
+| Tapşırıq | Sınaqda yaradılası çətinlik | Müşahidə edilən nəticə |
+| --- | --- | --- |
+| Bir hekayəni aç və ona münasibət bildir | Hekayəyə axtarış nəticəsindən daxil ol | Oxucu düzgün hekayəyə rəy yazır və rəyin dərhal açıq olub-olmadığını izah edir |
+| Etiraf göndər və başlığı düzəlt | Server dolu mətn və boş başlıq alır | Fokus xülasəyə gəlir, keçid başlığa aparır, mətn təkrar yazılmır |
+| Cihazdan etirafına qayıt | Eyni cihazda saxlanmış və yeni brauzer sessiyalarını ayrıca sına | Müəllif öz paylaşımını tapır və ortaq cihazda girişi ləğv etməyin nəticəsini anlayır |
+| Dilini dəyiş | Əvvəl uyğunluğu olmayan söz, sonra dilin yerli adı daxil edilir | Boş nəticə elan edilir, Enter səhv dili seçmir, Escape menyunu bağlayır |
+| Narahatedici rəyi bildir | Etiraf və rəy eyni ekrandadır | İştirakçı düzgün hədəfi seçir və şikayətin kimə getdiyini izah edir |
+
+Forma xətasını sahənin yanında və fokuslana bilən xülasədə göstəririk. Uzun mobil formada istifadəçi səhvi tapmaq üçün bütün sahələri yenidən oxumamalıdır. Fokusun sabit naviqasiya altında gizlənməsini klaviatura, böyüdülmüş mətn və açıq mobil klaviatura ilə ayrıca yoxlayın. [W3C forma bildirişləri](https://www.w3.org/WAI/tutorials/forms/notifications/) · [WCAG 2.2 fokusun görünməsi](https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html)
+
+**Yerli texniki sınaq.** Sintetik hekayələrlə Chromium-da 390 px enində oxuma, server xətasından qayıtma, uğurlu göndərişdən sonra cihazdan tapma və dil seçimi yoxlanılıb. Ana səhifə və yazı forması 320, 390 və 1440 px enində üfüqi daşma yaratmayıb.
+
+**İnsanlarla yoxlama.** İlk dəfə gələn oxucular, müəlliflər və klaviatura və ya ekran oxuyucusu istifadə edən iştirakçılarla sintetik hekayələr üzərində çalışın. Şəxsi etiraf istəməyin. Hər tapşırıq üçün müstəqil tamamladı, köməklə tamamladı və ya yarımçıq qoydu nəticəsini, səhv dönmələri və iştirakçının gözləntisini qeyd edin. Ortaq cihazda başqasına giriş vermək və yanlış hədəfi şikayət etmək kritik səhvlərdir. Hər belə müşahidədən sonra axını düzəldib təkrar sınayın. Dil, cihaz və köməkçi texnologiyanı nəticə ilə birgə qeyd edin. [Nielsen Norman Group istifadə rahatlığı sınaqları](https://www.nngroup.com/articles/usability-testing-101/)

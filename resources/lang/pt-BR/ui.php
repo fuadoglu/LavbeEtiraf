@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Esta prévia usa conteúdo fictício.',
     'sample_title' => 'Desabafo de exemplo',
     'sample_text' => 'É assim que um desabafo aparece depois da aprovação.',
+    'check_fields' => 'Confira estes dados',
+    'language_no_match' => 'Nenhum idioma encontrado. Tente outro nome.',
 ];

@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Bu ekranda kurgusal örnekler gösterilir.',
     'sample_title' => 'Örnek itiraf',
     'sample_text' => 'Onaylanan bir itiraf böyle görünür.',
+    'check_fields' => 'Bu bilgileri kontrol et',
+    'language_no_match' => 'Eşleşen dil bulunamadı. Başka bir adla ara.',
 ];

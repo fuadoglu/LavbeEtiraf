@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Dit voorbeeld bevat verzonnen inhoud.',
     'sample_title' => 'Voorbeeldverhaal',
     'sample_text' => 'Zo ziet een goedgekeurd verhaal eruit.',
+    'check_fields' => 'Controleer deze gegevens',
+    'language_no_match' => 'Geen taal gevonden. Probeer een andere naam.',
 ];

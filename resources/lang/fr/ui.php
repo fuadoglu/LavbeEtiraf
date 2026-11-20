@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Cet aperçu utilise des exemples fictifs.',
     'sample_title' => 'Exemple de confidence',
     'sample_text' => 'Voici comment une confidence apparaît après validation.',
+    'check_fields' => 'Vérifiez ces informations',
+    'language_no_match' => 'Aucune langue trouvée. Essayez un autre nom.',
 ];

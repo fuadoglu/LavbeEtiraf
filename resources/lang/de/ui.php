@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Diese Vorschau zeigt erfundene Inhalte.',
     'sample_title' => 'Beispielbeitrag',
     'sample_text' => 'So sieht ein Beitrag nach der Freigabe aus.',
+    'check_fields' => 'Prüfe diese Angaben',
+    'language_no_match' => 'Keine passende Sprache gefunden. Versuch es mit einem anderen Namen.',
 ];

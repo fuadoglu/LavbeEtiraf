@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Esikatselun sisältö on kuvitteellista.',
     'sample_title' => 'Esimerkkitarina',
     'sample_text' => 'Tältä kirjoitus näyttää hyväksymisen jälkeen.',
+    'check_fields' => 'Tarkista nämä tiedot',
+    'language_no_match' => 'Kieltä ei löytynyt. Kokeile toista nimeä.',
 ];

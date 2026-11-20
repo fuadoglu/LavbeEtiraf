@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'ここでは架空の投稿を表示しています。',
     'sample_title' => 'サンプル投稿',
     'sample_text' => '承認された投稿はこのように表示されます。',
+    'check_fields' => '入力内容をご確認ください',
+    'language_no_match' => '該当する言語がありません。別の名前で検索してください。',
 ];

@@ -11,6 +11,7 @@
 
         <form class="write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
             @csrf
+            <x-form-errors :fields="['body' => 'body', 'title' => 'title', 'category_key' => 'category_key', 'author_display_name' => 'author_display_name', 'response_expectation' => 'response_expectation', 'age_confirmed' => 'age_confirmed', 'remember_device' => 'remember_device']" />
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
             <x-form-field name="body" :label="__('guest.write_body')" :hint="__('guest.write_body_hint', ['limit' => config('lavbe.limits.confession_body')])" :error="$errors->first('body')">
@@ -38,11 +39,11 @@
                 </ul>
             </details>
 
-            <details class="sharing-options" @if(old('author_display_name') || $errors->has('author_display_name') || old('response_expectation')) open @endif>
+            <details class="sharing-options" @if(old('author_display_name') || $errors->has('author_display_name') || $errors->has('response_expectation') || old('response_expectation')) open @endif>
                 <summary>{{ __('guest.write_options') }}</summary>
                 <p class="field-description">{{ __('guest.author_name_hint') }}</p>
                 <x-form-field name="author_display_name" :label="__('guest.author_name_label')" :error="$errors->first('author_display_name')">
-                    <input id="author_display_name" name="author_display_name" maxlength="120" value="{{ old('author_display_name') }}" autocomplete="off">
+                    <input @if($errors->has('author_display_name')) aria-invalid="true" aria-describedby="author_display_name-description" @endif id="author_display_name" name="author_display_name" maxlength="120" value="{{ old('author_display_name') }}" autocomplete="off">
                 </x-form-field>
                 <x-form-field name="response_expectation" :label="__('guest.write_expectation')">
                     <select @if($errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">
@@ -55,13 +56,13 @@
             </details>
 
             <label class="age-confirmation">
-                <input type="checkbox" name="age_confirmed" value="1" required @checked(old('age_confirmed'))>
+                <input id="age_confirmed" @if($errors->has('age_confirmed')) aria-invalid="true" aria-describedby="age-confirmation-error" @endif type="checkbox" name="age_confirmed" value="1" required @checked(old('age_confirmed'))>
                 <span>{{ __('guest.write_age') }}</span>
             </label>
-            @error('age_confirmed')<p class="field-description" role="alert">{{ $message }}</p>@enderror
+            @error('age_confirmed')<p id="age-confirmation-error" class="field-description" role="alert">{{ $message }}</p>@enderror
 
             <label class="age-confirmation">
-                <input type="checkbox" name="remember_device" value="1" @checked(old('remember_device'))>
+                <input id="remember_device" type="checkbox" name="remember_device" value="1" @checked(old('remember_device'))>
                 <span>{{ __('guest.write_remember_device') }}</span>
             </label>
 

@@ -18,4 +18,6 @@ return [
     'preview_hint' => '이 화면에는 가상의 예시만 표시돼요.',
     'sample_title' => '예시 글',
     'sample_text' => '승인된 글은 이렇게 보여요.',
+    'check_fields' => '입력한 내용을 확인해 주세요',
+    'language_no_match' => '일치하는 언어가 없어요. 다른 이름으로 찾아보세요.',
 ];

@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'This preview uses fictional content.',
     'sample_title' => 'Sample story',
     'sample_text' => 'This is how a story will appear once approved.',
+    'check_fields' => 'Check these details',
+    'language_no_match' => 'No matching language. Try another name.',
 ];

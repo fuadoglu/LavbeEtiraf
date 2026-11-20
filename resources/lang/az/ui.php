@@ -18,4 +18,6 @@ return [
     'preview_hint' => 'Bu səhifə uydurma nümunələrlə hazırlanıb.',
     'sample_title' => 'Nümunə etiraf',
     'sample_text' => 'Təsdiqlənmiş etiraf burada belə görünəcək.',
+    'check_fields' => 'Bu sahələri yoxla',
+    'language_no_match' => 'Bu adda dil tapılmadı. Başqa adla axtar.',
 ];

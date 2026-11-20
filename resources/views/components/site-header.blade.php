@@ -26,6 +26,7 @@
                             @if(app()->getLocale() === $language['code'])<x-icon name="circle-check" class="icon-small language-selected" />@endif
                         </button>
                     @endforeach
+                    <p data-language-empty hidden role="status">{{ __('ui.language_no_match') }}</p>
                 </div>
             </form>
         </details>
