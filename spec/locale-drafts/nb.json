@@ -1,11 +1,11 @@
 {
   "locale": "nb",
-  "version": "draft-2026-11-19.2",
+  "version": "draft-2026-11-19.3",
   "messages": {
     "navigation": {
       "read": "Les",
       "write": "Skriv",
-      "mine": "Min Lavbe",
+      "mine": "Min Lavbe-side",
       "more": "Mer",
       "language": "Språk",
       "settings": "Innstillinger",
@@ -13,11 +13,11 @@
       "close": "Lukk"
     },
     "language": {
-      "picker_label": "Velg et språk",
+      "picker_label": "Velg språk",
       "search": "Søk etter språk",
       "empty": "Ingen språk funnet",
       "selected": "Gjeldende språk",
-      "changed": "Språk endret til {language}."
+      "changed": "Valgt språk: {language}."
     },
     "theme": {
       "label": "Utseende",
@@ -28,87 +28,87 @@
     "feed": {
       "all": "Alle",
       "topics": "Emner",
-      "new": "Ny",
+      "new": "Nytt",
       "weekly": "Denne uken",
-      "updates": "Nye oppdateringer",
-      "more": "Last inn mer",
-      "refresh": "Oppdater feed",
+      "updates": "Historier med en fortsettelse",
+      "more": "Vis flere historier",
+      "refresh": "Oppdater strømmen",
       "retry": "Prøv igjen",
-      "empty": "Ingen publiserte tilståelser ennå.",
-      "end": "Du har nådd slutten.",
-      "loading": "Laster inn tilståelser …"
+      "empty": "Ingen bekjennelser er publisert ennå",
+      "end": "Du har sett alle historiene.",
+      "loading": "Laster inn historier"
     },
     "search": {
       "title": "Søk bekjennelser",
       "label": "Søk etter nøkkelord",
       "submit": "Søk",
-      "empty": "Ingen samsvarende tilståelser funnet.",
+      "empty": "Fant ingen passende bekjennelser",
       "invalid": "Skriv inn et søkeord."
     },
     "confession": {
       "author": "Anonym forfatter",
-      "support": "Støtte",
-      "follow": "Følg oppdateringer",
+      "support": "Vis støtte",
+      "follow": "Følg historien",
       "unfollow": "Slutt å følge",
       "share": "Del",
-      "report": "Rapport",
+      "report": "Rapporter historien",
       "update": "Oppdatering",
       "next": "Neste bekjennelse",
-      "comments_closed": "Svarene er stengt."
+      "comments_closed": "Den som skrev historien, har stengt for nye svar."
     },
     "write": {
-      "title": "Skriv en tilståelse",
-      "intro": "Tilståelsen din gjennomgås før den vises offentlig.",
-      "body": "Din tilståelse",
+      "title": "Skriv en bekjennelse",
+      "intro": "Etter innsending blir teksten gjennomgått og vises ikke offentlig før den er godkjent.",
+      "body": "Bekjennelsen din",
       "optional_title": "Tittel (valgfritt)",
-      "topic": "Emne",
-      "purpose": "Hva ønsker du av leserne?",
-      "purpose_share": "Jeg vil bare dele",
-      "purpose_experience": "Jeg ønsker å høre lignende erfaringer",
-      "purpose_advice": "Jeg vil gjerne ha råd",
-      "allow_comments": "Tillat svar",
+      "topic": "Tema",
+      "purpose": "Hva ønsker du fra leserne? (valgfritt)",
+      "purpose_share": "Jeg vil bare fortelle",
+      "purpose_experience": "Høre lignende erfaringer",
+      "purpose_advice": "Få råd",
+      "allow_comments": "Tillat nye svar",
       "public_notice": "Godkjente tilståelser kan leses offentlig på originalspråket.",
       "age_notice": "Du må være minst 18 år for å sende inn.",
-      "remember_draft": "Husk dette utkastet på denne enheten",
-      "remember_device": "Husk denne enheten for privat tilgang",
-      "submit": "Send for vurdering",
-      "invalid": "Sjekk oppføringene dine. Tekstgrensen er {limit} tegn.",
-      "network_error": "Vi kunne ikke sende dette akkurat nå. Prøv igjen."
+      "remember_draft": "Lagre utkastet på denne enheten",
+      "remember_device": "Husk denne enheten, slik at du kan gå tilbake til bekjennelsene dine her.",
+      "submit": "Send til gjennomgang",
+      "invalid": "Sjekk teksten. Du kan skrive opptil {limit} tegn.",
+      "network_error": "Vi kunne ikke lagre innsendingen nå. Prøv igjen om litt."
     },
     "submit": {
-      "pending": "Din tilståelse venter på vurdering.",
+      "pending": "Bekjennelsen din er sendt til gjennomgang",
       "recovery_code": "Gjenopprettingskode",
-      "recovery_help": "Lagre denne koden privat. Den vises kun én gang.",
+      "recovery_help": "Lagre koden trygt nå. Den vises ikke igjen.",
       "copy": "Kopier kode",
       "copied": "Kopiert",
-      "my_content": "Åpen privat status"
+      "my_content": "Se status for innlegget mitt"
     },
     "comment": {
       "write": "Skriv et svar",
       "body": "Ditt svar",
       "reply": "Svar",
-      "submit": "Send for vurdering",
-      "pending": "Svaret ditt venter på vurdering.",
+      "submit": "Send til gjennomgang",
+      "pending": "Svaret ditt venter på gjennomgang.",
       "edit": "Rediger svar",
-      "delete": "Trekk tilbake svar"
+      "delete": "Fjern svaret mitt"
     },
     "report": {
-      "confession": "Rapporter tilståelse",
-      "comment": "Rapporter svar",
+      "confession": "Rapporter historien",
+      "comment": "Rapporter svaret",
       "reason": "Grunn",
-      "explanation": "Ytterligere detaljer (valgfritt)",
+      "explanation": "Flere opplysninger (valgfritt)",
       "send": "Send rapport",
-      "received": "Takk. Rapporten din ble mottatt.",
-      "duplicate": "Du har allerede rapportert denne varen.",
-      "spam": "Spam eller reklame",
-      "privacy": "Personvern eller personlig informasjon",
-      "harassment": "Trakassering eller misbruk",
-      "threat": "Trussel eller sikkerhetsproblem",
+      "received": "Takk. Moderatorene behandler rapporten fortrolig.",
+      "duplicate": "Du har allerede rapportert innlegget.",
+      "spam": "Søppelinnhold eller reklame",
+      "privacy": "Personvern eller personopplysninger",
+      "harassment": "Trakassering eller målrettede angrep",
+      "threat": "Trussel eller sikkerhetsrisiko",
       "inappropriate": "Upassende innhold",
-      "other": "Andre bekymringer"
+      "other": "Annet problem"
     },
     "moderation": {
-      "confessions": "Bekjennelser",
+      "confessions": "Historier",
       "comments": "Svar",
       "reports": "Rapporter",
       "pending": "Venter på vurdering",
@@ -122,29 +122,29 @@
       "reject": "Avvis",
       "hide": "Skjul",
       "request_changes": "Be om endringer",
-      "appeal": "Anke",
+      "appeal": "Klag på en avgjørelse",
       "close_report": "Løs rapport",
       "stale": "Dette elementet er endret. Last inn på nytt og se den på nytt."
     },
     "mine": {
-      "confessions": "Mine tilståelser",
+      "confessions": "Mine historier",
       "comments": "Mine svar",
-      "followed": "Følger",
+      "followed": "Historier jeg følger",
       "notifications": "Varsler",
       "withdraw": "Trekk tilbake",
-      "withdraw_confirm": "Vil du trekke denne gjenstanden fra offentlig visning?",
+      "withdraw_confirm": "Vil du trekke tilbake innlegget?",
       "delete": "Slett",
       "delete_confirm": "Denne handlingen kan ikke angres. Fortsette?",
-      "empty": "Ingenting her ennå."
+      "empty": "Her er det tomt foreløpig."
     },
     "auth": {
-      "sign_in": "Logg på",
-      "email": "E-post",
+      "sign_in": "Logg inn",
+      "email": "E-postadresse",
       "email_sent": "Hvis det finnes en konto, er det sendt en melding.",
-      "sign_out": "Logg av",
+      "sign_out": "Logg ut",
       "recovery": "Gjenopprett tilgang",
       "recovery_input": "Skriv inn gjenopprettingskoden",
-      "recover": "Gjenopprett",
+      "recover": "Gjenopprett tilgang",
       "recovered": "Tilgang gjenopprettet. Tidligere tilgangskoder ble opphevet.",
       "invalid_code": "Koden er ugyldig eller utløpt."
     },
@@ -152,8 +152,8 @@
       "published": "En tilståelse du følger ble publisert.",
       "changes_requested": "En moderator ba om endringer i tilståelsen din.",
       "new_comments": {
-        "one": "Det er {count} nytt svar.",
-        "other": "Det er {count} nye svar."
+        "one": "{count} nytt svar",
+        "other": "{count} nye svar"
       },
       "followup": "En ny fortsettelse er tilgjengelig.",
       "generic": "Det er ny aktivitet på kontoen din.",
@@ -168,18 +168,18 @@
     },
     "pwa": {
       "install": "Installer Lavbe",
-      "install_help_ios": "I Safari trykker du på Del og deretter Legg til på startskjermen.",
+      "install_help_ios": "Trykk på Del i Safari og deretter på Legg til på Hjem-skjerm.",
       "offline_title": "Du er frakoblet",
       "offline_body": "Noen lagrede sider kan fortsatt være tilgjengelige.",
       "back_online": "Du er tilbake online.",
       "draft_expired": "Dette lagrede utkastet er utløpt."
     },
     "errors": {
-      "not_found": "Finner ikke siden",
+      "not_found": "Fant ikke siden",
       "gone": "Dette innholdet er ikke lenger tilgjengelig.",
       "forbidden": "Du har ikke tilgang til denne siden.",
       "conflict": "Dette elementet er endret. Last inn på nytt og prøv igjen.",
-      "rate_limited": "For mange forsøk. Vent et øyeblikk og prøv igjen.",
+      "rate_limited": "For mange forsøk. Vent litt og prøv igjen.",
       "unavailable": "Tjenesten er midlertidig utilgjengelig."
     },
     "consent": {
@@ -202,17 +202,17 @@
     "help": {
       "title": "Hjelp",
       "guest": "Du kan skrive uten å opprette en konto.",
-      "recovery": "Hold gjenopprettingskoden din trygt; den kan ikke vises igjen.",
+      "recovery": "Lagre koden trygt nå. Den vises ikke igjen.",
       "visibility": "En tilståelse er offentlig kun etter godkjenning av moderator.",
       "reporting": "Bruk rapportskjemaet til å rapportere en bekymring.",
       "contact": "Kontakt"
     },
     "seo": {
       "site_name": "Lavbe",
-      "home_title": "Bekjennelser og støtte",
-      "home_description": "Les bekjennelser på originalspråket og finn støtte.",
-      "topic_title": "{topic} tilståelser",
-      "topic_description": "Les tilståelser om {topic}.",
+      "home_title": "Historier og støtte",
+      "home_description": "Les andres historier på språket de er skrevet på, eller fortell din egen.",
+      "topic_title": "Historier · {topic}",
+      "topic_description": "Les personlige historier i kategorien «{topic}».",
       "confession_title": "{title} · Lavbe"
     },
     "ads": {

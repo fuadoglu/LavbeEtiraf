@@ -1,5 +1,6 @@
 <?php
 
+use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,8 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withCommands()
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->redirectGuestsTo(fn (Request $request) => route('account.login', ['locale' => (string) $request->route('locale', 'az')]));
-        $middleware->redirectUsersTo(fn (Request $request) => route('account.home', ['locale' => (string) $request->route('locale', 'az')]));
+        $middleware->redirectGuestsTo(fn (Request $request) => route('account.login', ['locale' => $request->route('locale') ?? app(LocaleRegistry::class)->fallback()['segment']]));
+        $middleware->redirectUsersTo(fn (Request $request) => route('account.home', ['locale' => $request->route('locale') ?? app(LocaleRegistry::class)->fallback()['segment']]));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

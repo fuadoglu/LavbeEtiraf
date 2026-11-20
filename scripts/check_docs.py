@@ -258,7 +258,7 @@ def check_feed_translations(directory, catalog, report):
         "untitled_confession", "breadcrumb",
     }
     for locale in catalog["locales"]:
-        folder = "pt_BR" if locale["segment"] == "pt-br" else locale["segment"]
+        folder = locale["code"]
         path = directory / folder / "lavbe.php"
         report.check(path.is_file(), f"{path}: feed translation is missing.")
         if not path.is_file():
@@ -290,7 +290,7 @@ def check_guest_translations(directory, catalog, report):
         "write_withdrawn", "write_republish_pending",
     }
     for locale in catalog["locales"]:
-        folder = "pt_BR" if locale["segment"] == "pt-br" else locale["segment"]
+        folder = locale["code"]
         path = directory / folder / "guest.php"
         report.check(path.is_file(), f"{path}: guest translation is missing.")
         if not path.is_file():

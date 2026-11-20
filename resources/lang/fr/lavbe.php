@@ -1,3 +1,26 @@
 <?php
 
-return ['feed_title' => 'La vallée des confidences', 'feed_subtitle' => 'Lisez, écoutez et rappelez-vous que vous n’êtes pas seul·e.', 'sort_label' => 'Ordre du fil', 'sort_new' => 'Nouveautés', 'sort_weekly' => 'Cette semaine', 'sort_updates' => 'Nouvelles suites', 'categories' => 'Sujet de la confidence', 'all_categories' => 'Tout', 'category_empty' => 'Aucune confidence dans ce sujet pour le moment.', 'feed_empty' => 'Aucune confidence publiée pour le moment', 'feed_empty_description' => 'Les récits approuvés apparaîtront ici dans leur langue d’origine. Ce fil ne mélange pas les langues.', 'pagination' => 'Pagination', 'previous' => 'Précédent', 'next' => 'Voir plus', 'search_title' => 'Rechercher', 'search_label' => 'Mot-clé', 'search_submit' => 'Rechercher', 'search_empty' => 'Aucune confidence correspondante', 'retry' => 'Réessayer', 'refresh' => 'Actualiser le fil', 'untitled_confession' => 'Confession sans titre', 'breadcrumb' => 'Fil d’Ariane'];
+return [
+    'feed_title' => 'La vallée des confidences',
+    'feed_subtitle' => 'Lisez les confidences des autres. Si vous en avez envie, partagez la vôtre.',
+    'sort_label' => 'Ordre du fil',
+    'sort_new' => 'Nouveautés',
+    'sort_weekly' => 'Cette semaine',
+    'sort_updates' => 'Histoires à suivre',
+    'categories' => 'Sujet de la confidence',
+    'all_categories' => 'Tout',
+    'category_empty' => 'Aucune confidence dans ce sujet pour le moment.',
+    'feed_empty' => 'Aucune confidence publiée pour le moment',
+    'feed_empty_description' => 'Les récits approuvés apparaîtront ici dans leur langue d’origine. Ce fil ne mélange pas les langues.',
+    'pagination' => 'Pagination',
+    'previous' => 'Précédent',
+    'next' => 'Voir plus',
+    'search_title' => 'Rechercher',
+    'search_label' => 'Mot-clé',
+    'search_submit' => 'Rechercher',
+    'search_empty' => 'Aucune confidence correspondante',
+    'retry' => 'Réessayer',
+    'refresh' => 'Actualiser le fil',
+    'untitled_confession' => 'Confidence sans titre',
+    'breadcrumb' => 'Fil d’Ariane',
+];

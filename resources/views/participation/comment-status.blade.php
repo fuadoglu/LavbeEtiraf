@@ -5,7 +5,7 @@
 @section('content')
     <section class="write-page submission-result">
         <h1>{{ __('participation.manage_comment') }}</h1>
-        <p>{{ __('participation.comment_state', ['state' => $comment->status]) }}</p>
+        <p>{{ __('participation.comment_state', ['state' => __('state.'.$comment->status)]) }}</p>
         @if($comment->status === 'hidden')<p><a href="{{ route('appeals.create', ['locale' => $lavbeLocale['segment'], 'type' => 'comment', 'targetPublicId' => $comment->public_id]) }}">{{ __('reports.appeal_title') }}</a></p>@endif
         @if($comment->revisions->isNotEmpty())
             <article class="owner-revision">
@@ -13,7 +13,7 @@
                 <p>{{ $comment->revisions->first()->body }}</p>
             </article>
         @endif
-        <a href="{{ route('participation.comment.recovery.form', ['locale' => $lavbeLocale['segment'], 'commentPublicId' => $comment->public_id]) }}">{{ __('guest.write_recover_title') }}</a>
+        <a href="{{ route('participation.comment.recovery.form', ['locale' => $lavbeLocale['segment'], 'commentPublicId' => $comment->public_id]) }}">{{ __('participation.recover_comment') }}</a>
         @if(auth()->check() && auth()->user()->hasVerifiedEmail() && ! $comment->ownership?->user_id)
             <form method="post" action="{{ route('account.comments.claim', ['locale' => $lavbeLocale['segment'], 'publicId' => $comment->public_id]) }}">@csrf<button class="button button-secondary" type="submit">{{ __('account.claim') }}</button></form>
         @endif

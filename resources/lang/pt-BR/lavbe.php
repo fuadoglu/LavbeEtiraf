@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'feed_title' => 'Vale das Confissões',
+    'feed_subtitle' => 'Leia o que outras pessoas compartilharam. Se tiver vontade, conte a sua história também.',
+    'sort_label' => 'Ordem do feed',
+    'sort_new' => 'Novas',
+    'sort_weekly' => 'Esta semana',
+    'sort_updates' => 'Desabafos com continuação',
+    'categories' => 'Tema da confissão',
+    'all_categories' => 'Todas',
+    'category_empty' => 'Ainda não há confissões sobre este tema.',
+    'feed_empty' => 'Ainda não há confissões publicadas',
+    'feed_empty_description' => 'As histórias aprovadas aparecerão aqui no idioma original. Este feed não mistura idiomas.',
+    'pagination' => 'Paginação',
+    'previous' => 'Anterior',
+    'next' => 'Ver mais',
+    'search_title' => 'Buscar',
+    'search_label' => 'Palavra-chave',
+    'search_submit' => 'Buscar',
+    'search_empty' => 'Nenhuma confissão encontrada',
+    'retry' => 'Tentar novamente',
+    'refresh' => 'Atualizar feed',
+    'untitled_confession' => 'Confissão sem título',
+    'breadcrumb' => 'Navegação estrutural',
+];

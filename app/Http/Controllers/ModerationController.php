@@ -86,10 +86,7 @@ class ModerationController extends Controller
         $publicRevision = $confession->public_revision_id
             ? ConfessionRevision::query()->whereKey($confession->public_revision_id)->first()
             : null;
-        $categories = collect($locales->catalog()['categories'])->map(fn (array $item): array => [
-            'key' => $item['key'],
-            'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en'],
-        ]);
+        $categories = $locales->categoryOptions(app()->getLocale());
 
         return $this->privateView('moderation.show', compact('confession', 'revision', 'publicRevision', 'categories'));
     }

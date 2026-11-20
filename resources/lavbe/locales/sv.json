@@ -1,11 +1,11 @@
 {
   "locale": "sv",
-  "version": "draft-2026-11-19.2",
+  "version": "draft-2026-11-19.3",
   "messages": {
     "navigation": {
       "read": "Läs",
       "write": "Skriv",
-      "mine": "Min Lavbe",
+      "mine": "Mitt Lavbe",
       "more": "Mer",
       "language": "Språk",
       "settings": "Inställningar",
@@ -13,16 +13,16 @@
       "close": "Stäng"
     },
     "language": {
-      "picker_label": "Välj ett språk",
-      "search": "Sök efter språk",
+      "picker_label": "Välj språk",
+      "search": "Sök efter ett språk",
       "empty": "Inga språk hittades",
       "selected": "Aktuellt språk",
-      "changed": "Språket ändrat till {language}."
+      "changed": "Valt språk: {language}."
     },
     "theme": {
       "label": "Utseende",
       "system": "Använd enhetsinställning",
-      "day": "Ljus",
+      "day": "Ljust",
       "night": "Mörkt"
     },
     "feed": {
@@ -30,58 +30,58 @@
       "topics": "Ämnen",
       "new": "Nytt",
       "weekly": "Den här veckan",
-      "updates": "Nya uppdateringar",
-      "more": "Ladda mer",
+      "updates": "Berättelser med en fortsättning",
+      "more": "Visa fler berättelser",
       "refresh": "Uppdatera flödet",
       "retry": "Försök igen",
-      "empty": "Inga publicerade bekännelser ännu.",
-      "end": "Du har nått slutet.",
-      "loading": "Laddar bekännelser..."
+      "empty": "Inga bekännelser har publicerats ännu",
+      "end": "Du har sett alla berättelser.",
+      "loading": "Läser in berättelser"
     },
     "search": {
       "title": "Sök bekännelser",
       "label": "Sök med nyckelord",
       "submit": "Sök",
-      "empty": "Inga matchande bekännelser hittades.",
+      "empty": "Inga matchande bekännelser hittades",
       "invalid": "Ange en sökterm."
     },
     "confession": {
       "author": "Anonym författare",
-      "support": "Support",
-      "follow": "Följ uppdateringar",
+      "support": "Visa ditt stöd",
+      "follow": "Följ berättelsen",
       "unfollow": "Sluta följa",
       "share": "Dela",
-      "report": "Rapportera",
+      "report": "Anmäl berättelsen",
       "update": "Uppdatering",
       "next": "Nästa bekännelse",
-      "comments_closed": "Svar är stängda."
+      "comments_closed": "Den som skrev berättelsen har stängt för nya svar."
     },
     "write": {
       "title": "Skriv en bekännelse",
-      "intro": "Din bekännelse granskas innan den visas offentligt.",
+      "intro": "Efter inskick granskas texten och visas inte offentligt förrän den har godkänts.",
       "body": "Din bekännelse",
-      "optional_title": "Titel (valfritt)",
+      "optional_title": "Rubrik (valfri)",
       "topic": "Ämne",
-      "purpose": "Vad skulle du vilja ha av läsarna?",
+      "purpose": "Vad önskar du av läsarna? (valfritt)",
       "purpose_share": "Jag vill bara dela med mig",
-      "purpose_experience": "Jag vill höra liknande erfarenheter",
-      "purpose_advice": "Jag skulle vilja ha råd",
-      "allow_comments": "Tillåt svar",
+      "purpose_experience": "Höra liknande erfarenheter",
+      "purpose_advice": "Få råd",
+      "allow_comments": "Tillåt nya svar",
       "public_notice": "Godkända bekännelser kan läsas offentligt på originalspråket.",
       "age_notice": "Du måste vara minst 18 år för att skicka in.",
-      "remember_draft": "Kom ihåg detta utkast på den här enheten",
-      "remember_device": "Kom ihåg den här enheten för privat åtkomst",
+      "remember_draft": "Spara utkastet på den här enheten",
+      "remember_device": "Kom ihåg den här enheten så att du kan återvända till dina bekännelser här.",
       "submit": "Skicka för granskning",
-      "invalid": "Kontrollera dina inlägg. Textgränsen är {limit} tecken.",
-      "network_error": "Vi kunde inte skicka detta just nu. Försök igen."
+      "invalid": "Kontrollera texten. Du kan skriva upp till {limit} tecken.",
+      "network_error": "Det gick inte att spara ditt bidrag just nu. Försök igen om en stund."
     },
     "submit": {
-      "pending": "Din bekännelse väntar på granskning.",
+      "pending": "Din bekännelse har skickats för granskning",
       "recovery_code": "Återställningskod",
-      "recovery_help": "Spara den här koden privat. Det kommer bara att visas en gång.",
+      "recovery_help": "Spara koden på en säker plats nu. Den visas inte igen.",
       "copy": "Kopiera kod",
       "copied": "Kopierat",
-      "my_content": "Öppna privat status"
+      "my_content": "Se status för mitt inlägg"
     },
     "comment": {
       "write": "Skriv ett svar",
@@ -90,27 +90,27 @@
       "submit": "Skicka för granskning",
       "pending": "Ditt svar väntar på granskning.",
       "edit": "Redigera svar",
-      "delete": "Återkalla svar"
+      "delete": "Ta bort mitt svar"
     },
     "report": {
-      "confession": "Anmäl bekännelse",
-      "comment": "Rapportera svar",
+      "confession": "Anmäl berättelsen",
+      "comment": "Anmäl svaret",
       "reason": "Orsak",
-      "explanation": "Ytterligare detaljer (valfritt)",
-      "send": "Skicka rapport",
-      "received": "Tack. Din rapport har tagits emot.",
-      "duplicate": "Du har redan rapporterat den här produkten.",
+      "explanation": "Mer information (valfritt)",
+      "send": "Skicka anmälan",
+      "received": "Tack. Moderatorerna granskar din anmälan konfidentiellt.",
+      "duplicate": "Du har redan anmält det här inlägget.",
       "spam": "Spam eller reklam",
-      "privacy": "Sekretess eller personlig information",
-      "harassment": "Trakasserier eller övergrepp",
-      "threat": "Hot eller säkerhetsproblem",
+      "privacy": "Integritet eller personuppgifter",
+      "harassment": "Trakasserier eller riktade påhopp",
+      "threat": "Hot eller säkerhetsrisk",
       "inappropriate": "Olämpligt innehåll",
-      "other": "Annan oro"
+      "other": "Annan orsak"
     },
     "moderation": {
-      "confessions": "Bekännelser",
+      "confessions": "Berättelser",
       "comments": "Svar",
-      "reports": "Rapporter",
+      "reports": "Anmälningar",
       "pending": "Väntar på granskning",
       "public": "Publicerad",
       "changes_requested": "Ändringar begärda",
@@ -119,32 +119,32 @@
       "hidden": "Dolt",
       "deleted": "Raderad",
       "publish": "Godkänn och publicera",
-      "reject": "Avvisa",
-      "hide": "Göm",
+      "reject": "Avslå",
+      "hide": "Dölj",
       "request_changes": "Begär ändringar",
-      "appeal": "Överklagande",
+      "appeal": "Överklaga ett beslut",
       "close_report": "Lös rapport",
       "stale": "Detta objekt har ändrats. Ladda om och granska den igen."
     },
     "mine": {
-      "confessions": "Mina bekännelser",
+      "confessions": "Mina berättelser",
       "comments": "Mina svar",
-      "followed": "Följer",
-      "notifications": "Meddelanden",
+      "followed": "Berättelser jag följer",
+      "notifications": "Aviseringar",
       "withdraw": "Återkalla",
-      "withdraw_confirm": "Vill du ta tillbaka detta föremål från allmän synpunkt?",
+      "withdraw_confirm": "Vill du dra tillbaka inlägget?",
       "delete": "Ta bort",
       "delete_confirm": "Denna åtgärd kan inte ångras. Fortsätta?",
-      "empty": "Inget här ännu."
+      "empty": "Här är det tomt än så länge."
     },
     "auth": {
       "sign_in": "Logga in",
-      "email": "E-post",
+      "email": "E-postadress",
       "email_sent": "Om ett konto finns har ett meddelande skickats.",
       "sign_out": "Logga ut",
       "recovery": "Återställ åtkomst",
       "recovery_input": "Ange din återställningskod",
-      "recover": "Återställ",
+      "recover": "Återställ åtkomst",
       "recovered": "Åtkomst återställd. Tidigare åtkomstkoder återkallades.",
       "invalid_code": "Koden är ogiltig eller har löpt ut."
     },
@@ -152,12 +152,12 @@
       "published": "En bekännelse du följer publicerades.",
       "changes_requested": "En moderator begärde ändringar av din bekännelse.",
       "new_comments": {
-        "one": "Det finns {count} nytt svar.",
-        "other": "Det finns {count} nya svar."
+        "one": "{count} nytt svar",
+        "other": "{count} nya svar"
       },
       "followup": "En ny fortsättning är tillgänglig.",
       "generic": "Det finns ny aktivitet på ditt konto.",
-      "email_option": "E-postmeddelanden (valfritt)",
+      "email_option": "E-postaviseringar (valfritt)",
       "push_option": "Push-meddelanden (valfritt)"
     },
     "mail": {
@@ -168,7 +168,7 @@
     },
     "pwa": {
       "install": "Installera Lavbe",
-      "install_help_ios": "I Safari trycker du på Dela och sedan på Lägg till på startskärmen.",
+      "install_help_ios": "Tryck på Dela i Safari och sedan på Lägg till på hemskärmen.",
       "offline_title": "Du är offline",
       "offline_body": "Vissa sparade sidor kan fortfarande vara tillgängliga.",
       "back_online": "Du är online igen.",
@@ -179,7 +179,7 @@
       "gone": "Det här innehållet är inte längre tillgängligt.",
       "forbidden": "Du har inte tillgång till den här sidan.",
       "conflict": "Detta objekt har ändrats. Ladda om och försök igen.",
-      "rate_limited": "För många försök. Vänta ett ögonblick och försök igen.",
+      "rate_limited": "För många försök. Vänta en stund och försök igen.",
       "unavailable": "Tjänsten är tillfälligt otillgänglig."
     },
     "consent": {
@@ -202,17 +202,17 @@
     "help": {
       "title": "Hjälp",
       "guest": "Du kan skriva utan att skapa ett konto.",
-      "recovery": "Håll din återställningskod säker; den kan inte visas igen.",
+      "recovery": "Spara koden på en säker plats nu. Den visas inte igen.",
       "visibility": "En bekännelse är offentlig endast efter moderators godkännande.",
       "reporting": "Använd rapportformuläret för att flagga ett problem.",
       "contact": "Kontakt"
     },
     "seo": {
       "site_name": "Lavbe",
-      "home_title": "Bekännelser och stöd",
-      "home_description": "Läs bekännelser på originalspråket och få stöd.",
-      "topic_title": "{topic} bekännelser",
-      "topic_description": "Läs bekännelser om {topic}.",
+      "home_title": "Berättelser och stöd",
+      "home_description": "Läs vad andra berättar på sitt eget språk, eller dela din egen historia.",
+      "topic_title": "Berättelser · {topic}",
+      "topic_description": "Läs personliga berättelser i kategorin ”{topic}”.",
       "confession_title": "{title} · Lavbe"
     },
     "ads": {
@@ -285,37 +285,37 @@
     "terms": {
       "title": "Användarvillkor",
       "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "community": {
       "title": "Community riktlinjer",
       "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "privacy": {
       "title": "Sekretessmeddelande",
       "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "cookies": {
       "title": "Cookiemeddelande",
       "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "illegal_content": {
       "title": "Rapportera olagligt innehåll",
       "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "data_request": {
       "title": "Sekretessförfrågan",
       "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "operator": {
       "title": "Tjänsteoperatör",
       "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     }
   },
   "legal_status": "draft"

@@ -1,6 +1,6 @@
 {
   "locale": "en",
-  "version": "draft-2026-11-19.2",
+  "version": "draft-2026-11-19.3",
   "messages": {
     "navigation": {
       "read": "Read",
@@ -14,10 +14,10 @@
     },
     "language": {
       "picker_label": "Choose a language",
-      "search": "Search languages",
+      "search": "Find a language",
       "empty": "No languages found",
       "selected": "Current language",
-      "changed": "Language changed to {language}."
+      "changed": "Your language is now {language}."
     },
     "theme": {
       "label": "Appearance",
@@ -30,58 +30,58 @@
       "topics": "Topics",
       "new": "New",
       "weekly": "This week",
-      "updates": "New updates",
-      "more": "Load more",
+      "updates": "Stories with updates",
+      "more": "Show more stories",
       "refresh": "Refresh feed",
       "retry": "Try again",
-      "empty": "No published confessions yet.",
-      "end": "You have reached the end.",
-      "loading": "Loading confessions…"
+      "empty": "No published confessions yet",
+      "end": "You’re all caught up.",
+      "loading": "Loading stories"
     },
     "search": {
       "title": "Search confessions",
       "label": "Search by keyword",
       "submit": "Search",
-      "empty": "No matching confessions found.",
+      "empty": "No matching confessions found",
       "invalid": "Enter a search term."
     },
     "confession": {
       "author": "Anonymous author",
-      "support": "Support",
+      "support": "Support this story",
       "follow": "Follow updates",
       "unfollow": "Unfollow",
       "share": "Share",
-      "report": "Report",
+      "report": "Report this confession",
       "update": "Update",
       "next": "Next confession",
-      "comments_closed": "Responses are closed."
+      "comments_closed": "The author has closed new responses."
     },
     "write": {
       "title": "Write a confession",
-      "intro": "Your confession is reviewed before it appears publicly.",
+      "intro": "After submission, your confession goes to moderator review and stays out of the public feed until approved.",
       "body": "Your confession",
       "optional_title": "Title (optional)",
       "topic": "Topic",
-      "purpose": "What would you like from readers?",
+      "purpose": "What would you like from readers? (optional)",
       "purpose_share": "I just want to share",
-      "purpose_experience": "I want to hear similar experiences",
-      "purpose_advice": "I would like advice",
-      "allow_comments": "Allow responses",
+      "purpose_experience": "Hear similar experiences",
+      "purpose_advice": "Get advice",
+      "allow_comments": "Allow new responses",
       "public_notice": "Approved confessions can be read publicly in their original language.",
       "age_notice": "You must be at least 18 to submit.",
-      "remember_draft": "Remember this draft on this device",
-      "remember_device": "Remember this device for private access",
+      "remember_draft": "Save this draft on this device",
+      "remember_device": "Remember this device so you can return to your confessions here.",
       "submit": "Send for review",
-      "invalid": "Check your entries. The text limit is {limit} characters.",
-      "network_error": "We could not send this right now. Try again."
+      "invalid": "Check your entry. You can write up to {limit} characters.",
+      "network_error": "We could not save your submission right now. Please try again shortly."
     },
     "submit": {
-      "pending": "Your confession is waiting for review.",
+      "pending": "Your confession was sent for review",
       "recovery_code": "Recovery code",
-      "recovery_help": "Save this code privately. It will only be shown once.",
+      "recovery_help": "Save this code somewhere safe now. It will not be shown again.",
       "copy": "Copy code",
       "copied": "Copied",
-      "my_content": "Open private status"
+      "my_content": "View my submission status"
     },
     "comment": {
       "write": "Write a response",
@@ -90,22 +90,22 @@
       "submit": "Send for review",
       "pending": "Your response is waiting for review.",
       "edit": "Edit response",
-      "delete": "Withdraw response"
+      "delete": "Remove my response"
     },
     "report": {
-      "confession": "Report confession",
-      "comment": "Report response",
+      "confession": "Report this confession",
+      "comment": "Report this response",
       "reason": "Reason",
       "explanation": "Additional details (optional)",
       "send": "Send report",
-      "received": "Thank you. Your report was received.",
-      "duplicate": "You have already reported this item.",
+      "received": "Thank you. The report has been added to the private moderation review queue.",
+      "duplicate": "You’ve already reported this post.",
       "spam": "Spam or advertising",
       "privacy": "Privacy or personal information",
-      "harassment": "Harassment or abuse",
+      "harassment": "Harassment or targeted abuse",
       "threat": "Threat or safety concern",
       "inappropriate": "Inappropriate content",
-      "other": "Other concern"
+      "other": "Other community concern"
     },
     "moderation": {
       "confessions": "Confessions",
@@ -122,7 +122,7 @@
       "reject": "Reject",
       "hide": "Hide",
       "request_changes": "Request changes",
-      "appeal": "Appeal",
+      "appeal": "Appeal a moderation decision",
       "close_report": "Resolve report",
       "stale": "This item changed. Reload and review it again."
     },
@@ -132,7 +132,7 @@
       "followed": "Following",
       "notifications": "Notifications",
       "withdraw": "Withdraw",
-      "withdraw_confirm": "Withdraw this item from public view?",
+      "withdraw_confirm": "Withdraw this post from public view?",
       "delete": "Delete",
       "delete_confirm": "This action cannot be undone. Continue?",
       "empty": "Nothing here yet."
@@ -144,7 +144,7 @@
       "sign_out": "Sign out",
       "recovery": "Recover access",
       "recovery_input": "Enter your recovery code",
-      "recover": "Recover",
+      "recover": "Recover access",
       "recovered": "Access recovered. Previous access codes were revoked.",
       "invalid_code": "The code is invalid or expired."
     },
@@ -152,8 +152,8 @@
       "published": "A confession you follow was published.",
       "changes_requested": "A moderator requested changes to your confession.",
       "new_comments": {
-        "one": "There is {count} new response.",
-        "other": "There are {count} new responses."
+        "one": "{count} new response",
+        "other": "{count} new responses"
       },
       "followup": "A new continuation is available.",
       "generic": "There is new activity in your account.",
@@ -202,7 +202,7 @@
     "help": {
       "title": "Help",
       "guest": "You can write without creating an account.",
-      "recovery": "Keep your recovery code safe; it cannot be shown again.",
+      "recovery": "Save this code somewhere safe now. It will not be shown again.",
       "visibility": "A confession is public only after moderator approval.",
       "reporting": "Use the report form to flag a concern.",
       "contact": "Contact"
@@ -210,9 +210,9 @@
     "seo": {
       "site_name": "Lavbe",
       "home_title": "Confessions and support",
-      "home_description": "Read confessions in their original language and find support.",
-      "topic_title": "{topic} confessions",
-      "topic_description": "Read confessions about {topic}.",
+      "home_description": "Read personal stories in the language they were written in, or share your own.",
+      "topic_title": "Stories · {topic}",
+      "topic_description": "Read personal stories in the “{topic}” category.",
       "confession_title": "{title} · Lavbe"
     },
     "ads": {
@@ -285,37 +285,37 @@
     "terms": {
       "title": "Terms of use",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "community": {
       "title": "Community guidelines",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "privacy": {
       "title": "Privacy notice",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "cookies": {
       "title": "Cookie notice",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "illegal_content": {
       "title": "Report illegal content",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "data_request": {
       "title": "Privacy request",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "operator": {
       "title": "Service operator",
       "body": "Draft. Confirm local requirements, the actual service operator, and data practices before publication.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     }
   },
   "legal_status": "draft"

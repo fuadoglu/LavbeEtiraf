@@ -80,7 +80,7 @@ class SitemapController extends Controller
             $path = '/'.$locale['segment'].'/'.($category === null ? '' : 'topics/'.$category);
             echo '<xhtml:link rel="alternate" hreflang="'.$this->xml($locale['code']).'" href="'.$this->xml($base.$path).'"/>';
         }
-        $fallback = collect($locales)->firstWhere('code', 'en');
+        $fallback = collect($locales)->firstWhere('code', app(LocaleRegistry::class)->fallback()['code']);
         if ($fallback) {
             echo '<xhtml:link rel="alternate" hreflang="x-default" href="'.$this->xml($base.'/'.$fallback['segment'].'/'.($category === null ? '' : 'topics/'.$category)).'"/>';
         }

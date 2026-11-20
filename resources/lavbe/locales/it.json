@@ -1,6 +1,6 @@
 {
   "locale": "it",
-  "version": "draft-2026-11-19.2",
+  "version": "draft-2026-11-19.3",
   "messages": {
     "navigation": {
       "read": "Leggi",
@@ -14,103 +14,103 @@
     },
     "language": {
       "picker_label": "Scegli una lingua",
-      "search": "Cerca lingue",
+      "search": "Cerca una lingua",
       "empty": "Nessuna lingua trovata",
       "selected": "Lingua corrente",
-      "changed": "Lingua modificata in {language}."
+      "changed": "Lingua selezionata: {language}."
     },
     "theme": {
       "label": "Aspetto",
       "system": "Utilizza l'impostazione del dispositivo",
-      "day": "Luce",
+      "day": "Chiaro",
       "night": "Scuro"
     },
     "feed": {
-      "all": "Tutti",
+      "all": "Tutte",
       "topics": "Argomenti",
-      "new": "Nuovo",
+      "new": "Nuove",
       "weekly": "Questa settimana",
-      "updates": "Nuovi aggiornamenti",
-      "more": "Carica altro",
-      "refresh": "Aggiorna alimentazione",
+      "updates": "Storie con un seguito",
+      "more": "Mostra altre storie",
+      "refresh": "Aggiorna il feed",
       "retry": "Riprova",
-      "empty": "Nessuna confessione ancora pubblicata.",
-      "end": "Sei arrivato alla fine.",
-      "loading": "Caricamento confessioni…"
+      "empty": "Non ci sono ancora confessioni pubblicate",
+      "end": "Hai letto tutte le storie.",
+      "loading": "Caricamento delle storie"
     },
     "search": {
       "title": "Cerca confessioni",
       "label": "Ricerca per parola chiave",
       "submit": "Cerca",
-      "empty": "Nessuna confessione corrispondente trovata.",
+      "empty": "Nessuna confessione trovata",
       "invalid": "Inserisci un termine di ricerca."
     },
     "confession": {
       "author": "Autore anonimo",
-      "support": "Supporto",
-      "follow": "Segui gli aggiornamenti",
+      "support": "Mostra il tuo sostegno",
+      "follow": "Segui la storia",
       "unfollow": "Smetti di seguire",
       "share": "Condividi",
-      "report": "Segnala",
+      "report": "Segnala la confessione",
       "update": "Aggiornamento",
       "next": "Prossima confessione",
-      "comments_closed": "Le risposte sono chiuse."
+      "comments_closed": "Chi ha scritto la storia ha chiuso le risposte."
     },
     "write": {
       "title": "Scrivi una confessione",
-      "intro": "La tua confessione viene esaminata prima di apparire pubblicamente.",
+      "intro": "Dopo l’invio, il testo sarà esaminato e non apparirà nel feed pubblico finché non verrà approvato.",
       "body": "La tua confessione",
       "optional_title": "Titolo (facoltativo)",
       "topic": "Argomento",
-      "purpose": "Cosa vorresti dai lettori?",
-      "purpose_share": "Voglio solo condividere",
-      "purpose_experience": "Voglio sentire esperienze simili",
-      "purpose_advice": "Vorrei un consiglio",
-      "allow_comments": "Consenti risposte",
+      "purpose": "Cosa vorresti da chi ti legge? (facoltativo)",
+      "purpose_share": "Voglio solo raccontarlo",
+      "purpose_experience": "Ascoltare esperienze simili",
+      "purpose_advice": "Ricevere consigli",
+      "allow_comments": "Consenti nuove risposte",
       "public_notice": "Le confessioni approvate possono essere lette pubblicamente nella loro lingua originale.",
-      "age_notice": "Devi avere almeno 18 anni per inviare.",
-      "remember_draft": "Ricorda questa bozza su questo dispositivo",
-      "remember_device": "Ricorda questo dispositivo per l'accesso privato",
+      "age_notice": "Per inviare devi avere almeno 18 anni.",
+      "remember_draft": "Salva la bozza su questo dispositivo",
+      "remember_device": "Ricorda questo dispositivo per tornare qui alle tue confessioni.",
       "submit": "Invia per la revisione",
-      "invalid": "Controlla le tue voci. Il limite del testo è di caratteri {limit}.",
-      "network_error": "Impossibile inviarlo in questo momento. Riprova."
+      "invalid": "Controlla il testo. Puoi scrivere fino a {limit} caratteri.",
+      "network_error": "Non è stato possibile salvare l’invio in questo momento. Riprova tra poco."
     },
     "submit": {
-      "pending": "La tua confessione è in attesa di revisione.",
-      "recovery_code": "Codice di ripristino",
-      "recovery_help": "Salva questo codice in privato. Verrà mostrato solo una volta.",
+      "pending": "La tua confessione è stata inviata per la revisione",
+      "recovery_code": "Codice di recupero",
+      "recovery_help": "Conserva subito questo codice in un luogo sicuro. Non verrà mostrato di nuovo.",
       "copy": "Copia il codice",
       "copied": "Copiato",
-      "my_content": "Stato aperto privato"
+      "my_content": "Vedi lo stato della mia confessione"
     },
     "comment": {
       "write": "Scrivi una risposta",
       "body": "La tua risposta",
       "reply": "Rispondi",
-      "submit": "Invia per la revisione",
-      "pending": "La tua risposta è in attesa di revisione.",
+      "submit": "Invia per la verifica",
+      "pending": "La tua risposta è in attesa di verifica.",
       "edit": "Modifica risposta",
-      "delete": "Ritirare la risposta"
+      "delete": "Ritira la mia risposta"
     },
     "report": {
-      "confession": "Denuncia confessione",
-      "comment": "Segnala risposta",
+      "confession": "Segnala la confessione",
+      "comment": "Segnala la risposta",
       "reason": "Motivo",
-      "explanation": "Dettagli aggiuntivi (facoltativo)",
+      "explanation": "Altri dettagli (facoltativo)",
       "send": "Invia segnalazione",
-      "received": "Grazie. La tua segnalazione è stata ricevuta.",
-      "duplicate": "Hai già segnalato questo elemento.",
+      "received": "Grazie. Il team di moderazione esaminerà la segnalazione in via riservata.",
+      "duplicate": "Hai già segnalato questo contenuto.",
       "spam": "Spam o pubblicità",
-      "privacy": "Privacy o informazioni personali",
-      "harassment": "Molestie o abusi",
-      "threat": "Minaccia o problema di sicurezza",
+      "privacy": "Privacy o dati personali",
+      "harassment": "Molestie o attacchi personali",
+      "threat": "Minaccia o rischio per la sicurezza",
       "inappropriate": "Contenuti inappropriati",
-      "other": "Altra preoccupazione"
+      "other": "Altro problema"
     },
     "moderation": {
       "confessions": "Confessioni",
       "comments": "Risposte",
-      "reports": "Rapporti",
+      "reports": "Segnalazioni",
       "pending": "In attesa di revisione",
       "public": "Pubblicato",
       "changes_requested": "Modifiche richieste",
@@ -122,29 +122,29 @@
       "reject": "Rifiuta",
       "hide": "Nascondi",
       "request_changes": "Richiedi modifiche",
-      "appeal": "Ricorso",
+      "appeal": "Contesta una decisione",
       "close_report": "Risolvi rapporto",
       "stale": "Questo elemento è stato modificato. Ricaricalo e rivedilo di nuovo."
     },
     "mine": {
       "confessions": "Le mie confessioni",
       "comments": "Le mie risposte",
-      "followed": "Segue",
+      "followed": "Storie che seguo",
       "notifications": "Notifiche",
       "withdraw": "Ritira",
-      "withdraw_confirm": "Ritirare questo elemento dalla visualizzazione pubblica?",
+      "withdraw_confirm": "Vuoi ritirare questo contributo?",
       "delete": "Elimina",
       "delete_confirm": "Questa azione non può essere annullata. Continuare?",
-      "empty": "Ancora niente qui."
+      "empty": "Qui non c’è ancora nulla."
     },
     "auth": {
       "sign_in": "Accedi",
-      "email": "E-mail",
+      "email": "Email",
       "email_sent": "Se esiste un account, è stato inviato un messaggio.",
       "sign_out": "Esci",
-      "recovery": "Recuperare l'accesso",
+      "recovery": "Recupera l’accesso",
       "recovery_input": "Inserisci il tuo codice di ripristino",
-      "recover": "Recupera",
+      "recover": "Recupera l’accesso",
       "recovered": "Accesso ripristinato. I codici di accesso precedenti sono stati revocati.",
       "invalid_code": "Il codice non è valido o è scaduto."
     },
@@ -152,13 +152,13 @@
       "published": "È stata pubblicata una confessione che segui.",
       "changes_requested": "Un moderatore ha richiesto modifiche alla tua confessione.",
       "new_comments": {
-        "one": "C'è una nuova risposta {count}.",
-        "many": "Ci sono nuove risposte {count}.",
-        "other": "Ci sono nuove risposte {count}."
+        "one": "{count} nuova risposta",
+        "many": "{count} nuove risposte",
+        "other": "{count} nuove risposte"
       },
       "followup": "È disponibile una nuova continuazione.",
       "generic": "C'è una nuova attività nel tuo account.",
-      "email_option": "Notifiche e-mail (opzionale)",
+      "email_option": "Notifiche email (facoltative)",
       "push_option": "Notifiche push (opzionale)"
     },
     "mail": {
@@ -169,7 +169,7 @@
     },
     "pwa": {
       "install": "Installa Lavbe",
-      "install_help_ios": "In Safari, tocca Condividi, quindi Aggiungi alla schermata principale.",
+      "install_help_ios": "In Safari tocca Condividi, poi Aggiungi alla schermata Home.",
       "offline_title": "Sei offline",
       "offline_body": "Alcune pagine salvate potrebbero essere ancora disponibili.",
       "back_online": "Sei di nuovo online.",
@@ -180,7 +180,7 @@
       "gone": "Questo contenuto non è più disponibile.",
       "forbidden": "Non hai accesso a questa pagina.",
       "conflict": "Questo elemento è stato modificato. Ricarica e riprova.",
-      "rate_limited": "Troppi tentativi. Aspetta un attimo e riprova.",
+      "rate_limited": "Troppi tentativi. Attendi un momento e riprova.",
       "unavailable": "Il servizio è momentaneamente non disponibile."
     },
     "consent": {
@@ -203,7 +203,7 @@
     "help": {
       "title": "Aiuto",
       "guest": "Puoi scrivere senza creare un account.",
-      "recovery": "Mantieni il tuo codice di ripristino al sicuro; non può essere mostrato nuovamente.",
+      "recovery": "Conserva subito questo codice in un luogo sicuro. Non verrà mostrato di nuovo.",
       "visibility": "Una confessione è pubblica solo dopo l'approvazione del moderatore.",
       "reporting": "Utilizza il modulo di segnalazione per segnalare un problema.",
       "contact": "Contatto"
@@ -211,9 +211,9 @@
     "seo": {
       "site_name": "Lavbe",
       "home_title": "Confessioni e sostegno",
-      "home_description": "Leggi le confessioni in lingua originale e trova supporto.",
-      "topic_title": "{topic} confessioni",
-      "topic_description": "Leggi le confessioni sugli {topic}.",
+      "home_description": "Leggi le storie nella lingua in cui sono state scritte. Se ti va, racconta la tua.",
+      "topic_title": "Storie · {topic}",
+      "topic_description": "Leggi le storie della categoria «{topic}».",
       "confession_title": "{title} · Lavbe"
     },
     "ads": {
@@ -286,37 +286,37 @@
     "terms": {
       "title": "Condizioni d'uso",
       "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "community": {
       "title": "Linee guida della comunità",
       "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "privacy": {
       "title": "Informativa sulla privacy",
       "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "cookies": {
       "title": "Informativa sui cookie",
       "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "illegal_content": {
       "title": "Segnala contenuto illegale",
       "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "data_request": {
       "title": "Richiesta privacy",
       "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     },
     "operator": {
       "title": "Operatore del servizio",
       "body": "Bozza. Confermare i requisiti locali, l'effettivo operatore del servizio e le pratiche relative ai dati prima della pubblicazione.",
-      "version": "draft-2026-11-19.2"
+      "version": "draft-2026-11-19.3"
     }
   },
   "legal_status": "draft"

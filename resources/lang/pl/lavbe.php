@@ -1,3 +1,26 @@
 <?php
 
-return ['feed_title' => 'Dolina wyznań', 'feed_subtitle' => 'Czytaj, słuchaj i pamiętaj, że nie jesteś sam.', 'sort_label' => 'Kolejność wpisów', 'sort_new' => 'Nowe', 'sort_weekly' => 'W tym tygodniu', 'sort_updates' => 'Nowe dalsze części', 'categories' => 'Temat wyznania', 'all_categories' => 'Wszystkie', 'category_empty' => 'Nie ma jeszcze wyznań na ten temat.', 'feed_empty' => 'Nie opublikowano jeszcze żadnych wyznań', 'feed_empty_description' => 'Zatwierdzone historie pojawią się tutaj w oryginalnym języku. Wpisy nie mieszają języków.', 'pagination' => 'Paginacja', 'previous' => 'Poprzednia', 'next' => 'Więcej', 'search_title' => 'Szukaj', 'search_label' => 'Słowo kluczowe', 'search_submit' => 'Szukaj', 'search_empty' => 'Nie znaleziono pasujących wyznań', 'retry' => 'Spróbuj ponownie', 'refresh' => 'Odśwież wpisy', 'untitled_confession' => 'Wyznanie bez tytułu', 'breadcrumb' => 'Nawigacja okruszkowa'];
+return [
+    'feed_title' => 'Dolina wyznań',
+    'feed_subtitle' => 'Poczytaj historie innych osób. Jeśli masz ochotę, opowiedz też swoją.',
+    'sort_label' => 'Kolejność wpisów',
+    'sort_new' => 'Nowe',
+    'sort_weekly' => 'W tym tygodniu',
+    'sort_updates' => 'Historie z ciągiem dalszym',
+    'categories' => 'Temat wyznania',
+    'all_categories' => 'Wszystkie',
+    'category_empty' => 'Nie ma jeszcze wyznań na ten temat.',
+    'feed_empty' => 'Nie opublikowano jeszcze żadnych wyznań',
+    'feed_empty_description' => 'Zatwierdzone historie pojawią się tutaj w oryginalnym języku. Wpisy nie mieszają języków.',
+    'pagination' => 'Paginacja',
+    'previous' => 'Poprzednia',
+    'next' => 'Więcej',
+    'search_title' => 'Szukaj',
+    'search_label' => 'Słowo kluczowe',
+    'search_submit' => 'Szukaj',
+    'search_empty' => 'Nie znaleziono pasujących wyznań',
+    'retry' => 'Spróbuj ponownie',
+    'refresh' => 'Odśwież wpisy',
+    'untitled_confession' => 'Wyznanie bez tytułu',
+    'breadcrumb' => 'Nawigacja okruszkowa',
+];

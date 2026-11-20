@@ -1,3 +1,26 @@
 <?php
 
-return ['feed_title' => 'Valle de las confesiones', 'feed_subtitle' => 'Lee, escucha y recuerda que no estás a solas.', 'sort_label' => 'Orden del feed', 'sort_new' => 'Nuevas', 'sort_weekly' => 'Esta semana', 'sort_updates' => 'Nuevas continuaciones', 'categories' => 'Tema de la confesión', 'all_categories' => 'Todas', 'category_empty' => 'Todavía no hay confesiones sobre este tema.', 'feed_empty' => 'Todavía no hay confesiones publicadas', 'feed_empty_description' => 'Las historias aprobadas aparecerán aquí en su idioma original. Este feed no mezcla idiomas.', 'pagination' => 'Paginación', 'previous' => 'Anterior', 'next' => 'Ver más', 'search_title' => 'Buscar', 'search_label' => 'Palabra clave', 'search_submit' => 'Buscar', 'search_empty' => 'No se encontraron confesiones', 'retry' => 'Intentar de nuevo', 'refresh' => 'Actualizar el feed', 'untitled_confession' => 'Confesión sin título', 'breadcrumb' => 'Ruta de navegación'];
+return [
+    'feed_title' => 'Valle de las confesiones',
+    'feed_subtitle' => 'Lee lo que otras personas han compartido. Cuando te apetezca, puedes contar tu historia.',
+    'sort_label' => 'Orden del feed',
+    'sort_new' => 'Nuevas',
+    'sort_weekly' => 'Esta semana',
+    'sort_updates' => 'Historias con continuación',
+    'categories' => 'Tema de la confesión',
+    'all_categories' => 'Todas',
+    'category_empty' => 'Todavía no hay confesiones sobre este tema.',
+    'feed_empty' => 'Todavía no hay confesiones publicadas',
+    'feed_empty_description' => 'Las historias aprobadas aparecerán aquí en su idioma original. Este feed no mezcla idiomas.',
+    'pagination' => 'Paginación',
+    'previous' => 'Anterior',
+    'next' => 'Ver más',
+    'search_title' => 'Buscar',
+    'search_label' => 'Palabra clave',
+    'search_submit' => 'Buscar',
+    'search_empty' => 'No se encontraron confesiones',
+    'retry' => 'Intentar de nuevo',
+    'refresh' => 'Actualizar el feed',
+    'untitled_confession' => 'Confesión sin título',
+    'breadcrumb' => 'Ruta de navegación',
+];
