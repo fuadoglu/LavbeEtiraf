@@ -94,6 +94,30 @@ class IndexNowDeliveryTest extends TestCase
         $this->get('/test-key-1234.txt')->assertNotFound();
     }
 
+    public function test_configured_batch_size_and_retry_delay_are_used_by_the_command(): void
+    {
+        $this->freezeTime();
+        config([
+            'app.url' => 'https://lavbe.example',
+            'services.indexnow.key' => 'test-key-1234',
+            'delivery.indexnow.batch_size' => 1,
+            'delivery.indexnow.retry_initial_seconds' => 90,
+        ]);
+        Http::fakeSequence()->push('', 503)->push('', 200);
+        $first = $this->outbox(Confession::factory()->create());
+        $second = $this->outbox(Confession::factory()->create());
+
+        $this->artisan('lavbe:indexnow')->assertSuccessful();
+
+        $delivery = IndexNowDelivery::query()->where('moderation_outbox_id', $first->id)->firstOrFail();
+        $this->assertSame(now()->addSeconds(90)->toDateTimeString(), $delivery->next_attempt_at->toDateTimeString());
+        $this->assertDatabaseMissing('indexnow_deliveries', ['moderation_outbox_id' => $second->id]);
+
+        $this->artisan('lavbe:indexnow', ['--limit' => 500])->assertSuccessful();
+        $this->assertDatabaseHas('indexnow_deliveries', ['moderation_outbox_id' => $second->id, 'response_code' => 200]);
+        Http::assertSentCount(2);
+    }
+
     private function outbox(Confession $confession): ModerationOutbox
     {
         return ModerationOutbox::query()->create([

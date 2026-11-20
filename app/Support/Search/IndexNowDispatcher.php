@@ -16,7 +16,7 @@ class IndexNowDispatcher
 {
     private const EVENT_TYPES = ['publish', 'hide', 'restore', 'terminal_delete'];
 
-    public function dispatch(int $limit = 100): array
+    public function dispatch(?int $limit = null): array
     {
         if (! $this->configurationIsValid()) {
             return ['delivered' => 0, 'retried' => 0, 'failed' => 0, 'skipped' => 'configuration'];
@@ -24,7 +24,8 @@ class IndexNowDispatcher
 
         $delivered = $retried = $failed = 0;
         $batch = [];
-        foreach ($this->candidates(max(1, min(500, $limit))) as $event) {
+        $limit = max(1, min((int) config('delivery.indexnow.batch_max'), $limit ?? (int) config('delivery.indexnow.batch_size')));
+        foreach ($this->candidates($limit) as $event) {
             $delivery = $this->claim($event);
             if (! $delivery) {
                 continue;
@@ -46,7 +47,7 @@ class IndexNowDispatcher
         }
 
         try {
-            $response = Http::acceptJson()->asJson()->connectTimeout(3)->timeout(8)->post('https://api.indexnow.org/indexnow', [
+            $response = Http::acceptJson()->asJson()->connectTimeout((int) config('delivery.indexnow.connect_timeout_seconds'))->timeout((int) config('delivery.indexnow.timeout_seconds'))->post('https://api.indexnow.org/indexnow', [
                 'host' => $this->host(),
                 'key' => (string) config('services.indexnow.key'),
                 'urlList' => array_column($batch, 'url'),
@@ -130,7 +131,7 @@ class IndexNowDispatcher
 
             $delivery->forceFill([
                 'attempts' => $delivery->attempts + 1,
-                'claimed_until' => now()->addMinutes(2),
+                'claimed_until' => now()->addSeconds((int) config('delivery.indexnow.claim_seconds')),
                 'next_attempt_at' => null,
             ])->save();
 
@@ -179,7 +180,10 @@ class IndexNowDispatcher
             return;
         }
 
-        $delay = min(21600, 60 * (2 ** min(8, max(0, $attempts - 1))));
+        $delay = min(
+            (int) config('delivery.indexnow.retry_max_seconds'),
+            (int) config('delivery.indexnow.retry_initial_seconds') * (2 ** min((int) config('delivery.indexnow.retry_exponent_max'), max(0, $attempts - 1))),
+        );
         $delivery->forceFill([
             'claimed_until' => null, 'next_attempt_at' => now()->addSeconds($delay),
             'response_code' => $responseCode, 'last_error_code' => $errorCode,
