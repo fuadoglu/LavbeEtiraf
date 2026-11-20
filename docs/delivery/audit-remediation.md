@@ -29,3 +29,7 @@ MOD-03 və UI-02: etiraf detalında rəylər konfiqurasiyadakı 20-lik HTML səh
 ## Başlıqda axtarış — LAV-024
 
 UI-01/UI-04: axtarış yeganə ikon kimi başlıqda dil və rejim idarələrinin yanındadır. Lent başlığından təkrarlanan axtarış düyməsi çıxarılıb. Axtarışın öz POST forması və no-store davranışı saxlanır. UiFoundationTest ana, mövzu və axtarış ekranlarında tək başlıq ikonunu yoxlayır.
+
+## Ayrıca reklamsız rəy ekranı — LAV-027
+
+ADV-03/MOD-03: etiraf detalı rəy yazmaq üçün ayrıca `/{locale}/confession/{id}/comment` ekranına keçid verir. Ekran private/no-store, noindex, no-referrer və reklam səthindən kənardır. Mövcud POST endpoint-i və pending-only moderasiya dəyişmir. Bağlı rəylərdə forma gizlənir; gizli valideyn 404-dür. SeparateCommentFormTest bu davranışı yoxlayır.

@@ -100,13 +100,7 @@
             @endif
 
             @if($confession->reviews_open)
-                <form method="post" action="{{ route('confessions.comments.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-form">
-                    @csrf
-                    <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
-                    <x-form-field :label="__('participation.comment_label')" name="body" id="comment-body"><textarea @if($errors->has('body')) aria-describedby="comment-body-description" @endif aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="comment-body" name="body" maxlength="{{ config('lavbe.limits.comment_body') }}" required></textarea></x-form-field>
-                    <label class="age-confirmation"><input id="remember_device" type="checkbox" name="remember_device" value="1"><span>{{ __('participation.remember_device') }}</span></label>
-                    <button class="button button-primary" type="submit">{{ __('participation.comment_submit') }}</button>
-                </form>
+                <a class="button button-primary" href="{{ route('confessions.comments.create', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}">{{ __('participation.comment_label') }}</a>
             @else
                 <p class="muted">{{ __('participation.comments_closed') }}</p>
             @endif

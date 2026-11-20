@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Confession;
 use App\Models\ConfessionComment;
+use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Participation\ParticipationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -11,6 +13,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ParticipationController extends Controller
 {
+    public function commentForm(string $locale, string $publicId, LocaleRegistry $locales): Response
+    {
+        $story = Confession::query()->public()->where('locale', $locales->contentCode($locale))
+            ->where('public_id', $publicId)->firstOrFail();
+
+        return response()->view('participation.comment-form', ['story' => $story])
+            ->header('Cache-Control', 'private, no-store')
+            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
+            ->header('Referrer-Policy', 'no-referrer');
+    }
+
     public function comment(Request $request, string $locale, string $publicId, ParticipationService $participation): Response
     {
         if ($limited = $this->limit($request, 'comment')) {
