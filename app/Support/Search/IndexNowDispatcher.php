@@ -143,7 +143,7 @@ class IndexNowDispatcher
     {
         $confession = Confession::query()->where('public_id', $event->target_public_id)->first();
         $locale = app(LocaleRegistry::class)->bySegment($event->locale);
-        if (! $confession || ! $locale || $confession->locale !== $locale['segment'] || (! $confession->ever_public && $confession->status !== 'public')) {
+        if (! $confession || ! $locale || $confession->locale !== $locale['code'] || (! $confession->ever_public && $confession->status !== 'public')) {
             return null;
         }
 

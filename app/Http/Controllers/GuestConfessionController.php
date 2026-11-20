@@ -292,7 +292,7 @@ class GuestConfessionController extends Controller
             return $this->privateView('confessions.not-found', [], 404);
         }
 
-        return redirect()->route('confessions.status', ['locale' => app()->getLocale(), 'publicId' => $publicId])
+        return redirect()->route('confessions.status', ['locale' => app(LocaleRegistry::class)->urlSegment(app()->getLocale()), 'publicId' => $publicId])
             ->header('Cache-Control', 'private, no-store, max-age=0');
     }
 

@@ -33,6 +33,17 @@ class LocaleRegistry
         return $this->catalog()['locales'];
     }
 
+    /** Canonical content/BCP-47 code; never use a URL segment as a database locale. */
+    public function contentCode(string $tag): string
+    {
+        return $this->resolveTag($tag)['code'] ?? throw new RuntimeException('Unknown content locale.');
+    }
+
+    public function urlSegment(string $tag): string
+    {
+        return $this->resolveTag($tag)['segment'] ?? throw new RuntimeException('Unknown URL locale.');
+    }
+
     /** @return array<string, mixed>|null */
     public function bySegment(string $segment): ?array
     {

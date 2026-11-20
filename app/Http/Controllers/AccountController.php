@@ -6,6 +6,7 @@ use App\Models\Confession;
 use App\Models\ConfessionComment;
 use App\Models\UserNotification;
 use App\Support\Accounts\AccountOwnershipService;
+use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +47,7 @@ class AccountController extends Controller
 
     public function follow(Request $request, string $locale, string $publicId): RedirectResponse
     {
-        $confession = Confession::query()->public()->where('locale', $locale)->where('public_id', $publicId)->firstOrFail();
+        $confession = Confession::query()->public()->where('locale', app(LocaleRegistry::class)->contentCode($locale))->where('public_id', $publicId)->firstOrFail();
         DB::table('confession_follows')->insertOrIgnore([
             'user_id' => $request->user()->id, 'confession_id' => $confession->id, 'created_at' => now(),
         ]);
