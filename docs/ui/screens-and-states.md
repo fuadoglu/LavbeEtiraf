@@ -43,3 +43,7 @@ Hər səhifədə ən çox 12 kart olur. Nömrəli pagination adi HTML linklərin
 
 
 Etiraf detail-də breadcrumb kateqoriyanı göstərdiyi üçün başlıq sahəsində kateqoriya təkrarlanmır. Müəllif və oxunaqlı yerli tarix yığcam meta sətrindədir; oxunuş göstəricisi hekayədən sonra qalır. Təsdiqlənmiş müəllif davamı mövcud olduqda, dəstək və şərhlərdən əvvəl verilir.
+
+## Gavalı mürəkkəbi
+
+Alt hissədəki seçim lentə, etirafa və yazı formasına jurnal tipoqrafiyası tətbiq edir. Stil resources/css/plum-ink.css faylında ayrıca saxlanır. Brauzer yalnız görünüş seçimini saxlayır. Oxunaqlılıq, fokus və naviqasiya hər iki rejimdə eyni komponentlərdən gəlir. Ekranı yoxlayanda ilk ziyarəti, üslubu aktivləşdirib başqa səhifəyə keçməyi və standart görünüşə qayıtmağı ayrıca sınayın.

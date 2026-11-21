@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'ink_style' => 'プラムインクのスタイル',
     'read' => '読む',
     'write' => '書く',
     'mine' => 'マイページ',

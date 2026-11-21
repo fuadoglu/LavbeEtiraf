@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'ink_style' => 'Luumunvärinen mustetyyli',
     'read' => 'Lue',
     'write' => 'Kirjoita',
     'mine' => 'Oma tila',

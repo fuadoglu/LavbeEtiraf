@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'ink_style' => 'Estilo Tinta ciruela',
     'read' => 'Leer',
     'write' => 'Escribir',
     'mine' => 'Mi espacio',

@@ -422,3 +422,9 @@ Sahibin “365 günlük oxucu kukisi” qərarını Codex-ə həvalə etməsi ə
 **Issue:** [#155](https://github.com/fuadoglu/LavbeEtiraf/issues/155). **Asılılıq:** LAV-036, LAV-069. **Qəbul:** UI-02, SEO-04, PAG-02.
 
 Nömrəli HTML pagination lent üçün yeganə naviqasiya müqaviləsi olsun. UI-də bağlı olan cursor/fragment endpoint-i, client recovery kodu, snapshot/cache xidməti, yalnız ona aid config/schema/test-ləri çıxar; ümumi keş təmizləmə funksiyasını saxla. `FeedQuery`, sıralama, pagination page-size limitləri, canonical, robots, kateqoriya filter-i və JavaScript-siz davranış toxunulmaz qalsın. **Sübut:** ana/kateqoriya səhifələrində səhifələrarası ayrıq kartlar, query/filter davamlılığı, cursor route-un 404 olması və migration-ların MySQL CI-də keçməsi.
+
+## LAV-072 · Gavalı mürəkkəbi görünüşü
+
+**Issue:** [#157](https://github.com/fuadoglu/LavbeEtiraf/issues/157). **Asılılıq:** LAV-016, LAV-071. **Qəbul:** UI-01, UI-02, LOC-01.
+
+Səhifənin aşağı hissəsində cihaz üçün ayrıca jurnal üslubu seçilir. İlk ziyarətdə standart görünüş açılır. Yeni üslub gündüz/gecə seçimi ilə birlikdə işləyir və istənilən səhifədə geri qaytarılır.

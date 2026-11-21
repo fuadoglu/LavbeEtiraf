@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'ink_style' => 'Style Encre de prune',
     'read' => 'Lire',
     'write' => 'Écrire',
     'mine' => 'Mon espace',

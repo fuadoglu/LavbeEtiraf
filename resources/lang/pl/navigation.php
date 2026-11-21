@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'ink_style' => 'Styl śliwkowego atramentu',
     'read' => 'Czytaj',
     'write' => 'Napisz',
     'mine' => 'Moja przestrzeń',

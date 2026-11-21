@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'ink_style' => 'Blækstil i blommefarver',
     'read' => 'Læs',
     'write' => 'Skriv',
     'mine' => 'Mit område',
