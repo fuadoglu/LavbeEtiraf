@@ -8,7 +8,7 @@
 
 @section('title', ($topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title')).' · '.config('app.name'))
 @if($topic)
-    @section('favicon', asset('icons/lucide/'.$topic['icon'].'.svg'))
+    @section('category-icon', $topic['icon'])
 @endif
 
 @push('head')
