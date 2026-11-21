@@ -14,6 +14,7 @@ return [
     'notifications' => [
         'batch_size' => 100,
         'batch_max' => 500,
+        'follower_batch_size' => 250,
         'email_batch_size' => 100,
         'email_claim_minutes' => 15,
         'email_retry_initial_seconds' => 60,

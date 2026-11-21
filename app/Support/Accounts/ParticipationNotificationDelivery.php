@@ -7,6 +7,7 @@ use App\Models\ParticipationOutbox;
 use App\Models\User;
 use App\Models\UserNotification;
 use App\Notifications\FollowedConfessionActivity;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Throwable;
@@ -16,38 +17,80 @@ class ParticipationNotificationDelivery
     public function dispatch(?int $limit = null): array
     {
         $limit = max(1, min((int) config('delivery.notifications.batch_max'), $limit ?? (int) config('delivery.notifications.batch_size')));
-        $created = DB::transaction(function () use ($limit): int {
-            $events = ParticipationOutbox::query()->whereNull('dispatched_at')->orderBy('id')->limit($limit)->lockForUpdate()->get();
-            $created = 0;
-            foreach ($events as $event) {
-                $confession = Confession::query()->whereKey($event->confession_id)->first();
-                if ($confession && $confession->status === 'public' && $confession->visibility_version >= $event->visibility_version) {
-                    $followers = User::query()->join('confession_follows', 'confession_follows.user_id', '=', 'users.id')
-                        ->where('confession_follows.confession_id', $confession->id)
-                        ->where(function ($query): void {
-                            $query->where('users.in_app_notifications', true)->orWhere('users.email_notifications', true);
-                        })->select('users.*')->get();
-                    $eventKey = hash_hmac('sha256', 'account-notification|'.$event->event_key, (string) config('app.key'));
-                    foreach ($followers as $user) {
-                        $notification = UserNotification::query()->firstOrCreate([
-                            'user_id' => $user->id, 'event_key' => $eventKey,
-                        ], [
-                            'event_type' => $event->event_type,
-                            'in_app' => (bool) $user->in_app_notifications,
-                            'created_at' => $event->occurred_at,
-                        ]);
-                        $created += $notification->wasRecentlyCreated ? 1 : 0;
-                    }
-                }
-                $event->forceFill([
-                    'dispatched_at' => now(), 'attempts' => $event->attempts + 1, 'last_error_code' => null,
-                ])->save();
-            }
+        $followerBatchSize = max(1, (int) config('delivery.notifications.follower_batch_size'));
+        $eventIds = ParticipationOutbox::query()->whereNull('dispatched_at')->orderBy('id')->limit($limit)->pluck('id');
+        $created = 0;
 
-            return $created;
-        }, (int) config('database.transaction_retries'));
+        foreach ($eventIds as $eventId) {
+            $created += DB::transaction(
+                fn (): int => $this->dispatchFollowerBatch((int) $eventId, $followerBatchSize),
+                (int) config('database.transaction_retries'),
+            );
+        }
 
         return ['created' => $created, 'emails_sent' => $this->sendPendingEmails(max(1, (int) config('delivery.notifications.email_batch_size')))];
+    }
+
+    private function dispatchFollowerBatch(int $eventId, int $batchSize): int
+    {
+        $event = ParticipationOutbox::query()->whereKey($eventId)->whereNull('dispatched_at')->lockForUpdate()->first();
+        if (! $event) {
+            return 0;
+        }
+
+        $confession = Confession::query()->whereKey($event->confession_id)->first();
+        if (! $confession || $confession->status !== 'public' || $confession->visibility_version < $event->visibility_version) {
+            $this->completeEvent($event);
+
+            return 0;
+        }
+
+        $followers = $this->eligibleFollowers($event)
+            ->where('users.id', '>', (int) ($event->follower_cursor_id ?? 0))
+            ->orderBy('users.id')->limit($batchSize)
+            ->get(['users.id', 'users.in_app_notifications']);
+
+        $eventKey = hash_hmac('sha256', 'account-notification|'.$event->event_key, (string) config('app.key'));
+        $created = DB::table('user_notifications')->insertOrIgnore($followers->map(fn (User $user): array => [
+            'user_id' => $user->id,
+            'event_key' => $eventKey,
+            'event_type' => $event->event_type,
+            'in_app' => (bool) $user->in_app_notifications,
+            'created_at' => $event->occurred_at,
+        ])->all());
+
+        $lastFollowerId = $followers->last()?->id;
+        $hasMore = $lastFollowerId !== null && $this->eligibleFollowers($event)
+            ->where('users.id', '>', $lastFollowerId)
+            ->exists();
+
+        $event->forceFill([
+            'follower_cursor_id' => $lastFollowerId ?? $event->follower_cursor_id,
+            'dispatched_at' => $hasMore ? null : now(),
+            'attempts' => $event->attempts + 1,
+            'last_error_code' => null,
+        ])->save();
+
+        return $created;
+    }
+
+    /** @return Builder<User> */
+    private function eligibleFollowers(ParticipationOutbox $event): Builder
+    {
+        return User::query()->join('confession_follows', 'confession_follows.user_id', '=', 'users.id')
+            ->where('confession_follows.confession_id', $event->confession_id)
+            ->where(function ($query): void {
+                $query->where('users.in_app_notifications', true)->orWhere('users.email_notifications', true);
+            });
+    }
+
+    private function completeEvent(ParticipationOutbox $event): void
+    {
+        $event->forceFill([
+            'dispatched_at' => now(),
+            'attempts' => $event->attempts + 1,
+            'last_error_code' => null,
+        ])->save();
     }
 
     private function sendPendingEmails(int $limit): int
