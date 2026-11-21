@@ -52,6 +52,8 @@ Editorial dizayn bütün səhifələrdə standart və yeganə görünüşdür. �
 
 Seçilmiş sıralama yumşaq fon və sərhədlə seçilir. Lent kartında kateqoriya və tarix, alt sətirdə isə müəllif və oxunuş sayı eyni ölçü pilləsini bölüşür. Etiraf səhifəsində oxunuş sayı mətnin altında oxu istiqamətinin son kənarına düzülür, əməliyyatlar bərabər ölçülü qalır. Yazı formasında simvol sayğacı sabit enli rəqəmlərdən istifadə edir və açıq paylaşım seçimləri ayrıca səthdə qruplaşır.
 
+Lent və axtarış kartları səhifə fonundan azca seçilən səth, incə sərhəd və yumşaq künclərlə ayrılır. Mausla üzərinə gəldikdə sərhəd, klaviatura ilə keçdikdə isə fokus halqası görünür.
+
 ### İkinci dərəcəli ekranlar
 
 Axtarış sahəsi dar ekranda düymənin üstündə, geniş ekranda onun yanında yerləşir. Hesab, cihaz və moderasiya qeydləri eyni kart ölçüləri və başlıq üslubundan istifadə edir. Moderasiya filtrləri dar ekranda yeni sətrə keçir və cari filtr seçilir. Forma xətası sahə izahında, status isə ikon və mətnlə görünür. Dialoq başlıqları, hüquqi mətn, 404 və oflayn görünüş eyni başlıq ritmini izləyir. Səhifələmə idarələrinin hündürlüyü ən az 44 CSS piksel qalır.
