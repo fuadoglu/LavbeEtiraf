@@ -2,7 +2,7 @@
 
 @section('title', (($revision->title ?: mb_substr($revision->body, 0, config('lavbe.public_title_excerpt'), 'UTF-8')).' · '.config('app.name')))
 @if($category)
-    @section('favicon', asset('icons/lucide/'.$category['icon'].'.svg'))
+    @section('category-icon', $category['icon'])
 @endif
 
 @push('head')

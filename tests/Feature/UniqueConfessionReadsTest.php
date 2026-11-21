@@ -210,26 +210,33 @@ class UniqueConfessionReadsTest extends TestCase
     public function test_category_and_confession_pages_use_their_category_favicon(): void
     {
         foreach (app(LocaleRegistry::class)->catalog()['categories'] as $category) {
+            $icon = $category['icon'];
+            $png = 'icons/category-favicons/'.$icon.'.png';
+            $this->assertSame([32, 32, IMAGETYPE_PNG], array_slice(getimagesize(public_path($png)), 0, 3));
+
             $this->get('/az/topics/'.$category['key'])->assertOk()
-                ->assertSee('<link rel="icon" type="image/svg+xml" href="http://localhost/icons/lucide/'.$category['icon'].'.svg" sizes="any">', false)
+                ->assertSee('<link rel="icon" type="image/png" href="http://localhost/'.$png.'" sizes="32x32">', false)
+                ->assertSee('<link rel="icon" type="image/svg+xml" href="http://localhost/icons/lucide/'.$icon.'.svg" sizes="any">', false)
+                ->assertDontSee('rel="alternate icon"', false);
+
+            $confession = $this->publishedConfession($category['key']);
+            $this->get('/az/confession/'.$confession->public_id)->assertOk()
+                ->assertSee('<link rel="icon" type="image/png" href="http://localhost/'.$png.'" sizes="32x32">', false)
+                ->assertSee('<link rel="icon" type="image/svg+xml" href="http://localhost/icons/lucide/'.$icon.'.svg" sizes="any">', false)
                 ->assertDontSee('rel="alternate icon"', false);
         }
-
-        $confession = $this->publishedConfession();
-        $this->get('/az/confession/'.$confession->public_id)->assertOk()
-            ->assertSee('<link rel="icon" type="image/svg+xml" href="http://localhost/icons/lucide/house.svg" sizes="any">', false);
 
         $this->get('/az/')->assertOk()
             ->assertSee('icons/lavbe-feather.svg', false)
             ->assertSee('favicon.ico', false);
     }
 
-    private function publishedConfession(): Confession
+    private function publishedConfession(string $category = 'family'): Confession
     {
         $publishedAt = Carbon::parse('2026-10-10 12:00:00 UTC');
         $confession = Confession::query()->create([
             'locale' => 'az',
-            'category_key' => 'family',
+            'category_key' => $category,
             'status' => 'public',
             'title' => 'Synthetic public title',
             'body' => 'Synthetic public body',
@@ -246,7 +253,7 @@ class UniqueConfessionReadsTest extends TestCase
             'revision' => 1,
             'title' => 'Synthetic public title',
             'body' => 'Synthetic public body',
-            'category_key' => 'family',
+            'category_key' => $category,
             'status' => 'approved',
         ]);
         $confession->forceFill(['public_revision_id' => $revision->id])->save();

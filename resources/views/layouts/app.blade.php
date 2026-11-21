@@ -7,8 +7,10 @@
     <meta name="theme-color" content="{{ config('theme.day.page') }}" data-day="{{ config('theme.day.page') }}" data-night="{{ config('theme.night.page') }}">
     <link rel="manifest" href="{{ route('pwa.manifest', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}">
     <link rel="apple-touch-icon" href="{{ asset('icons/lavbe-feather-192.png') }}">
-    @hasSection('favicon')
-        <link rel="icon" type="image/svg+xml" href="@yield('favicon')" sizes="any">
+    @hasSection('category-icon')
+        @php($categoryIcon = trim($__env->yieldContent('category-icon')))
+        <link rel="icon" type="image/png" href="{{ asset('icons/category-favicons/'.$categoryIcon.'.png') }}" sizes="32x32">
+        <link rel="icon" type="image/svg+xml" href="{{ asset('icons/lucide/'.$categoryIcon.'.svg') }}" sizes="any">
     @else
         <link rel="icon" type="image/svg+xml" href="{{ asset('icons/lavbe-feather.svg') }}" sizes="any">
         <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
@@ -28,7 +30,7 @@
             }
         })();
     </script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/plum-ink.css', 'resources/js/app.js'])
 </head>
 <body>
     <a class="skip-link" href="#main">{{ __('navigation.skip') }}</a>
