@@ -47,3 +47,7 @@ Etiraf detail-də breadcrumb kateqoriyanı göstərdiyi üçün başlıq sahəsi
 ## Gavalı mürəkkəbi
 
 Editorial dizayn bütün səhifələrdə standart və yeganə görünüşdür. Əvvəlki klassik stil seçimi və cihazda yadda saxlanması yoxdur. Ümumi skelet, naviqasiya, məzmun və əməliyyatlar dəyişmir; tipografiya, ölçü, boşluq və səthlər vahid editorial dilə uyğundur. Gündüz/gecə görünüşü ilə birlikdə işləyir.
+
+### İkinci dərəcəli ekranlar
+
+Jurnal üslubunda axtarış, şikayət, hesab, moderasiya və 404 başlıqları eyni tipoqrafik qaydaya tabedir. Hüquqi səhifələrdə abzaslar aralıdır. Şikayət və etiraz qərarlarında uzun düymələr dar ekranda yeni sətrə keçir. Köməkçi mətni olan səhv sahənin sərhədi xəbərdarlıq rəngini saxlayır. İlk mobil ziyarətdə oxunuş ölçümünün hər iki seçimi eyni enli sahələrə yerləşir.

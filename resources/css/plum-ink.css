@@ -18,7 +18,7 @@
     min-height: 4.5rem;
 }
 
-:is(.feed-heading h1, .write-heading h1, .confession-heading h1, .reading-page h1, .write-page > h1) {
+:is(.feed-heading h1, .write-heading h1, .confession-heading h1, .reading-page h1, .write-page > h1, .write-page > .page-heading h1, #search-title, .not-found h1) {
     max-width: 22ch;
     margin-block: 0;
     color: var(--brand-logo-color);
@@ -288,7 +288,7 @@
 }
 
 :is(.write-form, .participation-form, .comment-inline-form) .form-field :is(input, select, textarea) {
-    border-color: var(--line);
+    border-color: var(--edge);
     border-radius: .6rem;
     background: var(--surface);
     transition: border-color 150ms ease, box-shadow 150ms ease;
@@ -390,5 +390,109 @@
 
     :is(.confession-feed .story-title a, .recommended-story-link, .write-form .form-field :is(input, select, textarea), .participation-form .form-field :is(input, select, textarea), .comment-inline-form .form-field :is(input, select, textarea)) {
         transition: none;
+    }
+}
+
+/* Secondary screens share the same reading rhythm as the story detail. */
+.reading-page {
+    display: grid;
+    gap: 1rem;
+    max-inline-size: var(--ink-measure);
+    margin-inline: auto;
+}
+
+.reading-page > p {
+    margin: 0;
+    line-height: 1.75;
+}
+
+:is(.write-page, .reading-page) > h2,
+.write-form > h2 {
+    margin-block: .5rem 0;
+    font: 600 1.3rem/1.3 var(--editorial-serif);
+    color: var(--brand-logo-color);
+}
+
+[data-search-form] {
+    row-gap: .55rem;
+    margin-block: .55rem 1rem;
+}
+
+.write-page > .feed-card {
+    display: grid;
+    justify-items: start;
+    gap: .45rem;
+    padding-block: .9rem;
+    border-block-start: 1px solid var(--line);
+}
+
+.write-page > .page-heading > div:has(> .button) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-block-start: .75rem;
+}
+
+.write-page > dl {
+    display: grid;
+    gap: .2rem;
+}
+
+.write-page > dl > dt {
+    font-weight: 650;
+    margin-block-start: .5rem;
+}
+
+.write-form > label:has(> select) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: .4rem;
+}
+
+.write-form > label > select {
+    min-inline-size: 0;
+    inline-size: 100%;
+    min-block-size: 2.75rem;
+    max-inline-size: 100%;
+    border: 1px solid var(--edge);
+    padding-inline: .65rem;
+    border-radius: .6rem;
+    background: var(--surface);
+    color: var(--text);
+}
+
+:is(.write-form, .participation-form, .comment-inline-form) .form-field [aria-invalid="true"] {
+    border-color: var(--danger);
+}
+
+.write-page code {
+    overflow-wrap: anywhere;
+    unicode-bidi: isolate;
+}
+
+.write-page {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.write-page .write-form {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.write-page .button {
+    max-inline-size: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .reader-consent-banner .reader-consent-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .reader-consent-banner .button {
+        min-inline-size: 0;
+        min-block-size: 2.75rem;
+        white-space: normal;
     }
 }
