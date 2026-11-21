@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('guest.write_too_many').' · Lavbe')
+@section('title', __('guest.write_too_many').' · '.config('app.name'))
 
 @section('content')
     <section class="write-page submission-result" role="status">

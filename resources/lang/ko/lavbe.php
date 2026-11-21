@@ -26,4 +26,6 @@ return [
     'refresh' => '피드 새로고침',
     'untitled_confession' => '제목 없는 고백',
     'breadcrumb' => '이동 경로',
+    'offline_title' => "오프라인 상태입니다",
+    'offline_body' => "다시 연결되면 읽으려던 페이지로 돌아갈 수 있습니다.",
 ];

@@ -26,4 +26,6 @@ return [
     'refresh' => 'Opdater strømmen',
     'untitled_confession' => 'Tilståelse uden titel',
     'breadcrumb' => 'Brødkrummesti',
+    'offline_title' => "Du er offline",
+    'offline_body' => "Når du er online igen, kan du vende tilbage til den side, du ville læse.",
 ];

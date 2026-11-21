@@ -3,7 +3,7 @@
 return [
     'read' => 'Lue',
     'write' => 'Kirjoita',
-    'mine' => 'Oma Lavbe',
+    'mine' => 'Oma :app_name',
     'nav' => 'Päävalikko',
     'search_languages' => 'Hae kieltä',
     'night' => 'Vaihda tummaan tilaan',

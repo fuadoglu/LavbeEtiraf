@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         VerifyEmail::createUrlUsing(fn ($user): string => URL::temporarySignedRoute(
-            'verification.verify', now()->addMinutes((int) config('auth.verification.expire', 60)),
+            'verification.verify', now()->addMinutes((int) config('auth.verification.expire')),
             ['locale' => app(LocaleRegistry::class)->urlSegment($user->preferredLocale()), 'id' => $user->getKey(), 'hash' => sha1($user->getEmailForVerification())],
         ));
         ResetPassword::createUrlUsing(fn ($user, string $token): string => URL::route('password.reset', [

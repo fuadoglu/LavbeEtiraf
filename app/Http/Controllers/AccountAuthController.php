@@ -85,9 +85,9 @@ class AccountAuthController extends Controller
         }
 
         return response()->view('account.verify-notice')
-            ->header('Cache-Control', 'private, no-store, max-age=0')
-            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function resendVerification(Request $request, string $locale): RedirectResponse
@@ -159,6 +159,6 @@ class AccountAuthController extends Controller
         DB::transaction(function () use ($oldHash, $newHash): void {
             DB::table('confession_ownerships')->whereNull('user_id')->where('session_token_hash', $oldHash)->update(['session_token_hash' => $newHash]);
             DB::table('comment_ownerships')->whereNull('user_id')->where('session_token_hash', $oldHash)->update(['session_token_hash' => $newHash]);
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 }

@@ -26,4 +26,6 @@ return [
     'refresh' => 'Uppdatera flödet',
     'untitled_confession' => 'Bekännelse utan titel',
     'breadcrumb' => 'Brödsmulenavigering',
+    'offline_title' => "Du är offline",
+    'offline_body' => "När du är ansluten igen kan du återvända till sidan du ville läsa.",
 ];

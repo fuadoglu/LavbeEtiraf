@@ -3,7 +3,7 @@
 return [
     'read' => 'Läs',
     'write' => 'Skriv',
-    'mine' => 'Mitt Lavbe',
+    'mine' => 'Mitt :app_name',
     'nav' => 'Huvudmeny',
     'search_languages' => 'Sök efter ett språk',
     'night' => 'Byt till mörkt läge',

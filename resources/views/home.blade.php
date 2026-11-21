@@ -6,7 +6,7 @@
     $sortIcons = ['new' => 'sparkles', 'weekly' => 'calendar-days', 'popular' => 'flame'];
 @endphp
 
-@section('title', ($topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title')).' · Lavbe')
+@section('title', ($topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title')).' · '.config('app.name'))
 @if($topic)
     @section('favicon', asset('icons/lucide/'.$topic['icon'].'.svg'))
 @endif

@@ -26,4 +26,6 @@ return [
     'refresh' => 'Lenti yenilə',
     'untitled_confession' => 'Başlıqsız etiraf',
     'breadcrumb' => 'Naviqasiya',
+    'offline_title' => "İnternet bağlantısı yoxdur",
+    'offline_body' => "Yenidən qoşulduqda oxumaq istədiyin səhifəyə qayıda bilərsən.",
 ];

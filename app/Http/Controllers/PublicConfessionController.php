@@ -137,10 +137,10 @@ class PublicConfessionController extends Controller
         $hasSupported = $participation->hasSupport($request, $confession);
 
         $response = response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds', 'recommended', 'threadRoot', 'threadPublicId', 'threadReplies', 'reactedCommentIds'))
-            ->header('Cache-Control', 'private, no-store, max-age=0')
-            ->header('X-Robots-Tag', 'index, follow')
-            ->header('Referrer-Policy', 'no-referrer')
-            ->header('X-Content-Type-Options', 'nosniff');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_INDEX)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER)
+            ->header('X-Content-Type-Options', \App\Support\Http\ResponseHeaders::CONTENT_TYPE_OPTIONS_NOSNIFF);
 
         return $readerCookie ? $response->withCookie($readerCookie) : $response;
     }

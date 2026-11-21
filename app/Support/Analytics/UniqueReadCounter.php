@@ -26,7 +26,7 @@ class UniqueReadCounter
         $cookie = cookie(
             self::COOKIE_NAME,
             $readerId,
-            max(1, (int) config('analytics.unique_read_retention_days', 365)) * 1440,
+            max(1, (int) config('analytics.unique_read_retention_days')) * 1440,
             '/',
             null,
             $request->isSecure() || (bool) config('session.secure'),

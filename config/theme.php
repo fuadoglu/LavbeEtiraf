@@ -1,0 +1,36 @@
+<?php
+
+return [
+    'day' => [
+        'page' => '#f8f6f3',
+        'surface' => '#fffdfc',
+        'surface_raised' => '#ffffff',
+        'text' => '#30282e',
+        'muted' => '#685e65',
+        'action' => '#65394f',
+        'action_contrast' => '#ffffff',
+        'edge' => '#92838b',
+        'danger' => '#a63752',
+        'success' => '#276b4b',
+        'warning' => '#875600',
+        'shadow' => '0 14px 40px rgb(31 24 38 / 16%)',
+        'brand_logo' => '#4b2b3e',
+        'brand_accent' => '#a44363',
+    ],
+    'night' => [
+        'page' => '#1c191d',
+        'surface' => '#252126',
+        'surface_raised' => '#302a31',
+        'text' => '#f4edf1',
+        'muted' => '#c5b9c1',
+        'action' => '#e4b3c8',
+        'action_contrast' => '#30282e',
+        'edge' => '#8c7e87',
+        'danger' => '#ff9db3',
+        'success' => '#8cd7ab',
+        'warning' => '#ffcf75',
+        'shadow' => '0 14px 40px rgb(0 0 0 / 38%)',
+        'brand_logo' => '#f2dce5',
+        'brand_accent' => '#ed91ad',
+    ],
+];

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('lavbe.search_title').' · Lavbe')
+@section('title', __('lavbe.search_title').' · '.config('app.name'))
 
 @push('head')
     <meta name="robots" content="noindex,nofollow">

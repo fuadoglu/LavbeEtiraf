@@ -4,21 +4,35 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f8f6f3">
-    <title>Lavbe · Offline</title>
+    <title></title>
     <style>
-        :root { color-scheme: light; font-family: system-ui, sans-serif; background: #f8f6f3; color: #3d2c35; }
+        :root { color-scheme: light; font-family: system-ui, sans-serif; background: var(--theme-page); color: var(--theme-text); }
         body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 1.5rem; box-sizing: border-box; }
-        main { max-width: 32rem; padding: 2rem; border-radius: 1.25rem; background: #fff; text-align: center; box-shadow: 0 1rem 3rem #3d2c3512; }
+        main { max-width: 32rem; padding: 2rem; border-radius: 1.25rem; background: var(--theme-surface); text-align: center; box-shadow: var(--theme-shadow); }
         h1 { margin-top: 0; font-size: clamp(1.6rem, 5vw, 2.4rem); }
         p { line-height: 1.65; }
-        button { min-height: 2.75rem; border: 0; border-radius: 99rem; padding: .7rem 1.2rem; background: #4b2b3e; color: #fff; font: inherit; cursor: pointer; }
+        button { min-height: 2.75rem; border: 0; border-radius: 99rem; padding: .7rem 1.2rem; background: var(--theme-action); color: var(--theme-action-contrast); font: inherit; cursor: pointer; }
     </style>
 </head>
 <body>
 <main>
-    <h1>Lavbe</h1>
-    <p>You’re offline. When you reconnect, you can return to the page you wanted to read.</p>
-    <button type="button" onclick="location.reload()">Try again</button>
+    <h1 data-offline-title></h1>
+    <p data-offline-body></p>
+    <button type="button" data-offline-retry></button>
 </main>
+<script>
+    fetch('/offline-copy.json').then((response) => response.json()).then((catalog) => {
+        const entries = Object.keys(catalog.messages);
+        const locale = (navigator.languages || [navigator.language]).map((tag) => tag.toLowerCase()).map((tag) => entries.find((entry) => entry.toLowerCase() === tag) || entries.find((entry) => entry.toLowerCase() === tag.split('-')[0])).find(Boolean);
+        const messages = catalog.messages[locale] || catalog.messages.en;
+        for (const [key, value] of Object.entries(catalog.theme)) document.documentElement.style.setProperty(`--theme-${key.replaceAll('_', '-')}`, value);
+        document.title = messages.title;
+        document.querySelector('[data-offline-title]').textContent = messages.title;
+        document.querySelector('[data-offline-body]').textContent = messages.body;
+        const retry = document.querySelector('[data-offline-retry]');
+        retry.textContent = messages.retry;
+        retry.addEventListener('click', () => location.reload());
+    });
+</script>
 </body>
 </html>

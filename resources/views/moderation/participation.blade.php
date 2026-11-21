@@ -37,7 +37,7 @@
                                 <input type="hidden" name="expected_lock_version" value="{{ $item->lock_version }}">
                                 <input type="hidden" name="expected_parent_lock_version" value="{{ $parent->lock_version }}">
                                 <input type="hidden" name="reason_code" value="acceptable">
-                                <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                                <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
                                 <button class="button button-primary" type="submit" name="decision" value="approve">{{ __('moderation.approve') }}</button>
                                 <button class="button button-secondary" type="submit" name="decision" value="reject">{{ __('moderation.reject') }}</button>
                             </form>
@@ -74,7 +74,7 @@
                             <input type="hidden" name="expected_lock_version" value="{{ $item->lock_version }}">
                             <input type="hidden" name="expected_parent_lock_version" value="{{ $parent->lock_version }}">
                             <input type="hidden" name="reason_code" value="privacy">
-                            <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                            <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
                             <button class="button button-secondary" type="submit" name="decision" value="hide">{{ __('moderation.hide_content') }}</button>
                         </form>
                     </article>

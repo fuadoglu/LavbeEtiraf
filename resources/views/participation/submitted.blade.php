@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('participation.comment_pending').' · Lavbe')
+@section('title', __('participation.comment_pending').' · '.config('app.name'))
 
 @section('content')
     <section class="write-page submission-result">

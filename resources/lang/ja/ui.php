@@ -3,7 +3,7 @@
 return [
     'read' => '読む',
     'write' => '書く',
-    'mine' => 'マイページ',
+    'mine' => ':app_nameのマイページ',
     'nav' => 'メインメニュー',
     'search_languages' => '言語を検索',
     'night' => 'ダークモードに切り替える',

@@ -6,6 +6,7 @@ use App\Models\Confession;
 use App\Models\IndexNowDelivery;
 use App\Models\ModerationOutbox;
 use App\Support\Lavbe\LocaleRegistry;
+use App\Support\Lavbe\RoutePatterns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +48,7 @@ class IndexNowDispatcher
         }
 
         try {
-            $response = Http::acceptJson()->asJson()->connectTimeout((int) config('delivery.indexnow.connect_timeout_seconds'))->timeout((int) config('delivery.indexnow.timeout_seconds'))->post('https://api.indexnow.org/indexnow', [
+            $response = Http::acceptJson()->asJson()->connectTimeout((int) config('delivery.indexnow.connect_timeout_seconds'))->timeout((int) config('delivery.indexnow.timeout_seconds'))->post((string) config('services.indexnow.endpoint'), [
                 'host' => $this->host(),
                 'key' => (string) config('services.indexnow.key'),
                 'urlList' => array_column($batch, 'url'),
@@ -80,7 +81,7 @@ class IndexNowDispatcher
             foreach ($batch as $item) {
                 /** @var IndexNowDelivery $delivery */
                 $delivery = $item['delivery'];
-                if ((int) $delivery->attempts >= (int) config('services.indexnow.max_attempts', 8)) {
+                if ((int) $delivery->attempts >= (int) config('services.indexnow.max_attempts')) {
                     $this->failPermanently($delivery, $errorCode);
                     $failed++;
                 } else {
@@ -136,7 +137,7 @@ class IndexNowDispatcher
             ])->save();
 
             return $delivery;
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     private function eventUrl(ModerationOutbox $event): ?string
@@ -155,7 +156,7 @@ class IndexNowDispatcher
         $key = (string) config('services.indexnow.key');
         $parts = parse_url((string) config('app.url'));
 
-        return preg_match('/^[A-Za-z0-9-]{8,128}$/D', $key) === 1
+        return preg_match('/^'.RoutePatterns::INDEXNOW_KEY.'$/D', $key) === 1
             && is_array($parts)
             && ($parts['scheme'] ?? null) === 'https'
             && ! empty($parts['host'])
@@ -174,7 +175,7 @@ class IndexNowDispatcher
     private function retry(IndexNowDelivery $delivery, string $errorCode, ?int $responseCode = null): void
     {
         $attempts = (int) $delivery->attempts;
-        if ($attempts >= (int) config('services.indexnow.max_attempts', 8)) {
+        if ($attempts >= (int) config('services.indexnow.max_attempts')) {
             $this->failPermanently($delivery, $errorCode, $responseCode);
 
             return;

@@ -24,7 +24,7 @@
             @csrf
             <input type="hidden" name="revision_id" value="{{ $revision->id }}">
             <input type="hidden" name="expected_lock_version" value="{{ $confession->lock_version }}">
-            <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+            <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
             <x-form-field :label="__('moderation.reason_code')" name="reason_code">
                 <select @if($errors->has('reason_code')) aria-describedby="reason_code-description" @endif aria-invalid="{{ $errors->has('reason_code') ? 'true' : 'false' }}" id="reason_code" name="reason_code" required>
                     <option value="acceptable">{{ __('moderation.reason_acceptable') }}</option>

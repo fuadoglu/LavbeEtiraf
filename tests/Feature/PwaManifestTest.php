@@ -31,10 +31,12 @@ class PwaManifestTest extends TestCase
     public function test_offline_shell_is_static_and_worker_never_handles_html_or_private_routes_as_cached_assets(): void
     {
         $offline = file_get_contents(public_path('offline.html'));
+        $offlineCopy = json_decode(file_get_contents(public_path('offline-copy.json')), true, flags: JSON_THROW_ON_ERROR);
         $worker = file_get_contents(public_path('sw.js'));
 
         $this->assertIsString($offline);
-        $this->assertStringContainsString('You’re offline.', $offline);
+        $this->assertSame(__('lavbe.offline_title', [], 'en'), $offlineCopy['messages']['en']['title']);
+        $this->assertStringContainsString('offline-copy.json', $offline);
         $this->assertStringNotContainsString('confession', strtolower($offline));
         $this->assertSame([192, 192], array_slice(getimagesize(public_path('icons/lavbe-feather-192.png')), 0, 2));
         $this->assertSame([512, 512], array_slice(getimagesize(public_path('icons/lavbe-feather-512.png')), 0, 2));

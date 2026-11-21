@@ -21,9 +21,14 @@ class LegalDraftPageTest extends TestCase
                 } else {
                     $home->assertSee($base.'/legal/'.$page);
                 }
+                $body = str_replace(
+                    [':retention_days', ':site_name', ':site_domain'],
+                    [(string) config('analytics.unique_read_retention_days'), (string) config('app.name'), (string) (parse_url((string) config('app.url'), PHP_URL_HOST) ?: config('app.name'))],
+                    __('legal.'.$page.'.body', [], $locale['code']),
+                );
                 $response = $this->get($base.'/legal/'.$page)->assertOk()
                     ->assertSee(__('legal.'.$page.'.title', [], $locale['code']))
-                    ->assertSee(__('legal.'.$page.'.body', [], $locale['code']));
+                    ->assertSee($body);
                 $this->assertStringContainsString('no-store', $response->headers->get('Cache-Control'));
                 $this->assertSame('noindex, nofollow, noarchive', $response->headers->get('X-Robots-Tag'));
             }

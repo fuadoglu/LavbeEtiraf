@@ -15,7 +15,7 @@
         </form>
         <form class="write-form" method="post" action="{{ route('moderation.grants.store', ['locale' => request()->route('locale')]) }}">
             @csrf
-            <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+            <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
             <x-form-field :label="__('moderation.grant_user')" name="user_id">
                 <select @if($errors->has('user_id')) aria-describedby="user_id-description" @endif aria-invalid="{{ $errors->has('user_id') ? 'true' : 'false' }}" id="user_id" name="user_id" required>
                     <option value="">{{ $users->isEmpty() ? __('moderation.grant_none') : __('moderation.grant_user') }}</option>
@@ -34,7 +34,7 @@
                 @if($grant->is_active && $grant->user_id !== auth()->id())
                     <form method="post" action="{{ route('moderation.grants.revoke', ['locale' => request()->route('locale'), 'grantId' => $grant->id]) }}">
                         @csrf
-                        <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                        <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
                         <x-form-field :label="__('moderation.grant_reason')" name="reason" :id="'revoke-reason-'.$grant->id"><textarea @if($errors->has('reason')) aria-describedby="revoke-reason-{{ $grant->id }}-description" @endif aria-invalid="{{ $errors->has('reason') ? 'true' : 'false' }}" id="revoke-reason-{{ $grant->id }}" name="reason" rows="2" minlength="{{ config('lavbe.limits.moderation_reason_min') }}" maxlength="{{ config('lavbe.limits.moderation_reason') }}" required></textarea></x-form-field>
                         <button class="button button-secondary" type="submit">{{ __('moderation.grant_revoke') }}</button>
                     </form>

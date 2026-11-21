@@ -3,7 +3,7 @@
 return [
     'read' => 'Oku',
     'write' => 'Yaz',
-    'mine' => 'Lavbe’m',
+    'mine' => ':app_name’m',
     'nav' => 'Ana menü',
     'search_languages' => 'Dil ara',
     'night' => 'Koyu moda geç',

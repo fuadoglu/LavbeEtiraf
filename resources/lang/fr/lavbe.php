@@ -26,4 +26,6 @@ return [
     'refresh' => 'Actualiser le fil',
     'untitled_confession' => 'Confidence sans titre',
     'breadcrumb' => 'Fil d’Ariane',
+    'offline_title' => "Vous êtes hors ligne",
+    'offline_body' => "Lorsque la connexion sera rétablie, vous pourrez revenir à la page souhaitée.",
 ];

@@ -297,9 +297,9 @@ class ModerationController extends Controller
     private function privateView(string $view, array $data = []): Response
     {
         return response()->view($view, $data)
-            ->header('Cache-Control', 'private, no-store, max-age=0')
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
             ->header('Pragma', 'no-cache')
-            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     }
 }

@@ -3,7 +3,7 @@
 return [
     'read' => 'Les',
     'write' => 'Skriv',
-    'mine' => 'Min Lavbe-side',
+    'mine' => 'Min :app_name-side',
     'nav' => 'Hovedmeny',
     'search_languages' => 'Søk etter språk',
     'night' => 'Bytt til mørk modus',

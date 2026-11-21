@@ -69,7 +69,7 @@ class AppealService
                     'status' => 'pending',
                     'lock_version' => 1,
                 ]);
-            }, 3);
+            }, (int) config('database.transaction_retries'));
         } catch (QueryException $exception) {
             $existing = ModerationAppeal::query()->where('idempotency_hash', $idempotencyHash)->first();
             if ($existing) {
@@ -177,7 +177,7 @@ class AppealService
                 'reviewed_at' => now(),
                 'lock_version' => $appeal->lock_version + 1,
             ])->save();
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     /** @return array{confession: Confession, target: Confession|ConfessionComment} */

@@ -18,16 +18,16 @@ class ParticipationController extends Controller
     {
         abort_unless($locales->bySegment($locale), 404);
         $ids = $request->session()->get('lavbe_supported', []);
-        $ids = is_array($ids) ? array_slice(array_values(array_unique(array_filter($ids, 'is_string'))), 0, 1000) : [];
+        $ids = is_array($ids) ? array_slice(array_values(array_unique(array_filter($ids, 'is_string'))), 0, (int) config('lavbe.limits.supported_session_items')) : [];
         $confessions = Confession::query()->public()
             ->whereIn('public_id', $ids)->with('publicRevision')->orderByDesc('published_at')->orderByDesc('id')
             ->paginate((int) config('lavbe.pagination.supported'))->withQueryString();
         abort_if($confessions->currentPage() > $confessions->lastPage(), 404);
 
         return response()->view('participation.supported', compact('confessions'))
-            ->header('Cache-Control', 'private, no-store, max-age=0')
-            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function commentForm(string $locale, string $publicId, LocaleRegistry $locales): Response
@@ -36,9 +36,9 @@ class ParticipationController extends Controller
             ->where('public_id', $publicId)->firstOrFail();
 
         return response()->view('participation.comment-form', ['story' => $story])
-            ->header('Cache-Control', 'private, no-store')
-            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function comment(Request $request, string $locale, string $publicId, ParticipationService $participation): Response
@@ -137,7 +137,7 @@ class ParticipationController extends Controller
         $ids = $request->session()->get('lavbe_supported', []);
         $ids = is_array($ids) ? $ids : [];
         $ids = $data['action'] === 'support' ? [...$ids, $publicId] : array_values(array_diff($ids, [$publicId]));
-        $request->session()->put('lavbe_supported', array_slice(array_values(array_unique($ids)), -1000));
+        $request->session()->put('lavbe_supported', array_slice(array_values(array_unique($ids)), -(int) config('lavbe.limits.supported_session_items')));
 
         return redirect()->route('confessions.public', ['locale' => $locale, 'publicId' => $publicId]);
     }
@@ -160,9 +160,9 @@ class ParticipationController extends Controller
         abort_unless($participation->ownsComment($request, $comment), 404);
 
         return response()->view('participation.comment-status', compact('comment'))
-            ->header('Cache-Control', 'private, no-store, max-age=0')
-            ->header('X-Robots-Tag', 'noindex, nofollow')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_ARCHIVE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function recoveryForm(string $locale, string $commentPublicId): Response
@@ -170,9 +170,9 @@ class ParticipationController extends Controller
         abort_unless(ConfessionComment::query()->where('public_id', $commentPublicId)->exists(), 404);
 
         return response()->view('participation.comment-recover', compact('commentPublicId'))
-            ->header('Cache-Control', 'private, no-store, max-age=0')
-            ->header('X-Robots-Tag', 'noindex, nofollow')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_ARCHIVE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function recover(Request $request, string $locale, string $commentPublicId, ParticipationService $participation): Response
@@ -225,8 +225,8 @@ class ParticipationController extends Controller
         if (RateLimiter::tooManyAttempts($key, $limit['attempts'])) {
             return response()->view('confessions.limited', [], 429)
                 ->header('Retry-After', (string) RateLimiter::availableIn($key))
-                ->header('Cache-Control', 'private, no-store, max-age=0')
-                ->header('X-Robots-Tag', 'noindex, nofollow');
+                ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+                ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_ARCHIVE);
         }
         RateLimiter::hit($key, $limit['decay_seconds']);
 

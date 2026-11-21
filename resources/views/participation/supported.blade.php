@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('participation.supported_heading').' · Lavbe')
+@section('title', __('participation.supported_heading').' · '.config('app.name'))
 @push('head')<meta name="robots" content="noindex,nofollow">@endpush
 @section('content')
 <section class="stack" aria-labelledby="supported-title">

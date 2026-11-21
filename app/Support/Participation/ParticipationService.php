@@ -11,6 +11,7 @@ use App\Models\ConfessionContinuation;
 use App\Models\ConfessionParticipant;
 use App\Models\ConfessionSupportReaction;
 use App\Models\ParticipationOutbox;
+use App\Support\Lavbe\AuthorAlias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -55,7 +56,7 @@ class ParticipationService
             ])->save();
 
             return ['comment' => $comment, 'owner_token' => $ownerToken, 'recovery_code' => $newRecoveryCode];
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     public function withdrawComment(Request $request, string $publicId, string $idempotencyKey): void
@@ -105,7 +106,7 @@ class ParticipationService
                 'action' => 'withdraw',
                 'created_at' => now(),
             ]);
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     public function hideThreadReplies(ConfessionComment $comment): void
@@ -192,7 +193,7 @@ class ParticipationService
             $confession->save();
 
             return ['confession' => $confession, 'comment' => $comment, 'recovery_code' => $recoveryCode, 'owner_token' => $ownerToken];
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     /** @param list<int> $commentIds @return list<int> */
@@ -257,7 +258,7 @@ class ParticipationService
                 'action' => $active ? 'reaction_on' : 'reaction_off',
                 'created_at' => now(),
             ]);
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     /** @return array{confession: Confession, continuation: ConfessionContinuation} */
@@ -295,7 +296,7 @@ class ParticipationService
             $confession->save();
 
             return ['confession' => $confession, 'continuation' => $continuation];
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     public function respondToComment(Request $request, string $publicId, string $commentPublicId, string $body, string $idempotencyKey): void
@@ -330,7 +331,7 @@ class ParticipationService
             ]);
             $confession->lock_version++;
             $confession->save();
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     public function setReviewsOpen(Request $request, string $publicId, bool $open, string $idempotencyKey): Confession
@@ -359,7 +360,7 @@ class ParticipationService
             ]);
 
             return $confession;
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     public function setSupport(Request $request, string $publicId, bool $active, string $idempotencyKey): Confession
@@ -402,7 +403,7 @@ class ParticipationService
             ]);
 
             return $confession;
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     private function lockPublicConfession(string $publicId): Confession
@@ -423,7 +424,7 @@ class ParticipationService
         return ConfessionParticipant::query()->create([
             'confession_id' => $confession->id,
             'participant_hash' => $hash,
-            'author_alias' => 'Lavbe #'.strtoupper(substr(bin2hex(random_bytes(4)), 0, (int) config('lavbe.alias_suffix_characters'))),
+            'author_alias' => AuthorAlias::generate(),
         ]);
     }
 

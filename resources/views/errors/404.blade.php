@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('ui.missing').' · Lavbe')
+@section('title', __('ui.missing').' · '.config('app.name'))
 
 @section('content')
     <section class="not-found" aria-labelledby="not-found-title">

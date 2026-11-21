@@ -1,10 +1,14 @@
 const CACHE_PREFIX = 'lavbe-static-';
 const CACHE_NAME = `${CACHE_PREFIX}v1`;
 const OFFLINE_URL = '/offline.html';
+const OFFLINE_COPY_URL = '/offline-copy.json';
 const HASHED_ASSET = /^\/build\/assets\/[A-Za-z0-9._-]+-[A-Za-z0-9_-]{8,}\.(?:css|js|woff2?|png|svg|webp)$/;
 
 self.addEventListener('install', (event) => {
-    event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.add(OFFLINE_URL)));
+    event.waitUntil(caches.open(CACHE_NAME).then(async (cache) => {
+        await cache.add(OFFLINE_URL);
+        await cache.add(OFFLINE_COPY_URL);
+    }));
     self.skipWaiting();
 });
 
@@ -24,6 +28,11 @@ self.addEventListener('fetch', (event) => {
 
     if (request.mode === 'navigate') {
         event.respondWith(fetch(request).catch(async () => (await caches.match(OFFLINE_URL))));
+        return;
+    }
+
+    if (url.pathname === OFFLINE_COPY_URL) {
+        event.respondWith(caches.match(OFFLINE_COPY_URL).then((cached) => cached || fetch(request)));
         return;
     }
 

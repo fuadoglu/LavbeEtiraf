@@ -24,7 +24,7 @@ class FollowedConfessionActivity extends Notification
             ->subject(__('account.notification_subject', [], $locale))
             ->greeting(__('account.notification_greeting', [], $locale))
             ->line(__('account.notification_body', [], $locale))
-            ->action(__('account.notification_action', [], $locale), $home)
+            ->action(__('account.notification_action', ['app_name' => config('app.name')], $locale), $home)
             ->line(__('account.notification_footer', [], $locale));
     }
 }

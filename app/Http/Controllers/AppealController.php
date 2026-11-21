@@ -23,10 +23,10 @@ class AppealController extends Controller
 
         return response()->view('appeals.create', [
             'confession' => $confession, 'comment' => $comment, 'type' => $type,
-            'publicId' => $targetPublicId, 'idempotencyKey' => bin2hex(random_bytes(16)),
-        ])->header('Cache-Control', 'private, no-store, max-age=0')
-            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
-            ->header('Referrer-Policy', 'no-referrer');
+            'publicId' => $targetPublicId, 'idempotencyKey' => \App\Support\Security\IdempotencyKey::generate(),
+        ])->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function store(Request $request, string $locale, string $type, string $targetPublicId, AppealService $appeals): Response
@@ -38,9 +38,9 @@ class AppealController extends Controller
         $appeals->submit($request, $locale, $type, $targetPublicId, $data['details'], $data['idempotency_key']);
 
         return response()->view('appeals.submitted', [], 202)
-            ->header('Cache-Control', 'private, no-store, max-age=0')
-            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     private function target(string $locale, string $type, string $publicId): array

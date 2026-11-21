@@ -8,6 +8,7 @@ use App\Models\ConfessionRevision;
 use App\Models\ModerationAudit;
 use App\Models\ModerationOutbox;
 use App\Support\Lavbe\LocaleRegistry;
+use App\Support\Lavbe\AuthorAlias;
 use App\Support\Lavbe\RoutePatterns;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -95,7 +96,7 @@ class GuestConfessionController extends Controller
             }
 
             return $cookieNames;
-        }, 3);
+        }, (int) config('database.transaction_retries'));
         $revokedCookieNames = array_values(array_unique(array_merge(
             $revokedCookieNames,
             array_map(fn (string $publicId): string => 'lavbe_owner_'.$publicId, array_keys($legacyCookies)),
@@ -103,9 +104,9 @@ class GuestConfessionController extends Controller
 
         $response = redirect()->route('confessions.device', ['locale' => $locale])
             ->with('status', __('guest.device_forgotten'))
-            ->header('Cache-Control', 'private, no-store, max-age=0')
-            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
         $response->headers->clearCookie('lavbe_device');
         foreach ($revokedCookieNames as $cookieName) {
             $response->headers->clearCookie($cookieName);
@@ -124,7 +125,7 @@ class GuestConfessionController extends Controller
         $categoryKeys = array_column($locales->catalog()['categories'], 'key');
         $validator = Validator::make($request->all(), [
             'title' => ['required', 'string', 'max:'.config('lavbe.limits.confession_title')],
-            'author_display_name' => ['nullable', 'string', 'max:120'],
+            'author_display_name' => ['nullable', 'string', 'max:'.config('lavbe.limits.author_display_name')],
             'body' => ['required', 'string', function (string $attribute, mixed $value, \Closure $fail): void {
                 if (mb_strlen(trim((string) $value), 'UTF-8') > (int) config('lavbe.limits.confession_body')) {
                     $fail(__('guest.validation_body_max', ['limit' => config('lavbe.limits.confession_body')]));
@@ -181,7 +182,7 @@ class GuestConfessionController extends Controller
                     'title' => '',
                     'body' => '',
                     'public_id' => $publicId,
-                    'author_alias' => 'Lavbe #'.strtoupper(bin2hex(random_bytes(4))),
+                    'author_alias' => AuthorAlias::generate(),
                     'submission_key_hash' => $idempotencyHash,
                     'payload_fingerprint' => $fingerprint,
                     'age_confirmed_at' => now(),
@@ -381,14 +382,14 @@ class GuestConfessionController extends Controller
             }
 
             return $confession;
-        }, 3);
+        }, (int) config('database.transaction_retries'));
 
         if (! $confession) {
             return $this->privateView('confessions.not-found', [], 404);
         }
 
         return redirect()->route('confessions.status', ['locale' => app(LocaleRegistry::class)->urlSegment(app()->getLocale()), 'publicId' => $publicId])
-            ->header('Cache-Control', 'private, no-store, max-age=0');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE);
     }
 
     public function recoveryForm(string $locale, string $publicId): Response|View
@@ -539,9 +540,9 @@ class GuestConfessionController extends Controller
     private function privateView(string $view, array $data = [], int $status = 200): Response
     {
         return response()->view($view, $data, $status)
-            ->header('Cache-Control', 'private, no-store, max-age=0')
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
             ->header('Pragma', 'no-cache')
-            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     }
 }

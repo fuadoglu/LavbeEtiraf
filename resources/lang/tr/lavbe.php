@@ -26,4 +26,6 @@ return [
     'refresh' => 'Akışı yenile',
     'untitled_confession' => 'Başlıksız itiraf',
     'breadcrumb' => 'Sayfa yolu',
+    'offline_title' => "Çevrimdışısınız",
+    'offline_body' => "Yeniden bağlandığınızda okumak istediğiniz sayfaya dönebilirsiniz.",
 ];
