@@ -634,7 +634,7 @@ PHP;
             $errorOutput = stream_get_contents($pipes[2]);
             fclose($pipes[1]);
             fclose($pipes[2]);
-            $this->assertSame(0, proc_close($process), $errorOutput === '' ? '' : 'Parallel participation worker failed.');
+            $this->assertSame(0, proc_close($process), $errorOutput === '' ? '' : 'Parallel worker failed: '.$errorOutput);
         }
 
         return $statuses;
