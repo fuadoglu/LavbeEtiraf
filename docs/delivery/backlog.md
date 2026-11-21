@@ -392,3 +392,9 @@ Dil üzrə kateqoriya sıralamasını hər detail sorğusunda təkrar etmə; ki�
 **Issue:** [#145](https://github.com/fuadoglu/LavbeEtiraf/issues/145). **Asılılıq:** LAV-047, LAV-055. **Qəbul:** FEED-01, FEED-02.
 
 Support və təsdiqlənmiş unikal rəyçi aqreqatlarını sorğu anında bütün dillər üzrə qruplaşdırma. Aqreqatları əvvəlcə tələb olunan locale-in açıq etirafları və cari təsdiqlənmiş revision-ı ilə birləşdir, sonra confession üzrə qruplaşdır. Aktiv support, təsdiqlənmiş unikal rəyçi, həftə sərhədi və sabit sıra semantikasını saxla. **Sübut:** populyar/həftəlik regression, generated SQL-də hər iki aqreqatın locale/revision şərtləri, tam test və MySQL CI. Realist kataloqla query planı və p95 müqayisəsi ayrıca buraxılış ölçüsüdür.
+
+## LAV-067 · Axtarışda SQL wildcard simvollarını literal qəbul et
+
+**Issue:** [#147](https://github.com/fuadoglu/LavbeEtiraf/issues/147). **Asılılıq:** LAV-009. **Qəbul:** SEARCH-01, FEED-01.
+
+İstifadəçi `%`, `_` və seçilən escape simvolunu axtaranda LIKE pattern-in idarəetmə simvolu deyil, literal mətn kimi işlənsin. Eyni locale və təsdiqlənmiş public revision filtrlərini, POST/məxfilik sərhədini saxla. **Sübut:** literal wildcard, escape simvolu, diakritik, qısa söz və CJK feature testləri; MySQL CI. Böyük kataloq üçün full-text indeks və p95 ölçüsü bu işdən sonra ayrıca benchmark-a bağlıdır.
