@@ -3,7 +3,7 @@
 @section('title', __('guest.write_pending_title').' · '.config('app.name'))
 
 @section('content')
-    <section class="write-page submission-result" data-clear-tab-draft>
+    <section class="write-page submission-result" data-clear-confession-draft>
         <h1>{{ __('guest.write_pending_title') }}</h1>
         <p>{{ __('guest.write_pending_body') }}</p>
         <p class="submission-alias">{{ $confession->author_alias }}</p>

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'keep_tab_draft' => 'Titel und Text in diesem Browser-Tab behalten',
     'write_anonymous' => 'Deinen Namen kannst du für dich behalten.',
     'write_options' => 'Weitere Optionen',
     'write_title' => 'Geständnis schreiben',

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'keep_tab_draft' => 'Säilytä otsikko ja teksti tässä välilehdessä',
     'write_anonymous' => 'Voit kirjoittaa kertomatta nimeäsi.',
     'write_options' => 'Julkaisuvalinnat',
     'write_title' => 'Kirjoita tunnustus',

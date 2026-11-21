@@ -9,7 +9,7 @@
             <p class="write-anonymous-note"><x-icon name="shield-check" class="icon-small" />{{ __('guest.write_anonymous') }}</p>
         </header>
 
-        <form class="write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
+        <form class="write-form" data-confession-draft method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
             @csrf
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
@@ -67,9 +67,6 @@
             </label>
 
             <p class="write-review-note">{{ __('guest.write_public_search_notice') }} {{ __('guest.write_intro') }}</p>
-            <div hidden data-tab-draft-option>
-                <label class="age-confirmation"><input type="checkbox" autocomplete="off" data-tab-draft><span>{{ __('guest.keep_tab_draft') }}</span></label>
-            </div>
             <button class="button button-primary" type="submit">{{ __('guest.write_submit') }}</button>
         </form>
     </section>

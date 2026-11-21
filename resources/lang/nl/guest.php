@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'keep_tab_draft' => 'Titel en tekst in dit browsertabblad bewaren',
     'write_anonymous' => 'Je mag je naam voor jezelf houden.',
     'write_options' => 'Deelopties',
     'write_title' => 'Schrijf een bekentenis',

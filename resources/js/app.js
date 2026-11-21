@@ -6,50 +6,59 @@
 
     const characterInput = document.querySelector('[data-character-count-input]');
     const characterCount = document.querySelector('[data-character-count]');
-    const draftToggle = document.querySelector('[data-tab-draft]');
-    const draftKey = 'lavbe-tab-draft';
-    if (document.querySelector('[data-clear-tab-draft]')) {
-        try {
-            sessionStorage.removeItem(draftKey);
-        } catch {
-            // Storage can be disabled by the browser.
-        }
-    }
-    if (draftToggle && characterInput) {
-        const title = characterInput.form.elements.namedItem('title');
-        const option = draftToggle.closest('[data-tab-draft-option]');
-        const saveDraft = () => {
-            try {
-                if (draftToggle.checked) {
-                    sessionStorage.setItem(draftKey, JSON.stringify({ body: characterInput.value, title: title.value }));
-                } else {
-                    sessionStorage.removeItem(draftKey);
-                }
-            } catch {
-                draftToggle.checked = false;
-                option.hidden = true;
+    const draftForm = characterInput?.closest?.('[data-confession-draft]');
+    const draftKey = 'lavbe-confession-draft';
+    const legacyDraftKey = 'lavbe-tab-draft';
+    const pendingDraftKey = 'lavbe-pending-confession-draft';
+    try {
+        if (document.querySelector('[data-clear-confession-draft]')) {
+            const pending = sessionStorage.getItem(pendingDraftKey);
+            const saved = JSON.parse(localStorage.getItem(draftKey));
+            if (pending && saved?.submission === pending) localStorage.removeItem(draftKey);
+            sessionStorage.removeItem(pendingDraftKey);
+            sessionStorage.removeItem(legacyDraftKey);
+        } else if (draftForm) {
+            const title = draftForm.elements.namedItem('title');
+            let saved = JSON.parse(localStorage.getItem(draftKey));
+            if (!saved) {
+                saved = JSON.parse(sessionStorage.getItem(legacyDraftKey));
+                if (saved) localStorage.setItem(draftKey, JSON.stringify(saved));
             }
-        };
-        try {
-            const draft = JSON.parse(sessionStorage.getItem(draftKey));
-            if (typeof draft?.body === 'string' && typeof draft.title === 'string') {
-                draftToggle.checked = true;
-                if (!characterInput.value && !title.value) {
-                    characterInput.value = draft.body;
-                    title.value = draft.title;
-                }
+            sessionStorage.removeItem(legacyDraftKey);
+            if (!characterInput.value && !title.value && typeof saved?.body === 'string' && typeof saved.title === 'string') {
+                characterInput.value = saved.body;
+                title.value = saved.title;
             }
-            option.hidden = false;
-            draftToggle.addEventListener('change', saveDraft);
-            characterInput.form.addEventListener('input', saveDraft);
-            characterInput.form.addEventListener('compositionend', saveDraft);
-            characterInput.form.addEventListener('submit', saveDraft);
-            window.addEventListener('pageshow', (event) => {
-                if (event.persisted && !sessionStorage.getItem(draftKey)) draftToggle.checked = false;
+            const saveDraft = (submission = null) => {
+                try {
+                    const body = characterInput.value;
+                    if (body.trim() || title.value.trim()) {
+                        localStorage.setItem(draftKey, JSON.stringify({ body, title: title.value, submission }));
+                    } else {
+                        localStorage.removeItem(draftKey);
+                    }
+                } catch {
+                    // Browser storage may be unavailable or full.
+                }
+            };
+            for (const field of [characterInput, title]) {
+                field.addEventListener('input', (event) => {
+                    if (!event.isComposing) saveDraft();
+                });
+                field.addEventListener('compositionend', () => saveDraft());
+            }
+            draftForm.addEventListener('submit', () => {
+                const submission = draftForm.elements.namedItem('idempotency_key').value;
+                saveDraft(submission);
+                try {
+                    sessionStorage.setItem(pendingDraftKey, submission);
+                } catch {
+                    // Keep the draft if the submission cannot be matched.
+                }
             });
-        } catch {
-            // The plain form remains usable without browser storage.
         }
+    } catch {
+        // The form remains usable if browser storage cannot be read.
     }
     if (characterInput && characterCount) {
         const maximum = Number(characterCount.dataset.max);

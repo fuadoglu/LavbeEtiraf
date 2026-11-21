@@ -18,7 +18,7 @@ Hər səhifədə ən çox 12 kart olur. Nömrəli pagination adi HTML linklərin
 
 Yeniləmə cari lent URL-sindəki kateqoriya, sıralama və səhifə nömrəsini saxlayır. Dil seçimi 303 ilə GET səhifəsinə keçir. Yeni dildə lent eyni mövzu və sıralama ilə birinci səhifədən başlayır. Yazı, hüquqi səhifə, axtarış və əsas hesab ekranlarında həmin ekranın seçilmiş dil variantı açılır. Etirafın orijinal dil URL-si sabit qalır və dil seçimi həmin dildəki ana lentə aparır. Axtarış sorğusu POST gövdəsində qalır, dillər arasında ötürülmür.
 
-Yazı formasında ayrıca seçim yalnız başlığı və mətni həmin brauzer tabının sessiyasında saxlayır. Mətn yeniləmə və dil keçidi zamanı bərpa olunur. Seçim söndürüləndə və ya etiraf göndəriləndə saxlanmış dəyərlər silinir.
+Başlıq və mətn yazıldıqca bu brauzerdə saxlanır. Yeniləmə, dil keçidi və formaya sonradan qayıtma zamanı qaralama bərpa olunur. Hər iki sahə boşaldılanda və ya qaralamaya uyğun göndəriş uğurla tamamlananda saxlanmış dəyərlər silinir.
 
 [Wireframe atlası](wireframes.html) mobil və masaüstü ekranların təsdiq edilə bilən düzülüşünü, gözləmə, boş, xəta və oflayn vəziyyətlərini göstərir.
 

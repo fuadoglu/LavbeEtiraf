@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'keep_tab_draft' => 'Behåll rubriken och texten i den här fliken',
     'write_anonymous' => 'Du kan behålla ditt namn för dig själv.',
     'write_options' => 'Publiceringsval',
     'write_title' => 'Skriv en bekännelse',

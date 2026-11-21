@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'keep_tab_draft' => 'このタブにタイトルと本文を残す',
     'write_anonymous' => '名前を書かずに投稿できます。',
     'write_options' => '公開オプション',
     'write_title' => '告白を書く',

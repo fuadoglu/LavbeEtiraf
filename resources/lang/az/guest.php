@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'keep_tab_draft' => 'Başlığı və mətni bu brauzer tabında saxla',
     'write_anonymous' => 'Adını yazmağa ehtiyac yoxdur.',
     'write_options' => 'Paylaşım seçimləri',
     'write_title' => 'Etiraf yaz',
