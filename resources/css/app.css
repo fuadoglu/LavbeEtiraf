@@ -4,43 +4,45 @@
 
 :root {
     color-scheme: light;
-    --page: #f8f6f3;
-    --surface: #fffdfc;
-    --surface-raised: #ffffff;
-    --text: #30282e;
-    --muted: #685e65;
-    --action: #65394f;
-    --action-contrast: #ffffff;
-    --edge: #92838b;
+    --page: var(--theme-day-page);
+    --surface: var(--theme-day-surface);
+    --surface-raised: var(--theme-day-surface-raised);
+    --text: var(--theme-day-text);
+    --muted: var(--theme-day-muted);
+    --action: var(--theme-day-action);
+    --action-contrast: var(--theme-day-action-contrast);
+    --edge: var(--theme-day-edge);
     --line: color-mix(in srgb, var(--edge) 30%, transparent);
     --hint: color-mix(in srgb, var(--action) 8%, var(--surface));
-    --danger: #a63752;
-    --success: #276b4b;
-    --warning: #875600;
-    --shadow: 0 14px 40px rgb(31 24 38 / 16%);
+    --danger: var(--theme-day-danger);
+    --success: var(--theme-day-success);
+    --warning: var(--theme-day-warning);
+    --shadow: var(--theme-day-shadow);
     --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --brand-logo-color: #4b2b3e;
-    --brand-accent-color: #a44363;
+    --font-meta-size: .85rem;
+    --space-meta-inline: .45rem;
+    --brand-logo-color: var(--theme-day-brand-logo);
+    --brand-accent-color: var(--theme-day-brand-accent);
 }
 
 :root[data-theme="night"] {
     color-scheme: dark;
-    --page: #1c191d;
-    --surface: #252126;
-    --surface-raised: #302a31;
-    --text: #f4edf1;
-    --muted: #c5b9c1;
-    --action: #e4b3c8;
-    --action-contrast: #30282e;
-    --edge: #8c7e87;
+    --page: var(--theme-night-page);
+    --surface: var(--theme-night-surface);
+    --surface-raised: var(--theme-night-surface-raised);
+    --text: var(--theme-night-text);
+    --muted: var(--theme-night-muted);
+    --action: var(--theme-night-action);
+    --action-contrast: var(--theme-night-action-contrast);
+    --edge: var(--theme-night-edge);
     --line: color-mix(in srgb, var(--edge) 42%, transparent);
     --hint: color-mix(in srgb, var(--action) 12%, var(--surface));
-    --danger: #ff9db3;
-    --success: #8cd7ab;
-    --warning: #ffcf75;
-    --brand-logo-color: #f2dce5;
-    --brand-accent-color: #ed91ad;
-    --shadow: 0 14px 40px rgb(0 0 0 / 38%);
+    --danger: var(--theme-night-danger);
+    --success: var(--theme-night-success);
+    --warning: var(--theme-night-warning);
+    --brand-logo-color: var(--theme-night-brand-logo);
+    --brand-accent-color: var(--theme-night-brand-accent);
+    --shadow: var(--theme-night-shadow);
 }
 
 * { box-sizing: border-box; }
@@ -100,7 +102,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .feed-list { display: grid; gap: 1.1rem; }
 .story-card { padding: 1rem 1.05rem; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); }
 .story-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; color: var(--muted); font-size: .84rem; }
-.unique-read-count { display: inline-flex; align-items: center; gap: .25rem; }
+.story-author, .unique-read-count { display: inline-flex; align-items: center; gap: var(--space-meta-inline); color: var(--muted); font-size: var(--font-meta-size); }
 .story-card-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .45rem; margin-block-start: 1rem; padding-block-start: .85rem; border-top: 1px solid var(--line); }
 .story-card-footer .story-author { margin: 0; padding: 0; border: 0; }
 .story-card-footer .unique-read-count { margin-inline-start: auto; white-space: nowrap; }
@@ -397,7 +399,6 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .confession-feed .story-meta time { margin: 0; }
 .confession-feed .story-topic { display: inline-flex; align-items: center; gap: .35rem; padding: .3rem .65rem; border-radius: .6rem; background: var(--hint); color: var(--action); }
 .confession-feed .story-title { margin-block: 0 .7rem; }
-.confession-feed .story-author { display: flex; align-items: center; gap: .45rem; color: var(--muted); font-size: .85rem; }
 @media (hover: hover) {
     .confession-feed .story-card:hover { border-color: var(--edge); box-shadow: 0 10px 26px color-mix(in srgb, var(--text) 7%, transparent); }
 }
@@ -487,7 +488,7 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 .confession-heading h1 { margin-block: 0 .65rem; font-size: clamp(1.65rem, 4vw, 2.35rem); line-height: 1.22; }
 .confession-author-meta { margin: 0; gap: .4rem; font-size: .84rem; }
 .confession-reading-card > .confession-body { font-size: 1.1rem; line-height: 1.78; }
-.confession-read-count { justify-content: flex-end; margin: 1rem 0 0; color: var(--muted); font-size: .82rem; }
+.confession-read-count { justify-content: flex-end; margin: 1rem 0 0; }
 .confession-continuations { margin-block-start: .85rem; }
 .confession-continuations > h2 { margin-block: 0 .65rem; }
 .confession-continuations .participation-card { padding: clamp(.9rem, 2.5vw, 1.25rem); }
