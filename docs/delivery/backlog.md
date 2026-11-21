@@ -123,6 +123,8 @@ Təsdiqli e-poçt qeydiyyatı, giriş/parol bərpası, şəxsi Mənim bölməsi,
 
 Codex hər dil paketi üçün mətnləri, kateqoriyaları və hüquqi draftları hazırlayır. Variantlar ekrana görə ixrac edilir və məhsul sahibi dəyişikliklərə baxır. **Sübut:** paket validatoru, düzəliş diff-i və qeydə alınmış baxış. Xarici hüquqi faktlar draftı keçmədən açılmır.
 
+**Cari qərar:** məhsul sahibi 22 noyabr 2026-da bütün 17 dildə tərcümə baxışının tamamlandığını təsdiqləyib. Köhnə paket ixracı PR-ları cari runtime mənbəyinə birləşdirilmir. Sonrakı mətn dəyişiklikləri PR diff-i ilə yenidən baxılır; faktiki hüquqi təsdiq və real cihaz sınaqları ayrı qalır.
+
 ## LAV-011 · PWA, oflayn və opt-in push
 
 **Asılılıq:** LAV-002, LAV-004, LAV-009, LAV-010. **Qəbul:** PWA-01, ADV-03.

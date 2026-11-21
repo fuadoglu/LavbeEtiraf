@@ -6,7 +6,7 @@
 |---|---|---|
 | Hüquqi operator və qaydalar | Məhsul sahibi/operator | Təsdiqlənmiş hüquqi kimlik, əlaqə, məlumat axını, hosting lokasiyası, 18+ yanaşması və bazar tələbləri |
 | Hosting | Development və operator | PHP CLI, MySQL/MariaDB, unikal açarlar, cron, HTTPS, SMTP, URL rewrite, açıq qovluq, izolə edilmiş backup/restore sınağı |
-| 17 dil | Codex və məhsul sahibi | Paketlər tamamlanıb, sahib baxışı qeyd olunub, hər dil üçün real moderasiya və ilkin məzmun təmin edilib |
+| 17 dil | Codex və məhsul sahibi | Tərcümə baxışı 22 noyabr 2026-da təsdiqlənib; hər dil üçün real moderasiya, ilkin məzmun və cihaz sınağı ayrıca yoxlanır |
 | Axtarış | Operator və development | Search Console, Bing, XML/dil auditləri və IndexNow sınaq hadisəsi |
 | Ölçüm | Operator və development | İstehsal GA4 və CMP doğrulaması, şəbəkə məxfilik testi, consent rəddində davranış |
 | AdSense aktivləşdirmə | Operator | Verified domen, uyğun consent, ads.txt və mobil yerləşim, Policy Center yoxlaması |
@@ -39,7 +39,7 @@ Hər qapı üçün bir qeyd saxlanır: mühit, Git SHA, sınaq vaxtı, məsul ş
 |---|---|
 | Məxfilik | İki ayrı qonaq və moderator hesabı ilə sahiblik izolyasiyası, reklamlı detal → rəy formu, razılığın geri alınması və tam şəbəkə izi |
 | Yayım və silmə | Əvvəlki backup-dan izolə bərpa. Silinmə/gizlətmə jurnalı replay. Etiraf URL, preview, nömrəli lent və XML təkrar açılmır; istifadə olunmayan fragment API-si yoxdur. |
-| Locale və moderator | 17 paket üzrə versiyalı sahib baxışı, ölkə/dil fallback sınağı, növbə üzrə məsul və əvəzləyici, təcili şikayətdə real marşrut |
+| Locale və moderator | Sahibin 17 dil üzrə qeydə alınmış baxışı, ölkə/dil fallback sınağı, növbə üzrə məsul və əvəzləyici, təcili şikayətdə real marşrut |
 | Cron və xarici sistem | İcazəli interval, uğursuzluq/retry, gecikmiş hadisənin yaşı və eyni bildirişin yalnız bir dəfə nəticə yaratması |
 | Performans | Staging-də mobil cihaz, reklamsız və uyğun reklam simulyasiyası, oxu/yazı/cron paralel sınağı. Sahə ölçümü mövcuddursa ayrıca qeyd olunur. |
 

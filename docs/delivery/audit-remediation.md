@@ -8,7 +8,7 @@ Yerli sübut: composer test — 78 test, 1029 assertion keçdi. AuditUserPathsTe
 
 ## Sonrakı paketlər
 
-- 17 dilin hesab, iştirak, şikayət və bərpa ekranlarına hazırlanmış mətnlərin inteqrasiyası; sahibin yekun dil baxışı ayrıca qalır.
+- 17 dilin hesab, iştirak, şikayət və bərpa ekranlarına hazırlanmış mətnlərin inteqrasiyası. Sahibin yekun dil baxışı 22 noyabr 2026-da tamamlandığı təsdiqlənib.
 - Lent snapshot xərci, rəylərin səhifələnməsi və sitemap sorğu/yaddaş yükünün məhdudlaşdırılması; sintetik yük ölçmələri.
 - Ayrı reklamsız rəy forması, hüquqi səhifələrin əlçatanlığı və sessiya məxfiliyi.
 - Real cihazlar, hüquqi operator məlumatları, backup bərpası və xarici reklam/hostinq yoxlamaları buraxılış qapıları olaraq qalır.
@@ -18,7 +18,7 @@ Yerli sübut: composer test — 78 test, 1029 assertion keçdi. AuditUserPathsTe
 SEO-01/SEO-02: kateqoriya alternativləri üçün dil+mövzu üzrə tək qruplaşdırılmış COUNT istifadə edilir. İlk sitemap hissəsində cəmi iki say sorğusu var: hissələrin sayı və kateqoriya sayları. Sonrakı hissələr kateqoriya saymır. XML etirafları config/seo.php sitemap_read_batch ilə 500-lük paketlərdə oxuyur; ilk offset-dən sonra ID keyset davamı işləyir. 49 000 sətrin hamısı PHP yaddaşına götürülmür. Hər paket cari public/approved scope-dan gəlir. SitemapScaleTest kiçik batch konfiqurasiyası ilə sorğu limitini, kateqoriya hreflang-larını və hissələr arasında təkrarsız tam bölgünü yoxlayır. Real hosting pik yaddaş və p95 ölçməsi hələ keçirilməyib.
 ## İkinci paket — runtime dil inteqrasiyası (LAV-021)
 
-LAV-010 native-copy branch-ində hazırlanmış runtime PHP və mail JSON mətnləri cari main-ə daşınır. Hesab, iştirak, şikayət, moderasiya, validasiya və status paketləri 17 dildə fallback-siz yoxlanır. Yazı hintində konfiqurasiya limiti göstərilir; boş error hint mətnini gizlətmir. Naməlum route-un 404 ekranı URL dilini saxlayır. Native/English ad və SVG bayraqlar saxlanır, sabit dil axtarış placeholder-i çıxarılır. Sahibin yekun dil baxışı pending qalır; hüquqi mətn və real operator təsdiqi verilmir.
+LAV-010 native-copy branch-ində hazırlanmış runtime PHP və mail JSON mətnləri cari main-ə daşınıb. Hesab, iştirak, şikayət, moderasiya, validasiya və status paketləri 17 dildə fallback-siz yoxlanır. Yazı hintində konfiqurasiya limiti göstərilir; boş error hint mətnini gizlətmir. Naməlum route-un 404 ekranı URL dilini saxlayır. Native/English ad və SVG bayraqlar saxlanır, sabit dil axtarış placeholder-i çıxarılır. Sahibin yekun dil baxışı tamamlanıb; faktiki hüquqi məzmun və operator təsdiqi ayrıca qalır.
 
 LAV-021 yerli sübut: composer test — 80 test / 19 117 assertion keçdi. LocaleCopyTest hər runtime açarı, placeholder və mail JSON açarını fallback olmadan yoxlayır; 17 dildə yazı, giriş, şikayət, bərpa və 404 ekranları render edilir. Sənəd validatoru da qovluq üçün URL seqmenti əvəzinə kataloqdakı content code istifadə edir.
 
@@ -44,4 +44,4 @@ Database sessiyalarında flash edilən uğursuz yazı mətni şifrəli saxlanır
 
 ## Hüquqi draftların əlçatanlığı — LAV-028
 
-LOC-02/OPS-03: 17 dilin mövcud LAV-010 hüquqi draftlarından terms, community, privacy, cookies, illegal_content, data_request və operator mətnləri runtime paketlərə götürülüb. Footer əsas üç drafta yol verir. Səhifələr noindex/no-store qalır və draft mətninin özündə yayımdan əvvəl operator, yerli tələb və məlumat təcrübəsi təsdiqinin vacibliyi görünür. Bu, hüquqi yekun təsdiq sayılmır; operator faktları və sahib baxışı açıq buraxılış qapısıdır.
+LOC-02/OPS-03: 17 dilin mövcud LAV-010 hüquqi draftlarından terms, community, privacy, cookies, illegal_content, data_request və operator mətnləri runtime paketlərə götürülüb. Footer əsas üç drafta yol verir. Səhifələr noindex/no-store qalır və draft mətninin özündə yayımdan əvvəl operator, yerli tələb və məlumat təcrübəsi təsdiqinin vacibliyi görünür. Tərcümələrin sahib baxışı tamamlanıb; hüquqi faktların və operator məlumatlarının yekun təsdiqi ayrıca açıq buraxılış qapısıdır.

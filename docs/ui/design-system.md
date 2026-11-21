@@ -60,7 +60,7 @@ Hesab formalarında hər etiket konkret input ID-sinə bağlıdır. Validasiya x
 
 Eyni etiket və xəta əlaqələri yazı, şikayət, etiraz, bərpa və moderasiya formalarında da tətbiq olunur. Moderator icazələrinin ləğvində hər səbəb sahəsinin ID-si grant ID-sinə görə unikaldır. HTML sınaqları ictimai formalarda etiket hədəflərini, təkrarlanan ID-ləri və aria-describedby istinadlarını yoxlayır.
 
-404, dialoq, yüklənmə və footer mətnləri də cari locale ilə render olunur. Bu UI mətnləri LAV-010 native-copy mənbəyindəki 17 dil paketindən götürülüb. Məhsul sahibinin yekun dil baxışı LAV-010-da izlənir.
+404, dialoq, yüklənmə və footer mətnləri də cari locale ilə render olunur. Bu UI mətnləri 17 dilin cari runtime paketlərindən götürülüb. Məhsul sahibinin yekun dil baxışı 22 noyabr 2026-da tamamlanıb.
 
 Saytın footer-i solda ürək vurğulu Lavbe wordmark-ını, sağda isə altı hüquqi/məlumat keçidinin kompakt sırasını göstərir. Operator məlumatı səhifəsi ayrıca URL-dən əlçatandır, footer-də göstərilmir. Əlçatan adlı naviqasiya, altxətli keçidlər, 44 px hündürlük, görünən fokus və cari səhifə üçün `aria-current="page"` saxlanır. Link mətnləri yığcam 0.75rem ölçüdədir. Mobil ölçüdə linklər wordmark-ın altına düşüb səliqəli sətirlənir; sabit mobil naviqasiya üçün alt boşluq qalır. Footer-də ayrıca slogan/signature sətri yoxdur.
 
