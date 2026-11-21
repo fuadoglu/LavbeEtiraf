@@ -386,3 +386,9 @@ Oxunuşu yalnız detail route etirafın public status, publish tarixi və təsdi
 **Issue:** [#143](https://github.com/fuadoglu/LavbeEtiraf/issues/143). **Asılılıq:** LAV-047, LAV-063. **Qəbul:** DISC-01, DISC-02.
 
 Dil üzrə kateqoriya sıralamasını hər detail sorğusunda təkrar etmə; kiçik namizəd ID hovuzunu Laravel-in konfiqurasiya olunmuş cache store-unda qısa müddət saxla. Hər renderdə ID-ləri public scope və cari approved revision ilə yenidən təsdiqlə ki, silinən/gizlədilən etiraf dərhal tövsiyədən çıxsın. **Sübut:** cache-hit SQL regression, TTL/config yoxlaması, story withdraw-dan sonrakı render, dil/kateqoriya/unikallıq sınaqları və MySQL CI.
+
+## LAV-066 · Populyar və həftəlik reytinqin dil üzrə daraldılması
+
+**Issue:** [#145](https://github.com/fuadoglu/LavbeEtiraf/issues/145). **Asılılıq:** LAV-047, LAV-055. **Qəbul:** FEED-01, FEED-02.
+
+Support və təsdiqlənmiş unikal rəyçi aqreqatlarını sorğu anında bütün dillər üzrə qruplaşdırma. Aqreqatları əvvəlcə tələb olunan locale-in açıq etirafları və cari təsdiqlənmiş revision-ı ilə birləşdir, sonra confession üzrə qruplaşdır. Aktiv support, təsdiqlənmiş unikal rəyçi, həftə sərhədi və sabit sıra semantikasını saxla. **Sübut:** populyar/həftəlik regression, generated SQL-də hər iki aqreqatın locale/revision şərtləri, tam test və MySQL CI. Realist kataloqla query planı və p95 müqayisəsi ayrıca buraxılış ölçüsüdür.

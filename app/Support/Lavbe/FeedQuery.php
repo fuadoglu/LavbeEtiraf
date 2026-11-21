@@ -23,18 +23,38 @@ class FeedQuery
 
         if (in_array($order, ['weekly', 'popular'], true)) {
             $since = $order === 'weekly' ? now()->subDays((int) config('feed.weekly_days')) : null;
-            $supports = DB::table('confession_support_reactions')
-                ->select('confession_id')->selectRaw('COUNT(*) AS supports')
-                ->where('is_active', true)
-                ->when($since, fn ($query) => $query->where('updated_at', '>=', $since))
-                ->groupBy('confession_id');
+            $supports = DB::table('confession_support_reactions as reactions')
+                ->join('confessions as ranked_confessions', 'ranked_confessions.id', '=', 'reactions.confession_id')
+                ->join('confession_revisions as ranked_revisions', function ($join): void {
+                    $join->on('ranked_revisions.id', '=', 'ranked_confessions.public_revision_id')
+                        ->on('ranked_revisions.confession_id', '=', 'ranked_confessions.id')
+                        ->where('ranked_revisions.status', 'approved');
+                })
+                ->select('reactions.confession_id')->selectRaw('COUNT(*) AS supports')
+                ->where('ranked_confessions.locale', $locale)
+                ->where('ranked_confessions.status', 'public')
+                ->whereNotNull('ranked_confessions.published_at')
+                ->where('reactions.is_active', true)
+                ->when($since, fn ($query) => $query->where('reactions.updated_at', '>=', $since))
+                ->groupBy('reactions.confession_id');
             $commenters = DB::table('confession_comments as comments')
+                ->join('confessions as ranked_confessions', 'ranked_confessions.id', '=', 'comments.confession_id')
+                ->join('confession_revisions as ranked_parent_revisions', function ($join): void {
+                    $join->on('ranked_parent_revisions.id', '=', 'ranked_confessions.public_revision_id')
+                        ->on('ranked_parent_revisions.confession_id', '=', 'ranked_confessions.id')
+                        ->where('ranked_parent_revisions.status', 'approved');
+                })
                 ->join('confession_comment_revisions as revisions', function ($join): void {
                     $join->on('revisions.id', '=', 'comments.public_revision_id')
-                        ->on('revisions.comment_id', '=', 'comments.id');
+                        ->on('revisions.comment_id', '=', 'comments.id')
+                        ->where('revisions.status', 'approved');
                 })
                 ->select('comments.confession_id')->selectRaw('COUNT(DISTINCT comments.author_alias) AS commenters')
-                ->where('comments.status', 'public')->where('revisions.status', 'approved')
+                ->where('ranked_confessions.locale', $locale)
+                ->where('ranked_confessions.status', 'public')
+                ->whereNotNull('ranked_confessions.published_at')
+                ->where('comments.status', 'public')
+                ->whereNotNull('comments.published_at')
                 ->when($since, fn ($query) => $query->where('comments.published_at', '>=', $since))
                 ->groupBy('comments.confession_id');
 

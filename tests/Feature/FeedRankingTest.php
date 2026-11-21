@@ -46,6 +46,15 @@ class FeedRankingTest extends TestCase
         $this->assertSame([$newer->id, $older->id], $this->rank('weekly'));
     }
 
+    public function test_popular_and_weekly_aggregates_are_scoped_by_locale_before_grouping(): void
+    {
+        foreach (['popular', 'weekly'] as $order) {
+            $sql = str_replace(['`', '"'], '', strtolower(app(FeedQuery::class)->build('az', null, $order)->toSql()));
+            $this->assertSame(2, substr_count($sql, 'ranked_confessions.locale = ?'), $order.' must constrain both score aggregates before grouping.');
+            $this->assertSame(2, substr_count($sql, 'ranked_revisions.status = ?') + substr_count($sql, 'ranked_parent_revisions.status = ?'));
+        }
+    }
+
     public function test_updates_uses_live_approved_continuations_instead_of_parent_updated_at(): void
     {
         $this->freezeTime();
