@@ -3,7 +3,7 @@
 return [
     'read' => '읽기',
     'write' => '글쓰기',
-    'mine' => '내 공간',
+    'mine' => ':app_name 내 공간',
     'nav' => '주 메뉴',
     'search_languages' => '언어 검색',
     'night' => '다크 모드로 전환',

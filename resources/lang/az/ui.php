@@ -3,7 +3,7 @@
 return [
     'read' => 'Oxu',
     'write' => 'Yaz',
-    'mine' => 'Mənim',
+    'mine' => ':app_name səhifəm',
     'nav' => 'Əsas menyu',
     'search_languages' => 'Dil axtar',
     'night' => 'Gecə rejiminə keç',
