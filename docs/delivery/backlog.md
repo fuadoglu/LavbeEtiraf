@@ -127,7 +127,7 @@ Codex hər dil paketi üçün mətnləri, kateqoriyaları və hüquqi draftları
 
 **Asılılıq:** LAV-002, LAV-004, LAV-009, LAV-010. **Qəbul:** PWA-01, ADV-03.
 
-Manifest, ikon, standalone, statik service worker keşi, tərcüməli oflayn görünüş, opt-in cihaz qaralaması və Web Push. **Sübut:** təmiz/qədim keş, iPhone/Android standalone və həssas şəbəkə/keş audit nəticəsi.
+Manifest, ikon, standalone, statik service worker keşi, tərcüməli oflayn görünüş, brauzerdə avtomatik etiraf qaralaması və Web Push. **Sübut:** təmiz/qədim keş, iPhone/Android standalone və həssas şəbəkə/keş audit nəticəsi.
 
 ## LAV-012 · Cihaz, UI və dil sınaqları
 
