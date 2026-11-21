@@ -29,6 +29,14 @@ class LegalDraftPageTest extends TestCase
                 $response = $this->get($base.'/legal/'.$page)->assertOk()
                     ->assertSee(__('legal.'.$page.'.title', [], $locale['code']))
                     ->assertSee($body);
+                if ($page !== 'operator') {
+                    $sections = __('legal.'.$page.'.sections', [], $locale['code']);
+                    $this->assertGreaterThanOrEqual(2, count($sections));
+                    foreach ($sections as $section) {
+                        $response->assertSee('<h2>'.e($section['heading']).'</h2>', false)
+                            ->assertSee($section['text']);
+                    }
+                }
                 if ($page === 'cookies') {
                     $response->assertSee(__('consent.preference_cookie_notice', ['consent_days' => config('analytics.reader_consent_days')], $locale['code']));
                 }
