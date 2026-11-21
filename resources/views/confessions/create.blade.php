@@ -67,6 +67,9 @@
             </label>
 
             <p class="write-review-note">{{ __('guest.write_public_search_notice') }} {{ __('guest.write_intro') }}</p>
+            <div hidden data-tab-draft-option>
+                <label class="age-confirmation"><input type="checkbox" autocomplete="off" data-tab-draft><span>{{ __('guest.keep_tab_draft') }}</span></label>
+            </div>
             <button class="button button-primary" type="submit">{{ __('guest.write_submit') }}</button>
         </form>
     </section>

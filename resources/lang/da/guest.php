@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'keep_tab_draft' => 'Behold titlen og teksten på denne fane',
     'write_anonymous' => 'Du kan beholde dit navn for dig selv.',
     'write_options' => 'Delingsvalg',
     'write_title' => 'Skriv en bekendelse',

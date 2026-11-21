@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'keep_tab_draft' => 'Başlığı ve metni bu tarayıcı sekmesinde sakla',
     'write_anonymous' => 'Adını vermeden yazabilirsin.',
     'write_options' => 'Paylaşım seçenekleri',
     'write_title' => 'İtiraf yaz',

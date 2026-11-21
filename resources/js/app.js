@@ -6,6 +6,51 @@
 
     const characterInput = document.querySelector('[data-character-count-input]');
     const characterCount = document.querySelector('[data-character-count]');
+    const draftToggle = document.querySelector('[data-tab-draft]');
+    const draftKey = 'lavbe-tab-draft';
+    if (document.querySelector('[data-clear-tab-draft]')) {
+        try {
+            sessionStorage.removeItem(draftKey);
+        } catch {
+            // Storage can be disabled by the browser.
+        }
+    }
+    if (draftToggle && characterInput) {
+        const title = characterInput.form.elements.namedItem('title');
+        const option = draftToggle.closest('[data-tab-draft-option]');
+        const saveDraft = () => {
+            try {
+                if (draftToggle.checked) {
+                    sessionStorage.setItem(draftKey, JSON.stringify({ body: characterInput.value, title: title.value }));
+                } else {
+                    sessionStorage.removeItem(draftKey);
+                }
+            } catch {
+                draftToggle.checked = false;
+                option.hidden = true;
+            }
+        };
+        try {
+            const draft = JSON.parse(sessionStorage.getItem(draftKey));
+            if (typeof draft?.body === 'string' && typeof draft.title === 'string') {
+                draftToggle.checked = true;
+                if (!characterInput.value && !title.value) {
+                    characterInput.value = draft.body;
+                    title.value = draft.title;
+                }
+            }
+            option.hidden = false;
+            draftToggle.addEventListener('change', saveDraft);
+            characterInput.form.addEventListener('input', saveDraft);
+            characterInput.form.addEventListener('compositionend', saveDraft);
+            characterInput.form.addEventListener('submit', saveDraft);
+            window.addEventListener('pageshow', (event) => {
+                if (event.persisted && !sessionStorage.getItem(draftKey)) draftToggle.checked = false;
+            });
+        } catch {
+            // The plain form remains usable without browser storage.
+        }
+    }
     if (characterInput && characterCount) {
         const maximum = Number(characterCount.dataset.max);
         const updateRemaining = (event) => {
@@ -19,6 +64,7 @@
         updateRemaining();
         characterInput.addEventListener('input', updateRemaining);
         characterInput.addEventListener('compositionend', () => updateRemaining());
+        window.addEventListener?.('pageshow', () => updateRemaining());
     }
 
     const languageSearch = document.querySelector('[data-language-search]');
@@ -51,6 +97,9 @@
                 filterLanguages();
             }
         });
+        window.addEventListener?.('pageshow', (event) => {
+            if (event.persisted) menu.open = false;
+        });
         languageSearch.addEventListener('keydown', (event) => {
             if (event.key !== 'Enter' || event.isComposing) return;
             event.preventDefault();
@@ -68,7 +117,7 @@
             const night = root.dataset.theme === 'night';
             themeButton.setAttribute('aria-pressed', String(night));
             themeButton.setAttribute('aria-label', night ? themeButton.dataset.labelDay : themeButton.dataset.labelNight);
-            if (themeColor) themeColor.content = night ? '#1c191d' : '#f8f6f3';
+            if (themeColor) themeColor.content = night ? themeColor.dataset.night : themeColor.dataset.day;
         };
 
         updateThemeButton();

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'keep_tab_draft' => 'Zachowaj tytuł i tekst w tej karcie',
     'write_anonymous' => 'Możesz pisać bez podawania imienia.',
     'write_options' => 'Opcje publikacji',
     'write_title' => 'Napisz wyznanie',

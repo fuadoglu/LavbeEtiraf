@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'keep_tab_draft' => 'Manter o título e o texto nesta aba',
     'write_anonymous' => 'Você pode escrever sem dizer seu nome.',
     'write_options' => 'Opções de compartilhamento',
     'write_title' => 'Escreva um desabafo',

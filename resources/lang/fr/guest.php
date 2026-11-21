@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'keep_tab_draft' => 'Conserver le titre et le texte dans cet onglet',
     'write_anonymous' => 'Vous pouvez garder votre nom pour vous.',
     'write_options' => 'Options de partage',
     'write_title' => 'Écrire un témoignage',

@@ -10,10 +10,6 @@ final class RoutePatterns
 
     public const LOCALE_SEGMENT = '[a-z]{2}(?:-[a-z]{2})?';
 
-    public const LOCALE_RETURN_PATH = '#^/'.self::LOCALE_SEGMENT.'(?:/topics/[a-z0-9-]+)?/?$#';
-
-    public const LOCALE_RETURN_PREFIX = '#^/'.self::LOCALE_SEGMENT.'(?=/|$)#';
-
     public const REPORT_TARGET_TYPES = ['confession', 'comment'];
 
     public const REPORT_CHANNELS = ['community', 'legal'];

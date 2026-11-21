@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'keep_tab_draft' => 'Conservar el título y el texto en esta pestaña',
     'write_anonymous' => 'Puedes escribir sin dar tu nombre.',
     'write_options' => 'Opciones para compartir',
     'write_title' => 'Escribir una confesión',

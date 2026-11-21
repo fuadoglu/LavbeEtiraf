@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'keep_tab_draft' => '이 브라우저 탭에 제목과 본문 저장',
     'write_anonymous' => '이름을 밝히지 않고 쓸 수 있어요.',
     'write_options' => '공개 설정',
     'write_title' => '고백 작성',
