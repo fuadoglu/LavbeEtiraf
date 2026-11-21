@@ -9,7 +9,7 @@
             <p class="write-anonymous-note"><x-icon name="shield-check" class="icon-small" />{{ __('guest.write_anonymous') }}</p>
         </header>
 
-        <form class="write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
+        <form class="write-form confession-write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
             @csrf
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
@@ -23,12 +23,15 @@
             </x-form-field>
 
             <x-form-field name="category_key" :label="__('guest.write_topic')">
-                <select @if(old('_form_errors.category_key') || $errors->has('category_key')) aria-describedby="category_key-description" @endif aria-invalid="{{ old('_form_errors.category_key') || $errors->has('category_key') ? 'true' : 'false' }}" id="category_key" name="category_key">
-                    <option value="">—</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category['key'] }}" @selected(old('category_key') === $category['key'])>{{ $category['label'] }}</option>
-                    @endforeach
-                </select>
+                <div class="write-select">
+                    <select @if(old('_form_errors.category_key') || $errors->has('category_key')) aria-describedby="category_key-description" @endif aria-invalid="{{ old('_form_errors.category_key') || $errors->has('category_key') ? 'true' : 'false' }}" id="category_key" name="category_key">
+                        <option value="">—</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category['key'] }}" @selected(old('category_key') === $category['key'])>{{ $category['label'] }}</option>
+                        @endforeach
+                    </select>
+                    <x-icon name="chevron-down" class="icon-small" />
+                </div>
             </x-form-field>
             <details class="topic-guide">
                 <summary>{{ __('guest.topic_guide') }}</summary>
@@ -46,12 +49,15 @@
                     <input id="author_display_name" name="author_display_name" maxlength="{{ config('lavbe.limits.author_display_name') }}" value="{{ old('author_display_name') }}" autocomplete="off">
                 </x-form-field>
                 <x-form-field name="response_expectation" :label="__('guest.write_expectation')">
-                <select @if(old('_form_errors.response_expectation') || $errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ old('_form_errors.response_expectation') || $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">
-                        <option value="">—</option>
-                        <option value="share" @selected(old('response_expectation') === 'share')>{{ __('guest.write_share') }}</option>
-                        <option value="similar" @selected(old('response_expectation') === 'similar')>{{ __('guest.write_similar') }}</option>
-                        <option value="advice" @selected(old('response_expectation') === 'advice')>{{ __('guest.write_advice') }}</option>
-                    </select>
+                    <div class="write-select">
+                        <select @if(old('_form_errors.response_expectation') || $errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ old('_form_errors.response_expectation') || $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">
+                            <option value="">—</option>
+                            <option value="share" @selected(old('response_expectation') === 'share')>{{ __('guest.write_share') }}</option>
+                            <option value="similar" @selected(old('response_expectation') === 'similar')>{{ __('guest.write_similar') }}</option>
+                            <option value="advice" @selected(old('response_expectation') === 'advice')>{{ __('guest.write_advice') }}</option>
+                        </select>
+                        <x-icon name="chevron-down" class="icon-small" />
+                    </div>
                 </x-form-field>
             </section>
 
