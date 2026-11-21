@@ -59,7 +59,7 @@ Ortaq Blade başlığı, naviqasiya, forma, status, kart, mövzu paneli, skeleto
 
 ## LAV-003 · Dil reyestri, ana səhifə və lent
 
-**Asılılıq:** LAV-000, LAV-001, LAV-002. **Qəbul:** UI-02, LOC-01.
+**Asılılıq:** LAV-000, LAV-001, LAV-002. **Qəbul:** UI-02, LOC-01, LOC-06.
 
 Dil seçiminin prioriteti, axtarışlı menyu, kateqoriya və üç lent rejimi, ilkin HTML və 12 kartlıq nömrəli linklər. Daxili axtarış eyni dilə məhdud qalır. **İcra:** `/{locale}/` və `/{locale}/topics/{key}` HTML, 17 UI locale faylı, public-only read model, səhifələmə və POST axtarış. Əvvəl əlavə edilmiş, istifadə olunmayan feed cursor LAV-071-də çıxarılıb. Fixture yalnız test factory-dən gəlir. **Sübut:** feature/unit sınaqlar; real qonaq/moderasiya yazı modeli LAV-004/005-dən sonra tamamlanacaq, bu mərhələdə tətbiq iddiası yoxdur.
 
@@ -127,7 +127,7 @@ Codex hər dil paketi üçün mətnləri, kateqoriyaları və hüquqi draftları
 
 **Asılılıq:** LAV-002, LAV-004, LAV-009, LAV-010. **Qəbul:** PWA-01, ADV-03.
 
-Manifest, ikon, standalone, statik service worker keşi, tərcüməli oflayn görünüş, opt-in cihaz qaralaması və Web Push. **Sübut:** təmiz/qədim keş, iPhone/Android standalone və həssas şəbəkə/keş audit nəticəsi.
+Manifest, ikon, standalone, statik service worker keşi, tərcüməli oflayn görünüş, brauzerdə avtomatik etiraf qaralaması və Web Push. **Sübut:** təmiz/qədim keş, iPhone/Android standalone və həssas şəbəkə/keş audit nəticəsi.
 
 ## LAV-012 · Cihaz, UI və dil sınaqları
 

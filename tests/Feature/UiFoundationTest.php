@@ -298,6 +298,30 @@ class UiFoundationTest extends TestCase
             ->assertRedirect('/en/');
     }
 
+    public function test_language_switch_preserves_the_screen_and_only_valid_feed_filters(): void
+    {
+        foreach ([
+            '/az/topics/family?sort=weekly&page=9&extra=private' => '/tr/topics/family?sort=weekly',
+            '/az/?sort=bad&page=4' => '/tr',
+            '/az/topics/missing' => '/tr',
+            '/az/write' => '/tr/write',
+            '/az/legal/privacy' => '/tr/legal/privacy',
+            '/az/search?q=private' => '/tr/search',
+            '/az/account/password/reset/private-token?email=private' => '/tr',
+            '/az/confession/00000000-0000-4000-8000-000000000000' => '/tr',
+            'https://external.example/az/write' => '/tr',
+            '//external.example/az/write' => '/tr',
+        ] as $source => $destination) {
+            $this->post('/az/language', ['locale' => 'tr', 'return_to' => $source])
+                ->assertStatus(303)
+                ->assertRedirect($destination);
+        }
+
+        $this->post('/az/language', ['locale' => 'az', 'return_to' => '/az/topics/family?sort=weekly&page=2'])
+            ->assertStatus(303)
+            ->assertRedirect('/az/topics/family?sort=weekly&page=2');
+    }
+
     public function test_feed_renders_only_public_same_locale_records_in_twelve_item_pages(): void
     {
         Confession::factory()->count(13)->create(['locale' => 'az']);

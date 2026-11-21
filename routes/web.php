@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AppealController;
 use App\Http\Controllers\GuestConfessionController;
 use App\Http\Controllers\IndexNowKeyController;
+use App\Http\Controllers\LocaleSelectionController;
 use App\Http\Controllers\ModerationAdminController;
 use App\Http\Controllers\ModerationController;
 use App\Http\Controllers\ModeratorAuthController;
@@ -131,28 +132,7 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
     Route::post('/comment/{commentPublicId}/recover', [ParticipationController::class, 'recover'])->middleware(PrivateResponseHeaders::class)->name('participation.comment.recovery');
     Route::post('/comment/{commentPublicId}/withdraw', [ParticipationController::class, 'withdrawComment'])->middleware(PrivateResponseHeaders::class)->name('participation.comment.withdraw');
 
-    Route::post('/language', function (string $localeSegment, Request $request, LocaleRegistry $locales) {
-        abort_unless($locales->bySegment($localeSegment), 404);
-        $validated = $request->validate(['locale' => ['required', 'string', 'max:'.config('lavbe.limits.locale_segment')]]);
-        $locale = $locales->bySegment($validated['locale']);
-        abort_unless($locale, 422);
-
-        $returnTo = (string) $request->input('return_to', '/'.$locale['segment'].'/');
-        $path = parse_url((string) $returnTo, PHP_URL_PATH);
-        $query = parse_url((string) $returnTo, PHP_URL_QUERY);
-        if (! is_string($path) || ! preg_match(RoutePatterns::LOCALE_RETURN_PATH, $path)) {
-            $path = '/'.$locale['segment'].'/';
-            $query = null;
-        } else {
-            $path = preg_replace(RoutePatterns::LOCALE_RETURN_PREFIX, '/'.$locale['segment'], $path);
-            parse_str((string) $query, $queryParameters);
-            $query = http_build_query($queryParameters);
-        }
-        $destination = $path.($query ? '?'.$query : '');
-        $response = response('', 303)->header('Location', $destination);
-
-        return $response->withCookie(cookie('lavbe_locale', $locale['segment'], (int) config('lavbe.cookies.locale_minutes'), '/', null, $request->isSecure(), true, false, 'lax'));
-    })->name('locale.select');
+    Route::post('/language', LocaleSelectionController::class)->name('locale.select');
 
     Route::get('/account/register', [AccountAuthController::class, 'registerForm'])->middleware([PrivateResponseHeaders::class, 'guest'])->name('account.register');
     Route::post('/account/register', [AccountAuthController::class, 'register'])->middleware([PrivateResponseHeaders::class, 'guest', $routeThrottle('account_register')])->name('account.register.store');
