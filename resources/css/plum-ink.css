@@ -398,6 +398,11 @@
     color: var(--danger);
 }
 
+.write-rules-link {
+    text-decoration: underline;
+    text-underline-offset: .15em;
+}
+
 :is(.participation-card, .participation-form, .author-response, .recommended-story-link) {
     border-radius: .8rem;
 }

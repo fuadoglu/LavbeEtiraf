@@ -61,10 +61,11 @@
                 </x-form-field>
             </section>
 
-            <label class="age-confirmation">
-                <input id="age_confirmed" type="checkbox" name="age_confirmed" value="1" required @if(old('_form_errors.age_confirmed') || $errors->has('age_confirmed')) aria-invalid="true" aria-describedby="age-confirmation-error" @endif @if(old('_focus_field') === 'age_confirmed') autofocus @endif @checked(old('age_confirmed'))>
-                <span>{{ __('guest.write_age') }}</span>
-            </label>
+            <div class="age-confirmation">
+                <input id="age_confirmed" type="checkbox" name="age_confirmed" value="1" required aria-labelledby="age-confirmation-label" @if(old('_form_errors.age_confirmed') || $errors->has('age_confirmed')) aria-invalid="true" aria-describedby="age-confirmation-error" @endif @if(old('_focus_field') === 'age_confirmed') autofocus @endif @checked(old('age_confirmed'))>
+                @php([$beforeRules, $afterRules] = explode(':rules', __('guest.write_age'), 2))
+                <span id="age-confirmation-label"><label for="age_confirmed">{{ $beforeRules }}</label><a class="write-rules-link" href="{{ route('legal.page', ['locale' => $lavbeLocale['segment'], 'page' => 'community']) }}">{{ __('guest.write_rules') }}</a><label for="age_confirmed">{{ $afterRules }}</label></span>
+            </div>
             @if(old('_form_errors.age_confirmed') || $errors->has('age_confirmed'))<p id="age-confirmation-error" class="field-description" role="alert">{{ old('_form_errors.age_confirmed') ?: $errors->first('age_confirmed') }}</p>@endif
 
             <label class="age-confirmation">

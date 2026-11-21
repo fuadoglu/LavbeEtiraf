@@ -256,7 +256,7 @@ def check_feed_translations(directory, catalog, report):
 def check_guest_translations(directory, catalog, report):
     expected_keys = {
         "write_title", "write_intro", "write_anonymous", "write_options", "write_subject", "write_body", "write_body_hint", "write_topic", "topic_guide",
-        "write_expectation", "write_share", "write_similar", "write_advice", "write_age", "write_submit",
+        "write_expectation", "write_share", "write_similar", "write_advice", "write_age", "write_rules", "write_submit",
         "write_pending_title", "write_pending_body", "write_recovery_title", "write_recovery_once",
         "write_owner_link", "write_recover_title", "write_recovery_code", "write_recover_submit",
         "write_status_title", "write_recovery_success", "write_duplicate_title", "write_duplicate_body",

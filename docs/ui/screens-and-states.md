@@ -59,6 +59,8 @@ Lent və axtarış kartları səhifə fonundan azca seçilən səth, incə sərh
 
 Etiraf formasında mətn sahələri və seçimlər eyni səth, künc və sərhəddən istifadə edir. Açılan seçim siyahısı brauzerin və cihazın öz idarəsi ilə işləyir. Checkbox sətirləri bütövlükdə toxunula bilir və seçili vəziyyəti göstərir.
 
+Yaş təsdiqində paylaşım qaydaları formanın cari dilindəki icma qaydalarına keçid verir.
+
 Axtarış sahəsi dar ekranda düymənin üstündə, geniş ekranda onun yanında yerləşir. Hesab, cihaz və moderasiya qeydləri eyni kart ölçüləri və başlıq üslubundan istifadə edir. Moderasiya filtrləri dar ekranda yeni sətrə keçir və cari filtr seçilir. Forma xətası sahə izahında, status isə ikon və mətnlə görünür. Dialoq başlıqları, hüquqi mətn, 404 və oflayn görünüş eyni başlıq ritmini izləyir. Səhifələmə idarələrinin hündürlüyü ən az 44 CSS piksel qalır.
 
 Jurnal üslubunda axtarış, şikayət, hesab, moderasiya və 404 başlıqları eyni tipoqrafik qaydaya tabedir. Hüquqi səhifələrdə abzaslar aralıdır. Şikayət və etiraz qərarlarında uzun düymələr dar ekranda yeni sətrə keçir. Köməkçi mətni olan səhv sahənin sərhədi xəbərdarlıq rəngini saxlayır. İlk mobil ziyarətdə oxunuş ölçümünün hər iki seçimi eyni enli sahələrə yerləşir.
