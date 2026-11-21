@@ -22,7 +22,6 @@ use App\Http\Middleware\RequireModeratorAdmin;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\ValidatePaginationParameters;
 use App\Support\Http\ResponseHeaders;
-use App\Support\Lavbe\FeedCursor;
 use App\Support\Lavbe\FeedQuery;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Lavbe\RoutePatterns;
@@ -147,7 +146,6 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
         } else {
             $path = preg_replace(RoutePatterns::LOCALE_RETURN_PREFIX, '/'.$locale['segment'], $path);
             parse_str((string) $query, $queryParameters);
-            unset($queryParameters['cursor']);
             $query = http_build_query($queryParameters);
         }
         $destination = $path.($query ? '?'.$query : '');
@@ -202,26 +200,6 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
             'categoryIndexable' => $confessions->total() >= (int) config('seo.category_min_public_items'),
         ]);
     })->middleware(NormalizeFeedPage::class)->name('topic.show');
-
-    Route::get('/feed-fragment', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed, FeedCursor $cursors) {
-        abort_unless($locales->bySegment($locale), 404);
-        $order = (string) $request->query('order', 'new');
-        abort_unless(in_array($order, config('lavbe.feed_cursor_orders'), true), 400);
-        $category = $request->query('category');
-        $category = $category === null ? null : (string) $category;
-        abort_if($category !== null && ! $locales->category($category), 400);
-        $page = $cursors->page((string) $request->query('cursor', ''), app()->getLocale(), $category, $order, (int) config('feed.page_size'));
-        $items = $page['items'];
-        $hasMore = $page['has_more'];
-        $nextCursor = $page['next_cursor'];
-
-        return response()->json([
-            'html' => view('components.feed-items', ['confessions' => $items])->render(),
-            'next_url' => $nextCursor ? route('feed.fragment', ['locale' => $locale, 'order' => $order, 'category' => $category, 'cursor' => $nextCursor]) : null,
-            'next_cursor' => $nextCursor,
-            'has_more' => $hasMore,
-        ])->header('X-Robots-Tag', ResponseHeaders::ROBOTS_NO_INDEX)->header('Cache-Control', ResponseHeaders::CACHE_NO_STORE);
-    })->name('feed.fragment');
 
     Route::match(['GET', 'POST'], '/search', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
         abort_unless($locales->bySegment($locale), 404);

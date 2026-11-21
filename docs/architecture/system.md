@@ -28,7 +28,7 @@ Miqrasiyalar real açarlar və xarici açar məhdudiyyətlərindən istifadə ed
 
 ## Oxu, keş və cron
 
-Açıq HTML, feed fragment və XML üçün eyni görünürlük xidməti işləyir. Açarlar locale, səhifə növü, səhifə, kateqoriya və məzmun versiyasını əhatə edir. Şəxsi səhifə və forma cavabları `Cache-Control: private, no-store` alır. Razılıq və şəxsi məlumat ümumi keşlə qarışmır. Geri çəkmə və silmədən sonra köhnə məzmunun yenidən çıxmasının qarşısını cache generation və müvafiq kənar keşin təmizlənməsi təmin edir. Bunun işləmədiyi hostinq konfiqurasiyasında etiraf HTML-i kənarda keşlənmir.
+Nömrəli açıq HTML və XML üçün eyni görünürlük xidməti işləyir. Açarlar locale, səhifə növü, səhifə, kateqoriya və məzmun versiyasını əhatə edir. Şəxsi səhifə və forma cavabları `Cache-Control: private, no-store` alır. Razılıq və şəxsi məlumat ümumi keşlə qarışmır. Geri çəkmə və silmədən sonra köhnə məzmunun yenidən çıxmasının qarşısını cache generation və müvafiq kənar keşin təmizlənməsi təmin edir. Bunun işləmədiyi hostinq konfiqurasiyasında etiraf HTML-i kənarda keşlənmir.
 
 Cron hostinqin icazə verdiyi intervalda qısa paketlər icra edir. Başlanğıc 5 dəqiqə, təsdiqlənmiş plan dəstəkləmirsə ölçülən alternativ interval. Kilid üst-üstə icranı dayandırır. Outbox tapşırıqları təkrar icraya davamlıdır, bağlantı timeout-u, artan gözləmə və xəta növbəsi var. Oxu, göndəriş, şikayət və sitemap cron dayansa da işləyir. Admin/əməliyyat yoxlaması işin yaşını və son uğurlu icranı göstərir.
 

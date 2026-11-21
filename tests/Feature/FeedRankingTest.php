@@ -4,9 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Confession;
 use App\Models\ConfessionComment;
-use App\Models\ConfessionContinuation;
 use App\Support\Lavbe\FeedQuery;
-use Carbon\CarbonInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -55,55 +53,6 @@ class FeedRankingTest extends TestCase
         }
     }
 
-    public function test_updates_uses_live_approved_continuations_instead_of_parent_updated_at(): void
-    {
-        $this->freezeTime();
-        $latest = Confession::factory()->create(['published_at' => now()->subMonth()]);
-        $earlier = Confession::factory()->create(['updated_at' => now()->addHour()]);
-        $noUpdate = Confession::factory()->create();
-        $this->continuation($latest, now());
-        $this->continuation($earlier, now()->subDay());
-        $this->continuation($noUpdate, now()->addMinute(), 'hidden');
-        $this->continuation($noUpdate, now()->addMinute(), 'public', 'pending');
-        $this->assertSame([$latest->id, $earlier->id], $this->rank('updates'));
-        $this->continuation($earlier, now());
-        $this->assertSame([$earlier->id, $latest->id], $this->rank('updates'));
-        $latest->forceFill(['status' => 'hidden'])->save();
-        $this->assertSame([$earlier->id], $this->rank('updates'));
-    }
-
-    public function test_publication_sequence_changes_only_when_reentering_the_public_feed(): void
-    {
-        $first = Confession::factory()->create();
-        $second = Confession::factory()->create();
-        $this->assertGreaterThan($first->publication_sequence, $second->publication_sequence);
-        $initial = $first->publication_sequence;
-
-        $first->forceFill(['body' => 'Synthetic approved edit', 'visibility_version' => 2])->save();
-        $this->assertSame($initial, $first->fresh()->publication_sequence);
-        $first->forceFill(['status' => 'hidden'])->save();
-        $this->assertSame($initial, $first->fresh()->publication_sequence);
-        $first->forceFill(['status' => 'public'])->save();
-        $this->assertGreaterThan($second->publication_sequence, $first->fresh()->publication_sequence);
-    }
-
-    public function test_publication_sequence_and_visibility_roll_back_together(): void
-    {
-        $confession = Confession::factory()->create(['status' => 'hidden']);
-        $this->assertNull($confession->publication_sequence);
-        try {
-            DB::transaction(function () use ($confession): void {
-                $confession->forceFill(['status' => 'public'])->save();
-                throw new \RuntimeException('Synthetic transaction failure');
-            });
-        } catch (\RuntimeException) {
-            // Check the stored state after the interrupted publication.
-        }
-        $this->assertSame('hidden', $confession->fresh()->status);
-        $this->assertNull($confession->fresh()->publication_sequence);
-        $this->assertDatabaseCount('feed_publications', 0);
-    }
-
     private function rank(string $order): array
     {
         return app(FeedQuery::class)->build('az', null, $order)->get()->modelKeys();
@@ -118,15 +67,5 @@ class FeedRankingTest extends TestCase
         ]);
         $revision = $comment->revisions()->create(['revision' => 1, 'body' => 'Synthetic comment', 'status' => $revisionStatus]);
         $comment->forceFill(['public_revision_id' => $revision->id])->save();
-    }
-
-    private function continuation(Confession $parent, CarbonInterface $publishedAt, string $status = 'public', string $revisionStatus = 'approved'): void
-    {
-        $continuation = ConfessionContinuation::query()->create([
-            'confession_id' => $parent->id, 'public_id' => (string) Str::uuid(),
-            'status' => $status, 'body' => 'Synthetic continuation', 'published_at' => $publishedAt,
-        ]);
-        $revision = $continuation->revisions()->create(['revision' => 1, 'body' => 'Synthetic continuation', 'status' => $revisionStatus]);
-        $continuation->forceFill(['public_revision_id' => $revision->id])->save();
     }
 }

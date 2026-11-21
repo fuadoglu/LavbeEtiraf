@@ -38,7 +38,7 @@ Hər qapı üçün bir qeyd saxlanır: mühit, Git SHA, sınaq vaxtı, məsul ş
 | Axın | Konkret sübut |
 |---|---|
 | Məxfilik | İki ayrı qonaq və moderator hesabı ilə sahiblik izolyasiyası, reklamlı detal → rəy formu, razılığın geri alınması və tam şəbəkə izi |
-| Yayım və silmə | Əvvəlki backup-dan izolə bərpa. Silinmə/gizlətmə jurnalı replay. Etiraf URL, preview, fragment, lent və XML təkrar açılmır. |
+| Yayım və silmə | Əvvəlki backup-dan izolə bərpa. Silinmə/gizlətmə jurnalı replay. Etiraf URL, preview, nömrəli lent və XML təkrar açılmır; istifadə olunmayan fragment API-si yoxdur. |
 | Locale və moderator | 17 paket üzrə versiyalı sahib baxışı, ölkə/dil fallback sınağı, növbə üzrə məsul və əvəzləyici, təcili şikayətdə real marşrut |
 | Cron və xarici sistem | İcazəli interval, uğursuzluq/retry, gecikmiş hadisənin yaşı və eyni bildirişin yalnız bir dəfə nəticə yaratması |
 | Performans | Staging-də mobil cihaz, reklamsız və uyğun reklam simulyasiyası, oxu/yazı/cron paralel sınağı. Sahə ölçümü mövcuddursa ayrıca qeyd olunur. |

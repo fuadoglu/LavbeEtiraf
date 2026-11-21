@@ -9,7 +9,7 @@
 | Rəy və müəllif cavabı yazma | Xeyr | Xeyr | Ayrı, reklamsız `/{locale}/participate/...` səthi. `private, no-store`, noindex. |
 | Etiraf yaz, redaktə, önizləmə, şikayət | Xeyr | Xeyr | `private, no-store`, noindex. URL və referrer-də mətn və sirr yoxdur. |
 | Mənim, hesab, bərpa, bildiriş və admin | Xeyr | Xeyr | İcazə yoxlaması, `private, no-store`, noindex |
-| Axtarış, 404/410, fragment, oflayn, hüquqi səhifələr | Xeyr | Xeyr | Səthə uyğun keş. Axtarış mətnini və şəxsi məlumatı saxlamır. Sitemap, robots və manifest HTML analitika etiketləri daşımır. |
+| Axtarış, 404/410, oflayn, hüquqi səhifələr | Xeyr | Xeyr | Səthə uyğun keş. Axtarış mətnini və şəxsi məlumatı saxlamır. Sitemap, robots və manifest HTML analitika etiketləri daşımır. |
 
 Etiraf detalındakı **Rəy yaz** ayrı formaya adi keçid edir. JavaScript vizual keçidi yaxşılaşdıra bilər. Reklam skriptinin artıq işə düşdüyü səhifədə məxfi forma açılmır. Forma göndərildikdən sonra təmiz oxu URL-sinə və ya status səthinə keçilir. İstifadəçinin yazdığı mətn query parametrinə çevrilmir. Təkcə CSS ilə reklamı gizlətmək məxfilik meyarını keçmir.
 

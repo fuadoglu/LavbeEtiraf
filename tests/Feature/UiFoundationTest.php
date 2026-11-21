@@ -4,9 +4,9 @@ namespace Tests\Feature;
 
 use App\Models\Confession;
 use App\Models\ConfessionContinuation;
-use App\Support\Lavbe\FeedCursor;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -318,21 +318,23 @@ class UiFoundationTest extends TestCase
             ->assertSee('<meta name="robots" content="noindex,follow">', false);
     }
 
-    public function test_feed_cursor_is_bound_to_locale_and_filter_and_fragments_exclude_robots(): void
+    public function test_feed_uses_only_numbered_html_pages_and_cursor_path_is_gone(): void
     {
-        Confession::factory()->count(13)->create(['locale' => 'az']);
-        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 12);
+        $stories = Confession::factory()->count(13)->create(['locale' => 'az']);
+        $pageOne = $this->get('/az/?sort=popular')->assertOk();
+        $pageTwo = $this->get('/az/?sort=popular&page=2')->assertOk();
 
-        $this->get('/az/feed-fragment?cursor='.urlencode($cursor).'&order=new')
-            ->assertOk()
-            ->assertHeader('X-Robots-Tag', 'noindex')
-            ->assertJsonPath('has_more', false)
-            ->assertJsonPath('next_cursor', null);
+        $firstIds = $pageOne->viewData('confessions')->getCollection()->modelKeys();
+        $secondIds = $pageTwo->viewData('confessions')->getCollection()->modelKeys();
 
-        $this->get('/az/feed-fragment?cursor='.urlencode($cursor).'&order=new&category=family')->assertBadRequest();
-
-        $this->get('/en/feed-fragment?cursor='.urlencode($cursor).'&order=new')->assertBadRequest();
-        $this->get('/az/feed-fragment?cursor=broken&order=new')->assertBadRequest();
+        $this->assertCount(12, $firstIds);
+        $this->assertCount(1, $secondIds);
+        $this->assertSame([], array_values(array_intersect($firstIds, $secondIds)));
+        $this->assertEqualsCanonicalizing($stories->modelKeys(), [...$firstIds, ...$secondIds]);
+        $this->assertStringContainsString('sort=popular&amp;page=2', $pageOne->getContent());
+        $this->get('/az/feed-fragment')->assertNotFound();
+        $this->assertFalse(Schema::hasColumn('confessions', 'publication_sequence'));
+        $this->assertFalse(Schema::hasTable('feed_publications'));
     }
 
     public function test_search_treats_sql_wildcards_and_escape_marker_as_literal_text(): void
@@ -373,14 +375,5 @@ class UiFoundationTest extends TestCase
         $this->post('/ja/search', ['q' => '家族'])
             ->assertOk()
             ->assertSee('家族のことを話したい');
-    }
-
-    public function test_expired_cursor_returns_gone(): void
-    {
-        $this->travelTo(now()->subHours(2));
-        $cursor = app(FeedCursor::class)->issue('az', null, 'new', 12);
-        $this->travelBack();
-
-        $this->get('/az/feed-fragment?cursor='.urlencode($cursor).'&order=new')->assertStatus(410);
     }
 }

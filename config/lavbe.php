@@ -95,8 +95,4 @@ return [
         'weekly' => 'lavbe.sort_weekly',
         'popular' => 'lavbe.sort_popular',
     ],
-    // Cursor fragments retain the continuation order for API compatibility; the public HTML feed only exposes feed_orders.
-    'feed_cursor_orders' => [
-        'new', 'weekly', 'updates', 'popular',
-    ],
 ];

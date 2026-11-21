@@ -61,7 +61,7 @@ Ortaq Blade başlığı, naviqasiya, forma, status, kart, mövzu paneli, skeleto
 
 **Asılılıq:** LAV-000, LAV-001, LAV-002. **Qəbul:** UI-02, LOC-01.
 
-Dil seçiminin prioriteti, axtarışlı menyu, kateqoriya və üç lent rejimi, ilkin HTML, 12 kart, adi link və cursor. Daxili axtarış eyni dilə məhdud qalır. **İcra:** `/{locale}/` və `/{locale}/topics/{key}` HTML, 17 UI locale faylı, public-only read model, səhifələmə, HMAC şifrəli 60 dəqiqəlik feed cursor-u və POST axtarış. Fixture yalnız test factory-dən gəlir. **Sübut:** feature/unit sınaqlar; snapshot-a bağlı həftəlik/yeniləmə sırası, visibility revision və real qonaq/moderasiya yazı modeli LAV-004/005-dən sonra tamamlanacaq, bu mərhələdə tətbiq iddiası yoxdur.
+Dil seçiminin prioriteti, axtarışlı menyu, kateqoriya və üç lent rejimi, ilkin HTML və 12 kartlıq nömrəli linklər. Daxili axtarış eyni dilə məhdud qalır. **İcra:** `/{locale}/` və `/{locale}/topics/{key}` HTML, 17 UI locale faylı, public-only read model, səhifələmə və POST axtarış. Əvvəl əlavə edilmiş, istifadə olunmayan feed cursor LAV-071-də çıxarılıb. Fixture yalnız test factory-dən gəlir. **Sübut:** feature/unit sınaqlar; real qonaq/moderasiya yazı modeli LAV-004/005-dən sonra tamamlanacaq, bu mərhələdə tətbiq iddiası yoxdur.
 
 ## LAV-004 · Qonaq etirafı və sahiblik
 
@@ -159,7 +159,7 @@ Real hosting, cron, SMTP, rollback, məlumatın geri gəlməməsi, 17 dilin isti
 
 **Asılılıq:** cari tətbiq. **Qəbul:** CFG-01.
 
-Dəyişdirilə bilən limit, pagination, cookie/cursor ömrü, rate limit, transaction retry, SEO/cache/pagination parametrləri müvafiq `config/*.php` faylında tək mənbədən idarə olunur; forma və server yoxlamaları eyni dəyərləri oxuyur. Locale mətnləri 17 dil paketindədir. Offline səhifə həmin paketlərdən generasiya olunan tərcümə JSON-unu service worker keşindən oxuyur. Theme palitrası, app adı, hüquqi parametrlər, idempotency key formatı, müəllif aliası, HTTP header-ları və route regex-ləri təkrarsız sahibə malikdir. **Sübut:** CFG-01 config-limit form/server uyğunluğu, generatorun 17 locale çıxışı, code review və CI yoxlamaları. Protokol/kriptoqrafik/DB schema enum və CSS layout kontraktları config deyil; istisnaların səbəbləri `docs/architecture/hardcode-audit.md` sənədindədir.
+Dəyişdirilə bilən limit, pagination, cookie ömrü, rate limit, transaction retry, SEO/cache/pagination parametrləri müvafiq `config/*.php` faylında tək mənbədən idarə olunur; forma və server yoxlamaları eyni dəyərləri oxuyur. Locale mətnləri 17 dil paketindədir. Offline səhifə həmin paketlərdən generasiya olunan tərcümə JSON-unu service worker keşindən oxuyur. Theme palitrası, app adı, hüquqi parametrlər, idempotency key formatı, müəllif aliası, HTTP header-ları və route regex-ləri təkrarsız sahibə malikdir. **Sübut:** CFG-01 config-limit form/server uyğunluğu, generatorun 17 locale çıxışı, code review və CI yoxlamaları. Protokol/kriptoqrafik/DB schema enum və CSS layout kontraktları config deyil; istisnaların səbəbləri `docs/architecture/hardcode-audit.md` sənədindədir.
 
 ## LAV-030 · Oxucu kəşfi və açıq müəllif adı
 
@@ -211,7 +211,7 @@ Hər issue məqsədi, asılılığı, qəbul ID-si və sübutu daşıyır. Branc
 
 **Asılılıq:** LAV-003, LAV-007, LAV-036. **Qəbul:** FEED-01, LOC-02, PAG-01.
 
-Oxucu lentindəki “Davamı gələnlər” sıralamasını “Məşhur etiraflar” sıralaması ilə əvəz et. Xal bütün müddət üzrə aktiv dəstək reaksiyalarını və təsdiqlənmiş unikal açıq rəyçiləri mövcud çəki qaydası ilə hesablayır; bərabərlik yayım vaxtı və ID ilə həll olunur. Davam məzmunu etirafın detail səhifəsində qalır, fragment API-nin mövcud davam sırası isə geriyə uyğunluq üçün ayrıca saxlanır. 17 dilin etiketlərini və lent müqaviləsini yenilə. **Sübut:** sıralama sorğusu, dil paketləri, pagination/filter davranışı, build, Pint, sənəd validatorları və CI.
+Oxucu lentindəki “Davamı gələnlər” sıralamasını “Məşhur etiraflar” sıralaması ilə əvəz et. Xal bütün müddət üzrə aktiv dəstək reaksiyalarını və təsdiqlənmiş unikal açıq rəyçiləri mövcud çəki qaydası ilə hesablayır; bərabərlik yayım vaxtı və ID ilə həll olunur. Davam məzmunu etirafın detail səhifəsində qalır. 17 dilin etiketlərini və lent müqaviləsini yenilə. **Sübut:** sıralama sorğusu, dil paketləri, pagination/filter davranışı, build, Pint, sənəd validatorları və CI.
 
 ## LAV-038 · Header-də seçilmiş dilin native adı
 
@@ -355,7 +355,7 @@ Staging SMTP/MySQL yükü, backup bərpası, CMP/AdSense və hüquqi təsdiq bu 
 
 **Issue:** [#129](https://github.com/fuadoglu/LavbeEtiraf/issues/129). **Asılılıq:** LAV-002, LAV-006, LAV-010, LAV-059. **Qəbul:** PWA-02.
 
-Locale-ə uyğun web app manifest və mövcud lələk ikonunun 192/512 PNG ölçülərini əlavə et. Təhlükəsiz origin-də service worker-i qeydiyyata al. Yalnız ümumi offline səhifəni quraşdırmada cache-lə; navigation HTML, etiraf, hesab, moderator, şikayət, feed fragment və API cavablarını heç vaxt yazma. Yalnız eyni-origin Vite hash-li asset-i uğurlu GET-dən sonra cache edilə bilər. **Sübut:** manifest/locale route, script qeydiyyatı, worker cache siyasəti üçün avtomatik yoxlamalar; mobil install və airplane mode yalnız staging-də yoxlanır.
+Locale-ə uyğun web app manifest və mövcud lələk ikonunun 192/512 PNG ölçülərini əlavə et. Təhlükəsiz origin-də service worker-i qeydiyyata al. Yalnız ümumi offline səhifəni quraşdırmada cache-lə; navigation HTML, etiraf, hesab, moderator, şikayət və API cavablarını heç vaxt yazma. Yalnız eyni-origin Vite hash-li asset-i uğurlu GET-dən sonra cache edilə bilər. **Sübut:** manifest/locale route, script qeydiyyatı, worker cache siyasəti üçün avtomatik yoxlamalar; mobil install və airplane mode yalnız staging-də yoxlanır.
 
 ## LAV-061 · 17 dilli mətnlər və oxu/yazı axınının UI düzəlişləri
 
@@ -416,3 +416,9 @@ Sitemap indeksində hər dil üçün ayrıca `COUNT(*)` və ilk locale xəritəs
 **Issue:** [#153](https://github.com/fuadoglu/LavbeEtiraf/issues/153). **Asılılıq:** LAV-042, LAV-063, LAV-064. **Qəbul:** READ-01, READ-02, READ-04.
 
 Sahibin “365 günlük oxucu kukisi” qərarını Codex-ə həvalə etməsi əsasında məxfilik yönümlü opt-in seç: açıq seçimdən əvvəl reader ID/hash yazma. İmtina və geri götürmə yeni ölçməni dayandırsın, əvvəlki reader kukisini təmizləsin, ictimai oxunuşa mane olmasın. Preferensiyanı zəruri first-party cookie-də saxla, cookie notice səhifəsindən dəyişməyə icazə ver, bütün dillərdə məqsəd və müddəti açıq yaz. Global config bütün izləməni söndürə bilsin. **Sübut:** accept/decline/withdraw, preference TTL/secure/HttpOnly, public read və no-row/no-reader-cookie testləri; 17 locale coverage və MySQL CI. Hüquqi operatorun son region baxışı buraxılış qapısıdır.
+
+## LAV-071 · Lentdə cursor/fragment yolunu çıxarmaq
+
+**Issue:** [#155](https://github.com/fuadoglu/LavbeEtiraf/issues/155). **Asılılıq:** LAV-036, LAV-069. **Qəbul:** UI-02, SEO-04, PAG-02.
+
+Nömrəli HTML pagination lent üçün yeganə naviqasiya müqaviləsi olsun. UI-də bağlı olan cursor/fragment endpoint-i, client recovery kodu, snapshot/cache xidməti, yalnız ona aid config/schema/test-ləri çıxar; ümumi keş təmizləmə funksiyasını saxla. `FeedQuery`, sıralama, pagination page-size limitləri, canonical, robots, kateqoriya filter-i və JavaScript-siz davranış toxunulmaz qalsın. **Sübut:** ana/kateqoriya səhifələrində səhifələrarası ayrıq kartlar, query/filter davamlılığı, cursor route-un 404 olması və migration-ların MySQL CI-də keçməsi.
