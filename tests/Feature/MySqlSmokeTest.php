@@ -71,6 +71,7 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 while (! is_file($argv[3])) { usleep(1000); }
 $request = Illuminate\Http\Request::create('/az/confession/race');
 $request->cookies->set(App\Support\Analytics\UniqueReadCounter::COOKIE_NAME, $argv[2]);
+$request->cookies->set((string) config('analytics.reader_consent_cookie_name'), 'accepted');
 $app->make(App\Support\Analytics\UniqueReadCounter::class)->record($request, App\Models\Confession::query()->findOrFail((int) $argv[1]));
 echo 'recorded';
 PHP;

@@ -55,7 +55,8 @@ class LocaleCopyTest extends TestCase
             $this->get($base.'/')->assertOk()
                 ->assertSee('<html lang="'.$code.'"', false)
                 ->assertSee(Lang::get('navigation.label', [], $code))
-                ->assertSee(Lang::get('lavbe.sort_popular', [], $code));
+                ->assertSee(Lang::get('lavbe.sort_popular', [], $code))
+                ->assertSee(Lang::get('consent.banner_title', [], $code));
             $story = Confession::factory()->create(['locale' => $code, 'public_id' => (string) Str::uuid()]);
             $this->get($base.'/report/confession/'.$story->public_id)->assertOk()->assertSee(Lang::get('reports.details_hint', [], $code));
             $this->get($base.'/my/'.$story->public_id.'/recover')->assertOk()->assertSee(Lang::get('guest.write_recovery_code', [], $code));

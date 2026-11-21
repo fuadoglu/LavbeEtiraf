@@ -34,6 +34,7 @@
     <a class="skip-link" href="#main">{{ __('navigation.skip') }}</a>
     <div class="app-shell">
         <x-site-header />
+        @include('components.reader-consent-banner')
         <main id="main" class="page-content" tabindex="-1">
             @yield('content')
         </main>

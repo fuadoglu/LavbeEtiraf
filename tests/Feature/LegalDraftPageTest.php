@@ -29,6 +29,9 @@ class LegalDraftPageTest extends TestCase
                 $response = $this->get($base.'/legal/'.$page)->assertOk()
                     ->assertSee(__('legal.'.$page.'.title', [], $locale['code']))
                     ->assertSee($body);
+                if ($page === 'cookies') {
+                    $response->assertSee(__('consent.preference_cookie_notice', ['consent_days' => config('analytics.reader_consent_days')], $locale['code']));
+                }
                 $this->assertStringContainsString('no-store', $response->headers->get('Cache-Control'));
                 $this->assertSame('noindex, nofollow, noarchive', $response->headers->get('X-Robots-Tag'));
             }
