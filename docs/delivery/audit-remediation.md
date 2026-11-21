@@ -6,12 +6,14 @@ Qəbul: LOC-01, SEO-01, SEO-04, UI-02. 17 dildə faktiki lent linki detail 200, 
 
 Yerli sübut: composer test — 78 test, 1029 assertion keçdi. AuditUserPathsTest real kart linklərini DOM-dan götürür. Test APP_URL-i localhost-a bağlanıb ki, lokal development domeni nəticəni dəyişməsin. Apache/staging xarici HTTP yoxlaması hələ edilməyib; hosting istifadəçi qərarı ilə təxirə salınıb.
 
-## Sonrakı paketlər
+## Açıq xarici təsdiqlər və ölçmələr
 
-- 17 dilin hesab, iştirak, şikayət və bərpa ekranlarına hazırlanmış mətnlərin inteqrasiyası; sahibin yekun dil baxışı ayrıca qalır.
-- Lent snapshot xərci, rəylərin səhifələnməsi və sitemap sorğu/yaddaş yükünün məhdudlaşdırılması; sintetik yük ölçmələri.
-- Ayrı reklamsız rəy forması, hüquqi səhifələrin əlçatanlığı və sessiya məxfiliyi.
-- Real cihazlar, hüquqi operator məlumatları, backup bərpası və xarici reklam/hostinq yoxlamaları buraxılış qapıları olaraq qalır.
+- Sahibin 17 dil üzrə yekun mətn baxışı və native düzəlişləri.
+- Shared hostingdə 36 500 synthetic public yazı ilə p95, pik PHP yaddaşı, DB sorğu planı və concurrent reader sınağı. Mövcud snapshot həddi per-reader cache yaddaşını məhdudlaşdırır; auditdə təklif olunan real host ölçməsi əvəz olunmur.
+- iPhone Safari/Android Chrome standalone axınları, offline bərpa, operatorun APP_KEY/backup siyasəti və backup-dan bərpa sınağı.
+- Hüquqi səhifə mətnləri, xidmət operatoru və data retention faktları məhsul sahibi tərəfindən təsdiqlənməlidir. İndiki səhifələr draft və noindex-dir.
+- Staging Apache `/robots.txt`, canonical redirect, Search Console/Bing, reklam razılığı və provider hesabları. Hosting yükləməsi hələ təxirə salınıb.
+
 
 ## Sitemap yükü — LAV-022
 
