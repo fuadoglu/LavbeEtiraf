@@ -36,7 +36,7 @@ return [
     'nothing_yet' => 'Здесь пока пусто.',
     'open_confession' => 'Открыть признание',
     'preferences' => 'Настройки уведомлений',
-    'in_app' => 'Уведомления на сайте',
+    'in_app' => 'Уведомления в :app_name',
     'email_notifications' => 'Уведомления по почте (по желанию)',
     'preferences_save' => 'Сохранить настройки',
     'preferences_saved' => 'Настройки сохранены.',

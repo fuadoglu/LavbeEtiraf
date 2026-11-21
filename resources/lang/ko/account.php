@@ -36,7 +36,7 @@ return [
     'nothing_yet' => '아직 아무것도 없어요.',
     'open_confession' => '글 보기',
     'preferences' => '알림 설정',
-    'in_app' => '서비스 내 알림',
+    'in_app' => ':app_name 앱 내 알림',
     'email_notifications' => '이메일 알림(선택)',
     'preferences_save' => '설정 저장',
     'preferences_saved' => '설정을 저장했어요.',

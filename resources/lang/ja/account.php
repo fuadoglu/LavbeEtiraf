@@ -36,7 +36,7 @@ return [
     'nothing_yet' => 'まだ何もありません。',
     'open_confession' => '投稿を開く',
     'preferences' => '通知設定',
-    'in_app' => 'サイト内通知',
+    'in_app' => ':app_nameのアプリ内通知',
     'email_notifications' => 'メール通知（任意）',
     'preferences_save' => '設定を保存',
     'preferences_saved' => '設定を保存しました。',

@@ -36,7 +36,7 @@ return [
     'nothing_yet' => 'Burada henüz bir şey yok.',
     'open_confession' => 'İtirafı aç',
     'preferences' => 'Bildirim tercihleri',
-    'in_app' => 'Uygulama içi bildirimler',
+    'in_app' => ':app_name uygulamasındaki bildirimler',
     'email_notifications' => 'E-posta bildirimleri (isteğe bağlı)',
     'preferences_save' => 'Tercihleri kaydet',
     'preferences_saved' => 'Tercihlerin kaydedildi.',
