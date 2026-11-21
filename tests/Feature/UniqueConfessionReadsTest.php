@@ -20,6 +20,7 @@ class UniqueConfessionReadsTest extends TestCase
     {
         $confession = $this->publishedConfession();
 
+        $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted');
         $firstRead = $this->get('/az/confession/'.$confession->public_id)->assertOk();
         $firstRead->assertSee('aria-label="Unikal oxunuş: 1"', false)->assertSee('aria-hidden="true">1</span>', false);
         $cookie = $firstRead->getCookie(UniqueReadCounter::COOKIE_NAME);
@@ -45,6 +46,69 @@ class UniqueConfessionReadsTest extends TestCase
         $this->assertSame(64, strlen($storedHash));
     }
 
+    public function test_reading_without_consent_does_not_set_a_reader_cookie_or_row(): void
+    {
+        $confession = $this->publishedConfession();
+
+        $this->get('/az/confession/'.$confession->public_id)->assertOk()
+            ->assertCookieMissing(UniqueReadCounter::COOKIE_NAME);
+
+        $this->assertSame(0, $confession->fresh()->unique_read_count);
+        $this->assertDatabaseCount('confession_readers', 0);
+    }
+
+    public function test_consent_can_be_accepted_and_revoked_without_blocking_public_reads(): void
+    {
+        $confession = $this->publishedConfession();
+        $consentName = (string) config('analytics.reader_consent_cookie_name');
+        $path = '/az/confession/'.$confession->public_id;
+        $accepted = $this->post('/az/reader-consent', ['choice' => 'accept', 'return_to' => $path])
+            ->assertRedirect($path)
+            ->assertCookie($consentName, 'accepted');
+        $consentCookie = $accepted->getCookie($consentName);
+        $this->assertTrue($consentCookie->isHttpOnly());
+        $this->assertSame('lax', $consentCookie->getSameSite());
+        $this->assertGreaterThanOrEqual(364 * 86400, $consentCookie->getExpiresTime() - time());
+
+        $read = $this->withCookie($consentName, 'accepted')->get($path)->assertOk();
+        $readerId = $read->getCookie(UniqueReadCounter::COOKIE_NAME)?->getValue();
+        $this->assertNotNull($readerId);
+        $this->assertSame(1, $confession->fresh()->unique_read_count);
+        $this->assertStringNotContainsString(__('consent.banner_title'), $read->getContent());
+
+        $revoked = $this->withCookie(UniqueReadCounter::COOKIE_NAME, $readerId)
+            ->post('/az/reader-consent', ['choice' => 'decline', 'return_to' => $path])
+            ->assertRedirect($path)
+            ->assertCookie($consentName, 'declined');
+        $this->assertLessThan(time(), $revoked->getCookie(UniqueReadCounter::COOKIE_NAME)?->getExpiresTime());
+
+        $deniedRead = $this->withCookie($consentName, 'declined')->get($path)->assertOk();
+        $this->assertLessThan(time(), $deniedRead->getCookie(UniqueReadCounter::COOKIE_NAME)?->getExpiresTime());
+        $this->assertSame(1, $confession->fresh()->unique_read_count);
+        $this->assertDatabaseCount('confession_readers', 1);
+    }
+
+    public function test_global_config_can_disable_tracking_even_after_consent(): void
+    {
+        config(['analytics.unique_read_tracking_enabled' => false]);
+        $confession = $this->publishedConfession();
+        $disabled = $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')
+            ->withCookie(UniqueReadCounter::COOKIE_NAME, bin2hex(random_bytes(32)))
+            ->get('/az/confession/'.$confession->public_id)->assertOk();
+        $this->assertLessThan(time(), $disabled->getCookie(UniqueReadCounter::COOKIE_NAME)?->getExpiresTime());
+        $this->assertSame(0, $confession->fresh()->unique_read_count);
+        $this->assertDatabaseCount('confession_readers', 0);
+    }
+
+    public function test_cookie_notice_page_exposes_changeable_reader_preference(): void
+    {
+        $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'declined')
+            ->get('/az/legal/cookies')->assertOk()
+            ->assertSee(__('consent.status_declined'))
+            ->assertSee('name="choice" value="accept"', false)
+            ->assertSee('name="choice" value="decline"', false);
+    }
+
     public function test_visibility_change_before_counter_write_does_not_leave_a_reader_row(): void
     {
         $confession = $this->publishedConfession();
@@ -53,6 +117,7 @@ class UniqueConfessionReadsTest extends TestCase
         DB::table('confessions')->where('id', $confession->id)->update(['status' => 'hidden']);
         $request = Request::create('/az/confession/'.$confession->public_id);
         $request->cookies->set(UniqueReadCounter::COOKIE_NAME, $readerId);
+        $request->cookies->set((string) config('analytics.reader_consent_cookie_name'), 'accepted');
 
         app(UniqueReadCounter::class)->record($request, $reader);
 
@@ -66,9 +131,11 @@ class UniqueConfessionReadsTest extends TestCase
         $second = $this->publishedConfession();
         $readerId = bin2hex(random_bytes(32));
 
-        $this->withCookie(UniqueReadCounter::COOKIE_NAME, $readerId)
+        $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')
+            ->withCookie(UniqueReadCounter::COOKIE_NAME, $readerId)
             ->get('/az/confession/'.$first->public_id)->assertOk();
-        $this->withCookie(UniqueReadCounter::COOKIE_NAME, $readerId)
+        $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')
+            ->withCookie(UniqueReadCounter::COOKIE_NAME, $readerId)
             ->get('/az/confession/'.$second->public_id)->assertOk();
 
         $hashes = DB::table('confession_readers')->orderBy('confession_id')->pluck('reader_hash');
@@ -84,7 +151,8 @@ class UniqueConfessionReadsTest extends TestCase
             ->assertDontSee('Unikal oxunuş: 0')
             ->assertDontSee('<footer class="story-card-footer">', false);
 
-        $this->get('/az/confession/'.$confession->public_id)->assertOk();
+        $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')
+            ->get('/az/confession/'.$confession->public_id)->assertOk();
         $this->get('/az/')->assertOk()->assertSee('aria-label="Unikal oxunuş: 1"', false)->assertSee('aria-hidden="true">1</span>', false);
     }
 
@@ -97,9 +165,9 @@ class UniqueConfessionReadsTest extends TestCase
         $this->assertSame(0, $confession->fresh()->unique_read_count);
 
         $visible = $this->publishedConfession();
-        $this->withHeader('Purpose', 'prefetch')
+        $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')->withHeader('Purpose', 'prefetch')
             ->get('/az/confession/'.$visible->public_id)->assertOk()->assertCookieMissing(UniqueReadCounter::COOKIE_NAME);
-        $this->withHeader('User-Agent', 'SyntheticSearchBot/1.0')
+        $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')->withHeader('User-Agent', 'SyntheticSearchBot/1.0')
             ->get('/az/confession/'.$visible->public_id)->assertOk()->assertCookieMissing(UniqueReadCounter::COOKIE_NAME);
         $this->assertSame(0, $visible->fresh()->unique_read_count);
         $this->assertDatabaseCount('confession_readers', 0);
@@ -110,7 +178,8 @@ class UniqueConfessionReadsTest extends TestCase
         config(['session.secure' => true]);
         $confession = $this->publishedConfession();
 
-        $response = $this->get('/az/confession/'.$confession->public_id)->assertOk();
+        $response = $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')
+            ->get('/az/confession/'.$confession->public_id)->assertOk();
 
         $this->assertTrue($response->getCookie(UniqueReadCounter::COOKIE_NAME)?->isSecure());
     }
@@ -119,13 +188,15 @@ class UniqueConfessionReadsTest extends TestCase
     {
         config(['analytics.unique_read_retention_days' => 1]);
         $confession = $this->publishedConfession();
-        $first = $this->get('/az/confession/'.$confession->public_id)->assertOk();
+        $first = $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')
+            ->get('/az/confession/'.$confession->public_id)->assertOk();
         $readerId = $first->getCookie(UniqueReadCounter::COOKIE_NAME)?->getValue();
         $this->assertNotNull($readerId);
         $firstSeen = DB::table('confession_readers')->value('last_seen_at');
 
         $this->travel(12)->hours();
-        $this->withCookie(UniqueReadCounter::COOKIE_NAME, $readerId)->get('/az/confession/'.$confession->public_id)->assertOk();
+        $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')
+            ->withCookie(UniqueReadCounter::COOKIE_NAME, $readerId)->get('/az/confession/'.$confession->public_id)->assertOk();
         $this->assertSame(1, $confession->fresh()->unique_read_count);
         $refreshedSeen = DB::table('confession_readers')->value('last_seen_at');
         $this->assertNotSame($firstSeen, $refreshedSeen);

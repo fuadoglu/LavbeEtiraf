@@ -410,3 +410,9 @@ Outbox event-ə son işlənmiş follower user ID cursor-u əlavə et. Hər dəf�
 **Issue:** [#151](https://github.com/fuadoglu/LavbeEtiraf/issues/151). **Asılılıq:** LAV-042, LAV-063. **Qəbul:** SEO-01, SEO-02, SEO-06.
 
 Sitemap indeksində hər dil üçün ayrıca `COUNT(*)` və ilk locale xəritəsində ayrıca category aggregation etmə. Public revision filtri ilə bir locale/category grouped nəticəsindən həm per-locale total, həm kateqoriya availability çıxar. XML row batch-ı, alternates, URL cap, lokallaşdırılmış path və withdrawal davranışını saxla. **Sübut:** index/locale query count, XML range, geri çəkilmiş hekayə testləri və MySQL CI. İllik həcmdə son səhifə vaxtı ayrı benchmark tələb edir.
+
+## LAV-070 · Oxucu sayğacı üçün ayrıca opt-in
+
+**Issue:** [#153](https://github.com/fuadoglu/LavbeEtiraf/issues/153). **Asılılıq:** LAV-042, LAV-063, LAV-064. **Qəbul:** READ-01, READ-02, READ-04.
+
+Sahibin “365 günlük oxucu kukisi” qərarını Codex-ə həvalə etməsi əsasında məxfilik yönümlü opt-in seç: açıq seçimdən əvvəl reader ID/hash yazma. İmtina və geri götürmə yeni ölçməni dayandırsın, əvvəlki reader kukisini təmizləsin, ictimai oxunuşa mane olmasın. Preferensiyanı zəruri first-party cookie-də saxla, cookie notice səhifəsindən dəyişməyə icazə ver, bütün dillərdə məqsəd və müddəti açıq yaz. Global config bütün izləməni söndürə bilsin. **Sübut:** accept/decline/withdraw, preference TTL/secure/HttpOnly, public read və no-row/no-reader-cookie testləri; 17 locale coverage və MySQL CI. Hüquqi operatorun son region baxışı buraxılış qapısıdır.

@@ -11,6 +11,7 @@ use App\Http\Controllers\ModeratorAuthController;
 use App\Http\Controllers\ParticipationController;
 use App\Http\Controllers\PublicConfessionController;
 use App\Http\Controllers\PwaManifestController;
+use App\Http\Controllers\ReaderConsentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\NormalizeFeedPage;
@@ -83,6 +84,7 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
 
     Route::get('/supported', [ParticipationController::class, 'supported'])->middleware(PrivateResponseHeaders::class)->name('confessions.supported');
     Route::get('/manifest.webmanifest', [PwaManifestController::class, 'show'])->name('pwa.manifest');
+    Route::post('/reader-consent', [ReaderConsentController::class, 'update'])->middleware(PrivateResponseHeaders::class)->name('reader-consent.update');
     Route::get('/my/device', [GuestConfessionController::class, 'deviceIndex'])->middleware(PrivateResponseHeaders::class)->name('confessions.device');
     Route::post('/my/device/forget', [GuestConfessionController::class, 'forgetDevice'])->middleware(PrivateResponseHeaders::class)->name('confessions.device.forget');
     Route::get('/legal/{page}', function (string $locale, string $page) {

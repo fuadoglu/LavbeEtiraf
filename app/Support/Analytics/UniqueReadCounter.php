@@ -13,6 +13,13 @@ class UniqueReadCounter
 
     public function record(Request $request, Confession $confession): ?Cookie
     {
+        $consentCookieName = (string) config('analytics.reader_consent_cookie_name');
+        if (! config('analytics.unique_read_tracking_enabled') || $request->cookie($consentCookieName) !== 'accepted') {
+            return $request->cookie(self::COOKIE_NAME) !== null
+                ? cookie()->forget(self::COOKIE_NAME, '/')
+                : null;
+        }
+
         if ($this->isPrefetch($request)) {
             return null;
         }
