@@ -26,7 +26,7 @@
             <div class="feed-main">
                 <div class="page-heading feed-heading @if($confessions->isNotEmpty() && ! $topic) feed-heading--populated @endif">
                     <div>
-                        <h1 id="feed-title">{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
+                        <h1 id="feed-title" @if($topic) class="category-title" @endif>{{ $topic ? ($topic['labels'][app()->getLocale()] ?? $topic['labels']['en']) : __('lavbe.feed_title') }}</h1>
                         @if($confessions->isEmpty() || $topic)
                             <p>{{ $topic ? ($topic['descriptions'][app()->getLocale()] ?? $topic['descriptions']['en']) : __('lavbe.feed_subtitle') }}</p>
                         @endif
