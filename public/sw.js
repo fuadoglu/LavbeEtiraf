@@ -5,7 +5,10 @@ const OFFLINE_COPY_URL = '/offline-copy.json';
 const HASHED_ASSET = /^\/build\/assets\/[A-Za-z0-9._-]+-[A-Za-z0-9_-]{8,}\.(?:css|js|woff2?|png|svg|webp)$/;
 
 self.addEventListener('install', (event) => {
-    event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll([OFFLINE_URL, OFFLINE_COPY_URL])));
+    event.waitUntil(caches.open(CACHE_NAME).then(async (cache) => {
+        await cache.add(OFFLINE_URL);
+        await cache.add(OFFLINE_COPY_URL);
+    }));
     self.skipWaiting();
 });
 
