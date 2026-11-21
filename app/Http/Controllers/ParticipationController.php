@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Confession;
 use App\Models\ConfessionComment;
+use App\Support\Http\ResponseHeaders;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Lavbe\RoutePatterns;
 use App\Support\Participation\ParticipationService;
@@ -25,9 +26,9 @@ class ParticipationController extends Controller
         abort_if($confessions->currentPage() > $confessions->lastPage(), 404);
 
         return response()->view('participation.supported', compact('confessions'))
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function commentForm(string $locale, string $publicId, LocaleRegistry $locales): Response
@@ -36,9 +37,9 @@ class ParticipationController extends Controller
             ->where('public_id', $publicId)->firstOrFail();
 
         return response()->view('participation.comment-form', ['story' => $story])
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function comment(Request $request, string $locale, string $publicId, ParticipationService $participation): Response
@@ -54,16 +55,17 @@ class ParticipationController extends Controller
         ])->validate();
         $body = trim((string) $data['body']);
         abort_if($body === '' || mb_strlen($body, 'UTF-8') > (int) config('lavbe.limits.comment_body'), 422);
-        $result = $participation->submitComment($request, $publicId, $body, $data['idempotency_key'], $data['parent_public_id'] ?? null);
+        $deviceToken = $request->boolean('remember_device') ? $this->deviceToken($request) : null;
+        $result = $participation->submitComment($request, $publicId, $body, $data['idempotency_key'], $data['parent_public_id'] ?? null, $deviceToken);
         $response = response()->view('participation.submitted', [
             'confession' => $result['confession'],
             'comment' => $result['comment'],
             'recoveryCode' => $result['recovery_code'],
         ], 201);
-        if ($result['owner_token'] !== '' && $request->boolean('remember_device')) {
+        if ($deviceToken !== null) {
             $response->headers->setCookie(cookie(
-                'lavbe_comment_'.$result['comment']->public_id,
-                $result['owner_token'],
+                'lavbe_device',
+                $deviceToken,
                 (int) config('lavbe.cookies.owner_minutes'),
                 '/',
                 null,
@@ -160,9 +162,9 @@ class ParticipationController extends Controller
         abort_unless($participation->ownsComment($request, $comment), 404);
 
         return response()->view('participation.comment-status', compact('comment'))
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_ARCHIVE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_NO_ARCHIVE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function recoveryForm(string $locale, string $commentPublicId): Response
@@ -170,9 +172,9 @@ class ParticipationController extends Controller
         abort_unless(ConfessionComment::query()->where('public_id', $commentPublicId)->exists(), 404);
 
         return response()->view('participation.comment-recover', compact('commentPublicId'))
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_ARCHIVE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_NO_ARCHIVE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function recover(Request $request, string $locale, string $commentPublicId, ParticipationService $participation): Response
@@ -184,12 +186,13 @@ class ParticipationController extends Controller
             'recovery_code' => ['required', 'string', 'min:'.config('lavbe.limits.recovery_code_min'), 'max:'.config('lavbe.limits.recovery_code'), 'regex:/^[A-Za-z0-9_-]+$/'],
             'remember_device' => ['sometimes', 'accepted'],
         ])->validate();
-        $result = $participation->recoverComment($request, $commentPublicId, $data['recovery_code']);
+        $deviceToken = $request->boolean('remember_device') ? $this->deviceToken($request) : null;
+        $result = $participation->recoverComment($request, $commentPublicId, $data['recovery_code'], $deviceToken);
         $response = redirect()->route('participation.comment.status', ['locale' => $locale, 'commentPublicId' => $commentPublicId]);
-        if ($request->boolean('remember_device')) {
+        if ($deviceToken !== null) {
             $response->headers->setCookie(cookie(
-                'lavbe_comment_'.$commentPublicId,
-                $result['owner_token'],
+                'lavbe_device',
+                $deviceToken,
                 (int) config('lavbe.cookies.owner_minutes'),
                 '/',
                 null,
@@ -225,11 +228,21 @@ class ParticipationController extends Controller
         if (RateLimiter::tooManyAttempts($key, $limit['attempts'])) {
             return response()->view('confessions.limited', [], 429)
                 ->header('Retry-After', (string) RateLimiter::availableIn($key))
-                ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-                ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_ARCHIVE);
+                ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+                ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_NO_ARCHIVE);
         }
         RateLimiter::hit($key, $limit['decay_seconds']);
 
         return null;
+    }
+
+    private function deviceToken(Request $request): string
+    {
+        $existing = $request->cookie('lavbe_device');
+        if (is_string($existing) && preg_match('/^[A-Za-z0-9_-]{40,48}$/', $existing) === 1) {
+            return $existing;
+        }
+
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 }

@@ -32,14 +32,18 @@ class ParticipationService
         $cookie = $request->cookie('lavbe_comment_'.$comment->public_id);
         $cookieMatches = is_string($cookie) && is_string($ownership->owner_token_hash)
             && hash_equals($ownership->owner_token_hash, $this->keyedHash($cookie));
+        $deviceToken = $request->cookie('lavbe_device');
+        $deviceMatches = is_string($deviceToken) && preg_match('/^[A-Za-z0-9_-]{40,48}$/', $deviceToken) === 1
+            && is_string($ownership->device_token_hash)
+            && hash_equals($ownership->device_token_hash, $this->keyedHash($deviceToken));
 
-        return $sessionMatches || $cookieMatches;
+        return $sessionMatches || $cookieMatches || $deviceMatches;
     }
 
-    /** @return array{comment: ConfessionComment, owner_token: string, recovery_code: string} */
-    public function recoverComment(Request $request, string $publicId, string $recoveryCode): array
+    /** @return array{comment: ConfessionComment, owner_token: string, recovery_code: string, device_token: ?string} */
+    public function recoverComment(Request $request, string $publicId, string $recoveryCode, ?string $deviceToken = null): array
     {
-        return DB::transaction(function () use ($request, $publicId, $recoveryCode): array {
+        return DB::transaction(function () use ($request, $publicId, $recoveryCode, $deviceToken): array {
             $comment = ConfessionComment::query()->where('public_id', $publicId)->lockForUpdate()->first();
             $ownership = $comment?->ownership()->lockForUpdate()->first();
             if (! $comment || ! $ownership || ! hash_equals($ownership->recovery_token_hash, $this->keyedHash($recoveryCode))) {
@@ -52,10 +56,11 @@ class ParticipationService
                 'session_token_hash' => $this->keyedHash($request->session()->getId()),
                 'owner_token_hash' => $this->keyedHash($ownerToken),
                 'recovery_token_hash' => $this->keyedHash($newRecoveryCode),
+                'device_token_hash' => $deviceToken ? $this->keyedHash($deviceToken) : null,
                 'credential_version' => $ownership->credential_version + 1,
             ])->save();
 
-            return ['comment' => $comment, 'owner_token' => $ownerToken, 'recovery_code' => $newRecoveryCode];
+            return ['comment' => $comment, 'owner_token' => $ownerToken, 'recovery_code' => $newRecoveryCode, 'device_token' => $deviceToken];
         }, (int) config('database.transaction_retries'));
     }
 
@@ -150,9 +155,9 @@ class ParticipationService
     }
 
     /** @return array{confession: Confession, comment: ConfessionComment, recovery_code: string, owner_token: string} */
-    public function submitComment(Request $request, string $publicId, string $body, string $idempotencyKey, ?string $parentPublicId = null): array
+    public function submitComment(Request $request, string $publicId, string $body, string $idempotencyKey, ?string $parentPublicId = null, ?string $deviceToken = null): array
     {
-        return DB::transaction(function () use ($request, $publicId, $body, $idempotencyKey, $parentPublicId): array {
+        return DB::transaction(function () use ($request, $publicId, $body, $idempotencyKey, $parentPublicId, $deviceToken): array {
             $confession = $this->lockPublicConfession($publicId);
             abort_unless($confession->reviews_open, 409);
             $participant = $this->participant($request, $confession);
@@ -166,6 +171,12 @@ class ParticipationService
             $existing = ConfessionComment::query()->where('idempotency_hash', $idempotencyHash)->first();
             if ($existing) {
                 abort_unless(hash_equals((string) $existing->idempotency_fingerprint, $fingerprint), 409);
+                $ownership = $existing->ownership;
+                if ($deviceToken !== null && $ownership?->user_id === null
+                    && is_string($ownership->session_token_hash)
+                    && hash_equals($ownership->session_token_hash, $this->keyedHash($request->session()->getId()))) {
+                    $ownership->forceFill(['device_token_hash' => $this->keyedHash($deviceToken)])->save();
+                }
 
                 return ['confession' => $confession, 'comment' => $existing, 'recovery_code' => '', 'owner_token' => ''];
             }
@@ -188,6 +199,7 @@ class ParticipationService
                 'session_token_hash' => $this->keyedHash($request->session()->getId()),
                 'owner_token_hash' => $this->keyedHash($ownerToken),
                 'recovery_token_hash' => $this->keyedHash($recoveryCode),
+                'device_token_hash' => $deviceToken ? $this->keyedHash($deviceToken) : null,
             ]);
             $confession->lock_version++;
             $confession->save();

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CommentOwnership extends Model
 {
-    protected $fillable = ['comment_id', 'session_token_hash', 'owner_token_hash', 'recovery_token_hash', 'credential_version'];
+    protected $fillable = ['comment_id', 'session_token_hash', 'owner_token_hash', 'recovery_token_hash', 'device_token_hash', 'credential_version'];
 
     protected function casts(): array
     {

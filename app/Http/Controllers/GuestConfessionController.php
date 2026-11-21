@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CommentOwnership;
 use App\Models\Confession;
 use App\Models\ConfessionOwnership;
 use App\Models\ConfessionRevision;
 use App\Models\ModerationAudit;
 use App\Models\ModerationOutbox;
-use App\Support\Lavbe\LocaleRegistry;
+use App\Support\Http\ResponseHeaders;
 use App\Support\Lavbe\AuthorAlias;
+use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Lavbe\RoutePatterns;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -44,6 +46,7 @@ class GuestConfessionController extends Controller
         $token = $request->cookie('lavbe_device');
         $deviceHash = is_string($token) && preg_match('/^[A-Za-z0-9_-]{40,48}$/', $token) ? $this->keyedHash($token) : null;
         $legacyCookies = $this->legacyOwnerCookieHashes($request);
+        $legacyCommentCookies = $this->legacyCommentCookieHashes($request);
         $query = Confession::query()->whereRaw('1 = 0');
         if ($deviceHash !== null) {
             $query->orWhereHas('ownership', fn ($ownership) => $ownership
@@ -58,7 +61,7 @@ class GuestConfessionController extends Controller
 
         return $this->privateView('confessions.device-index', [
             'confessions' => $confessions,
-            'canForgetDevice' => $deviceHash !== null || $legacyCookies !== [],
+            'canForgetDevice' => $deviceHash !== null || $legacyCookies !== [] || $legacyCommentCookies !== [],
         ]);
     }
 
@@ -68,8 +71,9 @@ class GuestConfessionController extends Controller
         $token = $request->cookie('lavbe_device');
         $deviceHash = is_string($token) && preg_match('/^[A-Za-z0-9_-]{40,48}$/', $token) ? $this->keyedHash($token) : null;
         $legacyCookies = $this->legacyOwnerCookieHashes($request);
-        $revokedCookieNames = DB::transaction(function () use ($deviceHash, $legacyCookies): array {
-            if ($deviceHash === null && $legacyCookies === []) {
+        $legacyCommentCookies = $this->legacyCommentCookieHashes($request);
+        $revokedCookieNames = DB::transaction(function () use ($deviceHash, $legacyCookies, $legacyCommentCookies): array {
+            if ($deviceHash === null && $legacyCookies === [] && $legacyCommentCookies === []) {
                 return [];
             }
             $ownerships = ConfessionOwnership::query()->with('confession:id,public_id')->whereNull('user_id')
@@ -95,18 +99,41 @@ class GuestConfessionController extends Controller
                 }
             }
 
+            $commentOwnerships = CommentOwnership::query()->with('comment:id,public_id')->whereNull('user_id')
+                ->where(function ($query) use ($deviceHash, $legacyCommentCookies): void {
+                    if ($deviceHash !== null) {
+                        $query->where('device_token_hash', $deviceHash);
+                    }
+                    foreach ($legacyCommentCookies as $publicId => $ownerHash) {
+                        $query->orWhere(fn ($legacy) => $legacy->whereHas('comment', fn ($comment) => $comment->where('public_id', $publicId))
+                            ->where('owner_token_hash', $ownerHash));
+                    }
+                })->orderBy('comment_id')->lockForUpdate()->get();
+            foreach ($commentOwnerships as $ownership) {
+                $ownership->forceFill([
+                    'session_token_hash' => $this->keyedHash('revoked-device-session|'.random_bytes(32)),
+                    'owner_token_hash' => $this->keyedHash('revoked-device-owner|'.random_bytes(32)),
+                    'device_token_hash' => null,
+                    'credential_version' => $ownership->credential_version + 1,
+                ])->save();
+                if ($ownership->comment) {
+                    $cookieNames[] = 'lavbe_comment_'.$ownership->comment->public_id;
+                }
+            }
+
             return $cookieNames;
         }, (int) config('database.transaction_retries'));
         $revokedCookieNames = array_values(array_unique(array_merge(
             $revokedCookieNames,
             array_map(fn (string $publicId): string => 'lavbe_owner_'.$publicId, array_keys($legacyCookies)),
+            array_map(fn (string $publicId): string => 'lavbe_comment_'.$publicId, array_keys($legacyCommentCookies)),
         )));
 
         $response = redirect()->route('confessions.device', ['locale' => $locale])
             ->with('status', __('guest.device_forgotten'))
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
         $response->headers->clearCookie('lavbe_device');
         foreach ($revokedCookieNames as $cookieName) {
             $response->headers->clearCookie($cookieName);
@@ -389,7 +416,7 @@ class GuestConfessionController extends Controller
         }
 
         return redirect()->route('confessions.status', ['locale' => app(LocaleRegistry::class)->urlSegment(app()->getLocale()), 'publicId' => $publicId])
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE);
     }
 
     public function recoveryForm(string $locale, string $publicId): Response|View
@@ -508,6 +535,20 @@ class GuestConfessionController extends Controller
         return $legacy;
     }
 
+    /** @return array<string, string> UUID => owner-token HMAC */
+    private function legacyCommentCookieHashes(Request $request): array
+    {
+        $legacy = [];
+        foreach ($request->cookies->all() as $name => $token) {
+            if (is_string($token) && preg_match('/^[A-Za-z0-9_-]{40,48}$/', $token)
+                && preg_match('/^lavbe_comment_('.RoutePatterns::UUID_V4.')$/i', (string) $name, $matches) === 1) {
+                $legacy[strtolower($matches[1])] = $this->keyedHash($token);
+            }
+        }
+
+        return $legacy;
+    }
+
     private function keyedHash(string $value): string
     {
         return hash_hmac('sha256', $value, (string) config('app.key'));
@@ -540,9 +581,9 @@ class GuestConfessionController extends Controller
     private function privateView(string $view, array $data = [], int $status = 200): Response
     {
         return response()->view($view, $data, $status)
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
             ->header('Pragma', 'no-cache')
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 }
