@@ -152,7 +152,7 @@ class SitemapController extends Controller
 
     private function confessionPageSize(): int
     {
-        return max(1, min(self::PROTOCOL_MAX_URLS, (int) config('seo.sitemap_max_urls')));
+        return max(1, min(self::PROTOCOL_MAX_URLS, (int) config('seo.sitemap_max_urls')) - (int) config('seo.sitemap_reserved_urls'));
     }
 
     private function publicQuery(?string $locale = null): Builder

@@ -13,7 +13,7 @@ return [
     'password_reset' => 'Your password was changed. Sign in with the new password.', 'logout' => 'Sign out', 'my_title' => 'My :app_name',
     'my_intro' => 'Here you’ll find the writing you’ve linked to your account and the stories you follow.', 'my_confessions' => 'My confessions',
     'my_comments' => 'My responses', 'my_follows' => 'Following', 'my_notifications' => 'Notifications', 'nothing_yet' => 'Nothing here yet.', 'open_confession' => 'Open confession',
-    'preferences' => 'Notification preferences', 'in_app' => 'In-app notifications', 'email_notifications' => 'Email notifications (optional)',
+    'preferences' => 'Notification preferences', 'in_app' => 'In-app notifications in :app_name', 'email_notifications' => 'Email notifications (optional)',
     'preferences_save' => 'Save preferences', 'preferences_saved' => 'Your preferences were saved.', 'follow' => 'Follow updates', 'follow_saved' => 'This confession was added to your follows.',
     'follow_removed' => 'This confession was removed from your follows.', 'unfollow' => 'Unfollow', 'claim' => 'Add this writing to my account',
     'claim_complete' => 'This writing is now linked to your account. Its previous guest access was revoked.',

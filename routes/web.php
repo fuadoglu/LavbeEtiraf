@@ -239,7 +239,7 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
 
         return response()->view('search', compact('query', 'results'))
             ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_INDEX)
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_NO_STORE_PRIVATE)
             ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     })->name('search');
 

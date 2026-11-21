@@ -6,6 +6,8 @@ final class ResponseHeaders
 {
     public const CACHE_PRIVATE_NO_STORE = 'private, no-store, max-age=0';
 
+    public const CACHE_NO_STORE_PRIVATE = 'no-store, private';
+
     public const CACHE_NO_STORE = 'no-store';
 
     public const CACHE_PUBLIC_REVALIDATE = 'public, no-cache, must-revalidate';
