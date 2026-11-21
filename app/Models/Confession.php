@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\DB;
 
 class Confession extends Model
 {
@@ -27,15 +26,6 @@ class Confession extends Model
         'reviews_open', 'support_count', 'unique_read_count',
     ];
 
-    protected static function booted(): void
-    {
-        static::saving(function (Confession $confession): void {
-            if ($confession->status === 'public' && $confession->getOriginal('status') !== 'public') {
-                $confession->publication_sequence = DB::table('feed_publications')->insertGetId(['created_at' => now()]);
-            }
-        });
-    }
-
     protected function casts(): array
     {
         return [
@@ -47,7 +37,6 @@ class Confession extends Model
             'ever_public' => 'boolean',
             'lock_version' => 'integer',
             'visibility_version' => 'integer',
-            'publication_sequence' => 'integer',
             'reviews_open' => 'boolean',
             'support_count' => 'integer',
             'unique_read_count' => 'integer',

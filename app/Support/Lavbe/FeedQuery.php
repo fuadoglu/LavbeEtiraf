@@ -64,19 +64,6 @@ class FeedQuery
             $query->reorder()->orderByRaw('COALESCE(ranked_supports.supports, 0) * ? + COALESCE(ranked_commenters.commenters, 0) * ? DESC', [
                 (int) config('feed.support_weight'), (int) config('feed.commenter_weight'),
             ]);
-        } elseif ($order === 'updates') {
-            $continuations = DB::table('confession_continuations as continuations')
-                ->join('confession_continuation_revisions as revisions', function ($join): void {
-                    $join->on('revisions.id', '=', 'continuations.public_revision_id')
-                        ->on('revisions.continuation_id', '=', 'continuations.id');
-                })
-                ->select('continuations.confession_id')->selectRaw('MAX(continuations.published_at) AS latest_continuation')
-                ->where('continuations.status', 'public')->where('revisions.status', 'approved')
-                ->whereNotNull('continuations.published_at')->groupBy('continuations.confession_id');
-            $query->joinSub($continuations, 'live_continuations', 'live_continuations.confession_id', '=', 'confessions.id')
-                ->orderByDesc('live_continuations.latest_continuation');
-
-            return $query->orderByDesc('confessions.id');
         }
 
         return $query->orderByDesc('confessions.published_at')->orderByDesc('confessions.id');

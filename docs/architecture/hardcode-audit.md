@@ -5,9 +5,9 @@ Bu sənəd tətbiq kodundakı sabit dəyərləri kateqoriyalara ayırır. Məqs�
 ## Mərkəzi mənbələri
 
 - Mətn limitləri, sorğu ölçüsü, recovery/idempotency uzunluqları: `config/lavbe.php` → `limits`.
-- Rəy, davam, dəstəklənənlər, hesab, moderasiya və admin axtarış siyahılarının ölçüləri: `config/lavbe.php` → `pagination`. Lent ölçüsü `config/feed.php`-də qalır; cursor TTL-i də həmin config mənbəyindədir.
+- Rəy, davam, dəstəklənənlər, hesab, moderasiya və admin axtarış siyahılarının ölçüləri: `config/lavbe.php` → `pagination`. Lent ölçüsü `config/feed.php`-də qalır.
 - Thread-də kök rəylərin hər səhifədəki sayı, cavab səhifəsinin ölçüsü və ilk səhifədəki cavab önbaxışı ayrı pagination dəyərləridir. Səhifə query açarları view/controller kontraktıdır; hər list üçün unikaldır.
-- Cookie müddətləri, cursor TTL, rate-limit cəhdləri və pəncərələri: `cookies`, `config/feed.php → cursor_ttl_minutes`, `rate_limits`.
+- Cookie müddətləri və rate-limit cəhdləri/pəncərələri: `cookies` və `rate_limits`.
 - Feed sıralama adları dil fayllarından alınır; config yalnız tərcümə açarını saxlayır.
 - UUID v4 route pattern-i və report target/channel siyahıları `RoutePatterns` sinfində bir dəfə saxlanır.
 - Formanın maxlength/minlength dəyərləri server validasiyası ilə eyni config-i istifadə edir.

@@ -60,65 +60,6 @@
         });
     }
 
-    const moreButton = document.querySelector('[data-feed-more]');
-    const feed = document.querySelector('[data-feed]');
-    const feedStatus = document.querySelector('[data-feed-status]');
-    if (moreButton && feed && feedStatus) {
-        let pending = false;
-        let expired = false;
-        let retryCursor = feed.dataset.nextCursor;
-        const loadMore = async () => {
-            if (pending || !retryCursor) return;
-            pending = true;
-            moreButton.disabled = true;
-            feed.setAttribute('aria-busy', 'true');
-            try {
-                const url = new URL(retryCursor ? feed.dataset.nextUrl || moreButton.dataset.endpoint : moreButton.dataset.endpoint, window.location.href);
-                if (!url.searchParams.has('cursor')) url.searchParams.set('cursor', retryCursor);
-                const response = await fetch(url, { headers: { Accept: 'application/json' }, credentials: 'same-origin' });
-                if (response.status === 410) {
-                    expired = true;
-                    feedStatus.textContent = feedStatus.dataset.refreshLabel;
-                    moreButton.hidden = true;
-                    feedStatus.hidden = false;
-                    return;
-                }
-                if (!response.ok) throw new Error('Feed request failed');
-                const payload = await response.json();
-                const existing = new Set([...feed.querySelectorAll('[data-confession-id]')].map((card) => card.dataset.confessionId));
-                const fragment = document.createElement('template');
-                fragment.innerHTML = payload.html;
-                fragment.content.querySelectorAll('[data-confession-id]').forEach((card) => {
-                    if (existing.has(card.dataset.confessionId)) card.remove();
-                });
-                feed.append(fragment.content);
-                retryCursor = payload.next_cursor;
-                feed.dataset.nextCursor = retryCursor || '';
-                feed.dataset.nextUrl = payload.next_url || '';
-                moreButton.hidden = !payload.has_more;
-                feedStatus.textContent = '';
-                feedStatus.hidden = true;
-            } catch {
-                feedStatus.textContent = feedStatus.dataset.retryLabel;
-                feedStatus.hidden = false;
-            } finally {
-                pending = false;
-                moreButton.disabled = false;
-                feed.setAttribute('aria-busy', 'false');
-            }
-        };
-        moreButton.addEventListener('click', loadMore);
-        feedStatus.addEventListener('click', () => {
-            if (pending) return;
-            if (expired) {
-                window.location.reload();
-                return;
-            }
-            feedStatus.hidden = true;
-            loadMore();
-        });
-    }
-
     const themeButton = document.querySelector('[data-theme-toggle]');
     const themeColor = document.querySelector('meta[name="theme-color"]');
 

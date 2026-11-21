@@ -125,7 +125,7 @@ test('private pages, API routes, and cross-origin requests are never stored in C
     for (const url of [
         'https://lavbe.example/az/my',
         'https://lavbe.example/az/moderation',
-        'https://lavbe.example/az/feed-fragment?cursor=secret',
+        'https://lavbe.example/az/account/notifications',
         'https://other.example/build/assets/app-12345678.js',
     ]) {
         assert.equal(await dispatchFetch(worker, { url, method: 'GET', mode: 'cors' }), undefined);

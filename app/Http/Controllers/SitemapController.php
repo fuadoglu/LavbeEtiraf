@@ -72,7 +72,7 @@ class SitemapController extends Controller
     public function robots(): IlluminateResponse
     {
         $base = rtrim((string) config('app.url'), '/');
-        $body = "User-agent: *\nDisallow: /*/my/\nDisallow: /*/moderation\nDisallow: /*/search\nDisallow: /*/feed-fragment\nSitemap: ".$base."/sitemap.xml\n";
+        $body = "User-agent: *\nDisallow: /*/my/\nDisallow: /*/moderation\nDisallow: /*/search\nSitemap: ".$base."/sitemap.xml\n";
 
         return response($body, 200, ['Content-Type' => ResponseHeaders::CONTENT_TYPE_TEXT, 'Cache-Control' => ResponseHeaders::CACHE_PUBLIC_MAX_AGE_PREFIX.(int) config('seo.robots_cache_seconds')]);
     }

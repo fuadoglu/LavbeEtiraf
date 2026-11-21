@@ -28,7 +28,7 @@ MOD-03 və UI-02: etiraf detalında rəylər konfiqurasiyadakı 20-lik HTML səh
 
 ## Lent snapshot həcmi — LAV-025
 
-SEO-04/UI-02: ilk lent sorğusunda cache-ə yazılan üzvlər config/feed.php snapshot_max_members ilə məhdudlaşdırılır (standart 1000). Bütün arxiv nömrəli HTML səhifələrdə görünür; cursor-lu rahat davam seçilmiş axınla bitir. İlk səhifənin ümumi sayı ayrıca SQL COUNT-dan gəlir. FeedSessionTest azaldılmış limitlə cache ölçüsünü, fragment sonunu və HTML page 3 əlçatanlığını yoxlayır. Bu, PHP yaddaş və cache yazısı üçün sərhəd yaradır; SQL say sorğusu və real host cavab vaxtı ayrıca ölçülməlidir.
+LAV-071 ilə bağlı audit tapıntısı: əsas lent artıq nömrəli HTML pagination-dan istifadə edirdi, lakin UI-də olmayan cursor/fragment endpoint-i ayrıca snapshot query, cache, schema və recovery JavaScript saxlayırdı. LAV-071 bu ikinci yolu çıxarır və ümumi cache expiry cleanup-ını saxlayır. Nömrəli HTML hər sorğuda cari public scope-u yoxlayır və JavaScript-siz işləyir. COUNT sorğusunun və real host cavab vaxtının sintetik illik kataloq üzrə ölçülməsi hələ buraxılış qapısıdır.
 
 ## Başlıqda axtarış — LAV-024
 

@@ -13,7 +13,7 @@
 | Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya, hər dildə mövzu adı və izahı. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
 | Laravel tətbiqi | **LAV-001 tamamlanıb.** Laravel 13/Blade əsası, MySQL smoke testi və CI `main`-dədir. |
 | Ortaq UI komponentləri | **LAV-002 tamamlanıb.** UI-01/UI-04 baza komponentləri və sübutları `main`-dədir. |
-| Dil reyestri və lent | **LAV-003 tamamlanıb.** UI-02/LOC-01: dil seçimi, feed read model, 12 kartlıq HTML səhifələmə, cursor, axtarış və 17 dil üzrə ilkin mətnlər `main`-dədir. |
+| Dil reyestri və lent | **LAV-003 tamamlanıb.** UI-02/LOC-01: dil seçimi, feed read model, 12 kartlıq nömrəli HTML səhifələmə, axtarış və 17 dil üzrə ilkin mətnlər `main`-dədir. |
 | Qonaq etirafı və sahiblik | **LAV-004 tamamlanıb.** Mətn forması, moderator baxışına gizli göndəriş, qonaq sahibliyi, birdəfəlik bərpa və 17 dil üçün yazı axını `main`-dədir. |
 | Moderasiya və dərc keçidləri | **LAV-005 tamamlanıb.** MFA, dil üzrə moderator icazələri, versiyalı qərarlar, audit/outbox və sahibin geri çəkmə axını `main`-dədir. |
 | Açıq etiraf və texniki SEO | **LAV-006 tamamlanıb.** Təsdiqlənmiş revision-a bağlı detail, canonical, locale sitemap və məzmun lastmod-u `main`-dədir. |
