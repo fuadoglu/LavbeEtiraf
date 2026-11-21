@@ -12,7 +12,7 @@
     --action: var(--theme-day-action);
     --action-contrast: var(--theme-day-action-contrast);
     --edge: var(--theme-day-edge);
-    --line: color-mix(in srgb, var(--edge) 30%, transparent);
+    --line: color-mix(in srgb, var(--edge) 42%, transparent);
     --hint: color-mix(in srgb, var(--action) 8%, var(--surface));
     --danger: var(--theme-day-danger);
     --success: var(--theme-day-success);
@@ -35,7 +35,7 @@
     --action: var(--theme-night-action);
     --action-contrast: var(--theme-night-action-contrast);
     --edge: var(--theme-night-edge);
-    --line: color-mix(in srgb, var(--edge) 42%, transparent);
+    --line: color-mix(in srgb, var(--edge) 55%, transparent);
     --hint: color-mix(in srgb, var(--action) 12%, var(--surface));
     --danger: var(--theme-night-danger);
     --success: var(--theme-night-success);
@@ -496,7 +496,6 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 
 :root[data-theme="night"] .button-primary { color: var(--action-contrast); }
 :root[data-theme="night"] .sort-link[aria-current="page"] { color: var(--action); }
-:root[data-theme="night"] .topic-chip[aria-current="page"] { color: var(--action-contrast); }
 @media (min-width: 761px) {
     .page-content:has(.feed-page) { width: min(100% - 3rem, 72rem); padding-block-start: 1rem; }
     .feed-layout { display: grid; grid-template-columns: minmax(12rem, 15rem) minmax(0, 42rem); justify-content: center; align-items: start; gap: clamp(1.5rem, 4vw, 4rem); }

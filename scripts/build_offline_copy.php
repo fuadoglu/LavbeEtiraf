@@ -18,5 +18,5 @@ foreach ($catalog['locales'] as $entry) {
     ];
 }
 
-$json = json_encode(['messages' => $copy, 'theme' => $theme['day']], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR).PHP_EOL;
+$json = json_encode(['messages' => $copy, 'theme' => $theme['day'], 'nightTheme' => $theme['night']], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR).PHP_EOL;
 file_put_contents($root.'/public/offline-copy.json', $json);

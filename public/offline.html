@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f8f6f3">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="">
     <title></title>
     <style>
-        :root { color-scheme: light; font-family: system-ui, sans-serif; background: var(--theme-page, Canvas); color: var(--theme-text, CanvasText); }
+        :root { color-scheme: light dark; font-family: system-ui, sans-serif; background: var(--theme-page, Canvas); color: var(--theme-text, CanvasText); }
         body { min-height: 100vh; min-height: 100dvh; margin: 0; display: grid; place-items: center; padding: clamp(.75rem, 4vw, 1.5rem); box-sizing: border-box; }
         main { box-sizing: border-box; inline-size: min(100%, 32rem); padding: clamp(1rem, 5vw, 2rem); border: 1px solid var(--theme-edge, GrayText); border-radius: .8rem; background: var(--theme-surface, Canvas); overflow-wrap: anywhere; text-align: center; box-shadow: var(--theme-shadow, none); }
         h1 { margin: 0; font: 600 clamp(1.6rem, 5vw, 2.4rem)/1.15 Charter, "Iowan Old Style", Georgia, "Noto Serif", serif; text-wrap: balance; }
@@ -40,7 +41,19 @@
             || (navigator.languages || [navigator.language]).map(resolveLocale).find(Boolean)
             || 'en';
         const messages = catalog.messages[locale] || catalog.messages.en;
-        for (const [key, value] of Object.entries(catalog.theme)) document.documentElement.style.setProperty(`--theme-${key.replaceAll('_', '-')}`, value);
+        let savedTheme;
+        try {
+            savedTheme = globalThis.localStorage?.getItem('lavbe-theme');
+        } catch {
+            // A blocked storage preference falls back to the system setting.
+        }
+        const night = savedTheme === 'night'
+            || (savedTheme !== 'day' && globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches);
+        const palette = night && catalog.nightTheme ? catalog.nightTheme : catalog.theme;
+        for (const [key, value] of Object.entries(palette)) document.documentElement.style.setProperty(`--theme-${key.replaceAll('_', '-')}`, value);
+        document.documentElement.style.setProperty('color-scheme', palette === catalog.nightTheme ? 'dark' : 'light');
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) themeColor.content = palette.page;
         document.documentElement.lang = locale;
         document.documentElement.dir = messages.dir;
         document.title = messages.title;

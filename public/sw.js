@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'lavbe-static-';
-const CACHE_NAME = `${CACHE_PREFIX}v2`;
+const CACHE_NAME = `${CACHE_PREFIX}v3`;
 const OFFLINE_URL = '/offline.html';
 const OFFLINE_COPY_URL = '/offline-copy.json';
 const HASHED_ASSET = /^\/build\/assets\/[A-Za-z0-9._-]+-[A-Za-z0-9_-]{8,}\.(?:css|js|woff2?|png|svg|webp)$/;

@@ -10,12 +10,22 @@ Header-də istifadəçinin verdiyi lələk və “Lavbe” söz nişanı birlikd
 
 | Rol | Gündüz | Gecə |
 |---|---|---|
-| Fon | `#F8F6F3` | `#1C191D` |
-| Səth | `#FFFDFC` | `#252126` |
-| Əsas mətn | `#30282E` | `#F4EDF1` |
-| Köməkçi mətn | `#685E65` | `#C5B9C1` |
-| Əsas düymə və yazısı | `#65394F` / `#FFFFFF` | `#E4B3C8` / `#30282E` |
-| Aktiv sahənin sərhədi | `#92838B` | `#8C7E87` |
+| Fon | `#F6E7D8` | `#24191A` |
+| Səth | `#FFF4E8` | `#332324` |
+| Yuxarı səth | `#FFF9F2` | `#402D2D` |
+| Əsas mətn | `#342321` | `#FFEBD8` |
+| Köməkçi mətn | `#6D4F45` | `#D6B4A1` |
+| Əsas düymə | `#803B48` | `#F1A788` |
+| Düymə yazısı | `#FFF8EF` | `#351B1B` |
+| Sahə sərhədi | `#9B7062` | `#AA796C` |
+
+Gündüz isti krem və gavalı tonlarına, gecə isə şabalıdı fon və şaftalı vurğularına əsaslanır. Güclü rəng düymə, seçim və fokus kimi kiçik sahələrdə cəmlənir.
+
+- Wilms və Oberfeld 62 iştirakçı ilə rəngin tonu, doyumluluğu və parlaqlığını ayrı ölçüblər. Daha doymuş və parlaq stimullar daha yüksək emosional oyanıqlıqla əlaqələnib. Sayt üçün buradan çıxarılan dizayn qərarı böyük oxu səthlərində rəngi yumşaq, əsas əməliyyatlarda isə daha aydın saxlamaqdır. [Təcrübə](https://doi.org/10.1007/s00426-017-0880-8)
+- 30 ölkədə 4 598 iştirakçı ilə aparılan tədqiqat ortaq rəng assosiasiyaları və dilə, coğrafiyaya görə fərqlər tapıb. 128 illik ədəbiyyatın sistematik icmalı assosiasiyanın konkret mühitdə hiss edilən emosiyaya birbaşa çevrilməsinin açıq sual olduğunu göstərir. İsti palitranın Lavbe oxucularında rahatlıq hissini artırması bu mənbələrlə ölçülməyib. [Ölkələrarası tədqiqat](https://www.psychologicalscience.org/journals/psychological-science/0956797620948810/) · [Sistematik icmal](https://doi.org/10.3758/s13423-024-02615-z)
+- Mətn kontrastı ayrıca ölçülür. Mətn üzərində xəta tapma təcrübələrində tünd mətnin açıq fonda oxunması daha yaxşı nəticə verib. Gündüz rejimi bu düzülüşdən, gecə isə tünd fonda yüksək kontrastlı açıq mətndən istifadə edir. [Buchner və Baumgartner](https://pubmed.ncbi.nlm.nih.gov/17510822/)
+
+Üç əsas səth üzrə ən aşağı nisbətlər gündüz və gecə üçün müvafiq olaraq belədir: əsas mətn 12.31:1 / 11.11:1, köməkçi mətn 6.07:1 / 6.68:1, sahə sərhədi 3.55:1 / 3.47:1. Əsas düymənin yazısı 7.56:1 / 8.02:1-dir. [WCAG 2.2 kontrast meyarları](https://www.w3.org/TR/WCAG22/#contrast-minimum)
 
 Sistem rejimi ilkin seçimdir. Gündüz və Gecə brauzerdə yadda qalır. İlk görüntüdə uyğun rəng tətbiq edilir. Mətn kontrastı WCAG AA üzrə yoxlanır. Fokus göstəricisi və statusun yazısı rəngdən ayrıca görünür. Sistem şriftləri yerli yazı sisteminə uyğun seçilir. Mətn sahəsi 17–18 px, əsas toxunma sahələri ən az 44 × 44 px, oxu sütunu masaüstündə maksimum 42 rem. Kiçik ekranın minimum sınaq eni 320 CSS px-dir.
 
@@ -42,7 +52,7 @@ Lokal məzmun baxışı üçün `php artisan db:seed --class=AzerbaijaniDemoConf
 
 Lent kartında unikal oxunuş göstəricisi müəllif adının qarşısında, alt footer-in sağ kənarında yerləşir; dar ekranda footer sətirə keçir. Etiraf detail-ində müəllif, tarix və unikal oxunuş sayı köməkçi metadata sətrindədir. Oxunuş göstəricisi ayrıca göz ikonu daşıyır. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
 
-Ortaq palitra açıq krem səthi ilə gavalı vurğusunu, gecə rejimində tünd mürəkkəb fon və solğun çəhrayı vurğunu birləşdirir. İnterfeys idarələri sans-serif, lent və detail hekayə başlıqları editorial serif tipoqrafiyasındadır. Lent kartında kateqoriya və tarix yuxarıda, müəllif və unikal oxunuş isə alt footer-in sol və sağında görünür.
+Ortaq palitra isti krem səthi ilə gavalı vurğusunu, gecə rejimində şabalıdı fon və şaftalı vurğusunu birləşdirir. İnterfeys idarələri sans-serif, lent və detail hekayə başlıqları editorial serif tipoqrafiyasındadır. Lent kartında kateqoriya və tarix yuxarıda, müəllif və unikal oxunuş isə alt footer-in sol və sağında görünür.
 
 Dil seçiminin hər sətrində flag-icons dəstindən yerli SVG bayraq, native ad və onun altında ingiliscə ad göstərilir. Seçilmiş dil işarələnir. Dəstin mənbə commit-i və MIT lisenziyası public/icons/flags qovluğunda saxlanır.
 
@@ -63,4 +73,4 @@ Feed sıralaması üç bərabər sütunlu tabdır: Yeni üçün sparkles, Bu hə
 
 ## 2026-11 · Məzmunu önə çəkən UI qərarları
 
-Dolu lentdə hero dəvəti təkrarlanmır; ilk etirafın başlığı və mətni əsas vizual çəkini alır. Mobildə kateqoriyalar mövzu açılan seçiminin arxasında qalır və sıralama ilə yanaşı düzülür. Masaüstündə mövzular yığcam sol sütunda, lent oxu enində mərkəzdədir. Kart parçası üç sətirdən sonra kəsilir. Yazı formasında ilk fokus sırası hekayə mətni, məcburi başlıq, mövzu, sonra bağlı paylaşım seçimləridir; anonimlik açıq deyilir, ad sahəsi bağlı və autocomplete-sizdir. Detail səhifəsində breadcrumb kateqoriyanı bir dəfə göstərir, oxunuş sayğacı hekayədən sonra qalır, dərc olunmuş müəllif davamı əməliyyatlar və rəylərdən qabaq görünür. Bütün dəyişikliklər server HTML və mövcud komponent dəyişənləri ilə işləyir. Gündüz rejimində əsas mətn/fon kontrastı 13.26:1, ikinci dərəcəli mətn/fon 5.76:1 və düymə yazısı/düymə fonu 9.33:1-dir. Gecə rejimində uyğun nisbətlər 15.11:1, 9.19:1 və 7.89:1-dir; hesablamalar sRGB WCAG nisbi parlaqlıq düsturu ilə aparılıb.
+Dolu lentdə hero dəvəti təkrarlanmır; ilk etirafın başlığı və mətni əsas vizual çəkini alır. Mobildə kateqoriyalar mövzu açılan seçiminin arxasında qalır və sıralama ilə yanaşı düzülür. Masaüstündə mövzular yığcam sol sütunda, lent oxu enində mərkəzdədir. Kart parçası üç sətirdən sonra kəsilir. Yazı formasında ilk fokus sırası hekayə mətni, məcburi başlıq, mövzu, sonra bağlı paylaşım seçimləridir; anonimlik açıq deyilir, ad sahəsi bağlı və autocomplete-sizdir. Detail səhifəsində breadcrumb kateqoriyanı bir dəfə göstərir, oxunuş sayğacı hekayədən sonra qalır, dərc olunmuş müəllif davamı əməliyyatlar və rəylərdən qabaq görünür. Bütün dəyişikliklər server HTML və mövcud komponent dəyişənləri ilə işləyir.

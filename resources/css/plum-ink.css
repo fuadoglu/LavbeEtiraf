@@ -209,7 +209,6 @@
     max-width: var(--ink-measure);
     color: var(--text);
     font: 1rem/1.72 var(--editorial-serif);
-    opacity: .9;
 }
 
 .story-card-footer {
