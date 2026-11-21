@@ -50,7 +50,7 @@
     margin-block-end: .8rem;
 }
 
-.feed-heading h1.category-title {
+#feed-title.category-title {
     font-weight: 400;
 }
 
