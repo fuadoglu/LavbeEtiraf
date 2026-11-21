@@ -6,6 +6,7 @@ use App\Models\Confession;
 use App\Support\Analytics\UniqueReadCounter;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -42,6 +43,21 @@ class UniqueConfessionReadsTest extends TestCase
         $storedHash = DB::table('confession_readers')->where('confession_id', $confession->id)->value('reader_hash');
         $this->assertNotSame($readerId, $storedHash);
         $this->assertSame(64, strlen($storedHash));
+    }
+
+    public function test_visibility_change_before_counter_write_does_not_leave_a_reader_row(): void
+    {
+        $confession = $this->publishedConfession();
+        $reader = $confession->fresh();
+        $readerId = bin2hex(random_bytes(32));
+        DB::table('confessions')->where('id', $confession->id)->update(['status' => 'hidden']);
+        $request = Request::create('/az/confession/'.$confession->public_id);
+        $request->cookies->set(UniqueReadCounter::COOKIE_NAME, $readerId);
+
+        app(UniqueReadCounter::class)->record($request, $reader);
+
+        $this->assertSame(0, $confession->fresh()->unique_read_count);
+        $this->assertDatabaseCount('confession_readers', 0);
     }
 
     public function test_reader_hash_cannot_link_the_same_browser_across_confessions(): void

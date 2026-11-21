@@ -42,39 +42,46 @@ class UniqueReadCounter
         );
 
         DB::transaction(function () use ($confession, $readerHash): void {
-            $currentConfession = DB::table('confessions')
-                ->where('id', $confession->getKey())
-                ->lockForUpdate()
-                ->first(['status', 'unique_read_count']);
-
-            if (! $currentConfession) {
-                return;
-            }
-
-            $currentCount = (int) $currentConfession->unique_read_count;
-            $confession->setAttribute('unique_read_count', $currentCount);
-
-            if ($currentConfession->status !== 'public') {
-                return;
-            }
-
+            $now = now();
             $inserted = DB::table('confession_readers')->insertOrIgnore([
                 'confession_id' => $confession->getKey(),
                 'reader_hash' => $readerHash,
-                'last_seen_at' => now(),
+                'last_seen_at' => $now,
             ]);
 
-            if ($inserted === 1) {
-                DB::table('confessions')->where('id', $confession->getKey())->increment('unique_read_count');
-                $currentCount++;
-            } else {
+            if ($inserted !== 1) {
                 DB::table('confession_readers')
                     ->where('confession_id', $confession->getKey())
                     ->where('reader_hash', $readerHash)
-                    ->update(['last_seen_at' => now()]);
+                    ->update(['last_seen_at' => $now]);
+
+                return;
             }
 
-            $confession->setAttribute('unique_read_count', $currentCount);
+            $counted = DB::table('confessions')
+                ->where('id', $confession->getKey())
+                ->where('status', 'public')
+                ->whereNotNull('published_at')
+                ->whereNotNull('public_revision_id')
+                ->whereExists(function ($query): void {
+                    $query->selectRaw('1')
+                        ->from('confession_revisions')
+                        ->whereColumn('confession_revisions.id', 'confessions.public_revision_id')
+                        ->whereColumn('confession_revisions.confession_id', 'confessions.id')
+                        ->where('confession_revisions.status', 'approved');
+                })
+                ->increment('unique_read_count');
+
+            if ($counted !== 1) {
+                DB::table('confession_readers')
+                    ->where('confession_id', $confession->getKey())
+                    ->where('reader_hash', $readerHash)
+                    ->delete();
+
+                return;
+            }
+
+            $confession->setAttribute('unique_read_count', (int) $confession->unique_read_count + 1);
         });
 
         return $cookie;
