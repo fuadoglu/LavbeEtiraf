@@ -6,6 +6,7 @@ return [
     'mine' => 'Min :app_name-side',
     'nav' => 'Hovedmeny',
     'search_languages' => 'Søk etter språk',
+    'language_no_match' => 'Fant ikke språket. Prøv et annet navn.',
     'night' => 'Bytt til mørk modus',
     'day' => 'Bytt til lys modus',
     'skip' => 'Hopp til innholdet',

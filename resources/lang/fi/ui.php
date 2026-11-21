@@ -6,6 +6,7 @@ return [
     'mine' => 'Oma :app_name',
     'nav' => 'Päävalikko',
     'search_languages' => 'Hae kieltä',
+    'language_no_match' => 'Kieltä ei löytynyt. Kokeile toista nimeä.',
     'night' => 'Vaihda tummaan tilaan',
     'day' => 'Vaihda vaaleaan tilaan',
     'skip' => 'Siirry sisältöön',

@@ -6,6 +6,7 @@ return [
     'mine' => ':app_name 내 공간',
     'nav' => '주 메뉴',
     'search_languages' => '언어 검색',
+    'language_no_match' => '일치하는 언어가 없어요. 다른 이름으로 찾아보세요.',
     'night' => '다크 모드로 전환',
     'day' => '라이트 모드로 전환',
     'skip' => '본문으로 건너뛰기',

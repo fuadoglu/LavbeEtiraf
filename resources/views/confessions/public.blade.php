@@ -110,8 +110,8 @@
                     @csrf
                     <input type="hidden" name="comment_scope" value="inline">
                     <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
-                    <x-form-field :label="__('participation.comment_label')" name="body" id="comment-body-new" :error="old('comment_scope') === 'inline' ? $errors->first('body') : null">
-                        <textarea id="comment-body-new" name="body" maxlength="{{ config('lavbe.limits.comment_body') }}" @if(old('comment_scope') === 'inline' && $errors->has('body')) aria-describedby="comment-body-new-description" @endif aria-invalid="{{ old('comment_scope') === 'inline' && $errors->has('body') ? 'true' : 'false' }}" required>{{ old('comment_scope') === 'inline' ? old('body') : '' }}</textarea>
+                    <x-form-field :label="__('participation.comment_label')" name="body" id="comment-body-new" :error="old('comment_scope') === 'inline' ? (old('_comment_body_error') ?: $errors->first('body')) : null">
+                        <textarea id="comment-body-new" name="body" @if(old('comment_scope') === 'inline' && (old('_comment_body_error') || $errors->has('body'))) autofocus aria-describedby="comment-body-new-description" @endif aria-invalid="{{ old('comment_scope') === 'inline' && (old('_comment_body_error') || $errors->has('body')) ? 'true' : 'false' }}" required>{{ old('comment_scope') === 'inline' ? old('body') : '' }}</textarea>
                     </x-form-field>
                     <label class="age-confirmation"><input id="remember-comment-device" type="checkbox" name="remember_device" value="1"><span>{{ __('participation.remember_device') }}</span></label>
                     <button class="button button-primary" type="submit">{{ __('participation.comment_submit') }}</button>

@@ -33,7 +33,7 @@ Header-də istifadəçinin təqdim etdiyi tam vektor logo göstərilir. Onun lə
 
 ## Əsas qaydalar
 
-- Etiraf və rəy göndərişi 18+ məhsul siyasətidir. Açıq oxu saxlanır. Bazar üzrə tətbiq üsulunu [buraxılış](delivery/operations.md) müəyyən edir.
+- Etiraf və rəy göndərişi 18+ məhsul siyasətidir. Etiraf formasında istifadəçi ayrıca təsdiq verir; rəy və cavab formaları yaş təsdiqi checkbox-u tələb etmir. Checkbox yaşın faktiki yoxlanması sayılmır. Açıq oxu saxlanır. Bazar üzrə tətbiq üsulunu [buraxılış](delivery/operations.md) müəyyən edir.
 - Etiraf mövzusu boşdursa moderator təyin edir. Bir əsas kateqoriya seçilir. Cavab gözləntisi istəyə bağlıdır: sadəcə bölüşmək, bənzər təcrübə eşitmək və ya fikir almaq.
 - Kateqoriya adları və izahları [12 mövzulu xəritəyə](localization.md#kateqoriyaların-sabit-xəritəsi) əsaslanır. Valideynlik `grief` tarixi açarında, yas və yeni başlanğıclar isə `life-changes` açarında saxlanır; köhnə `grief` etirafları data migration ilə yeni uyğun kateqoriyaya keçir.
 - Mətn sadə Unicode mətnidir. Mətn limitlərinin işlək mənbəyi `config/lavbe.php`-dəki `limits` bölməsidir; forma və server yoxlamaları eyni dəyərləri oxuyur. Başlanğıc maksimumları etiraf və davam üçün 6 000, rəy üçün 1 200, başlıq üçün 120 simvoldur. UTF-8 və emoji qəbul olunur. Sintetik SEO söz minimumu yoxdur. Xarici URL mətn kimi görünür.

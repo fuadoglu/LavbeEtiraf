@@ -216,6 +216,15 @@ class AccountWorkflowTest extends TestCase
         $this->assertDatabaseCount('confession_follows', 1);
     }
 
+    public function test_brazilian_portuguese_notification_uses_content_code_and_url_segment_separately(): void
+    {
+        $user = User::factory()->create(['preferred_locale' => 'pt-br', 'email_verified_at' => now()]);
+        $mail = (new FollowedConfessionActivity)->toMail($user);
+
+        $this->assertSame(__('account.notification_subject', [], 'pt-BR'), $mail->subject);
+        $this->assertStringContainsString('/pt-br/my', parse_url($mail->actionUrl, PHP_URL_PATH));
+    }
+
     private function ownedConfession(bool $public = false): array
     {
         $confession = Confession::query()->create([

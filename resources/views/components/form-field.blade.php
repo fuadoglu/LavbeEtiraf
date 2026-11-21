@@ -1,7 +1,9 @@
-@props(['label', 'name', 'hint' => null, 'error' => null, 'id' => null])
+@props(['label', 'name', 'hint' => null, 'error' => false, 'id' => null])
 @php
     $fieldId = $id ?? $name;
-    $error = $error ?? $errors->first($name);
+    $error = $error === false
+        ? (old('_form_errors.'.$name) ?: $errors->first($name))
+        : ($error === '' ? (old('_form_errors.'.$name) ?: '') : $error);
 @endphp
 <div class="form-field">
     <label for="{{ $fieldId }}">{{ $label }}</label>

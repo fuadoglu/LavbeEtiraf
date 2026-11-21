@@ -6,6 +6,7 @@ return [
     'mine' => 'Mein :app_name',
     'nav' => 'Hauptmenü',
     'search_languages' => 'Sprache suchen',
+    'language_no_match' => 'Keine passende Sprache gefunden. Versuch es mit einem anderen Namen.',
     'night' => 'Dunkle Ansicht einschalten',
     'day' => 'Helle Ansicht einschalten',
     'skip' => 'Zum Inhalt springen',

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -36,6 +37,15 @@ class PwaManifestTest extends TestCase
 
         $this->assertIsString($offline);
         $this->assertSame(__('lavbe.offline_title', [], 'en'), $offlineCopy['messages']['en']['title']);
+        $locales = app(LocaleRegistry::class)->all();
+        $this->assertEqualsCanonicalizing(array_column($locales, 'code'), array_keys($offlineCopy['messages']));
+        foreach ($locales as $locale) {
+            $copy = $offlineCopy['messages'][$locale['code']];
+            $this->assertSame(__('lavbe.offline_title', [], $locale['code']), $copy['title']);
+            $this->assertSame(__('lavbe.offline_body', [], $locale['code']), $copy['body']);
+            $this->assertSame(__('lavbe.retry', [], $locale['code']), $copy['retry']);
+            $this->assertSame($locale['dir'], $copy['dir']);
+        }
         $this->assertStringContainsString('offline-copy.json', $offline);
         $this->assertStringNotContainsString('confession', strtolower($offline));
         $this->assertSame([192, 192], array_slice(getimagesize(public_path('icons/lavbe-feather-192.png')), 0, 2));

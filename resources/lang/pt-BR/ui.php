@@ -10,6 +10,7 @@ return [
     'day' => 'Ativar modo claro',
     'skip' => 'Pular para o conteúdo',
     'close' => 'Fechar janela',
+    'language_no_match' => 'Nenhum idioma encontrado. Tente outro nome.',
     'loading' => 'Carregando desabafos',
     'missing' => 'Página não encontrada',
     'missing_body' => 'Não encontramos essa página. Você pode voltar para a lista e escolher outra história para ler.',

@@ -42,4 +42,20 @@ test('remaining count starts at the shared limit and counts Unicode code points'
 test('remaining count never becomes negative', () => {
     const ui = renderCounter('four', 3);
     assert.equal(ui.output.value, '0');
+    assert.equal(ui.input.value, 'fou');
+});
+
+test('typing and pasting enforce the same code-point limit as PHP', () => {
+    const ui = renderCounter('🙂🙂🙂🙂', 3);
+    assert.equal(ui.input.value, '🙂🙂🙂');
+    assert.equal(ui.output.value, '0');
+});
+
+test('IME composition is counted when composition ends', () => {
+    const ui = renderCounter('', 3);
+    ui.input.value = '🙂🙂';
+    ui.listeners.input({ isComposing: true });
+    assert.equal(ui.output.value, '3');
+    ui.listeners.compositionend();
+    assert.equal(ui.output.value, '1');
 });

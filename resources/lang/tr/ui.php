@@ -6,6 +6,7 @@ return [
     'mine' => ':app_name’m',
     'nav' => 'Ana menü',
     'search_languages' => 'Dil ara',
+    'language_no_match' => 'Eşleşen dil bulunamadı. Başka bir adla ara.',
     'night' => 'Koyu moda geç',
     'day' => 'Açık moda geç',
     'skip' => 'İçeriğe geç',

@@ -5,14 +5,23 @@ import vm from 'node:vm';
 
 const workerSource = await readFile(new URL('../../public/sw.js', import.meta.url), 'utf8');
 const appSource = await readFile(new URL('../../resources/js/app.js', import.meta.url), 'utf8');
+const offlineHtml = await readFile(new URL('../../public/offline.html', import.meta.url), 'utf8');
+const offlineCatalog = JSON.parse(await readFile(new URL('../../public/offline-copy.json', import.meta.url), 'utf8'));
 
 function setupWorker({ fetchImpl = async () => ({ ok: true, type: 'basic', clone() { return this; } }) } = {}) {
     const listeners = new Map();
     const cached = new Map();
     const writes = [];
+    const matches = [];
     const cache = {
         async add(key) { cached.set(key, { offline: true }); },
-        async match(key) { return cached.get(typeof key === 'string' ? key : key.url); },
+        async match(key, options = {}) {
+            const value = typeof key === 'string' ? key : key instanceof URL ? key.toString() : key.url;
+            matches.push(value);
+            if (cached.has(value)) return cached.get(value);
+            if (options.ignoreSearch) return cached.get(new URL(value, 'https://lavbe.example').pathname);
+            return undefined;
+        },
         async put(key, response) { writes.push([typeof key === 'string' ? key : key.url, response]); },
     };
     const scope = {
@@ -23,7 +32,7 @@ function setupWorker({ fetchImpl = async () => ({ ok: true, type: 'basic', clone
     };
     const cachesApi = {
         async open() { return cache; },
-        async match(key) { return cache.match(key); },
+        async match(key, options) { return cache.match(key, options); },
         async keys() { return ['lavbe-static-old', 'unrelated-cache']; },
         async delete() { return true; },
     };
@@ -35,7 +44,7 @@ function setupWorker({ fetchImpl = async () => ({ ok: true, type: 'basic', clone
         fetch: fetchImpl,
     });
 
-    return { listeners, cached, writes };
+    return { listeners, cached, matches, writes };
 }
 
 function dispatchFetch(worker, request) {
@@ -44,7 +53,7 @@ function dispatchFetch(worker, request) {
     return responsePromise;
 }
 
-test('navigation uses the network and returns only the generic offline page when offline', async () => {
+test('navigation preserves the requested locale in the generic offline fallback', async () => {
     const worker = setupWorker({ fetchImpl: async () => { throw new Error('offline'); } });
     const installEvent = { waitUntil(promise) { this.promise = promise; } };
     worker.listeners.get('install')(installEvent);
@@ -54,7 +63,61 @@ test('navigation uses the network and returns only the generic offline page when
         url: 'https://lavbe.example/az/my', method: 'GET', mode: 'navigate',
     });
     assert.deepEqual(response, { offline: true });
+    assert.equal(worker.matches.at(-1), 'https://lavbe.example/offline.html?locale=az');
     assert.equal(worker.writes.length, 0);
+});
+
+test('offline shell uses the selected locale before browser language and updates document language', async () => {
+    const script = offlineHtml.match(/<script>([\s\S]*?)<\/script>/)[1];
+    const elements = {
+        '[data-offline-title]': { textContent: 'You’re offline' },
+        '[data-offline-body]': { textContent: 'When you reconnect, you can return to the page you wanted to read.' },
+        '[data-offline-retry]': { textContent: 'Try again', addEventListener(name, listener) { this[name] = listener; } },
+    };
+    const document = {
+        title: '',
+        documentElement: { lang: 'en', dir: 'ltr', style: { setProperty() {} } },
+        querySelector(selector) { return elements[selector]; },
+    };
+    vm.runInNewContext(script, {
+        document,
+        fetch: async () => ({ ok: true, json: async () => offlineCatalog }),
+        location: { search: '?locale=ru', reload() {} },
+        navigator: { languages: ['en-US'], language: 'en-US' },
+        URLSearchParams,
+    });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    assert.equal(document.documentElement.lang, 'ru');
+    assert.equal(document.documentElement.dir, 'ltr');
+    assert.equal(document.title, offlineCatalog.messages.ru.title);
+    assert.equal(elements['[data-offline-retry]'].textContent, offlineCatalog.messages.ru.retry);
+});
+
+test('offline shell keeps readable fallback copy and a working retry when locale JSON fails', async () => {
+    const script = offlineHtml.match(/<script>([\s\S]*?)<\/script>/)[1];
+    const elements = {
+        '[data-offline-title]': { textContent: 'You’re offline' },
+        '[data-offline-body]': { textContent: 'When you reconnect, you can return to the page you wanted to read.' },
+        '[data-offline-retry]': { textContent: 'Try again', addEventListener(name, listener) { this[name] = listener; } },
+    };
+    const document = {
+        title: '',
+        documentElement: { lang: 'en', dir: 'ltr', style: { setProperty() {} } },
+        querySelector(selector) { return elements[selector]; },
+    };
+    let reloaded = false;
+    vm.runInNewContext(script, {
+        document,
+        fetch: async () => { throw new Error('offline copy unavailable'); },
+        location: { search: '?locale=ru', reload() { reloaded = true; } },
+        navigator: { languages: ['en-US'], language: 'en-US' },
+        URLSearchParams,
+    });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    assert.equal(elements['[data-offline-title]'].textContent, 'You’re offline');
+    assert.equal(elements['[data-offline-body]'].textContent.length > 0, true);
+    elements['[data-offline-retry]'].click();
+    assert.equal(reloaded, true);
 });
 
 test('private pages, API routes, and cross-origin requests are never stored in Cache Storage', async () => {
