@@ -12,6 +12,8 @@
 
 Ana lent Hamısı seçimi ilə açılır. Kateqoriya səhifəsi həmin lentin kateqoriya filtrli görünüşüdür. Dil seçimi, kateqoriya, sıralama və səhifələmə serverdə etibarlı qiymətlər üzrə tətbiq edilir. İlk sorğu hazır HTML qaytarır. İlk renderdə skeletlə mətnin üstü örtülmür.
 
+601–760 px aralığında yuxarı naviqasiya yerində qalır: Oxu/Yaz/Mənim etiketləri görünür, dil nəzarətində bayraq göstərilir və header elementləri viewport-a sığır. Mobil alt naviqasiya 600 px və aşağıda, desktop mövzu rail-i 761 px və yuxarıda işləyir.
+
 Kateqoriya səhifəsinin başlığı altında seçilmiş mövzunun həmin dildə izahı görünür. Etiraf yazı formasındakı mövzu bələdçisi açıla bilən siyahıdır; JavaScript olmadan da 12 mövzunun adını və sərhədini oxumaq mümkündür.
 
 Hər səhifədə ən çox 12 kart olur. Nömrəli pagination adi HTML linklərindən ibarətdir və JavaScript olmadan işləyir. Geri düyməsi dil, mövzu və sıralamanı saxlayır; oxu mövqeyi brauzerin standart scroll bərpası ilə idarə olunur. [Lent müqaviləsi](../architecture/feed-contract.md) canonical URL, sort və public visibility qaydalarını müəyyən edir.
