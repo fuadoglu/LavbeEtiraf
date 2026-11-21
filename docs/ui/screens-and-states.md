@@ -18,6 +18,10 @@ Kateqoriya səhifəsinin başlığı altında seçilmiş mövzunun həmin dildə
 
 Hər səhifədə ən çox 12 kart olur. Nömrəli pagination adi HTML linklərindən ibarətdir və JavaScript olmadan işləyir. Geri düyməsi dil, mövzu və sıralamanı saxlayır; oxu mövqeyi brauzerin standart scroll bərpası ilə idarə olunur. [Lent müqaviləsi](../architecture/feed-contract.md) canonical URL, sort və public visibility qaydalarını müəyyən edir.
 
+Yeniləmə cari lent URL-sindəki kateqoriya, sıralama və səhifə nömrəsini saxlayır. Dil seçimi 303 ilə GET səhifəsinə keçir. Yeni dildə lent eyni mövzu və sıralama ilə birinci səhifədən başlayır. Yazı, hüquqi səhifə, axtarış və əsas hesab ekranlarında həmin ekranın seçilmiş dil variantı açılır. Etirafın orijinal dil URL-si sabit qalır və dil seçimi həmin dildəki ana lentə aparır. Axtarış sorğusu POST gövdəsində qalır, dillər arasında ötürülmür.
+
+Başlıq və mətn yazıldıqca bu brauzerdə saxlanır. Yeniləmə, dil keçidi və formaya sonradan qayıtma zamanı qaralama bərpa olunur. Hər iki sahə boşaldılanda və ya qaralamaya uyğun göndəriş uğurla tamamlananda saxlanmış dəyərlər silinir.
+
 [Wireframe atlası](wireframes.html) mobil və masaüstü ekranların təsdiq edilə bilən düzülüşünü, gözləmə, boş, xəta və oflayn vəziyyətlərini göstərir.
 
 ## Vəziyyətlər

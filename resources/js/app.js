@@ -6,6 +6,60 @@
 
     const characterInput = document.querySelector('[data-character-count-input]');
     const characterCount = document.querySelector('[data-character-count]');
+    const draftForm = characterInput?.closest?.('[data-confession-draft]');
+    const draftKey = 'lavbe-confession-draft';
+    const legacyDraftKey = 'lavbe-tab-draft';
+    const pendingDraftKey = 'lavbe-pending-confession-draft';
+    try {
+        if (document.querySelector('[data-clear-confession-draft]')) {
+            const pending = sessionStorage.getItem(pendingDraftKey);
+            const saved = JSON.parse(localStorage.getItem(draftKey));
+            if (pending && saved?.submission === pending) localStorage.removeItem(draftKey);
+            sessionStorage.removeItem(pendingDraftKey);
+            sessionStorage.removeItem(legacyDraftKey);
+        } else if (draftForm) {
+            const title = draftForm.elements.namedItem('title');
+            let saved = JSON.parse(localStorage.getItem(draftKey));
+            if (!saved) {
+                saved = JSON.parse(sessionStorage.getItem(legacyDraftKey));
+                if (saved) localStorage.setItem(draftKey, JSON.stringify(saved));
+            }
+            sessionStorage.removeItem(legacyDraftKey);
+            if (!characterInput.value && !title.value && typeof saved?.body === 'string' && typeof saved.title === 'string') {
+                characterInput.value = saved.body;
+                title.value = saved.title;
+            }
+            const saveDraft = (submission = null) => {
+                try {
+                    const body = characterInput.value;
+                    if (body.trim() || title.value.trim()) {
+                        localStorage.setItem(draftKey, JSON.stringify({ body, title: title.value, submission }));
+                    } else {
+                        localStorage.removeItem(draftKey);
+                    }
+                } catch {
+                    // Browser storage may be unavailable or full.
+                }
+            };
+            for (const field of [characterInput, title]) {
+                field.addEventListener('input', (event) => {
+                    if (!event.isComposing) saveDraft();
+                });
+                field.addEventListener('compositionend', () => saveDraft());
+            }
+            draftForm.addEventListener('submit', () => {
+                const submission = draftForm.elements.namedItem('idempotency_key').value;
+                saveDraft(submission);
+                try {
+                    sessionStorage.setItem(pendingDraftKey, submission);
+                } catch {
+                    // Keep the draft if the submission cannot be matched.
+                }
+            });
+        }
+    } catch {
+        // The form remains usable if browser storage cannot be read.
+    }
     if (characterInput && characterCount) {
         const maximum = Number(characterCount.dataset.max);
         const updateRemaining = (event) => {
@@ -19,6 +73,7 @@
         updateRemaining();
         characterInput.addEventListener('input', updateRemaining);
         characterInput.addEventListener('compositionend', () => updateRemaining());
+        window.addEventListener?.('pageshow', () => updateRemaining());
     }
 
     const languageSearch = document.querySelector('[data-language-search]');
@@ -50,6 +105,9 @@
                 languageSearch.value = '';
                 filterLanguages();
             }
+        });
+        window.addEventListener?.('pageshow', (event) => {
+            if (event.persisted) menu.open = false;
         });
         languageSearch.addEventListener('keydown', (event) => {
             if (event.key !== 'Enter' || event.isComposing) return;

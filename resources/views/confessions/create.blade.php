@@ -9,7 +9,7 @@
             <p class="write-anonymous-note"><x-icon name="shield-check" class="icon-small" />{{ __('guest.write_anonymous') }}</p>
         </header>
 
-        <form class="write-form confession-write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
+        <form class="write-form confession-write-form" data-confession-draft method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
             @csrf
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
