@@ -82,7 +82,7 @@ class UniqueReadCounter
             }
 
             $confession->setAttribute('unique_read_count', (int) $confession->unique_read_count + 1);
-        });
+        }, max(1, (int) config('analytics.unique_read_transaction_attempts')));
 
         return $cookie;
     }
