@@ -16,8 +16,8 @@
         @if(session('status'))<x-status tone="success">{{ session('status') }}</x-status>@endif
         @if($allowed->count() > 1)
             <nav class="topic-panel" aria-label="{{ __('moderation.target_language') }}">
-                <a href="{{ route('moderation.queue', ['locale' => request()->route('locale')]) }}">{{ __('moderation.target_language') }} · {{ __('moderation.all_languages') }}</a>
-                @foreach($allowed as $language)<a href="{{ route('moderation.queue', ['locale' => request()->route('locale'), 'language' => $language]) }}">{{ $language }}</a>@endforeach
+                <a href="{{ route('moderation.queue', ['locale' => request()->route('locale')]) }}" @if(! $selected) aria-current="page" @endif>{{ __('moderation.target_language') }} · {{ __('moderation.all_languages') }}</a>
+                @foreach($allowed as $language)<a href="{{ route('moderation.queue', ['locale' => request()->route('locale'), 'language' => $language]) }}" @if($selected === $language) aria-current="page" @endif>{{ $language }}</a>@endforeach
             </nav>
         @endif
         <nav class="topic-panel" aria-label="{{ __('moderation.state') }}">

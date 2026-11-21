@@ -7,25 +7,25 @@
 <style>
 :root {
   color-scheme: light;
-  --page: #f8f6f3;
-  --panel: #fffdfc;
-  --text: #30282e;
-  --muted: #685e65;
-  --action: #65394f;
-  --on-action: #ffffff;
-  --edge: #92838b;
+  --page: #f6e7d8;
+  --panel: #fff4e8;
+  --text: #342321;
+  --muted: #6d4f45;
+  --action: #803b48;
+  --on-action: #fff8ef;
+  --edge: #9b7062;
   --line: color-mix(in srgb, var(--edge) 30%, transparent);
   --hint: color-mix(in srgb, var(--action) 8%, var(--panel));
 }
 :root[data-theme="night"] {
   color-scheme: dark;
-  --page: #1c191d;
-  --panel: #252126;
-  --text: #f4edf1;
-  --muted: #c5b9c1;
-  --action: #e4b3c8;
-  --on-action: #30282e;
-  --edge: #8c7e87;
+  --page: #24191a;
+  --panel: #332324;
+  --text: #ffebd8;
+  --muted: #d6b4a1;
+  --action: #f1a788;
+  --on-action: #351b1b;
+  --edge: #aa796c;
 }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--text); background: var(--page); font: 1rem/1.55 system-ui, sans-serif; }
@@ -57,10 +57,10 @@ h1, h2, h3, p { margin: 0; }
 .desktop-links { display: flex; gap: 1rem; font-weight: 625; }
 @media (max-width: 440px) { .desktop-links { display: none; } }
 .brand-lockup { display: flex; align-items: center; }
-.brand-logo { display: block; position: relative; width: 132px; aspect-ratio: 3 / 1; overflow: hidden; background: #4b2b3e; -webkit-mask: url('../../public/icons/lavbe-logo.svg') center / 100% 100% no-repeat; mask: url('../../public/icons/lavbe-logo.svg') center / 100% 100% no-repeat; }
-.brand-logo::after { content: ''; position: absolute; inset: 0; background: #a44363; -webkit-mask: url('../../public/icons/lavbe-heart.svg') center / 100% 100% no-repeat; mask: url('../../public/icons/lavbe-heart.svg') center / 100% 100% no-repeat; }
-:root[data-theme="night"] .brand-logo { background: #f2dce5; }
-:root[data-theme="night"] .brand-logo::after { background: #ed91ad; }
+.brand-logo { display: block; position: relative; width: 132px; aspect-ratio: 3 / 1; overflow: hidden; background: #58293c; -webkit-mask: url('../../public/icons/lavbe-logo.svg') center / 100% 100% no-repeat; mask: url('../../public/icons/lavbe-logo.svg') center / 100% 100% no-repeat; }
+.brand-logo::after { content: ''; position: absolute; inset: 0; background: #a64355; -webkit-mask: url('../../public/icons/lavbe-heart.svg') center / 100% 100% no-repeat; mask: url('../../public/icons/lavbe-heart.svg') center / 100% 100% no-repeat; }
+:root[data-theme="night"] .brand-logo { background: #f7d1bb; }
+:root[data-theme="night"] .brand-logo::after { background: #fd977e; }
 .flag { width: 20px; height: 20px; flex: 0 0 20px; border: 1px solid var(--line); border-radius: 50%; background: linear-gradient(#00b5e2 0 33%, #ef3340 33% 66%, #509e2f 66%); }
 .language { display: flex; gap: .45rem; align-items: center; }
 .mobile .current-language, .mobile .language-chevron { display: none; }

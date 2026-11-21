@@ -5,7 +5,7 @@
         ? (old('_form_errors.'.$name) ?: $errors->first($name))
         : ($error === '' ? (old('_form_errors.'.$name) ?: '') : $error);
 @endphp
-<div class="form-field">
+<div @class(['form-field', 'form-field--invalid' => $error])>
     <label for="{{ $fieldId }}">{{ $label }}</label>
     {{ $slot }}
     @if($hint || $error)

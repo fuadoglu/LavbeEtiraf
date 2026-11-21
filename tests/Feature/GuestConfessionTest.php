@@ -130,6 +130,8 @@ class GuestConfessionTest extends TestCase
 
         $this->withCookie('lavbe_device', $deviceToken)->get('/az/my/device')
             ->assertOk()->assertSee('Synthetic title')->assertSee('Baxış gözləyir')->assertDontSee('Unrelated private story')
+            ->assertSee('/az/my/'.$first->public_id, false)
+            ->assertSeeInOrder(['class="device-confession-list"', '<details class="device-access">'], false)
             ->assertHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
         $this->get('/az/my/'.$first->public_id)->assertOk()->assertSee('A synthetic private confession');
 
@@ -137,6 +139,15 @@ class GuestConfessionTest extends TestCase
         $this->withCookie('lavbe_device', $otherDeviceToken)->get('/az/my/device')->assertDontSee('Synthetic title');
         $this->assertNull($unrelated->ownership()->value('device_token_hash'));
         $this->assertSame($first->ownership->device_token_hash, $second->ownership->device_token_hash);
+    }
+
+    public function test_empty_device_page_offers_writing_and_account_access(): void
+    {
+        $this->get('/az/my/device')
+            ->assertOk()
+            ->assertSee(__('guest.device_empty'))
+            ->assertSeeInOrder(['class="empty-state device-empty"', '/az/write', 'class="device-page-actions"', '/az/account/login', '/az/account/register'], false)
+            ->assertDontSee('<details class="device-access">', false);
     }
 
     public function test_write_form_explains_publication_and_search_visibility(): void

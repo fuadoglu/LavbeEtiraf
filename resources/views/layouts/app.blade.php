@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
-    <meta name="theme-color" content="{{ config('theme.day.page') }}">
+    <meta name="theme-color" content="{{ config('theme.day.page') }}" data-day="{{ config('theme.day.page') }}" data-night="{{ config('theme.night.page') }}">
     <link rel="manifest" href="{{ route('pwa.manifest', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}">
     <link rel="apple-touch-icon" href="{{ asset('icons/lavbe-feather-192.png') }}">
     @hasSection('favicon')
@@ -28,7 +28,7 @@
             }
         })();
     </script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/plum-ink.css', 'resources/js/app.js'])
 </head>
 <body>
     <a class="skip-link" href="#main">{{ __('navigation.skip') }}</a>

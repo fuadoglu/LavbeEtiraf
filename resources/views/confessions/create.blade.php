@@ -9,7 +9,7 @@
             <p class="write-anonymous-note"><x-icon name="shield-check" class="icon-small" />{{ __('guest.write_anonymous') }}</p>
         </header>
 
-        <form class="write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
+        <form class="write-form confession-write-form" method="post" action="{{ route('confessions.store', ['locale' => $lavbeLocale['segment']]) }}">
             @csrf
             <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
 
@@ -23,18 +23,21 @@
             </x-form-field>
 
             <x-form-field name="category_key" :label="__('guest.write_topic')">
-                <select @if(old('_form_errors.category_key') || $errors->has('category_key')) aria-describedby="category_key-description" @endif aria-invalid="{{ old('_form_errors.category_key') || $errors->has('category_key') ? 'true' : 'false' }}" id="category_key" name="category_key">
-                    <option value="">—</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category['key'] }}" @selected(old('category_key') === $category['key'])>{{ $category['label'] }}</option>
-                    @endforeach
-                </select>
+                <div class="write-select">
+                    <select @if(old('_form_errors.category_key') || $errors->has('category_key')) aria-describedby="category_key-description" @endif aria-invalid="{{ old('_form_errors.category_key') || $errors->has('category_key') ? 'true' : 'false' }}" id="category_key" name="category_key">
+                        <option value="">—</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category['key'] }}" @selected(old('category_key') === $category['key'])>{{ $category['label'] }}</option>
+                        @endforeach
+                    </select>
+                    <x-icon name="chevron-down" class="icon-small" />
+                </div>
             </x-form-field>
             <details class="topic-guide">
                 <summary>{{ __('guest.topic_guide') }}</summary>
                 <ul>
                     @foreach($categories as $category)
-                        <li><strong><x-icon :name="$category['icon']" class="icon-small" />{{ $category['label'] }}</strong><span>{{ $category['description'] }}</span></li>
+                        <li><div class="topic-guide-name"><x-icon :name="$category['icon']" class="icon-small" />{{ $category['label'] }}</div><span>{{ $category['description'] }}</span></li>
                     @endforeach
                 </ul>
             </details>
@@ -46,19 +49,23 @@
                     <input id="author_display_name" name="author_display_name" maxlength="{{ config('lavbe.limits.author_display_name') }}" value="{{ old('author_display_name') }}" autocomplete="off">
                 </x-form-field>
                 <x-form-field name="response_expectation" :label="__('guest.write_expectation')">
-                <select @if(old('_form_errors.response_expectation') || $errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ old('_form_errors.response_expectation') || $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">
-                        <option value="">—</option>
-                        <option value="share" @selected(old('response_expectation') === 'share')>{{ __('guest.write_share') }}</option>
-                        <option value="similar" @selected(old('response_expectation') === 'similar')>{{ __('guest.write_similar') }}</option>
-                        <option value="advice" @selected(old('response_expectation') === 'advice')>{{ __('guest.write_advice') }}</option>
-                    </select>
+                    <div class="write-select">
+                        <select @if(old('_form_errors.response_expectation') || $errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ old('_form_errors.response_expectation') || $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">
+                            <option value="">—</option>
+                            <option value="share" @selected(old('response_expectation') === 'share')>{{ __('guest.write_share') }}</option>
+                            <option value="similar" @selected(old('response_expectation') === 'similar')>{{ __('guest.write_similar') }}</option>
+                            <option value="advice" @selected(old('response_expectation') === 'advice')>{{ __('guest.write_advice') }}</option>
+                        </select>
+                        <x-icon name="chevron-down" class="icon-small" />
+                    </div>
                 </x-form-field>
             </section>
 
-            <label class="age-confirmation">
-                <input id="age_confirmed" type="checkbox" name="age_confirmed" value="1" required @if(old('_form_errors.age_confirmed') || $errors->has('age_confirmed')) aria-invalid="true" aria-describedby="age-confirmation-error" @endif @if(old('_focus_field') === 'age_confirmed') autofocus @endif @checked(old('age_confirmed'))>
-                <span>{{ __('guest.write_age') }}</span>
-            </label>
+            <div class="age-confirmation">
+                <input id="age_confirmed" type="checkbox" name="age_confirmed" value="1" required aria-labelledby="age-confirmation-label" @if(old('_form_errors.age_confirmed') || $errors->has('age_confirmed')) aria-invalid="true" aria-describedby="age-confirmation-error" @endif @if(old('_focus_field') === 'age_confirmed') autofocus @endif @checked(old('age_confirmed'))>
+                @php([$beforeRules, $afterRules] = explode(':rules', __('guest.write_age'), 2))
+                <span id="age-confirmation-label"><label for="age_confirmed">{{ $beforeRules }}</label><a class="write-rules-link" href="{{ route('legal.page', ['locale' => $lavbeLocale['segment'], 'page' => 'community']) }}">{{ __('guest.write_rules') }}</a><label for="age_confirmed">{{ $afterRules }}</label></span>
+            </div>
             @if(old('_form_errors.age_confirmed') || $errors->has('age_confirmed'))<p id="age-confirmation-error" class="field-description" role="alert">{{ old('_form_errors.age_confirmed') ?: $errors->first('age_confirmed') }}</p>@endif
 
             <label class="age-confirmation">
