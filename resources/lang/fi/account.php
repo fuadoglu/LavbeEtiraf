@@ -36,7 +36,7 @@ return [
     'nothing_yet' => 'Täällä ei ole vielä mitään.',
     'open_confession' => 'Avaa kirjoitus',
     'preferences' => 'Ilmoitusasetukset',
-    'in_app' => 'Ilmoitukset :app_namessa',
+    'in_app' => 'Ilmoitukset :app_name-sovelluksessa',
     'email_notifications' => 'Sähköposti-ilmoitukset (valinnainen)',
     'preferences_save' => 'Tallenna asetukset',
     'preferences_saved' => 'Asetukset tallennettiin.',
