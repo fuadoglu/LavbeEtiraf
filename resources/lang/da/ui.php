@@ -3,7 +3,7 @@
 return [
     'read' => 'Læs',
     'write' => 'Skriv',
-    'mine' => 'Mit Lavbe',
+    'mine' => 'Mit :app_name',
     'nav' => 'Hovedmenu',
     'search_languages' => 'Søg efter sprog',
     'night' => 'Skift til mørk tilstand',

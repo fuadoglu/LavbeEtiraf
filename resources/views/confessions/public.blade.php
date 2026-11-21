@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', (($revision->title ?: mb_substr($revision->body, 0, config('lavbe.public_title_excerpt'), 'UTF-8')).' · Lavbe'))
+@section('title', (($revision->title ?: mb_substr($revision->body, 0, config('lavbe.public_title_excerpt'), 'UTF-8')).' · '.config('app.name')))
 @if($category)
     @section('favicon', asset('icons/lucide/'.$category['icon'].'.svg'))
 @endif
@@ -51,7 +51,7 @@
         <form method="post" action="{{ route('confessions.support', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-action support-action">
             @csrf
             <input type="hidden" name="action" value="{{ $hasSupported ? 'unsupport' : 'support' }}">
-            <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+            <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
             <button class="button button-secondary" aria-label="{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }} · {{ __('participation.support_count', ['count' => number_format((int) $confession->support_count)]) }}" aria-pressed="{{ $hasSupported ? 'true' : 'false' }}" type="submit"><x-icon name="heart" class="icon-small" /><span>{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }}</span><span class="support-count" aria-hidden="true">{{ number_format((int) $confession->support_count) }}</span></button>
         </form>
         @if($canFollow)
@@ -109,7 +109,7 @@
                 <form id="comment-composer" method="post" action="{{ route('confessions.comments.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-form comment-composer">
                     @csrf
                     <input type="hidden" name="comment_scope" value="inline">
-                    <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                    <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
                     <x-form-field :label="__('participation.comment_label')" name="body" id="comment-body-new" :error="old('comment_scope') === 'inline' ? $errors->first('body') : null">
                         <textarea id="comment-body-new" name="body" maxlength="{{ config('lavbe.limits.comment_body') }}" @if(old('comment_scope') === 'inline' && $errors->has('body')) aria-describedby="comment-body-new-description" @endif aria-invalid="{{ old('comment_scope') === 'inline' && $errors->has('body') ? 'true' : 'false' }}" required>{{ old('comment_scope') === 'inline' ? old('body') : '' }}</textarea>
                     </x-form-field>
@@ -137,7 +137,7 @@
                 <h2 id="owner-continuation-heading">{{ __('participation.continuation_heading') }}</h2>
                 <form method="post" action="{{ route('confessions.continuations.store', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}">
                     @csrf
-                    <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                    <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
                     <x-form-field :label="__('participation.continuation_label')" name="body" id="continuation-body"><textarea @if($errors->has('body')) aria-describedby="continuation-body-description" @endif aria-invalid="{{ $errors->has('body') ? 'true' : 'false' }}" id="continuation-body" name="body" maxlength="{{ config('lavbe.limits.continuation_body') }}" required></textarea></x-form-field>
                     <label class="age-confirmation"><input id="confirm_continuation" type="checkbox" name="confirm_continuation" value="1" required><span>{{ __('participation.continuation_confirm') }}</span></label>
                     <button class="button button-primary" type="submit">{{ __('participation.comment_submit') }}</button>
@@ -155,12 +155,12 @@
         </x-dialog>
         <x-dialog id="confession-report-dialog" :title="__('reports.community_title')">
             <p>{{ __('reports.target_confession') }}: {{ $revision->title }}</p>
-            @include('reports.form', ['channel' => 'community', 'confession' => $confession, 'targetType' => 'confession', 'targetPublicId' => $confession->public_id, 'locale' => $localeRecord['segment'], 'idempotencyKey' => bin2hex(random_bytes(16))])
+            @include('reports.form', ['channel' => 'community', 'confession' => $confession, 'targetType' => 'confession', 'targetPublicId' => $confession->public_id, 'locale' => $localeRecord['segment'], 'idempotencyKey' => \App\Support\Security\IdempotencyKey::generate()])
         </x-dialog>
         <x-dialog id="confession-legal-dialog" :title="__('reports.legal_title')">
             <p>{{ __('reports.target_confession') }}: {{ $revision->title }}</p>
             <x-status tone="warning">{{ __('reports.legal_separation') }}</x-status>
-            @include('reports.form', ['channel' => 'legal', 'confession' => $confession, 'targetType' => 'confession', 'targetPublicId' => $confession->public_id, 'locale' => $localeRecord['segment'], 'idempotencyKey' => bin2hex(random_bytes(16))])
+            @include('reports.form', ['channel' => 'legal', 'confession' => $confession, 'targetType' => 'confession', 'targetPublicId' => $confession->public_id, 'locale' => $localeRecord['segment'], 'idempotencyKey' => \App\Support\Security\IdempotencyKey::generate()])
         </x-dialog>
     @endpush
 @endsection

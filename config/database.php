@@ -5,6 +5,8 @@ use Pdo\Mysql;
 
 return [
 
+    'transaction_retries' => (int) env('DB_TRANSACTION_RETRIES', 3),
+
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name

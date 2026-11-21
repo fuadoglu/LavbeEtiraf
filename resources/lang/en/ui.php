@@ -3,7 +3,7 @@
 return [
     'read' => 'Read',
     'write' => 'Write',
-    'mine' => 'My Lavbe',
+    'mine' => 'My :app_name',
     'nav' => 'Main navigation',
     'search_languages' => 'Find a language',
     'night' => 'Switch to dark mode',

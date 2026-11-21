@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class SitemapController extends Controller
 {
+    private const PROTOCOL_MAX_URLS = 50_000;
+
     public function index(LocaleRegistry $locales): StreamedResponse
     {
         $base = rtrim((string) config('app.url'), '/');
@@ -26,7 +28,7 @@ class SitemapController extends Controller
                 }
             }
             echo '</sitemapindex>';
-        }, 200, ['Content-Type' => 'application/xml; charset=UTF-8', 'Cache-Control' => 'public, no-cache, must-revalidate']);
+        }, 200, ['Content-Type' => \App\Support\Http\ResponseHeaders::CONTENT_TYPE_XML, 'Cache-Control' => \App\Support\Http\ResponseHeaders::CACHE_PUBLIC_REVALIDATE]);
     }
 
     public function locale(string $locale, int $page, LocaleRegistry $locales): StreamedResponse
@@ -60,7 +62,7 @@ class SitemapController extends Controller
                 echo '</url>';
             }
             echo '</urlset>';
-        }, 200, ['Content-Type' => 'application/xml; charset=UTF-8', 'Cache-Control' => 'public, no-cache, must-revalidate']);
+        }, 200, ['Content-Type' => \App\Support\Http\ResponseHeaders::CONTENT_TYPE_XML, 'Cache-Control' => \App\Support\Http\ResponseHeaders::CACHE_PUBLIC_REVALIDATE]);
     }
 
     public function robots(): IlluminateResponse
@@ -68,7 +70,7 @@ class SitemapController extends Controller
         $base = rtrim((string) config('app.url'), '/');
         $body = "User-agent: *\nDisallow: /*/my/\nDisallow: /*/moderation\nDisallow: /*/search\nDisallow: /*/feed-fragment\nSitemap: ".$base."/sitemap.xml\n";
 
-        return response($body, 200, ['Content-Type' => 'text/plain; charset=UTF-8', 'Cache-Control' => 'public, max-age=3600']);
+        return response($body, 200, ['Content-Type' => \App\Support\Http\ResponseHeaders::CONTENT_TYPE_TEXT, 'Cache-Control' => \App\Support\Http\ResponseHeaders::CACHE_PUBLIC_MAX_AGE_PREFIX.(int) config('seo.robots_cache_seconds')]);
     }
 
     private function writeAlternateUrl(string $url, array $locales, string $base, ?string $category = null): void
@@ -88,7 +90,7 @@ class SitemapController extends Controller
     /** @return list<array{key: string}> */
     private function eligibleCategories(string $locale, LocaleRegistry $locales, array $counts): array
     {
-        $minimum = (int) config('seo.category_min_public_items', 5);
+        $minimum = (int) config('seo.category_min_public_items');
         $eligible = [];
         foreach ($locales->catalog()['categories'] as $category) {
             $count = $counts[app(LocaleRegistry::class)->contentCode($locale)][$category['key']] ?? 0;
@@ -102,7 +104,7 @@ class SitemapController extends Controller
 
     private function categoryAlternates(string $category, array $locales, array $counts): array
     {
-        $minimum = (int) config('seo.category_min_public_items', 5);
+        $minimum = (int) config('seo.category_min_public_items');
 
         return array_values(array_filter($locales, fn (array $locale): bool => ($counts[$locale['code']][$category] ?? 0) >= $minimum));
     }
@@ -121,7 +123,7 @@ class SitemapController extends Controller
     private function confessionRows(string $locale, int $offset, int $remaining): \Generator
     {
         $lastId = null;
-        $batchSize = max(1, min(1000, (int) config('seo.sitemap_read_batch', 500)));
+        $batchSize = max(1, min((int) config('seo.sitemap_read_batch_max'), (int) config('seo.sitemap_read_batch')));
         while ($remaining > 0) {
             $query = $this->publicQuery($locale)->orderBy('id')->limit(min($batchSize, $remaining));
             if ($lastId === null) {
@@ -150,7 +152,7 @@ class SitemapController extends Controller
 
     private function confessionPageSize(): int
     {
-        return max(1, min(49000, (int) config('seo.sitemap_max_urls', 50000) - 32));
+        return max(1, min(self::PROTOCOL_MAX_URLS, (int) config('seo.sitemap_max_urls')));
     }
 
     private function publicQuery(?string $locale = null): Builder

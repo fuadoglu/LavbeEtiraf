@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $copy['title'].' · Lavbe')
+@section('title', $copy['title'].' · '.config('app.name'))
 
 @push('head')
     <meta name="robots" content="noindex,nofollow">

@@ -17,13 +17,13 @@ class ModeratorMfaService
 
     public function provisioningUri(string $secret, string $email): string
     {
-        $label = rawurlencode('Lavbe:'.$email);
+        $label = rawurlencode(config('app.name').':'.$email);
         $query = http_build_query([
             'secret' => $secret,
-            'issuer' => 'Lavbe',
+            'issuer' => config('app.name'),
             'algorithm' => 'SHA1',
             'digits' => 6,
-            'period' => config('moderation.totp_period_seconds', 30),
+            'period' => config('moderation.totp_period_seconds'),
         ], '', '&', PHP_QUERY_RFC3986);
 
         return 'otpauth://totp/'.$label.'?'.$query;
@@ -61,9 +61,9 @@ class ModeratorMfaService
             return null;
         }
 
-        $period = (int) config('moderation.totp_period_seconds', 30);
+        $period = (int) config('moderation.totp_period_seconds');
         $current = intdiv($timestamp ?? time(), $period);
-        $window = (int) config('moderation.totp_window', 1);
+        $window = (int) config('moderation.totp_window');
         for ($offset = -$window; $offset <= $window; $offset++) {
             $counter = $current + $offset;
             if ($counter < 0 || ($lastCounter !== null && $counter <= $lastCounter)) {

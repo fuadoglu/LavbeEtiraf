@@ -45,7 +45,7 @@ class ParticipationNotificationDelivery
             }
 
             return $created;
-        }, 3);
+        }, (int) config('database.transaction_retries'));
 
         return ['created' => $created, 'emails_sent' => $this->sendPendingEmails(max(1, (int) config('delivery.notifications.email_batch_size')))];
     }
@@ -93,10 +93,10 @@ class ParticipationNotificationDelivery
                 $sent++;
             } catch (Throwable) {
                 $attempts = $notification->email_attempts + 1;
-                $maxAttempts = max(1, (int) config('delivery.notifications.email_max_attempts', 8));
-                $initialDelay = max(1, (int) config('delivery.notifications.email_retry_initial_seconds', 60));
-                $maxDelay = max($initialDelay, (int) config('delivery.notifications.email_retry_max_seconds', 21600));
-                $exponent = min(max(0, $attempts - 1), max(0, (int) config('delivery.notifications.email_retry_exponent_max', 8)));
+                $maxAttempts = max(1, (int) config('delivery.notifications.email_max_attempts'));
+                $initialDelay = max(1, (int) config('delivery.notifications.email_retry_initial_seconds'));
+                $maxDelay = max($initialDelay, (int) config('delivery.notifications.email_retry_max_seconds'));
+                $exponent = min(max(0, $attempts - 1), max(0, (int) config('delivery.notifications.email_retry_exponent_max')));
                 $delay = min($maxDelay, $initialDelay * (2 ** $exponent));
                 $notification->forceFill([
                     'email_claimed_at' => null, 'email_attempts' => $notification->email_attempts + 1,

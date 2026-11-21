@@ -26,4 +26,6 @@ return [
     'refresh' => 'Oppdater strømmen',
     'untitled_confession' => 'Bekjennelse uten tittel',
     'breadcrumb' => 'Brødsmulesti',
+    'offline_title' => "Du er frakoblet",
+    'offline_body' => "Når du er tilkoblet igjen, kan du gå tilbake til siden du ville lese.",
 ];

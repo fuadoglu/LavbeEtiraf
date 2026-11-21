@@ -159,7 +159,7 @@ Real hosting, cron, SMTP, rollback, məlumatın geri gəlməməsi, 17 dilin isti
 
 **Asılılıq:** cari tətbiq. **Qəbul:** CFG-01.
 
-Dəyişdirilə bilən məhsul limitləri, səhifələmə, cookie müddətləri, cursor TTL və rate-limit-lər `config/lavbe.php`-də mərkəzləşdirilir; forma və server yoxlamaları eyni dəyərləri oxuyur. Lokalizə olunan lent sıralama adları dil fayllarından gəlir. Route UUID/şikayət kontraktları təkrarsız pattern sinfində saxlanır. **Sübut:** konfiqurasiya ilə limit dəyişəndə server və forma uyğunluğu testləri, mövcud test/build və sənəd validatorları. `docs/architecture/hardcode-audit.md` qalan istisnaları və növbəti audit sahələrini qeyd edir. Stabil HTTP/HTML/XML, kriptoqrafik, RFC/ISO, verilənlər bazası enum/sxem və fixture protokolları məhsul tuning dəyəri olmadığından avtomatik config-ə daşınmır.
+Dəyişdirilə bilən limit, pagination, cookie/cursor ömrü, rate limit, transaction retry, SEO/cache/pagination parametrləri müvafiq `config/*.php` faylında tək mənbədən idarə olunur; forma və server yoxlamaları eyni dəyərləri oxuyur. Locale mətnləri 17 dil paketindədir. Offline səhifə həmin paketlərdən generasiya olunan tərcümə JSON-unu service worker keşindən oxuyur. Theme palitrası, app adı, hüquqi parametrlər, idempotency key formatı, müəllif aliası, HTTP header-ları və route regex-ləri təkrarsız sahibə malikdir. **Sübut:** CFG-01 config-limit form/server uyğunluğu, generatorun 17 locale çıxışı, code review və CI yoxlamaları. Protokol/kriptoqrafik/DB schema enum və CSS layout kontraktları config deyil; istisnaların səbəbləri `docs/architecture/hardcode-audit.md` sənədindədir.
 
 ## LAV-030 · Oxucu kəşfi və açıq müəllif adı
 

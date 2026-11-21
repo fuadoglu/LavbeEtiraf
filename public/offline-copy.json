@@ -1,0 +1,105 @@
+{
+    "messages": {
+        "en": {
+            "title": "You’re offline",
+            "body": "When you reconnect, you can return to the page you wanted to read.",
+            "retry": "Try again"
+        },
+        "de": {
+            "title": "Du bist offline",
+            "body": "Sobald du wieder verbunden bist, kannst du zur gewünschten Seite zurückkehren.",
+            "retry": "Erneut versuchen"
+        },
+        "fr": {
+            "title": "Vous êtes hors ligne",
+            "body": "Lorsque la connexion sera rétablie, vous pourrez revenir à la page souhaitée.",
+            "retry": "Réessayer"
+        },
+        "nl": {
+            "title": "Je bent offline",
+            "body": "Zodra je weer verbinding hebt, kun je terugkeren naar de pagina die je wilde lezen.",
+            "retry": "Opnieuw proberen"
+        },
+        "sv": {
+            "title": "Du är offline",
+            "body": "När du är ansluten igen kan du återvända till sidan du ville läsa.",
+            "retry": "Försök igen"
+        },
+        "nb": {
+            "title": "Du er frakoblet",
+            "body": "Når du er tilkoblet igjen, kan du gå tilbake til siden du ville lese.",
+            "retry": "Prøv igjen"
+        },
+        "da": {
+            "title": "Du er offline",
+            "body": "Når du er online igen, kan du vende tilbage til den side, du ville læse.",
+            "retry": "Prøv igen"
+        },
+        "fi": {
+            "title": "Olet offline-tilassa",
+            "body": "Kun yhteys palautuu, voit palata sivulle, jota olit lukemassa.",
+            "retry": "Yritä uudelleen"
+        },
+        "ja": {
+            "title": "オフラインです",
+            "body": "接続が回復したら、読みたかったページに戻ることができます。",
+            "retry": "再試行"
+        },
+        "ko": {
+            "title": "오프라인 상태입니다",
+            "body": "다시 연결되면 읽으려던 페이지로 돌아갈 수 있습니다.",
+            "retry": "다시 시도"
+        },
+        "es": {
+            "title": "No tienes conexión",
+            "body": "Cuando vuelvas a conectarte, podrás regresar a la página que querías leer.",
+            "retry": "Intentar de nuevo"
+        },
+        "it": {
+            "title": "Sei offline",
+            "body": "Quando tornerai online, potrai tornare alla pagina che volevi leggere.",
+            "retry": "Riprova"
+        },
+        "pt-BR": {
+            "title": "Você está sem conexão",
+            "body": "Quando se reconectar, você poderá voltar à página que queria ler.",
+            "retry": "Tentar novamente"
+        },
+        "pl": {
+            "title": "Brak połączenia",
+            "body": "Gdy połączenie wróci, możesz wrócić do strony, którą chcesz przeczytać.",
+            "retry": "Spróbuj ponownie"
+        },
+        "tr": {
+            "title": "Çevrimdışısınız",
+            "body": "Yeniden bağlandığınızda okumak istediğiniz sayfaya dönebilirsiniz.",
+            "retry": "Yeniden dene"
+        },
+        "az": {
+            "title": "İnternet bağlantısı yoxdur",
+            "body": "Yenidən qoşulduqda oxumaq istədiyin səhifəyə qayıda bilərsən.",
+            "retry": "Yenidən cəhd et"
+        },
+        "ru": {
+            "title": "Нет подключения",
+            "body": "Когда подключение восстановится, вы сможете вернуться к странице, которую хотели прочитать.",
+            "retry": "Повторить"
+        }
+    },
+    "theme": {
+        "page": "#f8f6f3",
+        "surface": "#fffdfc",
+        "surface_raised": "#ffffff",
+        "text": "#30282e",
+        "muted": "#685e65",
+        "action": "#65394f",
+        "action_contrast": "#ffffff",
+        "edge": "#92838b",
+        "danger": "#a63752",
+        "success": "#276b4b",
+        "warning": "#875600",
+        "shadow": "0 14px 40px rgb(31 24 38 / 16%)",
+        "brand_logo": "#4b2b3e",
+        "brand_accent": "#a44363"
+    }
+}

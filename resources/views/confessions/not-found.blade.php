@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('guest.write_not_found').' · Lavbe')
+@section('title', __('guest.write_not_found').' · '.config('app.name'))
 
 @section('content')
     <section class="write-page submission-result" role="status">

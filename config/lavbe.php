@@ -7,6 +7,8 @@ return [
     // Stable product limits live here so validators and UI fields share one source.
     'limits' => [
         'confession_title' => 120,
+        'author_display_name' => 120,
+        'supported_session_items' => 1000,
         'confession_body' => 6000,
         'continuation_body' => 6000,
         'continuation_request_body' => 25000,
@@ -59,6 +61,7 @@ return [
     'recommendation_pool_per_category' => 8,
     'recommendation_count' => 3,
     'alias_suffix_characters' => 8,
+    'feed_skeleton_count' => 3,
     'rate_limits' => [
         'routes' => [
             'account_register' => ['attempts' => 5, 'decay_minutes' => 1],

@@ -3,7 +3,7 @@
 return [
     'read' => 'Lezen',
     'write' => 'Schrijven',
-    'mine' => 'Mijn Lavbe',
+    'mine' => 'Mijn :app_name',
     'nav' => 'Hoofdmenu',
     'search_languages' => 'Zoek een taal',
     'night' => 'Donkere modus inschakelen',

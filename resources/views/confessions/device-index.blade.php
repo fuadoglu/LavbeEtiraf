@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('guest.device_title').' · Lavbe')
+@section('title', __('guest.device_title').' · '.config('app.name'))
 
 @section('content')
     <section class="write-page submission-result">

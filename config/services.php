@@ -5,6 +5,7 @@ return [
     'indexnow' => [
         'key' => env('INDEXNOW_KEY'),
         'max_attempts' => (int) env('INDEXNOW_MAX_ATTEMPTS', 8),
+        'endpoint' => env('INDEXNOW_ENDPOINT', 'https://api.indexnow.org/indexnow'),
     ],
 
     /*

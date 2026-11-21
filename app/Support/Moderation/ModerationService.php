@@ -113,7 +113,7 @@ class ModerationService
                             'status' => 'public',
                             'title' => $revision->title ?? '',
                             'body' => $revision->body,
-                            'excerpt' => Str::limit(trim(preg_replace('/\s+/u', ' ', $revision->body) ?? ''), 240, ''),
+                            'excerpt' => Str::limit(trim(preg_replace('/\s+/u', ' ', $revision->body) ?? ''), (int) config('lavbe.seo_description_excerpt'), ''),
                             'category_key' => $revision->category_key,
                             'response_expectation' => $revision->response_expectation,
                             'public_revision_id' => $revision->id,
@@ -194,7 +194,7 @@ class ModerationService
                 }
 
                 return ['confession' => $confession, 'replayed' => false];
-            }, 3);
+            }, (int) config('database.transaction_retries'));
         } catch (QueryException $exception) {
             $existing = ModerationAudit::query()->where('idempotency_hash', $idempotencyHash)->first();
             if (! $existing) {
@@ -340,7 +340,7 @@ class ModerationService
                     'occurred_at' => now(),
                 ]);
             }
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     /** @return array{confession_id: int} */

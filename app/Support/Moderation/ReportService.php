@@ -103,7 +103,7 @@ class ReportService
                 ])->save();
 
                 return $group;
-            }, 3);
+            }, (int) config('database.transaction_retries'));
         } catch (QueryException $exception) {
             $existing = ReportSubmission::query()->where('idempotency_hash', $idempotencyHash)->first();
             if ($existing) {
@@ -211,7 +211,7 @@ class ReportService
                 'request_id' => $requestId,
                 'created_at' => now(),
             ]);
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     private function confessionId(string $type, int $targetId): int

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __("reports.{$channel}_title").' · Lavbe')
+@section('title', __("reports.{$channel}_title").' · '.config('app.name'))
 
 @section('content')
     <section class="write-page">

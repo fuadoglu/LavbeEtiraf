@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('guest.write_title').' · Lavbe')
+@section('title', __('guest.write_title').' · '.config('app.name'))
 
 @section('content')
     <section class="write-page">
@@ -43,7 +43,7 @@
                 <h2 id="sharing-options-heading">{{ __('guest.write_options') }}</h2>
                 <p class="field-description">{{ __('guest.author_name_hint') }}</p>
                 <x-form-field name="author_display_name" :label="__('guest.author_name_label')" :error="$errors->first('author_display_name')">
-                    <input id="author_display_name" name="author_display_name" maxlength="120" value="{{ old('author_display_name') }}" autocomplete="off">
+                    <input id="author_display_name" name="author_display_name" maxlength="{{ config('lavbe.limits.author_display_name') }}" value="{{ old('author_display_name') }}" autocomplete="off">
                 </x-form-field>
                 <x-form-field name="response_expectation" :label="__('guest.write_expectation')">
                     <select @if($errors->has('response_expectation')) aria-describedby="response_expectation-description" @endif aria-invalid="{{ $errors->has('response_expectation') ? 'true' : 'false' }}" id="response_expectation" name="response_expectation">

@@ -1,4 +1,4 @@
-@props(['count' => 3])
+@props(['count' => config('lavbe.feed_skeleton_count')])
 <div class="feed-list" aria-label="{{ __('ui.loading') }}" aria-busy="true">
     @for($index = 0; $index < $count; $index++)
         <article class="story-card skeleton-card" aria-hidden="true">

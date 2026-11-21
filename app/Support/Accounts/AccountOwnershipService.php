@@ -37,7 +37,7 @@ class AccountOwnershipService
             ])->save();
 
             return true;
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     public function claimComment(Request $request, User $user, string $publicId): bool
@@ -65,7 +65,7 @@ class AccountOwnershipService
             ])->save();
 
             return true;
-        }, 3);
+        }, (int) config('database.transaction_retries'));
     }
 
     private function keyedHash(string $value): string

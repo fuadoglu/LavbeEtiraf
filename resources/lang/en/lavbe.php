@@ -26,4 +26,6 @@ return [
     'refresh' => 'Refresh feed',
     'untitled_confession' => 'Untitled confession',
     'breadcrumb' => 'Breadcrumb navigation',
+    'offline_title' => "You’re offline",
+    'offline_body' => "When you reconnect, you can return to the page you wanted to read.",
 ];

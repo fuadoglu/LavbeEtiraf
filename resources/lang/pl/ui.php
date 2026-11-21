@@ -3,7 +3,7 @@
 return [
     'read' => 'Czytaj',
     'write' => 'Napisz',
-    'mine' => 'Moje Lavbe',
+    'mine' => 'Moje :app_name',
     'nav' => 'Menu główne',
     'search_languages' => 'Wyszukaj język',
     'night' => 'Włącz tryb ciemny',

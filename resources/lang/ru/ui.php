@@ -3,7 +3,7 @@
 return [
     'read' => 'Читать',
     'write' => 'Написать',
-    'mine' => 'Мой Lavbe',
+    'mine' => 'Мой :app_name',
     'nav' => 'Главное меню',
     'search_languages' => 'Найти язык',
     'night' => 'Включить тёмную тему',

@@ -26,4 +26,6 @@ return [
     'refresh' => 'Feed vernieuwen',
     'untitled_confession' => 'Bekentenis zonder titel',
     'breadcrumb' => 'Kruimelpadnavigatie',
+    'offline_title' => "Je bent offline",
+    'offline_body' => "Zodra je weer verbinding hebt, kun je terugkeren naar de pagina die je wilde lezen.",
 ];

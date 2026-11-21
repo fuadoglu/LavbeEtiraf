@@ -13,7 +13,7 @@ class RequireFreshModeratorMfa
         $user = $request->user();
         $verifiedAt = (int) $request->session()->get('moderator.mfa_verified_at', 0);
         $verifiedUser = (int) $request->session()->get('moderator.mfa_user_id', 0);
-        $freshFor = (int) config('moderation.mfa_fresh_seconds', 300);
+        $freshFor = (int) config('moderation.mfa_fresh_seconds');
 
         if (! $user
             || ! $user->moderatorMfa()->whereNotNull('confirmed_at')->exists()

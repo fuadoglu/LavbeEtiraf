@@ -6,7 +6,7 @@
             <time datetime="{{ $confession->published_at->toIso8601String() }}" lang="{{ app()->getLocale() }}">{{ $confession->published_at->locale(app()->getLocale())->translatedFormat('j M Y') }}</time>
         </div>
         <h2 class="story-title"><a href="{{ route('confessions.public', ['locale' => app(\App\Support\Lavbe\LocaleRegistry::class)->urlSegment($confession->locale), 'publicId' => $confession->public_id]) }}">{{ $confession->title ?: __('lavbe.untitled_confession') }}</a></h2>
-        <p class="story-excerpt">{{ $confession->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($confession->body), 240) }}</p>
+        <p class="story-excerpt">{{ $confession->excerpt ?? \Illuminate\Support\Str::limit(strip_tags($confession->body), config('lavbe.seo_description_excerpt')) }}</p>
         @if($confession->public_comment_count > 0 || $confession->public_continuation_count > 0 || $confession->unique_read_count > 0)
         <footer class="story-card-footer">
             <p class="story-author"><x-icon name="user-round" class="icon-small" />{{ $confession->author_alias }}</p>

@@ -13,12 +13,12 @@ Artisan::command('inspire', function () {
 Schedule::command('lavbe:deliver-notifications')->everyMinute()->withoutOverlapping();
 Schedule::command('lavbe:indexnow')->everyMinute()->withoutOverlapping();
 Schedule::command('lavbe:prune-expired-cache')->daily()->withoutOverlapping();
-Schedule::command('lavbe:prune-confession-readers')->dailyAt('03:30')->withoutOverlapping();
+Schedule::command('lavbe:prune-confession-readers')->dailyAt(config('analytics.unique_read_cleanup_schedule'))->withoutOverlapping();
 
 Artisan::command('lavbe:prune-confession-readers {--batches=}', function (): int {
-    $retentionDays = max(1, (int) config('analytics.unique_read_retention_days', 365));
-    $batchSize = max(1, (int) config('analytics.unique_read_cleanup_batch', 1000));
-    $batches = min(50, max(1, (int) ($this->option('batches') ?: config('analytics.unique_read_cleanup_batches_per_run', 10))));
+    $retentionDays = max(1, (int) config('analytics.unique_read_retention_days'));
+    $batchSize = max(1, (int) config('analytics.unique_read_cleanup_batch'));
+    $batches = min((int) config('analytics.unique_read_cleanup_max_batches_per_run'), max(1, (int) ($this->option('batches') ?: config('analytics.unique_read_cleanup_batches_per_run'))));
     $cutoff = now()->subDays($retentionDays);
     $deleted = 0;
 

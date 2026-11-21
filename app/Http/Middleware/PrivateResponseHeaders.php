@@ -22,10 +22,10 @@ class PrivateResponseHeaders
             $handler->report($exception);
             $response = $handler->render($request, $exception);
         }
-        $response->headers->set('Cache-Control', 'private, no-store, max-age=0');
+        $response->headers->set('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE);
         $response->headers->set('Pragma', 'no-cache');
-        $response->headers->set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-        $response->headers->set('Referrer-Policy', 'no-referrer');
+        $response->headers->set('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE);
+        $response->headers->set('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
 
         return $response;
     }

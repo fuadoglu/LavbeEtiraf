@@ -13,7 +13,7 @@
         <form method="post" action="{{ route('confessions.comments.reaction', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id, 'commentPublicId' => $comment->public_id]) }}">
             @csrf
             <input type="hidden" name="action" value="{{ $isReacted ? 'unreact' : 'react' }}">
-            <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+            <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
             <button class="button button-secondary comment-reaction" type="submit" aria-pressed="{{ $isReacted ? 'true' : 'false' }}">
                 <x-icon name="heart" />
                 <span>{{ __($isReacted ? 'participation.comment_reaction_remove' : 'participation.comment_reaction') }}</span>
@@ -34,7 +34,7 @@
     @elseif($ownerCanParticipate && $comment->status === 'public')
         <form method="post" action="{{ route('confessions.comment.response', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id, 'commentPublicId' => $comment->public_id]) }}" class="comment-inline-form">
             @csrf
-            <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+            <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
             <x-form-field :label="__('participation.author_response')" name="body" :id="'response-body-'.$comment->id">
                 <textarea id="response-body-{{ $comment->id }}" name="body" maxlength="{{ config('lavbe.limits.response_body') }}" required></textarea>
             </x-form-field>
@@ -49,7 +49,7 @@
                 @csrf
                 <input type="hidden" name="comment_scope" value="reply">
                 <input type="hidden" name="parent_public_id" value="{{ $comment->public_id }}">
-                <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
                 <x-form-field :label="__('participation.comment_label')" name="body" :id="'reply-body-'.$comment->id" :error="$replyError">
                     <textarea id="reply-body-{{ $comment->id }}" name="body" maxlength="{{ config('lavbe.limits.comment_body') }}" @if($replyError) aria-describedby="reply-body-{{ $comment->id }}-description" @endif aria-invalid="{{ $replyError ? 'true' : 'false' }}" required>{{ $hasOldReply ? old('body') : '' }}</textarea>
                 </x-form-field>

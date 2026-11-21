@@ -14,20 +14,20 @@ class PwaManifestController extends Controller
 
         return response()->json([
             'id' => route('home', ['locale' => $entry['segment']], false),
-            'name' => __('lavbe.feed_title').' · Lavbe',
-            'short_name' => 'Lavbe',
+            'name' => __('lavbe.feed_title').' · '.config('app.name'),
+            'short_name' => config('app.name'),
             'description' => __('lavbe.feed_title'),
             'lang' => $entry['code'],
             'start_url' => route('home', ['locale' => $entry['segment']], false),
             'scope' => '/',
             'display' => 'standalone',
-            'background_color' => '#f8f6f3',
-            'theme_color' => '#f8f6f3',
+            'background_color' => config('theme.day.page'),
+            'theme_color' => config('theme.day.page'),
             'icons' => [
                 ['src' => asset('icons/lavbe-feather-192.png'), 'sizes' => '192x192', 'type' => 'image/png', 'purpose' => 'any'],
                 ['src' => asset('icons/lavbe-feather-512.png'), 'sizes' => '512x512', 'type' => 'image/png', 'purpose' => 'any'],
                 ['src' => asset('icons/lavbe-feather.svg'), 'sizes' => 'any', 'type' => 'image/svg+xml', 'purpose' => 'any'],
             ],
-        ], 200, ['Cache-Control' => 'public, max-age=3600']);
+        ], 200, ['Cache-Control' => \App\Support\Http\ResponseHeaders::CACHE_PUBLIC_MAX_AGE_PREFIX.(int) config('pwa.manifest_cache_seconds')]);
     }
 }

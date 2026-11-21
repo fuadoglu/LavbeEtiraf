@@ -32,7 +32,7 @@ Route::pattern('targetPublicId', RoutePatterns::UUID_V4);
 Route::pattern('commentPublicId', RoutePatterns::UUID_V4);
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
-Route::get('/{key}.txt', IndexNowKeyController::class)->where('key', '[A-Za-z0-9-]{8,128}')->name('indexnow.key');
+Route::get('/{key}.txt', IndexNowKeyController::class)->where('key', RoutePatterns::INDEXNOW_KEY)->name('indexnow.key');
 
 Route::get('/', function (Request $request, LocaleRegistry $locales) {
     $locale = $locales->resolveTag((string) $request->cookie('lavbe_locale'))
@@ -43,7 +43,7 @@ Route::get('/', function (Request $request, LocaleRegistry $locales) {
     return redirect()->route('home', ['locale' => $locale['segment']], 302);
 })->name('root');
 
-Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middleware([SetLocale::class, ValidatePaginationParameters::class])->group(function (): void {
+Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->middleware([SetLocale::class, ValidatePaginationParameters::class])->group(function (): void {
     $routeThrottle = static function (string $key): string {
         $limit = config('lavbe.rate_limits.routes.'.$key);
 
@@ -76,7 +76,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             'categories' => $categories,
             'confessions' => $confessions,
             'canonical' => $canonical,
-            'categoryIndexable' => $category === null || $confessions->total() >= (int) config('seo.category_min_public_items', 5),
+            'categoryIndexable' => $category === null || $confessions->total() >= (int) config('seo.category_min_public_items'),
         ]);
     })->middleware(NormalizeFeedPage::class)->name('home');
 
@@ -87,10 +87,15 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
     Route::get('/legal/{page}', function (string $locale, string $page) {
         $copy = __('legal.'.$page);
         abort_unless(is_array($copy) && isset($copy['title'], $copy['body']), 404);
+        $copy['body'] = str_replace(
+            [':retention_days', ':site_name', ':site_domain'],
+            [(string) config('analytics.unique_read_retention_days'), (string) config('app.name'), (string) (parse_url((string) config('app.url'), PHP_URL_HOST) ?: config('app.name'))],
+            $copy['body'],
+        );
 
         return response()->view('legal.draft', ['copy' => $copy])
-            ->header('Cache-Control', 'private, no-store')
-            ->header('X-Robots-Tag', 'noindex, nofollow, noarchive');
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE);
     })->whereIn('page', ['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request', 'operator'])->name('legal.page');
 
     Route::get('/sitemap.xml', [SitemapController::class, 'locale'])->defaults('page', 1)->name('sitemap.locale');
@@ -133,11 +138,11 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         $returnTo = (string) $request->input('return_to', '/'.$locale['segment'].'/');
         $path = parse_url((string) $returnTo, PHP_URL_PATH);
         $query = parse_url((string) $returnTo, PHP_URL_QUERY);
-        if (! is_string($path) || ! preg_match('#^/[a-z]{2}(?:-[a-z]{2})?(?:/topics/[a-z0-9-]+)?/?$#', $path)) {
+        if (! is_string($path) || ! preg_match(RoutePatterns::LOCALE_RETURN_PATH, $path)) {
             $path = '/'.$locale['segment'].'/';
             $query = null;
         } else {
-            $path = preg_replace('#^/[a-z]{2}(?:-[a-z]{2})?(?=/|$)#', '/'.$locale['segment'], $path);
+            $path = preg_replace(RoutePatterns::LOCALE_RETURN_PREFIX, '/'.$locale['segment'], $path);
             parse_str((string) $query, $queryParameters);
             unset($queryParameters['cursor']);
             $query = http_build_query($queryParameters);
@@ -191,7 +196,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
                 ->all(),
             'confessions' => $confessions,
             'canonical' => $canonical,
-            'categoryIndexable' => $confessions->total() >= (int) config('seo.category_min_public_items', 5),
+            'categoryIndexable' => $confessions->total() >= (int) config('seo.category_min_public_items'),
         ]);
     })->middleware(NormalizeFeedPage::class)->name('topic.show');
 
@@ -212,7 +217,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
             'next_url' => $nextCursor ? route('feed.fragment', ['locale' => $locale, 'order' => $order, 'category' => $category, 'cursor' => $nextCursor]) : null,
             'next_cursor' => $nextCursor,
             'has_more' => $hasMore,
-        ])->header('X-Robots-Tag', 'noindex')->header('Cache-Control', 'no-store');
+        ])->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_INDEX)->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_NO_STORE);
     })->name('feed.fragment');
 
     Route::match(['GET', 'POST'], '/search', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
@@ -233,9 +238,9 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}(?:-[a-z]{2})?'])->middle
         }
 
         return response()->view('search', compact('query', 'results'))
-            ->header('X-Robots-Tag', 'noindex')
-            ->header('Cache-Control', 'no-store, private')
-            ->header('Referrer-Policy', 'no-referrer');
+            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_INDEX)
+            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
     })->name('search');
 
     Route::get('/write', [GuestConfessionController::class, 'create'])->middleware(PrivateResponseHeaders::class)->name('confessions.create');

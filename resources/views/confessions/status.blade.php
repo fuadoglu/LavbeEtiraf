@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('guest.write_status_title').' · Lavbe')
+@section('title', __('guest.write_status_title').' · '.config('app.name'))
 
 @section('content')
     <section class="write-page submission-result">
@@ -22,7 +22,7 @@
             <form method="post" action="{{ route('confessions.reviews', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">
                 @csrf
                 <input type="hidden" name="open" value="{{ $confession->reviews_open ? '0' : '1' }}">
-                <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
                 <button class="button button-secondary" type="submit">{{ $confession->reviews_open ? __('participation.reviews_close') : __('participation.reviews_open') }}</button>
             </form>
         @endif
@@ -30,7 +30,7 @@
             <form method="post" action="{{ route('confessions.withdraw', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">
                 @csrf
                 <input type="hidden" name="expected_lock_version" value="{{ $confession->lock_version }}">
-                <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
                 <x-form-field :label="__('guest.write_confirm_withdraw')" name="confirm_withdraw"><input @if($errors->has('confirm_withdraw')) aria-describedby="confirm_withdraw-description" @endif aria-invalid="{{ $errors->has('confirm_withdraw') ? 'true' : 'false' }}" type="checkbox" id="confirm_withdraw" name="confirm_withdraw" value="1" required></x-form-field>
                 <button class="button button-secondary" type="submit">{{ __('guest.write_withdraw') }}</button>
             </form>
@@ -40,7 +40,7 @@
                 <form method="post" action="{{ route('confessions.republish', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">
                     @csrf
                     <input type="hidden" name="expected_lock_version" value="{{ $confession->lock_version }}">
-                    <input type="hidden" name="idempotency_key" value="{{ bin2hex(random_bytes(16)) }}">
+                    <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
                     <x-form-field :label="__('guest.write_confirm_republish')" name="confirm_republish"><input @if($errors->has('confirm_republish')) aria-describedby="confirm_republish-description" @endif aria-invalid="{{ $errors->has('confirm_republish') ? 'true' : 'false' }}" type="checkbox" id="confirm_republish" name="confirm_republish" value="1" required></x-form-field>
                     <button class="button button-primary" type="submit">{{ __('guest.write_republish') }}</button>
                 </form>

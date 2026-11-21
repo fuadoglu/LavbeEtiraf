@@ -3,7 +3,7 @@
 return [
     'read' => 'Ler',
     'write' => 'Escrever',
-    'mine' => 'Meu Lavbe',
+    'mine' => 'Meu :app_name',
     'nav' => 'Menu principal',
     'search_languages' => 'Buscar idioma',
     'night' => 'Ativar modo escuro',

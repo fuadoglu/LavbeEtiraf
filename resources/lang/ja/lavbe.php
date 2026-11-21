@@ -26,4 +26,6 @@ return [
     'refresh' => 'フィードを更新',
     'untitled_confession' => 'タイトルのない告白',
     'breadcrumb' => 'パンくずリスト',
+    'offline_title' => "オフラインです",
+    'offline_body' => "接続が回復したら、読みたかったページに戻ることができます。",
 ];

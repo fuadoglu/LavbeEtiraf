@@ -26,4 +26,6 @@ return [
     'refresh' => 'Odśwież wpisy',
     'untitled_confession' => 'Wyznanie bez tytułu',
     'breadcrumb' => 'Nawigacja okruszkowa',
+    'offline_title' => "Brak połączenia",
+    'offline_body' => "Gdy połączenie wróci, możesz wrócić do strony, którą chcesz przeczytać.",
 ];

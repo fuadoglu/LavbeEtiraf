@@ -26,4 +26,6 @@ return [
     'refresh' => 'Aggiorna il feed',
     'untitled_confession' => 'Confessione senza titolo',
     'breadcrumb' => 'Percorso di navigazione',
+    'offline_title' => "Sei offline",
+    'offline_body' => "Quando tornerai online, potrai tornare alla pagina che volevi leggere.",
 ];

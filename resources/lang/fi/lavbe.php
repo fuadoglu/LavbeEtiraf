@@ -26,4 +26,6 @@ return [
     'refresh' => 'Päivitä syöte',
     'untitled_confession' => 'Otsikoimaton tunnustus',
     'breadcrumb' => 'Murupolkunavigointi',
+    'offline_title' => "Olet offline-tilassa",
+    'offline_body' => "Kun yhteys palautuu, voit palata sivulle, jota olit lukemassa.",
 ];
