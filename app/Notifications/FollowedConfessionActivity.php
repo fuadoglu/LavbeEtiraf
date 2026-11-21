@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -17,8 +18,9 @@ class FollowedConfessionActivity extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
-        $locale = (string) ($notifiable->preferred_locale ?: 'en');
-        $home = route('account.home', ['locale' => $locale]);
+        $locales = app(LocaleRegistry::class);
+        $locale = $notifiable->preferredLocale();
+        $home = route('account.home', ['locale' => $locales->urlSegment($locale)]);
 
         return (new MailMessage)
             ->subject(__('account.notification_subject', [], $locale))

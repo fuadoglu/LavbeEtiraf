@@ -27,7 +27,12 @@ self.addEventListener('fetch', (event) => {
     if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
     if (request.mode === 'navigate') {
-        event.respondWith(fetch(request).catch(async () => (await caches.match(OFFLINE_URL))));
+        const offlineUrl = new URL(OFFLINE_URL, self.location.origin);
+        const requestedLocale = url.pathname.split('/').filter(Boolean)[0] || '';
+        if (/^[a-z]{2,3}(?:-[a-z0-9]{2,8})?$/i.test(requestedLocale)) {
+            offlineUrl.searchParams.set('locale', requestedLocale);
+        }
+        event.respondWith(fetch(request).catch(async () => (await caches.match(offlineUrl, { ignoreSearch: true }))));
         return;
     }
 

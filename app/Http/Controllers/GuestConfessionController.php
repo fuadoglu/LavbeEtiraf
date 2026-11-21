@@ -176,9 +176,13 @@ class GuestConfessionController extends Controller
         ]);
 
         if ($validator->fails()) {
+            $oldInput = $request->only(['title', 'author_display_name', 'body', 'category_key', 'response_expectation', 'age_confirmed', 'remember_device', 'idempotency_key']);
+            $oldInput['_form_errors'] = array_map(static fn (array $messages): string => $messages[0] ?? '', $validator->errors()->messages());
+            $oldInput['_focus_field'] = array_key_first($validator->errors()->messages());
+
             return redirect()->route('confessions.create', ['locale' => $locale])
                 ->withErrors($validator)
-                ->withInput($request->only(['title', 'author_display_name', 'body', 'category_key', 'response_expectation', 'age_confirmed', 'remember_device', 'idempotency_key']));
+                ->withInput($oldInput);
         }
         $data = $validator->validated();
         $data['title'] = trim($data['title']);

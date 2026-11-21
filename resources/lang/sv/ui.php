@@ -6,6 +6,7 @@ return [
     'mine' => 'Mitt :app_name',
     'nav' => 'Huvudmeny',
     'search_languages' => 'Sök efter ett språk',
+    'language_no_match' => 'Inget språk hittades. Prova ett annat namn.',
     'night' => 'Byt till mörkt läge',
     'day' => 'Byt till ljust läge',
     'skip' => 'Hoppa till innehållet',

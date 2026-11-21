@@ -6,6 +6,7 @@ return [
     'mine' => ':app_name səhifəm',
     'nav' => 'Əsas menyu',
     'search_languages' => 'Dil axtar',
+    'language_no_match' => 'Bu adda dil tapılmadı. Başqa adla axtar.',
     'night' => 'Gecə rejiminə keç',
     'day' => 'Gündüz rejiminə keç',
     'skip' => 'Əsas məzmuna keç',

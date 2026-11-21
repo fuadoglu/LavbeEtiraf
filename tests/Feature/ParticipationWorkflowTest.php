@@ -151,6 +151,30 @@ class ParticipationWorkflowTest extends TestCase
             ->get('/en/comment/'.$comment->public_id)->assertNotFound();
     }
 
+    public function test_reply_validation_opens_only_the_target_reply_form_and_preserves_its_text(): void
+    {
+        $confession = $this->publishedConfession();
+        $first = $this->approvedComment($confession);
+        $target = $this->approvedComment($confession);
+        $body = str_repeat('x', (int) config('lavbe.limits.comment_body') + 1);
+        $path = '/en/confession/'.$confession->public_id;
+
+        $this->from($path)->post($path.'/comments', [
+            'body' => $body,
+            'comment_scope' => 'reply',
+            'parent_public_id' => $target->public_id,
+            'idempotency_key' => str_repeat('8', 32),
+        ])->assertRedirect($path)->assertSessionHasErrors('body');
+        $page = $this->get($path)->assertOk();
+        $this->assertStringContainsString($body, $page->getContent());
+        $page
+            ->assertSee('id="reply-body-'.$target->id.'-description"', false)
+            ->assertSee('id="reply-body-'.$target->id.'"', false)
+            ->assertDontSee('id="reply-body-'.$first->id.'-description"', false);
+        preg_match_all('/<details class="comment-reply-composer"\s+open(?:\s|>)/', $page->getContent(), $openDetails);
+        $this->assertCount(1, $openDetails[0]);
+    }
+
     public function test_closed_reviews_reject_new_comments_but_support_is_idempotent_and_reversible(): void
     {
         $confession = $this->publishedConfession();

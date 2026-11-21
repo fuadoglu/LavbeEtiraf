@@ -14,6 +14,7 @@ foreach ($catalog['locales'] as $entry) {
         'title' => $messages['offline_title'],
         'body' => $messages['offline_body'],
         'retry' => $messages['retry'],
+        'dir' => $entry['dir'],
     ];
 }
 

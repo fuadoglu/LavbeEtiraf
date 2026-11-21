@@ -6,6 +6,7 @@ return [
     'mine' => ':app_nameのマイページ',
     'nav' => 'メインメニュー',
     'search_languages' => '言語を検索',
+    'language_no_match' => '該当する言語がありません。別の名前で検索してください。',
     'night' => 'ダークモードに切り替える',
     'day' => 'ライトモードに切り替える',
     'skip' => '本文へ移動',

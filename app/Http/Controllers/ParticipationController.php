@@ -47,14 +47,23 @@ class ParticipationController extends Controller
         if ($limited = $this->limit($request, 'comment')) {
             return $limited;
         }
-        $data = Validator::make($request->all(), [
-            'body' => ['required', 'string', 'max:'.config('lavbe.limits.comment_request_body')],
+        $request->merge(['body' => is_string($request->input('body')) ? trim($request->input('body')) : $request->input('body')]);
+        $validator = Validator::make($request->all(), [
+            'body' => ['required', 'string', 'max:'.config('lavbe.limits.comment_body')],
             'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
             'parent_public_id' => ['nullable', 'regex:/^'.RoutePatterns::UUID_V4.'$/'],
             'remember_device' => ['sometimes', 'accepted'],
-        ])->validate();
-        $body = trim((string) $data['body']);
-        abort_if($body === '' || mb_strlen($body, 'UTF-8') > (int) config('lavbe.limits.comment_body'), 422);
+        ]);
+        if ($validator->fails()) {
+            $input = $request->except(['_token', '_comment_body_error']);
+            if ($validator->errors()->has('body')) {
+                $input['_comment_body_error'] = $validator->errors()->first('body');
+            }
+
+            return back()->withErrors($validator)->withInput($input);
+        }
+        $data = $validator->validated();
+        $body = $data['body'];
         $deviceToken = $request->boolean('remember_device') ? $this->deviceToken($request) : null;
         $result = $participation->submitComment($request, $publicId, $body, $data['idempotency_key'], $data['parent_public_id'] ?? null, $deviceToken);
         $response = response()->view('participation.submitted', [
@@ -115,12 +124,22 @@ class ParticipationController extends Controller
         if ($limited = $this->limit($request, 'author_response')) {
             return $limited;
         }
-        $data = Validator::make($request->all(), [
-            'body' => ['required', 'string', 'max:'.config('lavbe.limits.comment_request_body')],
+        $request->merge(['body' => is_string($request->input('body')) ? trim($request->input('body')) : $request->input('body')]);
+        $validator = Validator::make($request->all(), [
+            'body' => ['required', 'string', 'max:'.config('lavbe.limits.response_body')],
             'idempotency_key' => ['required', 'regex:/^[a-f0-9]{'.config('lavbe.limits.idempotency_key').'}$/'],
-        ])->validate();
-        $body = trim((string) $data['body']);
-        abort_if($body === '' || mb_strlen($body, 'UTF-8') > (int) config('lavbe.limits.response_body'), 422);
+        ]);
+        if ($validator->fails()) {
+            $input = $request->except(['_token', '_response_body_error']);
+            $input['response_comment_public_id'] = $commentPublicId;
+            if ($validator->errors()->has('body')) {
+                $input['_response_body_error'] = $validator->errors()->first('body');
+            }
+
+            return back()->withErrors($validator)->withInput($input);
+        }
+        $data = $validator->validated();
+        $body = $data['body'];
         $participation->respondToComment($request, $publicId, $commentPublicId, $body, $data['idempotency_key']);
 
         return redirect()->route('confessions.public', ['locale' => $locale, 'publicId' => $publicId])->with('status', __('participation.response_pending'));

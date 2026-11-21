@@ -6,33 +6,47 @@
     <meta name="theme-color" content="#f8f6f3">
     <title></title>
     <style>
-        :root { color-scheme: light; font-family: system-ui, sans-serif; background: var(--theme-page); color: var(--theme-text); }
+        :root { color-scheme: light; font-family: system-ui, sans-serif; background: var(--theme-page, Canvas); color: var(--theme-text, CanvasText); }
         body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 1.5rem; box-sizing: border-box; }
-        main { max-width: 32rem; padding: 2rem; border-radius: 1.25rem; background: var(--theme-surface); text-align: center; box-shadow: var(--theme-shadow); }
+        main { max-width: 32rem; padding: 2rem; border-radius: 1.25rem; background: var(--theme-surface, Canvas); text-align: center; box-shadow: var(--theme-shadow, none); }
         h1 { margin-top: 0; font-size: clamp(1.6rem, 5vw, 2.4rem); }
         p { line-height: 1.65; }
-        button { min-height: 2.75rem; border: 0; border-radius: 99rem; padding: .7rem 1.2rem; background: var(--theme-action); color: var(--theme-action-contrast); font: inherit; cursor: pointer; }
+        button { min-height: 2.75rem; border: 0; border-radius: 99rem; padding: .7rem 1.2rem; background: var(--theme-action, ButtonFace); color: var(--theme-action-contrast, ButtonText); font: inherit; cursor: pointer; }
     </style>
 </head>
 <body>
 <main>
-    <h1 data-offline-title></h1>
-    <p data-offline-body></p>
-    <button type="button" data-offline-retry></button>
+    <h1 data-offline-title>You’re offline</h1>
+    <p data-offline-body>When you reconnect, you can return to the page you wanted to read.</p>
+    <button type="button" data-offline-retry>Try again</button>
 </main>
 <script>
-    fetch('/offline-copy.json').then((response) => response.json()).then((catalog) => {
+    const retry = document.querySelector('[data-offline-retry]');
+    retry.addEventListener('click', () => location.reload());
+    fetch('/offline-copy.json').then((response) => {
+        if (!response.ok) throw new Error('Offline copy unavailable');
+        return response.json();
+    }).then((catalog) => {
         const entries = Object.keys(catalog.messages);
-        const locale = (navigator.languages || [navigator.language]).map((tag) => tag.toLowerCase()).map((tag) => entries.find((entry) => entry.toLowerCase() === tag) || entries.find((entry) => entry.toLowerCase() === tag.split('-')[0])).find(Boolean);
+        const resolveLocale = (tag) => {
+            if (!tag) return null;
+            const normalized = tag.toLowerCase();
+            return entries.find((entry) => entry.toLowerCase() === normalized)
+                || entries.find((entry) => entry.toLowerCase() === normalized.split('-')[0]);
+        };
+        const requestedLocale = new URLSearchParams(location.search).get('locale');
+        const locale = resolveLocale(requestedLocale)
+            || (navigator.languages || [navigator.language]).map(resolveLocale).find(Boolean)
+            || 'en';
         const messages = catalog.messages[locale] || catalog.messages.en;
         for (const [key, value] of Object.entries(catalog.theme)) document.documentElement.style.setProperty(`--theme-${key.replaceAll('_', '-')}`, value);
+        document.documentElement.lang = locale;
+        document.documentElement.dir = messages.dir;
         document.title = messages.title;
         document.querySelector('[data-offline-title]').textContent = messages.title;
         document.querySelector('[data-offline-body]').textContent = messages.body;
-        const retry = document.querySelector('[data-offline-retry]');
         retry.textContent = messages.retry;
-        retry.addEventListener('click', () => location.reload());
-    });
+    }).catch(() => {});
 </script>
 </body>
 </html>

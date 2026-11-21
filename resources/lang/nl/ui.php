@@ -6,6 +6,7 @@ return [
     'mine' => 'Mijn :app_name',
     'nav' => 'Hoofdmenu',
     'search_languages' => 'Zoek een taal',
+    'language_no_match' => 'Geen taal gevonden. Probeer een andere naam.',
     'night' => 'Donkere modus inschakelen',
     'day' => 'Lichte modus inschakelen',
     'skip' => 'Naar de inhoud',

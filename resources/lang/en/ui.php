@@ -6,6 +6,7 @@ return [
     'mine' => 'My :app_name',
     'nav' => 'Main navigation',
     'search_languages' => 'Find a language',
+    'language_no_match' => 'No matching language. Try another name.',
     'night' => 'Switch to dark mode',
     'day' => 'Switch to light mode',
     'skip' => 'Skip to content',

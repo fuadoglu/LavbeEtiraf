@@ -8,19 +8,22 @@
     const characterCount = document.querySelector('[data-character-count]');
     if (characterInput && characterCount) {
         const maximum = Number(characterCount.dataset.max);
-        const updateRemaining = () => {
+        const updateRemaining = (event) => {
+            if (event?.isComposing) return;
+            const characters = [...characterInput.value];
+            if (characters.length > maximum) {
+                characterInput.value = characters.slice(0, maximum).join('');
+            }
             characterCount.value = String(Math.max(0, maximum - [...characterInput.value].length));
         };
         updateRemaining();
         characterInput.addEventListener('input', updateRemaining);
+        characterInput.addEventListener('compositionend', () => updateRemaining());
     }
 
     const languageSearch = document.querySelector('[data-language-search]');
     if (languageSearch) {
         const menu = languageSearch.closest('details');
-        menu.addEventListener('toggle', () => {
-            if (menu.open) languageSearch.focus();
-        });
         menu.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
                 menu.open = false;
@@ -31,11 +34,29 @@
             if (!menu.contains(event.target)) menu.open = false;
         });
         const options = [...document.querySelectorAll('[data-language-option]')];
-        languageSearch.addEventListener('input', () => {
+        const noMatches = menu.querySelector('[data-language-empty]');
+        function filterLanguages() {
             const query = languageSearch.value.trim().toLocaleLowerCase();
             options.forEach((option) => {
                 option.hidden = query !== '' && !option.dataset.search.toLocaleLowerCase().includes(query);
             });
+            noMatches.hidden = !options.every((option) => option.hidden);
+        }
+        languageSearch.addEventListener('input', filterLanguages);
+        menu.addEventListener('toggle', () => {
+            if (menu.open) {
+                languageSearch.focus();
+            } else {
+                languageSearch.value = '';
+                filterLanguages();
+            }
+        });
+        languageSearch.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' || event.isComposing) return;
+            event.preventDefault();
+            const matches = options.filter((option) => !option.hidden);
+            if (matches.length === 1) matches[0].click();
+            else matches[0]?.focus();
         });
     }
 

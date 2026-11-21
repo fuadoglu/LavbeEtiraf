@@ -40,6 +40,18 @@ class GuestConfessionTest extends TestCase
         $response->assertDontSee('Nigar Məmmədova');
     }
 
+    public function test_title_error_returns_focus_and_body_limit_is_not_restricted_by_utf16_maxlength(): void
+    {
+        $payload = $this->payload();
+        unset($payload['title']);
+        $this->from('/az/write')->post('/az/write', $payload)->assertRedirect('/az/write')->assertSessionHasErrors('title');
+
+        $page = $this->get('/az/write')->assertOk()->assertSee('id="title"', false)->assertSee('autofocus', false)
+            ->assertSee($payload['body'])->assertSee('data-max="'.config('lavbe.limits.confession_body').'"', false)
+            ->assertDontSee('maxlength="'.config('lavbe.limits.confession_body').'"', false);
+        $this->assertStringContainsString('no-store', (string) $page->headers->get('Cache-Control'));
+    }
+
     public function test_write_form_is_localized_private_and_keeps_idempotency_out_of_the_url(): void
     {
         $response = $this->get('/az/write')
@@ -273,7 +285,7 @@ class GuestConfessionTest extends TestCase
     {
         config(['lavbe.limits.confession_body' => 5]);
 
-        $this->get('/az/write')->assertOk()->assertSee('maxlength="5"', false);
+        $this->get('/az/write')->assertOk()->assertSee('data-max="5"', false)->assertDontSee('maxlength="5"', false);
 
         $payload = $this->payload('submission-key-'.str_repeat('x', 32));
         $payload['body'] = '123456';
