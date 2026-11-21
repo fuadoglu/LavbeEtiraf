@@ -26,12 +26,26 @@ class SitemapScaleTest extends TestCase
         $this->assertSame(6, substr_count($xml, '<loc>http://localhost/az/confession/'));
         $this->assertStringContainsString('hreflang="pt-BR" href="http://localhost/pt-br/topics/family"', $xml);
         $counts = $queries->filter(fn ($sql) => str_contains(strtolower($sql), 'count(*)'));
-        $this->assertCount(2, $counts); // One page count and one grouped category count.
+        $this->assertCount(1, $counts); // One grouped query supplies page and category counts.
         $reads = $queries->filter(fn ($sql) => str_contains($sql, 'public_id'));
         $this->assertCount(4, $reads); // Three bounded reads plus end detection.
         foreach ($reads as $sql) {
             $this->assertStringContainsString('limit 2', $sql);
         }
+    }
+
+    public function test_sitemap_index_uses_one_grouped_query_for_all_locale_page_counts(): void
+    {
+        Confession::factory()->count(3)->create(['locale' => 'az', 'category_key' => 'family']);
+        Confession::factory()->count(2)->create(['locale' => 'en', 'category_key' => 'work']);
+        DB::enableQueryLog();
+        $xml = $this->get('/sitemap.xml')->assertOk()->streamedContent();
+        $queries = collect(DB::getQueryLog())->pluck('query');
+        DB::disableQueryLog();
+
+        $counts = $queries->filter(fn ($sql) => str_contains(strtolower($sql), 'count(*)'));
+        $this->assertCount(1, $counts);
+        $this->assertSame(17, substr_count($xml, '<sitemap>'));
     }
 
     public function test_sitemap_parts_do_not_repeat_or_exceed_their_story_range(): void

@@ -404,3 +404,9 @@ Support və təsdiqlənmiş unikal rəyçi aqreqatlarını sorğu anında bütü
 **Issue:** [#149](https://github.com/fuadoglu/LavbeEtiraf/issues/149). **Asılılıq:** LAV-063, LAV-064. **Qəbul:** OPS-05, OPS-03.
 
 Outbox event-ə son işlənmiş follower user ID cursor-u əlavə et. Hər dəfə konfiqurasiya olunan ölçüdə izləyici hissəsi və bildirişləri qısa tranzaksiyada emal et; yarımçıq event-i dispatched sayma və növbəti cron icrasında cursor-dan davam et. Unikal `(user_id,event_key)` qaydasını qoruyaraq bulk insert-or-ignore et. **Sübut:** iki istifadəçidən kiçik batch ilə yarımçıq saxla/yenidən başlat, bütün uyğun izləyicilərin bir dəfə almasını yoxla; MySQL migration/CI və 10,000 synthetic recipient üzrə memory boundedness/load yoxlaması.
+
+## LAV-069 · Sitemap sayımlarını dil və kateqoriya üzrə qruplaşdırmaq
+
+**Issue:** [#151](https://github.com/fuadoglu/LavbeEtiraf/issues/151). **Asılılıq:** LAV-042, LAV-063. **Qəbul:** SEO-01, SEO-02, SEO-06.
+
+Sitemap indeksində hər dil üçün ayrıca `COUNT(*)` və ilk locale xəritəsində ayrıca category aggregation etmə. Public revision filtri ilə bir locale/category grouped nəticəsindən həm per-locale total, həm kateqoriya availability çıxar. XML row batch-ı, alternates, URL cap, lokallaşdırılmış path və withdrawal davranışını saxla. **Sübut:** index/locale query count, XML range, geri çəkilmiş hekayə testləri və MySQL CI. İllik həcmdə son səhifə vaxtı ayrı benchmark tələb edir.
