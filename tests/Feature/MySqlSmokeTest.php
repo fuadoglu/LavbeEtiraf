@@ -57,6 +57,43 @@ class MySqlSmokeTest extends TestCase
         $this->assertContains('confessions_submission_key_hash_unique', $uniqueIndexes);
     }
 
+    public function test_parallel_duplicate_reader_inserts_increment_the_counter_once(): void
+    {
+        $confession = Confession::factory()->create();
+        $readerId = bin2hex(random_bytes(32));
+        $barrier = tempnam(sys_get_temp_dir(), 'lavbe-reader-race-');
+        unlink($barrier);
+        $worker = <<<'PHP'
+require 'vendor/autoload.php';
+$app = require 'bootstrap/app.php';
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+while (! is_file($argv[3])) { usleep(1000); }
+$request = Illuminate\Http\Request::create('/az/confession/race');
+$request->cookies->set(App\Support\Analytics\UniqueReadCounter::COOKIE_NAME, $argv[2]);
+$app->make(App\Support\Analytics\UniqueReadCounter::class)->record($request, App\Models\Confession::query()->findOrFail((int) $argv[1]));
+echo 'recorded';
+PHP;
+        $environment = array_merge(getenv(), [
+            'APP_ENV' => 'testing', 'APP_KEY' => (string) config('app.key'), 'APP_URL' => 'http://localhost',
+            'DB_CONNECTION' => 'mysql', 'DB_HOST' => (string) config('database.connections.mysql.host'),
+            'DB_PORT' => (string) config('database.connections.mysql.port'), 'DB_DATABASE' => (string) config('database.connections.mysql.database'),
+            'DB_USERNAME' => (string) config('database.connections.mysql.username'), 'DB_PASSWORD' => (string) config('database.connections.mysql.password'),
+        ]);
+
+        try {
+            $statuses = $this->runParallelWorkers($worker, [
+                [(string) $confession->id, $readerId, $barrier],
+                [(string) $confession->id, $readerId, $barrier],
+            ], $environment, $barrier);
+            $this->assertSame(['recorded', 'recorded'], $statuses);
+            $this->assertSame(1, $confession->fresh()->unique_read_count);
+            $this->assertSame(1, DB::table('confession_readers')->where('confession_id', $confession->id)->count());
+        } finally {
+            @unlink($barrier);
+            $confession->delete();
+        }
+    }
+
     public function test_parallel_same_owner_account_claims_revoke_guest_credentials_once(): void
     {
         $user = User::factory()->create(['email_verified_at' => now()]);
@@ -597,7 +634,7 @@ PHP;
             $errorOutput = stream_get_contents($pipes[2]);
             fclose($pipes[1]);
             fclose($pipes[2]);
-            $this->assertSame(0, proc_close($process), $errorOutput === '' ? '' : 'Parallel participation worker failed.');
+            $this->assertSame(0, proc_close($process), $errorOutput === '' ? '' : 'Parallel worker failed: '.$errorOutput);
         }
 
         return $statuses;

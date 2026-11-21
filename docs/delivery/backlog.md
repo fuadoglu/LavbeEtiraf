@@ -374,3 +374,9 @@ Yadda saxlanan cihaz üçün etiraf və rəylər eyni `lavbe_device` sirrinin HM
 **Issue:** [#139](https://github.com/fuadoglu/LavbeEtiraf/issues/139). **Asılılıq:** LAV-007, LAV-010, LAV-011, LAV-061. **Qəbul:** UI-27, CFG-02, LOC-05.
 
 Rəy/cavab xətasını forma və hədəf rəyə bağla; səhv cavab forması yenidən açıq olsun, digər formalarda `body` xətası görünməsin. Dil axtarışında boş nəticəni elan et, menyu bağlananda sorğunu sıfırla və klaviatura davranışını tamamla. Etiraf mətni üçün HTML-in UTF-16 `maxlength` məhdudiyyətini code point sayan server və sayğacla eyniləşdir; limiti JS-siz də server qoruyur. İzləmə məktubunda `pt-BR` mətn kodu və `pt-br` URL segmentini ayır. Offline shell-də seçilmiş URL locale-i device language-dan üstün tut, document language/direction-ı uyğunlaşdır, locale JSON əlçatmaz olduqda fallback mətn və retry saxla. Sahib qərarı: comment/reply formaları ayrıca 18+ checkbox tələb etmir; checkbox yaşın yoxlanması kimi təqdim edilmir. **Sübut:** synthetic form/locale feature testləri, JS input və PWA sınaqları, 17 locale key coverage, `offline-copy.json` generator yoxlaması, build, docs/Python yoxlamaları və MySQL CI.
+
+## LAV-064 · Oxunuş sayğacında DB lock contention
+
+**Issue:** [#141](https://github.com/fuadoglu/LavbeEtiraf/issues/141). **Asılılıq:** LAV-042, LAV-059, LAV-062. **Qəbul:** READ-03.
+
+Oxunuşu yalnız detail route etirafın public status, publish tarixi və təsdiqlənmiş public revision-ını yoxladıqdan sonra qeyd et. Təkrar oxunuşda etiraf sətrini kilidləmə; oxucu heşinin unikal DB indeksinə güvən və yalnız yeni heş üçün public status şərti ilə sayğacı atomik artır. Görünürlük dəyişibsə oxucu insert-i də rollback olsun. **Sübut:** təkrar profil, bot/prefetch və 404 testləri; MySQL duplicate insert deadlock retry/count consistency smoke. p95 və lock-wait azalması ölçülmüş yük müqayisəsi olmadan iddia edilmir.
