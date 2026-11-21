@@ -6,6 +6,8 @@ use App\Models\Confession;
 use App\Models\ConfessionComment;
 use App\Models\ConfessionContinuation;
 use App\Support\Analytics\UniqueReadCounter;
+use App\Support\Http\ResponseHeaders;
+use App\Support\Lavbe\ConfessionRecommendations;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Lavbe\RoutePatterns;
 use App\Support\Participation\ParticipationService;
@@ -16,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PublicConfessionController extends Controller
 {
-    public function show(Request $request, string $locale, string $publicId, LocaleRegistry $locales, ParticipationService $participation, UniqueReadCounter $readCounter): Response|View
+    public function show(Request $request, string $locale, string $publicId, LocaleRegistry $locales, ParticipationService $participation, UniqueReadCounter $readCounter, ConfessionRecommendations $recommendations): Response|View
     {
         $localeRecord = $locales->bySegment($locale);
         abort_unless($localeRecord, 404);
@@ -48,27 +50,7 @@ class PublicConfessionController extends Controller
         $revision = $confession->publicRevision;
         $description = $confession->excerpt ?: mb_substr(trim(preg_replace('/\s+/u', ' ', $revision->body) ?? ''), 0, (int) config('lavbe.seo_description_excerpt'), 'UTF-8');
         $category = $locales->category((string) $revision->category_key);
-        $rankedRecommendations = Confession::query()->public()
-            ->where('locale', $confession->locale)
-            ->whereKeyNot($confession->id)
-            ->whereNotNull('category_key')
-            ->select(['confessions.id', 'confessions.category_key'])
-            ->selectRaw('ROW_NUMBER() OVER (PARTITION BY confessions.category_key ORDER BY confessions.support_count DESC, confessions.published_at DESC, confessions.id DESC) AS category_rank');
-        $recommendationPoolIds = DB::query()->fromSub($rankedRecommendations, 'ranked_recommendations')
-            ->where('category_rank', '<=', (int) config('lavbe.recommendation_pool_per_category'))
-            ->select('id');
-        $recommendationPool = Confession::query()->public()
-            ->where('locale', $confession->locale)
-            ->whereNotNull('category_key')
-            ->where('category_key', '!=', (string) $revision->category_key)
-            ->whereIn('confessions.id', $recommendationPoolIds)
-            ->with('publicRevision')
-            ->get();
-        $recommended = $recommendationPool->groupBy('category_key')
-            ->map(fn ($categoryStories) => $categoryStories->random())
-            ->shuffle()
-            ->take((int) config('lavbe.recommendation_count'))
-            ->values();
+        $recommended = $recommendations->for($confession, (string) $revision->category_key);
         $threadPublicId = $request->query('thread');
         $threadRoot = is_string($threadPublicId) && preg_match('/^'.RoutePatterns::UUID_V4.'$/D', $threadPublicId)
             ? ConfessionComment::query()->publicApproved()->where('confession_id', $confession->id)
@@ -137,10 +119,10 @@ class PublicConfessionController extends Controller
         $hasSupported = $participation->hasSupport($request, $confession);
 
         $response = response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds', 'recommended', 'threadRoot', 'threadPublicId', 'threadReplies', 'reactedCommentIds'))
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_INDEX)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER)
-            ->header('X-Content-Type-Options', \App\Support\Http\ResponseHeaders::CONTENT_TYPE_OPTIONS_NOSNIFF);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_INDEX)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER)
+            ->header('X-Content-Type-Options', ResponseHeaders::CONTENT_TYPE_OPTIONS_NOSNIFF);
 
         return $readerCookie ? $response->withCookie($readerCookie) : $response;
     }

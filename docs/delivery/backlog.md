@@ -380,3 +380,9 @@ Rəy/cavab xətasını forma və hədəf rəyə bağla; səhv cavab forması yen
 **Issue:** [#141](https://github.com/fuadoglu/LavbeEtiraf/issues/141). **Asılılıq:** LAV-042, LAV-059, LAV-062. **Qəbul:** READ-03.
 
 Oxunuşu yalnız detail route etirafın public status, publish tarixi və təsdiqlənmiş public revision-ını yoxladıqdan sonra qeyd et. Təkrar oxunuşda etiraf sətrini kilidləmə; oxucu heşinin unikal DB indeksinə güvən və yalnız yeni heş üçün public status şərti ilə sayğacı atomik artır. Görünürlük dəyişibsə oxucu insert-i də rollback olsun. **Sübut:** təkrar profil, bot/prefetch və 404 testləri; MySQL duplicate insert deadlock retry/count consistency smoke. p95 və lock-wait azalması ölçülmüş yük müqayisəsi olmadan iddia edilmir.
+
+## LAV-065 · Tövsiyə namizədlərinin qısa keş hovuzu
+
+**Issue:** [#143](https://github.com/fuadoglu/LavbeEtiraf/issues/143). **Asılılıq:** LAV-047, LAV-063. **Qəbul:** DISC-01, DISC-02.
+
+Dil üzrə kateqoriya sıralamasını hər detail sorğusunda təkrar etmə; kiçik namizəd ID hovuzunu Laravel-in konfiqurasiya olunmuş cache store-unda qısa müddət saxla. Hər renderdə ID-ləri public scope və cari approved revision ilə yenidən təsdiqlə ki, silinən/gizlədilən etiraf dərhal tövsiyədən çıxsın. **Sübut:** cache-hit SQL regression, TTL/config yoxlaması, story withdraw-dan sonrakı render, dil/kateqoriya/unikallıq sınaqları və MySQL CI.

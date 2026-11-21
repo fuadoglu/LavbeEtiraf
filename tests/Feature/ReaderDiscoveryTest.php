@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\Confession;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -141,6 +143,31 @@ class ReaderDiscoveryTest extends TestCase
         $this->assertNotNull($actions);
         $this->assertSame(4, $xpath->query('./form[contains(@class, "support-action")] | ./form[contains(@class, "follow-action")] | ./div[@data-share-control] | ./a[contains(@class, "confession-report-button")]', $actions)->length);
         $this->assertSame(1, $xpath->query('./form[contains(@class, "follow-action")]/button', $actions)->length);
+    }
+
+    public function test_recommendation_pool_is_cached_but_hidden_candidates_are_rechecked(): void
+    {
+        config(['cache.default' => 'array']);
+        Cache::flush();
+        $story = Confession::factory()->create([
+            'public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'family', 'title' => 'Cache target story',
+        ]);
+        $candidate = Confession::factory()->create([
+            'public_id' => (string) Str::uuid(), 'locale' => 'az', 'category_key' => 'work', 'title' => 'Cached candidate story',
+        ]);
+        $rankingQueries = 0;
+        DB::listen(function ($query) use (&$rankingQueries): void {
+            if (str_contains(strtolower($query->sql), 'row_number() over')) {
+                $rankingQueries++;
+            }
+        });
+
+        $this->get('/az/confession/'.$story->public_id)->assertOk()->assertSee('Cached candidate story');
+        $this->assertSame(1, $rankingQueries);
+
+        $candidate->forceFill(['status' => 'hidden'])->save();
+        $this->get('/az/confession/'.$story->public_id)->assertOk()->assertDontSee('Cached candidate story');
+        $this->assertSame(1, $rankingQueries, 'The category ranking should be served from cache on the second detail request.');
     }
 
     public function test_feed_sort_tabs_have_distinct_icons_and_equal_grid_columns(): void
