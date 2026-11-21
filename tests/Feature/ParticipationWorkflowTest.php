@@ -36,8 +36,9 @@ class ParticipationWorkflowTest extends TestCase
         $this->assertSame('pending', $comment->revisions->first()->status);
         $this->get('/en/confession/'.$confession->public_id)->assertOk()->assertDontSee('A synthetic private response');
         $recovered = $this->post('/en/comment/'.$comment->public_id.'/recover', ['recovery_code' => $recoveryCode, 'remember_device' => '1'])->assertRedirect('/en/comment/'.$comment->public_id);
-        $ownerCookie = collect($recovered->headers->getCookies())->first(fn ($cookie) => $cookie->getName() === 'lavbe_comment_'.$comment->public_id);
+        $ownerCookie = collect($recovered->headers->getCookies())->first(fn ($cookie) => $cookie->getName() === 'lavbe_device');
         $this->assertNotNull($ownerCookie);
+        $this->assertNull(collect($recovered->headers->getCookies())->first(fn ($cookie) => $cookie->getName() === 'lavbe_comment_'.$comment->public_id));
         $this->withUnencryptedCookie($ownerCookie->getName(), $ownerCookie->getValue());
         $private = $this->get('/en/comment/'.$comment->public_id)->assertOk()->assertSee('A synthetic private response');
         $this->assertStringContainsString('no-store', (string) $private->headers->get('Cache-Control'));
@@ -59,6 +60,95 @@ class ParticipationWorkflowTest extends TestCase
         $this->assertSame('', $replay['recovery_code']);
         $this->assertDatabaseCount('confession_comments', 1);
         $this->assertDatabaseCount('confession_comment_revisions', 1);
+    }
+
+    public function test_remembered_device_owns_comments_without_per_comment_cookies_and_forget_preserves_recovery(): void
+    {
+        $confession = $this->publishedConfession();
+        $deviceToken = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+        $confession->ownership()->update(['device_token_hash' => hash_hmac('sha256', $deviceToken, (string) config('app.key'))]);
+        $request = Request::create('/en/confession/'.$confession->public_id.'/comments', 'POST');
+        $session = new Store('remembered-comment-device-test', new ArraySessionHandler(120));
+        $session->setId('stable-remembered-comment-device-session');
+        $session->start();
+        $request->setLaravelSession($session);
+
+        for ($index = 0; $index < 200; $index++) {
+            app(ParticipationService::class)->submitComment(
+                $request,
+                $confession->public_id,
+                'Synthetic response '.$index,
+                hash('sha256', 'synthetic-idempotency-'.$index),
+                null,
+                $deviceToken,
+            );
+        }
+        $this->assertDatabaseCount('confession_comments', 200);
+        $this->assertSame(200, DB::table('comment_ownerships')->where('device_token_hash', hash_hmac('sha256', $deviceToken, (string) config('app.key')))->count());
+
+        $this->withCookie('lavbe_device', $deviceToken)->post('/en/my/device/forget')->assertRedirect('/en/my/device');
+        $this->assertSame(0, DB::table('comment_ownerships')->where('device_token_hash', hash_hmac('sha256', $deviceToken, (string) config('app.key')))->count());
+        $this->assertNull($confession->ownership()->value('device_token_hash'));
+        $this->assertSame(200, DB::table('comment_ownerships')->whereNotNull('owner_token_hash')->count());
+    }
+
+    public function test_remembered_comment_endpoint_sets_one_shared_device_cookie(): void
+    {
+        $confession = $this->publishedConfession();
+        $response = $this->post('/en/confession/'.$confession->public_id.'/comments', [
+            'body' => 'A synthetic remembered response', 'idempotency_key' => str_repeat('e', 32), 'remember_device' => '1',
+        ])->assertCreated();
+        $this->assertNotNull(collect($response->headers->getCookies())->first(fn ($cookie) => $cookie->getName() === 'lavbe_device'));
+        $this->assertCount(0, collect($response->headers->getCookies())->filter(fn ($cookie) => str_starts_with($cookie->getName(), 'lavbe_comment_')));
+        $this->assertNotNull(ConfessionComment::query()->firstOrFail()->ownership->device_token_hash);
+    }
+
+    public function test_forgetting_device_revokes_comment_access_but_recovery_code_still_works(): void
+    {
+        $confession = $this->publishedConfession();
+        $deviceToken = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+        $submitted = $this->withCookie('lavbe_device', $deviceToken)->post('/en/confession/'.$confession->public_id.'/comments', [
+            'body' => 'A synthetic remembered response', 'idempotency_key' => str_repeat('f', 32), 'remember_device' => '1',
+        ])->assertCreated();
+        preg_match('/<code dir="ltr">([A-Za-z0-9_-]{43})<\/code>/', $submitted->getContent(), $recoveryMatch);
+        $recoveryCode = $recoveryMatch[1] ?? '';
+        $comment = ConfessionComment::query()->with('ownership')->firstOrFail();
+        $this->assertNotNull(collect($submitted->headers->getCookies())->first(fn ($cookie) => $cookie->getName() === 'lavbe_device'));
+        $recoveryHash = $comment->ownership->recovery_token_hash;
+
+        $this->withCookie('lavbe_device', $deviceToken)
+            ->post('/en/my/device/forget')->assertRedirect('/en/my/device');
+        $comment->refresh()->load('ownership');
+        $this->assertNull($comment->ownership->device_token_hash);
+        $this->assertSame($recoveryHash, $comment->ownership->recovery_token_hash);
+        $this->withCookie('lavbe_device', $deviceToken)->get('/en/comment/'.$comment->public_id)->assertNotFound();
+
+        $recoveryDeviceToken = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+        $this->withCookie('lavbe_device', $recoveryDeviceToken)->post('/en/comment/'.$comment->public_id.'/recover', ['recovery_code' => $recoveryCode, 'remember_device' => '1'])
+            ->assertRedirect('/en/comment/'.$comment->public_id);
+        $this->withCookie('lavbe_device', $recoveryDeviceToken)->get('/en/comment/'.$comment->public_id)->assertOk()->assertSee('A synthetic remembered response');
+    }
+
+    public function test_forgetting_device_revokes_a_legacy_per_comment_cookie_and_clears_it(): void
+    {
+        $confession = $this->publishedConfession();
+        $this->post('/en/confession/'.$confession->public_id.'/comments', [
+            'body' => 'A synthetic legacy-cookie response', 'idempotency_key' => str_repeat('7', 32),
+        ])->assertCreated();
+        $comment = ConfessionComment::query()->firstOrFail()->load('ownership');
+        $legacyToken = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+        $comment->ownership->forceFill([
+            'session_token_hash' => hash_hmac('sha256', 'unrelated-session', (string) config('app.key')),
+            'owner_token_hash' => hash_hmac('sha256', $legacyToken, (string) config('app.key')),
+        ])->save();
+
+        $this->withCookie('lavbe_comment_'.$comment->public_id, $legacyToken)
+            ->get('/en/comment/'.$comment->public_id)->assertOk();
+        $this->withCookie('lavbe_comment_'.$comment->public_id, $legacyToken)
+            ->post('/en/my/device/forget')->assertRedirect('/en/my/device')
+            ->assertCookieExpired('lavbe_comment_'.$comment->public_id);
+        $this->withCookie('lavbe_comment_'.$comment->public_id, $legacyToken)
+            ->get('/en/comment/'.$comment->public_id)->assertNotFound();
     }
 
     public function test_closed_reviews_reject_new_comments_but_support_is_idempotent_and_reversible(): void

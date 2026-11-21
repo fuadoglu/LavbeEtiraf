@@ -61,6 +61,7 @@ class AccountOwnershipService
                 'session_token_hash' => null,
                 'owner_token_hash' => $this->keyedHash('revoked-owner-token|'.random_bytes(32)),
                 'recovery_token_hash' => $this->keyedHash('revoked-owner|'.random_bytes(32)),
+                'device_token_hash' => null,
                 'credential_version' => $ownership->credential_version + 1,
             ])->save();
 

@@ -362,3 +362,9 @@ Locale-ə uyğun web app manifest və mövcud lələk ikonunun 192/512 PNG ölç
 **Issue:** [#126](https://github.com/fuadoglu/LavbeEtiraf/issues/126). **Asılılıq:** LAV-010, LAV-057, LAV-058, LAV-060. **Qəbul:** LOC-01, LOC-02, UI-23, UI-24, UI-25, UI-26.
 
 Bütün 17 dil üzrə istifadəçi mətnlərini nəzərdən keçir və hüquqi məlumatları faktiki konfiqurasiya ilə uzlaşdır. Şifrə bərpa səhifəsinə girişə qayıdış keçidi əlavə et. Lent və etiraf səhifəsində oxunuş sayını göz ikonu ilə qısa göstər. Yazı formasının paylaşım seçimlərini həmişə açıq saxla; etiraf mətninin altında 6 000-dən geriyə lokallaşdırılmış simvol sayğacı ver. **Sübut:** locale üzrə render feature tests, Unicode sayğac JavaScript testi, 17 dil key coverage, docs/Python yoxlaması, build və CI. Hüquqi mətnə owner baxışı buraxılış qapısıdır.
+
+## LAV-062 · Ortaq cihaz sahibliyi və rəy kukilərinin artımı
+
+**Issue:** [#137](https://github.com/fuadoglu/LavbeEtiraf/issues/137). **Asılılıq:** LAV-007, LAV-058, LAV-059. **Qəbul:** OWN-07.
+
+Yadda saxlanan cihaz üçün etiraf və rəylər eyni `lavbe_device` sirrinin HMAC heşindən istifadə etsin; hər yeni rəy üçün ayrıca kuki buraxılmasın. “Cihazı unut” əməliyyatı həmin cihazla bağlı qonaq etiraf/rəy sahibliklərini və sorğuda təqdim edilmiş köhnə `lavbe_owner_*`/`lavbe_comment_*` girişlərini ləğv etsin. Hesaba bağlanmış qeydlər başqa cihaz əməliyyatından təsirlənməsin. Bərpa sirləri müstəqil qalsın; köhnə rəy kukiləri keçid dövründə giriş və hesab iddiası üçün işləsin. **Sübut:** 200 sintetik rəy üçün bir cihaz heşi, yeni endpoint-lərdə yalnız ortaq kuki, cihazdan unutma, köhnə kuki keçidi, bərpa və hesab izolyasiyası testləri; MySQL CI və docs yoxlaması.
