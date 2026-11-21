@@ -1,6 +1,6 @@
 # Lokalizasiya və kateqoriyalar
 
-Codex bütün 17 dil paketini yazır. Məhsul sahibi yaradılmış mətnlərin yekun baxışını keçirir. Baxış ekranlara görə qruplaşdırılmış müqayisə və versiya diff-i ilə aparılır. Hüquqi mətn yalnız təsdiqlənmiş faktik operator və məlumat axını əsasında aktivləşir. Etiraflar orijinal dilində qalır.
+Codex bütün 17 dil paketini yazıb. Məhsul sahibi 22 noyabr 2026-da 17 dil üzrə tərcümələrin yekun baxışının tamamlandığını təsdiqləyib. Bu qeyd `main`-dəki cari runtime mətnlərinə aiddir; sonrakı mətn dəyişiklikləri ayrıca yoxlanır. Hüquqi mətnin faktiki operator və məlumat axını üzrə təsdiqi dil baxışından ayrıdır. Etiraflar orijinal dilində qalır.
 
 | Paket | URL | Yerli ad | English label | Bayraq |
 |---|---|---|---|---|
@@ -51,16 +51,16 @@ Bir reyestr dil kodu, URL seqmenti, native ad, ingilis adı, bayraq, yazı istiq
 
 ## Maşınla yoxlanılan dil müqaviləsi
 
-[Kateqoriya və dil kataloqu](../spec/catalog.json) 17 locale üzrə 204 kateqoriya adı və 204 mövzu izahının redaktə variantını saxlayır. İkon və kateqoriya açarı sabitdir. Kateqoriya tərcümələri draft statusundadır. [Açar müqaviləsi](../spec/locale-contract.json) məcburi UI qruplarını, placeholder və cəm qaydasını, kateqoriya və hüquqi səhifə sahələrini açıq müəyyən edir.
+[Kateqoriya və dil kataloqu](../spec/catalog.json) 17 locale üzrə 204 kateqoriya adı və 204 mövzu izahını saxlayır. İkon və kateqoriya açarı sabitdir. Kateqoriya tərcümələri sahibin dil baxışına daxildir. [Açar müqaviləsi](../spec/locale-contract.json) məcburi UI qruplarını, placeholder və cəm qaydasını, kateqoriya və hüquqi səhifə sahələrini açıq müəyyən edir.
 
-Tam dil paketi müqaviləsi LAV-010-da `resources/lavbe/locales/<segment>.json` olaraq qalır. LAV-003 ana ekran üçün `resources/lang/<locale>/lavbe.php` fayllarında yalnız feed, kateqoriya, sıralama, səhifələmə və axtarış mətnlərini gətirir; 17 faylın hər biri bu məhdud açar dəstini daşıyır. Kateqoriya adları reyestr kimi `spec/catalog.json`-dan oxunur. Bu ilkin UI mətnləri hüquqi, moderasiya, email və digər tam paket qruplarının əvəzi deyil.
+Cari tətbiq mətnləri `resources/lang/<locale>/` və `resources/lang/<locale>.json` fayllarından, kateqoriya adları isə `spec/catalog.json`-dan oxunur. Köhnə LAV-010 draftındakı `resources/lavbe/locales/<segment>.json` cari runtime mənbəyi deyil. 17 dilin interfeys, hüquqi səhifə və bildiriş mətnləri indiki mənbələrdə saxlanır.
 
 Hüquqi səhifələrin provisional mətni `draft` statusundadır. `approved` real hüquqi baxış, operator və məlumat axını təsdiqinə əsaslanır. Məzmun mətn formatında saxlanır, təhlükəsiz formatlanır. Təsdiq qeydi hüquqi şəxs və əlaqə detalları kimi daxili faktları lazımsız yerə repoya çıxarmamalıdır.
 
-Sahib baxışı üçün Codex hər ekranı açarlarına görə qruplaşdırılmış müqayisə ixracı hazırlayır. Hər sətir `locale, group, key, current_text, previous_text` daşıyır. Baxış qeydi `locale, package_version, git_ref, status` saxlayır. Dəyişən versiyada yalnız diff baxışa çıxır. Son qərarı məhsul sahibi verir. Açılış üçün 17 təsdiqlənmiş paket, vizual sınaq, ayrıca 17 dil üzrə mövcud moderator və real başlanğıc məzmunu tələb olunur.
+Sahibin cari 17 dil üzrə təsdiqi bu sənəddə və LAV-010 issue-sunda qeyd olunur; köhnə draft PR-ın müqayisə ixracı cari tətbiqə daxil edilməyib. Gələcək mətn düzəlişləri üçün dəyişən açarlar PR diff-ində göstərilir və məhsul sahibi həmin dəyişikliklərə ayrıca baxır. İctimai açılış üçün dil baxışından əlavə real cihaz sınağı, dil üzrə moderator və uyğun ilkin məzmun tələb olunur.
 
-Yoxlama: `python3 scripts/check_docs.py` spesifikasiyanı, `python3 scripts/check_docs.py --packages resources/lavbe/locales` yaradılmış paketləri yoxlayır. Tətbiqdə 17 paket yaradılanadək ikinci əmr buraxılış backlog tapşırığıdır.
+Yoxlama: `python3 scripts/check_docs.py` 17 dilin cari mətn açarlarını və kataloqu yoxlayır. Dil baxışı bu avtomatik struktur yoxlamasından ayrıca məhsul sahibinin qərarıdır.
 
 ### LAV-061 · Mətnlərin redaktəsi
 
-Oxu, yazı, rəy, şikayət, hesab və bərpa ekranlarında istifadəçiyə hər dilin öz müraciət formasında xitab edilir. Başlıq məcburidir. Açıq yazı kənarda surətlənə və axtarışda görünə bilər. Hüquqi səhifələri real davranışla birlikdə yenilə. İstehsaldan əvvəl operatorun təsdiqlədiyi açıq hüquqi adı və nəzarət edilən poçt ünvanını LAVBE_OPERATOR_NAME və LAVBE_PRIVACY_EMAIL ilə qur. Hüquqi əsaslar, alıcılar, ötürmələr, məlumat növləri üzrə saxlama müddətləri və müvafiq bazarın tələbləri ayrıca təsdiqlənməlidir. Bu redaktə hüquqi və native sahib baxışını açıq saxlayır.
+Oxu, yazı, rəy, şikayət, hesab və bərpa ekranlarında istifadəçiyə hər dilin öz müraciət formasında xitab edilir. Başlıq məcburidir. Açıq yazı kənarda surətlənə və axtarışda görünə bilər. Hüquqi səhifələri real davranışla birlikdə yenilə. İstehsaldan əvvəl operatorun təsdiqlədiyi açıq hüquqi adı və nəzarət edilən poçt ünvanını LAVBE_OPERATOR_NAME və LAVBE_PRIVACY_EMAIL ilə qur. Hüquqi əsaslar, alıcılar, ötürmələr, məlumat növləri üzrə saxlama müddətləri və müvafiq bazarın tələbləri ayrıca təsdiqlənməlidir. Bu faktiki hüquqi baxış tərcümələrin tamamlanmasından ayrıdır.

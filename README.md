@@ -10,7 +10,7 @@
 |---|---|
 | Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və qəbul ssenariləri repodadır. |
 | UI atlası | **Hazırdır.** 18 ekranın mobil və masaüstü görünüşləri, gündüz/gecə və əsas vəziyyətləri yoxlamaq mümkündür. |
-| Dil kataloqu | **Baxışa hazır ilkin mətnlər.** 17 dil, 12 kateqoriya, hər dildə mövzu adı və izahı. Tətbiq paketlərini Codex yazır, yekun mətnlərə məhsul sahibi baxır. |
+| Dil kataloqu | **17 dil üzrə mətnlər tamamlanıb.** Məhsul sahibi 22 noyabr 2026-da bütün dillər üzrə yekun baxışın bitdiyini təsdiqləyib; 12 kateqoriyanın adı və izahı da bu mətnlərə daxildir. |
 | Laravel tətbiqi | **LAV-001 tamamlanıb.** Laravel 13/Blade əsası, MySQL smoke testi və CI `main`-dədir. |
 | Ortaq UI komponentləri | **LAV-002 tamamlanıb.** UI-01/UI-04 baza komponentləri və sübutları `main`-dədir. |
 | Dil reyestri və lent | **LAV-003 tamamlanıb.** UI-02/LOC-01: dil seçimi, feed read model, 12 kartlıq nömrəli HTML səhifələmə, axtarış və 17 dil üzrə ilkin mətnlər `main`-dədir. |
@@ -49,7 +49,7 @@
 | Şikayət düyməsinin birləşdirilməsi | **[LAV-056](https://github.com/fuadoglu/LavbeEtiraf/issues/118) icra olunur.** Etiraf altında bir “Şikayət et” düyməsi icma şikayəti və hüquqi bildiriş seçimlərini açır. |
 | Məzmunu ekranda önə çəkmək | **[LAV-057](https://github.com/fuadoglu/LavbeEtiraf/issues/120) tamamlandı.** Lentdə ilk etiraf, yazı formasında mətn sahəsi, detail-də hekayə və müəllif davamı ardıcıllığı yeniləndi; mürəkkəb gündüz/gecə palitrası tətbiq olundu. [PR #121](https://github.com/fuadoglu/LavbeEtiraf/pull/121) `main`-dədir. |
 | UI auditinin qalan düzəlişləri | **[LAV-058](https://github.com/fuadoglu/LavbeEtiraf/issues/123) tamamlandı.** Cihazda yadda saxlanan etiraflar, 17 dildə ictimai axtarış görünürlüğü bildirişi, fəaliyyətli kart altlığı və yığcam mobil sıralama. [PR #124](https://github.com/fuadoglu/LavbeEtiraf/pull/124) ilə. |
-| İstifadəçi mətnləri və kiçik UI axınları | **[LAV-061 tamamlandı](https://github.com/fuadoglu/LavbeEtiraf/issues/126)** ([PR #133](https://github.com/fuadoglu/LavbeEtiraf/pull/133)): girişə geri keçid, göz ikonu ilə oxunuş sayı, daimi açıq paylaşım seçimləri, canlı simvol sayğacı və 17 dildə mətn düzəlişləri. Native və hüquqi sahib baxışı buraxılış qapısı olaraq qalır. |
+| İstifadəçi mətnləri və kiçik UI axınları | **[LAV-061 tamamlandı](https://github.com/fuadoglu/LavbeEtiraf/issues/126)** ([PR #133](https://github.com/fuadoglu/LavbeEtiraf/pull/133)): girişə geri keçid, göz ikonu ilə oxunuş sayı, daimi açıq paylaşım seçimləri, canlı simvol sayğacı və 17 dildə mətn düzəlişləri. Dil baxışı tamamlanıb; faktiki hüquqi məlumatların təsdiqi ayrıca buraxılış qapısıdır. |
 | Buraxılış auditi düzəlişləri | **[LAV-059](https://github.com/fuadoglu/LavbeEtiraf/issues/125) tamamlandı** ([PR #128](https://github.com/fuadoglu/LavbeEtiraf/pull/128)): oxucu heşi retention-u, qonaq cihazını unutma, e-poçt retry/backoff və `pt-BR` keçidi. **LAV-060 davam edir:** installable PWA qabığı və məxfi offline siyasəti; real cihaz və hostinq yoxlamaları ayrıca buraxılış qapısıdır. |
 
 ## Codex ilə başla
@@ -169,7 +169,7 @@ Sistem Chromium-u istifadə etmək üçün `--chromium /path/to/chromium` veril�
 
 ## Buraxılış
 
-Tam ictimai buraxılış üçün real shared hosting, məlumatın yeri və operator kimliyi, 17 dil üzrə mətn baxışı və moderator təminatı, SEO və razılıq sınaqları, backup və bərpa üzrə sübut tələb olunur. AdSense aktivləşdirməsi üçün domen, `ads.txt` və razılıq yoxlaması ayrıca tamamlanır. [Buraxılış və geri dönüş qaydaları](docs/delivery/operations.md)
+Tam ictimai buraxılış üçün real shared hosting, məlumatın yeri və operator kimliyi, 17 dil üzrə moderator təminatı, SEO və razılıq sınaqları, backup və bərpa üzrə sübut tələb olunur. 17 dil üzrə mətn baxışı tamamlanıb; faktiki hüquqi məlumatlar ayrıca təsdiqlənməlidir. AdSense aktivləşdirməsi üçün domen, `ads.txt` və razılıq yoxlaması ayrıca tamamlanır. [Buraxılış və geri dönüş qaydaları](docs/delivery/operations.md)
 
 ## LAV-001 lokal yoxlama qeydi
 
