@@ -651,6 +651,62 @@
     gap: .65rem;
 }
 
+.device-page > .page-heading {
+    margin-block-end: 0;
+}
+
+.device-empty {
+    justify-items: start;
+    padding: clamp(1rem, 4vw, 1.65rem);
+    background: var(--surface);
+    text-align: start;
+}
+
+.device-empty .empty-mark,
+.device-empty .button {
+    margin: 0;
+}
+
+.device-confession-status {
+    max-inline-size: 100%;
+    padding: .2rem .5rem;
+    border-radius: .4rem;
+    background: var(--hint);
+    color: var(--action);
+    font-size: .85rem;
+}
+
+.device-confession-list h2 > a {
+    display: inline-flex;
+    min-block-size: 2.75rem;
+    align-items: center;
+    color: inherit;
+}
+
+.device-page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .55rem;
+}
+
+.device-access {
+    border-block-start: 1px solid var(--line);
+}
+
+.device-access > summary {
+    min-block-size: 2.75rem;
+    padding-block: .6rem;
+    color: var(--action);
+    cursor: pointer;
+}
+
+.device-access > form {
+    display: grid;
+    justify-items: start;
+    gap: .65rem;
+    color: var(--muted);
+}
+
 .write-page > .page-heading > div:has(> .button),
 .write-page > .page-heading > form {
     display: flex;

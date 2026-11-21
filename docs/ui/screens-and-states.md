@@ -39,6 +39,7 @@ Hər səhifədə ən çox 12 kart olur. Nömrəli pagination adi HTML linklərin
 - **Yaz və rəy:** etiraf formasında geniş mətn sahəsindən sonra məcburi başlıq və mövzu seçimi gəlir. Paylaşım seçimləri və istəyə bağlı açıq ad sahəsi birbaşa görünür. Forma xətası müvafiq sahənin yanında göstərilir. Cavab alınana qədər uğurlu status göstərilmir.
 - **Göndəriş və bərpa:** bərpa kodunun ayrıca görünüşü, kopyalama və Mənim bölməsinə keçid. URL-də və açıq keşdə kod yoxdur.
 - **Mənim:** Etiraflarım, Rəylərim, İzlədiklərim və Bildirişlər. Rejim, giriş, bərpa və quraşdırma əlçatandır.
+- **Bu cihazdakı etiraflar:** Qonaq boş siyahıdan birbaşa yeni etiraf yaza bilər. Saxlanmış etirafın başlığı onun vəziyyət səhifəsinə aparır və cari status kartda göstərilir. Hesab keçidləri siyahıdan ayrıdır. “Bu cihazı unut” əməliyyatından əvvəl onun izahı açıla bilir.
 - **Dil seçici:** header-də seçilmiş dilin bayrağı və native adı tam yazılır; qısa locale kodu göstərilmir. Mobil enlərdə yalnız bayraq görünür, native ad screen reader üçün əlçatan qalır. Açılan menyuda axtarış, yumru bayraq, native adın altında ingiliscə ad və seçilmiş dil işarəsi var. Mənbə [dil reyestri](../localization.md). JavaScript olmadan dil linkləri açılır.
 - **Admin:** Etiraflar, Rəylər, Şikayətlər və Etirazlar üçün ayrı növbələr. Hüquqi və təcili qruplar önə çıxır; qalanlar ən köhnə gözləyənlə başlayır. Kartda qərar, səbəb və kontekst. Səlahiyyət olmadıqda məlumat render edilmir.
 - **Hüquqi, 404/410, oflayn:** ortaq başlıq və tipoqrafiya, lokallaşdırılmış mesaj, əsas dil lentinə link.
