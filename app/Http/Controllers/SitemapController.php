@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\Http\ResponseHeaders;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Response as IlluminateResponse;
@@ -17,25 +18,28 @@ class SitemapController extends Controller
     {
         $base = rtrim((string) config('app.url'), '/');
         $localesList = $locales->all();
+        $stats = $this->localeStats();
 
-        return response()->stream(function () use ($localesList, $base): void {
+        return response()->stream(function () use ($localesList, $base, $stats): void {
             echo '<?xml version="1.0" encoding="UTF-8"?>';
             echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
             foreach ($localesList as $locale) {
-                foreach (range(1, $this->pageCount($locale['segment'])) as $page) {
+                foreach (range(1, $this->pageCount($locale['segment'], $stats)) as $page) {
                     $path = '/'.$locale['segment'].'/sitemap-'.$page.'.xml';
                     echo '<sitemap><loc>'.$this->xml($base.$path).'</loc></sitemap>';
                 }
             }
             echo '</sitemapindex>';
-        }, 200, ['Content-Type' => \App\Support\Http\ResponseHeaders::CONTENT_TYPE_XML, 'Cache-Control' => \App\Support\Http\ResponseHeaders::CACHE_PUBLIC_REVALIDATE]);
+        }, 200, ['Content-Type' => ResponseHeaders::CONTENT_TYPE_XML, 'Cache-Control' => ResponseHeaders::CACHE_PUBLIC_REVALIDATE]);
     }
 
     public function locale(string $locale, int $page, LocaleRegistry $locales): StreamedResponse
     {
-        abort_unless($locales->bySegment($locale), 404);
-        abort_unless($page >= 1 && $page <= $this->pageCount($locale), 404);
-        $counts = $page === 1 ? $this->categoryCounts() : [];
+        $localeRecord = $locales->bySegment($locale);
+        abort_unless($localeRecord, 404);
+        $stats = $this->localeStats();
+        abort_unless($page >= 1 && $page <= $this->pageCount($locale, $stats), 404);
+        $counts = $page === 1 ? $stats['categories'] : [];
         $categories = $page === 1 ? $this->eligibleCategories($locale, $locales, $counts) : [];
         $alternates = $locales->all();
         $base = rtrim((string) config('app.url'), '/');
@@ -62,7 +66,7 @@ class SitemapController extends Controller
                 echo '</url>';
             }
             echo '</urlset>';
-        }, 200, ['Content-Type' => \App\Support\Http\ResponseHeaders::CONTENT_TYPE_XML, 'Cache-Control' => \App\Support\Http\ResponseHeaders::CACHE_PUBLIC_REVALIDATE]);
+        }, 200, ['Content-Type' => ResponseHeaders::CONTENT_TYPE_XML, 'Cache-Control' => ResponseHeaders::CACHE_PUBLIC_REVALIDATE]);
     }
 
     public function robots(): IlluminateResponse
@@ -70,7 +74,7 @@ class SitemapController extends Controller
         $base = rtrim((string) config('app.url'), '/');
         $body = "User-agent: *\nDisallow: /*/my/\nDisallow: /*/moderation\nDisallow: /*/search\nDisallow: /*/feed-fragment\nSitemap: ".$base."/sitemap.xml\n";
 
-        return response($body, 200, ['Content-Type' => \App\Support\Http\ResponseHeaders::CONTENT_TYPE_TEXT, 'Cache-Control' => \App\Support\Http\ResponseHeaders::CACHE_PUBLIC_MAX_AGE_PREFIX.(int) config('seo.robots_cache_seconds')]);
+        return response($body, 200, ['Content-Type' => ResponseHeaders::CONTENT_TYPE_TEXT, 'Cache-Control' => ResponseHeaders::CACHE_PUBLIC_MAX_AGE_PREFIX.(int) config('seo.robots_cache_seconds')]);
     }
 
     private function writeAlternateUrl(string $url, array $locales, string $base, ?string $category = null): void
@@ -109,15 +113,20 @@ class SitemapController extends Controller
         return array_values(array_filter($locales, fn (array $locale): bool => ($counts[$locale['code']][$category] ?? 0) >= $minimum));
     }
 
-    private function categoryCounts(): array
+    /** @return array{totals: array<string, int>, categories: array<string, array<string, int>>} */
+    private function localeStats(): array
     {
-        $counts = [];
+        $stats = ['totals' => [], 'categories' => []];
         foreach ($this->publicQuery()->select('locale', 'category_key')->selectRaw('COUNT(*) AS total')
             ->groupBy('locale', 'category_key')->get() as $row) {
-            $counts[$row->locale][$row->category_key] = (int) $row->total;
+            $total = (int) $row->total;
+            $stats['totals'][$row->locale] = ($stats['totals'][$row->locale] ?? 0) + $total;
+            if ($row->category_key !== null) {
+                $stats['categories'][$row->locale][$row->category_key] = $total;
+            }
         }
 
-        return $counts;
+        return $stats;
     }
 
     private function confessionRows(string $locale, int $offset, int $remaining): \Generator
@@ -143,9 +152,11 @@ class SitemapController extends Controller
         }
     }
 
-    private function pageCount(string $locale): int
+    /** @param array{totals: array<string, int>, categories: array<string, array<string, int>>} $stats */
+    private function pageCount(string $locale, array $stats): int
     {
-        $count = $this->publicQuery($locale)->count();
+        $code = app(LocaleRegistry::class)->contentCode($locale);
+        $count = $stats['totals'][$code] ?? 0;
 
         return max(1, (int) ceil($count / $this->confessionPageSize()));
     }
