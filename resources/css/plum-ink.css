@@ -83,16 +83,15 @@
 
 .feed-controls .sort-panel {
     gap: .35rem;
-    padding-block: .25rem 0;
+    padding-block: .25rem;
     border-block: 0;
 }
 
 .feed-controls .sort-link {
     min-height: 2.9rem;
     gap: .45rem;
-    border: 0;
-    border-block-end: 2px solid transparent;
-    border-radius: .55rem .55rem 0 0;
+    border: 1px solid transparent;
+    border-radius: .55rem;
     color: var(--muted);
     font-size: .9rem;
     font-weight: 600;
@@ -105,9 +104,10 @@
 }
 
 .feed-controls .sort-link[aria-current="page"] {
-    border-color: var(--action);
-    background: transparent;
+    border-color: var(--line);
+    background: var(--hint);
     color: var(--action);
+    box-shadow: none;
 }
 
 .confession-feed {
@@ -130,14 +130,22 @@
 .confession-feed .story-meta {
     margin-block-end: .65rem;
     font-size: .78rem;
-    letter-spacing: .01em;
+    align-items: baseline;
+    column-gap: .8rem;
 }
 
 .confession-feed .story-topic {
+    min-inline-size: 0;
     padding: 0;
     background: transparent;
     color: var(--action);
     font-weight: 650;
+}
+
+.confession-feed .story-meta time {
+    margin-inline-start: auto;
+    font-size: inherit;
+    white-space: nowrap;
 }
 
 .confession-feed .story-title {
@@ -189,7 +197,18 @@
 }
 
 .story-card-footer :is(.story-author, .unique-read-count, .story-activity) {
-    font-size: .8rem;
+    gap: var(--space-meta-inline);
+    font-size: var(--font-meta-size);
+    line-height: 1.35;
+}
+
+.story-card-footer .unique-read-count {
+    font-variant-numeric: tabular-nums;
+}
+
+.confession-breadcrumb {
+    row-gap: .25rem;
+    margin-block-end: .3rem;
 }
 
 .confession-reading-card {
@@ -212,6 +231,10 @@
     line-height: 1.15;
 }
 
+.confession-author-meta {
+    margin-block-start: .55rem;
+}
+
 .confession-reading-card > .confession-body {
     max-width: var(--ink-measure);
     color: var(--text);
@@ -219,9 +242,15 @@
 }
 
 .confession-read-count {
+    display: flex;
     margin-block-start: 1.1rem;
     padding-block-start: .7rem;
     border-block-start: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+}
+
+.confession-actions .button {
+    border-radius: .65rem;
 }
 
 .write-page > .write-form {
@@ -237,6 +266,21 @@
 .write-form textarea {
     font: 1.08rem/1.72 var(--editorial-serif);
     caret-color: var(--action);
+}
+
+.write-form .character-counter {
+    font-variant-numeric: tabular-nums;
+}
+
+.write-form .sharing-options {
+    gap: .85rem;
+    padding: clamp(.85rem, 2.5vw, 1.25rem);
+    background: var(--ink-wash);
+}
+
+.sharing-options > h2 {
+    color: var(--brand-logo-color);
+    font: 600 1.25rem/1.3 var(--editorial-serif);
 }
 
 :is(.participation-card, .participation-form, .author-response, .recommended-story-link) {
@@ -366,6 +410,10 @@
         font-size: .82rem;
     }
 
+    .feed-controls .sort-panel {
+        padding-block: 0;
+    }
+
     .confession-feed .story-card {
         padding-block: 1.15rem;
     }
@@ -379,7 +427,16 @@
 @media (max-width: 360px) {
     .feed-controls .sort-link {
         gap: .12rem;
-        font-size: .7rem;
+        font-size: .75rem;
+    }
+
+    .confession-actions {
+        gap: .35rem;
+    }
+
+    .confession-actions .button {
+        gap: .25rem;
+        padding-inline: .3rem;
     }
 }
 
