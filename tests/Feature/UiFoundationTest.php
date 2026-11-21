@@ -335,6 +335,26 @@ class UiFoundationTest extends TestCase
         $this->get('/az/feed-fragment?cursor=broken&order=new')->assertBadRequest();
     }
 
+    public function test_search_treats_sql_wildcards_and_escape_marker_as_literal_text(): void
+    {
+        Confession::factory()->create(['locale' => 'az', 'title' => '100% honest story']);
+        Confession::factory()->create(['locale' => 'az', 'title' => '1000 honest story']);
+        Confession::factory()->create(['locale' => 'az', 'title' => 'under_score story']);
+        Confession::factory()->create(['locale' => 'az', 'title' => 'underXscore story']);
+        Confession::factory()->create(['locale' => 'az', 'title' => 'wow! path']);
+        Confession::factory()->create(['locale' => 'az', 'title' => 'İstanbul səhəri']);
+        Confession::factory()->create(['locale' => 'ja', 'title' => '家族のことを話したい']);
+
+        $this->post('/az/search', ['q' => '100%'])->assertOk()
+            ->assertSee('100% honest story')->assertDontSee('1000 honest story');
+        $this->post('/az/search', ['q' => 'under_'])->assertOk()
+            ->assertSee('under_score story')->assertDontSee('underXscore story');
+        $this->post('/az/search', ['q' => 'wow!'])->assertOk()->assertSee('wow! path');
+        $this->post('/az/search', ['q' => 'İstanbul'])->assertOk()->assertSee('İstanbul səhəri');
+        $this->post('/ja/search', ['q' => '家族'])->assertOk()->assertSee('家族のことを話したい');
+        $this->post('/az/search', ['q' => ['not', 'a', 'string']])->assertUnprocessable();
+    }
+
     public function test_search_is_same_locale_posted_and_private_from_cache_and_referrers(): void
     {
         Confession::factory()->create(['locale' => 'az', 'title' => 'İstanbul işıqları']);

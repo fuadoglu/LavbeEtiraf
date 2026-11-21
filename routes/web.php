@@ -20,6 +20,7 @@ use App\Http\Middleware\RequireModeratorAccount;
 use App\Http\Middleware\RequireModeratorAdmin;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\ValidatePaginationParameters;
+use App\Support\Http\ResponseHeaders;
 use App\Support\Lavbe\FeedCursor;
 use App\Support\Lavbe\FeedQuery;
 use App\Support\Lavbe\LocaleRegistry;
@@ -94,8 +95,8 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
         );
 
         return response()->view('legal.draft', ['copy' => $copy])
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE);
     })->whereIn('page', ['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request', 'operator'])->name('legal.page');
 
     Route::get('/sitemap.xml', [SitemapController::class, 'locale'])->defaults('page', 1)->name('sitemap.locale');
@@ -217,7 +218,7 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
             'next_url' => $nextCursor ? route('feed.fragment', ['locale' => $locale, 'order' => $order, 'category' => $category, 'cursor' => $nextCursor]) : null,
             'next_cursor' => $nextCursor,
             'has_more' => $hasMore,
-        ])->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_INDEX)->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_NO_STORE);
+        ])->header('X-Robots-Tag', ResponseHeaders::ROBOTS_NO_INDEX)->header('Cache-Control', ResponseHeaders::CACHE_NO_STORE);
     })->name('feed.fragment');
 
     Route::match(['GET', 'POST'], '/search', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
@@ -226,21 +227,26 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
         abort_unless((is_string($requestedPage) || is_int($requestedPage))
             && preg_match('/^[1-9][0-9]*$/D', (string) $requestedPage) === 1
             && filter_var($requestedPage, FILTER_VALIDATE_INT) !== false, 404);
-        $query = trim((string) ($request->isMethod('post') ? $request->input('q', '') : ''));
+        $submittedQuery = $request->isMethod('post') ? $request->input('q', '') : '';
+        abort_unless(is_string($submittedQuery), 422);
+        $query = trim($submittedQuery);
         abort_if(mb_strlen($query, 'UTF-8') > (int) config('lavbe.limits.search_query'), 422);
         $results = null;
         if ($query !== '') {
+            $literalQuery = str_replace(['!', '%', '_'], ['!!', '!%', '!_'], $query);
+            $pattern = '%'.$literalQuery.'%';
             $results = $feed->build(app()->getLocale(), null, 'new')
-                ->where(function ($builder) use ($query): void {
-                    $builder->where('title', 'like', '%'.$query.'%')->orWhere('body', 'like', '%'.$query.'%');
+                ->where(function ($builder) use ($pattern): void {
+                    $builder->whereRaw("confessions.title LIKE ? ESCAPE '!'", [$pattern])
+                        ->orWhereRaw("confessions.body LIKE ? ESCAPE '!'", [$pattern]);
                 })->paginate((int) config('feed.page_size'), ['*'], 'page', (int) $requestedPage);
             abort_if($results->currentPage() > $results->lastPage(), 404);
         }
 
         return response()->view('search', compact('query', 'results'))
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_INDEX)
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_NO_STORE_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_NO_INDEX)
+            ->header('Cache-Control', ResponseHeaders::CACHE_NO_STORE_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     })->name('search');
 
     Route::get('/write', [GuestConfessionController::class, 'create'])->middleware(PrivateResponseHeaders::class)->name('confessions.create');
