@@ -7,11 +7,12 @@
     <title></title>
     <style>
         :root { color-scheme: light; font-family: system-ui, sans-serif; background: var(--theme-page, Canvas); color: var(--theme-text, CanvasText); }
-        body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 1.5rem; box-sizing: border-box; }
-        main { max-width: 32rem; padding: 2rem; border-radius: 1.25rem; background: var(--theme-surface, Canvas); text-align: center; box-shadow: var(--theme-shadow, none); }
-        h1 { margin-top: 0; font-size: clamp(1.6rem, 5vw, 2.4rem); }
-        p { line-height: 1.65; }
-        button { min-height: 2.75rem; border: 0; border-radius: 99rem; padding: .7rem 1.2rem; background: var(--theme-action, ButtonFace); color: var(--theme-action-contrast, ButtonText); font: inherit; cursor: pointer; }
+        body { min-height: 100vh; min-height: 100dvh; margin: 0; display: grid; place-items: center; padding: clamp(.75rem, 4vw, 1.5rem); box-sizing: border-box; }
+        main { box-sizing: border-box; inline-size: min(100%, 32rem); padding: clamp(1rem, 5vw, 2rem); border: 1px solid var(--theme-edge, GrayText); border-radius: .8rem; background: var(--theme-surface, Canvas); overflow-wrap: anywhere; text-align: center; box-shadow: var(--theme-shadow, none); }
+        h1 { margin: 0; font: 600 clamp(1.6rem, 5vw, 2.4rem)/1.15 Charter, "Iowan Old Style", Georgia, "Noto Serif", serif; text-wrap: balance; }
+        p { margin: .85rem 0 1.2rem; line-height: 1.65; }
+        button { min-height: 2.75rem; max-inline-size: 100%; border: 0; border-radius: .65rem; padding: .65rem 1.2rem; background: var(--theme-action, ButtonFace); color: var(--theme-action-contrast, ButtonText); font: inherit; cursor: pointer; }
+        button:focus-visible { outline: 3px solid var(--theme-action, Highlight); outline-offset: 3px; }
     </style>
 </head>
 <body>

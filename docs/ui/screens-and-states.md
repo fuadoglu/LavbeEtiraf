@@ -12,7 +12,7 @@
 
 Ana lent Hamısı seçimi ilə açılır. Kateqoriya səhifəsi həmin lentin kateqoriya filtrli görünüşüdür. Dil seçimi, kateqoriya, sıralama və səhifələmə serverdə etibarlı qiymətlər üzrə tətbiq edilir. İlk sorğu hazır HTML qaytarır. İlk renderdə skeletlə mətnin üstü örtülmür.
 
-601–760 px aralığında yuxarı naviqasiya yerində qalır: Oxu/Yaz/Mənim etiketləri görünür, dil nəzarətində bayraq göstərilir və header elementləri viewport-a sığır. Mobil alt naviqasiya 600 px və aşağıda, desktop mövzu rail-i 761 px və yuxarıda işləyir.
+600 px və aşağıda əsas naviqasiya ekranın altındadır. 600 px-dən geniş və 840 px-dək ekranlarda Oxu/Yaz/Mənim etiketləri yuxarıda qalır, dil seçimində bayraq göstərilir. 840 px-dən geniş ekranda bayraqla yanaşı dilin tam adı görünür. Masaüstü mövzu sütunu 761 px-dən başlayır.
 
 Kateqoriya səhifəsinin başlığı altında seçilmiş mövzunun həmin dildə izahı görünür. Etiraf yazı formasındakı mövzu bələdçisi açıla bilən siyahıdır; JavaScript olmadan da 12 mövzunun adını və sərhədini oxumaq mümkündür.
 
@@ -35,8 +35,8 @@ Hər səhifədə ən çox 12 kart olur. Nömrəli pagination adi HTML linklərin
 ## Digər ekranların quruluşu
 
 - **Ana lent:** Dolu lentdə giriş mətni gizlənir və ilk etiraf erkən başlayır. Mobildə “Mövzular” seçimi bütün kateqoriyaları açır; açılanda sıralama tam enə keçir. Desktop-da mövzular yığcam sol naviqasiyadır, lent mərkəzdə qalır. Etiraf kartları üç sətirlik parça, hover və klaviatura fokusunda yüngül əks əlaqə verir.
-- **Etiraf:** mövzu, başlıq, anonim ad, tam mətn, Sonra nə oldu, uyğun reklam və oxu hərəkətləri. Rəylər bir səviyyəlidir. Rəy yaz ayrı reklamsız səth açır. İcma şikayəti və hüquqi bildiriş konkret etiraf və ya rəy hədəfinə bağlanır. Sahibin gizlətməyə etirazı yalnız özəl status səhifəsində görünür. Sonra eyni dildən etiraf təklif olunur.
-- **Yaz və rəy:** əvvəlcə geniş mətn sahəsi, sonra məcburi başlıq və mövzu, bağlı əlavə seçimlər, yerli xəta və baxışa göndər düyməsi. Anonimlik görünən şəkildə bildirilir; açıq ad seçimi ilk renderdə bağlıdır. Mobil klaviatura kursoru və fokuslu sahəni örtmür. Şəbəkə xətasında DOM-dakı mətn qalır. Cavab alınana qədər uğurlu status göstərilmir.
+- **Etiraf:** mövzu, başlıq, müəllif adı, tam mətn, Sonra nə oldu və oxu hərəkətləri. Rəylərə bir səviyyədə cavab vermək və səhifənin altında rəy yazmaq mümkündür. İcma şikayəti və hüquqi bildiriş konkret etiraf və ya rəy hədəfinə bağlanır. Sahibin gizlətməyə etirazı yalnız özəl status səhifəsində görünür. Sonra eyni dildən etiraf təklif olunur.
+- **Yaz və rəy:** etiraf formasında geniş mətn sahəsindən sonra məcburi başlıq və mövzu seçimi gəlir. Paylaşım seçimləri və istəyə bağlı açıq ad sahəsi birbaşa görünür. Forma xətası müvafiq sahənin yanında göstərilir. Cavab alınana qədər uğurlu status göstərilmir.
 - **Göndəriş və bərpa:** bərpa kodunun ayrıca görünüşü, kopyalama və Mənim bölməsinə keçid. URL-də və açıq keşdə kod yoxdur.
 - **Mənim:** Etiraflarım, Rəylərim, İzlədiklərim və Bildirişlər. Rejim, giriş, bərpa və quraşdırma əlçatandır.
 - **Dil seçici:** header-də seçilmiş dilin bayrağı və native adı tam yazılır; qısa locale kodu göstərilmir. Mobil enlərdə yalnız bayraq görünür, native ad screen reader üçün əlçatan qalır. Açılan menyuda axtarış, yumru bayraq, native adın altında ingiliscə ad və seçilmiş dil işarəsi var. Mənbə [dil reyestri](../localization.md). JavaScript olmadan dil linkləri açılır.
@@ -53,5 +53,7 @@ Editorial dizayn bütün səhifələrdə standart və yeganə görünüşdür. �
 Seçilmiş sıralama yumşaq fon və sərhədlə seçilir. Lent kartında kateqoriya və tarix, alt sətirdə isə müəllif və oxunuş sayı eyni ölçü pilləsini bölüşür. Etiraf səhifəsində oxunuş sayı mətnin altında oxu istiqamətinin son kənarına düzülür, əməliyyatlar bərabər ölçülü qalır. Yazı formasında simvol sayğacı sabit enli rəqəmlərdən istifadə edir və açıq paylaşım seçimləri ayrıca səthdə qruplaşır.
 
 ### İkinci dərəcəli ekranlar
+
+Axtarış sahəsi dar ekranda düymənin üstündə, geniş ekranda onun yanında yerləşir. Hesab, cihaz və moderasiya qeydləri eyni kart ölçüləri və başlıq üslubundan istifadə edir. Moderasiya filtrləri dar ekranda yeni sətrə keçir və cari filtr seçilir. Forma xətası sahə izahında, status isə ikon və mətnlə görünür. Dialoq başlıqları, hüquqi mətn, 404 və oflayn görünüş eyni başlıq ritmini izləyir. Səhifələmə idarələrinin hündürlüyü ən az 44 CSS piksel qalır.
 
 Jurnal üslubunda axtarış, şikayət, hesab, moderasiya və 404 başlıqları eyni tipoqrafik qaydaya tabedir. Hüquqi səhifələrdə abzaslar aralıdır. Şikayət və etiraz qərarlarında uzun düymələr dar ekranda yeni sətrə keçir. Köməkçi mətni olan səhv sahənin sərhədi xəbərdarlıq rəngini saxlayır. İlk mobil ziyarətdə oxunuş ölçümünün hər iki seçimi eyni enli sahələrə yerləşir.

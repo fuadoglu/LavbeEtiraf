@@ -18,6 +18,24 @@
     min-height: 4.5rem;
 }
 
+.header-actions :is(.icon-button[aria-current="page"], .language-menu[open] > summary) {
+    background: var(--hint);
+    color: var(--action);
+}
+
+.language-picker {
+    max-block-size: min(65dvh, calc(100dvh - 5rem));
+    border-color: var(--edge);
+}
+
+.language-options {
+    scrollbar-gutter: stable;
+}
+
+.site-footer-navigation a {
+    text-decoration-color: var(--edge);
+}
+
 :is(.feed-heading h1, .write-heading h1, .confession-heading h1, .reading-page h1, .write-page > h1, .write-page > .page-heading h1, #search-title, .not-found h1) {
     max-width: 22ch;
     margin-block: 0;
@@ -331,17 +349,37 @@
     background: var(--ink-wash);
 }
 
-:is(.write-form, .participation-form, .comment-inline-form) .form-field :is(input, select, textarea) {
+.comment-card-actions {
+    column-gap: .75rem;
+}
+
+.comment-reply-composer > summary {
+    width: fit-content;
+    text-decoration: underline;
+    text-decoration-color: var(--edge);
+}
+
+.form-field :is(input:not([type="checkbox"]), select, textarea),
+.write-form > select {
+    min-inline-size: 0;
+    max-inline-size: 100%;
     border-color: var(--edge);
     border-radius: .6rem;
     background: var(--surface);
-    transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
-:is(.write-form, .participation-form, .comment-inline-form) .form-field :is(input, select, textarea):focus-visible {
+.form-field :is(input:not([type="checkbox"]), select, textarea):focus-visible {
     border-color: var(--action);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--action) 14%, transparent);
     outline-offset: 2px;
+}
+
+.form-field--invalid .field-description {
+    color: var(--danger);
+}
+
+.form-field :is(input, select, textarea)[aria-invalid="true"] {
+    border-color: var(--danger);
 }
 
 .participation-action .button {
@@ -460,44 +498,125 @@
 
 .reading-page > p {
     margin: 0;
+    max-inline-size: var(--ink-measure);
     line-height: 1.75;
 }
 
+.reading-page > h1 {
+    padding-block-end: .85rem;
+    border-block-end: 1px solid var(--line);
+}
+
 :is(.write-page, .reading-page) > h2,
-.write-form > h2 {
+.write-form > h2,
+.recovery-code > h2,
+.dialog-header > h2 {
     margin-block: .5rem 0;
     font: 600 1.3rem/1.3 var(--editorial-serif);
     color: var(--brand-logo-color);
 }
 
 [data-search-form] {
-    row-gap: .55rem;
+    gap: .55rem .75rem;
     margin-block: .55rem 1rem;
 }
 
-.write-page > .feed-card {
-    display: grid;
-    justify-items: start;
-    gap: .45rem;
-    padding-block: .9rem;
-    border-block-start: 1px solid var(--line);
+@media (min-width: 601px) {
+    [data-search-form] {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    [data-search-form] > label {
+        grid-column: 1 / -1;
+    }
 }
 
-.write-page > .page-heading > div:has(> .button) {
+:is(.write-page, .device-confession-list) > .feed-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+    gap: .55rem;
+    padding: clamp(.85rem, 3vw, 1.25rem);
+    border: 1px solid var(--line);
+    border-radius: .75rem;
+    background: var(--surface);
+}
+
+.feed-card > :is(h2, h3) {
+    color: var(--brand-logo-color);
+    font: 600 1.2rem/1.35 var(--editorial-serif);
+}
+
+.feed-card > a:not(.button) {
+    display: inline-flex;
+    min-block-size: 2.75rem;
+    align-items: center;
+}
+
+.device-confession-list {
+    display: grid;
+    gap: .65rem;
+}
+
+.write-page > .page-heading > div:has(> .button),
+.write-page > .page-heading > form {
     display: flex;
     flex-wrap: wrap;
     gap: .5rem;
     margin-block-start: .75rem;
 }
 
+.write-page > nav.topic-panel {
+    display: flex;
+    flex-wrap: wrap;
+    max-block-size: none;
+    margin: 0;
+    padding: .25rem;
+    overflow: visible;
+}
+
+.write-page > nav.topic-panel > a {
+    display: inline-flex;
+    min-block-size: 2.75rem;
+    align-items: center;
+    padding: .35rem .7rem;
+    border: 1px solid var(--line);
+    border-radius: .55rem;
+    background: var(--surface);
+    text-decoration: none;
+}
+
+.write-page > nav.topic-panel > a:is(:hover, [aria-current="page"]) {
+    border-color: var(--action);
+    background: var(--hint);
+}
+
 .write-page > dl {
     display: grid;
-    gap: .2rem;
+    gap: .3rem;
+    padding: .85rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: .75rem;
+    background: var(--ink-wash);
 }
 
 .write-page > dl > dt {
     font-weight: 650;
     margin-block-start: .5rem;
+}
+
+.write-page > .owner-revision {
+    display: grid;
+    gap: .65rem;
+    padding: clamp(.85rem, 3vw, 1.25rem);
+    border: 1px solid var(--line);
+    border-radius: .75rem;
+    background: var(--ink-wash);
+}
+
+.owner-revision > h2 {
+    color: var(--brand-logo-color);
+    font: 600 1.2rem/1.35 var(--editorial-serif);
 }
 
 .write-form > label:has(> select) {
@@ -506,7 +625,7 @@
     gap: .4rem;
 }
 
-.write-form > label > select {
+:is(.write-form > label > select, .write-form > select) {
     min-inline-size: 0;
     inline-size: 100%;
     min-block-size: 2.75rem;
@@ -516,10 +635,6 @@
     border-radius: .6rem;
     background: var(--surface);
     color: var(--text);
-}
-
-:is(.write-form, .participation-form, .comment-inline-form) .form-field [aria-invalid="true"] {
-    border-color: var(--danger);
 }
 
 .write-page code {
@@ -541,7 +656,53 @@
     overflow-wrap: anywhere;
 }
 
+.submission-result {
+    padding: clamp(.95rem, 4vw, 1.6rem);
+}
+
+.recovery-code > h2,
+.dialog-header > h2 {
+    margin: 0;
+}
+
+.dialog {
+    scroll-padding-block-start: 5rem;
+}
+
+.status {
+    align-items: flex-start;
+    border-inline-start: .2rem solid currentColor;
+    background: var(--ink-wash);
+}
+
+.status > div {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+}
+
+.pagination :is(.pagination-number, .pagination-control) {
+    min-block-size: 2.75rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.not-found-code {
+    font: 600 clamp(3.5rem, 14vw, 6rem)/1 var(--editorial-serif);
+}
+
+.reader-consent-banner {
+    box-shadow: 0 .35rem 1rem color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.reader-consent-copy h2 {
+    font-weight: 650;
+}
+
 @media (max-width: 600px) {
+    .reader-consent-copy p {
+        font-size: .9rem;
+        line-height: 1.5;
+    }
+
     .reader-consent-banner .reader-consent-actions {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));

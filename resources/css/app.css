@@ -539,11 +539,11 @@ button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
     .feed-topic-picker-mobile .topic-chip > span { min-width: 0; white-space: normal; overflow-wrap: anywhere; text-align: start; line-height: 1.25; }
 }
 
-/* Keep the full header usable between the phone and desktop breakpoints. */
-@media (min-width: 601px) and (max-width: 760px) {
+/* Give translated navigation labels room in the compact header. */
+@media (600px < width <= 840px) {
     .site-header { gap: .5rem; padding-inline: 1rem; }
     .primary-nav { flex: 1 1 auto; min-width: 0; gap: .1rem; }
-    .primary-nav .nav-link { min-width: 0; padding-inline: .45rem; white-space: nowrap; }
+    .primary-nav .nav-link { min-width: 0; padding-inline: .45rem; overflow-wrap: anywhere; }
     .header-actions { flex: 0 0 auto; gap: .25rem; }
     .language-button { width: 2.75rem; min-width: 2.75rem; padding-inline: 0; }
     .language-current-name,

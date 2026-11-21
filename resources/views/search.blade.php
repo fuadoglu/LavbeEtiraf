@@ -17,7 +17,7 @@
         </form>
         @if($results)
             @if($results->isEmpty())
-                <p>{{ __('lavbe.search_empty') }}</p>
+                <x-status>{{ __('lavbe.search_empty') }}</x-status>
             @else
                 <div class="confession-feed feed-list"><x-feed-items :confessions="$results" /></div>
                 @if($results->hasPages())
