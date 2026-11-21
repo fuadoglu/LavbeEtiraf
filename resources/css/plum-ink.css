@@ -158,10 +158,20 @@
     text-decoration: none;
     text-decoration-thickness: .055em;
     text-underline-offset: .13em;
+    text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+    transition: color 150ms ease, text-decoration-color 150ms ease;
 }
 
 :root[data-style="ink"] .confession-feed .story-title a:hover {
+    color: var(--action);
     text-decoration: underline;
+    text-decoration-color: currentColor;
+}
+
+:root[data-style="ink"] .confession-feed .story-title a:focus-visible {
+    color: var(--action);
+    text-decoration: underline;
+    text-decoration-color: currentColor;
 }
 
 :root[data-style="ink"] .confession-feed .story-excerpt {
@@ -238,6 +248,60 @@
     background: var(--surface);
     font-family: var(--editorial-serif);
     font-size: 1.04rem;
+    transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+:root[data-style="ink"] .participation-section {
+    gap: 1.2rem;
+}
+
+:root[data-style="ink"] .participation-section > h2 {
+    color: var(--brand-logo-color);
+    font: 600 1.5rem/1.25 var(--editorial-serif);
+    letter-spacing: -.02em;
+}
+
+:root[data-style="ink"] :is(.participation-card, .participation-form, .author-response) {
+    padding: clamp(.9rem, 2.5vw, 1.2rem);
+    border-color: var(--line);
+    background: var(--surface);
+}
+
+:root[data-style="ink"] .author-response {
+    background: var(--ink-wash);
+}
+
+:root[data-style="ink"] .comment-card {
+    padding-block: 1rem;
+    border-block-end: 1px solid var(--line);
+}
+
+:root[data-style="ink"] .comment-card > .confession-body,
+:root[data-style="ink"] .participation-section .confession-body {
+    font: 1rem/1.72 var(--editorial-serif);
+}
+
+:root[data-style="ink"] .comment-reply-card {
+    padding: .85rem;
+    border-radius: .65rem;
+    background: var(--ink-wash);
+}
+
+:root[data-style="ink"] :is(.write-form, .participation-form, .comment-inline-form) .form-field :is(input, select, textarea) {
+    border-color: var(--line);
+    border-radius: .6rem;
+    background: var(--surface);
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+:root[data-style="ink"] :is(.write-form, .participation-form, .comment-inline-form) .form-field :is(input, select, textarea):focus-visible {
+    border-color: var(--action);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--action) 14%, transparent);
+    outline-offset: 2px;
+}
+
+:root[data-style="ink"] .participation-action .button {
+    min-height: 3rem;
 }
 
 :root[data-style="ink"] :is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger) {
@@ -335,6 +399,10 @@
 
 @media (prefers-reduced-motion: reduce) {
     :root[data-style="ink"] :is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger) {
+        transition: none;
+    }
+
+    :root[data-style="ink"] :is(.confession-feed .story-title a, .recommended-story-link, .write-form .form-field :is(input, select, textarea), .participation-form .form-field :is(input, select, textarea), .comment-inline-form .form-field :is(input, select, textarea)) {
         transition: none;
     }
 }
