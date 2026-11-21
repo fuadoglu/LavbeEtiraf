@@ -1,0 +1,322 @@
+{
+  "locale": "sv",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Läs",
+      "write": "Skriv",
+      "mine": "Min Lavbe",
+      "more": "Mer",
+      "language": "Språk",
+      "settings": "Inställningar",
+      "back": "Tillbaka",
+      "close": "Stäng"
+    },
+    "language": {
+      "picker_label": "Välj ett språk",
+      "search": "Sök efter språk",
+      "empty": "Inga språk hittades",
+      "selected": "Aktuellt språk",
+      "changed": "Språket ändrat till {language}."
+    },
+    "theme": {
+      "label": "Utseende",
+      "system": "Använd enhetsinställning",
+      "day": "Ljus",
+      "night": "Mörkt"
+    },
+    "feed": {
+      "all": "Alla",
+      "topics": "Ämnen",
+      "new": "Nytt",
+      "weekly": "Den här veckan",
+      "updates": "Nya uppdateringar",
+      "more": "Ladda mer",
+      "refresh": "Uppdatera flödet",
+      "retry": "Försök igen",
+      "empty": "Inga publicerade bekännelser ännu.",
+      "end": "Du har nått slutet.",
+      "loading": "Laddar bekännelser..."
+    },
+    "search": {
+      "title": "Sök bekännelser",
+      "label": "Sök med nyckelord",
+      "submit": "Sök",
+      "empty": "Inga matchande bekännelser hittades.",
+      "invalid": "Ange en sökterm."
+    },
+    "confession": {
+      "author": "Anonym författare",
+      "support": "Support",
+      "follow": "Följ uppdateringar",
+      "unfollow": "Sluta följa",
+      "share": "Dela",
+      "report": "Rapportera",
+      "update": "Uppdatering",
+      "next": "Nästa bekännelse",
+      "comments_closed": "Svar är stängda."
+    },
+    "write": {
+      "title": "Skriv en bekännelse",
+      "intro": "Din bekännelse granskas innan den visas offentligt.",
+      "body": "Din bekännelse",
+      "optional_title": "Titel (valfritt)",
+      "topic": "Ämne",
+      "purpose": "Vad skulle du vilja ha av läsarna?",
+      "purpose_share": "Jag vill bara dela med mig",
+      "purpose_experience": "Jag vill höra liknande erfarenheter",
+      "purpose_advice": "Jag skulle vilja ha råd",
+      "allow_comments": "Tillåt svar",
+      "public_notice": "Godkända bekännelser kan läsas offentligt på originalspråket.",
+      "age_notice": "Du måste vara minst 18 år för att skicka in.",
+      "remember_draft": "Kom ihåg detta utkast på den här enheten",
+      "remember_device": "Kom ihåg den här enheten för privat åtkomst",
+      "submit": "Skicka för granskning",
+      "invalid": "Kontrollera dina inlägg. Textgränsen är {limit} tecken.",
+      "network_error": "Vi kunde inte skicka detta just nu. Försök igen."
+    },
+    "submit": {
+      "pending": "Din bekännelse väntar på granskning.",
+      "recovery_code": "Återställningskod",
+      "recovery_help": "Spara den här koden privat. Det kommer bara att visas en gång.",
+      "copy": "Kopiera kod",
+      "copied": "Kopierat",
+      "my_content": "Öppna privat status"
+    },
+    "comment": {
+      "write": "Skriv ett svar",
+      "body": "Ditt svar",
+      "reply": "Svara",
+      "submit": "Skicka för granskning",
+      "pending": "Ditt svar väntar på granskning.",
+      "edit": "Redigera svar",
+      "delete": "Återkalla svar"
+    },
+    "report": {
+      "confession": "Anmäl bekännelse",
+      "comment": "Rapportera svar",
+      "reason": "Orsak",
+      "explanation": "Ytterligare detaljer (valfritt)",
+      "send": "Skicka rapport",
+      "received": "Tack. Din rapport har tagits emot.",
+      "duplicate": "Du har redan rapporterat den här produkten.",
+      "spam": "Spam eller reklam",
+      "privacy": "Sekretess eller personlig information",
+      "harassment": "Trakasserier eller övergrepp",
+      "threat": "Hot eller säkerhetsproblem",
+      "inappropriate": "Olämpligt innehåll",
+      "other": "Annan oro"
+    },
+    "moderation": {
+      "confessions": "Bekännelser",
+      "comments": "Svar",
+      "reports": "Rapporter",
+      "pending": "Väntar på granskning",
+      "public": "Publicerad",
+      "changes_requested": "Ändringar begärda",
+      "rejected": "Avvisad",
+      "withdrawn": "Återkallad",
+      "hidden": "Dolt",
+      "deleted": "Raderad",
+      "publish": "Godkänn och publicera",
+      "reject": "Avvisa",
+      "hide": "Göm",
+      "request_changes": "Begär ändringar",
+      "appeal": "Överklagande",
+      "close_report": "Lös rapport",
+      "stale": "Detta objekt har ändrats. Ladda om och granska den igen."
+    },
+    "mine": {
+      "confessions": "Mina bekännelser",
+      "comments": "Mina svar",
+      "followed": "Följer",
+      "notifications": "Meddelanden",
+      "withdraw": "Återkalla",
+      "withdraw_confirm": "Vill du ta tillbaka detta föremål från allmän synpunkt?",
+      "delete": "Ta bort",
+      "delete_confirm": "Denna åtgärd kan inte ångras. Fortsätta?",
+      "empty": "Inget här ännu."
+    },
+    "auth": {
+      "sign_in": "Logga in",
+      "email": "E-post",
+      "email_sent": "Om ett konto finns har ett meddelande skickats.",
+      "sign_out": "Logga ut",
+      "recovery": "Återställ åtkomst",
+      "recovery_input": "Ange din återställningskod",
+      "recover": "Återställ",
+      "recovered": "Åtkomst återställd. Tidigare åtkomstkoder återkallades.",
+      "invalid_code": "Koden är ogiltig eller har löpt ut."
+    },
+    "notifications": {
+      "published": "En bekännelse du följer publicerades.",
+      "changes_requested": "En moderator begärde ändringar av din bekännelse.",
+      "new_comments": {
+        "one": "Det finns {count} nytt svar.",
+        "other": "Det finns {count} nya svar."
+      },
+      "followup": "En ny fortsättning är tillgänglig.",
+      "generic": "Det finns ny aktivitet på ditt konto.",
+      "email_option": "E-postmeddelanden (valfritt)",
+      "push_option": "Push-meddelanden (valfritt)"
+    },
+    "mail": {
+      "login_subject": "Din inloggningslänk",
+      "login_body": "Den här länken upphör att gälla om {minutes} minuter.",
+      "notification_subject": "Ny aktivitet på Lavbe",
+      "notification_body": "Logga in på ditt privata konto för att se uppdateringen."
+    },
+    "pwa": {
+      "install": "Installera Lavbe",
+      "install_help_ios": "I Safari trycker du på Dela och sedan på Lägg till på startskärmen.",
+      "offline_title": "Du är offline",
+      "offline_body": "Vissa sparade sidor kan fortfarande vara tillgängliga.",
+      "back_online": "Du är online igen.",
+      "draft_expired": "Detta sparade utkast har upphört att gälla."
+    },
+    "errors": {
+      "not_found": "Sidan hittades inte",
+      "gone": "Det här innehållet är inte längre tillgängligt.",
+      "forbidden": "Du har inte tillgång till den här sidan.",
+      "conflict": "Detta objekt har ändrats. Ladda om och försök igen.",
+      "rate_limited": "För många försök. Vänta ett ögonblick och försök igen.",
+      "unavailable": "Tjänsten är tillfälligt otillgänglig."
+    },
+    "consent": {
+      "settings": "Sekretessinställningar",
+      "analytics": "Tillåt analys",
+      "ads": "Tillåt reklam",
+      "save": "Spara val",
+      "decline": "Avvisa valfria cookies",
+      "withdraw": "Ändra eller dra tillbaka samtycke"
+    },
+    "legal": {
+      "terms": "Användarvillkor",
+      "community": "Community riktlinjer",
+      "privacy": "Sekretessmeddelande",
+      "cookies": "Cookiemeddelande",
+      "illegal_content": "Rapportera olagligt innehåll",
+      "data_request": "Sekretessförfrågan",
+      "operator": "Tjänsteoperatör"
+    },
+    "help": {
+      "title": "Hjälp",
+      "guest": "Du kan skriva utan att skapa ett konto.",
+      "recovery": "Håll din återställningskod säker; den kan inte visas igen.",
+      "visibility": "En bekännelse är offentlig endast efter moderators godkännande.",
+      "reporting": "Använd rapportformuläret för att flagga ett problem.",
+      "contact": "Kontakt"
+    },
+    "seo": {
+      "site_name": "Lavbe",
+      "home_title": "Bekännelser och stöd",
+      "home_description": "Läs bekännelser på originalspråket och få stöd.",
+      "topic_title": "{topic} bekännelser",
+      "topic_description": "Läs bekännelser om {topic}.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Annons"
+    }
+  },
+  "categories": {
+    "relationships": {
+      "label": "Kärlek och relationer",
+      "description": "Bekännelser om kärlek och relationer.",
+      "slug": "karlek-och-relationer"
+    },
+    "family": {
+      "label": "Familj",
+      "description": "Bekännelser om familj.",
+      "slug": "familj"
+    },
+    "friends": {
+      "label": "Vänskap och socialt liv",
+      "description": "Bekännelser om vänner och socialt liv.",
+      "slug": "vanskap-och-socialt-liv"
+    },
+    "work": {
+      "label": "Jobb och karriär",
+      "description": "Bekännelser om arbete och karriär.",
+      "slug": "jobb-och-karriar"
+    },
+    "education": {
+      "label": "Studier och utbildning",
+      "description": "Bekännelser om utbildning.",
+      "slug": "studier-och-utbildning"
+    },
+    "money": {
+      "label": "Pengar och ekonomi",
+      "description": "Bekännelser om pengar och ekonomi.",
+      "slug": "pengar-och-ekonomi"
+    },
+    "identity": {
+      "label": "Självbild och identitet",
+      "description": "Bekännelser om själv och identitet.",
+      "slug": "sjalvbild-och-identitet"
+    },
+    "values": {
+      "label": "Tro och värderingar",
+      "description": "Bekännelser om övertygelser och värderingar.",
+      "slug": "tro-och-varderingar"
+    },
+    "wellbeing": {
+      "label": "Hälsa och välmående",
+      "description": "Bekännelser om hälsa och välbefinnande.",
+      "slug": "halsa-och-valmaende"
+    },
+    "grief": {
+      "label": "Förlust och sorg",
+      "description": "Bekännelser om förlust och sorg.",
+      "slug": "forlust-och-sorg"
+    },
+    "life-changes": {
+      "label": "Förändringar i livet",
+      "description": "Bekännelser om livsförändringar.",
+      "slug": "forandringar-i-livet"
+    },
+    "everyday": {
+      "label": "Vardagsliv",
+      "description": "Bekännelser om vardagen.",
+      "slug": "vardagsliv"
+    }
+  },
+  "legal_pages": {
+    "terms": {
+      "title": "Användarvillkor",
+      "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "community": {
+      "title": "Community riktlinjer",
+      "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "privacy": {
+      "title": "Sekretessmeddelande",
+      "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "cookies": {
+      "title": "Cookiemeddelande",
+      "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "illegal_content": {
+      "title": "Rapportera olagligt innehåll",
+      "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "data_request": {
+      "title": "Sekretessförfrågan",
+      "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "operator": {
+      "title": "Tjänsteoperatör",
+      "body": "Utkast. Bekräfta lokala krav, den faktiska tjänsteoperatören och datapraxis innan publicering.",
+      "version": "draft-2026-11-19.2"
+    }
+  },
+  "legal_status": "draft"
+}

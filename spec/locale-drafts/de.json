@@ -1,0 +1,237 @@
+{
+  "locale": "de",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Lesen",
+      "write": "Schreiben",
+      "mine": "Mein Lavbe",
+      "more": "Mehr",
+      "language": "Sprache",
+      "settings": "Einstellungen",
+      "back": "Zurück",
+      "close": "Schließen"
+    },
+    "language": {
+      "picker_label": "Wählen Sie eine Sprache",
+      "search": "Sprachen suchen",
+      "empty": "Keine Sprachen gefunden",
+      "selected": "Aktuelle Sprache",
+      "changed": "Sprache wurde in {language} geändert."
+    },
+    "theme": {
+      "label": "Aussehen",
+      "system": "Geräteeinstellung verwenden",
+      "day": "Licht",
+      "night": "Dunkel"
+    },
+    "feed": {
+      "all": "Alle",
+      "topics": "Themen",
+      "new": "Neu",
+      "weekly": "Diese Woche",
+      "updates": "Neue Updates",
+      "more": "Mehr laden",
+      "refresh": "Feed aktualisieren",
+      "retry": "Versuchen Sie es erneut",
+      "empty": "Noch keine veröffentlichten Geständnisse.",
+      "end": "Sie haben das Ende erreicht.",
+      "loading": "Geständnisse werden geladen…"
+    },
+    "search": {
+      "title": "Geständnisse suchen",
+      "label": "Suche nach Schlüsselwort",
+      "submit": "Suchen",
+      "empty": "Keine passenden Geständnisse gefunden.",
+      "invalid": "Geben Sie einen Suchbegriff ein."
+    },
+    "confession": {
+      "author": "Anonymer Autor",
+      "support": "Unterstützung",
+      "follow": "Updates folgen",
+      "unfollow": "Nicht mehr folgen",
+      "share": "Teilen",
+      "report": "Bericht",
+      "update": "Aktualisierung",
+      "next": "Nächstes Geständnis",
+      "comments_closed": "Antworten sind geschlossen."
+    },
+    "write": {
+      "title": "Schreiben Sie ein Geständnis",
+      "intro": "Ihr Geständnis wird überprüft, bevor es öffentlich erscheint.",
+      "body": "Dein Geständnis",
+      "optional_title": "Titel (optional)",
+      "topic": "Thema",
+      "purpose": "Was wünschen Sie sich von den Lesern?",
+      "purpose_share": "Ich möchte es nur teilen",
+      "purpose_experience": "Ich möchte ähnliche Erfahrungen hören",
+      "purpose_advice": "Ich hätte gerne Rat",
+      "allow_comments": "Antworten zulassen",
+      "public_notice": "Genehmigte Geständnisse können öffentlich in ihrer Originalsprache verlesen werden.",
+      "age_notice": "Sie müssen mindestens 18 Jahre alt sein, um einreichen zu können.",
+      "remember_draft": "Merken Sie sich diesen Entwurf auf diesem Gerät",
+      "remember_device": "Merken Sie sich dieses Gerät für den privaten Zugriff",
+      "submit": "Zur Überprüfung senden",
+      "invalid": "Überprüfen Sie Ihre Eingaben. Die Textbeschränkung beträgt {limit} Zeichen.",
+      "network_error": "Wir konnten dies im Moment nicht senden. Versuchen Sie es erneut."
+    },
+    "submit": {
+      "pending": "Ihr Geständnis wartet auf Überprüfung.",
+      "recovery_code": "Wiederherstellungscode",
+      "recovery_help": "Speichern Sie diesen Code privat. Es wird nur einmal angezeigt.",
+      "copy": "Code kopieren",
+      "copied": "Kopiert",
+      "my_content": "Offener Privatstatus"
+    },
+    "comment": {
+      "write": "Schreiben Sie eine Antwort",
+      "body": "Ihre Antwort",
+      "reply": "Antwort",
+      "submit": "Zur Überprüfung senden",
+      "pending": "Ihre Antwort wartet auf Überprüfung.",
+      "edit": "Antwort bearbeiten",
+      "delete": "Antwort zurückziehen"
+    },
+    "report": {
+      "confession": "Geständnis melden",
+      "comment": "Antwort melden",
+      "reason": "Grund",
+      "explanation": "Zusätzliche Details (optional)",
+      "send": "Bericht senden",
+      "received": "Danke. Ihre Meldung ist eingegangen.",
+      "duplicate": "Sie haben diesen Artikel bereits gemeldet.",
+      "spam": "Spam oder Werbung",
+      "privacy": "Datenschutz oder persönliche Informationen",
+      "harassment": "Belästigung oder Missbrauch",
+      "threat": "Bedrohung oder Sicherheitsbedenken",
+      "inappropriate": "Unangemessener Inhalt",
+      "other": "Andere Bedenken"
+    },
+    "moderation": {
+      "confessions": "Geständnisse",
+      "comments": "Antworten",
+      "reports": "Berichte",
+      "pending": "Warten auf Überprüfung",
+      "public": "Veröffentlicht",
+      "changes_requested": "Änderungen angefordert",
+      "rejected": "Abgelehnt",
+      "withdrawn": "Zurückgezogen",
+      "hidden": "Versteckt",
+      "deleted": "Gelöscht",
+      "publish": "Genehmigen und veröffentlichen",
+      "reject": "Ablehnen",
+      "hide": "Ausblenden",
+      "request_changes": "Änderungen anfordern",
+      "appeal": "Einspruch",
+      "close_report": "Bericht auflösen",
+      "stale": "Dieses Element wurde geändert. Laden Sie es erneut und überprüfen Sie es erneut."
+    },
+    "mine": {
+      "confessions": "Meine Geständnisse",
+      "comments": "Meine Antworten",
+      "followed": "Folgt",
+      "notifications": "Benachrichtigungen",
+      "withdraw": "Zurückziehen",
+      "withdraw_confirm": "Dieses Element aus der öffentlichen Ansicht entfernen?",
+      "delete": "Löschen",
+      "delete_confirm": "Diese Aktion kann nicht rückgängig gemacht werden. Weitermachen?",
+      "empty": "Hier ist noch nichts."
+    },
+    "auth": {
+      "sign_in": "Anmelden",
+      "email": "E-Mail",
+      "email_sent": "Wenn ein Konto vorhanden ist, wurde eine Nachricht gesendet.",
+      "sign_out": "Abmelden",
+      "recovery": "Zugriff wiederherstellen",
+      "recovery_input": "Geben Sie Ihren Wiederherstellungscode ein",
+      "recover": "Wiederherstellen",
+      "recovered": "Zugriff wiederhergestellt. Bisherige Zugangscodes wurden widerrufen.",
+      "invalid_code": "Der Code ist ungültig oder abgelaufen."
+    },
+    "notifications": {
+      "published": "Ein Geständnis, dem Sie folgen, wurde veröffentlicht.",
+      "changes_requested": "Ein Moderator hat Änderungen an Ihrem Geständnis angefordert.",
+      "new_comments": {
+        "one": "Es gibt {count} neue Antwort.",
+        "other": "Es gibt {count} neue Antworten."
+      },
+      "followup": "Eine neue Fortsetzung ist verfügbar.",
+      "generic": "Es gibt neue Aktivitäten in Ihrem Konto.",
+      "email_option": "E-Mail-Benachrichtigungen (optional)",
+      "push_option": "Push-Benachrichtigungen (optional)"
+    },
+    "mail": {
+      "login_subject": "Ihr Anmeldelink",
+      "login_body": "Dieser Link läuft in {minutes} Minuten ab.",
+      "notification_subject": "Neue Aktivität auf Lavbe",
+      "notification_body": "Melden Sie sich bei Ihrem privaten Konto an, um das Update anzuzeigen."
+    },
+    "pwa": {
+      "install": "Lavbe installieren",
+      "install_help_ios": "Tippen Sie in Safari auf „Teilen“ und dann auf „Zum Startbildschirm hinzufügen“.",
+      "offline_title": "Sie sind offline",
+      "offline_body": "Einige gespeicherte Seiten sind möglicherweise noch verfügbar.",
+      "back_online": "Sie sind wieder online.",
+      "draft_expired": "Dieser gespeicherte Entwurf ist abgelaufen."
+    },
+    "errors": {
+      "not_found": "Seite nicht gefunden",
+      "gone": "Dieser Inhalt ist nicht mehr verfügbar.",
+      "forbidden": "Sie haben keinen Zugriff auf diese Seite.",
+      "conflict": "Dieses Element wurde geändert. Laden Sie es neu und versuchen Sie es erneut.",
+      "rate_limited": "Zu viele Versuche. Warten Sie einen Moment und versuchen Sie es erneut.",
+      "unavailable": "Der Dienst ist vorübergehend nicht verfügbar."
+    },
+    "consent": {
+      "settings": "Datenschutzeinstellungen",
+      "analytics": "Analyse zulassen",
+      "ads": "Werbung zulassen",
+      "save": "Auswahl speichern",
+      "decline": "Optionale Cookies ablehnen",
+      "withdraw": "Einwilligung ändern oder widerrufen"
+    },
+    "legal": {
+      "terms": "Nutzungsbedingungen",
+      "community": "Community-Richtlinien",
+      "privacy": "Datenschutzhinweis",
+      "cookies": "Cookie-Hinweis",
+      "illegal_content": "Melden Sie illegale Inhalte",
+      "data_request": "Datenschutzanfrage",
+      "operator": "Dienstbetreiber"
+    },
+    "help": {
+      "title": "Hilfe",
+      "guest": "Sie können schreiben, ohne ein Konto zu erstellen.",
+      "recovery": "Bewahren Sie Ihren Wiederherstellungscode sicher auf. es kann nicht erneut angezeigt werden.",
+      "visibility": "Ein Geständnis ist nur nach Genehmigung durch den Moderator öffentlich.",
+      "reporting": "Verwenden Sie das Berichtsformular, um ein Problem zu melden.",
+      "contact": "Kontakt"
+    },
+    "seo": {
+      "site_name": "Lavbe",
+      "home_title": "Geständnisse und Unterstützung",
+      "home_description": "Lesen Sie Geständnisse in ihrer Originalsprache und finden Sie Unterstützung.",
+      "topic_title": "{topic} Geständnisse",
+      "topic_description": "Lesen Sie Geständnisse über {topic}.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Werbung"
+    }
+  },
+  "category_descriptions": {
+    "relationships": "Geständnisse über Liebe und Beziehungen.",
+    "family": "Geständnisse über die Familie.",
+    "friends": "Geständnisse über Freunde und soziales Leben.",
+    "work": "Geständnisse über Arbeit und Karriere.",
+    "education": "Geständnisse über Bildung.",
+    "money": "Geständnisse über Geld und Finanzen.",
+    "identity": "Geständnisse über Selbst und Identität.",
+    "values": "Geständnisse über Überzeugungen und Werte.",
+    "wellbeing": "Geständnisse über Gesundheit und Wohlbefinden.",
+    "grief": "Geständnisse über Verlust und Trauer.",
+    "life-changes": "Geständnisse über Lebensveränderungen.",
+    "everyday": "Geständnisse über den Alltag."
+  },
+  "legal_body": "Entwurf. Bestätigen Sie vor der Veröffentlichung die lokalen Anforderungen, den tatsächlichen Dienstbetreiber und die Datenpraktiken."
+}

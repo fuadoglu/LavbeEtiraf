@@ -1,0 +1,238 @@
+{
+  "locale": "fr",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Lire",
+      "write": "Écrire",
+      "mine": "Mon Lavbé",
+      "more": "Plus",
+      "language": "Langue",
+      "settings": "Paramètres",
+      "back": "Retour",
+      "close": "Fermer"
+    },
+    "language": {
+      "picker_label": "Choisissez une langue",
+      "search": "Langues de recherche",
+      "empty": "Aucune langue trouvée",
+      "selected": "Langue actuelle",
+      "changed": "Langue modifiée en {language}."
+    },
+    "theme": {
+      "label": "Apparence",
+      "system": "Utiliser les paramètres de l'appareil",
+      "day": "Lumière",
+      "night": "Sombre"
+    },
+    "feed": {
+      "all": "Tous",
+      "topics": "Sujets",
+      "new": "Nouveau",
+      "weekly": "Cette semaine",
+      "updates": "Nouvelles mises à jour",
+      "more": "Charger plus",
+      "refresh": "Actualiser le flux",
+      "retry": "Réessayez",
+      "empty": "Aucune confession publiée pour l'instant.",
+      "end": "Vous avez atteint la fin.",
+      "loading": "Chargement des confessions…"
+    },
+    "search": {
+      "title": "Rechercher des aveux",
+      "label": "Recherche par mot clé",
+      "submit": "Rechercher",
+      "empty": "Aucune confession correspondante trouvée.",
+      "invalid": "Saisissez un terme de recherche."
+    },
+    "confession": {
+      "author": "Auteur anonyme",
+      "support": "Assistance",
+      "follow": "Suivre les mises à jour",
+      "unfollow": "Ne plus suivre",
+      "share": "Partager",
+      "report": "Rapport",
+      "update": "Mise à jour",
+      "next": "Prochaine confession",
+      "comments_closed": "Les réponses sont fermées."
+    },
+    "write": {
+      "title": "Écrivez une confession",
+      "intro": "Vos aveux sont examinés avant d'être rendus publics.",
+      "body": "Vos aveux",
+      "optional_title": "Titre (facultatif)",
+      "topic": "Sujet",
+      "purpose": "Qu'attendez-vous des lecteurs ?",
+      "purpose_share": "Je veux juste partager",
+      "purpose_experience": "Je souhaite entendre des expériences similaires",
+      "purpose_advice": "Je souhaite des conseils",
+      "allow_comments": "Autoriser les réponses",
+      "public_notice": "Les aveux approuvés peuvent être lus publiquement dans leur langue originale.",
+      "age_notice": "Vous devez avoir au moins 18 ans pour soumettre.",
+      "remember_draft": "Mémoriser ce brouillon sur cet appareil",
+      "remember_device": "Mémoriser cet appareil pour un accès privé",
+      "submit": "Envoyer pour examen",
+      "invalid": "Vérifiez vos entrées. La limite de texte est de {limit} caractères.",
+      "network_error": "Nous ne pouvons pas l'envoyer pour le moment. Essayer à nouveau."
+    },
+    "submit": {
+      "pending": "Vos aveux sont en attente d'examen.",
+      "recovery_code": "Code de récupération",
+      "recovery_help": "Enregistrez ce code en privé. Il ne sera affiché qu'une seule fois.",
+      "copy": "Copier le code",
+      "copied": "Copié",
+      "my_content": "Ouvrir le statut privé"
+    },
+    "comment": {
+      "write": "Écrivez une réponse",
+      "body": "Votre réponse",
+      "reply": "Répondre",
+      "submit": "Envoyer pour examen",
+      "pending": "Votre réponse est en attente d'examen.",
+      "edit": "Modifier la réponse",
+      "delete": "Retirer la réponse"
+    },
+    "report": {
+      "confession": "Signaler les aveux",
+      "comment": "Signaler la réponse",
+      "reason": "Raison",
+      "explanation": "Détails supplémentaires (facultatif)",
+      "send": "Envoyer le rapport",
+      "received": "Merci. Votre rapport a été reçu.",
+      "duplicate": "Vous avez déjà signalé cet élément.",
+      "spam": "Spam ou publicité",
+      "privacy": "Confidentialité ou informations personnelles",
+      "harassment": "Harcèlement ou abus",
+      "threat": "Menace ou problème de sécurité",
+      "inappropriate": "Contenu inapproprié",
+      "other": "Autre préoccupation"
+    },
+    "moderation": {
+      "confessions": "Confessions",
+      "comments": "Réponses",
+      "reports": "Rapports",
+      "pending": "En attente d'examen",
+      "public": "Publié",
+      "changes_requested": "Modifications demandées",
+      "rejected": "Rejeté",
+      "withdrawn": "Retiré",
+      "hidden": "Caché",
+      "deleted": "Supprimé",
+      "publish": "Approuver et publier",
+      "reject": "Rejeter",
+      "hide": "Masquer",
+      "request_changes": "Demander des modifications",
+      "appeal": "Appel",
+      "close_report": "Résoudre le rapport",
+      "stale": "Cet élément a changé. Rechargez et révisez-le à nouveau."
+    },
+    "mine": {
+      "confessions": "Mes confessions",
+      "comments": "Mes réponses",
+      "followed": "Suivant",
+      "notifications": "Notifications",
+      "withdraw": "Se retirer",
+      "withdraw_confirm": "Retirer cet élément de la vue publique ?",
+      "delete": "Supprimer",
+      "delete_confirm": "Cette action ne peut pas être annulée. Continuer?",
+      "empty": "Rien ici pour l'instant."
+    },
+    "auth": {
+      "sign_in": "Se connecter",
+      "email": "Courriel",
+      "email_sent": "Si un compte existe, un message a été envoyé.",
+      "sign_out": "Se déconnecter",
+      "recovery": "Récupérer l'accès",
+      "recovery_input": "Entrez votre code de récupération",
+      "recover": "Récupérer",
+      "recovered": "Accès récupéré. Les codes d'accès précédents ont été révoqués.",
+      "invalid_code": "Le code n'est pas valide ou a expiré."
+    },
+    "notifications": {
+      "published": "Une confession que vous suivez a été publiée.",
+      "changes_requested": "Un modérateur a demandé des modifications à vos aveux.",
+      "new_comments": {
+        "one": "Il y a une nouvelle réponse {count}.",
+        "other": "Il y a de nouvelles réponses {count}.",
+        "many": "Il y a de nouvelles réponses {count}."
+      },
+      "followup": "Une nouvelle suite est disponible.",
+      "generic": "Il y a une nouvelle activité dans votre compte.",
+      "email_option": "Notifications par e-mail (facultatif)",
+      "push_option": "Notifications push (facultatif)"
+    },
+    "mail": {
+      "login_subject": "Votre lien de connexion",
+      "login_body": "Ce lien expire dans {minutes} minutes.",
+      "notification_subject": "Nouvelle activité sur Lavbe",
+      "notification_body": "Connectez-vous à votre compte privé pour voir la mise à jour."
+    },
+    "pwa": {
+      "install": "Installer Lavbe",
+      "install_help_ios": "Dans Safari, appuyez sur Partager, puis sur Ajouter à l'écran d'accueil.",
+      "offline_title": "Vous êtes hors ligne",
+      "offline_body": "Certaines pages enregistrées peuvent encore être disponibles.",
+      "back_online": "Vous êtes de nouveau en ligne.",
+      "draft_expired": "Ce brouillon enregistré a expiré."
+    },
+    "errors": {
+      "not_found": "Page introuvable",
+      "gone": "Ce contenu n'est plus disponible.",
+      "forbidden": "Vous n'avez pas accès à cette page.",
+      "conflict": "Cet élément a changé. Rechargez et réessayez.",
+      "rate_limited": "Trop de tentatives. Attendez un moment et réessayez.",
+      "unavailable": "Le service est temporairement indisponible."
+    },
+    "consent": {
+      "settings": "Paramètres de confidentialité",
+      "analytics": "Autoriser les analyses",
+      "ads": "Autoriser la publicité",
+      "save": "Enregistrer les choix",
+      "decline": "Refuser les cookies facultatifs",
+      "withdraw": "Modifier ou retirer le consentement"
+    },
+    "legal": {
+      "terms": "Conditions d'utilisation",
+      "community": "Directives de la communauté",
+      "privacy": "Avis de confidentialité",
+      "cookies": "Avis relatif aux cookies",
+      "illegal_content": "Signaler un contenu illégal",
+      "data_request": "Demande de confidentialité",
+      "operator": "Opérateur de service"
+    },
+    "help": {
+      "title": "Aide",
+      "guest": "Vous pouvez écrire sans créer de compte.",
+      "recovery": "Gardez votre code de récupération en sécurité ; il ne peut pas être affiché à nouveau.",
+      "visibility": "Une confession n'est publique qu'après approbation du modérateur.",
+      "reporting": "Utilisez le formulaire de rapport pour signaler une préoccupation.",
+      "contact": "Contacter"
+    },
+    "seo": {
+      "site_name": "Lavbé",
+      "home_title": "Confessions et soutien",
+      "home_description": "Lisez les confessions dans leur langue originale et trouvez du soutien.",
+      "topic_title": "{topic} confessions",
+      "topic_description": "Lisez les confessions sur {topic}.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Publicité"
+    }
+  },
+  "category_descriptions": {
+    "relationships": "Confessions sur l'amour et les relations.",
+    "family": "Confessions sur la famille.",
+    "friends": "Confessions sur les amis et la vie sociale.",
+    "work": "Confessions sur le travail et la carrière.",
+    "education": "Confessions sur l'éducation.",
+    "money": "Confessions sur l'argent et les finances.",
+    "identity": "Confessions sur soi et son identité.",
+    "values": "Confessions sur les croyances et les valeurs.",
+    "wellbeing": "Confessions sur la santé et le bien-être.",
+    "grief": "Confessions sur la perte et le chagrin.",
+    "life-changes": "Confessions sur les changements de vie.",
+    "everyday": "Confessions sur la vie quotidienne."
+  },
+  "legal_body": "Brouillon. Confirmez les exigences locales, l’opérateur de service réel et les pratiques en matière de données avant la publication."
+}

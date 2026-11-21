@@ -1,0 +1,322 @@
+{
+  "locale": "tr",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Oku",
+      "write": "Yaz",
+      "mine": "Lavbem",
+      "more": "Daha Fazla",
+      "language": "Dil",
+      "settings": "Ayarlar",
+      "back": "Geri",
+      "close": "Kapat"
+    },
+    "language": {
+      "picker_label": "Bir dil seçin",
+      "search": "Dilleri ara",
+      "empty": "Dil bulunamadı",
+      "selected": "Mevcut dil",
+      "changed": "Dil {language} olarak değiştirildi."
+    },
+    "theme": {
+      "label": "Görünüm",
+      "system": "Cihaz ayarını kullan",
+      "day": "Işık",
+      "night": "Koyu"
+    },
+    "feed": {
+      "all": "Hepsi",
+      "topics": "Konular",
+      "new": "Yeni",
+      "weekly": "Bu hafta",
+      "updates": "Yeni güncellemeler",
+      "more": "Daha fazlasını yükle",
+      "refresh": "Özet akışını yenile",
+      "retry": "Tekrar deneyin",
+      "empty": "Henüz yayınlanmış bir itiraf yok.",
+      "end": "Sona ulaştınız.",
+      "loading": "İtiraflar yükleniyor…"
+    },
+    "search": {
+      "title": "İtirafları arayın",
+      "label": "Anahtar kelimeye göre ara",
+      "submit": "Ara",
+      "empty": "Eşleşen itiraf bulunamadı.",
+      "invalid": "Bir arama terimi girin."
+    },
+    "confession": {
+      "author": "Anonim yazar",
+      "support": "Destek",
+      "follow": "Güncellemeleri takip edin",
+      "unfollow": "Takibi bırak",
+      "share": "Paylaş",
+      "report": "Rapor Et",
+      "update": "Güncelleme",
+      "next": "Sonraki itiraf",
+      "comments_closed": "Yanıtlar kapalı."
+    },
+    "write": {
+      "title": "Bir itiraf yazın",
+      "intro": "İtirafınız kamuya açıklanmadan önce incelenir.",
+      "body": "İtirafınız",
+      "optional_title": "Başlık (isteğe bağlı)",
+      "topic": "Konu",
+      "purpose": "Okuyuculardan ne istersiniz?",
+      "purpose_share": "Sadece paylaşmak istiyorum",
+      "purpose_experience": "Benzer deneyimleri duymak istiyorum",
+      "purpose_advice": "tavsiye istiyorum",
+      "allow_comments": "Yanıtlara izin ver",
+      "public_notice": "Onaylanan itiraflar orijinal dillerinde halka açık olarak okunabilir.",
+      "age_notice": "Göndermek için en az 18 yaşında olmalısınız.",
+      "remember_draft": "Bu taslağı bu cihazda hatırla",
+      "remember_device": "Özel erişim için bu cihazı hatırla",
+      "submit": "İncelemeye gönder",
+      "invalid": "Girişlerinizi kontrol edin. Metin sınırı {limit} karakterdir.",
+      "network_error": "Bunu şu anda gönderemedik. Tekrar deneyin."
+    },
+    "submit": {
+      "pending": "İtirafınız incelenmeyi bekliyor.",
+      "recovery_code": "Kurtarma kodu",
+      "recovery_help": "Bu kodu özel olarak kaydedin. Yalnızca bir kez gösterilecektir.",
+      "copy": "Kodu kopyala",
+      "copied": "Kopyalandı",
+      "my_content": "Özel durumu aç"
+    },
+    "comment": {
+      "write": "Bir yanıt yazın",
+      "body": "Yanıtınız",
+      "reply": "Yanıtla",
+      "submit": "İncelemeye gönder",
+      "pending": "Yanıtınız incelenmeyi bekliyor.",
+      "edit": "Yanıtı düzenle",
+      "delete": "Yanıtı geri çekme"
+    },
+    "report": {
+      "confession": "İtirafı bildirin",
+      "comment": "Yanıtı bildir",
+      "reason": "Sebep",
+      "explanation": "Ek ayrıntılar (isteğe bağlı)",
+      "send": "Raporu gönder",
+      "received": "Teşekkür ederiz. Raporunuz alındı.",
+      "duplicate": "Bu öğeyi zaten bildirdiniz.",
+      "spam": "Spam veya reklam",
+      "privacy": "Gizlilik veya kişisel bilgiler",
+      "harassment": "Taciz veya istismar",
+      "threat": "Tehdit veya güvenlik endişesi",
+      "inappropriate": "Uygunsuz içerik",
+      "other": "Diğer endişeler"
+    },
+    "moderation": {
+      "confessions": "İtiraflar",
+      "comments": "Yanıtlar",
+      "reports": "Raporlar",
+      "pending": "İnceleme bekleniyor",
+      "public": "Yayınlandı",
+      "changes_requested": "Değişiklik talep edildi",
+      "rejected": "Reddedildi",
+      "withdrawn": "Geri çekildi",
+      "hidden": "Gizli",
+      "deleted": "Silindi",
+      "publish": "Onayla ve yayınla",
+      "reject": "Reddet",
+      "hide": "Gizle",
+      "request_changes": "Değişiklik iste",
+      "appeal": "İtiraz",
+      "close_report": "Raporu çözümle",
+      "stale": "Bu öğe değişti. Yeniden yükleyin ve tekrar inceleyin."
+    },
+    "mine": {
+      "confessions": "İtiraflarım",
+      "comments": "Yanıtlarım",
+      "followed": "Takip ediliyor",
+      "notifications": "Bildirimler",
+      "withdraw": "Çekilme",
+      "withdraw_confirm": "Bu öğe genel görünümden çekilsin mi?",
+      "delete": "Sil",
+      "delete_confirm": "Bu işlem geri alınamaz. Devam etmek?",
+      "empty": "Burada henüz bir şey yok."
+    },
+    "auth": {
+      "sign_in": "Oturum aç",
+      "email": "E-posta",
+      "email_sent": "Hesap mevcutsa mesaj gönderildi.",
+      "sign_out": "Çıkış yap",
+      "recovery": "Erişimi kurtar",
+      "recovery_input": "Kurtarma kodunuzu girin",
+      "recover": "Kurtar",
+      "recovered": "Erişim kurtarıldı. Önceki erişim kodları iptal edildi.",
+      "invalid_code": "Kod geçersiz veya süresi dolmuş."
+    },
+    "notifications": {
+      "published": "Takip ettiğiniz bir itiraf yayımlandı.",
+      "changes_requested": "Bir moderatör itirafınızda değişiklik yapılmasını talep etti.",
+      "new_comments": {
+        "one": "{count}'nin yeni yanıtı var.",
+        "other": "{count} yeni yanıtlar var."
+      },
+      "followup": "Yeni bir devamı mevcut.",
+      "generic": "Hesabınızda yeni etkinlik var.",
+      "email_option": "E-posta bildirimleri (isteğe bağlı)",
+      "push_option": "Anında bildirimler (isteğe bağlı)"
+    },
+    "mail": {
+      "login_subject": "Oturum açma bağlantınız",
+      "login_body": "Bu bağlantının süresi {minutes} dakika içinde doluyor.",
+      "notification_subject": "Lavbe'de yeni aktivite",
+      "notification_body": "Güncellemeyi görmek için özel hesabınızda oturum açın."
+    },
+    "pwa": {
+      "install": "Lavbe'yi yükleyin",
+      "install_help_ios": "Safari'de Paylaş'a ve ardından Ana Ekrana Ekle'ye dokunun.",
+      "offline_title": "Çevrimdışısınız",
+      "offline_body": "Kaydedilen bazı sayfalar hâlâ kullanılabilir durumda olabilir.",
+      "back_online": "Tekrar çevrimiçisiniz.",
+      "draft_expired": "Kaydedilen bu taslağın süresi doldu."
+    },
+    "errors": {
+      "not_found": "Sayfa bulunamadı",
+      "gone": "Bu içerik artık mevcut değil.",
+      "forbidden": "Bu sayfaya erişiminiz yok.",
+      "conflict": "Bu öğe değişti. Yeniden yükleyin ve tekrar deneyin.",
+      "rate_limited": "Çok fazla deneme. Bir süre bekleyip tekrar deneyin.",
+      "unavailable": "Hizmet geçici olarak kullanılamıyor."
+    },
+    "consent": {
+      "settings": "Gizlilik ayarları",
+      "analytics": "Analitiklere izin ver",
+      "ads": "Reklamlara izin ver",
+      "save": "Seçimleri kaydet",
+      "decline": "İsteğe bağlı çerezleri reddet",
+      "withdraw": "İzni değiştirin veya geri çekin"
+    },
+    "legal": {
+      "terms": "Kullanım koşulları",
+      "community": "Topluluk kuralları",
+      "privacy": "Gizlilik bildirimi",
+      "cookies": "Çerez bildirimi",
+      "illegal_content": "Yasa dışı içeriği bildirin",
+      "data_request": "Gizlilik talebi",
+      "operator": "Servis operatörü"
+    },
+    "help": {
+      "title": "Yardım",
+      "guest": "Hesap oluşturmadan yazabilirsiniz.",
+      "recovery": "Kurtarma kodunuzu güvende tutun; tekrar gösterilemez.",
+      "visibility": "Bir itiraf yalnızca moderatörün onayından sonra kamuya açıktır.",
+      "reporting": "Bir endişeyi belirtmek için rapor formunu kullanın.",
+      "contact": "İletişim"
+    },
+    "seo": {
+      "site_name": "Lavbe",
+      "home_title": "İtiraflar ve destek",
+      "home_description": "İtirafları orijinal dillerinde okuyun ve destek bulun.",
+      "topic_title": "{topic} itiraflar",
+      "topic_description": "{topic} hakkındaki itirafları okuyun.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Reklam"
+    }
+  },
+  "categories": {
+    "relationships": {
+      "label": "Aşk ve ilişkiler",
+      "description": "Aşk ve İlişkilerle İlgili İtiraflar.",
+      "slug": "ask-ve-iliskiler"
+    },
+    "family": {
+      "label": "Aile",
+      "description": "Aileyle İlgili İtiraflar.",
+      "slug": "aile"
+    },
+    "friends": {
+      "label": "Arkadaşlık ve sosyal hayat",
+      "description": "Arkadaşlar ve Sosyal Hayatla İlgili İtiraflar.",
+      "slug": "arkadaslik-ve-sosyal-hayat"
+    },
+    "work": {
+      "label": "İş ve kariyer",
+      "description": "İş ve Kariyerle İlgili İtiraflar.",
+      "slug": "is-ve-kariyer"
+    },
+    "education": {
+      "label": "Eğitim",
+      "description": "Eğitimle İlgili İtiraflar.",
+      "slug": "egitim"
+    },
+    "money": {
+      "label": "Para ve finans",
+      "description": "Para ve Finansla İlgili İtiraflar.",
+      "slug": "para-ve-finans"
+    },
+    "identity": {
+      "label": "Benlik ve kimlik",
+      "description": "Benlik ve Kimlik Hakkında İtiraflar.",
+      "slug": "benlik-ve-kimlik"
+    },
+    "values": {
+      "label": "İnanç ve değerler",
+      "description": "İnançlar ve Değerler Hakkında İtiraflar.",
+      "slug": "inanc-ve-degerler"
+    },
+    "wellbeing": {
+      "label": "Sağlık ve iyi oluş",
+      "description": "Sağlık ve Refah ile ilgili İtiraflar.",
+      "slug": "saglik-ve-iyi-olus"
+    },
+    "grief": {
+      "label": "Kayıp ve yas",
+      "description": "Kayıp ve Kederle İlgili İtiraflar.",
+      "slug": "kayip-ve-yas"
+    },
+    "life-changes": {
+      "label": "Hayattaki değişimler",
+      "description": "Yaşam Değişiklikleriyle İlgili İtiraflar.",
+      "slug": "hayattaki-degisimler"
+    },
+    "everyday": {
+      "label": "Günlük hayat",
+      "description": "Gündelik Hayata İlişkin İtiraflar.",
+      "slug": "gunluk-hayat"
+    }
+  },
+  "legal_pages": {
+    "terms": {
+      "title": "Kullanım koşulları",
+      "body": "Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.",
+      "version": "draft-2026-11-19.2"
+    },
+    "community": {
+      "title": "Topluluk kuralları",
+      "body": "Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.",
+      "version": "draft-2026-11-19.2"
+    },
+    "privacy": {
+      "title": "Gizlilik bildirimi",
+      "body": "Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.",
+      "version": "draft-2026-11-19.2"
+    },
+    "cookies": {
+      "title": "Çerez bildirimi",
+      "body": "Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.",
+      "version": "draft-2026-11-19.2"
+    },
+    "illegal_content": {
+      "title": "Yasa dışı içeriği bildirin",
+      "body": "Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.",
+      "version": "draft-2026-11-19.2"
+    },
+    "data_request": {
+      "title": "Gizlilik talebi",
+      "body": "Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.",
+      "version": "draft-2026-11-19.2"
+    },
+    "operator": {
+      "title": "Servis operatörü",
+      "body": "Taslak. Yayınlamadan önce yerel gereklilikleri, gerçek hizmet operatörünü ve veri uygulamalarını doğrulayın.",
+      "version": "draft-2026-11-19.2"
+    }
+  },
+  "legal_status": "draft"
+}

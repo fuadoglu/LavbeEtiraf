@@ -1,0 +1,322 @@
+{
+  "locale": "nb",
+  "version": "draft-2026-11-19.2",
+  "messages": {
+    "navigation": {
+      "read": "Les",
+      "write": "Skriv",
+      "mine": "Min Lavbe",
+      "more": "Mer",
+      "language": "Språk",
+      "settings": "Innstillinger",
+      "back": "Tilbake",
+      "close": "Lukk"
+    },
+    "language": {
+      "picker_label": "Velg et språk",
+      "search": "Søk etter språk",
+      "empty": "Ingen språk funnet",
+      "selected": "Gjeldende språk",
+      "changed": "Språk endret til {language}."
+    },
+    "theme": {
+      "label": "Utseende",
+      "system": "Bruk enhetsinnstilling",
+      "day": "Lys",
+      "night": "Mørk"
+    },
+    "feed": {
+      "all": "Alle",
+      "topics": "Emner",
+      "new": "Ny",
+      "weekly": "Denne uken",
+      "updates": "Nye oppdateringer",
+      "more": "Last inn mer",
+      "refresh": "Oppdater feed",
+      "retry": "Prøv igjen",
+      "empty": "Ingen publiserte tilståelser ennå.",
+      "end": "Du har nådd slutten.",
+      "loading": "Laster inn tilståelser …"
+    },
+    "search": {
+      "title": "Søk bekjennelser",
+      "label": "Søk etter nøkkelord",
+      "submit": "Søk",
+      "empty": "Ingen samsvarende tilståelser funnet.",
+      "invalid": "Skriv inn et søkeord."
+    },
+    "confession": {
+      "author": "Anonym forfatter",
+      "support": "Støtte",
+      "follow": "Følg oppdateringer",
+      "unfollow": "Slutt å følge",
+      "share": "Del",
+      "report": "Rapport",
+      "update": "Oppdatering",
+      "next": "Neste bekjennelse",
+      "comments_closed": "Svarene er stengt."
+    },
+    "write": {
+      "title": "Skriv en tilståelse",
+      "intro": "Tilståelsen din gjennomgås før den vises offentlig.",
+      "body": "Din tilståelse",
+      "optional_title": "Tittel (valgfritt)",
+      "topic": "Emne",
+      "purpose": "Hva ønsker du av leserne?",
+      "purpose_share": "Jeg vil bare dele",
+      "purpose_experience": "Jeg ønsker å høre lignende erfaringer",
+      "purpose_advice": "Jeg vil gjerne ha råd",
+      "allow_comments": "Tillat svar",
+      "public_notice": "Godkjente tilståelser kan leses offentlig på originalspråket.",
+      "age_notice": "Du må være minst 18 år for å sende inn.",
+      "remember_draft": "Husk dette utkastet på denne enheten",
+      "remember_device": "Husk denne enheten for privat tilgang",
+      "submit": "Send for vurdering",
+      "invalid": "Sjekk oppføringene dine. Tekstgrensen er {limit} tegn.",
+      "network_error": "Vi kunne ikke sende dette akkurat nå. Prøv igjen."
+    },
+    "submit": {
+      "pending": "Din tilståelse venter på vurdering.",
+      "recovery_code": "Gjenopprettingskode",
+      "recovery_help": "Lagre denne koden privat. Den vises kun én gang.",
+      "copy": "Kopier kode",
+      "copied": "Kopiert",
+      "my_content": "Åpen privat status"
+    },
+    "comment": {
+      "write": "Skriv et svar",
+      "body": "Ditt svar",
+      "reply": "Svar",
+      "submit": "Send for vurdering",
+      "pending": "Svaret ditt venter på vurdering.",
+      "edit": "Rediger svar",
+      "delete": "Trekk tilbake svar"
+    },
+    "report": {
+      "confession": "Rapporter tilståelse",
+      "comment": "Rapporter svar",
+      "reason": "Grunn",
+      "explanation": "Ytterligere detaljer (valgfritt)",
+      "send": "Send rapport",
+      "received": "Takk. Rapporten din ble mottatt.",
+      "duplicate": "Du har allerede rapportert denne varen.",
+      "spam": "Spam eller reklame",
+      "privacy": "Personvern eller personlig informasjon",
+      "harassment": "Trakassering eller misbruk",
+      "threat": "Trussel eller sikkerhetsproblem",
+      "inappropriate": "Upassende innhold",
+      "other": "Andre bekymringer"
+    },
+    "moderation": {
+      "confessions": "Bekjennelser",
+      "comments": "Svar",
+      "reports": "Rapporter",
+      "pending": "Venter på vurdering",
+      "public": "Publisert",
+      "changes_requested": "Endringer forespurt",
+      "rejected": "Avvist",
+      "withdrawn": "Tilbaketrukket",
+      "hidden": "Skjult",
+      "deleted": "Slettet",
+      "publish": "Godkjenn og publiser",
+      "reject": "Avvis",
+      "hide": "Skjul",
+      "request_changes": "Be om endringer",
+      "appeal": "Anke",
+      "close_report": "Løs rapport",
+      "stale": "Dette elementet er endret. Last inn på nytt og se den på nytt."
+    },
+    "mine": {
+      "confessions": "Mine tilståelser",
+      "comments": "Mine svar",
+      "followed": "Følger",
+      "notifications": "Varsler",
+      "withdraw": "Trekk tilbake",
+      "withdraw_confirm": "Vil du trekke denne gjenstanden fra offentlig visning?",
+      "delete": "Slett",
+      "delete_confirm": "Denne handlingen kan ikke angres. Fortsette?",
+      "empty": "Ingenting her ennå."
+    },
+    "auth": {
+      "sign_in": "Logg på",
+      "email": "E-post",
+      "email_sent": "Hvis det finnes en konto, er det sendt en melding.",
+      "sign_out": "Logg av",
+      "recovery": "Gjenopprett tilgang",
+      "recovery_input": "Skriv inn gjenopprettingskoden",
+      "recover": "Gjenopprett",
+      "recovered": "Tilgang gjenopprettet. Tidligere tilgangskoder ble opphevet.",
+      "invalid_code": "Koden er ugyldig eller utløpt."
+    },
+    "notifications": {
+      "published": "En tilståelse du følger ble publisert.",
+      "changes_requested": "En moderator ba om endringer i tilståelsen din.",
+      "new_comments": {
+        "one": "Det er {count} nytt svar.",
+        "other": "Det er {count} nye svar."
+      },
+      "followup": "En ny fortsettelse er tilgjengelig.",
+      "generic": "Det er ny aktivitet på kontoen din.",
+      "email_option": "E-postvarsler (valgfritt)",
+      "push_option": "Push-varsler (valgfritt)"
+    },
+    "mail": {
+      "login_subject": "Din påloggingslenke",
+      "login_body": "Denne lenken utløper om {minutes} minutter.",
+      "notification_subject": "Ny aktivitet på Lavbe",
+      "notification_body": "Logg på din private konto for å se oppdateringen."
+    },
+    "pwa": {
+      "install": "Installer Lavbe",
+      "install_help_ios": "I Safari trykker du på Del og deretter Legg til på startskjermen.",
+      "offline_title": "Du er frakoblet",
+      "offline_body": "Noen lagrede sider kan fortsatt være tilgjengelige.",
+      "back_online": "Du er tilbake online.",
+      "draft_expired": "Dette lagrede utkastet er utløpt."
+    },
+    "errors": {
+      "not_found": "Finner ikke siden",
+      "gone": "Dette innholdet er ikke lenger tilgjengelig.",
+      "forbidden": "Du har ikke tilgang til denne siden.",
+      "conflict": "Dette elementet er endret. Last inn på nytt og prøv igjen.",
+      "rate_limited": "For mange forsøk. Vent et øyeblikk og prøv igjen.",
+      "unavailable": "Tjenesten er midlertidig utilgjengelig."
+    },
+    "consent": {
+      "settings": "Personverninnstillinger",
+      "analytics": "Tillat analyser",
+      "ads": "Tillat annonsering",
+      "save": "Lagre valg",
+      "decline": "Avslå valgfrie informasjonskapsler",
+      "withdraw": "Endre eller trekke tilbake samtykke"
+    },
+    "legal": {
+      "terms": "Vilkår for bruk",
+      "community": "Retningslinjer for fellesskapet",
+      "privacy": "Personvernerklæring",
+      "cookies": "Informasjon om informasjonskapsler",
+      "illegal_content": "Rapporter ulovlig innhold",
+      "data_request": "Personvernforespørsel",
+      "operator": "Tjenesteoperatør"
+    },
+    "help": {
+      "title": "Hjelp",
+      "guest": "Du kan skrive uten å opprette en konto.",
+      "recovery": "Hold gjenopprettingskoden din trygt; den kan ikke vises igjen.",
+      "visibility": "En tilståelse er offentlig kun etter godkjenning av moderator.",
+      "reporting": "Bruk rapportskjemaet til å rapportere en bekymring.",
+      "contact": "Kontakt"
+    },
+    "seo": {
+      "site_name": "Lavbe",
+      "home_title": "Bekjennelser og støtte",
+      "home_description": "Les bekjennelser på originalspråket og finn støtte.",
+      "topic_title": "{topic} tilståelser",
+      "topic_description": "Les tilståelser om {topic}.",
+      "confession_title": "{title} · Lavbe"
+    },
+    "ads": {
+      "label": "Annonse"
+    }
+  },
+  "categories": {
+    "relationships": {
+      "label": "Kjærlighet og forhold",
+      "description": "Bekjennelser om kjærlighet og relasjoner.",
+      "slug": "kjaerlighet-og-forhold"
+    },
+    "family": {
+      "label": "Familie",
+      "description": "Bekjennelser om familie.",
+      "slug": "familie"
+    },
+    "friends": {
+      "label": "Vennskap og sosialt liv",
+      "description": "Bekjennelser om venner og sosialt liv.",
+      "slug": "vennskap-og-sosialt-liv"
+    },
+    "work": {
+      "label": "Jobb og karriere",
+      "description": "Bekjennelser om arbeid og karriere.",
+      "slug": "jobb-og-karriere"
+    },
+    "education": {
+      "label": "Studier og utdanning",
+      "description": "Bekjennelser om utdanning.",
+      "slug": "studier-og-utdanning"
+    },
+    "money": {
+      "label": "Penger og økonomi",
+      "description": "Bekjennelser om penger og økonomi.",
+      "slug": "penger-og-okonomi"
+    },
+    "identity": {
+      "label": "Selvoppfatning og identitet",
+      "description": "Bekjennelser om selv og identitet.",
+      "slug": "selvoppfatning-og-identitet"
+    },
+    "values": {
+      "label": "Tro og verdier",
+      "description": "Bekjennelser om tro og verdier.",
+      "slug": "tro-og-verdier"
+    },
+    "wellbeing": {
+      "label": "Helse og velvære",
+      "description": "Bekjennelser om helse og velvære.",
+      "slug": "helse-og-velvaere"
+    },
+    "grief": {
+      "label": "Tap og sorg",
+      "description": "Bekjennelser om tap og sorg.",
+      "slug": "tap-og-sorg"
+    },
+    "life-changes": {
+      "label": "Endringer i livet",
+      "description": "Bekjennelser om endringer i livet.",
+      "slug": "endringer-i-livet"
+    },
+    "everyday": {
+      "label": "Hverdagsliv",
+      "description": "Bekjennelser om hverdagen.",
+      "slug": "hverdagsliv"
+    }
+  },
+  "legal_pages": {
+    "terms": {
+      "title": "Vilkår for bruk",
+      "body": "Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "community": {
+      "title": "Retningslinjer for fellesskapet",
+      "body": "Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "privacy": {
+      "title": "Personvernerklæring",
+      "body": "Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "cookies": {
+      "title": "Informasjon om informasjonskapsler",
+      "body": "Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "illegal_content": {
+      "title": "Rapporter ulovlig innhold",
+      "body": "Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "data_request": {
+      "title": "Personvernforespørsel",
+      "body": "Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.",
+      "version": "draft-2026-11-19.2"
+    },
+    "operator": {
+      "title": "Tjenesteoperatør",
+      "body": "Utkast. Bekreft lokale krav, den faktiske tjenesteoperatøren og datapraksis før publisering.",
+      "version": "draft-2026-11-19.2"
+    }
+  },
+  "legal_status": "draft"
+}

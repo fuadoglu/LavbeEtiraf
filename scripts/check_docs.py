@@ -226,6 +226,34 @@ def check_packages(directory, catalog, contract, report):
             report.errors.append(f"{path}: invalid package shape: {exc}")
 
 
+def check_locale_source(root, contract, report):
+    path = root / "spec/locale-messages.en.json"
+    if not path.is_file():
+        report.errors.append("spec/locale-messages.en.json: canonical source messages are missing.")
+        return
+    try:
+        messages = read_json(path)
+    except (OSError, ValueError) as exc:
+        report.errors.append(f"spec/locale-messages.en.json: invalid JSON: {exc}")
+        return
+    report.check(set(messages) == set(contract["groups"]), "Canonical English source message groups differ from locale-contract.json.")
+    for group, keys in contract["groups"].items():
+        actual = messages.get(group, {})
+        report.check(set(actual) == set(keys), f"Canonical source {group}: message keys differ from locale-contract.json.")
+        for key in keys:
+            path_key = f"{group}.{key}"
+            value = actual.get(key)
+            names = contract["placeholders"].get(path_key, [])
+            if path_key in contract["plural_keys"]:
+                forms = set(contract["cardinal_forms"]["en"])
+                report.check(isinstance(value, dict) and set(value) == forms, f"Canonical source {path_key}: invalid plural forms.")
+                if isinstance(value, dict):
+                    for form in forms:
+                        check_message(f"Canonical source {path_key}.{form}", value.get(form), names, report)
+            else:
+                check_message(f"Canonical source {path_key}", value, names, report)
+
+
 def check_feed_translations(directory, catalog, report):
     expected_keys = {
         "feed_title", "feed_subtitle", "sort_label", "topics_button", "sort_new", "sort_weekly", "sort_popular", "sort_popular_short", "sort_updates",
@@ -293,6 +321,7 @@ def verify(root, packages=None):
     catalog = read_json(root / "spec/catalog.json")
     contract = read_json(root / "spec/locale-contract.json")
     check_catalog(root, catalog, contract, report)
+    check_locale_source(root, contract, report)
     acceptance_count = check_backlog(root, report)
     if packages is not None:
         check_packages(packages, catalog, contract, report)
