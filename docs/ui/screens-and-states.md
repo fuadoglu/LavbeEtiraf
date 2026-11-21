@@ -46,4 +46,4 @@ Etiraf detail-də breadcrumb kateqoriyanı göstərdiyi üçün başlıq sahəsi
 
 ## Gavalı mürəkkəbi
 
-Alt hissədəki seçim lentə, etirafa və yazı formasına jurnal tipoqrafiyası tətbiq edir. Stil resources/css/plum-ink.css faylında ayrıca saxlanır. Brauzer yalnız görünüş seçimini saxlayır. Oxunaqlılıq, fokus və naviqasiya hər iki rejimdə eyni komponentlərdən gəlir. Ekranı yoxlayanda ilk ziyarəti, üslubu aktivləşdirib başqa səhifəyə keçməyi və standart görünüşə qayıtmağı ayrıca sınayın.
+Editorial dizayn bütün səhifələrdə standart və yeganə görünüşdür. Əvvəlki klassik stil seçimi və cihazda yadda saxlanması yoxdur. Ümumi skelet, naviqasiya, məzmun və əməliyyatlar dəyişmir; tipografiya, ölçü, boşluq və səthlər vahid editorial dilə uyğundur. Gündüz/gecə görünüşü ilə birlikdə işləyir.

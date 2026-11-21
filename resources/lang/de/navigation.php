@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'ink_style' => 'Stil „Pflaumentinte“',
     'read' => 'Lesen',
     'write' => 'Schreiben',
     'mine' => 'Mein Bereich',

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'ink_style' => 'Erik mürekkebi görünümü',
     'read' => 'Oku',
     'write' => 'Yaz',
     'mine' => 'Alanım',

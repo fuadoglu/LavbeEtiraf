@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'ink_style' => 'Plum Ink style',
     'read' => 'Read',
     'write' => 'Write',
     'mine' => 'My space',

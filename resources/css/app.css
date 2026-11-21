@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import './plum-ink.css';
 
 @source '../../resources/views/**/*.blade.php';
 

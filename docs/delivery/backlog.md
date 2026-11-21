@@ -425,6 +425,6 @@ Nömrəli HTML pagination lent üçün yeganə naviqasiya müqaviləsi olsun. UI
 
 ## LAV-072 · Gavalı mürəkkəbi görünüşü
 
-**Issue:** [#157](https://github.com/fuadoglu/LavbeEtiraf/issues/157). **Asılılıq:** LAV-016, LAV-071. **Qəbul:** UI-01, UI-02, LOC-01.
+**Issue:** [#157](https://github.com/fuadoglu/LavbeEtiraf/issues/157). **Asılılıq:** LAV-016, LAV-071. **Qəbul:** UI-01, UI-02, LOC-01, UI-28.
 
-Səhifənin aşağı hissəsində cihaz üçün ayrıca jurnal üslubu seçilir. İlk ziyarətdə standart görünüş açılır. Yeni üslub gündüz/gecə seçimi ilə birlikdə işləyir və istənilən səhifədə geri qaytarılır. Skelet və əməliyyatlar dəyişmədən başlıq/kart/təsvir ölçüləri, mətn eni, desktop mövzu rail-i, sıralama tabları, detail və yazı forması vahid editorial vizual pilləyə uyğun cilalanır; mobil en, fokus, rəng kontrastı və reduced-motion qorunur. **Əlavə qəbul:** UI-28.
+“Gavalı mürəkkəbi” editorial dizaynı yeganə və daimi görünüşdür; əvvəlki klassik görünüşə keçid yoxdur. Görünüş seçicisi və onun cihaz yaddaşı çıxarılır. Skelet və əməliyyatlar dəyişmədən başlıq/kart/təsvir ölçüləri, mətn eni, desktop mövzu rail-i, sıralama tabları, detail, yazı və müzakirə formaları vahid editorial vizual pillədə qalır; gündüz/gecə, mobil en, fokus, rəng kontrastı və reduced-motion qorunur. **Qəbul:** UI-01, UI-02, LOC-01, UI-28.

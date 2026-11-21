@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'ink_style' => '자두빛 잉크 스타일',
     'read' => '읽기',
     'write' => '글쓰기',
     'mine' => '내 공간',

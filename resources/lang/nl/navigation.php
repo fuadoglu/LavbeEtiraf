@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'ink_style' => 'Stijl Pruimeninkt',
     'read' => 'Lezen',
     'write' => 'Schrijven',
     'mine' => 'Mijn plek',

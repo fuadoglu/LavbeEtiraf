@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'ink_style' => 'Gavalı mürəkkəbi üslubu',
     'read' => 'Oxu',
     'write' => 'Yaz',
     'mine' => 'Mənim',

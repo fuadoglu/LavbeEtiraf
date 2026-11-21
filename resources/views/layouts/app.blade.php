@@ -18,9 +18,6 @@
     <script>
         (() => {
             try {
-                if (localStorage.getItem('lavbe-style') === 'ink') {
-                    document.documentElement.dataset.style = 'ink';
-                }
                 const saved = localStorage.getItem('lavbe-theme');
                 const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
                 const theme = saved === 'day' || saved === 'night' ? saved : system;
@@ -31,7 +28,7 @@
             }
         })();
     </script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/plum-ink.css', 'resources/js/app.js'])
 </head>
 <body>
     <a class="skip-link" href="#main">{{ __('navigation.skip') }}</a>
@@ -46,10 +43,6 @@
                 <a class="site-footer-brand-link" href="{{ route('home', ['locale' => $lavbeLocale['segment'] ?? request()->route('locale', 'en')]) }}" aria-label="{{ config('app.name') }}">
                     <span class="brand-wordmark" aria-hidden="true" style="--brand-logo-mask: url('{{ asset('icons/lavbe-logo.svg') }}'); --brand-heart-mask: url('{{ asset('icons/lavbe-heart.svg') }}')"></span>
                 </a>
-                <label data-style-control hidden>
-                    <input type="checkbox" data-ink-style>
-                    {{ __('navigation.ink_style') }}
-                </label>
                 <nav class="site-footer-navigation" aria-label="{{ __('navigation.footer') }}">
                     <ul>
                         @foreach(['terms', 'community', 'privacy', 'cookies', 'illegal_content', 'data_request'] as $legalPage)

@@ -1,5 +1,5 @@
 /* Gavalı mürəkkəbi: editorial finish, same page structure and controls. */
-:root[data-style="ink"] {
+:root {
     --editorial-serif: Charter, "Iowan Old Style", Georgia, "Noto Serif", serif;
     --ink-display-size: clamp(2rem, 3.4vw, 2.85rem);
     --ink-story-size: clamp(1.42rem, 2.15vw, 1.85rem);
@@ -9,16 +9,16 @@
     --ink-wash: color-mix(in srgb, var(--action) 5%, var(--surface));
 }
 
-:root[data-style="ink"] :is(.site-header, .site-footer) {
+:is(.site-header, .site-footer) {
     background: var(--page);
     border-color: var(--line);
 }
 
-:root[data-style="ink"] .site-header {
+.site-header {
     min-height: 4.5rem;
 }
 
-:root[data-style="ink"] :is(.feed-heading h1, .write-heading h1, .confession-heading h1, .reading-page h1, .write-page > h1) {
+:is(.feed-heading h1, .write-heading h1, .confession-heading h1, .reading-page h1, .write-page > h1) {
     max-width: 22ch;
     margin-block: 0;
     color: var(--brand-logo-color);
@@ -28,12 +28,12 @@
     overflow-wrap: anywhere;
 }
 
-:root[data-style="ink"] .feed-heading {
+.feed-heading {
     margin-block-end: .8rem;
 }
 
-:root[data-style="ink"] .feed-heading p,
-:root[data-style="ink"] .write-heading p {
+.feed-heading p,
+.write-heading p {
     max-width: 58ch;
     color: var(--muted);
     font-size: .96rem;
@@ -41,7 +41,7 @@
 }
 
 /* The desktop topic rail stays in place but reads as a quiet index. */
-:root[data-style="ink"] .feed-topic-sidebar .topic-panel {
+.feed-topic-sidebar .topic-panel {
     gap: .12rem;
     padding: .25rem;
     border: 0;
@@ -50,7 +50,7 @@
     background: transparent;
 }
 
-:root[data-style="ink"] .feed-topic-sidebar .topic-chip {
+.feed-topic-sidebar .topic-chip {
     min-height: 2.55rem;
     gap: .55rem;
     padding: .48rem .65rem;
@@ -65,29 +65,29 @@
     text-align: start;
 }
 
-:root[data-style="ink"] .feed-topic-sidebar .topic-chip-icon {
+.feed-topic-sidebar .topic-chip-icon {
     flex: 0 0 1rem;
     color: var(--action);
 }
 
-:root[data-style="ink"] .feed-topic-sidebar .topic-chip:hover,
-:root[data-style="ink"] .feed-topic-sidebar .topic-chip[aria-current="page"] {
+.feed-topic-sidebar .topic-chip:hover,
+.feed-topic-sidebar .topic-chip[aria-current="page"] {
     border-color: color-mix(in srgb, var(--action) 14%, transparent);
     background: var(--ink-wash);
     color: var(--action);
 }
 
-:root[data-style="ink"] .feed-controls {
+.feed-controls {
     margin-block-end: .45rem;
 }
 
-:root[data-style="ink"] .feed-controls .sort-panel {
+.feed-controls .sort-panel {
     gap: .35rem;
     padding-block: .25rem 0;
     border-block: 0;
 }
 
-:root[data-style="ink"] .feed-controls .sort-link {
+.feed-controls .sort-link {
     min-height: 2.9rem;
     gap: .45rem;
     border: 0;
@@ -99,22 +99,22 @@
     transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
 }
 
-:root[data-style="ink"] .feed-controls .sort-link:hover {
+.feed-controls .sort-link:hover {
     background: var(--ink-wash);
     color: var(--action);
 }
 
-:root[data-style="ink"] .feed-controls .sort-link[aria-current="page"] {
+.feed-controls .sort-link[aria-current="page"] {
     border-color: var(--action);
     background: transparent;
     color: var(--action);
 }
 
-:root[data-style="ink"] .confession-feed {
+.confession-feed {
     gap: 0;
 }
 
-:root[data-style="ink"] .confession-feed .story-card {
+.confession-feed .story-card {
     padding: clamp(1.2rem, 2.5vw, 1.65rem) .2rem;
     border: 0;
     border-block-end: 1px solid var(--line);
@@ -123,24 +123,24 @@
     box-shadow: none;
 }
 
-:root[data-style="ink"] .confession-feed .story-card:first-child {
+.confession-feed .story-card:first-child {
     padding-block-start: 1rem;
 }
 
-:root[data-style="ink"] .confession-feed .story-meta {
+.confession-feed .story-meta {
     margin-block-end: .65rem;
     font-size: .78rem;
     letter-spacing: .01em;
 }
 
-:root[data-style="ink"] .confession-feed .story-topic {
+.confession-feed .story-topic {
     padding: 0;
     background: transparent;
     color: var(--action);
     font-weight: 650;
 }
 
-:root[data-style="ink"] .confession-feed .story-title {
+.confession-feed .story-title {
     max-width: 31ch;
     margin: 0 0 .55rem;
     color: var(--brand-logo-color);
@@ -149,12 +149,12 @@
     text-wrap: balance;
 }
 
-:root[data-style="ink"] .feed-main .story-card:first-child .story-title {
+.feed-main .story-card:first-child .story-title {
     max-width: 29ch;
     font-size: var(--ink-story-feature-size);
 }
 
-:root[data-style="ink"] .confession-feed .story-title a {
+.confession-feed .story-title a {
     text-decoration: none;
     text-decoration-thickness: .055em;
     text-underline-offset: .13em;
@@ -162,37 +162,37 @@
     transition: color 150ms ease, text-decoration-color 150ms ease;
 }
 
-:root[data-style="ink"] .confession-feed .story-title a:hover {
+.confession-feed .story-title a:hover {
     color: var(--action);
     text-decoration: underline;
     text-decoration-color: currentColor;
 }
 
-:root[data-style="ink"] .confession-feed .story-title a:focus-visible {
+.confession-feed .story-title a:focus-visible {
     color: var(--action);
     text-decoration: underline;
     text-decoration-color: currentColor;
 }
 
-:root[data-style="ink"] .confession-feed .story-excerpt {
+.confession-feed .story-excerpt {
     max-width: var(--ink-measure);
     color: var(--text);
     font: 1rem/1.72 var(--editorial-serif);
     opacity: .9;
 }
 
-:root[data-style="ink"] .story-card-footer {
+.story-card-footer {
     gap: .7rem 1rem;
     margin-block-start: .8rem;
     padding-block-start: 0;
     border: 0;
 }
 
-:root[data-style="ink"] .story-card-footer :is(.story-author, .unique-read-count, .story-activity) {
+.story-card-footer :is(.story-author, .unique-read-count, .story-activity) {
     font-size: .8rem;
 }
 
-:root[data-style="ink"] .confession-reading-card {
+.confession-reading-card {
     padding: clamp(1rem, 3vw, 1.8rem) 0;
     border: 0;
     border-radius: 0;
@@ -200,31 +200,31 @@
     box-shadow: none;
 }
 
-:root[data-style="ink"] .confession-heading {
+.confession-heading {
     margin-block-end: 1.1rem;
     padding-block-end: 1rem;
     border-block-end: 1px solid var(--line);
 }
 
-:root[data-style="ink"] .confession-heading h1 {
+.confession-heading h1 {
     max-width: 24ch;
     font-size: clamp(1.9rem, 3.6vw, 2.7rem);
     line-height: 1.15;
 }
 
-:root[data-style="ink"] .confession-reading-card > .confession-body {
+.confession-reading-card > .confession-body {
     max-width: var(--ink-measure);
     color: var(--text);
     font: var(--ink-reading-size)/1.82 var(--editorial-serif);
 }
 
-:root[data-style="ink"] .confession-read-count {
+.confession-read-count {
     margin-block-start: 1.1rem;
     padding-block-start: .7rem;
     border-block-start: 1px solid var(--line);
 }
 
-:root[data-style="ink"] .write-page > .write-form {
+.write-page > .write-form {
     gap: 1.1rem;
     padding: clamp(1rem, 3vw, 1.6rem) 0;
     border: 0;
@@ -234,16 +234,16 @@
     box-shadow: none;
 }
 
-:root[data-style="ink"] .write-form textarea {
+.write-form textarea {
     font: 1.08rem/1.72 var(--editorial-serif);
     caret-color: var(--action);
 }
 
-:root[data-style="ink"] :is(.participation-card, .participation-form, .author-response, .recommended-story-link) {
+:is(.participation-card, .participation-form, .author-response, .recommended-story-link) {
     border-radius: .8rem;
 }
 
-:root[data-style="ink"] .recommended-story-link {
+.recommended-story-link {
     min-height: 3rem;
     background: var(--surface);
     font-family: var(--editorial-serif);
@@ -251,105 +251,91 @@
     transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
 }
 
-:root[data-style="ink"] .participation-section {
+.participation-section {
     gap: 1.2rem;
 }
 
-:root[data-style="ink"] .participation-section > h2 {
+.participation-section > h2 {
     color: var(--brand-logo-color);
     font: 600 1.5rem/1.25 var(--editorial-serif);
     letter-spacing: -.02em;
 }
 
-:root[data-style="ink"] :is(.participation-card, .participation-form, .author-response) {
+:is(.participation-card, .participation-form, .author-response) {
     padding: clamp(.9rem, 2.5vw, 1.2rem);
     border-color: var(--line);
     background: var(--surface);
 }
 
-:root[data-style="ink"] .author-response {
+.author-response {
     background: var(--ink-wash);
 }
 
-:root[data-style="ink"] .comment-card {
+.comment-card {
     padding-block: 1rem;
     border-block-end: 1px solid var(--line);
 }
 
-:root[data-style="ink"] .comment-card > .confession-body,
-:root[data-style="ink"] .participation-section .confession-body {
+.comment-card > .confession-body,
+.participation-section .confession-body {
     font: 1rem/1.72 var(--editorial-serif);
 }
 
-:root[data-style="ink"] .comment-reply-card {
+.comment-reply-card {
     padding: .85rem;
     border-radius: .65rem;
     background: var(--ink-wash);
 }
 
-:root[data-style="ink"] :is(.write-form, .participation-form, .comment-inline-form) .form-field :is(input, select, textarea) {
+:is(.write-form, .participation-form, .comment-inline-form) .form-field :is(input, select, textarea) {
     border-color: var(--line);
     border-radius: .6rem;
     background: var(--surface);
     transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
-:root[data-style="ink"] :is(.write-form, .participation-form, .comment-inline-form) .form-field :is(input, select, textarea):focus-visible {
+:is(.write-form, .participation-form, .comment-inline-form) .form-field :is(input, select, textarea):focus-visible {
     border-color: var(--action);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--action) 14%, transparent);
     outline-offset: 2px;
 }
 
-:root[data-style="ink"] .participation-action .button {
+.participation-action .button {
     min-height: 3rem;
 }
 
-:root[data-style="ink"] :is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger) {
+:is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger) {
     transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
 }
 
-:root[data-style="ink"] :is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger):focus-visible {
+:is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger):focus-visible {
     outline-offset: 3px;
 }
 
-[data-style-control]:not([hidden]) {
-    display: inline-flex;
-    align-items: center;
-    gap: .55rem;
-    min-block-size: 2.75rem;
-    color: var(--text);
-    font-size: .875rem;
-    cursor: pointer;
-}
-
-[data-style-control] input {
-    accent-color: var(--action);
-}
-
 @media (min-width: 761px) {
-    :root[data-style="ink"] .feed-layout {
+    .feed-layout {
         grid-template-columns: minmax(11rem, 14rem) minmax(0, 40rem);
         gap: clamp(1.5rem, 3vw, 3rem);
     }
 
-    :root[data-style="ink"] .feed-topic-sidebar {
+    .feed-topic-sidebar {
         inset-block-start: 5.5rem;
     }
 }
 
 @media (max-width: 760px) {
-    :root[data-style="ink"] .feed-controls {
+    .feed-controls {
         gap: .45rem;
     }
 
-    :root[data-style="ink"] .feed-topic-trigger {
+    .feed-topic-trigger {
         min-height: 2.75rem;
         border-color: var(--line);
         border-radius: .55rem;
         background: var(--surface);
     }
 
-    :root[data-style="ink"] .feed-topic-picker-mobile .topic-panel {
+    .feed-topic-picker-mobile .topic-panel {
         gap: .2rem;
         margin-block-start: .35rem;
         padding: .45rem;
@@ -359,7 +345,7 @@
         box-shadow: 0 .6rem 1.5rem color-mix(in srgb, var(--text) 8%, transparent);
     }
 
-    :root[data-style="ink"] .feed-topic-picker-mobile .topic-chip {
+    .feed-topic-picker-mobile .topic-chip {
         min-height: 2.65rem;
         border-color: transparent;
         border-radius: .5rem;
@@ -368,41 +354,41 @@
         font-size: .88rem;
     }
 
-    :root[data-style="ink"] .feed-topic-picker-mobile .topic-chip[aria-current="page"] {
+    .feed-topic-picker-mobile .topic-chip[aria-current="page"] {
         border-color: color-mix(in srgb, var(--action) 14%, transparent);
         background: var(--ink-wash);
         color: var(--action);
     }
 
-    :root[data-style="ink"] .feed-controls .sort-link {
+    .feed-controls .sort-link {
         min-height: 2.75rem;
         padding-inline: .2rem;
         font-size: .82rem;
     }
 
-    :root[data-style="ink"] .confession-feed .story-card {
+    .confession-feed .story-card {
         padding-block: 1.15rem;
     }
 
-    :root[data-style="ink"] .confession-feed .story-excerpt {
+    .confession-feed .story-excerpt {
         font-size: .98rem;
         line-height: 1.68;
     }
 }
 
 @media (max-width: 360px) {
-    :root[data-style="ink"] .feed-controls .sort-link {
+    .feed-controls .sort-link {
         gap: .12rem;
         font-size: .7rem;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    :root[data-style="ink"] :is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger) {
+    :is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger) {
         transition: none;
     }
 
-    :root[data-style="ink"] :is(.confession-feed .story-title a, .recommended-story-link, .write-form .form-field :is(input, select, textarea), .participation-form .form-field :is(input, select, textarea), .comment-inline-form .form-field :is(input, select, textarea)) {
+    :is(.confession-feed .story-title a, .recommended-story-link, .write-form .form-field :is(input, select, textarea), .participation-form .form-field :is(input, select, textarea), .comment-inline-form .form-field :is(input, select, textarea)) {
         transition: none;
     }
 }

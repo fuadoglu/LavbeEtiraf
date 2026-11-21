@@ -41,7 +41,7 @@ Lokal məzmun baxışı üçün `php artisan db:seed --class=AzerbaijaniDemoConf
 
 Lent kartında unikal oxunuş göstəricisi müəllif adının qarşısında, alt footer-in sağ kənarında yerləşir; dar ekranda footer sətirə keçir. Etiraf detail-ində müəllif, tarix və unikal oxunuş sayı köməkçi metadata sətrindədir. Oxunuş göstəricisi ayrıca göz ikonu daşıyır. Şikayət keçidləri mətn kartının sonunda, dəstək və izləmə əməliyyatları aşağıdakı ortaq sırada yerləşir. Rəy və davam formaları ortaq sahə, checkbox və düymə üslubundan istifadə edir.
 
-Ortaq palitra açıq krem səthi ilə gavalı vurğusunu, gecə rejimində tünd mürəkkəb fon və solğun çəhrayı vurğunu birləşdirir. Lent və detail başlıqları eyni sans-serif ailəsindədir. Lent kartında kateqoriya və tarix yuxarıda, müəllif və unikal oxunuş isə alt footer-in sol və sağında görünür.
+Ortaq palitra açıq krem səthi ilə gavalı vurğusunu, gecə rejimində tünd mürəkkəb fon və solğun çəhrayı vurğunu birləşdirir. İnterfeys idarələri sans-serif, lent və detail hekayə başlıqları editorial serif tipoqrafiyasındadır. Lent kartında kateqoriya və tarix yuxarıda, müəllif və unikal oxunuş isə alt footer-in sol və sağında görünür.
 
 Dil seçiminin hər sətrində flag-icons dəstindən yerli SVG bayraq, native ad və onun altında ingiliscə ad göstərilir. Seçilmiş dil işarələnir. Dəstin mənbə commit-i və MIT lisenziyası public/icons/flags qovluğunda saxlanır.
 
@@ -53,7 +53,7 @@ Eyni etiket və xəta əlaqələri yazı, şikayət, etiraz, bərpa və moderasi
 
 Saytın footer-i solda ürək vurğulu Lavbe wordmark-ını, sağda isə altı hüquqi/məlumat keçidinin kompakt sırasını göstərir. Operator məlumatı səhifəsi ayrıca URL-dən əlçatandır, footer-də göstərilmir. Əlçatan adlı naviqasiya, altxətli keçidlər, 44 px hündürlük, görünən fokus və cari səhifə üçün `aria-current="page"` saxlanır. Link mətnləri yığcam 0.8rem ölçüdədir. Mobil ölçüdə linklər wordmark-ın altına düşüb səliqəli sətirlənir; sabit mobil naviqasiya üçün alt boşluq qalır. Footer-də ayrıca slogan/signature sətri yoxdur.
 
-“Gavalı mürəkkəbi” görünüşü mövcud səhifə skeletini, komponentləri və əməliyyatları saxlayır; yalnız səth, ölçü və tipoqrafiya ritmini dəyişir. Başlıqlar məhdud editorial ölçü pilləsindən istifadə edir, hekayə mətni rahat oxu enində qalır, desktop mövzu siyahısı yüngül indeks kimi görünür, sıralama tabları bərabər ölçüdə saxlanır. Etiraf, tövsiyə, rəy və forma səthlərində hover/fokus əks-əlaqəsi eyni gavalı vurğusundan istifadə edir. Kiçik ekran, klaviatura fokusu, gündüz/gecə rəng tokenləri və `prefers-reduced-motion` davranışı bu görünüşdə də qorunur.
+“Gavalı mürəkkəbi” saytın daimi və yeganə görünüşüdür. Mövcud səhifə skeletini, komponentləri və əməliyyatları saxlayır; səth, ölçü və tipoqrafiya ritmini müəyyən edir. Başlıqlar məhdud editorial ölçü pilləsindən istifadə edir, hekayə mətni rahat oxu enində qalır, desktop mövzu siyahısı yüngül indeks kimi görünür, sıralama tabları bərabər ölçüdə saxlanır. Etiraf, tövsiyə, rəy və forma səthlərində hover/fokus əks-əlaqəsi eyni gavalı vurğusundan istifadə edir. Kiçik ekran, klaviatura fokusu, gündüz/gecə rəng tokenləri və `prefers-reduced-motion` davranışı qorunur. Köhnə görünüş keçidi və cihaz preferensi yoxdur.
 
 Mobil ana lentdə kateqoriyalar “Mövzular” açılan seçiminin arxasında qalır; açıldıqda sıralama tam enə keçir. Desktop-da kateqoriyalar yığcam sol sütunda görünür. Lent kartı hover-capable pointer üzərində sakit kölgə alır, klaviatura ilə linkə fokuslananda isə kart sərhədi fokus halqası ilə vurğulanır; reduced-motion seçimi qorunur.
 

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'ink_style' => 'Plommefarget blekkstil',
     'read' => 'Les',
     'write' => 'Skriv',
     'mine' => 'Mitt område',

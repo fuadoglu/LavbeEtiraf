@@ -4,28 +4,6 @@
         window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {}));
     }
 
-    const inkStyle = document.querySelector('[data-ink-style]');
-    if (inkStyle) {
-        const syncStyleControl = () => { inkStyle.checked = root.dataset.style === 'ink'; };
-        syncStyleControl();
-        window.addEventListener('pageshow', () => {
-            try {
-                if (localStorage.getItem('lavbe-style') === 'ink') root.dataset.style = 'ink';
-                else delete root.dataset.style;
-            } catch { /* Keep the current page preference when storage is unavailable. */ }
-            syncStyleControl();
-        });
-        inkStyle.closest('label').hidden = false;
-        inkStyle.addEventListener('change', () => {
-            if (inkStyle.checked) root.dataset.style = 'ink';
-            else delete root.dataset.style;
-            try {
-                if (inkStyle.checked) localStorage.setItem('lavbe-style', 'ink');
-                else localStorage.removeItem('lavbe-style');
-            } catch { /* Still allow switching for this page. */ }
-        });
-    }
-
     const characterInput = document.querySelector('[data-character-count-input]');
     const characterCount = document.querySelector('[data-character-count]');
     if (characterInput && characterCount) {
