@@ -7,6 +7,7 @@ use App\Models\ParticipationOutbox;
 use App\Models\User;
 use App\Models\UserNotification;
 use App\Notifications\FollowedConfessionActivity;
+use App\Support\Accounts\ParticipationNotificationDelivery;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -174,6 +175,47 @@ class AccountWorkflowTest extends TestCase
         $this->actingAs($other)->get('/az/my/'.$confession->public_id)->assertNotFound();
         $this->actingAs($other)->get('/az/my')->assertOk()->assertDontSee('Synthetic account-only confession')->assertDontSee('Synthetic account-only response');
         $this->actingAs($user)->get('/az/my/'.$confession->public_id)->assertOk()->assertSee('Synthetic account-only confession');
+    }
+
+    public function test_follower_notifications_resume_from_a_bounded_outbox_cursor(): void
+    {
+        config([
+            'delivery.notifications.batch_size' => 1,
+            'delivery.notifications.batch_max' => 1,
+            'delivery.notifications.follower_batch_size' => 2,
+        ]);
+        [$confession] = $this->ownedConfession(public: true);
+        $followers = User::factory()->count(5)->create(['in_app_notifications' => true, 'email_notifications' => false])->sortBy('id')->values();
+        foreach ($followers as $follower) {
+            DB::table('confession_follows')->insert([
+                'user_id' => $follower->id,
+                'confession_id' => $confession->id,
+                'created_at' => now(),
+            ]);
+        }
+        $event = ParticipationOutbox::query()->create([
+            'event_key' => hash('sha256', 'synthetic-batched-follow-event'),
+            'confession_id' => $confession->id,
+            'event_type' => 'comment_activity',
+            'visibility_version' => $confession->visibility_version,
+            'occurred_at' => now(),
+        ]);
+        $delivery = app(ParticipationNotificationDelivery::class);
+
+        $this->assertSame(2, $delivery->dispatch()['created']);
+        $this->assertNull($event->fresh()->dispatched_at);
+        $this->assertSame($followers[1]->id, $event->fresh()->follower_cursor_id);
+        $this->assertSame(2, UserNotification::query()->count());
+
+        $this->assertSame(2, $delivery->dispatch()['created']);
+        $this->assertNull($event->fresh()->dispatched_at);
+        $this->assertSame($followers[3]->id, $event->fresh()->follower_cursor_id);
+        $this->assertSame(1, $delivery->dispatch()['created']);
+        $this->assertNotNull($event->fresh()->dispatched_at);
+        $this->assertSame(5, UserNotification::query()->count());
+        $this->assertSame(5, UserNotification::query()->distinct('user_id')->count('user_id'));
+        $this->assertSame(0, $delivery->dispatch()['created']);
+        $this->assertSame(5, UserNotification::query()->count());
     }
 
     public function test_follow_preferences_and_neutral_outbox_notifications_are_private_and_idempotent(): void

@@ -398,3 +398,9 @@ Support və təsdiqlənmiş unikal rəyçi aqreqatlarını sorğu anında bütü
 **Issue:** [#147](https://github.com/fuadoglu/LavbeEtiraf/issues/147). **Asılılıq:** LAV-009. **Qəbul:** SEARCH-01, FEED-01.
 
 İstifadəçi `%`, `_` və seçilən escape simvolunu axtaranda LIKE pattern-in idarəetmə simvolu deyil, literal mətn kimi işlənsin. Eyni locale və təsdiqlənmiş public revision filtrlərini, POST/məxfilik sərhədini saxla. **Sübut:** literal wildcard, escape simvolu, diakritik, qısa söz və CJK feature testləri; MySQL CI. Böyük kataloq üçün full-text indeks və p95 ölçüsü bu işdən sonra ayrıca benchmark-a bağlıdır.
+
+## LAV-068 · İzləyici bildirişlərini hissələrlə çatdırmaq
+
+**Issue:** [#149](https://github.com/fuadoglu/LavbeEtiraf/issues/149). **Asılılıq:** LAV-063, LAV-064. **Qəbul:** OPS-05, OPS-03.
+
+Outbox event-ə son işlənmiş follower user ID cursor-u əlavə et. Hər dəfə konfiqurasiya olunan ölçüdə izləyici hissəsi və bildirişləri qısa tranzaksiyada emal et; yarımçıq event-i dispatched sayma və növbəti cron icrasında cursor-dan davam et. Unikal `(user_id,event_key)` qaydasını qoruyaraq bulk insert-or-ignore et. **Sübut:** iki istifadəçidən kiçik batch ilə yarımçıq saxla/yenidən başlat, bütün uyğun izləyicilərin bir dəfə almasını yoxla; MySQL migration/CI və 10,000 synthetic recipient üzrə memory boundedness/load yoxlaması.
