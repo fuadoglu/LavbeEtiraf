@@ -427,4 +427,4 @@ Nömrəli HTML pagination lent üçün yeganə naviqasiya müqaviləsi olsun. UI
 
 **Issue:** [#157](https://github.com/fuadoglu/LavbeEtiraf/issues/157). **Asılılıq:** LAV-016, LAV-071. **Qəbul:** UI-01, UI-02, LOC-01.
 
-Səhifənin aşağı hissəsində cihaz üçün ayrıca jurnal üslubu seçilir. İlk ziyarətdə standart görünüş açılır. Yeni üslub gündüz/gecə seçimi ilə birlikdə işləyir və istənilən səhifədə geri qaytarılır.
+Səhifənin aşağı hissəsində cihaz üçün ayrıca jurnal üslubu seçilir. İlk ziyarətdə standart görünüş açılır. Yeni üslub gündüz/gecə seçimi ilə birlikdə işləyir və istənilən səhifədə geri qaytarılır. Skelet və əməliyyatlar dəyişmədən başlıq/kart/təsvir ölçüləri, mətn eni, desktop mövzu rail-i, sıralama tabları, detail və yazı forması vahid editorial vizual pilləyə uyğun cilalanır; mobil en, fokus, rəng kontrastı və reduced-motion qorunur. **Əlavə qəbul:** UI-28.

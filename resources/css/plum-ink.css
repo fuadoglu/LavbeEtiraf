@@ -1,64 +1,251 @@
-/* The editorial skin inherits the site's day/night and focus tokens. */
+/* Gavalı mürəkkəbi: editorial finish, same page structure and controls. */
 :root[data-style="ink"] {
     --editorial-serif: Charter, "Iowan Old Style", Georgia, "Noto Serif", serif;
+    --ink-display-size: clamp(2rem, 3.4vw, 2.85rem);
+    --ink-story-size: clamp(1.42rem, 2.15vw, 1.85rem);
+    --ink-story-feature-size: clamp(1.65rem, 2.7vw, 2.2rem);
+    --ink-reading-size: clamp(1.1rem, 1.35vw, 1.22rem);
+    --ink-measure: 67ch;
+    --ink-wash: color-mix(in srgb, var(--action) 5%, var(--surface));
 }
+
 :root[data-style="ink"] :is(.site-header, .site-footer) {
     background: var(--page);
     border-color: var(--line);
 }
+
+:root[data-style="ink"] .site-header {
+    min-height: 4.5rem;
+}
+
 :root[data-style="ink"] :is(.feed-heading h1, .write-heading h1, .confession-heading h1, .reading-page h1, .write-page > h1) {
-    font: 600 clamp(2.2rem, 5vw, 3.65rem)/1.1 var(--editorial-serif);
+    max-width: 22ch;
+    margin-block: 0;
     color: var(--brand-logo-color);
-    letter-spacing: -.025em;
+    font: 600 var(--ink-display-size)/1.12 var(--editorial-serif);
+    letter-spacing: -.035em;
     text-wrap: balance;
     overflow-wrap: anywhere;
 }
+
+:root[data-style="ink"] .feed-heading {
+    margin-block-end: .8rem;
+}
+
+:root[data-style="ink"] .feed-heading p,
+:root[data-style="ink"] .write-heading p {
+    max-width: 58ch;
+    color: var(--muted);
+    font-size: .96rem;
+    line-height: 1.65;
+}
+
+/* The desktop topic rail stays in place but reads as a quiet index. */
+:root[data-style="ink"] .feed-topic-sidebar .topic-panel {
+    gap: .12rem;
+    padding: .25rem;
+    border: 0;
+    border-inline-start: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+}
+
+:root[data-style="ink"] .feed-topic-sidebar .topic-chip {
+    min-height: 2.55rem;
+    gap: .55rem;
+    padding: .48rem .65rem;
+    border: 1px solid transparent;
+    border-radius: .6rem;
+    background: transparent;
+    color: var(--muted);
+    font-size: .89rem;
+    font-weight: 550;
+    line-height: 1.3;
+    white-space: normal;
+    text-align: start;
+}
+
+:root[data-style="ink"] .feed-topic-sidebar .topic-chip-icon {
+    flex: 0 0 1rem;
+    color: var(--action);
+}
+
+:root[data-style="ink"] .feed-topic-sidebar .topic-chip:hover,
+:root[data-style="ink"] .feed-topic-sidebar .topic-chip[aria-current="page"] {
+    border-color: color-mix(in srgb, var(--action) 14%, transparent);
+    background: var(--ink-wash);
+    color: var(--action);
+}
+
+:root[data-style="ink"] .feed-controls {
+    margin-block-end: .45rem;
+}
+
+:root[data-style="ink"] .feed-controls .sort-panel {
+    gap: .35rem;
+    padding-block: .25rem 0;
+    border-block: 0;
+}
+
+:root[data-style="ink"] .feed-controls .sort-link {
+    min-height: 2.9rem;
+    gap: .45rem;
+    border: 0;
+    border-block-end: 2px solid transparent;
+    border-radius: .55rem .55rem 0 0;
+    color: var(--muted);
+    font-size: .9rem;
+    font-weight: 600;
+    transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+:root[data-style="ink"] .feed-controls .sort-link:hover {
+    background: var(--ink-wash);
+    color: var(--action);
+}
+
+:root[data-style="ink"] .feed-controls .sort-link[aria-current="page"] {
+    border-color: var(--action);
+    background: transparent;
+    color: var(--action);
+}
+
 :root[data-style="ink"] .confession-feed {
     gap: 0;
 }
-:root[data-style="ink"] :is(.confession-feed .story-card, .confession-reading-card, .write-page > .write-form) {
-    padding: clamp(1.15rem, 3vw, 1.9rem) 0;
+
+:root[data-style="ink"] .confession-feed .story-card {
+    padding: clamp(1.2rem, 2.5vw, 1.65rem) .2rem;
     border: 0;
-    border-radius: 0;
     border-block-end: 1px solid var(--line);
+    border-radius: 0;
     background: transparent;
     box-shadow: none;
 }
+
+:root[data-style="ink"] .confession-feed .story-card:first-child {
+    padding-block-start: 1rem;
+}
+
+:root[data-style="ink"] .confession-feed .story-meta {
+    margin-block-end: .65rem;
+    font-size: .78rem;
+    letter-spacing: .01em;
+}
+
 :root[data-style="ink"] .confession-feed .story-topic {
     padding: 0;
     background: transparent;
     color: var(--action);
+    font-weight: 650;
 }
+
 :root[data-style="ink"] .confession-feed .story-title {
-    max-inline-size: 34ch;
-    font: 600 clamp(1.5rem, 3vw, 2.25rem)/1.15 var(--editorial-serif);
+    max-width: 31ch;
+    margin: 0 0 .55rem;
     color: var(--brand-logo-color);
-    letter-spacing: -.018em;
+    font: 600 var(--ink-story-size)/1.2 var(--editorial-serif);
+    letter-spacing: -.025em;
+    text-wrap: balance;
 }
+
 :root[data-style="ink"] .feed-main .story-card:first-child .story-title {
-    font-size: clamp(1.85rem, 4vw, 2.95rem);
+    max-width: 29ch;
+    font-size: var(--ink-story-feature-size);
 }
+
+:root[data-style="ink"] .confession-feed .story-title a {
+    text-decoration: none;
+    text-decoration-thickness: .055em;
+    text-underline-offset: .13em;
+}
+
+:root[data-style="ink"] .confession-feed .story-title a:hover {
+    text-decoration: underline;
+}
+
 :root[data-style="ink"] .confession-feed .story-excerpt {
-    max-inline-size: 68ch;
-    font: 1.1rem/1.6 var(--editorial-serif);
+    max-width: var(--ink-measure);
     color: var(--text);
+    font: 1rem/1.72 var(--editorial-serif);
+    opacity: .9;
 }
+
 :root[data-style="ink"] .story-card-footer {
-    border: 0;
+    gap: .7rem 1rem;
+    margin-block-start: .8rem;
     padding-block-start: 0;
+    border: 0;
 }
-:root[data-style="ink"] .confession-reading-card > .confession-body {
-    max-inline-size: 65ch;
-    font: clamp(1.15rem, 2vw, 1.32rem)/1.7 var(--editorial-serif);
+
+:root[data-style="ink"] .story-card-footer :is(.story-author, .unique-read-count, .story-activity) {
+    font-size: .8rem;
 }
+
+:root[data-style="ink"] .confession-reading-card {
+    padding: clamp(1rem, 3vw, 1.8rem) 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
 :root[data-style="ink"] .confession-heading {
-    padding-block-end: 1.25rem;
-    margin-block-end: 1.5rem;
+    margin-block-end: 1.1rem;
+    padding-block-end: 1rem;
     border-block-end: 1px solid var(--line);
 }
+
+:root[data-style="ink"] .confession-heading h1 {
+    max-width: 24ch;
+    font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+    line-height: 1.15;
+}
+
+:root[data-style="ink"] .confession-reading-card > .confession-body {
+    max-width: var(--ink-measure);
+    color: var(--text);
+    font: var(--ink-reading-size)/1.82 var(--editorial-serif);
+}
+
+:root[data-style="ink"] .confession-read-count {
+    margin-block-start: 1.1rem;
+    padding-block-start: .7rem;
+    border-block-start: 1px solid var(--line);
+}
+
+:root[data-style="ink"] .write-page > .write-form {
+    gap: 1.1rem;
+    padding: clamp(1rem, 3vw, 1.6rem) 0;
+    border: 0;
+    border-block: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
 :root[data-style="ink"] .write-form textarea {
-    font: 1.17rem/1.6 var(--editorial-serif);
+    font: 1.08rem/1.72 var(--editorial-serif);
     caret-color: var(--action);
+}
+
+:root[data-style="ink"] :is(.participation-card, .participation-form, .author-response, .recommended-story-link) {
+    border-radius: .8rem;
+}
+
+:root[data-style="ink"] .recommended-story-link {
+    min-height: 3rem;
+    background: var(--surface);
+    font-family: var(--editorial-serif);
+    font-size: 1.04rem;
+}
+
+:root[data-style="ink"] :is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger) {
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+:root[data-style="ink"] :is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger):focus-visible {
+    outline-offset: 3px;
 }
 
 [data-style-control]:not([hidden]) {
@@ -70,6 +257,84 @@
     font-size: .875rem;
     cursor: pointer;
 }
+
 [data-style-control] input {
     accent-color: var(--action);
+}
+
+@media (min-width: 761px) {
+    :root[data-style="ink"] .feed-layout {
+        grid-template-columns: minmax(11rem, 14rem) minmax(0, 40rem);
+        gap: clamp(1.5rem, 3vw, 3rem);
+    }
+
+    :root[data-style="ink"] .feed-topic-sidebar {
+        inset-block-start: 5.5rem;
+    }
+}
+
+@media (max-width: 760px) {
+    :root[data-style="ink"] .feed-controls {
+        gap: .45rem;
+    }
+
+    :root[data-style="ink"] .feed-topic-trigger {
+        min-height: 2.75rem;
+        border-color: var(--line);
+        border-radius: .55rem;
+        background: var(--surface);
+    }
+
+    :root[data-style="ink"] .feed-topic-picker-mobile .topic-panel {
+        gap: .2rem;
+        margin-block-start: .35rem;
+        padding: .45rem;
+        border-color: var(--line);
+        border-radius: .7rem;
+        background: var(--surface);
+        box-shadow: 0 .6rem 1.5rem color-mix(in srgb, var(--text) 8%, transparent);
+    }
+
+    :root[data-style="ink"] .feed-topic-picker-mobile .topic-chip {
+        min-height: 2.65rem;
+        border-color: transparent;
+        border-radius: .5rem;
+        background: transparent;
+        color: var(--muted);
+        font-size: .88rem;
+    }
+
+    :root[data-style="ink"] .feed-topic-picker-mobile .topic-chip[aria-current="page"] {
+        border-color: color-mix(in srgb, var(--action) 14%, transparent);
+        background: var(--ink-wash);
+        color: var(--action);
+    }
+
+    :root[data-style="ink"] .feed-controls .sort-link {
+        min-height: 2.75rem;
+        padding-inline: .2rem;
+        font-size: .82rem;
+    }
+
+    :root[data-style="ink"] .confession-feed .story-card {
+        padding-block: 1.15rem;
+    }
+
+    :root[data-style="ink"] .confession-feed .story-excerpt {
+        font-size: .98rem;
+        line-height: 1.68;
+    }
+}
+
+@media (max-width: 360px) {
+    :root[data-style="ink"] .feed-controls .sort-link {
+        gap: .12rem;
+        font-size: .7rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root[data-style="ink"] :is(.button, .icon-button, .topic-chip, .sort-link, .feed-topic-trigger) {
+        transition: none;
+    }
 }
