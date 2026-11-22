@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Hüquqi bildirişlər ayrıca məxfi növbədə nəzərdən keçirilir. Bildiriş göndərmək məzmunu avtomatik gizlətmir və hüquqi nəticə müəyyən etmir.',
     'submit' => 'Şikayəti göndər',
     'submit_legal' => 'Hüquqi bildirişi göndər',
+    'received_updated' => 'Yeni məlumatın əvvəlki müraciətə əlavə edildi və yenidən baxışa göndərildi.',
+    'received_duplicate' => 'Bu eyni məlumatı artıq almışıq; yeni müraciət yaradılmadı.',
     'received_title' => 'Şikayət qəbul edildi',
     'received_community' => 'Xəbər verdiyin üçün sağ ol. Şikayətini moderatorlar nəzərdən keçirəcəklər.',
     'received_legal' => 'Hüquqi bildiriş ayrıca məxfi baxış növbəsinə əlavə edildi.',

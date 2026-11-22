@@ -252,7 +252,8 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
         Route::post('/confessions/{confessionId}/decision', [ModerationController::class, 'decide'])->whereNumber('confessionId')->name('moderation.decide');
 
         Route::middleware(RequireModeratorAdmin::class)->group(function (): void {
-            Route::match(['GET', 'POST'], '/grants', [ModerationAdminController::class, 'index'])->name('moderation.grants');
+            Route::get('/grants', [ModerationAdminController::class, 'index'])->name('moderation.grants');
+            Route::post('/grants/search', [ModerationAdminController::class, 'index'])->name('moderation.grants.search');
             Route::post('/grants', [ModerationAdminController::class, 'store'])->name('moderation.grants.store');
             Route::post('/grants/{grantId}/revoke', [ModerationAdminController::class, 'revoke'])->whereNumber('grantId')->name('moderation.grants.revoke');
         });

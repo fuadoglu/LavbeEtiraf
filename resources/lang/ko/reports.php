@@ -25,6 +25,8 @@ return [
     'legal_separation' => '법적 통지는 별도로 비공개 검토해요. 통지만으로 글이 자동으로 숨겨지거나 법적 결론이 정해지지는 않아요.',
     'submit' => '신고 보내기',
     'submit_legal' => '법적 통지 보내기',
+    'received_updated' => '새 정보가 이전 신고에 추가되어 다시 검토 대상으로 전달되었습니다.',
+    'received_duplicate' => '같은 내용을 이미 접수했습니다. 새 신고는 생성되지 않았습니다.',
     'received_title' => '신고를 접수했어요',
     'received_community' => '알려 주셔서 고맙습니다. 운영팀에 신고가 접수됐어요.',
     'received_legal' => '법적 통지를 접수했어요. 별도 절차에 따라 비공개로 검토해요.',

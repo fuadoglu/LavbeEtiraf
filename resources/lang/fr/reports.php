@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Les signalements juridiques sont examinés séparément et de façon confidentielle. Leur envoi ne masque pas automatiquement le contenu et ne préjuge pas de la décision juridique.',
     'submit' => 'Envoyer le signalement',
     'submit_legal' => 'Envoyer le signalement juridique',
+    'received_updated' => 'Tes nouvelles informations ont été ajoutées au signalement précédent et soumises à un nouvel examen.',
+    'received_duplicate' => 'Nous avons déjà reçu ces mêmes informations ; aucun nouveau signalement n’a été créé.',
     'received_title' => 'Signalement reçu',
     'received_community' => 'Merci de nous avoir prévenus. Votre signalement a bien été transmis à l’équipe de modération.',
     'received_legal' => 'Votre signalement juridique sera examiné séparément, en toute confidentialité.',

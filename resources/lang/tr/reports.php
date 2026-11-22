@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Hukuki bildirimler ayrı ve gizli olarak incelenir. Bildirim göndermek içeriği otomatik olarak gizlemez veya hukuki sonucu belirlemez.',
     'submit' => 'Bildirimi gönder',
     'submit_legal' => 'Hukuki bildirimi gönder',
+    'received_updated' => 'Yeni bilgilerin önceki bildirime eklendi ve yeniden incelenmek üzere gönderildi.',
+    'received_duplicate' => 'Aynı bilgileri daha önce aldık; yeni bir bildirim oluşturulmadı.',
     'received_title' => 'Bildirimin alındı',
     'received_community' => 'Haber verdiğin için teşekkürler. Bildirimin moderatörlere ulaştı.',
     'received_legal' => 'Hukuki bildirimin ayrı ve gizli olarak incelenecek.',

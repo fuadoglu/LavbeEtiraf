@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Las notificaciones legales se revisan por separado y en privado. Enviarlas no oculta automáticamente el contenido ni determina el resultado legal.',
     'submit' => 'Enviar denuncia',
     'submit_legal' => 'Enviar notificación legal',
+    'received_updated' => 'La información nueva se añadió a tu denuncia anterior y se envió de nuevo a revisión.',
+    'received_duplicate' => 'Ya recibimos esa misma información; no se creó una denuncia nueva.',
     'received_title' => 'Denuncia recibida',
     'received_community' => 'Gracias por avisarnos. El equipo de moderación ha recibido tu aviso.',
     'received_legal' => 'Tu notificación legal se revisará por separado y en privado.',

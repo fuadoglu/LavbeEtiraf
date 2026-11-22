@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Juridische meldingen worden apart en vertrouwelijk beoordeeld. Een melding verbergt de inhoud niet automatisch en bepaalt de juridische uitkomst niet.',
     'submit' => 'Melding versturen',
     'submit_legal' => 'Juridische melding versturen',
+    'received_updated' => 'Je nieuwe informatie is toegevoegd aan de eerdere melding en opnieuw ter beoordeling ingediend.',
+    'received_duplicate' => 'We hebben deze informatie al ontvangen; er is geen nieuwe melding aangemaakt.',
     'received_title' => 'Melding ontvangen',
     'received_community' => 'Bedankt voor je melding. Die is bij de moderators aangekomen.',
     'received_legal' => 'Je juridische melding wordt apart en vertrouwelijk beoordeeld.',

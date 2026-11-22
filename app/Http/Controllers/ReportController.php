@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Confession;
 use App\Models\ConfessionComment;
+use App\Support\Http\ResponseHeaders;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Moderation\ReportService;
+use App\Support\Security\IdempotencyKey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Validator;
@@ -20,10 +22,10 @@ class ReportController extends Controller
         return response()->view('reports.create', [
             'channel' => 'community', 'confession' => $confession, 'comment' => $comment,
             'targetType' => $type, 'targetPublicId' => $targetPublicId,
-            'idempotencyKey' => \App\Support\Security\IdempotencyKey::generate(),
-        ])->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            'idempotencyKey' => IdempotencyKey::generate(),
+        ])->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function legalNotice(Request $request, string $locale, string $type, string $targetPublicId): Response
@@ -33,10 +35,10 @@ class ReportController extends Controller
         return response()->view('reports.create', [
             'channel' => 'legal', 'confession' => $confession, 'comment' => $comment,
             'targetType' => $type, 'targetPublicId' => $targetPublicId,
-            'idempotencyKey' => \App\Support\Security\IdempotencyKey::generate(),
-        ])->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            'idempotencyKey' => IdempotencyKey::generate(),
+        ])->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function store(Request $request, string $locale, string $channel, string $type, string $targetPublicId, ReportService $reports): Response
@@ -61,10 +63,12 @@ class ReportController extends Controller
             $data['reason_code'], $data['details'] ?? null, $data['idempotency_key'],
         );
 
-        return response()->view('reports.submitted', ['channel' => $channel], 202)
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+        $outcome = (string) $request->attributes->get('report_submission_outcome', 'new');
+
+        return response()->view('reports.submitted', ['channel' => $channel, 'outcome' => $outcome], $outcome === 'duplicate' ? 200 : 202)
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     /** @return array{0: Confession, 1: ?ConfessionComment} */
@@ -92,8 +96,8 @@ class ReportController extends Controller
         if (RateLimiter::tooManyAttempts($key, $limit['attempts'])) {
             return response()->view('confessions.limited', [], 429)
                 ->header('Retry-After', (string) RateLimiter::availableIn($key))
-                ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-                ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_NO_ARCHIVE);
+                ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+                ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_NO_ARCHIVE);
         }
         RateLimiter::hit($key, $limit['decay_seconds']);
 

@@ -43,8 +43,6 @@ class PublicConfessionController extends Controller
             404,
         );
 
-        $readerCookie = $readCounter->record($request, $confession);
-
         $path = '/'.$locale.'/confession/'.$confession->public_id;
         $canonical = rtrim((string) config('app.url'), '/').$path;
         $revision = $confession->publicRevision;
@@ -117,6 +115,7 @@ class PublicConfessionController extends Controller
         abort_if($continuations->currentPage() > $continuations->lastPage(), 404);
         $ownerCanParticipate = app(GuestConfessionController::class)->canManage($request, $confession);
         $hasSupported = $participation->hasSupport($request, $confession);
+        $readerCookie = $readCounter->record($request, $confession);
 
         $response = response()->view('confessions.public', compact('confession', 'revision', 'canonical', 'description', 'category', 'localeRecord', 'comments', 'continuations', 'ownerCanParticipate', 'hasSupported', 'ownedCommentIds', 'recommended', 'threadRoot', 'threadPublicId', 'threadReplies', 'reactedCommentIds'))
             ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)

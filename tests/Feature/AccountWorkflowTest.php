@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\AccountAuthController;
 use App\Models\Confession;
 use App\Models\ParticipationOutbox;
 use App\Models\User;
@@ -11,6 +12,8 @@ use App\Support\Accounts\ParticipationNotificationDelivery;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
@@ -20,6 +23,46 @@ use Tests\TestCase;
 class AccountWorkflowTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_login_preserves_guest_session_ownership_after_authentication_regenerates_the_session(): void
+    {
+        $user = User::factory()->create(['email_verified_at' => now()]);
+        $request = Request::create('/az/account/login', 'POST', ['email' => $user->email, 'password' => 'password']);
+        $request->setLaravelSession(app('session')->driver());
+        $request->setUserResolver(fn () => Auth::user());
+        $guestSessionId = $request->session()->getId();
+        [$confession] = $this->ownedConfession();
+        [$comment] = $this->ownedComment($confession);
+        $guestHash = hash_hmac('sha256', $guestSessionId, (string) config('app.key'));
+        $confession->ownership()->update(['session_token_hash' => $guestHash]);
+        $comment->ownership()->update(['session_token_hash' => $guestHash]);
+        $this->assertSame($guestHash, $confession->ownership()->first()->session_token_hash);
+        $this->assertSame($guestHash, $comment->ownership()->first()->session_token_hash);
+
+        $response = app(AccountAuthController::class)->login($request, 'az');
+        $this->assertSame('/az/my', parse_url($response->getTargetUrl(), PHP_URL_PATH));
+
+        $updatedHash = $confession->ownership->fresh()->session_token_hash;
+        $this->assertNotSame($guestHash, $updatedHash, 'Guest ownership must move to the new session.');
+        $this->assertSame($updatedHash, $comment->ownership->fresh()->session_token_hash);
+    }
+
+    public function test_unfollow_removes_only_the_requested_confession(): void
+    {
+        $user = User::factory()->create(['email_verified_at' => now()]);
+        $otherUser = User::factory()->create();
+        [$first] = $this->ownedConfession(public: true);
+        [$second] = $this->ownedConfession(public: true);
+        foreach ([[$user, $first], [$user, $second], [$otherUser, $first]] as [$follower, $confession]) {
+            DB::table('confession_follows')->insert(['user_id' => $follower->id, 'confession_id' => $confession->id, 'created_at' => now()]);
+        }
+
+        $this->actingAs($user)->delete('/az/my/follows/'.$first->public_id)->assertRedirect();
+
+        $this->assertDatabaseMissing('confession_follows', ['user_id' => $user->id, 'confession_id' => $first->id]);
+        $this->assertDatabaseHas('confession_follows', ['user_id' => $user->id, 'confession_id' => $second->id]);
+        $this->assertDatabaseHas('confession_follows', ['user_id' => $otherUser->id, 'confession_id' => $first->id]);
+    }
 
     public function test_email_batch_size_limits_pending_delivery(): void
     {

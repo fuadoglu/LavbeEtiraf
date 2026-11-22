@@ -6,6 +6,7 @@ use App\Models\Confession;
 use App\Models\ConfessionComment;
 use App\Models\UserNotification;
 use App\Support\Accounts\AccountOwnershipService;
+use App\Support\Http\ResponseHeaders;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,9 +35,9 @@ class AccountController extends Controller
         }
 
         return response()->view('account.home', compact('user', 'confessions', 'comments', 'follows', 'notifications'))
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function preferences(Request $request, string $locale): RedirectResponse
@@ -64,7 +65,10 @@ class AccountController extends Controller
 
     public function unfollow(Request $request, string $locale, string $publicId): RedirectResponse
     {
-        $request->user()->followedConfessions()->where('public_id', $publicId)->detach();
+        $confessionId = $request->user()->followedConfessions()->where('public_id', $publicId)->value('confessions.id');
+        if ($confessionId !== null) {
+            $request->user()->followedConfessions()->detach($confessionId);
+        }
 
         return back()->with('status', __('account.follow_removed'));
     }

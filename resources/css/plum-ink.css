@@ -398,6 +398,25 @@
     color: var(--danger);
 }
 
+.draft-storage-controls {
+    display: grid;
+    gap: .55rem;
+}
+
+.draft-storage-controls > .field-description {
+    margin: 0;
+}
+
+.draft-storage-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .55rem;
+}
+
+.draft-storage-actions .button {
+    min-block-size: 2.75rem;
+}
+
 .write-rules-link {
     text-decoration: underline;
     text-underline-offset: .15em;

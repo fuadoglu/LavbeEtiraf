@@ -107,7 +107,7 @@ Ayrı rəy formu, rəyə birbaşa cavab, müəllif cavabı, eyni hekayədə dava
 
 **Asılılıq:** LAV-005, LAV-007. **Qəbul:** MOD-02, MOD-04.
 
-Etiraf/rəy üçün fərqli şikayət hədəfi, hədəf+kanal üzrə birləşən şikayət qrupu, reporter üzrə tək göndəriş, səbəblər, təhdid üçün server hesablı təcili prioritet və ayrıca hüquqi bildiriş növbəsi. Kütləvi şikayət məzmunu avtomatik gizlətmir. Moderator dili/MFA yoxlaması ilə şikayət kontekstini görür və səbəbli dismiss/hide qərarı verir; audit və görünürlük eyni tranzaksiyadadır. Gizlədilən etiraf və rəy sahibi həmin hide auditinə yalnız bir dəfə etiraz edə, moderator isə etirazı uphold/restore edə bilər; uyğun başqa təsdiqlənmiş moderator olduqda ilkin qərar verən şəxs yenidən baxmır. İzahlar şifrələnir, reporter identity HMAC olur, xam IP/session/token auditə düşmür. Hüquqi səbəblər ayrıca növbəyə düşür; hüquqi operator/SLA faktı burada təsdiqlənmir. **Sübut:** SQLite feature suite 4 test/49 assertion ilə hədəf və kanal ayrımını, hesab üzrə deduplikanı, təhdid prioritetini, şifrəli izahı, məzmunun dəyişməməsini, təzə MFA/dil grant-ını, dismiss/hide auditini və sahibə bağlı tək etiraz/bərpanı yoxlayır. Ayrılmış MariaDB-də təmiz migration və `composer test:mysql` 7 test/85 assertion keçdi; prosesslərarası eyni hesab şikayəti bir göndəriş/group count yaradır.
+Etiraf/rəy üçün fərqli şikayət hədəfi, hədəf+kanal üzrə birləşən şikayət qrupu, reporter və eyni fakt üzrə tək göndəriş; yeni fakt həmin qrupa əlavə olunur və bağlanmış işi açır, səbəblər, təhdid üçün server hesablı təcili prioritet və ayrıca hüquqi bildiriş növbəsi. Kütləvi şikayət məzmunu avtomatik gizlətmir. Moderator dili/MFA yoxlaması ilə şikayət kontekstini görür və səbəbli dismiss/hide qərarı verir; audit və görünürlük eyni tranzaksiyadadır. Gizlədilən etiraf və rəy sahibi həmin hide auditinə yalnız bir dəfə etiraz edə, moderator isə etirazı uphold/restore edə bilər; uyğun başqa təsdiqlənmiş moderator olduqda ilkin qərar verən şəxs yenidən baxmır. İzahlar şifrələnir, reporter identity HMAC olur, xam IP/session/token auditə düşmür. Hüquqi səbəblər ayrıca növbəyə düşür; hüquqi operator/SLA faktı burada təsdiqlənmir. **Sübut:** SQLite feature suite 4 test/49 assertion ilə hədəf və kanal ayrımını, hesab üzrə deduplikanı, təhdid prioritetini, şifrəli izahı, məzmunun dəyişməməsini, təzə MFA/dil grant-ını, dismiss/hide auditini və sahibə bağlı tək etiraz/bərpanı yoxlayır. Ayrılmış MariaDB-də təmiz migration və `composer test:mysql` 7 test/85 assertion keçdi; prosesslərarası eyni hesab şikayəti bir göndəriş/group count yaradır.
 
 ## LAV-009 · Hesab, Mənim və bildirişlər
 
@@ -129,7 +129,7 @@ Codex hər dil paketi üçün mətnləri, kateqoriyaları və hüquqi draftları
 
 **Asılılıq:** LAV-002, LAV-004, LAV-009, LAV-010. **Qəbul:** PWA-01, ADV-03.
 
-Manifest, ikon, standalone, statik service worker keşi, tərcüməli oflayn görünüş, brauzerdə avtomatik etiraf qaralaması və Web Push. **Sübut:** təmiz/qədim keş, iPhone/Android standalone və həssas şəbəkə/keş audit nəticəsi.
+Manifest, ikon, standalone, statik service worker keşi, tərcüməli oflayn görünüş, istifadəçinin seçdiyi 7 günlük etiraf qaralaması və Web Push. **Sübut:** təmiz/qədim keş, iPhone/Android standalone və həssas şəbəkə/keş audit nəticəsi.
 
 ## LAV-012 · Cihaz, UI və dil sınaqları
 
@@ -430,3 +430,9 @@ Nömrəli HTML pagination lent üçün yeganə naviqasiya müqaviləsi olsun. UI
 **Issue:** [#157](https://github.com/fuadoglu/LavbeEtiraf/issues/157). **Asılılıq:** LAV-016, LAV-071. **Qəbul:** UI-01, UI-02, LOC-01, UI-28.
 
 “Gavalı mürəkkəbi” editorial dizaynı yeganə və daimi görünüşdür; əvvəlki klassik görünüşə keçid yoxdur. Görünüş seçicisi və onun cihaz yaddaşı çıxarılır. Skelet və əməliyyatlar dəyişmədən başlıq/kart/təsvir ölçüləri, mətn eni, desktop mövzu rail-i, sıralama tabları, detail, yazı və müzakirə formaları vahid editorial vizual pillədə qalır; gündüz/gecə, mobil en, fokus, rəng kontrastı və reduced-motion qorunur. **Qəbul:** UI-01, UI-02, LOC-01, UI-28.
+
+## LAV-077 · Auditdə təsdiqlənmiş etibar və məxfilik qüsurları
+
+**Issue:** [#166](https://github.com/fuadoglu/LavbeEtiraf/issues/166). **Asılılıq:** LAV-007, LAV-008, LAV-011, LAV-042. **Qəbul:** OWN-01, MOD-02, READ-01, UI-25, LOC-06.
+
+Girişdən sonra qonaq sahibliyini yeni sessiyaya daşı, izləməni dayandıranda yalnız seçilmiş etirafı sil, admin axtarışını grant yaratma route-undan ayır. Təkrar eyni faktı idempotent saxla; eyni reporterdən yeni fakt gəldikdə qrupa əlavə et, təhdidi təcili prioritetə qaldır və həll edilmiş qrupu yenidən aç. Qaralamanı yalnız açıq seçimlə 7 gün cihazda saxla, əl ilə silməni və köhnə qaralamanın avtomatik göstərilmədən birdəfəlik bərpasını təmin et. 404 pagination oxunuş sayını artırmasın. **Sübut:** 127 SQLite PHP testi, 21 JavaScript testi, 9 sənəd testi, 17 dil validatoru, frontend build və route cache keçdi. MySQL paralel/migration sınağı yerli mühitdə icra edilməyib; CI nəticəsi PR-da ayrıca yoxlanır.

@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Le segnalazioni legali sono esaminate separatamente e in via riservata. L’invio non nasconde automaticamente il contenuto e non determina l’esito legale.',
     'submit' => 'Invia segnalazione',
     'submit_legal' => 'Invia segnalazione legale',
+    'received_updated' => 'Le nuove informazioni sono state aggiunte alla segnalazione precedente e inviate a una nuova verifica.',
+    'received_duplicate' => 'Abbiamo già ricevuto queste stesse informazioni; non è stata creata una nuova segnalazione.',
     'received_title' => 'Segnalazione ricevuta',
     'received_community' => 'Grazie per avercelo fatto sapere. La segnalazione è arrivata al gruppo di moderazione.',
     'received_legal' => 'La segnalazione legale sarà esaminata separatamente e in via riservata.',
