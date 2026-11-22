@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Juridiske henvendelser behandles særskilt og fortroligt. En henvendelse skjuler ikke automatisk indholdet og afgør ikke det juridiske spørgsmål.',
     'submit' => 'Send anmeldelse',
     'submit_legal' => 'Send juridisk henvendelse',
+    'received_updated' => 'Dine nye oplysninger er føjet til den tidligere anmeldelse og sendt til fornyet gennemgang.',
+    'received_duplicate' => 'Vi har allerede modtaget de samme oplysninger; der blev ikke oprettet en ny anmeldelse.',
     'received_title' => 'Anmeldelse modtaget',
     'received_community' => 'Tak, fordi du sagde til. Moderatorerne har modtaget din anmeldelse.',
     'received_legal' => 'Din juridiske henvendelse er sendt til særskilt, fortrolig behandling.',

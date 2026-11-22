@@ -287,6 +287,9 @@ class ModerationWorkflowTest extends TestCase
         ]);
         $this->actingAs($adminUser)->withSession($this->freshMfaSession($adminUser));
         $target = User::factory()->create();
+        $this->post('/az/moderation/grants/search', ['user_search' => $target->email])
+            ->assertOk()->assertSee($target->email);
+        $this->assertDatabaseCount('moderator_grants', 1);
         $this->post('/az/moderation/grants', [
             'user_id' => $target->id,
             'role' => 'moderator',
@@ -301,6 +304,9 @@ class ModerationWorkflowTest extends TestCase
             ->assertSee('for="revoke-reason-'.$targetGrant->id.'"', false)
             ->assertSee('id="revoke-reason-'.$targetGrant->id.'"', false)
             ->assertSee('id="reason"', false);
+        config(['lavbe.pagination.moderation' => 1]);
+        $this->get('/az/moderation/grants')->assertOk()
+            ->assertSee('action="'.route('moderation.grants.search', ['locale' => 'az']).'"', false);
 
         $this->post('/az/moderation/grants', [
             'user_id' => $adminUser->id,

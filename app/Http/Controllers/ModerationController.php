@@ -10,6 +10,7 @@ use App\Models\ConfessionRevision;
 use App\Models\ModerationAppeal;
 use App\Models\ReportGroup;
 use App\Models\ReportSubmission;
+use App\Support\Http\ResponseHeaders;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Moderation\AppealService;
 use App\Support\Moderation\ModerationService;
@@ -185,7 +186,7 @@ class ModerationController extends Controller
         $allowed = $request->user()->moderatorGrants()->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')->pluck('locale')->unique();
         $items = ReportGroup::query()->with('confession')->where('status', 'pending')
             ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))
-            ->orderByRaw("CASE priority WHEN 'legal' THEN 0 WHEN 'urgent' THEN 1 ELSE 2 END")
+            ->orderByRaw("CASE priority WHEN 'urgent' THEN 0 WHEN 'legal' THEN 1 ELSE 2 END")
             ->orderBy('first_reported_at')->orderBy('id')->paginate((int) config('lavbe.pagination.moderation'), ['*'], 'reports_page')->withQueryString();
         abort_if($items->currentPage() > $items->lastPage(), 404);
 
@@ -297,9 +298,9 @@ class ModerationController extends Controller
     private function privateView(string $view, array $data = []): Response
     {
         return response()->view($view, $data)
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
             ->header('Pragma', 'no-cache')
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 }

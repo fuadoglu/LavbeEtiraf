@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Legal notices are reviewed in a separate private queue. Sending a notice does not automatically hide content or determine a legal outcome.',
     'submit' => 'Send report',
     'submit_legal' => 'Send legal notice',
+    'received_updated' => 'Your new information was added to the earlier report and sent for review again.',
+    'received_duplicate' => 'We already received these same details; no new report was created.',
     'received_title' => 'Report received',
     'received_community' => 'Thanks for letting us know. Your report is with the moderation team.',
     'received_legal' => 'The legal notice has been added to its separate private review queue.',

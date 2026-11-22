@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'As notificações jurídicas são analisadas separadamente e em sigilo. O envio não oculta o conteúdo automaticamente nem determina o resultado jurídico.',
     'submit' => 'Enviar denúncia',
     'submit_legal' => 'Enviar notificação jurídica',
+    'received_updated' => 'As novas informações foram adicionadas à denúncia anterior e enviadas para nova análise.',
+    'received_duplicate' => 'Já recebemos essas mesmas informações; nenhuma nova denúncia foi criada.',
     'received_title' => 'Denúncia recebida',
     'received_community' => 'Agradecemos o aviso. Sua denúncia chegou à equipe de moderação.',
     'received_legal' => 'Sua notificação jurídica será analisada separadamente e em sigilo.',

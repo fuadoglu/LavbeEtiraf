@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Oikeudelliset ilmoitukset käsitellään erikseen ja luottamuksellisesti. Ilmoitus ei automaattisesti piilota sisältöä eikä ratkaise oikeudellista kysymystä.',
     'submit' => 'Lähetä ilmoitus',
     'submit_legal' => 'Lähetä oikeudellinen ilmoitus',
+    'received_updated' => 'Uudet tietosi lisättiin aiempaan ilmoitukseen ja lähetettiin uudelleen tarkistettavaksi.',
+    'received_duplicate' => 'Olemme jo saaneet samat tiedot; uutta ilmoitusta ei luotu.',
     'received_title' => 'Ilmoitus vastaanotettu',
     'received_community' => 'Kiitos, että kerroit asiasta. Ilmoituksesi on nyt moderaattoreilla.',
     'received_legal' => 'Oikeudellinen ilmoituksesi on lähetetty erilliseen luottamukselliseen käsittelyyn.',

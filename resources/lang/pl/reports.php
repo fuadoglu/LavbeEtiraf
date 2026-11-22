@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Zgłoszenia prawne rozpatrujemy osobno i poufnie. Samo zgłoszenie nie ukrywa treści automatycznie ani nie rozstrzyga kwestii prawnej.',
     'submit' => 'Wyślij zgłoszenie',
     'submit_legal' => 'Wyślij zgłoszenie prawne',
+    'received_updated' => 'Nowe informacje dodano do wcześniejszego zgłoszenia i ponownie przekazano do rozpatrzenia.',
+    'received_duplicate' => 'Otrzymaliśmy już te same informacje; nie utworzono nowego zgłoszenia.',
     'received_title' => 'Zgłoszenie przyjęte',
     'received_community' => 'Dziękujemy za zgłoszenie. Trafiło do zespołu moderacji.',
     'received_legal' => 'Zgłoszenie prawne trafiło do odrębnego, poufnego rozpatrzenia.',

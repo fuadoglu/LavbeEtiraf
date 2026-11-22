@@ -61,6 +61,19 @@
                 </x-form-field>
             </section>
 
+            <div class="draft-storage-controls" data-draft-controls data-draft-retention-ms="{{ (int) config('pwa.draft_retention_days') * 86400000 }}">
+                <label class="age-confirmation">
+                    <input type="checkbox" data-draft-opt-in>
+                    <span>{{ __('guest.draft_save_label') }}</span>
+                </label>
+                <p class="field-description">{{ __('guest.draft_storage_note') }}</p>
+                <div class="draft-storage-actions">
+                    <button class="button button-secondary" type="button" data-draft-clear>{{ __('guest.draft_clear') }}</button>
+                    <button class="button button-secondary" type="button" data-draft-restore hidden>{{ __('guest.draft_restore_legacy') }}</button>
+                </div>
+                <p class="field-description" data-draft-conflict role="alert" hidden>{{ __('guest.draft_conflict') }}</p>
+            </div>
+
             <div class="age-confirmation">
                 <input id="age_confirmed" type="checkbox" name="age_confirmed" value="1" required aria-labelledby="age-confirmation-label" @if(old('_form_errors.age_confirmed') || $errors->has('age_confirmed')) aria-invalid="true" aria-describedby="age-confirmation-error" @endif @if(old('_focus_field') === 'age_confirmed') autofocus @endif @checked(old('age_confirmed'))>
                 @php([$beforeRules, $afterRules] = explode(':rules', __('guest.write_age'), 2))

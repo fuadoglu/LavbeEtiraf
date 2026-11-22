@@ -19,28 +19,95 @@
             sessionStorage.removeItem(legacyDraftKey);
         } else if (draftForm) {
             const title = draftForm.elements.namedItem('title');
+            const controls = draftForm.querySelector('[data-draft-controls]');
+            const optIn = controls.querySelector('[data-draft-opt-in]');
+            const clear = controls.querySelector('[data-draft-clear]');
+            const restore = controls.querySelector('[data-draft-restore]');
+            const conflict = controls.querySelector('[data-draft-conflict]');
+            const retention = Number(controls.dataset.draftRetentionMs);
+            const tabId = Math.random().toString(36).slice(2);
             let saved = JSON.parse(localStorage.getItem(draftKey));
-            if (!saved) {
-                saved = JSON.parse(sessionStorage.getItem(legacyDraftKey));
-                if (saved) localStorage.setItem(draftKey, JSON.stringify(saved));
+            let knownRevision = saved?.revision ?? null;
+            let blocked = false;
+            if (saved?.expiresAt && saved.expiresAt <= Date.now()) {
+                localStorage.removeItem(draftKey);
+                saved = null;
+                knownRevision = null;
             }
+            const legacy = saved?.version !== 2 ? saved : JSON.parse(sessionStorage.getItem(legacyDraftKey));
+            if (saved?.version !== 2) localStorage.removeItem(draftKey);
             sessionStorage.removeItem(legacyDraftKey);
-            if (!characterInput.value && !title.value && typeof saved?.body === 'string' && typeof saved.title === 'string') {
-                characterInput.value = saved.body;
-                title.value = saved.title;
+            const emptyForm = !characterInput.value && !title.value;
+            if (saved?.version === 2 && saved.expiresAt > Date.now()) {
+                optIn.checked = true;
+                if (emptyForm) {
+                    characterInput.value = saved.body;
+                    title.value = saved.title;
+                }
+            } else {
+                if (typeof legacy?.body === 'string' && typeof legacy.title === 'string' && emptyForm) {
+                    restore.hidden = false;
+                    restore.addEventListener('click', () => {
+                        characterInput.value = legacy.body;
+                        title.value = legacy.title;
+                        optIn.checked = true;
+                        restore.hidden = true;
+                        saveDraft();
+                        characterInput.dispatchEvent(new Event('input'));
+                    });
+                }
             }
             const saveDraft = (submission = null) => {
                 try {
+                    if (!optIn.checked || blocked) return;
+                    const current = JSON.parse(localStorage.getItem(draftKey));
+                    if (current?.version === 2 && current.revision !== knownRevision && current.sourceTab !== tabId) {
+                        blocked = true;
+                        conflict.hidden = false;
+                        return;
+                    }
                     const body = characterInput.value;
                     if (body.trim() || title.value.trim()) {
-                        localStorage.setItem(draftKey, JSON.stringify({ body, title: title.value, submission }));
+                        const revision = Math.random().toString(36).slice(2);
+                        localStorage.setItem(draftKey, JSON.stringify({
+                            version: 2, body, title: title.value, submission,
+                            expiresAt: Date.now() + retention, sourceTab: tabId, revision,
+                        }));
+                        knownRevision = revision;
                     } else {
                         localStorage.removeItem(draftKey);
+                        knownRevision = null;
                     }
                 } catch {
                     // Browser storage may be unavailable or full.
                 }
             };
+            optIn.addEventListener('change', () => {
+                if (optIn.checked) saveDraft();
+                else {
+                    if (!blocked) localStorage.removeItem(draftKey);
+                    knownRevision = null;
+                }
+            });
+            clear.addEventListener('click', () => {
+                localStorage.removeItem(draftKey);
+                sessionStorage.removeItem(legacyDraftKey);
+                sessionStorage.removeItem(pendingDraftKey);
+                characterInput.value = '';
+                title.value = '';
+                optIn.checked = false;
+                blocked = false;
+                conflict.hidden = true;
+                restore.hidden = true;
+                knownRevision = null;
+                characterInput.dispatchEvent(new Event('input'));
+            });
+            window.addEventListener?.('storage', (event) => {
+                if (event.key === draftKey && optIn.checked && event.newValue !== event.oldValue) {
+                    blocked = true;
+                    conflict.hidden = false;
+                }
+            });
             for (const field of [characterInput, title]) {
                 field.addEventListener('input', (event) => {
                     if (!event.isComposing) saveDraft();
@@ -48,6 +115,7 @@
                 field.addEventListener('compositionend', () => saveDraft());
             }
             draftForm.addEventListener('submit', () => {
+                if (!optIn.checked || blocked) return;
                 const submission = draftForm.elements.namedItem('idempotency_key').value;
                 saveDraft(submission);
                 try {

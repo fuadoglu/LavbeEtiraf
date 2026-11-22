@@ -57,6 +57,20 @@ class UniqueConfessionReadsTest extends TestCase
         $this->assertDatabaseCount('confession_readers', 0);
     }
 
+    public function test_out_of_range_pagination_does_not_count_as_a_read(): void
+    {
+        $confession = $this->publishedConfession();
+        $path = '/az/confession/'.$confession->public_id;
+        foreach (['comments_page', 'continuations_page'] as $pageParameter) {
+            $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')
+                ->get($path.'?'.$pageParameter.'=999')->assertNotFound()->assertCookieMissing(UniqueReadCounter::COOKIE_NAME);
+        }
+        $this->assertSame(0, $confession->fresh()->unique_read_count);
+        $this->assertDatabaseCount('confession_readers', 0);
+        $this->withCookie((string) config('analytics.reader_consent_cookie_name'), 'accepted')->get($path)->assertOk();
+        $this->assertSame(1, $confession->fresh()->unique_read_count);
+    }
+
     public function test_consent_can_be_accepted_and_revoked_without_blocking_public_reads(): void
     {
         $confession = $this->publishedConfession();

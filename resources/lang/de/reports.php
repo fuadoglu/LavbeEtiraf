@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Rechtliche Hinweise werden gesondert und vertraulich geprüft. Der Inhalt wird dadurch weder automatisch verborgen noch wird eine rechtliche Entscheidung getroffen.',
     'submit' => 'Meldung senden',
     'submit_legal' => 'Hinweis senden',
+    'received_updated' => 'Deine neuen Angaben wurden der früheren Meldung hinzugefügt und erneut zur Prüfung vorgelegt.',
+    'received_duplicate' => 'Diese Angaben haben wir bereits erhalten; es wurde keine neue Meldung erstellt.',
     'received_title' => 'Meldung eingegangen',
     'received_community' => 'Danke für den Hinweis. Deine Meldung ist bei der Moderation angekommen.',
     'received_legal' => 'Dein rechtlicher Hinweis liegt zur gesonderten vertraulichen Prüfung vor.',

@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Juridiske varsler behandles separat og fortrolig. Et varsel skjuler ikke innholdet automatisk og avgjør ikke det juridiske spørsmålet.',
     'submit' => 'Send rapport',
     'submit_legal' => 'Send juridisk varsel',
+    'received_updated' => 'De nye opplysningene dine er lagt til den tidligere meldingen og sendt til ny vurdering.',
+    'received_duplicate' => 'Vi har allerede mottatt de samme opplysningene; ingen ny melding ble opprettet.',
     'received_title' => 'Rapport mottatt',
     'received_community' => 'Takk for at du sa fra. Meldingen din har kommet fram til moderatorene.',
     'received_legal' => 'Det juridiske varselet er sendt til separat, fortrolig behandling.',

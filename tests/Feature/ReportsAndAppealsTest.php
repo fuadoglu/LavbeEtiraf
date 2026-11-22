@@ -29,6 +29,7 @@ class ReportsAndAppealsTest extends TestCase
 
     public function test_report_groups_are_target_and_channel_specific_deduplicated_and_do_not_hide_content(): void
     {
+        config(['lavbe.rate_limits.actions.report.attempts' => 10]);
         [$confession, $revision] = $this->publicConfession();
         $comment = $this->publicComment($confession);
         $reporter = User::factory()->create();
@@ -37,11 +38,15 @@ class ReportsAndAppealsTest extends TestCase
         $response->assertStatus(202);
         $this->assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
         $group = ReportGroup::query()->firstOrFail();
-        $this->post($this->reportUrl('confession', $confession->public_id), $this->reportPayload('threat', 'Different retry key'))->assertStatus(202);
-        $this->assertSame(1, $group->fresh()->report_count, 'One session counts only once for the target/channel group.');
-        $this->assertSame('normal', $group->fresh()->priority, 'A duplicate submission cannot escalate priority.');
-        $this->actingAs(User::factory()->create())->post($this->reportUrl('confession', $confession->public_id), $this->reportPayload('threat', 'Threat detail'))->assertStatus(202);
+        $newFact = $this->reportPayload('threat', 'Different safety detail');
+        $this->post($this->reportUrl('confession', $confession->public_id), $newFact)->assertStatus(202);
         $this->assertSame(2, $group->fresh()->report_count);
+        $this->assertSame('urgent', $group->fresh()->priority);
+        $this->post($this->reportUrl('confession', $confession->public_id), $newFact)->assertStatus(200);
+        $this->post($this->reportUrl('confession', $confession->public_id), $this->reportPayload('threat', 'Different safety detail'))->assertStatus(200);
+        $this->assertSame(2, $group->fresh()->report_count, 'An unchanged fact is counted once even with a fresh key.');
+        $this->actingAs(User::factory()->create())->post($this->reportUrl('confession', $confession->public_id), $this->reportPayload('threat', 'Threat detail'))->assertStatus(202);
+        $this->assertSame(3, $group->fresh()->report_count);
         $this->assertSame('urgent', $group->fresh()->priority);
         $this->assertSame('public', $confession->fresh()->status);
         $this->post($this->reportUrl('comment', $comment->public_id), $this->reportPayload('spam'))->assertStatus(202);
@@ -54,6 +59,22 @@ class ReportsAndAppealsTest extends TestCase
         $this->assertNotSame('Private explanation', $stored->getRawOriginal('details'));
         $this->assertSame('Private explanation', $stored->details);
         $this->assertSame(0, ModerationAudit::query()->count());
+    }
+
+    public function test_new_fact_reopens_a_resolved_report_group(): void
+    {
+        [$confession] = $this->publicConfession();
+        $reporter = User::factory()->create();
+        $this->actingAs($reporter)->post($this->reportUrl('confession', $confession->public_id), $this->reportPayload('spam'))->assertStatus(202);
+        $group = ReportGroup::query()->firstOrFail();
+        $group->forceFill(['status' => 'resolved', 'resolution' => 'dismissed', 'resolved_at' => now()])->save();
+
+        $this->post($this->reportUrl('confession', $confession->public_id), $this->reportPayload('threat', 'New safety fact'))->assertStatus(202);
+
+        $this->assertSame('pending', $group->fresh()->status);
+        $this->assertSame('urgent', $group->fresh()->priority);
+        $this->assertSame(2, $group->fresh()->report_count);
+        $this->assertNull($group->fresh()->resolution);
     }
 
     public function test_report_queue_requires_fresh_mfa_and_only_shows_granted_languages(): void

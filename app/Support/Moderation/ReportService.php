@@ -35,12 +35,13 @@ class ReportService
         $confessionId = $this->confessionId($type, $targetId);
         $reporterHash = $this->reporterHash($request);
         $idempotencyHash = $this->keyedHash('report|'.$reporterHash.'|'.$idempotencyKey);
+        $safeDetails = $details === null ? null : mb_substr(trim(strip_tags($details)), 0, (int) config('lavbe.limits.report_details'), 'UTF-8');
         $fingerprint = $this->keyedHash(json_encode([
-            $type, $targetId, $channel, $reasonCode, $details,
+            $type, $targetId, $channel, $reasonCode, $safeDetails,
         ], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
 
         try {
-            return DB::transaction(function () use ($type, $targetId, $channel, $reasonCode, $details, $reporterHash, $idempotencyHash, $fingerprint, $confessionId): ReportGroup {
+            return DB::transaction(function () use ($request, $type, $targetId, $channel, $reasonCode, $safeDetails, $reporterHash, $idempotencyHash, $fingerprint, $confessionId): ReportGroup {
                 $confession = Confession::query()->whereKey($confessionId)->lockForUpdate()->firstOrFail();
                 abort_unless($confession->status === 'public' && $confession->public_revision_id, 404);
                 $this->assertApprovedConfessionRevision($confession);
@@ -53,6 +54,8 @@ class ReportService
                 $existingSubmission = ReportSubmission::query()->where('idempotency_hash', $idempotencyHash)->first();
                 if ($existingSubmission) {
                     abort_unless(hash_equals((string) $existingSubmission->payload_fingerprint, $fingerprint), 409);
+
+                    $request->attributes->set('report_submission_outcome', 'duplicate');
 
                     return $existingSubmission->reportGroup()->firstOrFail();
                 }
@@ -75,9 +78,14 @@ class ReportService
                     ]);
                 }
 
-                if (ReportSubmission::query()->where('report_group_id', $group->id)->where('reporter_hash', $reporterHash)->exists()) {
+                if (ReportSubmission::query()->where('report_group_id', $group->id)->where('reporter_hash', $reporterHash)
+                    ->where('payload_fingerprint', $fingerprint)->exists()) {
+                    $request->attributes->set('report_submission_outcome', 'duplicate');
+
                     return $group;
                 }
+
+                $request->attributes->set('report_submission_outcome', $group->report_count === 0 ? 'new' : 'updated');
 
                 ReportSubmission::query()->create([
                     'report_group_id' => $group->id,
@@ -85,7 +93,7 @@ class ReportService
                     'idempotency_hash' => $idempotencyHash,
                     'payload_fingerprint' => $fingerprint,
                     'reason_code' => $reasonCode,
-                    'details' => $details === null ? null : mb_substr(trim(strip_tags($details)), 0, (int) config('lavbe.limits.report_details'), 'UTF-8'),
+                    'details' => $safeDetails,
                     'created_at' => now(),
                 ]);
 
@@ -109,10 +117,15 @@ class ReportService
             if ($existing) {
                 abort_unless(hash_equals((string) $existing->payload_fingerprint, $fingerprint), 409);
 
+                $request->attributes->set('report_submission_outcome', 'duplicate');
+
                 return $existing->reportGroup()->firstOrFail();
             }
             $group = ReportGroup::query()->where('target_type', $type)->where('target_id', $targetId)->where('channel', $channel)->first();
-            if ($group && ReportSubmission::query()->where('report_group_id', $group->id)->where('reporter_hash', $reporterHash)->exists()) {
+            if ($group && ReportSubmission::query()->where('report_group_id', $group->id)->where('reporter_hash', $reporterHash)
+                ->where('payload_fingerprint', $fingerprint)->exists()) {
+                $request->attributes->set('report_submission_outcome', 'duplicate');
+
                 return $group;
             }
             throw $exception;

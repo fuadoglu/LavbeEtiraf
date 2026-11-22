@@ -25,6 +25,8 @@ return [
     'legal_separation' => 'Juridiska anmälningar granskas separat och konfidentiellt. En anmälan döljer inte innehållet automatiskt och avgör inte rättsfrågan.',
     'submit' => 'Skicka anmälan',
     'submit_legal' => 'Skicka juridisk anmälan',
+    'received_updated' => 'Dina nya uppgifter har lagts till i den tidigare anmälan och skickats för ny granskning.',
+    'received_duplicate' => 'Vi har redan fått samma uppgifter; ingen ny anmälan skapades.',
     'received_title' => 'Anmälan mottagen',
     'received_community' => 'Tack för att du sa till. Din anmälan har kommit fram till moderatorerna.',
     'received_legal' => 'Din juridiska anmälan går vidare till separat, konfidentiell granskning.',

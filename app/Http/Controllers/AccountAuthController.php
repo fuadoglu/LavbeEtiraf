@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Support\Http\ResponseHeaders;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
@@ -56,10 +57,10 @@ class AccountAuthController extends Controller
             'email' => ['required', 'email:rfc', 'max:'.config('lavbe.limits.account_email')], 'password' => ['required', 'string', 'max:'.config('lavbe.limits.account_password')],
         ])->validate();
         $credentials['email'] = mb_strtolower(trim($credentials['email']));
+        $previousSessionId = $request->session()->getId();
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
             return back()->withErrors(['email' => __('account.login_failed')])->onlyInput('email');
         }
-        $previousSessionId = $request->session()->getId();
         $request->session()->regenerate();
         $this->preserveGuestOwnership($previousSessionId, $request->session()->getId());
         $request->user()->forceFill(['preferred_locale' => $locale])->save();
@@ -85,9 +86,9 @@ class AccountAuthController extends Controller
         }
 
         return response()->view('account.verify-notice')
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 
     public function resendVerification(Request $request, string $locale): RedirectResponse
