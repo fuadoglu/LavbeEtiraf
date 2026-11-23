@@ -8,10 +8,12 @@
         <p>{{ __('guest.write_pending_body') }}</p>
         <p class="submission-alias">{{ $confession->author_alias }}</p>
         <a href="{{ route('confessions.status', ['locale' => $lavbeLocale['segment'], 'publicId' => $confession->public_id]) }}">{{ __('guest.write_owner_link') }}</a>
+        @guest
         <div class="recovery-code" aria-labelledby="recovery-heading">
             <h2 id="recovery-heading">{{ __('guest.write_recovery_title') }}</h2>
             <p>{{ __('guest.write_recovery_once') }}</p>
             <code dir="ltr">{{ $recoveryCode }}</code>
         </div>
+        @endguest
     </section>
 @endsection

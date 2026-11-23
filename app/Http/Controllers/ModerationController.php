@@ -24,6 +24,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ModerationController extends Controller
 {
+    public function createConfession(string $locale, LocaleRegistry $locales): Response|View
+    {
+        abort_unless($locales->bySegment($locale), 404);
+
+        return $this->privateView('moderation.create-confession', [
+            'categories' => collect($locales->catalog()['categories'])->map(fn (array $item): array => [
+                'key' => $item['key'],
+                'label' => $item['labels'][app()->getLocale()] ?? $item['labels']['en'],
+                'description' => $item['descriptions'][app()->getLocale()] ?? $item['descriptions']['en'],
+                'icon' => $item['icon'],
+            ]),
+            'idempotencyKey' => rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '='),
+        ]);
+    }
+
     public function index(Request $request, string $locale, LocaleRegistry $locales): Response|View
     {
         $allowed = $request->user()->moderatorGrants()

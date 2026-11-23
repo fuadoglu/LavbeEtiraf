@@ -180,7 +180,7 @@ class GuestConfessionController extends Controller
             $oldInput['_form_errors'] = array_map(static fn (array $messages): string => $messages[0] ?? '', $validator->errors()->messages());
             $oldInput['_focus_field'] = array_key_first($validator->errors()->messages());
 
-            return redirect()->route('confessions.create', ['locale' => $locale])
+            return redirect()->route($request->routeIs('moderation.confessions.store') ? 'moderation.confessions.create' : 'confessions.create', ['locale' => $locale])
                 ->withErrors($validator)
                 ->withInput($oldInput);
         }
@@ -189,11 +189,13 @@ class GuestConfessionController extends Controller
         $data['author_display_name'] = isset($data['author_display_name']) ? trim($data['author_display_name']) : null;
         $data['body'] = trim($data['body']);
         $idempotencyHash = $this->keyedHash($data['idempotency_key']);
-        $rememberDevice = $request->boolean('remember_device');
+        $accountOwnerId = $request->user()?->id;
+        $rememberDevice = $accountOwnerId === null && $request->boolean('remember_device');
         $deviceToken = $rememberDevice ? ($request->cookie('lavbe_device') ?: $this->deviceTokenForSubmission($data['idempotency_key'])) : null;
         $sessionTokenHash = $this->keyedHash($request->session()->getId());
         $fingerprint = $this->keyedHash(json_encode([
             'locale' => app()->getLocale(),
+            'owner_user_id' => $accountOwnerId,
             'title' => $data['title'],
             'body' => $data['body'],
             'category_key' => $data['category_key'] ?? null,
@@ -203,7 +205,7 @@ class GuestConfessionController extends Controller
         ], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
 
         try {
-            [$confession, $recoveryCode] = DB::transaction(function () use ($data, $idempotencyHash, $fingerprint, $deviceToken, $sessionTokenHash): array {
+            [$confession, $recoveryCode] = DB::transaction(function () use ($data, $idempotencyHash, $fingerprint, $deviceToken, $sessionTokenHash, $accountOwnerId): array {
                 $publicId = (string) Str::uuid();
                 $recoveryCode = $this->randomToken();
 
@@ -229,12 +231,15 @@ class GuestConfessionController extends Controller
                     'status' => 'pending',
                 ]);
 
-                $confession->ownership()->create([
+                $ownership = $confession->ownership()->create([
                     'session_token_hash' => $sessionTokenHash,
                     'owner_token_hash' => $sessionTokenHash,
                     'recovery_token_hash' => $this->keyedHash($recoveryCode),
                     'device_token_hash' => $deviceToken ? $this->keyedHash($deviceToken) : null,
                 ]);
+                if ($accountOwnerId !== null) {
+                    $ownership->forceFill(['user_id' => $accountOwnerId])->save();
+                }
 
                 return [$confession, $recoveryCode];
             });
@@ -262,7 +267,7 @@ class GuestConfessionController extends Controller
             return $response;
         }
 
-        $response = $this->privateView('confessions.submitted', [
+        $response = $this->privateView($request->routeIs('moderation.confessions.store') ? 'moderation.confession-submitted' : 'confessions.submitted', [
             'confession' => $confession,
             'recoveryCode' => $recoveryCode,
         ], 201);
@@ -454,7 +459,7 @@ class GuestConfessionController extends Controller
                 return null;
             }
             $ownership = ConfessionOwnership::query()->where('confession_id', $confession->id)->lockForUpdate()->first();
-            if (! $ownership || ! hash_equals($ownership->recovery_token_hash, $this->keyedHash($data['recovery_code']))) {
+            if (! $ownership || $ownership->user_id !== null || ! hash_equals($ownership->recovery_token_hash, $this->keyedHash($data['recovery_code']))) {
                 return null;
             }
 

@@ -144,6 +144,40 @@ class ModerationWorkflowTest extends TestCase
             ->assertNotFound();
     }
 
+    public function test_moderator_can_submit_a_private_account_owned_confession_from_the_workspace(): void
+    {
+        $moderator = $this->moderator('az');
+        $this->actingAs($moderator)->get('/az/moderation/write')->assertRedirect('/az/moderation/mfa/challenge');
+        $this->actingAs($moderator)->post('/az/moderation/write', [])->assertRedirect('/az/moderation/mfa/challenge');
+        $this->assertDatabaseCount('confessions', 0);
+        $this->actingAs($moderator)->withSession($this->freshMfaSession($moderator));
+        $page = $this->get('/az/moderation/write')->assertOk()
+            ->assertSee('action="'.route('moderation.confessions.store', ['locale' => 'az']).'"', false)
+            ->assertSee('name="age_confirmed"', false)
+            ->assertDontSee('reader-consent-banner');
+        $this->assertStringContainsString('no-store', (string) $page->headers->get('Cache-Control'));
+        $this->get('/az/moderation')->assertOk()->assertSee('/az/moderation/write', false);
+
+        $payload = [
+            'title' => 'Synthetic moderator story',
+            'body' => 'This is synthetic text for the moderation queue.',
+            'category_key' => 'family',
+            'age_confirmed' => '1',
+            'idempotency_key' => str_repeat('m', 43),
+        ];
+        $this->post('/az/moderation/write', array_merge($payload, ['title' => '']))->assertRedirect('/az/moderation/write')->assertSessionHasErrors('title');
+        $this->post('/az/moderation/write', $payload)->assertCreated()
+            ->assertViewIs('moderation.confession-submitted')
+            ->assertDontSee(__('guest.write_recovery_title'));
+
+        $confession = Confession::query()->firstOrFail();
+        $this->assertSame('unpublished', $confession->status);
+        $this->assertSame('pending', $confession->revisions()->firstOrFail()->status);
+        $this->assertSame($moderator->id, $confession->ownership()->firstOrFail()->user_id);
+        $this->get('/az/my')->assertOk()->assertSee('Synthetic moderator story');
+        $this->withSession($this->freshMfaSession($moderator))->get('/az/moderation')->assertOk()->assertSee('Synthetic moderator story');
+    }
+
     public function test_approval_publishes_only_the_selected_pending_revision_and_records_redacted_audit_and_outbox(): void
     {
         $user = $this->moderator('az');

@@ -4,6 +4,7 @@
 
 @section('content')
     <x-moderation-shell :title="__('moderation.queue_title')">
+        <a class="button button-primary moderation-create-link" href="{{ route('moderation.confessions.create', ['locale' => request()->route('locale')]) }}"><x-icon name="pen-line" class="icon-small" />{{ __('guest.write_title') }}</a>
         @if($allowed->count() > 1)
             <nav class="moderation-filter" aria-label="{{ __('moderation.target_language') }}">
                 <a href="{{ route('moderation.queue', ['locale' => request()->route('locale'), 'state' => $selectedState]) }}" @if(! $selected) aria-current="page" @endif>{{ __('moderation.all_languages') }}</a>

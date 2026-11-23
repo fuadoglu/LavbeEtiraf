@@ -7,6 +7,7 @@
         ->where('role', 'admin')->where('locale', '*')->where('is_active', true)->whereNull('revoked_at')->exists() ?? false;
     $sections = [
         ['route' => 'moderation.queue', 'active' => ['moderation.queue', 'moderation.show'], 'label' => __('moderation.queue_title'), 'icon' => 'book-open'],
+        ['route' => 'moderation.confessions.create', 'active' => ['moderation.confessions.create', 'moderation.confessions.store'], 'label' => __('guest.write_title'), 'icon' => 'pen-line'],
         ['route' => 'moderation.participation', 'active' => ['moderation.participation'], 'label' => __('moderation.participation_queue'), 'icon' => 'message-circle'],
         ['route' => 'moderation.reports', 'active' => ['moderation.reports', 'moderation.reports.show'], 'label' => __('moderation.reports_queue'), 'icon' => 'triangle-alert'],
         ['route' => 'moderation.appeals', 'active' => ['moderation.appeals', 'moderation.appeals.show'], 'label' => __('moderation.appeals_queue'), 'icon' => 'route'],
