@@ -448,3 +448,9 @@ Moderatorun bütün səlahiyyətli səhifələrini oxucu üçün dar yazı sütu
 **Issue:** [#170](https://github.com/fuadoglu/LavbeEtiraf/issues/170). **Asılılıq:** LAV-078, LAV-001, LAV-008. **Qəbul:** UI-30, OWN-01, MOD-01.
 
 Moderator iş sahəsində etiraf yazma bölməsini mövcud yazı forması ilə paylaş. Yazı normal pending baxış qaydasından keçsin, birbaşa açıq yayımlanmasın. Panel route-u həm oxunuşda, həm göndərişdə aktiv səlahiyyət və təzə MFA tələb etsin. Daxil olmuş hesabın etirafı ona bağlansın, qonaq bərpa axını dəyişməsin. Göndərişdən sonra status və növbə keçidləri görünsün. **Sübut:** PHP feature testləri, 17 dil və sənəd yoxlaması, frontend build, mobil/desktop baxışı və MySQL CI.
+
+## LAV-080 · Lokal moderator MFA fasiləsi və forma məsafəsi
+
+**Issue:** [#172](https://github.com/fuadoglu/LavbeEtiraf/issues/172). **Asılılıq:** LAV-005, LAV-078. **Qəbul:** MOD-06, UI-31.
+
+Məhsul sahibinin lokal inkişaf istəyi üçün `APP_ENV=local` və ayrıca açıq `MODERATOR_LOCAL_SKIP_MFA=true` şərtlərini birlikdə tələb et. Şifrə və aktiv səlahiyyət yoxlaması qalır; qeyri-lokal mühitdə config true olsa da MFA məcburidir. Lokal seçim söndürüləndə MFA axını yenidən açılır. MFA formunda kod sahəsi ilə düyməyə ayrıca məsafə ver. **Sübut:** mühit sərhədi və login/route feature testləri, CSS build, 320/390 px baxışı, CI.

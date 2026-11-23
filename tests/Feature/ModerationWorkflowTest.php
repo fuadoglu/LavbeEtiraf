@@ -72,6 +72,39 @@ class ModerationWorkflowTest extends TestCase
         $this->get('/az/moderation/mfa/enroll')->assertOk()->assertSee('Doğrulama tətbiqi üçün quraşdırma ünvanı');
     }
 
+    public function test_local_mfa_bypass_requires_explicit_flag_and_never_applies_outside_local(): void
+    {
+        $user = $this->moderator('az', false);
+        $originalEnvironment = app()->environment();
+        config(['moderation.local_skip_mfa' => true]);
+
+        try {
+            app()->instance('env', 'local');
+            $token = Str::random(40);
+            $this->withSession(['_token' => $token])->withHeader('X-CSRF-TOKEN', $token)
+                ->post('/az/moderation/login', ['email' => $user->email, 'password' => 'password'])
+                ->assertRedirect('/az/moderation/');
+            $this->get('/az/moderation')->assertOk();
+            $this->get('/az/moderation/mfa/challenge')->assertRedirect('/az/moderation/');
+            $this->get('/az/moderation/mfa/enroll')->assertRedirect('/az/moderation/');
+            $this->actingAs(User::factory()->create())->get('/az/moderation')->assertNotFound();
+            $this->actingAs($user);
+
+            config(['moderation.local_skip_mfa' => false]);
+            $this->get('/az/moderation')->assertRedirect('/az/moderation/mfa/challenge');
+
+            config(['moderation.local_skip_mfa' => true]);
+            app()->instance('env', 'production');
+            $this->get('/az/moderation')->assertRedirect('/az/moderation/mfa/challenge');
+
+            app()->instance('env', 'testing');
+            $this->get('/az/moderation')->assertRedirect('/az/moderation/mfa/challenge');
+        } finally {
+            app()->instance('env', $originalEnvironment);
+            config(['moderation.local_skip_mfa' => false]);
+        }
+    }
+
     public function test_mfa_enrollment_only_stores_ciphertext_and_recovery_codes_are_one_time(): void
     {
         $user = $this->moderator('az', false);
