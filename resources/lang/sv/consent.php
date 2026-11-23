@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => 'Samtycke till externa tjänster',
+    'external_body' => 'Välj analys och annonser var för sig. Webbplatsen fungerar även om du avstår.',
+    'external_analytics' => 'Google Analytics',
+    'external_ads' => 'Google-annonser',
     'preference_cookie_notice' => 'En nödvändig inställningskaka sparar ditt ja eller nej i :consent_days dagar; den mäter inte läsning.',
     'banner_title' => 'Får vi räkna läsbesök?',
     'banner_body' => 'Om du samtycker använder vi en förstapartskaka i högst :retention_days dagar för att räkna besök på offentliga bekännelser. Du kan läsa alla berättelser även om du tackar nej. Du kan ändra valet när som helst i kakmeddelandet.',

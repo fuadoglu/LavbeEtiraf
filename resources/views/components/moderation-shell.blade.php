@@ -14,6 +14,7 @@
     ];
     if ($isAdmin) {
         $sections[] = ['route' => 'moderation.grants', 'active' => ['moderation.grants', 'moderation.grants.search'], 'label' => __('moderation.grant_title'), 'icon' => 'users-round'];
+        $sections[] = ['route' => 'moderation.settings', 'active' => ['moderation.settings', 'moderation.settings.update'], 'label' => __('moderation.settings_title'), 'icon' => 'settings-2'];
     }
     $currentSection = collect($sections)->first(fn ($section) => in_array($route, $section['active'], true)) ?? $sections[0];
 @endphp

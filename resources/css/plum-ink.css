@@ -907,6 +907,7 @@
 .moderation-heading h1 { margin: 0; color: var(--brand-logo-color); font: 600 clamp(1.8rem, 3vw, 2.55rem)/1.12 var(--editorial-serif); letter-spacing: -.035em; text-wrap: balance; }
 .moderation-create-link { justify-self: start; display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; }
 .moderation-compose { display: grid; gap: 1rem; width: min(100%, 48rem); min-width: 0; }
+.confession-ad-slot { min-height: 12rem; margin-block: clamp(1.5rem, 4vw, 3rem); padding: 1rem; border: 1px solid var(--line); border-radius: 1rem; }
 .moderation-compose.submission-result { padding: clamp(1rem, 2.5vw, 1.6rem); border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); }
 .moderation-compose .write-form { min-width: 0; }
 .moderation-submitted-actions { display: flex; flex-wrap: wrap; gap: .6rem; }

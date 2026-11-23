@@ -176,7 +176,8 @@ class ModerationWorkflowTest extends TestCase
             'last_used_counter' => 1,
         ]);
         $this->actingAs($admin)->withSession($this->freshMfaSession($admin))->get('/az/moderation/confessions/'.$confession->id)
-            ->assertNotFound();
+            ->assertOk();
+        $this->get('/az/moderation/confessions/'.$otherLanguageConfession->id)->assertOk();
     }
 
     public function test_moderator_can_submit_a_private_account_owned_confession_from_the_workspace(): void
@@ -206,11 +207,12 @@ class ModerationWorkflowTest extends TestCase
             ->assertDontSee(__('guest.write_recovery_title'));
 
         $confession = Confession::query()->firstOrFail();
-        $this->assertSame('unpublished', $confession->status);
-        $this->assertSame('pending', $confession->revisions()->firstOrFail()->status);
+        $this->assertSame('public', $confession->status);
+        $this->assertSame('approved', $confession->revisions()->firstOrFail()->status);
+        $this->assertDatabaseHas('moderation_audits', ['target_type' => 'confession', 'target_key' => (string) $confession->id, 'decision' => 'approve']);
         $this->assertSame($moderator->id, $confession->ownership()->firstOrFail()->user_id);
         $this->get('/az/my')->assertOk()->assertSee('Synthetic moderator story');
-        $this->withSession($this->freshMfaSession($moderator))->get('/az/moderation')->assertOk()->assertSee('Synthetic moderator story');
+        $this->withSession($this->freshMfaSession($moderator))->get('/az/moderation?state=public')->assertOk()->assertSee('Synthetic moderator story');
     }
 
     public function test_ten_moderator_submissions_keep_one_account_but_receive_distinct_public_codes(): void
@@ -237,6 +239,7 @@ class ModerationWorkflowTest extends TestCase
     public function test_moderator_write_language_switch_stays_on_the_private_composer(): void
     {
         $moderator = $this->moderator('az');
+        ModeratorGrant::query()->create(['user_id' => $moderator->id, 'role' => 'moderator', 'locale' => 'tr', 'reason' => 'synthetic second language grant']);
         $this->actingAs($moderator)->withSession($this->freshMfaSession($moderator))
             ->post('/az/language', ['locale' => 'tr', 'return_to' => '/az/moderation/write'])
             ->assertStatus(303)

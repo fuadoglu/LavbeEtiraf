@@ -63,14 +63,7 @@ class ModerationService
                 $confession = Confession::query()->whereKey($confessionId)->lockForUpdate()->first();
                 abort_if(! $confession, 404);
 
-                $grant = ModeratorGrant::query()
-                    ->where('user_id', $actor->id)
-                    ->where('role', 'moderator')
-                    ->where('locale', $confession->locale)
-                    ->where('is_active', true)
-                    ->whereNull('revoked_at')
-                    ->lockForUpdate()
-                    ->first();
+                $grant = ModeratorGrant::activeForLocale($actor, $confession->locale)->lockForUpdate()->first();
                 abort_if(! $grant, 404);
                 abort_if($confession->lock_version !== $expectedLockVersion, 409);
 
@@ -235,8 +228,7 @@ class ModerationService
                 return;
             }
             $confession = Confession::query()->whereKey($confessionId)->lockForUpdate()->firstOrFail();
-            $grant = ModeratorGrant::query()->where('user_id', $actor->id)->where('role', 'moderator')
-                ->where('locale', $confession->locale)->where('is_active', true)->whereNull('revoked_at')->lockForUpdate()->first();
+            $grant = ModeratorGrant::activeForLocale($actor, $confession->locale)->lockForUpdate()->first();
             abort_if(! $grant, 404);
             abort_unless($confession->lock_version === $expectedParentLockVersion, 409);
             abort_unless($confession->status === 'public', 409);

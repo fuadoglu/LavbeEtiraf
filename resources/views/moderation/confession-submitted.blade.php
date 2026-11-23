@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', __('guest.write_pending_title'))
+@section('title', __('moderation.staff_published'))
 
 @section('content')
-    <x-moderation-shell :title="__('guest.write_pending_title')">
+    <x-moderation-shell :title="__('moderation.staff_published')">
         <section class="moderation-compose submission-result" data-clear-confession-draft>
-            <p>{{ __('guest.write_pending_body') }}</p>
+            <p>{{ __('moderation.staff_published_body') }}</p>
             <p class="submission-alias">{{ $confession->author_alias }}</p>
             <div class="moderation-submitted-actions">
                 <a class="button button-primary" href="{{ route('confessions.status', ['locale' => request()->route('locale'), 'publicId' => $confession->public_id]) }}">{{ __('guest.write_owner_link') }}</a>

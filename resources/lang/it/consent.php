@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => 'Consenso ai servizi esterni',
+    'external_body' => 'Scegli separatamente analisi e annunci. Il sito funziona anche se rifiuti.',
+    'external_analytics' => 'Google Analytics',
+    'external_ads' => 'Annunci Google',
     'preference_cookie_notice' => 'Un cookie necessario per le preferenze conserva la scelta di consenso o rifiuto per :consent_days giorni; non misura la lettura.',
     'banner_title' => 'Possiamo conteggiare le visite di lettura?',
     'banner_body' => 'Se acconsenti, usiamo un cookie di prima parte per un massimo di :retention_days giorni per contare le visite alle confessioni pubbliche. Puoi leggere tutto anche se rifiuti. Puoi cambiare scelta in qualsiasi momento nell’informativa sui cookie.',

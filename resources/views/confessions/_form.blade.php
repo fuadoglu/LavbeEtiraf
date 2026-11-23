@@ -77,6 +77,6 @@
             </label>
             @endguest
 
-            <p class="write-review-note">{{ __('guest.write_public_search_notice') }} {{ __('guest.write_intro') }}</p>
-            <button class="button button-primary" type="submit">{{ __('guest.write_submit') }}</button>
+            <p class="write-review-note">{{ __('guest.write_public_search_notice') }} @if(request()->routeIs('moderation.confessions.create')){{ __('moderation.staff_publish_notice') }}@else{{ __('guest.write_intro') }}@endif</p>
+            <button class="button button-primary" type="submit">{{ request()->routeIs('moderation.confessions.create') ? __('moderation.staff_publish') : __('guest.write_submit') }}</button>
         </form>

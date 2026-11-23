@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => 'Xarici xidmətlərə razılıq',
+    'external_body' => 'Analitika və reklam üçün ayrı seçim et. Rədd etsən, sayt işləməyə davam edəcək.',
+    'external_analytics' => 'Google Analytics',
+    'external_ads' => 'Google reklamları',
     'preference_cookie_notice' => 'Seçimini yadda saxlamaq üçün zəruri preferensiya kukisi :consent_days gün saxlanır; oxu statistikasını ölçmür.',
     'banner_title' => 'Oxu statistikasını paylaşmaq istəyirsən?',
     'banner_body' => 'Razılıq versən, açıq etirafların səhifə açılışlarını saymaq üçün :retention_days günədək işləyən birinci tərəf kukisi istifadə edirik. İmtina etsən də bütün yazıları oxuya bilərsən. Seçimini kuki bildirişində istənilən vaxt dəyişə bilərsən.',

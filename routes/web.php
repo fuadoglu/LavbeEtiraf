@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountAuthController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AppealController;
+use App\Http\Controllers\ExternalConsentController;
 use App\Http\Controllers\GuestConfessionController;
 use App\Http\Controllers\IndexNowKeyController;
 use App\Http\Controllers\LocaleSelectionController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\PublicConfessionController;
 use App\Http\Controllers\PwaManifestController;
 use App\Http\Controllers\ReaderConsentController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SiteIntegrationController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\NormalizeFeedPage;
 use App\Http\Middleware\PrivateResponseHeaders;
@@ -22,6 +24,7 @@ use App\Http\Middleware\RequireModeratorAccount;
 use App\Http\Middleware\RequireModeratorAdmin;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\ValidatePaginationParameters;
+use App\Support\Analytics\ExternalTags;
 use App\Support\Http\ResponseHeaders;
 use App\Support\Lavbe\FeedQuery;
 use App\Support\Lavbe\LocaleRegistry;
@@ -71,7 +74,7 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
 
         $canonical = route('home', ['locale' => $locale], false).($confessions->currentPage() > 1 ? '?page='.$confessions->currentPage() : '');
 
-        return view('home', [
+        $response = response()->view('home', [
             'category' => $category,
             'sort' => $sort,
             'locale' => $request->attributes->get('lavbe.locale'),
@@ -80,11 +83,16 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
             'canonical' => $canonical,
             'categoryIndexable' => $category === null || $confessions->total() >= (int) config('seo.category_min_public_items'),
         ]);
+
+        return app(ExternalTags::class)->analytics($request)
+            ? $response->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            : $response;
     })->middleware(NormalizeFeedPage::class)->name('home');
 
     Route::get('/supported', [ParticipationController::class, 'supported'])->middleware(PrivateResponseHeaders::class)->name('confessions.supported');
     Route::get('/manifest.webmanifest', [PwaManifestController::class, 'show'])->name('pwa.manifest');
     Route::post('/reader-consent', [ReaderConsentController::class, 'update'])->middleware(PrivateResponseHeaders::class)->name('reader-consent.update');
+    Route::post('/external-consent', [ExternalConsentController::class, 'update'])->middleware(PrivateResponseHeaders::class)->name('external-consent.update');
     Route::get('/my/device', [GuestConfessionController::class, 'deviceIndex'])->middleware(PrivateResponseHeaders::class)->name('confessions.device');
     Route::post('/my/device/forget', [GuestConfessionController::class, 'forgetDevice'])->middleware(PrivateResponseHeaders::class)->name('confessions.device.forget');
     Route::get('/legal/{page}', function (string $locale, string $page) {
@@ -168,7 +176,7 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
 
         $canonical = route('topic.show', ['locale' => $locale, 'category' => $category], false).($confessions->currentPage() > 1 ? '?page='.$confessions->currentPage() : '');
 
-        return view('home', [
+        $response = response()->view('home', [
             'category' => $category,
             'sort' => $sort,
             'locale' => $request->attributes->get('lavbe.locale'),
@@ -179,6 +187,10 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
             'canonical' => $canonical,
             'categoryIndexable' => $confessions->total() >= (int) config('seo.category_min_public_items'),
         ]);
+
+        return app(ExternalTags::class)->analytics($request)
+            ? $response->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            : $response;
     })->middleware(NormalizeFeedPage::class)->name('topic.show');
 
     Route::match(['GET', 'POST'], '/search', function (string $locale, Request $request, LocaleRegistry $locales, FeedQuery $feed) {
@@ -254,6 +266,9 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
         Route::post('/confessions/{confessionId}/decision', [ModerationController::class, 'decide'])->whereNumber('confessionId')->name('moderation.decide');
 
         Route::middleware(RequireModeratorAdmin::class)->group(function (): void {
+            Route::get('/settings', [SiteIntegrationController::class, 'edit'])->name('moderation.settings');
+            Route::post('/settings', [SiteIntegrationController::class, 'update'])->name('moderation.settings.update');
+            Route::post('/confessions/{confessionId}/ads', [SiteIntegrationController::class, 'reviewAdSuitability'])->whereNumber('confessionId')->name('moderation.confessions.ads');
             Route::get('/grants', [ModerationAdminController::class, 'index'])->name('moderation.grants');
             Route::post('/grants/search', [ModerationAdminController::class, 'index'])->name('moderation.grants.search');
             Route::post('/grants', [ModerationAdminController::class, 'store'])->name('moderation.grants.store');

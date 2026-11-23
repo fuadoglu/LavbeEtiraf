@@ -61,6 +61,17 @@
                     <button class="button button-primary" type="submit">{{ __('moderation.submit_decision') }}</button>
                 </form>
             </section>
+            @if($confession->status === 'public' && auth()->user()?->moderatorGrants()->where('role', 'admin')->where('locale', '*')->where('is_active', true)->whereNull('revoked_at')->exists())
+                <section class="moderation-panel">
+                    <h2>{{ __('moderation.settings_ads') }}</h2>
+                    <p>{{ __('moderation.ads_review_required') }}</p>
+                    <form method="post" action="{{ route('moderation.confessions.ads', ['locale' => request()->route('locale'), 'confessionId' => $confession->id]) }}">
+                        @csrf
+                        <input type="hidden" name="expected_visibility_version" value="{{ $confession->visibility_version }}">
+                        <button class="button button-secondary" type="submit" name="eligible" value="{{ (int) $confession->ad_review_visibility_version === (int) $confession->visibility_version ? '0' : '1' }}">{{ (int) $confession->ad_review_visibility_version === (int) $confession->visibility_version ? __('moderation.ads_mark_ineligible') : __('moderation.ads_mark_eligible') }}</button>
+                    </form>
+                </section>
+            @endif
         </div>
     </x-moderation-shell>
 @endsection

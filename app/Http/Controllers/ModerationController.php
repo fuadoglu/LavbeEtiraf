@@ -8,6 +8,7 @@ use App\Models\ConfessionComment;
 use App\Models\ConfessionContinuation;
 use App\Models\ConfessionRevision;
 use App\Models\ModerationAppeal;
+use App\Models\ModeratorGrant;
 use App\Models\ReportGroup;
 use App\Models\ReportSubmission;
 use App\Support\Http\ResponseHeaders;
@@ -16,6 +17,7 @@ use App\Support\Moderation\AppealService;
 use App\Support\Moderation\ModerationService;
 use App\Support\Moderation\ReportService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -27,6 +29,7 @@ class ModerationController extends Controller
     public function createConfession(string $locale, LocaleRegistry $locales): Response|View
     {
         abort_unless($locales->bySegment($locale), 404);
+        $this->assertLocaleGrant(request(), $locales->contentCode($locale));
 
         return $this->privateView('moderation.create-confession', [
             'categories' => collect($locales->catalog()['categories'])->map(fn (array $item): array => [
@@ -41,9 +44,7 @@ class ModerationController extends Controller
 
     public function index(Request $request, string $locale, LocaleRegistry $locales): Response|View
     {
-        $allowed = $request->user()->moderatorGrants()
-            ->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')
-            ->pluck('locale')->unique()->values();
+        $allowed = $this->allowedLocales($request);
         $selected = (string) $request->query('language', '');
         abort_if($selected !== '' && ! $allowed->contains($selected), 404);
         $languages = $selected === '' ? $allowed : collect([$selected]);
@@ -152,9 +153,7 @@ class ModerationController extends Controller
 
     public function participation(Request $request): Response|View
     {
-        $allowed = $request->user()->moderatorGrants()
-            ->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')
-            ->pluck('locale')->unique()->values();
+        $allowed = $this->allowedLocales($request);
         $comments = ConfessionComment::query()->with([
             'confession', 'parent.publicRevision',
             'revisions' => fn ($query) => $query->where('status', 'pending')->orderByDesc('revision')->limit(1),
@@ -198,7 +197,7 @@ class ModerationController extends Controller
 
     public function reports(Request $request): Response|View
     {
-        $allowed = $request->user()->moderatorGrants()->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')->pluck('locale')->unique();
+        $allowed = $this->allowedLocales($request);
         $items = ReportGroup::query()->with('confession')->where('status', 'pending')
             ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))
             ->orderByRaw("CASE priority WHEN 'urgent' THEN 0 WHEN 'legal' THEN 1 ELSE 2 END")
@@ -246,7 +245,7 @@ class ModerationController extends Controller
 
     public function appeals(Request $request): Response|View
     {
-        $allowed = $request->user()->moderatorGrants()->where('role', 'moderator')->where('is_active', true)->whereNull('revoked_at')->pluck('locale')->unique();
+        $allowed = $this->allowedLocales($request);
         $items = ModerationAppeal::query()->with(['confession', 'hideAudit'])->where('status', 'pending')
             ->whereHas('confession', fn ($query) => $query->whereIn('locale', $allowed))->orderBy('created_at')->orderBy('id')
             ->paginate((int) config('lavbe.pagination.moderation'), ['*'], 'appeals_page')->withQueryString();
@@ -300,14 +299,19 @@ class ModerationController extends Controller
         return redirect()->route('moderation.participation', ['locale' => $locale])->with('status', __('moderation.decision_saved'));
     }
 
+    private function allowedLocales(Request $request): Collection
+    {
+        $grants = $request->user()->moderatorGrants()->where('is_active', true)->whereNull('revoked_at')->get(['role', 'locale']);
+        if ($grants->contains(fn ($grant) => $grant->role === 'admin' && $grant->locale === '*')) {
+            return collect(app(LocaleRegistry::class)->all())->pluck('code');
+        }
+
+        return $grants->where('role', 'moderator')->pluck('locale')->unique()->values();
+    }
+
     private function assertLocaleGrant(Request $request, string $targetLocale): void
     {
-        abort_unless($request->user()->moderatorGrants()
-            ->where('role', 'moderator')
-            ->where('locale', $targetLocale)
-            ->where('is_active', true)
-            ->whereNull('revoked_at')
-            ->exists(), 404);
+        abort_unless(ModeratorGrant::activeForLocale($request->user(), $targetLocale)->exists(), 404);
     }
 
     private function privateView(string $view, array $data = []): Response

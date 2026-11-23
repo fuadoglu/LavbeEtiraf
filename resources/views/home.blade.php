@@ -12,6 +12,7 @@
 @endif
 
 @push('head')
+    @include('components.public-analytics', ['pageType' => $topic ? 'topic' : 'home'])
     <link rel="canonical" href="{{ rtrim((string) config('app.url'), '/').$canonical }}">
     @if($confessions->currentPage() > 1 || $sort !== 'new' || ! $categoryIndexable)<meta name="robots" content="noindex,follow">@endif
     @if($confessions->nextPageUrl())<link rel="next" href="{{ $confessions->nextPageUrl() }}">@endif
