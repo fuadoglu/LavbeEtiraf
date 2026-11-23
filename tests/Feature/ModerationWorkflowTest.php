@@ -211,6 +211,21 @@ class ModerationWorkflowTest extends TestCase
         $this->withSession($this->freshMfaSession($moderator))->get('/az/moderation')->assertOk()->assertSee('Synthetic moderator story');
     }
 
+    public function test_moderator_write_language_switch_stays_on_the_private_composer(): void
+    {
+        $moderator = $this->moderator('az');
+        $this->actingAs($moderator)->withSession($this->freshMfaSession($moderator))
+            ->post('/az/language', ['locale' => 'tr', 'return_to' => '/az/moderation/write'])
+            ->assertStatus(303)
+            ->assertRedirect('/tr/moderation/write');
+
+        $page = $this->get('/tr/moderation/write')->assertOk()
+            ->assertSee('action="'.route('moderation.confessions.store', ['locale' => 'tr']).'"', false)
+            ->assertSee('name="return_to" value="/tr/moderation/write"', false)
+            ->assertHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
+        $this->assertStringContainsString('no-store', (string) $page->headers->get('Cache-Control'));
+    }
+
     public function test_approval_publishes_only_the_selected_pending_revision_and_records_redacted_audit_and_outbox(): void
     {
         $user = $this->moderator('az');

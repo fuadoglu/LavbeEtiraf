@@ -305,6 +305,7 @@ class UiFoundationTest extends TestCase
             '/az/?sort=bad&page=4' => '/tr',
             '/az/topics/missing' => '/tr',
             '/az/write' => '/tr/write',
+            '/az/moderation/write' => '/tr/moderation/write',
             '/az/legal/privacy' => '/tr/legal/privacy',
             '/az/search?q=private' => '/tr/search',
             '/az/account/password/reset/private-token?email=private' => '/tr',

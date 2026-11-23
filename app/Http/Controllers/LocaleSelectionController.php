@@ -17,6 +17,7 @@ class LocaleSelectionController extends Controller
         'account.register', 'password.request', 'verification.notice',
         'moderation.login', 'moderation.queue', 'moderation.participation',
         'moderation.reports', 'moderation.appeals', 'moderation.grants',
+        'moderation.confessions.create',
     ];
 
     public function __invoke(Request $request, string $locale, LocaleRegistry $locales): Response
