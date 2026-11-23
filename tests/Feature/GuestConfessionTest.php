@@ -52,6 +52,14 @@ class GuestConfessionTest extends TestCase
         $this->get('/az/my')->assertOk()->assertSee('Synthetic title');
     }
 
+    public function test_confession_author_code_has_a_database_unique_constraint(): void
+    {
+        $first = Confession::factory()->create();
+
+        $this->expectException(QueryException::class);
+        Confession::factory()->create(['author_alias' => $first->author_alias]);
+    }
+
     public function test_title_error_returns_focus_and_body_limit_is_not_restricted_by_utf16_maxlength(): void
     {
         $payload = $this->payload();
@@ -182,6 +190,7 @@ class GuestConfessionTest extends TestCase
         $this->assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
         $this->assertNotNull($response->headers->get('Retry-After'));
         $this->assertDatabaseCount('confessions', 10);
+        $this->assertSame(10, Confession::query()->distinct()->count('author_alias'));
     }
 
     public function test_submission_creates_unpublished_pending_revision_and_is_absent_from_public_read_surfaces(): void
