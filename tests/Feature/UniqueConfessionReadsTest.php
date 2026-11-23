@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Confession;
 use App\Support\Analytics\UniqueReadCounter;
+use App\Support\Lavbe\AuthorAlias;
 use App\Support\Lavbe\LocaleRegistry;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
@@ -256,7 +257,7 @@ class UniqueConfessionReadsTest extends TestCase
             'body' => 'Synthetic public body',
             'excerpt' => 'Synthetic public body',
             'public_id' => (string) Str::uuid(),
-            'author_alias' => 'Lavbe #A1B2C3D4',
+            'author_alias' => AuthorAlias::generate(),
             'published_at' => $publishedAt,
             'public_updated_at' => $publishedAt,
             'ever_public' => true,

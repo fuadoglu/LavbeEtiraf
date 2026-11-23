@@ -204,67 +204,73 @@ class GuestConfessionController extends Controller
             'age_confirmed' => true,
         ], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
 
-        try {
-            [$confession, $recoveryCode] = DB::transaction(function () use ($data, $idempotencyHash, $fingerprint, $deviceToken, $sessionTokenHash, $accountOwnerId): array {
-                $publicId = (string) Str::uuid();
-                $recoveryCode = $this->randomToken();
+        for ($aliasAttempt = 0; $aliasAttempt < 5; $aliasAttempt++) {
+            try {
+                [$confession, $recoveryCode] = DB::transaction(function () use ($data, $idempotencyHash, $fingerprint, $deviceToken, $sessionTokenHash, $accountOwnerId): array {
+                    $publicId = (string) Str::uuid();
+                    $recoveryCode = $this->randomToken();
 
-                $confession = Confession::query()->create([
-                    'locale' => app()->getLocale(),
-                    'status' => 'unpublished',
-                    'title' => '',
-                    'body' => '',
-                    'public_id' => $publicId,
-                    'author_alias' => AuthorAlias::generate(),
-                    'submission_key_hash' => $idempotencyHash,
-                    'payload_fingerprint' => $fingerprint,
-                    'age_confirmed_at' => now(),
-                ]);
+                    $confession = Confession::query()->create([
+                        'locale' => app()->getLocale(),
+                        'status' => 'unpublished',
+                        'title' => '',
+                        'body' => '',
+                        'public_id' => $publicId,
+                        'author_alias' => AuthorAlias::generateAvailable(),
+                        'submission_key_hash' => $idempotencyHash,
+                        'payload_fingerprint' => $fingerprint,
+                        'age_confirmed_at' => now(),
+                    ]);
 
-                $confession->revisions()->create([
-                    'revision' => 1,
-                    'title' => $data['title'],
-                    'author_display_name' => $data['author_display_name'] ?: null,
-                    'body' => $data['body'],
-                    'category_key' => $data['category_key'] ?? null,
-                    'response_expectation' => $data['response_expectation'] ?? null,
-                    'status' => 'pending',
-                ]);
+                    $confession->revisions()->create([
+                        'revision' => 1,
+                        'title' => $data['title'],
+                        'author_display_name' => $data['author_display_name'] ?: null,
+                        'body' => $data['body'],
+                        'category_key' => $data['category_key'] ?? null,
+                        'response_expectation' => $data['response_expectation'] ?? null,
+                        'status' => 'pending',
+                    ]);
 
-                $ownership = $confession->ownership()->create([
-                    'session_token_hash' => $sessionTokenHash,
-                    'owner_token_hash' => $sessionTokenHash,
-                    'recovery_token_hash' => $this->keyedHash($recoveryCode),
-                    'device_token_hash' => $deviceToken ? $this->keyedHash($deviceToken) : null,
-                ]);
-                if ($accountOwnerId !== null) {
-                    $ownership->forceFill(['user_id' => $accountOwnerId])->save();
+                    $ownership = $confession->ownership()->create([
+                        'session_token_hash' => $sessionTokenHash,
+                        'owner_token_hash' => $sessionTokenHash,
+                        'recovery_token_hash' => $this->keyedHash($recoveryCode),
+                        'device_token_hash' => $deviceToken ? $this->keyedHash($deviceToken) : null,
+                    ]);
+                    if ($accountOwnerId !== null) {
+                        $ownership->forceFill(['user_id' => $accountOwnerId])->save();
+                    }
+
+                    return [$confession, $recoveryCode];
+                });
+                break;
+            } catch (QueryException $exception) {
+                if ($aliasAttempt < 4 && $this->isAliasUniqueViolation($exception)) {
+                    continue;
+                }
+                try {
+                    $confession = Confession::query()->where('submission_key_hash', $idempotencyHash)->first();
+                } catch (QueryException $lookupException) {
+                    return $this->submissionFailure($lookupException);
+                }
+                if (! $confession) {
+                    return $this->submissionFailure($exception);
+                }
+                if (! hash_equals((string) $confession->payload_fingerprint, $fingerprint)) {
+                    return $this->privateView('confessions.conflict', [], 409);
                 }
 
-                return [$confession, $recoveryCode];
-            });
-        } catch (QueryException $exception) {
-            try {
-                $confession = Confession::query()->where('submission_key_hash', $idempotencyHash)->first();
-            } catch (QueryException $lookupException) {
-                return $this->submissionFailure($lookupException);
-            }
-            if (! $confession) {
-                return $this->submissionFailure($exception);
-            }
-            if (! hash_equals((string) $confession->payload_fingerprint, $fingerprint)) {
-                return $this->privateView('confessions.conflict', [], 409);
-            }
+                $response = $this->privateView('confessions.duplicate', ['confession' => $confession]);
+                $savedDeviceHash = $confession->ownership?->device_token_hash;
+                if ($deviceToken !== null && is_string($savedDeviceHash) && hash_equals($savedDeviceHash, $this->keyedHash($deviceToken))
+                    && $request->cookie('lavbe_device') !== $deviceToken) {
+                    $secure = $request->isSecure() || app()->environment('production');
+                    $response->headers->setCookie(cookie('lavbe_device', $deviceToken, (int) config('lavbe.cookies.owner_minutes'), '/', null, $secure, true, false, 'strict'));
+                }
 
-            $response = $this->privateView('confessions.duplicate', ['confession' => $confession]);
-            $savedDeviceHash = $confession->ownership?->device_token_hash;
-            if ($deviceToken !== null && is_string($savedDeviceHash) && hash_equals($savedDeviceHash, $this->keyedHash($deviceToken))
-                && $request->cookie('lavbe_device') !== $deviceToken) {
-                $secure = $request->isSecure() || app()->environment('production');
-                $response->headers->setCookie(cookie('lavbe_device', $deviceToken, (int) config('lavbe.cookies.owner_minutes'), '/', null, $secure, true, false, 'strict'));
+                return $response;
             }
-
-            return $response;
         }
 
         $response = $this->privateView($request->routeIs('moderation.confessions.store') ? 'moderation.confession-submitted' : 'confessions.submitted', [
@@ -585,6 +591,14 @@ class GuestConfessionController extends Controller
         ]);
 
         return $this->privateView('confessions.unavailable', [], 503);
+    }
+
+    private function isAliasUniqueViolation(QueryException $exception): bool
+    {
+        $driverMessage = strtolower((string) ($exception->errorInfo[2] ?? ''));
+
+        return str_contains($driverMessage, 'confessions_author_alias_unique')
+            || str_contains($driverMessage, 'confessions.author_alias');
     }
 
     private function privateView(string $view, array $data = [], int $status = 200): Response

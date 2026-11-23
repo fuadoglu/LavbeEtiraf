@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Confession;
+use App\Support\Lavbe\AuthorAlias;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** Test-only fixture factory; never registered with a production seeder. */
@@ -42,7 +43,7 @@ class ConfessionFactory extends Factory
             'body' => 'Bu, yalnız avtomatlaşdırılmış sınaq üçün uydurulmuş mətndir.',
             'excerpt' => 'Yalnız sınaq mətni.',
             'public_id' => fake()->uuid(),
-            'author_alias' => 'Lavbe #A1B2C3D4',
+            'author_alias' => AuthorAlias::generate(),
             'published_at' => now(),
         ];
     }

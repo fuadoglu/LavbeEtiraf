@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Confession;
+use App\Support\Lavbe\AuthorAlias;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -185,7 +186,7 @@ Son vaxtlar günlər bir-birinə oxşayır. Səhər tələs, işə get, evə qay
                         'body' => $body,
                         'excerpt' => Str::limit($body, 220),
                         'public_id' => (string) Str::uuid(),
-                        'author_alias' => 'Lavbe #'.strtoupper(bin2hex(random_bytes(4))),
+                        'author_alias' => AuthorAlias::generateAvailable(),
                         'submission_key_hash' => $key,
                         'reviews_open' => true,
                     ]);
@@ -237,7 +238,7 @@ Bu tərəddüdü dilə gətirəndə elə bil insanları məyus edəcəyəm. Ona 
                     'body' => $body,
                     'excerpt' => Str::limit($body, 220),
                     'public_id' => (string) Str::uuid(),
-                    'author_alias' => 'Lavbe #'.strtoupper(bin2hex(random_bytes(4))),
+                    'author_alias' => AuthorAlias::generateAvailable(),
                     'submission_key_hash' => $key,
                     'reviews_open' => true,
                 ]);

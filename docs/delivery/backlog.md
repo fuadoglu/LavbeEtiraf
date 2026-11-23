@@ -460,3 +460,9 @@ Məhsul sahibinin lokal inkişaf istəyi üçün `APP_ENV=local` və ayrıca aç
 **Issue:** [#174](https://github.com/fuadoglu/LavbeEtiraf/issues/174). **Asılılıq:** LAV-010, LAV-079. **Qəbul:** LOC-07, UI-30.
 
 Moderatorun yeni etiraf yazma GET route-unu təhlükəsiz locale return siyahısına daxil et. Dil dəyişəndə ana səhifə yerinə seçilən dildə eyni forma açılır; POST route-u, xarici ünvan və məxfi URL həmin siyahıya daxil edilmir. Aktiv moderator hesabı, MFA, private/no-store və noindex qaydaları saxlanır. **Sübut:** locale seçimi və moderator feature testləri, sənəd yoxlaması, frontend build və CI.
+
+## LAV-082 · Etiraf üzrə unikal açıq müəllif kodu
+
+**Issue:** [#176](https://github.com/fuadoglu/LavbeEtiraf/issues/176). **Asılılıq:** LAV-004, LAV-079. **Qəbul:** OWN-08, OWN-04.
+
+Bir moderator hesabının yazdığı çoxsaylı etiraflar daxildə həmin hesaba bağlı qalır, oxucuya göstərilən səkkiz simvollu anonim müəllif kodları isə bazada unikal olur. Mövcud duplicate/null kodları yalnız zəruri qeydlərdə migration ilə düzəlt, yeni kodda pre-check və unikal indekslə yarışları qoru, nadir DB kolliziyasında məhdud təkrar cəhd et. Qonaq və moderator eyni göndəriş axınından istifadə edir. **Sübut:** SQLite və MySQL migration/test, 10 etiraf sınağı, sənəd yoxlaması və CI.

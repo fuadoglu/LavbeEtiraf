@@ -4,12 +4,14 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\GuestConfessionController;
 use App\Models\Confession;
+use App\Models\ConfessionOwnership;
 use App\Models\ConfessionRevision;
 use App\Models\ModerationAudit;
 use App\Models\ModeratorGrant;
 use App\Models\ModeratorMfa;
 use App\Models\ModeratorRecoveryCode;
 use App\Models\User;
+use App\Support\Lavbe\AuthorAlias;
 use App\Support\Moderation\ModeratorMfaService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
@@ -209,6 +211,27 @@ class ModerationWorkflowTest extends TestCase
         $this->assertSame($moderator->id, $confession->ownership()->firstOrFail()->user_id);
         $this->get('/az/my')->assertOk()->assertSee('Synthetic moderator story');
         $this->withSession($this->freshMfaSession($moderator))->get('/az/moderation')->assertOk()->assertSee('Synthetic moderator story');
+    }
+
+    public function test_ten_moderator_submissions_keep_one_account_but_receive_distinct_public_codes(): void
+    {
+        config(['lavbe.rate_limits.actions.guest_submission.attempts' => 20]);
+        $moderator = $this->moderator('az');
+        $this->actingAs($moderator)->withSession($this->freshMfaSession($moderator));
+
+        for ($number = 0; $number < 10; $number++) {
+            $this->post('/az/moderation/write', [
+                'title' => 'Synthetic moderator title '.$number,
+                'body' => 'Synthetic private confession '.$number,
+                'category_key' => 'family',
+                'age_confirmed' => '1',
+                'idempotency_key' => 'submission-key-'.str_pad((string) $number, 32, 'x'),
+            ])->assertCreated();
+        }
+
+        $this->assertSame(10, Confession::query()->count());
+        $this->assertSame(10, Confession::query()->distinct()->count('author_alias'));
+        $this->assertSame(10, ConfessionOwnership::query()->where('user_id', $moderator->id)->count());
     }
 
     public function test_moderator_write_language_switch_stays_on_the_private_composer(): void
@@ -437,7 +460,7 @@ class ModerationWorkflowTest extends TestCase
             'title' => '',
             'body' => '',
             'public_id' => (string) Str::uuid(),
-            'author_alias' => 'Lavbe #A1B2C3D4',
+            'author_alias' => AuthorAlias::generate(),
             'lock_version' => 1,
             'visibility_version' => 1,
         ]);

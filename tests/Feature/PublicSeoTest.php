@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Confession;
+use App\Support\Lavbe\AuthorAlias;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -109,7 +110,7 @@ class PublicSeoTest extends TestCase
             'body' => $body,
             'excerpt' => $body,
             'public_id' => (string) Str::uuid(),
-            'author_alias' => 'Lavbe #A1B2C3D4',
+            'author_alias' => AuthorAlias::generate(),
             'published_at' => $publishedAt,
             'public_updated_at' => $publishedAt,
             'ever_public' => true,

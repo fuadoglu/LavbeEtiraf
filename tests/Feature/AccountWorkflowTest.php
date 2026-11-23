@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\UserNotification;
 use App\Notifications\FollowedConfessionActivity;
 use App\Support\Accounts\ParticipationNotificationDelivery;
+use App\Support\Lavbe\AuthorAlias;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -315,7 +316,7 @@ class AccountWorkflowTest extends TestCase
         $confession = Confession::query()->create([
             'locale' => 'az', 'status' => $public ? 'public' : 'unpublished', 'title' => $public ? 'Synthetic account-only confession' : '',
             'body' => $public ? 'Synthetic public account body' : '', 'excerpt' => $public ? 'Synthetic public account body' : null,
-            'public_id' => (string) Str::uuid(), 'author_alias' => 'Lavbe #A1B2C3D4', 'lock_version' => 1, 'visibility_version' => 1,
+            'public_id' => (string) Str::uuid(), 'author_alias' => AuthorAlias::generate(), 'lock_version' => 1, 'visibility_version' => 1,
             'published_at' => $public ? now() : null, 'public_updated_at' => $public ? now() : null,
         ]);
         if ($public) {
