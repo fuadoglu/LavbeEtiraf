@@ -3,7 +3,7 @@
 @section('title', __('moderation.login_title'))
 
 @section('content')
-    <section class="write-page">
+    <section class="write-page moderation-auth">
         <h1>{{ __('moderation.login_title') }}</h1>
         <p>{{ __('moderation.login_intro') }}</p>
         <form method="post" action="{{ route('moderation.login.submit', ['locale' => request()->route('locale')]) }}">

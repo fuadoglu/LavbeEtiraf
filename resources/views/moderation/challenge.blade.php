@@ -3,7 +3,7 @@
 @section('title', __('moderation.challenge_title'))
 
 @section('content')
-    <section class="write-page">
+    <section class="write-page moderation-auth">
         <h1>{{ __('moderation.challenge_title') }}</h1>
         <p>{{ __('moderation.challenge_body') }}</p>
         <form method="post" action="{{ route('moderation.mfa.verify', ['locale' => request()->route('locale')]) }}">

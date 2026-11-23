@@ -3,7 +3,7 @@
 @section('title', __('moderation.setup_title'))
 
 @section('content')
-    <section class="write-page">
+    <section class="write-page moderation-auth">
         <h1>{{ __('moderation.setup_title') }}</h1>
         <p>{{ __('moderation.setup_body') }}</p>
         <p><strong>{{ __('moderation.secret') }}</strong></p>

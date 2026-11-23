@@ -32,12 +32,14 @@
     </script>
     @vite(['resources/css/app.css', 'resources/css/plum-ink.css', 'resources/js/app.js'])
 </head>
-<body>
+<body @if(request()->routeIs('moderation.*')) class="moderation-body" @endif>
     <a class="skip-link" href="#main">{{ __('navigation.skip') }}</a>
     <div class="app-shell">
         <x-site-header />
-        @include('components.reader-consent-banner')
-        <main id="main" class="page-content" tabindex="-1">
+        @unless(request()->routeIs('moderation.*'))
+            @include('components.reader-consent-banner')
+        @endunless
+        <main id="main" class="page-content @if(request()->routeIs('moderation.*')) page-content--moderation @endif" tabindex="-1">
             @yield('content')
         </main>
         <footer class="site-footer">

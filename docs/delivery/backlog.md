@@ -436,3 +436,9 @@ Nömrəli HTML pagination lent üçün yeganə naviqasiya müqaviləsi olsun. UI
 **Issue:** [#166](https://github.com/fuadoglu/LavbeEtiraf/issues/166). **Asılılıq:** LAV-007, LAV-008, LAV-011, LAV-042. **Qəbul:** OWN-01, MOD-02, READ-01, UI-25, LOC-06.
 
 Girişdən sonra qonaq sahibliyini yeni sessiyaya daşı, izləməni dayandıranda yalnız seçilmiş etirafı sil, admin axtarışını grant yaratma route-undan ayır. Təkrar eyni faktı idempotent saxla; eyni reporterdən yeni fakt gəldikdə qrupa əlavə et, təhdidi təcili prioritetə qaldır və həll edilmiş qrupu yenidən aç. Qaralamanı yalnız açıq seçimlə 7 gün cihazda saxla, əl ilə silməni və köhnə qaralamanın avtomatik göstərilmədən birdəfəlik bərpasını təmin et. 404 pagination oxunuş sayını artırmasın. **Sübut:** 127 SQLite PHP testi, 21 JavaScript testi, 9 sənəd testi, 17 dil validatoru, frontend build və route cache keçdi. MySQL paralel/migration sınağı yerli mühitdə icra edilməyib; CI nəticəsi PR-da ayrıca yoxlanır.
+
+## LAV-078 · Moderator iş sahəsinin UX və responsiv dizaynı
+
+**Issue:** [#168](https://github.com/fuadoglu/LavbeEtiraf/issues/168). **Asılılıq:** LAV-005, LAV-008, LAV-036, LAV-072. **Qəbul:** UI-29, MOD-01, MOD-02.
+
+Moderatorun bütün səlahiyyətli səhifələrini oxucu üçün dar yazı sütunundan ayır. İş sahəsində sabit bölmə naviqasiyası, mobil açılan menyu, aydın boş vəziyyət, meta məlumatları və qərar formaları olsun. Grant ekranında axtarış və mövcud səlahiyyətlər ayrı səthlərdə, etiraf/şikayət/etiraz baxışında məzmunla qərar sahəsi masaüstündə ayrı sütunlarda, telefonda oxu sırası ilə alt-alta görünür. Giriş və MFA ekranları eyni vizual dilə uyğunlaşır. Oxucu statistikasına razılıq bildirişi şəxsi moderator səhifəsində görünmür. **Sübut:** feature testləri, build, sənəd yoxlaması, 320/390/desktop gündüz/gecə baxışı, üfüqi daşma yoxlaması və CI.
