@@ -53,15 +53,15 @@ class AdminSiteWorkflowTest extends TestCase
         $this->actingAs($admin)->withSession($this->freshMfaSession($admin));
         $this->get('/az/moderation/settings')->assertOk()->assertSee(__('moderation.settings_title'))
             ->assertHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
-        $this->post('/az/moderation/settings', ['ga4_measurement_id' => '<script>alert(1)</script>', 'expected_lock_version' => 0])
+        $this->post('/az/moderation/settings', ['ga4_measurement_id' => '<script>alert(1)</script>', 'expected_lock_version' => 1])
             ->assertSessionHasErrors('ga4_measurement_id');
-        $this->assertDatabaseCount('site_integration_settings', 0);
+        $this->assertDatabaseHas('site_integration_settings', ['id' => 1, 'ga4_enabled' => 0]);
 
         $this->post('/az/moderation/settings', $this->settings())->assertRedirect('/az/moderation/settings');
-        $this->assertDatabaseHas('site_integration_settings', ['id' => 1, 'ga4_enabled' => 1, 'ads_enabled' => 1, 'lock_version' => 1]);
+        $this->assertDatabaseHas('site_integration_settings', ['id' => 1, 'ga4_enabled' => 1, 'ads_enabled' => 1, 'lock_version' => 2]);
         $this->assertDatabaseHas('moderation_audits', ['target_type' => 'site_setting', 'decision' => 'update_settings']);
         $this->post('/az/moderation/settings', $this->settings())->assertStatus(409);
-        $this->assertSame(1, SiteIntegrationSetting::current()->lock_version);
+        $this->assertSame(2, SiteIntegrationSetting::current()->lock_version);
     }
 
     public function test_external_tags_require_separate_consent_and_current_ad_review(): void
@@ -134,7 +134,7 @@ class AdminSiteWorkflowTest extends TestCase
             'ga4_enabled' => '1', 'ga4_measurement_id' => 'G-ABCDEF12',
             'ads_enabled' => '1', 'adsense_client_id' => 'ca-pub-1234567890123456',
             'story_slot_enabled' => '1', 'story_slot_id' => '1234567890',
-            'expected_lock_version' => 0,
+            'expected_lock_version' => 1,
         ];
     }
 }

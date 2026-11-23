@@ -44,16 +44,12 @@ class SiteIntegrationController extends Controller
             && (! $values['adsense_client_id'] || ! $values['story_slot_id']), 422);
 
         DB::transaction(function () use ($request, $values, $data): void {
-            $settings = SiteIntegrationSetting::query()->whereKey(1)->lockForUpdate()->first();
-            abort_if((int) ($settings?->lock_version ?? 0) !== (int) $data['expected_lock_version'], 409);
-            $before = $settings?->only(array_keys($values)) ?? [];
-            if (! $settings) {
-                $settings = new SiteIntegrationSetting;
-                $settings->id = 1;
-            }
+            $settings = SiteIntegrationSetting::query()->whereKey(1)->lockForUpdate()->firstOrFail();
+            abort_if($settings->lock_version !== (int) $data['expected_lock_version'], 409);
+            $before = $settings->only(array_keys($values));
             $settings->forceFill($values + [
                 'updated_by_user_id' => $request->user()->id,
-                'lock_version' => (int) ($settings->lock_version ?? 0) + 1,
+                'lock_version' => $settings->lock_version + 1,
             ])->save();
             ModerationAudit::query()->create([
                 'actor_user_id' => $request->user()->id,

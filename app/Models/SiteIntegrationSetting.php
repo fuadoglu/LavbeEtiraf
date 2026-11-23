@@ -21,9 +21,6 @@ class SiteIntegrationSetting extends Model
 
     public static function current(): self
     {
-        return self::query()->find(1) ?? new self([
-            'ga4_enabled' => false, 'ads_enabled' => false, 'story_slot_enabled' => false,
-            'lock_version' => 0,
-        ]);
+        return self::query()->findOrFail(1);
     }
 }

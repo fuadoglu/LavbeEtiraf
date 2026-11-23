@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -20,6 +21,16 @@ return new class extends Migration
             $table->unsignedInteger('lock_version')->default(1);
             $table->timestamps();
         });
+
+        DB::table('site_integration_settings')->insert([
+            'id' => 1,
+            'ga4_enabled' => false,
+            'ads_enabled' => false,
+            'story_slot_enabled' => false,
+            'lock_version' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         Schema::table('confessions', function (Blueprint $table): void {
             $table->unsignedBigInteger('ad_review_visibility_version')->nullable();
