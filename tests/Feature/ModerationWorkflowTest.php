@@ -119,6 +119,9 @@ class ModerationWorkflowTest extends TestCase
         $this->actingAs($az)->withSession($this->freshMfaSession($az))->get('/az/moderation')
             ->assertOk()
             ->assertSee('Synthetic pending title')
+            ->assertSee('class="moderation-workspace"', false)
+            ->assertSee('aria-current="page"', false)
+            ->assertDontSee('reader-consent-banner')
             ->assertHeader('X-Robots-Tag', 'noindex, nofollow, noarchive')
             ->assertHeader('Referrer-Policy', 'no-referrer');
         $this->assertStringContainsString('no-store', (string) $this->get('/az/moderation')->headers->get('Cache-Control'));
@@ -301,6 +304,7 @@ class ModerationWorkflowTest extends TestCase
         $this->assertDatabaseHas('moderation_audits', ['decision' => 'grant', 'target_key' => (string) $target->id]);
         $targetGrant = ModeratorGrant::query()->where('user_id', $target->id)->firstOrFail();
         $this->get('/az/moderation/grants')->assertOk()
+            ->assertSee('class="moderation-grants-grid"', false)
             ->assertSee('for="revoke-reason-'.$targetGrant->id.'"', false)
             ->assertSee('id="revoke-reason-'.$targetGrant->id.'"', false)
             ->assertSee('id="reason"', false);

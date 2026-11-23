@@ -3,19 +3,19 @@
 @section('title', __('moderation.participation_queue'))
 
 @section('content')
-    <section class="write-page">
-        <header class="page-heading">
-            <h1>{{ __('moderation.participation_queue') }}</h1>
-            <a href="{{ route('moderation.queue', ['locale' => request()->route('locale')]) }}">{{ __('moderation.back_to_queue') }}</a>
-        </header>
-        @if(session('status'))<x-status tone="success">{{ session('status') }}</x-status>@endif
+    <x-moderation-shell :title="__('moderation.participation_queue')">
+        <nav class="moderation-filter" aria-label="{{ __('moderation.participation_queue') }}">
+            @foreach(['pending_comments', 'pending_author_responses', 'pending_continuations', 'visible_comments', 'visible_author_responses', 'visible_continuations'] as $section)
+                <a href="#{{ $section }}">{{ __('moderation.'.$section) }}</a>
+            @endforeach
+        </nav>
 
         @foreach([
             'pending_comments' => ['items' => $comments, 'type' => 'comment', 'public' => false],
             'pending_author_responses' => ['items' => $responses, 'type' => 'response', 'public' => false],
             'pending_continuations' => ['items' => $continuations, 'type' => 'continuation', 'public' => false],
         ] as $heading => $set)
-            <section class="participation-section">
+            <section class="participation-section moderation-participation-section">
                 <h2 id="{{ $heading }}">{{ __('moderation.'.$heading) }}</h2>
                 @forelse($set['items'] as $item)
                     @php
@@ -55,7 +55,7 @@
             'visible_author_responses' => ['items' => $visibleResponses, 'type' => 'response'],
             'visible_continuations' => ['items' => $visibleContinuations, 'type' => 'continuation'],
         ] as $heading => $set)
-            <section class="participation-section">
+            <section class="participation-section moderation-participation-section">
                 <h2 id="{{ $heading }}">{{ __('moderation.'.$heading) }}</h2>
                 @forelse($set['items'] as $item)
                     @php
@@ -84,5 +84,5 @@
                 <x-pagination :paginator="$set['items']" :fragment="$heading" />
             </section>
         @endforeach
-    </section>
+    </x-moderation-shell>
 @endsection

@@ -1,4 +1,25 @@
 @extends('layouts.app')
+
 @section('title', __('moderation.appeals_queue'))
-@section('content')<section class="write-page"><header class="page-heading"><h1>{{ __('moderation.appeals_queue') }}</h1><a href="{{ route('moderation.queue', ['locale' => request()->route('locale')]) }}">{{ __('moderation.back_to_queue') }}</a></header>
-@forelse($items as $appeal)<article class="feed-card"><p>{{ $appeal->confession->locale }} · {{ $appeal->target_type }} · {{ $appeal->created_at->format('Y-m-d') }}</p><a class="button button-primary" href="{{ route('moderation.appeals.show', ['locale' => request()->route('locale'), 'appealId' => $appeal->id]) }}">{{ __('moderation.open_appeal') }}</a></article>@empty<x-status>{{ __('moderation.appeals_empty') }}</x-status>@endforelse<x-pagination :paginator="$items" /></section>@endsection
+
+@section('content')
+    <x-moderation-shell :title="__('moderation.appeals_queue')">
+        <div class="moderation-list">
+            @forelse($items as $appeal)
+                <article class="moderation-card">
+                    <div class="moderation-card-meta">
+                        <span class="moderation-pill">{{ strtoupper($appeal->confession->locale) }}</span>
+                        <time datetime="{{ $appeal->created_at->toDateString() }}">{{ $appeal->created_at->translatedFormat('d M Y') }}</time>
+                    </div>
+                    <div class="moderation-card-main">
+                        <h2>{{ $appeal->confession->title ?: __('moderation.untitled') }}</h2>
+                        <a class="moderation-open" href="{{ route('moderation.appeals.show', ['locale' => request()->route('locale'), 'appealId' => $appeal->id]) }}">{{ __('moderation.open_appeal') }} <x-icon name="arrow-left" class="icon-small" /></a>
+                    </div>
+                </article>
+            @empty
+                <div class="moderation-empty"><x-icon name="circle-check" /><p>{{ __('moderation.appeals_empty') }}</p></div>
+            @endforelse
+        </div>
+        <x-pagination :paginator="$items" />
+    </x-moderation-shell>
+@endsection

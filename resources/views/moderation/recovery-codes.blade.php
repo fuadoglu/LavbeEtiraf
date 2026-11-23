@@ -3,7 +3,7 @@
 @section('title', __('moderation.recovery_title'))
 
 @section('content')
-    <section class="write-page">
+    <section class="write-page moderation-auth">
         <h1>{{ __('moderation.recovery_title') }}</h1>
         <p>{{ __('moderation.recovery_body') }}</p>
         <ul>@foreach($codes as $code)<li><code dir="ltr">{{ $code }}</code></li>@endforeach</ul>
