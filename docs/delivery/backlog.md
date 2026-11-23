@@ -454,3 +454,9 @@ Moderator iş sahəsində etiraf yazma bölməsini mövcud yazı forması ilə p
 **Issue:** [#172](https://github.com/fuadoglu/LavbeEtiraf/issues/172). **Asılılıq:** LAV-005, LAV-078. **Qəbul:** MOD-06, UI-31.
 
 Məhsul sahibinin lokal inkişaf istəyi üçün `APP_ENV=local` və ayrıca açıq `MODERATOR_LOCAL_SKIP_MFA=true` şərtlərini birlikdə tələb et. Şifrə və aktiv səlahiyyət yoxlaması qalır; qeyri-lokal mühitdə config true olsa da MFA məcburidir. Lokal seçim söndürüləndə MFA axını yenidən açılır. MFA formunda kod sahəsi ilə düyməyə ayrıca məsafə ver. **Sübut:** mühit sərhədi və login/route feature testləri, CSS build, 320/390 px baxışı, CI.
+
+## LAV-081 · Moderator yazı formasında dil keçidi
+
+**Issue:** [#174](https://github.com/fuadoglu/LavbeEtiraf/issues/174). **Asılılıq:** LAV-010, LAV-079. **Qəbul:** LOC-07, UI-30.
+
+Moderatorun yeni etiraf yazma GET route-unu təhlükəsiz locale return siyahısına daxil et. Dil dəyişəndə ana səhifə yerinə seçilən dildə eyni forma açılır; POST route-u, xarici ünvan və məxfi URL həmin siyahıya daxil edilmir. Aktiv moderator hesabı, MFA, private/no-store və noindex qaydaları saxlanır. **Sübut:** locale seçimi və moderator feature testləri, sənəd yoxlaması, frontend build və CI.
