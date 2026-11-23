@@ -6,7 +6,9 @@
 @endif
 
 @push('head')
-    @include('components.public-analytics', ['pageType' => 'confession'])
+    @if(! $confession->reviews_open && ! $ownerCanParticipate)
+        @include('components.public-analytics', ['pageType' => 'confession'])
+    @endif
     <link rel="canonical" href="{{ $canonical }}">
     <meta name="description" content="{{ $description }}">
     <meta property="og:type" content="article">
@@ -47,7 +49,7 @@
             </section>
         @endif
 
-        @php($adSlot = app(\App\Support\Analytics\ExternalTags::class)->adSlot(request(), $confession))
+        @php($adSlot = app(\App\Support\Analytics\ExternalTags::class)->adSlot(request(), $confession, $ownerCanParticipate))
         @if($adSlot)
             <aside class="confession-ad-slot" aria-label="{{ __('moderation.settings_ads') }}">
                 <ins class="adsbygoogle" style="display:block" data-ad-client="{{ $adSlot['client'] }}" data-ad-slot="{{ $adSlot['slot'] }}" data-ad-format="auto" data-full-width-responsive="true"></ins>

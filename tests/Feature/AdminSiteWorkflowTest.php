@@ -84,11 +84,13 @@ class AdminSiteWorkflowTest extends TestCase
         $analyticsResponse = $this->withCookie(ExternalTags::ANALYTICS_COOKIE, 'accepted')->get('/en')->assertSee('googletagmanager.com');
         $this->assertStringContainsString('no-store', (string) $analyticsResponse->headers->get('Cache-Control'));
         $this->withCookie(ExternalTags::ANALYTICS_COOKIE, 'accepted')->get('/en/write')->assertDontSee('googletagmanager.com');
+        $this->withCookie(ExternalTags::ANALYTICS_COOKIE, 'accepted')->get('/en/confession/'.$english->public_id)->assertSee('googletagmanager.com');
         $this->withCookie(ExternalTags::ADS_COOKIE, 'accepted')->get('/en/confession/'.$english->public_id)->assertSee('googlesyndication.com');
         $this->withCookie(ExternalTags::ADS_COOKIE, 'accepted')->get('/az/confession/'.$azerbaijani->public_id)->assertDontSee('googlesyndication.com');
 
         $english->forceFill(['reviews_open' => true])->save();
         $this->withCookie(ExternalTags::ADS_COOKIE, 'accepted')->get('/en/confession/'.$english->public_id)->assertDontSee('googlesyndication.com');
+        $this->withCookie(ExternalTags::ANALYTICS_COOKIE, 'accepted')->get('/en/confession/'.$english->public_id)->assertDontSee('googletagmanager.com');
         $english->forceFill(['reviews_open' => false])->save();
 
         $this->post('/en/external-consent', ['purpose' => 'ads', 'choice' => 'decline'])->assertRedirect('/en/legal/cookies');

@@ -23,7 +23,7 @@ class ExternalTags
             ? $settings->ga4_measurement_id : null;
     }
 
-    public function adSlot(Request $request, Confession $confession): ?array
+    public function adSlot(Request $request, Confession $confession, bool $ownerCanParticipate): ?array
     {
         if (! config('external_tags.ready')) {
             return null;
@@ -35,6 +35,7 @@ class ExternalTags
             || $confession->locale === 'az' || $confession->locale === 'ru'
             || $confession->status !== 'public'
             || $confession->reviews_open
+            || $ownerCanParticipate
             || $confession->ad_review_visibility_version === null
             || (int) $confession->ad_review_visibility_version !== (int) $confession->visibility_version) {
             return null;
