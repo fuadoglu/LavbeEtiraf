@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModeratorMfa;
+use App\Support\Http\ResponseHeaders;
+use App\Support\Moderation\LocalMfaBypass;
 use App\Support\Moderation\ModeratorMfaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +47,10 @@ class ModeratorAuthController extends Controller
         RateLimiter::clear($rateKey);
         $request->session()->forget(['moderator.mfa_verified_at', 'moderator.mfa_user_id']);
 
+        if (LocalMfaBypass::enabled()) {
+            return redirect()->route('moderation.queue', ['locale' => $locale]);
+        }
+
         if ($user->moderatorMfa()->whereNotNull('confirmed_at')->exists()) {
             return redirect()->route('moderation.mfa.challenge', ['locale' => $locale]);
         }
@@ -55,6 +61,9 @@ class ModeratorAuthController extends Controller
     public function enroll(Request $request, string $locale, ModeratorMfaService $mfa): Response
     {
         $this->assertActiveAccount($request);
+        if (LocalMfaBypass::enabled()) {
+            return redirect()->route('moderation.queue', ['locale' => $locale]);
+        }
         $record = ModeratorMfa::query()->firstOrCreate(['user_id' => $request->user()->id]);
         if ($record->confirmed_at) {
             return redirect()->route('moderation.mfa.challenge', ['locale' => $locale]);
@@ -89,6 +98,9 @@ class ModeratorAuthController extends Controller
     public function challenge(Request $request, string $locale): Response
     {
         $this->assertActiveAccount($request);
+        if (LocalMfaBypass::enabled()) {
+            return redirect()->route('moderation.queue', ['locale' => $locale]);
+        }
         if (! $request->user()->moderatorMfa()->whereNotNull('confirmed_at')->exists()) {
             return redirect()->route('moderation.mfa.enroll', ['locale' => $locale]);
         }
@@ -143,9 +155,9 @@ class ModeratorAuthController extends Controller
     private function privateView(string $view, array $data = [], int $status = 200): Response
     {
         return response()->view($view, $data, $status)
-            ->header('Cache-Control', \App\Support\Http\ResponseHeaders::CACHE_PRIVATE_NO_STORE)
+            ->header('Cache-Control', ResponseHeaders::CACHE_PRIVATE_NO_STORE)
             ->header('Pragma', 'no-cache')
-            ->header('X-Robots-Tag', \App\Support\Http\ResponseHeaders::ROBOTS_PRIVATE)
-            ->header('Referrer-Policy', \App\Support\Http\ResponseHeaders::REFERRER_NO_REFERRER);
+            ->header('X-Robots-Tag', ResponseHeaders::ROBOTS_PRIVATE)
+            ->header('Referrer-Policy', ResponseHeaders::REFERRER_NO_REFERRER);
     }
 }

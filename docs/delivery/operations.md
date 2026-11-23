@@ -16,6 +16,8 @@ PWA manifesti və təhlükəsiz ümumi offline fallback tətbiq olunur; şəxsi 
 
 ## İstehsal quraşdırması
 
+Lokal inkişafda moderatorun MFA addımını müvəqqəti ötürmək üçün `.env`-də `APP_ENV=local` və `MODERATOR_LOCAL_SKIP_MFA=true` birlikdə qoyula bilər. Bu seçim default olaraq bağlıdır və staging/production-da kod səviyyəsində təsirsizdir. İctimai buraxılışdan əvvəl flag-i false et, config cache-i yenilə və real moderator hesabında MFA enroll/challenge smoke testini işlə. Lokal istisna şifrə, təsdiqlənmiş hesab və aktiv grant tələblərini ləğv etmir.
+
 1. Staging və istehsalın DB, mail, domain və GA mühitlərini ayır. Staging-i girişlə qoru. İstehsal sirləri repo və build loguna düşməsin.
 2. Artifact-i lock faylından hazırla, PHP uzantılarını və versiyanı yoxla, asset-ləri əvvəlcədən build et. Document root `public/` olur. Əvvəl staging miqrasiya və backup testindən keç.
 3. Backup və undo planını yoxla. Son DB dəyişikliklərini geriyə uyğun apar. Miqrasiyadan sonra app health, HTTPS, cron kilidi, queue, səhifə dili, yazı, moderator axını və sitemap smoke testini işlə.

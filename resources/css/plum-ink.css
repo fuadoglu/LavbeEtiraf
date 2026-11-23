@@ -988,6 +988,7 @@
 .moderation-auth { width: min(100%, 31rem); padding: clamp(1rem, 3vw, 1.6rem); border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); box-shadow: 0 .5rem 1.6rem color-mix(in srgb, var(--shadow) 6%, transparent); }
 .moderation-auth > h1 { font: 600 clamp(1.6rem, 3vw, 2.15rem)/1.15 var(--editorial-serif); }
 .moderation-auth > form { display: grid; gap: .9rem; min-width: 0; }
+.moderation-auth > form > .form-field + .button { margin-block-start: .45rem; }
 .moderation-auth > form .button { width: 100%; min-height: 2.8rem; }
 .moderation-auth code { display: block; padding: .7rem; border-radius: .55rem; background: var(--ink-wash); overflow-wrap: anywhere; user-select: all; }
 @media (max-width: 900px) {
