@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\GuestConfessionController;
 use App\Models\Confession;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
@@ -35,9 +36,20 @@ class GuestConfessionTest extends TestCase
         $payload['author_display_name'] = 'Nigar Məmmədova';
         $response = $this->post('/az/write', $payload)->assertCreated();
         $story = Confession::query()->firstOrFail();
+        $this->assertNull($story->ownership()->firstOrFail()->user_id);
         $this->assertSame('Synthetic title', $story->revisions()->firstOrFail()->title);
         $this->assertSame('Nigar Məmmədova', $story->revisions()->firstOrFail()->author_display_name);
         $response->assertDontSee('Nigar Məmmədova');
+    }
+
+    public function test_signed_in_author_owns_their_submission_through_the_account(): void
+    {
+        $user = User::factory()->create(['email_verified_at' => now()]);
+        $this->actingAs($user)->post('/az/write', $this->payload())->assertCreated()
+            ->assertDontSee(__('guest.write_recovery_title'));
+        $confession = Confession::query()->firstOrFail();
+        $this->assertSame($user->id, $confession->ownership()->firstOrFail()->user_id);
+        $this->get('/az/my')->assertOk()->assertSee('Synthetic title');
     }
 
     public function test_title_error_returns_focus_and_body_limit_is_not_restricted_by_utf16_maxlength(): void

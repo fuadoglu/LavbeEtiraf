@@ -442,3 +442,9 @@ Girişdən sonra qonaq sahibliyini yeni sessiyaya daşı, izləməni dayandıran
 **Issue:** [#168](https://github.com/fuadoglu/LavbeEtiraf/issues/168). **Asılılıq:** LAV-005, LAV-008, LAV-036, LAV-072. **Qəbul:** UI-29, MOD-01, MOD-02.
 
 Moderatorun bütün səlahiyyətli səhifələrini oxucu üçün dar yazı sütunundan ayır. İş sahəsində sabit bölmə naviqasiyası, mobil açılan menyu, aydın boş vəziyyət, meta məlumatları və qərar formaları olsun. Grant ekranında axtarış və mövcud səlahiyyətlər ayrı səthlərdə, etiraf/şikayət/etiraz baxışında məzmunla qərar sahəsi masaüstündə ayrı sütunlarda, telefonda oxu sırası ilə alt-alta görünür. Giriş və MFA ekranları eyni vizual dilə uyğunlaşır. Oxucu statistikasına razılıq bildirişi şəxsi moderator səhifəsində görünmür. **Sübut:** feature testləri, build, sənəd yoxlaması, 320/390/desktop gündüz/gecə baxışı, üfüqi daşma yoxlaması və CI.
+
+## LAV-079 · Moderator panelindən etiraf əlavə etmək
+
+**Issue:** [#170](https://github.com/fuadoglu/LavbeEtiraf/issues/170). **Asılılıq:** LAV-078, LAV-001, LAV-008. **Qəbul:** UI-30, OWN-01, MOD-01.
+
+Moderator iş sahəsində etiraf yazma bölməsini mövcud yazı forması ilə paylaş. Yazı normal pending baxış qaydasından keçsin, birbaşa açıq yayımlanmasın. Panel route-u həm oxunuşda, həm göndərişdə aktiv səlahiyyət və təzə MFA tələb etsin. Daxil olmuş hesabın etirafı ona bağlansın, qonaq bərpa axını dəyişməsin. Göndərişdən sonra status və növbə keçidləri görünsün. **Sübut:** PHP feature testləri, 17 dil və sənəd yoxlaması, frontend build, mobil/desktop baxışı və MySQL CI.

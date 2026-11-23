@@ -238,6 +238,8 @@ Route::prefix('{locale}')->where(['locale' => RoutePatterns::LOCALE_SEGMENT])->m
 
     Route::prefix('/moderation')->middleware([PrivateResponseHeaders::class, RequireModeratorAccount::class, RequireFreshModeratorMfa::class])->group(function (): void {
         Route::get('/', [ModerationController::class, 'index'])->name('moderation.queue');
+        Route::get('/write', [ModerationController::class, 'createConfession'])->name('moderation.confessions.create');
+        Route::post('/write', [GuestConfessionController::class, 'store'])->name('moderation.confessions.store');
         Route::get('/participation', [ModerationController::class, 'participation'])->name('moderation.participation');
         Route::get('/reports', [ModerationController::class, 'reports'])->name('moderation.reports');
         Route::get('/reports/{groupId}', [ModerationController::class, 'report'])->whereNumber('groupId')->name('moderation.reports.show');

@@ -905,6 +905,11 @@
 .moderation-main { display: grid; align-content: start; gap: 1.15rem; min-width: 0; }
 .moderation-heading { padding: .15rem 0 .4rem; border-block-end: 1px solid var(--line); }
 .moderation-heading h1 { margin: 0; color: var(--brand-logo-color); font: 600 clamp(1.8rem, 3vw, 2.55rem)/1.12 var(--editorial-serif); letter-spacing: -.035em; text-wrap: balance; }
+.moderation-create-link { justify-self: start; display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; }
+.moderation-compose { display: grid; gap: 1rem; width: min(100%, 48rem); min-width: 0; }
+.moderation-compose.submission-result { padding: clamp(1rem, 2.5vw, 1.6rem); border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); }
+.moderation-compose .write-form { min-width: 0; }
+.moderation-submitted-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
 .moderation-filter { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; min-width: 0; }
 .moderation-filter a { display: inline-flex; align-items: center; min-height: 2.65rem; padding: .45rem .78rem; border: 1px solid var(--line); border-radius: .65rem; background: var(--surface); color: var(--muted); font-size: .88rem; font-weight: 590; line-height: 1.28; text-decoration: none; }
 .moderation-filter a:is(:hover, [aria-current="page"]) { border-color: color-mix(in srgb, var(--action) 47%, var(--line)); background: var(--hint); color: var(--action); }
