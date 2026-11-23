@@ -162,8 +162,7 @@ class ReportService
 
                 return;
             }
-            $grant = ModeratorGrant::query()->where('user_id', $actor->id)->where('role', 'moderator')
-                ->where('locale', $confession->locale)->where('is_active', true)->whereNull('revoked_at')->lockForUpdate()->first();
+            $grant = ModeratorGrant::activeForLocale($actor, $confession->locale)->lockForUpdate()->first();
             abort_if(! $grant, 404);
             abort_unless($group->status === 'pending' && $group->lock_version === $expectedGroupLockVersion, 409);
             abort_unless($confession->lock_version === $expectedParentLockVersion, 409);

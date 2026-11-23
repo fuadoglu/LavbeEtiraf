@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => 'External service consent',
+    'external_body' => 'Choose analytics and ads separately. The site still works if you decline.',
+    'external_analytics' => 'Google Analytics',
+    'external_ads' => 'Google ads',
     'preference_cookie_notice' => 'A necessary preference cookie stores your accept or decline choice for :consent_days days; it does not measure reading.',
     'banner_title' => 'Help us understand what readers find?',
     'banner_body' => 'If you agree, we use a first-party cookie for up to :retention_days days to count visits to public confessions. You can still read every story if you decline. Change your choice any time from the cookie notice.',

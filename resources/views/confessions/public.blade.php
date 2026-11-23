@@ -6,6 +6,9 @@
 @endif
 
 @push('head')
+    @if(! $confession->reviews_open && ! $ownerCanParticipate)
+        @include('components.public-analytics', ['pageType' => 'confession'])
+    @endif
     <link rel="canonical" href="{{ $canonical }}">
     <meta name="description" content="{{ $description }}">
     <meta property="og:type" content="article">
@@ -44,6 +47,15 @@
                 @endforeach
                 <x-pagination :paginator="$continuations" :fragment="'continuation-heading'" />
             </section>
+        @endif
+
+        @php($adSlot = app(\App\Support\Analytics\ExternalTags::class)->adSlot(request(), $confession, $ownerCanParticipate))
+        @if($adSlot)
+            <aside class="confession-ad-slot" aria-label="{{ __('moderation.settings_ads') }}">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="{{ $adSlot['client'] }}" data-ad-slot="{{ $adSlot['slot'] }}" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            </aside>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ urlencode($adSlot['client']) }}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         @endif
 
         @php($canFollow = auth()->check() && auth()->user()->hasVerifiedEmail())

@@ -116,8 +116,7 @@ class AppealService
 
                 return;
             }
-            $grant = ModeratorGrant::query()->where('user_id', $actor->id)->where('role', 'moderator')
-                ->where('locale', $confession->locale)->where('is_active', true)->whereNull('revoked_at')->lockForUpdate()->first();
+            $grant = ModeratorGrant::activeForLocale($actor, $confession->locale)->lockForUpdate()->first();
             abort_if(! $grant, 404);
             abort_unless($appeal->status === 'pending' && $appeal->lock_version === $expectedAppealLockVersion, 409);
             abort_unless($confession->lock_version === $expectedParentLockVersion, 409);
@@ -230,8 +229,9 @@ class AppealService
         if ($originalActorId !== (int) $actor->id) {
             return;
         }
-        $otherQualifiedReviewerExists = ModeratorGrant::query()->where('role', 'moderator')
-            ->where('locale', $appeal->confession->locale)->where('is_active', true)->whereNull('revoked_at')
+        $otherQualifiedReviewerExists = ModeratorGrant::query()->where('is_active', true)->whereNull('revoked_at')
+            ->where(fn ($query) => $query->where(fn ($moderator) => $moderator->where('role', 'moderator')->where('locale', $appeal->confession->locale))
+                ->orWhere(fn ($admin) => $admin->where('role', 'admin')->where('locale', '*')))
             ->where('user_id', '<>', $actor->id)
             ->whereHas('user.moderatorMfa', fn ($query) => $query->whereNotNull('confirmed_at'))
             ->exists();

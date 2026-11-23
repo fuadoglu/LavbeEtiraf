@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => 'Consentimiento para servicios externos',
+    'external_body' => 'Elige por separado analítica y anuncios. El sitio funciona aunque los rechaces.',
+    'external_analytics' => 'Google Analytics',
+    'external_ads' => 'Anuncios de Google',
     'preference_cookie_notice' => 'Una cookie necesaria de preferencias guarda tu elección de aceptar o rechazar durante :consent_days días; no mide lecturas.',
     'banner_title' => '¿Nos permites contar las visitas de lectura?',
     'banner_body' => 'Si aceptas, usamos una cookie propia durante un máximo de :retention_days días para contar visitas a confesiones públicas. Puedes leer todas las historias si rechazas. Puedes cambiar tu elección cuando quieras en el aviso de cookies.',

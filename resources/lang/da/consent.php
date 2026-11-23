@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => 'Samtykke til eksterne tjenester',
+    'external_body' => 'Vælg analyse og annoncer hver for sig. Webstedet virker også uden samtykke.',
+    'external_analytics' => 'Google Analytics',
+    'external_ads' => 'Google-annoncer',
     'preference_cookie_notice' => 'En nødvendig præferencecookie gemmer dit ja- eller nejvalg i :consent_days dage; den måler ikke læsning.',
     'banner_title' => 'Må vi tælle læsebesøg?',
     'banner_body' => 'Hvis du giver samtykke, bruger vi en førstepartscookie i op til :retention_days dage til at tælle besøg på offentlige bekendelser. Du kan stadig læse alle historier, hvis du afslår. Du kan ændre dit valg i cookiebeskeden.',

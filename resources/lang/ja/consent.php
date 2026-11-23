@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => '外部サービスへの同意',
+    'external_body' => '解析と広告を別々に選べます。同意しなくてもサイトを利用できます。',
+    'external_analytics' => 'Google アナリティクス',
+    'external_ads' => 'Google 広告',
     'preference_cookie_notice' => '選択を保存するための必須設定Cookieは:consent_days日間保存され、閲覧状況の計測には使われません。',
     'banner_title' => '閲覧数の計測に協力しますか？',
     'banner_body' => '同意すると、公開された告白の訪問数を数えるために最長:retention_days日間のファーストパーティCookieを使用します。同意しなくても、すべての投稿を読めます。Cookieのお知らせからいつでも選択を変更できます。',

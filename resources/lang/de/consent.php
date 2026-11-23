@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => 'Einwilligung für externe Dienste',
+    'external_body' => 'Wähle Analyse und Werbung getrennt. Die Website funktioniert auch ohne Zustimmung.',
+    'external_analytics' => 'Google Analytics',
+    'external_ads' => 'Google-Anzeigen',
     'preference_cookie_notice' => 'Ein notwendiges Einstellungs-Cookie speichert deine Zustimmung oder Ablehnung :consent_days Tage lang; es misst keine Lesevorgänge.',
     'banner_title' => 'Dürfen wir anonyme Seitenaufrufe zählen?',
     'banner_body' => 'Wenn du zustimmst, verwenden wir bis zu :retention_days Tage lang ein Erstanbieter-Cookie, um Aufrufe öffentlicher Geständnisse zu zählen. Auch ohne Zustimmung kannst du alle Beiträge lesen. Deine Auswahl kannst du jederzeit im Cookie-Hinweis ändern.',

@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => 'Zgoda na usługi zewnętrzne',
+    'external_body' => 'Wybierz osobno analitykę i reklamy. Witryna działa także po odmowie.',
+    'external_analytics' => 'Google Analytics',
+    'external_ads' => 'Reklamy Google',
     'preference_cookie_notice' => 'Niezbędny plik cookie preferencji przechowuje wybór zgody lub odmowy przez :consent_days dni; nie mierzy czytania.',
     'banner_title' => 'Czy możemy zliczać odwiedziny czytelników?',
     'banner_body' => 'Jeśli wyrazisz zgodę, przez maksymalnie :retention_days dni użyjemy własnego pliku cookie do zliczania odwiedzin publicznych wyznań. Po odmowie nadal możesz czytać wszystkie wpisy. Wybór zmienisz w dowolnym momencie w informacji o plikach cookie.',

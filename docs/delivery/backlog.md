@@ -447,7 +447,7 @@ Moderatorun bütün səlahiyyətli səhifələrini oxucu üçün dar yazı sütu
 
 **Issue:** [#170](https://github.com/fuadoglu/LavbeEtiraf/issues/170). **Asılılıq:** LAV-078, LAV-001, LAV-008. **Qəbul:** UI-30, OWN-01, MOD-01.
 
-Moderator iş sahəsində etiraf yazma bölməsini mövcud yazı forması ilə paylaş. Yazı normal pending baxış qaydasından keçsin, birbaşa açıq yayımlanmasın. Panel route-u həm oxunuşda, həm göndərişdə aktiv səlahiyyət və təzə MFA tələb etsin. Daxil olmuş hesabın etirafı ona bağlansın, qonaq bərpa axını dəyişməsin. Göndərişdən sonra status və növbə keçidləri görünsün. **Sübut:** PHP feature testləri, 17 dil və sənəd yoxlaması, frontend build, mobil/desktop baxışı və MySQL CI.
+Moderator iş sahəsində etiraf yazma bölməsini mövcud yazı forması ilə paylaş. İlkin LAV-079 mərhələsində yazı pending baxışdan keçirdi; LAV-083 heyət üçün bu qərarı birbaşa auditli yayımla əvəz edir. Panel route-u həm oxunuşda, həm göndərişdə aktiv səlahiyyət və təzə MFA tələb etsin. Daxil olmuş hesabın etirafı ona bağlansın, qonaq bərpa axını dəyişməsin. Göndərişdən sonra status və növbə keçidləri görünsün. **Sübut:** PHP feature testləri, 17 dil və sənəd yoxlaması, frontend build, mobil/desktop baxışı və MySQL CI.
 
 ## LAV-080 · Lokal moderator MFA fasiləsi və forma məsafəsi
 
@@ -466,3 +466,9 @@ Moderatorun yeni etiraf yazma GET route-unu təhlükəsiz locale return siyahıs
 **Issue:** [#176](https://github.com/fuadoglu/LavbeEtiraf/issues/176). **Asılılıq:** LAV-004, LAV-079. **Qəbul:** OWN-08, OWN-04.
 
 Bir moderator hesabının yazdığı çoxsaylı etiraflar daxildə həmin hesaba bağlı qalır, oxucuya göstərilən səkkiz simvollu anonim müəllif kodları isə bazada unikal olur. Mövcud duplicate/null kodları yalnız zəruri qeydlərdə migration ilə düzəlt, yeni kodda pre-check və unikal indekslə yarışları qoru, nadir DB kolliziyasında məhdud təkrar cəhd et. Qonaq və moderator eyni göndəriş axınından istifadə edir. **Sübut:** SQLite və MySQL migration/test, 10 etiraf sınağı, sənəd yoxlaması və CI.
+
+## LAV-083 · Admin iş sahəsi və heyətin birbaşa yayımı
+
+**Issue:** [#178](https://github.com/fuadoglu/LavbeEtiraf/issues/178). **Asılılıq:** LAV-005, LAV-079, LAV-082. **Qəbul:** MOD-07, ADV-04, UI-30.
+
+Admin qrantı 17 dilin bütün moderasiya və yazı səlahiyyətini verir; moderator yalnız verilmiş dillərdə işləyir. Heyət etirafı audit və outbox ilə atomik dərc olunur, qonaq pending axını saxlanır. Admin yalnız yoxlanan GA4 və AdSense ID-lərini, qlobal və detal yerləşim açarlarını, ayrıca məzmun uyğunluğunu idarə edir. Hər iki xarici xidmət başlanğıcda söndürülür, ayrı razılıq tələb edir. Faktiki domen, CMP, AdSense hesabı, ads.txt və hüquqi təsdiq olmadan ictimai reklam aktivləşməsi buraxılış qapısında qalır. **Sübut:** PHP/JS, docs, build və MySQL CI.

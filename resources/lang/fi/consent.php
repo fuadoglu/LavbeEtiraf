@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'external_title' => 'Ulkoisten palvelujen suostumus',
+    'external_body' => 'Valitse analytiikka ja mainokset erikseen. Sivusto toimii myös ilman suostumusta.',
+    'external_analytics' => 'Google Analytics',
+    'external_ads' => 'Google-mainokset',
     'preference_cookie_notice' => 'Välttämätön asetus eväste tallentaa salli- tai kiellä-valintasi :consent_days päivän ajan; se ei mittaa lukemista.',
     'banner_title' => 'Saammeko laskea lukukertoja?',
     'banner_body' => 'Jos annat luvan, käytämme ensimmäisen osapuolen evästettä enintään :retention_days päivän ajan julkisten tunnustusten käyntien laskemiseen. Voit lukea kaikki tarinat myös kieltäytyessäsi. Voit muuttaa valintaasi evästeilmoituksessa.',

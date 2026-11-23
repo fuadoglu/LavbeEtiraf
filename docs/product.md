@@ -28,7 +28,7 @@ Header-də istifadəçinin təqdim etdiyi tam vektor logo göstərilir. Onun lə
 | Göndəriş təsdiqi | Baxış statusu, cihaz yaddaşı seçimi, məxfi bərpa kodu. Yazı formasında moderator baxışı, təsdiqdən sonra açıq yayım və axtarış nəticələrində görünmə ehtimalı əvvəlcədən bildirilir. Paylaşım URL-si yayımdan sonra. |
 | Mənim | Qonaq üçün həmin cihazdakı etirafların başlıq və moderasiya statusunu göstərən ayrıca şəxsi siyahı; hesab sahibi üçün bağlanmış etiraf və rəylər, izlədikləri, bildirişlər, seçimlər və hesab idarəsi. |
 | Şikayət | Etiraf və ya rəy hədəfi, səbəb, istəyə bağlı izah, qəbul təsdiqi |
-| Admin | Ortaq moderator iş sahəsində etiraflar, rəylər/davamlar, şikayətlər və etirazlar; dil və status filtri, kartdan qərar. Etiraf yazma bölməsi mövcud pending göndəriş axınından istifadə edir və yazını daxil olmuş hesaba bağlayır. Admin üçün ayrıca səlahiyyət idarəsi. Masaüstündə naviqasiya yan sütunda, mobil telefonda açılan menyudadır. |
+| Admin | Ortaq moderator iş sahəsində etiraflar, rəylər/davamlar, şikayətlər və etirazlar; dil və status filtri, kartdan qərar. Moderator və adminin etirafı auditli qərarla dərhal yayımlanır və daxil olmuş hesaba bağlanır. `admin/*` bütün dillərdə moderasiya və yazı icazəsidir. Admin üçün səlahiyyət və sayt inteqrasiyaları idarəsi var. Masaüstündə naviqasiya yan sütunda, mobil telefonda açılan menyudadır. |
 | Kömək və hüquqi | Footer-dən istifadə şərtləri, icma qaydaları, məxfilik və kuki bildirişləri, qanunsuz məzmun bildirişi, məxfilik sorğusu və operator məlumatı səhifələrinə cari dildə keçid |
 
 ## Əsas qaydalar

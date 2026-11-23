@@ -8,10 +8,12 @@ use App\Models\ConfessionOwnership;
 use App\Models\ConfessionRevision;
 use App\Models\ModerationAudit;
 use App\Models\ModerationOutbox;
+use App\Models\ModeratorGrant;
 use App\Support\Http\ResponseHeaders;
 use App\Support\Lavbe\AuthorAlias;
 use App\Support\Lavbe\LocaleRegistry;
 use App\Support\Lavbe\RoutePatterns;
+use App\Support\Moderation\ModerationService;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -142,9 +144,13 @@ class GuestConfessionController extends Controller
         return $response;
     }
 
-    public function store(Request $request, string $locale, LocaleRegistry $locales): Response|View
+    public function store(Request $request, string $locale, LocaleRegistry $locales, ModerationService $moderation): Response|View
     {
         abort_unless($locales->bySegment($locale), 404);
+        $staffSubmission = $request->routeIs('moderation.confessions.store');
+        if ($staffSubmission) {
+            abort_unless($request->user() && ModeratorGrant::activeForLocale($request->user(), $locales->contentCode($locale))->exists(), 404);
+        }
         if ($limited = $this->rateLimited($request, 'submission', 'guest_submission')) {
             return $limited;
         }
@@ -206,7 +212,7 @@ class GuestConfessionController extends Controller
 
         for ($aliasAttempt = 0; $aliasAttempt < 5; $aliasAttempt++) {
             try {
-                [$confession, $recoveryCode] = DB::transaction(function () use ($data, $idempotencyHash, $fingerprint, $deviceToken, $sessionTokenHash, $accountOwnerId): array {
+                [$confession, $recoveryCode] = DB::transaction(function () use ($data, $idempotencyHash, $fingerprint, $deviceToken, $sessionTokenHash, $accountOwnerId, $staffSubmission, $request, $moderation): array {
                     $publicId = (string) Str::uuid();
                     $recoveryCode = $this->randomToken();
 
@@ -240,6 +246,14 @@ class GuestConfessionController extends Controller
                     ]);
                     if ($accountOwnerId !== null) {
                         $ownership->forceFill(['user_id' => $accountOwnerId])->save();
+                    }
+
+                    if ($staffSubmission) {
+                        $confession = $moderation->decide(
+                            $request->user(), $confession->id, $confession->revisions()->firstOrFail()->id,
+                            $confession->fresh()->lock_version, 'approve', 'acceptable', null, null,
+                            bin2hex(random_bytes(16)), false, (string) Str::uuid(),
+                        )['confession'];
                     }
 
                     return [$confession, $recoveryCode];
