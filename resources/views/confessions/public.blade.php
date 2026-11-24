@@ -64,7 +64,7 @@
             @csrf
             <input type="hidden" name="action" value="{{ $hasSupported ? 'unsupport' : 'support' }}">
             <input type="hidden" name="idempotency_key" value="{{ \App\Support\Security\IdempotencyKey::generate() }}">
-            <button class="button button-secondary" aria-label="{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }} · {{ __('participation.support_count', ['count' => number_format((int) $confession->support_count)]) }}" aria-pressed="{{ $hasSupported ? 'true' : 'false' }}" type="submit"><x-icon name="heart" class="icon-small" /><span>{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }}</span><span class="support-count" aria-hidden="true">{{ number_format((int) $confession->support_count) }}</span></button>
+            <button class="button button-secondary" aria-label="{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }} {{ number_format((int) $confession->support_count) }}" aria-pressed="{{ $hasSupported ? 'true' : 'false' }}" type="submit"><x-icon name="heart" class="icon-small" /><span>{{ __($hasSupported ? 'participation.unsupport' : 'participation.support') }}</span> <span class="support-count" aria-hidden="true">{{ number_format((int) $confession->support_count) }}</span></button>
         </form>
         @if($canFollow)
             <form method="post" action="{{ route('account.follow', ['locale' => $localeRecord['segment'], 'publicId' => $confession->public_id]) }}" class="participation-action follow-action">@csrf<button class="button button-secondary" type="submit"><x-icon name="bell" class="icon-small" /><span>{{ __('account.follow') }}</span></button></form>

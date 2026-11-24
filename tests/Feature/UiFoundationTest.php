@@ -243,6 +243,16 @@ class UiFoundationTest extends TestCase
             ->assertSee('Etiraflara qayıt');
     }
 
+    public function test_unknown_route_keeps_the_localized_404_when_reader_consent_is_enabled(): void
+    {
+        config(['analytics.unique_read_tracking_enabled' => true]);
+
+        $this->get('/az/missing-route')
+            ->assertNotFound()
+            ->assertSee('Səhifə tapılmadı')
+            ->assertSee('/az/reader-consent', false);
+    }
+
     public function test_search_query_limit_is_configurable_on_the_server(): void
     {
         config(['lavbe.limits.search_query' => 5]);

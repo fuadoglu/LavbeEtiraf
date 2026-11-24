@@ -478,3 +478,9 @@ Admin qrantı 17 dilin bütün moderasiya və yazı səlahiyyətini verir; moder
 **Issue:** [#180](https://github.com/fuadoglu/LavbeEtiraf/issues/180). **Asılılıq:** LAV-030, LAV-035, LAV-070, LAV-077, LAV-082, LAV-083. **Qəbul:** OWN-04, OWN-08, MOD-07, ADV-03, ADV-04, UI-05, PWA-01, READ-02.
 
 Məhsul sahibinin son qərarlarını işlək kod və qəbul meyarı ilə eyni sözlərlə sənədləşdir: məcburi başlıq, hər etirafa ayrıca unikal müəllif kodu, aktiv `admin/*` qrantının 17 dil səlahiyyəti, heyətin birbaşa auditli yayımı, etiraf altında inline rəy forması və ayrıca fallback, detail üçün `private, no-store`, razılığa bağlı oxunuş sayğacı, statik PWA keşi və footer-dən çıxarılmış operator keçidi. README-nin cari vəziyyətini tamamlanmış tətbiq işlərindən və hələ açıq olan real cihaz, hosting, hüquqi və xarici servis qapılarından ayır. Köhnə iş mərhələlərinin tarixi qeydini cari qayda kimi təqdim etmə. **Sübut:** sənəd validatoru və unittest, uyğun PHP feature testləri, son `origin/main` ilə müqayisə.
+
+## LAV-085 · Ümumi UI auditində təsdiqlənmiş qüsurlar
+
+**Issue:** [#182](https://github.com/fuadoglu/LavbeEtiraf/issues/182). **Asılılıq:** LAV-070, LAV-072. **Qəbul:** UI-14, UI-15, UI-17, UI-20, UI-22, UI-32.
+
+Gavalı mürəkkəbi skeletini saxlayaraq naməlum locale URL-sinin razılıq aktiv olanda da 404 göstərməsini təmin et. Mobil razılıq bildirişini alt naviqasiyanın üstündə, seçimlər və tam izahla görünən saxla ki, ilk etiraf kartı aşağı itələnməsin. 320 px-də sıralama sözlərini bölmədən, ikonları solda və tabları bərabər saxla; uzun mövzu adı ilə tarix kartda eyni yuxarı sətirdən başlasın. Dəstək düyməsinin əlçatan adı görünən yazı və sayı ehtiva etsin, qeydiyyatın giriş keçidi rəngsiz də seçilsin, gecə rejimində aktiv tabın kontrastı AA həddini keçsin. **Sübut:** 404 feature testi, sənəd yoxlaması, frontend build, Chrome-da 320/390/1440 px və axe yoxlaması. Fiziki cihaz yoxlaması ayrıca qalır.
