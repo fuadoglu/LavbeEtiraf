@@ -36,7 +36,7 @@ UI-01/UI-04: axtarış yeganə ikon kimi başlıqda dil və rejim idarələrinin
 
 ## Ayrıca reklamsız rəy ekranı — LAV-027
 
-ADV-03/MOD-03: etiraf detalı rəy yazmaq üçün ayrıca `/{locale}/confession/{id}/comment` ekranına keçid verir. Ekran private/no-store, noindex, no-referrer və reklam səthindən kənardır. Mövcud POST endpoint-i və pending-only moderasiya dəyişmir. Bağlı rəylərdə forma gizlənir; gizli valideyn 404-dür. SeparateCommentFormTest bu davranışı yoxlayır.
+ADV-03/MOD-03: LAV-027 mərhələsində ayrıca `/{locale}/confession/{id}/comment` ekranı əlavə edilmişdi. Sonrakı LAV-035 qərarı ilə əsas rəy forması etirafın altına keçirildi; ayrıca ekran JavaScript-siz və birbaşa URL fallback-u kimi qalır. Hər iki forma private/no-store və reklamsızdır; ayrıca ekran noindex/no-referrer-dir. POST endpoint-i və pending-only moderasiya dəyişmir. Bağlı rəylərdə forma gizlənir; gizli valideyn 404-dür. SeparateCommentFormTest həm inline formu, həm fallback-u yoxlayır.
 
 ## Sessiya məxfiliyi — LAV-026
 
@@ -44,4 +44,4 @@ Database sessiyalarında flash edilən uğursuz yazı mətni şifrəli saxlanır
 
 ## Hüquqi draftların əlçatanlığı — LAV-028
 
-LOC-02/OPS-03: 17 dilin mövcud LAV-010 hüquqi draftlarından terms, community, privacy, cookies, illegal_content, data_request və operator mətnləri runtime paketlərə götürülüb. Footer əsas üç drafta yol verir. Səhifələr noindex/no-store qalır və draft mətninin özündə yayımdan əvvəl operator, yerli tələb və məlumat təcrübəsi təsdiqinin vacibliyi görünür. Tərcümələrin sahib baxışı tamamlanıb; hüquqi faktların və operator məlumatlarının yekun təsdiqi ayrıca açıq buraxılış qapısıdır.
+LOC-02/OPS-03: 17 dilin mövcud LAV-010 hüquqi draftlarından terms, community, privacy, cookies, illegal_content, data_request və operator mətnləri runtime paketlərə götürülüb. Hazırkı footer altı oxucu səhifəsinə yol verir; operator səhifəsi ayrıca URL ilə qalır. Səhifələr noindex/no-store qalır və draft mətninin özündə yayımdan əvvəl operator, yerli tələb və məlumat təcrübəsi təsdiqinin vacibliyi görünür. Tərcümələrin sahib baxışı tamamlanıb; hüquqi faktların və operator məlumatlarının yekun təsdiqi ayrıca açıq buraxılış qapısıdır.
