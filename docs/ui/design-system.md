@@ -33,7 +33,9 @@ Sistem rejimi ilkin seçimdir. Gündüz və Gecə brauzerdə yadda qalır. İlk 
 
 Moderator iş sahəsi ictimai yazı formasının dar sütunundan ayrılır. Desktop-da solda sabit bölmə naviqasiyası, sağda geniş növbə və iki sütunlu məzmun/qərar sahəsi var; telefonda cari bölməni göstərən native açılan menyu və alt-alta formalar işləyir. Səlahiyyətlər axtarış və mövcud grant siyahısına ayrılır. Eyni Gavalı mürəkkəbi rəng tokenləri, serif başlıq, sans-serif idarə, fokus konturu və 44 px toxunma sahəsi saxlanır. Şəxsi moderator səthində oxucu razılığı banner-i və oxucu footer-i göstərilmir.
 
-Etiraf yazma bölməsi oxucu formasının eyni Blade hissəsini iş sahəsində göstərir. Form panelin eninə uyğunlaşır və mətn sahəsi başlanğıcda görünür; göndəriş yalnız baxış növbəsinə düşür. Moderatora ayrıca mətn limitləri və ya yayım qaydası tətbiq olunmur.
+Etiraf yazma bölməsi oxucu formasının eyni Blade hissəsini iş sahəsində göstərir. Form panelin eninə uyğunlaşır və mətn sahəsi başlanğıcda görünür; səlahiyyətli heyətin göndərişi audit və outbox ilə birbaşa yayımlanır. Moderatora ayrıca mətn limitləri tətbiq olunmur.
+
+İlk ziyarətdə mobil oxunuş razılığı bildirişi alt naviqasiyanın üstündə sabit qalır. Mətn və iki seçim tam əlçatandır; kiçik hündürlükdə mətn bildirişin daxilində sürüşür. Bildiriş lentin ilk kartını aşağı itələmir və seçimdən sonra itir. 320 px-də sıralama tabları mövzu seçiminin altında ayrıca bərabər sütunlarda görünür ki, qısa adlar ortadan bölünməsin. Uzun kateqoriya adı və tarix kartın yuxarısında eyni sətirdən başlayır.
 
 - Başlıq, mobil Oxu/Yaz/Mənim naviqasiyası, masaüstü naviqasiya, düymə, sahə, dialoq, mövzu seçimi, status, bildiriş, kart, skelet, səhifələmə və oflayn ekran.
 - Kart hiyerarxiyası: mövzu, unikallaşdırılmış başlıq, təsdiqlənmiş mətndən qısa parça, lazım olduqda Davamı gəldi. Skeleton eyni kart komponentinin geometriyasından istifadə edir.
