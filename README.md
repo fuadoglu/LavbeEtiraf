@@ -6,68 +6,29 @@
 
 ## Cari vəziyyət
 
-| Hissə | Vəziyyət |
+Bu bölmə 24 noyabr 2026 tarixində `main`-dəki tətbiqin vəziyyətini göstərir. İşlərin mərhələləri və tarixi sübutları [backlog](docs/delivery/backlog.md) və [qəbul matrisində](docs/delivery/acceptance.md) qalır.
+
+| Sahə | Hazırkı vəziyyət |
 |---|---|
-| Məhsul və texniki spesifikasiya | **Hazırdır.** Əsas qərarlar və qəbul ssenariləri repodadır. |
-| UI atlası | **Hazırdır.** 18 ekranın mobil və masaüstü görünüşləri, gündüz/gecə və əsas vəziyyətləri yoxlamaq mümkündür. |
-| Dil kataloqu | **17 dil üzrə mətnlər tamamlanıb.** Məhsul sahibi 22 noyabr 2026-da bütün dillər üzrə yekun baxışın bitdiyini təsdiqləyib; 12 kateqoriyanın adı və izahı da bu mətnlərə daxildir. |
-| Laravel tətbiqi | **LAV-001 tamamlanıb.** Laravel 13/Blade əsası, MySQL smoke testi və CI `main`-dədir. |
-| Ortaq UI komponentləri | **LAV-002 tamamlanıb.** UI-01/UI-04 baza komponentləri və sübutları `main`-dədir. |
-| Dil reyestri və lent | **LAV-003 tamamlanıb.** UI-02/LOC-01: dil seçimi, feed read model, 12 kartlıq nömrəli HTML səhifələmə, axtarış və 17 dil üzrə ilkin mətnlər `main`-dədir. |
-| Qonaq etirafı və sahiblik | **LAV-004 tamamlanıb.** Mətn forması, moderator baxışına gizli göndəriş, qonaq sahibliyi, birdəfəlik bərpa və 17 dil üçün yazı axını `main`-dədir. |
-| Moderasiya və dərc keçidləri | **LAV-005 tamamlanıb.** MFA, dil üzrə moderator icazələri, versiyalı qərarlar, audit/outbox və sahibin geri çəkmə axını `main`-dədir. |
-| Açıq etiraf və texniki SEO | **LAV-006 tamamlanıb.** Təsdiqlənmiş revision-a bağlı detail, canonical, locale sitemap və məzmun lastmod-u `main`-dədir. |
-| Rəy, müəllif cavabı, davam və dəstək | **[LAV-007](https://github.com/fuadoglu/LavbeEtiraf/issues/16) tamamlanıb.** Pending-only rəy və davam, sahiblik/bərpa, moderator növbəsi, support reaksiyası və mətnsiz notification outbox-u [PR #17](https://github.com/fuadoglu/LavbeEtiraf/pull/17) ilə `main`-dədir. |
-| Şikayət, hüquqi bildiriş və etiraz | **[LAV-008](https://github.com/fuadoglu/LavbeEtiraf/issues/20) tamamlanıb.** Ayrı hədəf/kanal qrupları, server prioriteti, şifrəli izah, təzə MFA növbəsi, tək sahib etirazı və auditli bərpa [PR #21](https://github.com/fuadoglu/LavbeEtiraf/pull/21) ilə `main`-dədir. |
-| Hesab, Mənim bölməsi və bildirişlər | **[LAV-009](https://github.com/fuadoglu/LavbeEtiraf/issues/22) icra olunur.** Email təsdiqi, parol bərpası, guest sahiblik iddiası, user-scope izləmə və opt-in neytral bildirişlər bu branch-də hazırlanıb; PR/CI mərhələsi qalır. |
-| İctimai buraxılış | **Ayrı mərhələdir.** [Buraxılış meyarları](docs/delivery/operations.md) staging, shared hosting, hüquqi təsdiqlər və xarici servislərin doğrulanmasını tələb edir. |
-| Oxucu kəşfi və müəllif adı | **LAV-030 hazırlanıb.** Başlıqda dəstək ürəyi, dəstəklənənlərin private siyahısı, etiraf tövsiyələri, məcburi başlıq və istəyə bağlı açıq ad-soyad PR/CI mərhələsindədir; hüquqi səhifələr ortaq footer-dən açılır. |
-| Etirafdan şikayət | **LAV-031 hazırlanıb.** İcma şikayəti və hüquqi bildiriş etiraf səhifəsində accessible dialog popup-da açılır; CI mərhələsindədir. |
-| Popup responsivliyi | **LAV-032 hazırlanır.** Dialog eni, daxili skrollu və mobil safe-area boşluqları yenilənir; viewport baxışı və CI gözləyir. |
-| Mərkəzlənmiş popup | **LAV-033 hazırlanır.** İcma şikayəti və hüquqi bildiriş bütün viewport-larda həm üfüqi, həm də şaquli mərkəzdə açılır. |
-| Başlıq ikonları | **LAV-034 hazırlanır.** Dil seçiminin ardınca axtarış, dəstəklənənlər və görünüş ikonları gəlir. |
-| Rəy və müzakirə | **LAV-035 tamamlandı.** Etiraf altından rəy yazmaq, açıq rəyə reaksiya vermək və birbaşa cavab yazmaq mümkündür; PR #77 `main`-dədir. |
-| Nömrəli səhifələmə | **LAV-036 tamamlandı.** Feed, axtarış, rəy, davam, şəxsi və moderasiya siyahıları responsiv nömrəli səhifələnir; PR #79 `main`-dədir. |
-| Məşhur etiraflar | **LAV-037 tamamlandı.** Hər müddət üçün dəstək və təsdiqlənmiş rəylərin xalına görə sıralanır; PR #81 `main`-dədir. |
-| Dil seçicisinin responsive görünüşü | **LAV-038 tamamlandı.** Desktop-da bayraq və tam native ad, mobil cihazda yalnız bayraq göstərilir; PR #83 `main`-dədir. |
-| Azərbaycan nümunələri | **[LAV-039](https://github.com/fuadoglu/LavbeEtiraf/issues/84) tamamlanıb.** Hər kateqoriyaya ikinci yerli nümunə əlavə olunub. |
-| Yeni kateqoriya xəritəsi | **[LAV-040](https://github.com/fuadoglu/LavbeEtiraf/issues/86) icra olunur.** 12 kateqoriyanın adı və izahı 17 dildə yenilənir; əvvəlki yas etirafları yeni uyğun kateqoriyaya keçirilir. |
-| Təqdim olunan logo | **[LAV-041](https://github.com/fuadoglu/LavbeEtiraf/issues/88) icra olunur.** Tam logo vektor SVG-dir, lələk isə SVG/ICO favicon kimi istifadə olunur. |
-| Unikal oxunuş və kateqoriya favicon-ları | **[LAV-043](https://github.com/fuadoglu/LavbeEtiraf/issues/92) tamamlandı.** Brauzer profili üzrə oxunuş sayı və kateqoriya favicon-ları [PR #93](https://github.com/fuadoglu/LavbeEtiraf/pull/93) ilə `main`-dədir. |
-| Etiraf kartında oxunuş sayı | **[LAV-044](https://github.com/fuadoglu/LavbeEtiraf/issues/94) tamamlandı.** Göstərici kartın aşağı sağ küncündədir; [PR #95](https://github.com/fuadoglu/LavbeEtiraf/pull/95) `main`-dədir. |
-| Müxtəlif kateqoriyalardan tövsiyələr | **[LAV-045](https://github.com/fuadoglu/LavbeEtiraf/issues/96) icra olunur.** Etiraf səhifəsinin altında təkrarsız, eyni dildə və başqa kateqoriyalardan seçilən etiraflar göstərilir. |
-| Əlçatan və uyğunlaşdırılmış footer | **[LAV-046](https://github.com/fuadoglu/LavbeEtiraf/issues/98) icra olunur.** Yeddi lokallaşdırılmış hüquqi/məlumat keçidi, responsiv quruluş və klaviatura/semantik əlçatanlıq. |
-| Yığcam footer və ürəkli Lavbe wordmark-ı | **[LAV-047](https://github.com/fuadoglu/LavbeEtiraf/issues/100) icra olunur.** Loqo solda, kompakt hüquqi keçidlər sağda; footer signature sətri çıxarılır. |
-| Footer-də operator keçidini çıxar | **[LAV-048](https://github.com/fuadoglu/LavbeEtiraf/issues/102) icra olunur.** Operator səhifəsi birbaşa URL ilə qalır, qalan footer keçidləri kiçik şriftlə göstərilir. |
-| Ana lentin UI polish-i | **[LAV-049](https://github.com/fuadoglu/LavbeEtiraf/issues/104) icra olunur.** Mobil kateqoriya zolağının scroll göstəricisi və kartların hover/fokus əks əlaqəsi cilalanır; ekran skeleti saxlanır. |
-| Tövsiyə olunan etiraflarda yalnız başlıq | **[LAV-050](https://github.com/fuadoglu/LavbeEtiraf/issues/106) icra olunur.** Etiraf səhifəsində tövsiyələr başlıq linkləri kimi görünür; xülasə və metadata göstərilmir. |
-| Sıralama tablarının ikonları və ölçüsü | **[LAV-051](https://github.com/fuadoglu/LavbeEtiraf/issues/108) icra olunur.** Üç feed tabında fərqli ikonlar, bərabər ölçü və yeni tövsiyə başlığı. |
-| Tövsiyələrin müxtəlifliyi | **[LAV-052](https://github.com/fuadoglu/LavbeEtiraf/issues/110) icra olunur.** “Başqa etirafları oxu” hər dəfə məhdud uyğun hovuzdan fərqli kateqoriyalarda təsadüfi, təkrarsız başlıqlar seçir. |
-| Etirafı paylaşmaq | **[LAV-053](https://github.com/fuadoglu/LavbeEtiraf/issues/112) icra olunur.** Etiraf detail-ində canonical linki native paylaşma, clipboard və əl ilə köçürmə variantları ilə paylaşmaq olur. |
-| Tab ikonları və detail əməliyyatları | **[LAV-054](https://github.com/fuadoglu/LavbeEtiraf/issues/114) icra olunur.** Feed tab ikonları sola keçir; dəstək/say, izləmə və paylaşma qısa etiketli üç yan-yana düymə olur. |
-| Qonaq izləmə keçidi | **[LAV-055](https://github.com/fuadoglu/LavbeEtiraf/issues/116) icra olunur.** Giriş çağırışı qonaqdan çıxarılıb; təsdiqlənmiş oxucunun izləmə düyməsi saxlanır. |
-| Şikayət düyməsinin birləşdirilməsi | **[LAV-056](https://github.com/fuadoglu/LavbeEtiraf/issues/118) icra olunur.** Etiraf altında bir “Şikayət et” düyməsi icma şikayəti və hüquqi bildiriş seçimlərini açır. |
-| Məzmunu ekranda önə çəkmək | **[LAV-057](https://github.com/fuadoglu/LavbeEtiraf/issues/120) tamamlandı.** Lentdə ilk etiraf, yazı formasında mətn sahəsi, detail-də hekayə və müəllif davamı ardıcıllığı yeniləndi; mürəkkəb gündüz/gecə palitrası tətbiq olundu. [PR #121](https://github.com/fuadoglu/LavbeEtiraf/pull/121) `main`-dədir. |
-| UI auditinin qalan düzəlişləri | **[LAV-058](https://github.com/fuadoglu/LavbeEtiraf/issues/123) tamamlandı.** Cihazda yadda saxlanan etiraflar, 17 dildə ictimai axtarış görünürlüğü bildirişi, fəaliyyətli kart altlığı və yığcam mobil sıralama. [PR #124](https://github.com/fuadoglu/LavbeEtiraf/pull/124) ilə. |
-| İstifadəçi mətnləri və kiçik UI axınları | **[LAV-061 tamamlandı](https://github.com/fuadoglu/LavbeEtiraf/issues/126)** ([PR #133](https://github.com/fuadoglu/LavbeEtiraf/pull/133)): girişə geri keçid, göz ikonu ilə oxunuş sayı, daimi açıq paylaşım seçimləri, canlı simvol sayğacı və 17 dildə mətn düzəlişləri. Dil baxışı tamamlanıb; faktiki hüquqi məlumatların təsdiqi ayrıca buraxılış qapısıdır. |
-| Buraxılış auditi düzəlişləri | **[LAV-059](https://github.com/fuadoglu/LavbeEtiraf/issues/125) tamamlandı** ([PR #128](https://github.com/fuadoglu/LavbeEtiraf/pull/128)): oxucu heşi retention-u, qonaq cihazını unutma, e-poçt retry/backoff və `pt-BR` keçidi. **LAV-060 davam edir:** installable PWA qabığı və məxfi offline siyasəti; real cihaz və hostinq yoxlamaları ayrıca buraxılış qapısıdır. |
+| Oxu və yazı | Laravel 13/Blade tətbiqində 17 dil, 12 sabit kateqoriya, 12 kartlıq nömrəli lent, axtarış, açıq etiraf detalları və qonaq yazısı işləyir. Başlıq məcburidir; istəyə bağlı açıq adın yerinə hər etirafa ayrılmış, bazada unikal `Lavbe #XXXXXXXX` kodu görünür. |
+| İştirak və məxfilik | Rəy forması etirafın altındadır; birbaşa cavab, reaksiya, dəstək, izləmə, paylaşma, şikayət və hüquqi bildiriş axınları var. Qonaq etirafı, rəyi və davamı baxışdan keçmədən açılmır. Şəxsi və iştirakçıya görə dəyişən detail HTML-i `private, no-store`-dur. Oxunuş sayğacı yalnız ayrıca razılıqdan sonra işləyir. |
+| Hesab və heyət | E-poçt təsdiqi, şəxsi siyahılar və bərpa mövcuddur. Moderator yalnız verilmiş dillərdə, aktiv `admin/*` isə bütün 17 dildə işləyir; heyətin etirafı audit və outbox ilə birbaşa yayımlanır. Lokal MFA istisnası yalnız `APP_ENV=local` və ayrıca açıq flag ilə işləyir. |
+| Görünüş və məzmun | “Gavalı mürəkkəbi” yeganə dizayndır; əvvəlki görünüş seçicisi yoxdur. Təqdim olunan SVG logo, kateqoriya ikon/favikonları, responsiv naviqasiya və altı oxucu hüquqi/məlumat səhifəsi 17 dildə mövcuddur. Operator səhifəsi ayrıca URL ilə əlçatandır, footer-də keçidi yoxdur. Məhsul sahibi 17 dil üzrə baxışı 22 noyabr 2026-da təsdiqləyib. |
+| PWA və xarici xidmətlər | Statik oflayn qabıq və manifest tətbiq olunub; PWA etiraf HTML-ini, şəxsi səhifələri və qaralamaları keşə yazmır. GA4 və AdSense üçün admin idarəsi var, lakin xarici xidmətlər başlanğıcda və deploy hazır olma qapısında bağlıdır. Web Push və real cihaz quraşdırması ayrıca yoxlamadır. |
+| İctimai buraxılış | Hosting, hüquqi operator məlumatları, real cihazlar, backup/bərpa, yük və xarici xidmətlərin faktiki sınaqları [buraxılış qapıları](docs/delivery/operations.md) üzrə açıqdır. Açıq [GitHub işləri](https://github.com/fuadoglu/LavbeEtiraf/issues) bu yoxlamaları izləyir; lokal və CI nəticələri ictimai yayıma avtomatik icazə vermir. |
 
 ## Codex ilə başla
 
-1. `main`-dən işə başla, [AGENTS.md](AGENTS.md), [backlog](docs/delivery/backlog.md) və [qəbul matrisi](docs/delivery/acceptance.md) fayllarını oxu.
-2. [LAV-001](https://github.com/fuadoglu/LavbeEtiraf/issues/1) üzrə `BAS-01` qəbul meyarını götür. [Arxitektura](docs/architecture/system.md) shared hosting sərhədlərini müəyyən edir.
-3. [Lokal yoxlamaları](#yoxlamalar) işlə. Ayrı branch-də icra et, commit və push et, issue-ya bağlı PR aç. PR-a faktiki əmr və nəticələri əlavə et.
-
-İlk Codex tapşırığı üçün mətn:
-
-> [LAV-001](https://github.com/fuadoglu/LavbeEtiraf/issues/1) işini icra et. Əvvəl `AGENTS.md`, arxitektura, backlog və `BAS-01` meyarını oxu. Laravel 13, Blade, nümunə mühit faylı və MySQL/MariaDB smoke testi ilə shared hostingə uyğun baza qur. GitHub Actions-da tətbiq yoxlamalarını mövcud sənəd yoxlamaları ilə birləşdir. Faktiki işlətdiyin qurulum və test əmrlərini README-yə əlavə et. Branch-i push et və issue-ya bağlı PR-da yoxlama nəticələrini göstər.
+1. `main`-dən ayrıca branch açmazdan əvvəl [AGENTS.md](AGENTS.md), bu README-ni, [məhsul qərarlarını](docs/product.md), [backlog-u](docs/delivery/backlog.md) və [qəbul matrisini](docs/delivery/acceptance.md) oxu.
+2. Bir aydın iş həcmi və qəbul ID-ləri seç. Köhnə LAV bölmələri həmin vaxtın tətbiq mərhələsini təsvir edə bilər; son qərar və cari davranış üçün məhsul sənədini, daha yeni LAV işini, qəbul meyarını və işlək kodu tutuşdur.
+3. Aidiyyəti yoxlamaları işlə; nəticələri və açıq qalan real cihaz/xarici mühit yoxlamalarını issue-ya bağlı PR-da ayrıca göstər. İctimai yayım üçün [əməliyyat qapıları](docs/delivery/operations.md) tətbiq olunur.
 
 ## Məhsulun quruluşu
 
 | Sahə | Lavbe-nin davranışı |
 |---|---|
 | **Oxu və kəşf** | Ana lent və kateqoriyalar bir lent şablonundan qurulur. Hər HTML səhifəsində ən çox 12 etiraf olur; nömrəli səhifə keçidləri JavaScript olmadan işləyir. İctimai etiraf səhifəsində unikal oxunuş sayı görünür. |
-| **Anonim yazı** | 18+ istifadəçi qonaq kimi etiraf və rəy yaza bilər. Açıq ad `Lavbe #XXXXXXXX` formasındadır və yalnız həmin etiraf daxilində iştirakçını tanıdır. |
+| **Anonim yazı** | 18+ istifadəçi qonaq kimi etiraf və rəy yaza bilər. İstəyə bağlı açıq ad göstərilmirsə, `Lavbe #XXXXXXXX` kodu hər etiraf üçün ayrıdır və bütün etiraflar üzrə unikaldır. |
 | **Öz məzmununu idarə et** | İstəyə bağlı cihaz yaddaşı, məxfi bərpa kodu və e-poçt hesabı. Qonaq “Mənim” bölməsində həmin cihazda yadda saxlanmış etiraflarının başlığını və moderasiya vəziyyətini görüb idarə edə bilər. Etirafın açıq linki sahiblik hüququ vermir. |
 | **Rəy və moderasiya** | Rəy etiraf səhifəsinin altından yazılır; təsdiqlənmiş rəylərə reaksiya və birbaşa cavab vermək mümkündür. Etiraf və rəy üçün ayrı hədəfli şikayət, ayrıca hüquqi bildiriş və sahibin bir dəfə etirazı var. Moderasiya paneli **Etiraflar · Rəylər · Şikayətlər · Etirazlar** bölmələrindən ibarətdir. |
 | **Davam və bildiriş** | Müəllifin **Sonra nə oldu?** mətni eyni etirafın altında yayımlanır. Hesab sahibi etirafı izləyib tətbiqdaxili bildiriş və ayrıca seçdiyi halda neytral e-poçt ala bilər. |

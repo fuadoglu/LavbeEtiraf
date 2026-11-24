@@ -5,13 +5,13 @@
 | Səth | AdSense | GA4 | HTML / keş |
 |---|---|---|---|
 | Açıq dil lenti, mövzu | Xeyr | Razılıqdan sonra ümumi oxu hadisələri | İctimai görünüş, şəxsiləşdirilməmiş |
-| Açıq etiraf detalı | Bölmənin bütün şərtləri keçəndə bir blok | Razılıqdan sonra təmizlənmiş və ümumiləşdirilmiş hadisə | Yalnız cari approved public revision. `public, no-cache, must-revalidate`; hər revalidation canlı görünürlük statusunu yoxlayır. Şəxsi göstərici və razılıq vəziyyəti yoxdur. |
-| Rəy və müəllif cavabı yazma | Xeyr | Xeyr | Ayrı, reklamsız `/{locale}/participate/...` səthi. `private, no-store`, noindex. |
+| Açıq etiraf detalı | Yalnız inline rəy və müəllif forması olmayan, ayrıca təsdiqlənmiş uyğun detalda bir blok | Yalnız inline forma olmayan uyğun oxu detalında və razılıqdan sonra təmizlənmiş hadisə | Yalnız cari approved public revision; iştirakçı və razılıq vəziyyəti dəyişdiyindən `private, no-store`. İndekslənən məzmun ilkin HTML-də qalır. |
+| Rəy və müəllif cavabı yazma | Xeyr | Xeyr | Rəy forması etirafın altında inline görünür; ayrıca `/{locale}/participate/...` fallback-u da var. Bu formaları daşıyan cavab `private, no-store` olur, ayrıca fallback noindex-dir. |
 | Etiraf yaz, redaktə, önizləmə, şikayət | Xeyr | Xeyr | `private, no-store`, noindex. URL və referrer-də mətn və sirr yoxdur. |
 | Mənim, hesab, bərpa, bildiriş və admin | Xeyr | Xeyr | İcazə yoxlaması, `private, no-store`, noindex |
 | Axtarış, 404/410, oflayn, hüquqi səhifələr | Xeyr | Xeyr | Səthə uyğun keş. Axtarış mətnini və şəxsi məlumatı saxlamır. Sitemap, robots və manifest HTML analitika etiketləri daşımır. |
 
-Etiraf detalındakı **Rəy yaz** ayrı formaya adi keçid edir. JavaScript vizual keçidi yaxşılaşdıra bilər. Reklam skriptinin artıq işə düşdüyü səhifədə məxfi forma açılmır. Forma göndərildikdən sonra təmiz oxu URL-sinə və ya status səthinə keçilir. İstifadəçinin yazdığı mətn query parametrinə çevrilmir. Təkcə CSS ilə reklamı gizlətmək məxfilik meyarını keçmir.
+Rəylər açıqdırsa etiraf detalının altında rəy forması ilkin HTML-də görünür; JavaScript işləməyəndə də göndəriş mümkündür. Ayrı form URL-si fallback kimi qalır. Inline forma olan detalda AdSense və GA4 skriptləri yüklənmir. Reklam yalnız rəy forması bağlı, müəllif cavab forması olmayan və qalan uyğunluq şərtlərini keçən detalda başlaya bilər. Formadan sonra təmiz oxu URL-sinə və ya şəxsi status səthinə keçilir. İstifadəçinin yazdığı mətn query parametrinə çevrilmir. Təkcə CSS ilə reklamı gizlətmək məxfilik meyarını keçmir.
 
 ## AdSense qərarı
 
@@ -36,7 +36,7 @@ Sintetik qəbul nümunələri:
 - Razılıqdan əvvəl analitika endpointlərinə **0** sorğu. Razılıqdan imtina, sonra qəbul və sonra geri alma ayrı sınaqlardır. Geri alma yeni göndərişləri dayandırır.
 - Açıq rus etirafında qəbul edilmiş analitika üçün nümunə `content_locale=ru`, `page_type=confession`, `page_location=https://lavbe.com/ru/confession`, `page_title=Confession`. Canlı etirafın slug və ID-si, axtarış query-si, mətni və aliası yoxdur. Təmiz ünvan analitika etiketi üçündür, canonical HTML ünvanı dəyişmir.
 - Oxu səhifəsində GA4 razılığı var, reklam razılığı seçilməyib. GA4 müvafiq konfiqurasiya ilə işləyə bilər, AdSense CMP-nin icazə verdiyi və təsdiqlənmiş qaydaya tabe qalır.
-- Aktiv AdSense-dən rəy formuna keç. Yeni sənəddə AdSense və GA4 skripti/sorğusu yoxdur. Sonra uyğun olmayan rəyin təsdiqini sına və yeni oxu cavabının reklamsız olduğunu yoxla.
+- Reklam uyğun detalda rəy forması açıldıqda, yeni cavabda AdSense və GA4 skripti/sorğusu olmadığını yoxla. Sonra uyğun olmayan rəyin təsdiqini sına və yeni oxu cavabının reklamsız olduğunu yoxla.
 - Azərbaycanca etiraf sitemap və oxu axınında var, AdSense kodu yoxdur. Təsdiqlənməmiş və ya geri çəkilmiş mətnin reklam və analitika tələb edən açıq cavabı yoxdur.
 
 İstinadlar: [GA4 və şəxsi məlumat](https://support.google.com/analytics/answer/6366371) · [Basic Consent Mode](https://developers.google.com/tag-platform/security/concepts/consent-mode) · [AdSense UGC](https://support.google.com/adsense/answer/1355699)
